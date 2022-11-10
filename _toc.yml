@@ -1,0 +1,20 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: about.md
+parts:
+- caption: Lecture
+  chapters:
+  - file: preliminaries.md
+  - file: motivation.md
+  - file: cc-1-linear.md
+  - file: cc-2-optimization.md
+# - caption: Exercise
+#   chapters:
+- caption: Miscellaneous
+  chapters:
+  - file: admin.md
+  - file: books.md
+  - file: preliminary_knowledge.md
+  - file: faq.md
