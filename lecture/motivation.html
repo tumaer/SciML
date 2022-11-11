@@ -1,0 +1,988 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Introduction &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Core Content 1: Linear Models" href="cc-1-linear.html" />
+    <link rel="prev" title="Preliminaries" href="preliminaries.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About this Lecture
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="preliminaries.html">
+   Preliminaries
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cc-1-linear.html">
+   Core Content 1: Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cc-2-optimization.html">
+   Core Content 2: Optimization
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercise
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/1_linReg_logReg.html">
+   1. Linear Regression and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/2_BayesianInference.html">
+   2. Bayesian Linear and Logistic Regression
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../admin.html">
+   Admin
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../books.html">
+   Books
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preliminary_knowledge.html">
+   Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../faq.html">
+   Frequently Asked Questions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/arturtoshev/SciML22-23"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Flecture/motivation.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lecture/motivation.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#famous-recent-examples-of-scientific-machine-learning">
+   Famous Recent Examples of Scientific Machine Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#alphafold-predicts-3d-protein-structure-given-its-sequence">
+     AlphaFold - predicts 3D protein structure given its sequence:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gns-capable-of-simulating-the-motion-of-water-particles">
+     GNS - capable of simulating the motion of water particles:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#codex-translating-natural-language-to-code">
+     Codex - translating natural language to code:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-deep-learning">
+     Geometric Deep Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">
+       SFCNN - steerable rotation equivariant CNN, e.g. for image segmentation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#segnn-molecular-property-prediction-algorithm">
+       SEGNN - molecular property prediction algorithm
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stable-diffusion-generating-images-from-natural-text-description">
+     Stable Diffusion - generating images from natural text description
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#definition">
+   Definition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supervised-vs-unsupervised">
+   Supervised vs Unsupervised
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-learning">
+     Supervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#regression">
+       Regression
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#classification">
+       Classification
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unsupervised-learning">
+     Unsupervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#clustering-of-principal-components">
+       Clustering of Principal Components
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">
+     Supervised vs Unsupervised, the tl;dr in Probabilistic Terms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforcement-learning">
+     Reinforcement Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#polynomial-curve-fitting">
+   Polynomial Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-curve-fitting">
+   Bayesian Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-information-theory-log-likelihood">
+   Maximum Likelihood, Information Theory &amp; Log-Likelihood
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">
+     Maximum Likelihood &amp; Log-Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#information-theory">
+     Information Theory
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recap">
+   Recap
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   Further References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#famous-recent-examples-of-scientific-machine-learning">
+   Famous Recent Examples of Scientific Machine Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#alphafold-predicts-3d-protein-structure-given-its-sequence">
+     AlphaFold - predicts 3D protein structure given its sequence:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gns-capable-of-simulating-the-motion-of-water-particles">
+     GNS - capable of simulating the motion of water particles:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#codex-translating-natural-language-to-code">
+     Codex - translating natural language to code:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-deep-learning">
+     Geometric Deep Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">
+       SFCNN - steerable rotation equivariant CNN, e.g. for image segmentation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#segnn-molecular-property-prediction-algorithm">
+       SEGNN - molecular property prediction algorithm
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stable-diffusion-generating-images-from-natural-text-description">
+     Stable Diffusion - generating images from natural text description
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#definition">
+   Definition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supervised-vs-unsupervised">
+   Supervised vs Unsupervised
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-learning">
+     Supervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#regression">
+       Regression
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#classification">
+       Classification
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unsupervised-learning">
+     Unsupervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#clustering-of-principal-components">
+       Clustering of Principal Components
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">
+     Supervised vs Unsupervised, the tl;dr in Probabilistic Terms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforcement-learning">
+     Reinforcement Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#polynomial-curve-fitting">
+   Polynomial Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-curve-fitting">
+   Bayesian Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-information-theory-log-likelihood">
+   Maximum Likelihood, Information Theory &amp; Log-Likelihood
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">
+     Maximum Likelihood &amp; Log-Likelihood
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#information-theory">
+     Information Theory
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recap">
+   Recap
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   Further References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h1>
+<section id="famous-recent-examples-of-scientific-machine-learning">
+<h2>Famous Recent Examples of Scientific Machine Learning<a class="headerlink" href="#famous-recent-examples-of-scientific-machine-learning" title="Permalink to this headline">#</a></h2>
+<p>With scientific machine learning becoming an ever larger mainstay at machine learning conferences, a/nd ever more venues and research centres at the intersection of machine learning and the natural sciences / engineering appearing there exist ever more impressive examples of algorithms which connect the very best of machine learning with deep scientific insight into the respective underlying problem to advance the field.</p>
+<p>Below are a few prime examples of recent flagship algorithms in scientific machine learning, of which every single one of them personifies the very best algorithmic approaches we have available to us today.</p>
+<section id="alphafold-predicts-3d-protein-structure-given-its-sequence">
+<h3><a class="reference external" href="https://www.nature.com/articles/s41586-021-03819-2">AlphaFold</a> - predicts 3D protein structure given its sequence:<a class="headerlink" href="#alphafold-predicts-3d-protein-structure-given-its-sequence" title="Permalink to this headline">#</a></h3>
+<div style="text-align:center">
+    <img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41586-021-03819-2/MediaObjects/41586_2021_3819_Fig1_HTML.png?as=webp" alt="drawing" width="500"/>
+</div><br/>
+</section>
+<section id="gns-capable-of-simulating-the-motion-of-water-particles">
+<h3><a class="reference external" href="http://proceedings.mlr.press/v119/sanchez-gonzalez20a/sanchez-gonzalez20a.pdf">GNS</a> - capable of simulating the motion of water particles:<a class="headerlink" href="#gns-capable-of-simulating-the-motion-of-water-particles" title="Permalink to this headline">#</a></h3>
+<div style="text-align:center">
+    <img src="https://user-images.githubusercontent.com/544269/88065293-60aaba80-cba7-11ea-8f1e-ce3b30774775.png" alt="drawing" width="500"/>
+</div><br/>
+</section>
+<section id="codex-translating-natural-language-to-code">
+<h3><a class="reference external" href="https://arxiv.org/abs/2107.03374">Codex</a> - translating natural language to code:<a class="headerlink" href="#codex-translating-natural-language-to-code" title="Permalink to this headline">#</a></h3>
+<div style="text-align:center">
+    <img src="https://miro.medium.com/max/720/0*yfxfvwdlLBoGlmyU.gif" alt="drawing" width="500"/>
+</div>
+<br/>
+</section>
+<section id="geometric-deep-learning">
+<h3><a class="reference external" href="https://geometricdeeplearning.com/">Geometric Deep Learning</a><a class="headerlink" href="#geometric-deep-learning" title="Permalink to this headline">#</a></h3>
+<p>Geometric deep learning aims to generalize neural network models to non-Euclidean domains such as graphs and manifolds. Good examples of this line of research include:</p>
+<section id="sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">
+<h4><a class="reference external" href="https://arxiv.org/abs/1711.07289">SFCNN</a> - steerable rotation equivariant CNN, e.g. for image segmentation<a class="headerlink" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation" title="Permalink to this headline">#</a></h4>
+<div style="text-align:center">
+        <img src="https://i.imgur.com/t7DL28y.png" alt="drawing" width="500"/>
+    <br/>
+    </div>
+</section>
+<section id="segnn-molecular-property-prediction-algorithm">
+<h4><a class="reference external" href="https://arxiv.org/abs/2110.02905">SEGNN</a> - molecular property prediction algorithm<a class="headerlink" href="#segnn-molecular-property-prediction-algorithm" title="Permalink to this headline">#</a></h4>
+<div style="text-align:center">
+        <img src="https://i.imgur.com/bbJThJf.png" alt="drawing" width="500"/>
+</div>
+</section>
+</section>
+<section id="stable-diffusion-generating-images-from-natural-text-description">
+<h3><a class="reference external" href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a> - generating images from natural text description<a class="headerlink" href="#stable-diffusion-generating-images-from-natural-text-description" title="Permalink to this headline">#</a></h3>
+<div style="text-align:center">
+    <img src="https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/0715034d-4044-4c55-9131-e4bfd6dd20ca/2_4x.png" alt="drawing" width="500"/>
+</div><br/>
+</section>
+</section>
+<section id="definition">
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">#</a></h2>
+<p>Machine learning at the intersection of engineering, physics, chemistry, computational biology etc. and core machine learning to improve existing scientific workflows, derive new scientific insight, or bridge the gap between scientific data and our current state of knowledge.</p>
+<p>Important here to recall is the difference in approaches between engineering &amp; physics, and machine learning on the other side:</p>
+<p><strong>Engineering &amp; Physics</strong></p>
+<p>Models are derived from conservation laws, observations, and established physical principles.</p>
+<p><strong>Machine Learning</strong></p>
+<p>Models are derived from data with imprinted priors on the model space either through the data itself, or through the design of the machine learning algorithm.</p>
+</section>
+<section id="supervised-vs-unsupervised">
+<h2>Supervised vs Unsupervised<a class="headerlink" href="#supervised-vs-unsupervised" title="Permalink to this headline">#</a></h2>
+<p>There exist 3 main types of modern day machine learning:</p>
+<ol class="simple">
+<li><p>Supervised Learning</p></li>
+<li><p>Unsupervised Learning</p></li>
+<li><p>Reinforcement Learning</p></li>
+</ol>
+<section id="supervised-learning">
+<h3>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Permalink to this headline">#</a></h3>
+<p>In supervised learning we have a mapping <span class="math notranslate nohighlight">\(x \longrightarrow y\)</span>, where the inputs <span class="math notranslate nohighlight">\(x\)</span> are also called <strong>features</strong>, <strong>covariates</strong>, or <strong>predictors</strong>. The outputs <span class="math notranslate nohighlight">\(y\)</span> are often also called the <strong>labels</strong>, <strong>targets</strong>, or <strong>responses</strong>. The correct mapping is then learned from a <strong>labeled</strong> training set</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D}_{n} = \left\{ \left( x_{i} \right)_{i=1,n} \right\}\]</div>
+<p>with <span class="math notranslate nohighlight">\(n\)</span> the number of observations. Depending on the type of the response vector <span class="math notranslate nohighlight">\(y\)</span>, we can then perform either <strong>regression</strong>, or <strong>classification</strong></p>
+<blockquote>
+<div><p>Some also call it “glorified curve-fitting”</p>
+</div></blockquote>
+<section id="regression">
+<h4>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">#</a></h4>
+<p>In regression the target <span class="math notranslate nohighlight">\(y\)</span> is is real-valued, i.e. <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/sjxzmNa.jpg" alt="drawing" width="600"/>
+</div>
+<p>(Source: <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+<p>at the example of a response surface being fitted to a number of data points in 3 dimensions, where in this instance the <span class="math notranslate nohighlight">\(x\)</span>, and <span class="math notranslate nohighlight">\(y\)</span> axes are a two-dimensional space, and the <span class="math notranslate nohighlight">\(z\)</span>-axis is the temperature in the two-dimensional space.</p>
+</section>
+<section id="classification">
+<h4>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">#</a></h4>
+<p>In classification the labels <span class="math notranslate nohighlight">\(y\)</span> are categorical i.e. <span class="math notranslate nohighlight">\(y \in \mathcal{C}\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> defines a set of classes.</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/DHD5IvI.png" alt="drawing" width="350"/>
+</div>
+<p>(Source: <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+<p>for the example of flower classification, where we aim to find the decision boundaries which will sort each individual node into the respective class.</p>
+</section>
+</section>
+<section id="unsupervised-learning">
+<h3>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this headline">#</a></h3>
+<p>In unsupervised learning we only receive a dataset of inputs</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \{x_{n}: n = 1:N\}\]</div>
+<p>without the respective outputs <span class="math notranslate nohighlight">\(y_{n}\)</span>, i.e. we only have <strong>unlabelled</strong> data.</p>
+<blockquote>
+<div><p>The implicit goal here is to describe the system, and identify features in the <strong>high-dimensional inputs</strong>.</p>
+</div></blockquote>
+<p>Two famous examples of unsupervised learning are <strong>clustering</strong>, and especially <strong>principal component analysis</strong> which is commonly used in engineering and scientific applications.</p>
+<section id="clustering-of-principal-components">
+<h4>Clustering of Principal Components<a class="headerlink" href="#clustering-of-principal-components" title="Permalink to this headline">#</a></h4>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/PyetOat.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="http://databookuw.com">Data-Driven Science and Engineering</a>)</p>
+<p>Combining clustering with principal component analysis to show the samples which have cancer in the first three principal component coordinates.</p>
+</section>
+</section>
+<section id="supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">
+<h3>Supervised vs Unsupervised, the tl;dr in Probabilistic Terms<a class="headerlink" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms" title="Permalink to this headline">#</a></h3>
+<p>The difference can furthermore be expressed in probabilistic terms, i.e., in supervised learning we are fitting a model over the outputs conditioned on the inputs <span class="math notranslate nohighlight">\(p(y|x)\)</span>, whereas in unsupervised learning we are fitting an unconditional model <span class="math notranslate nohighlight">\(p(x)\)</span>.</p>
+</section>
+<section id="reinforcement-learning">
+<h3>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">#</a></h3>
+<p>In reinforcement learning one sequentially interact with an unknown environment to obtain an interaction trajectory <span class="math notranslate nohighlight">\(T\)</span>, or a batch thereof. Reinforcement learning then seeks to optimize the way it interacts with the environment through its actions <span class="math notranslate nohighlight">\(a_{t}\)</span> to maximize for a (cumulative) reward function to obtain an optimal strategy.</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/xexKADj.png" alt="drawing" width="500"/>
+</div>
+<p>(Source: <a class="reference external" href="https://lilianweng.github.io/posts/2018-02-19-rl-overview/">lilianweng</a>)</p>
+</section>
+</section>
+<section id="polynomial-curve-fitting">
+<h2>Polynomial Curve Fitting<a class="headerlink" href="#polynomial-curve-fitting" title="Permalink to this headline">#</a></h2>
+<p>Let’s presume we have a simple regression problem, e.g.</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/ZU886t2.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+<p>then we have a number of observations <span class="math notranslate nohighlight">\({\bf{x}} = (x_{1}, \ldots, x_{N})\)</span>, and a target <span class="math notranslate nohighlight">\({\bf{y}} = (y_{1}, \ldots, y_{N})\)</span>. Then the tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function</p>
+<div class="math notranslate nohighlight">
+\[y(x, w) = \omega_{0} + \omega_{1}x + \omega_{2} x^{2} + \ldots + \omega_{M}x^{M} = \sum_{j=0}^{M}\omega_{j}x^{j}\]</div>
+<p>Then a crucial choice is the degree of the polynomial function.</p>
+<blockquote>
+<div><p>This class of models is called <strong>Linear Models</strong> because we want to learn only the linear scaling coefficients <span class="math notranslate nohighlight">\(w_i\)</span>, given any choice of basis for the variable <span class="math notranslate nohighlight">\(x\)</span> like the polinomial basis shown here.</p>
+</div></blockquote>
+<p>We can then construct an error function with the sum of squares approach in which we are computing the distance of every target data point to our polynomial</p>
+<div class="math notranslate nohighlight">
+\[E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_{n}, w) - y_{n} \}^{2}\]</div>
+<p>in which we are then optimizing for the value of <span class="math notranslate nohighlight">\(w\)</span>.</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/yfnGi4C.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+<p>To minimize this we then have to take the derivative with respect to the coefficients <span class="math notranslate nohighlight">\(\omega_{i}\)</span>, i.e.</p>
+<div class="math notranslate nohighlight">
+\[\frac{\partial E(w)}{\partial \omega_{i}}=\sum_{n=1}^{N}\{ y(x_{n}, w) - y_{n} \}x_{n}^{i}=\sum_{n=1}^{N}\{ \sum_{j=0}^{M}\omega_{j} x_{n}^{j} - y_{n} \}x_{n}^{i}\]</div>
+<p>which we are optimizing for and by setting to 0, we can then find the minimum</p>
+<div class="math notranslate nohighlight">
+\[\sum_{n=1}^{N}\sum_{j=0}^{M}\omega_{j}x_{n}^{i}x_{n}^{j}=\sum_{n=1}^{N}y_{n}x_{n}^{i}\]</div>
+<p>this can be solved by the trusty old Gaussian elimination. A general problem with this approach is that the degree of the polynomial is a decisive factor which often leads to over-fitting and hence makes this a less desirable approach. Gaussian elimination, or a matrix inversion approach when implemented on a computer can also be a highly expensive computational operation for large datasets.</p>
+<blockquote>
+<div><p>This is a special case of the <strong>Maximum Likelihood</strong> method.</p>
+</div></blockquote>
+</section>
+<section id="bayesian-curve-fitting">
+<h2>Bayesian Curve Fitting<a class="headerlink" href="#bayesian-curve-fitting" title="Permalink to this headline">#</a></h2>
+<p><strong>Recap: Bayes Theorem</strong></p>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\]</div>
+<p>If we now seek to reformulate the curve-fitting in probabilistic terms, then we have to begin by expressing our uncertainty over the target y with a probability distribution. For this we presume a Gaussian distribution over each target where the mean is the point value we previously considered, i.e.</p>
+<div class="math notranslate nohighlight">
+\[p(y|x, w, \beta)=\mathcal{N}(y|y(x, w), \beta^{-1})\]</div>
+<p><span class="math notranslate nohighlight">\(\beta\)</span> corresponds to the inverse variance of the distribution <span class="math notranslate nohighlight">\(\mathcal{N}\)</span>. We can then apply the maximum likelihood principle to find the optimal parameter <span class="math notranslate nohighlight">\(w\)</span> with our new likelihood function</p>
+<div class="math notranslate nohighlight">
+\[p(y|x, w, \beta)=\prod^{N}_{n=1}\mathcal{N}(y_{n}|y(x_{n},w), \beta^{-1}).\]</div>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/RVl2Z8R.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Bishop</a>)</p>
+<p>Taking the log likelihood we are then able to find the definitions of the optimal parameters</p>
+<div class="math notranslate nohighlight">
+\[\text{ln } p(y|x, w, \beta) = - \frac{\beta}{2} \sum^{N}_{2} \{ y(x_{n}, w) - y_{n} \}^{2} + \frac{N}{2} \text{ln } \beta - \frac{N}{2} \text{ln }(2 \pi)\]</div>
+<p>Which we can then optimize for the <span class="math notranslate nohighlight">\(w\)</span>.</p>
+<blockquote>
+<div><p>If we consider the special case of <span class="math notranslate nohighlight">\(\frac{\beta}{2}=\frac{1}{2}\)</span>, and instead of maximizing, minimizing the negative log-likelihood, then this is equivalent to the sum-of-squares error function.</p>
+</div></blockquote>
+<p>The herein obtained optimal maximum likelihood parameter <span class="math notranslate nohighlight">\(w_{ML}\)</span>, and <span class="math notranslate nohighlight">\(\beta_{ML}\)</span> can then be resubstituted to obtain the <strong>predictive distribution</strong> for the targets <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[p(y|x, w_{ML}, \beta_{ML})=\mathcal{N}(y|y(x, w_{ML}),\beta_{ML}^{-1})\]</div>
+<p>To arrive at the full Bayesian curve-fitting approach we now have to apply the sum and product rules of probability</p>
+<p><strong>Recap: Sum Rules of Probability</strong></p>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A \cap B) = \mathbb{P}(A) + \mathbb{P}(B)\]</div>
+<p><strong>Recap: Product Rules of Probability</strong></p>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B),\]</div>
+<p>where <span class="math notranslate nohighlight">\(A\)</span>, and <span class="math notranslate nohighlight">\(B\)</span> must be <strong>independent</strong> events.</p>
+<p>The Bayesian curve fitting formula is hence</p>
+<div class="math notranslate nohighlight">
+\[p(y|x, {\bf{x}}, {\bf{y}}) = \int p(y|x, w)p(w|{\bf{x}}, {\bf{y}})dw\]</div>
+<p>with the dependence on <span class="math notranslate nohighlight">\(\beta\)</span> omitted for legibility reasons. This integral can be solved analytically hence giving the following predictive distribution</p>
+<div class="math notranslate nohighlight">
+\[p(y|x, {\bf{x}}, {\bf{y}})=\mathcal{N}(y|m(x), s^{2}(x))\]</div>
+<p>with mean and variance</p>
+<div class="math notranslate nohighlight">
+\[m(x) = \beta \phi(x)^{T} {\bf{S}} \sum_{n=1}^{N}\phi(x_{n})y_{n},\]</div>
+<div class="math notranslate nohighlight">
+\[s^{2}(x) = \beta^{-1} + \phi(x)^{T} {\bf{S}} \phi(x),\]</div>
+<p>and <span class="math notranslate nohighlight">\({\bf{S}}\)</span> defined as</p>
+<div class="math notranslate nohighlight">
+\[{\bf{S}}^{-1} = \alpha {\bf{I}} + \beta \sum_{n=1}^{N} \phi(x_{n}) \phi(x)^{T},\]</div>
+<p>and <span class="math notranslate nohighlight">\({\bf{I}}\)</span> the unit matrix, while <span class="math notranslate nohighlight">\(\phi(x)\)</span> is defined by <span class="math notranslate nohighlight">\(\phi_{i}(x) = x^{i}\)</span>. Examining the variance <span class="math notranslate nohighlight">\(s^{2}(x)\)</span>, then the benefits of the Bayesian approach become readily apparent:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\beta^{-1}\)</span> represents the prediction uncertainty</p></li>
+<li><p>The second term of the variance is caused by the uncertainty in the parameters <span class="math notranslate nohighlight">\(w\)</span>.</p></li>
+</ul>
+</section>
+<section id="maximum-likelihood-information-theory-log-likelihood">
+<h2>Maximum Likelihood, Information Theory &amp; Log-Likelihood<a class="headerlink" href="#maximum-likelihood-information-theory-log-likelihood" title="Permalink to this headline">#</a></h2>
+<section id="maximum-likelihood-log-likelihood">
+<h3>Maximum Likelihood &amp; Log-Likelihood<a class="headerlink" href="#maximum-likelihood-log-likelihood" title="Permalink to this headline">#</a></h3>
+<p>Formalizing the principle of maximum likelihood estimation, we seek to act in a similar fashion to function extrema calculation in high school in that we seek to differentiate our likelihood function, and then find the maximum value of it by setting the derivative equal to zero.</p>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \underset{\theta \in \Theta}{\arg \max} \mathcal{L}_{n}(\theta; y)\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is the likelihood function. In the derivation of the Bayesian Curve Fitting approach we have already utilized this principle by exploiting the independence between data points and then taking log of the likelihood to then utilize the often nicer properties of the log-likelihood</p>
+<div class="math notranslate nohighlight">
+\[l(\theta;y) = \ln \mathcal{L}_{n}(\theta;y).\]</div>
+</section>
+<section id="information-theory">
+<h3>Information Theory<a class="headerlink" href="#information-theory" title="Permalink to this headline">#</a></h3>
+<p>The core concept of information theory to consider here is that not every data point is equal to us! If an individual data point is outside of the previously estimated dynamics model, then it is a much more valuable data point than a data point which is e.g. directly on the response surface. Such information content can be measure with a function which is a logarithm of the probability of us observing a specific data point <span class="math notranslate nohighlight">\(p(x)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[h(x) = - \text{log}_{2} p(x)\]</div>
+<p>i.e. the <span class="math notranslate nohighlight">\(-\)</span> ensures that provided information value is either net-positive or neutral. This can be further formalized with the concept of <strong>information entropy</strong> which is the expectation of <span class="math notranslate nohighlight">\(h(x)\)</span></p>
+<div class="math notranslate nohighlight">
+\[H[x] = - \sum_{x} p(x) \text{log}_{2} p(x).\]</div>
+<p>Using statistical mechanics one can then derive the definitions of the entropy for continuous, as well as discrete variables.</p>
+<p><strong>Entropy of Discrete Variables</strong></p>
+<div class="math notranslate nohighlight">
+\[H[p]= - \sum_{i} p(x_{i}) \text{ln } p(x_{i})\]</div>
+<p><strong>Entropy of Continuous Variables</strong></p>
+<div class="math notranslate nohighlight">
+\[H[x] = - \int p(x) \text{ln }p(x) dx\]</div>
+</section>
+</section>
+<section id="recap">
+<h2>Recap<a class="headerlink" href="#recap" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>Supervised Learning: Mapping from inputs <span class="math notranslate nohighlight">\(x\)</span> to outputs <span class="math notranslate nohighlight">\(y\)</span></p></li>
+<li><p>Unsupervised Learning: Only receives the datapoints <span class="math notranslate nohighlight">\(x\)</span> with <strong>no</strong> access to the true labels <span class="math notranslate nohighlight">\(y\)</span></p></li>
+<li><p>Maximum Likelihood Principle</p>
+<ul>
+<li><p>Polynomial Curve Fitting a special case</p></li>
+<li><p>Wasteful of training data, and tends to overfit</p></li>
+<li><p>Bayesian approach less prone to overfitting</p></li>
+</ul>
+</li>
+<li><p>Information theory, and more specifically the concept of entropy, is the vehicle with which we can quantify just how valuable an added datapoint is to us.</p></li>
+</ul>
+</section>
+<section id="further-references">
+<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://youtu.be/AU6HuhrC65k">Using AI to Accelerate Scientific Discovery</a> - inspirational video by Demis Hassabis</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lecture"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="preliminaries.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Preliminaries</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="cc-1-linear.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Core Content 1: Linear Models</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By N. Adams, L. Paehler, A. Toshev<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>

@@ -1,0 +1,823 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Core Content 2: Optimization &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. Linear Regression and Logistic Regression" href="../exercise/1_linReg_logReg.html" />
+    <link rel="prev" title="Core Content 1: Linear Models" href="cc-1-linear.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About this Lecture
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="preliminaries.html">
+   Preliminaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="motivation.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cc-1-linear.html">
+   Core Content 1: Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Core Content 2: Optimization
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercise
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/1_linReg_logReg.html">
+   1. Linear Regression and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/2_BayesianInference.html">
+   2. Bayesian Linear and Logistic Regression
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../admin.html">
+   Admin
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../books.html">
+   Books
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preliminary_knowledge.html">
+   Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../faq.html">
+   Frequently Asked Questions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/arturtoshev/SciML22-23"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Flecture/cc-2-optimization.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lecture/cc-2-optimization.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basics-of-optimization">
+   Basics of Optimization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convexity">
+     Convexity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cost-functions">
+     Cost Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l-p-norm">
+       <span class="math notranslate nohighlight">
+        \(l_p\)
+       </span>
+       norm
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-based-methods">
+   Gradient-based Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descent">
+     Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#momentum">
+       Momentum
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adam">
+     Adam
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stochastic-gradient-descent">
+     Stochastic Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#minibatching">
+       Minibatching
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Core Content 2: Optimization</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basics-of-optimization">
+   Basics of Optimization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convexity">
+     Convexity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cost-functions">
+     Cost Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l-p-norm">
+       <span class="math notranslate nohighlight">
+        \(l_p\)
+       </span>
+       norm
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-based-methods">
+   Gradient-based Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descent">
+     Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#momentum">
+       Momentum
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adam">
+     Adam
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stochastic-gradient-descent">
+     Stochastic Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#minibatching">
+       Minibatching
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="core-content-2-optimization">
+<h1>Core Content 2: Optimization<a class="headerlink" href="#core-content-2-optimization" title="Permalink to this headline">#</a></h1>
+<!-- 
+[link](https://mlstory.org/optimization.html) 
+[link](https://www.d2l.ai/chapter_optimization/index.html)
+vis.ensmallen.org
+-->
+<p>In Core Content 1, we already saw the main building blocks of a supervised learning algorithm:</p>
+<ol class="simple">
+<li><p><strong>Model</strong> <span class="math notranslate nohighlight">\(h\)</span> of the relationship between inputs <span class="math notranslate nohighlight">\(x\)</span> and outputs <span class="math notranslate nohighlight">\(y\)</span>,</p></li>
+<li><p><strong>Loss</strong> (aka <strong>Cost</strong>, <strong>Error</strong>) function <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> quantifying the discrepancy between <span class="math notranslate nohighlight">\(h_{\vartheta}(x^{(i)})\)</span> and <span class="math notranslate nohighlight">\(y^{(i)}\)</span> for each of the measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>, and</p></li>
+<li><p>Optimization algorithm (aka <strong>Optimizer</strong>) minimizing the loss.</p></li>
+</ol>
+<p>Point 1 is a matter of what we know about the world in advance and how we include that knowledge into the model, e.g. choose CNNs when working with images because the same pattern might appear at different locations of an image. In Core Contents 3 and 4, we will look at different models each of which is by construction better suited for different problem types.</p>
+<p>After selecting a model <span class="math notranslate nohighlight">\(h_{\vartheta}\)</span>, points 2 and 3 are critical to the success of the learning as the loss function (point 2) defines how we measure success and the optimizer (point 3) guides the process of moving from a random initial guess of the parameters to a parameter configuration with much smaller loss. These two point are the topic of Core Content 2: how do the loss influence training and which optimization methods exist?</p>
+<section id="basics-of-optimization">
+<h2>Basics of Optimization<a class="headerlink" href="#basics-of-optimization" title="Permalink to this headline">#</a></h2>
+<p>First, we define the general (unconstrained) minimization problem</p>
+<div class="math notranslate nohighlight">
+\[\text{argmin}_{\vartheta} \; J(\vartheta),\]</div>
+<p>where <span class="math notranslate nohighlight">\(J:\mathbb{R}^n \rightarrow \mathbb{R}\)</span> is a real-valued function. We call the optimal solution of this problem the <em>minimizer</em> of <span class="math notranslate nohighlight">\(J\)</span> and denote it as <span class="math notranslate nohighlight">\(\vartheta_{\star}\)</span>. The minimizer is defined as <span class="math notranslate nohighlight">\(J(\vartheta_{\star}) \le J(\vartheta)\)</span> for all <span class="math notranslate nohighlight">\(\vartheta\)</span>. If the relation <span class="math notranslate nohighlight">\(J(\vartheta_{\star}) \le J(\vartheta)\)</span> holds in a local neighborhood <span class="math notranslate nohighlight">\(||\vartheta - \vartheta_{\star}|| \le \epsilon\)</span>, for some <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span>, then we call <span class="math notranslate nohighlight">\(\vartheta_{\star}\)</span> a local optimizer.</p>
+<p>In the figure below we see examples of functions with (left) one global minimum, (middle) infinitely many global minima, and (right) multiple local as well as one global minimum.</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/kw9yqs6.png" alt="drawing" width="500"/>
+</div>
+<p>(Source: <a class="reference external" href="https://mlstory.org/optimization.html">mlstory</a>)</p>
+<section id="convexity">
+<h3>Convexity<a class="headerlink" href="#convexity" title="Permalink to this headline">#</a></h3>
+<p>Convexity is a property of a function and has a very clear geometric meaning.</p>
+<p>If the function <span class="math notranslate nohighlight">\(J\)</span> fulfills the following inequality</p>
+<div class="math notranslate nohighlight">
+\[J(\alpha \vartheta_l+(1-\alpha)\vartheta_r) \le \alpha J(\vartheta_l)+(1-\alpha)J(\vartheta_r), \quad \forall \vartheta_l, \vartheta_r \text{ and } \alpha \in [0,1],\]</div>
+<p>then <span class="math notranslate nohighlight">\(J\)</span> is said to be convex. Geometrically, this inequality implies that a line segment between <span class="math notranslate nohighlight">\((\vartheta_l, J(\vartheta_l))\)</span> and <span class="math notranslate nohighlight">\((\vartheta_r, J(\vartheta_r))\)</span> lies above the graph of <span class="math notranslate nohighlight">\(J\)</span> in the range <span class="math notranslate nohighlight">\((\vartheta_l, \vartheta_r)\)</span>.</p>
+<div style="text-align:center">
+    <img src="https://mlstory.org/assets/convex.svg" alt="drawing" width="350"/>
+</div>
+<p>(Source: <a class="reference external" href="https://mlstory.org/optimization.html">mlstory</a>)</p>
+<p>There is exhaustive literature on convex functions and convex optimization, e.g. <a class="reference external" href="https://web.stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf">Boyd &amp; Vandenberghe 2004</a>, due to the mathematical properties of such functions. An important result from this theory is that gradient descent is guaranteed to find an optimum of convex functions.</p>
+<p>Two examples of convex functions are the Least Mean Square loss in linear regression and the negative log-likelihood in logistic regression. However, modern deep learning is in general non-convex. Thus, we optimize towards a local minimum in the proximity of an initial configuration.</p>
+<blockquote>
+<div><p>Note: Convexity is a property of the loss <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> w.r.t. <span class="math notranslate nohighlight">\(\vartheta\)</span>, i.e. it is now about the convexity of the loss w.r.t. the output of the function <span class="math notranslate nohighlight">\(h(x)\)</span>. This means, for <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> to be convex, the combination of model and loss functions has to result in a convex function in <span class="math notranslate nohighlight">\(\vartheta\)</span>.</p>
+</div></blockquote>
+<!-- If we assume that $h(x)$ is a very complicated non-convex function, then we could assume that the choice of loss function should not matter too much. 
+
+ -->
+<p>Apparently, the choice of <span class="math notranslate nohighlight">\(h(x)\)</span> plays an important role on the shape of <span class="math notranslate nohighlight">\(J(\vartheta)\)</span>, but how does the choice of loss function influence <span class="math notranslate nohighlight">\(J\)</span>?</p>
+</section>
+<section id="cost-functions">
+<h3>Cost Functions<a class="headerlink" href="#cost-functions" title="Permalink to this headline">#</a></h3>
+<p>Some of the most common loss functions include:</p>
+<ul class="simple">
+<li><p>Regression loss</p>
+<ul>
+<li><p>L1 loss: <span class="math notranslate nohighlight">\(\; \; \; J(h_{\vartheta}(x), y)=1/m \sum_{i=1}^m |y-h_{\vartheta}(x)|\)</span></p></li>
+<li><p>MSE loss: <span class="math notranslate nohighlight">\(J(h_{\vartheta}(x), y)=1/m \sum_{i=1}^m (y-h_{\vartheta}(x))^2\)</span></p></li>
+</ul>
+</li>
+<li><p>Classification loss</p>
+<ul>
+<li><p>Cross Entropy loss <span class="math notranslate nohighlight">\(J(h_{\vartheta}(x),y)= -\sum_{i=1}^m\sum_{k=1}^K(y_{ik}\cdot \log h_{\vartheta, k}(x_i))\)</span></p></li>
+</ul>
+</li>
+</ul>
+<section id="l-p-norm">
+<h4><span class="math notranslate nohighlight">\(l_p\)</span> norm<a class="headerlink" href="#l-p-norm" title="Permalink to this headline">#</a></h4>
+<p>To better understand the regression losses, we will look at the general <span class="math notranslate nohighlight">\(l_p\)</span> norm of vector <span class="math notranslate nohighlight">\(w\in \mathbb{R}^m\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.\]</div>
+<p>In the special case <span class="math notranslate nohighlight">\(p=1\)</span> we recover the L1 loss, and the squared version of <span class="math notranslate nohighlight">\(p=2\)</span> corresponds to the MSE loss. Other special case is <span class="math notranslate nohighlight">\(p \to \infty\)</span> leading to <span class="math notranslate nohighlight">\(||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{m}| \right\}\)</span>. We see that with increasing <span class="math notranslate nohighlight">\(p\)</span> the larger terms dominate</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/Z05qdjO.png" alt="drawing" width="600"/>
+</div>
+<p><em>Figure</em>: The blue line represents the solution set of a under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms <span class="math notranslate nohighlight">\(p=0,...,1\)</span>, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For <span class="math notranslate nohighlight">\(p \ge 2\)</span> the minimum-norm solution is not sparse, but all coordinates are active.</p>
+<p>(Source: <a class="reference external" href="https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E">Brunton and Kutz 2019</a>)</p>
+</section>
+</section>
+</section>
+<section id="gradient-based-methods">
+<h2>Gradient-based Methods<a class="headerlink" href="#gradient-based-methods" title="Permalink to this headline">#</a></h2>
+<p>If we now consider the following, highly simplified, objective functions which we would now seek to optimize</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/kw9yqs6.png" alt="drawing" width="500"/>
+</div>
+<p>(Source: <a class="reference external" href="https://mlstory.org/optimization.html">mlstory</a>)</p>
+<p>then we see that to find the global/local minimum gradient descent, an approach which we already encountered in high-school curve analysis, is best suited. While being the obvious choice for the two cases on the left, the picture becomes a little more muddy in the example on the right.</p>
+<blockquote>
+<div><p>Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes <span class="math notranslate nohighlight">\(J \rightarrow f\)</span> and the variable <span class="math notranslate nohighlight">\(\vartheta \rightarrow x\)</span>. Don’t confuse this <span class="math notranslate nohighlight">\(x\)</span> with the input measurements.</p>
+</div></blockquote>
+<section id="gradient-descent">
+<h3>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this headline">#</a></h3>
+<p>While the foundational concept, gradient descent is rarely used in its pure form, but mostly in its stochastic form these days. If we first consider it in its most foundational form in 1-dimension, then we can take a function <span class="math notranslate nohighlight">\(f\)</span>, and Taylor-expand it</p>
+<div class="math notranslate nohighlight">
+\[f(x+\varepsilon) = f(x) + \varepsilon f'(x) + \mathcal{O}(\varepsilon^{2})\]</div>
+<p>then our intuition would dictate that moving a small <span class="math notranslate nohighlight">\(\varepsilon\)</span> in the direction of the negative gradient will then decrease f. Taking a step size <span class="math notranslate nohighlight">\(\eta &gt; 0\)</span>, and using using our ability to freely choose <span class="math notranslate nohighlight">\(\varepsilon\)</span> to set it as</p>
+<div class="math notranslate nohighlight">
+\[\varepsilon = - \eta f'(x)\]</div>
+<p>To then be plugged back into the Taylor expansion</p>
+<div class="math notranslate nohighlight">
+\[f(x - \eta f'(x)) = f(x) - \eta f'^{2}(x) + \mathcal{O}(\eta^{2}f'^{2}(x))\]</div>
+<p>Unless our gradient vanishes, we can then minimize <span class="math notranslate nohighlight">\(f\)</span> as <span class="math notranslate nohighlight">\(\eta f'^{2}(x)&gt;0\)</span>. Choosing a small enough <span class="math notranslate nohighlight">\(\eta\)</span> can then make the higher-order terms irrelevant to arrive at</p>
+<div class="math notranslate nohighlight">
+\[f(x - \eta f'(x)) \leq f(x)\]</div>
+<p>I.e.</p>
+<div class="math notranslate nohighlight">
+\[x \leftarrow x - \eta f'(x)\]</div>
+<p>is the right algorithm to iterative over <span class="math notranslate nohighlight">\(x\)</span> s.t. the value of our (objective) function <span class="math notranslate nohighlight">\(f(x)\)</span> declines. The algorithm we hence end up with an algorithm in which we have to choose an initial value for <span class="math notranslate nohighlight">\(x\)</span>, a constant <span class="math notranslate nohighlight">\(\eta &gt; 0\)</span>, and then continuously iterate <span class="math notranslate nohighlight">\(x\)</span> until we reach our stopping criterion.</p>
+<p><span class="math notranslate nohighlight">\(\eta\)</span> is most commonly known as our <em>learning rate</em> and has to be set by us at the current moment of time. Now, if <span class="math notranslate nohighlight">\(\eta\)</span> is too small <span class="math notranslate nohighlight">\(x\)</span> will update too slowly and requiring us to perform many more costly iterations than we’d ideally like to. But if we choose a learning which is too large, then the error term <span class="math notranslate nohighlight">\(\mathcal{O}(\eta^{2}f'^{2}(x))\)</span> at the back of the Taylor-expansion will explode, and we will overshoot the minimum.</p>
+<p>Now, if we take a non-convex function for <span class="math notranslate nohighlight">\(f\)</span> which might even have infinitely many local minima, then the choice of our learning rate and initialization becomes even more important. Take the following function <span class="math notranslate nohighlight">\(f\)</span> for example.</p>
+<div class="math notranslate nohighlight">
+\[f(x) = x \cdot \cos(cx)\]</div>
+<p>then the optimization problem might end up looking like the following:</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/H2TflT5.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>)</p>
+<p>If we now consider the case where we do not only have a one-dimensional (objective) function, but instead a function f s.t.</p>
+<div class="math notranslate nohighlight">
+\[f: \mathbb{R}^{d} \rightarrow \mathbb{R}\]</div>
+<p>vector are mapped to scalars, then the gradient is a vector of <span class="math notranslate nohighlight">\(d\)</span> partial derivatives</p>
+<div class="math notranslate nohighlight">
+\[\nabla f({\bf{x}}) = \left[ \frac{\partial f({\bf{x}})}{\partial x_{1}}, \frac{\partial f({\bf{x}})}{\partial x_{2}}, \ldots, \frac{\partial f({\bf{x}})}{\partial x_{d}} \right]^{\top}\]</div>
+<p>with each gradient indicating the rate of change in one of the many potential directions. Then we can use the Taylor-approximation as before, and derive the gradient descent algorithm for the multivariate case</p>
+<div class="math notranslate nohighlight">
+\[{\bf{x}} \leftarrow {\bf{x}} - \eta \nabla f({\bf{x}})\]</div>
+<p>If we then construct an objective function such as</p>
+<div class="math notranslate nohighlight">
+\[f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}\]</div>
+<p>then our optimization will take the following shape</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/Sr833L4.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>)</p>
+<p>Having up until now relied on a fixed learning rate <span class="math notranslate nohighlight">\(\eta\)</span>, we now want to expand upon the previous algorithm by <em>adaptively</em> choosing <span class="math notranslate nohighlight">\(\eta\)</span>. For this we have to go back to <strong>Newton’s method</strong>.</p>
+<p>For this we have to further expand the initial Taylor-expansion to the third-order term</p>
+<div class="math notranslate nohighlight">
+\[f({\bf{x}} + {\bf{\varepsilon}}) = f({\bf{x}}) + {\bf{\varepsilon}}^{\top} \nabla f({\bf{x}}) + \frac{1}{2} {\bf{\varepsilon}}^{\top} \nabla^{2} f({\bf{x}}) {\bf{\varepsilon}} + \mathcal{O}(||{\bf{\varepsilon}}||^{3})\]</div>
+<p>If we now look closer at <span class="math notranslate nohighlight">\(\nabla^{2} f({\bf{x}})\)</span>, sometimes also called the Hessian, then we recognize that for larger problems this term might be infeasible to compute due to the required <span class="math notranslate nohighlight">\(\mathcal{O}(d^{2})\)</span> computations.</p>
+<p>Following the same approach as before to calculate <span class="math notranslate nohighlight">\(\varepsilon\)</span>, we then arrive at ideal value of</p>
+<div class="math notranslate nohighlight">
+\[{\bf{\varepsilon}} = - (\nabla^{2} f({\bf{x}}))^{-1} \nabla f({\bf{x}})\]</div>
+<p>I.e. we need to invert <span class="math notranslate nohighlight">\(\nabla^{2} f({\bf{x}})\)</span>, the Hessian. Computing and storing this important array turns out to be really expensive! To reduce these costs we are looking towards the <em>preconditioning</em> of our optimization algorithm. Preconditioning we then only need to compute the diagonal entries, hence leading to the following update equation</p>
+<div class="math notranslate nohighlight">
+\[{\bf{x}} \leftarrow {\bf{x}} - \eta \text{diag }(\nabla^{2} f({\bf{x}}))^{-1} \nabla f({\bf{x}})\]</div>
+<p>What the preconditioning then achieves is to in essence select a specific learning rule for every single variable.</p>
+<section id="momentum">
+<h4>Momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">#</a></h4>
+<p>If we now have a mismatch in the scales of two variables contained in our objective function, then we end up with an unsolvable optimization problem. To solve it, we require the <em>momentum method</em></p>
+<div class="math notranslate nohighlight">
+\[{\bf{v}}_{t} \leftarrow \beta {\bf{v}}_{t-1} + {\bf{g}}_{t, t-1}\]</div>
+<div class="math notranslate nohighlight">
+\[{\bf{x}}_{t} \leftarrow {\bf{x}}_{t-1} - \eta_{t} {\bf{v}}_{t} \]</div>
+<p>for <span class="math notranslate nohighlight">\(\beta=0\)</span>, we then have the regular gradient descent update. To now choose the perfect effective sample weight, we have to take the limit of</p>
+<div class="math notranslate nohighlight">
+\[{\bf{v}}_{t}\ = \sum_{\tau = 0}^{t-1} \beta^{\tau} {\bf{g}}_{t-\tau, t-\tau-1}\]</div>
+<p>Taking the limit</p>
+<div class="math notranslate nohighlight">
+\[\sum_{\tau=0}^{\infty} \beta^{\tau} = \frac{1}{1 - \beta}\]</div>
+<p>Hence <span class="math notranslate nohighlight">\(\frac{\eta}{1 - \beta}\)</span> is the perfect step size, which at the same time gives us much better gradient descent directions to follow to minimize our objective function.</p>
+</section>
+</section>
+<section id="adam">
+<h3>Adam<a class="headerlink" href="#adam" title="Permalink to this headline">#</a></h3>
+<p>The <a class="reference external" href="https://arxiv.org/abs/1412.6980">Adam algorithm</a>, then extends beyond traditional gradient descent by combining multiple tricks into a highly robust algorith, which is one of the most well-used optimization algorithms in machine learning.</p>
+<p>Expanding upon the previous use of momentum, Adam further utilizes the 1st, and 2nd momentum of the gradient i.e.</p>
+<div class="math notranslate nohighlight">
+\[{\bf{v}}_{t} \leftarrow \beta_{1} {\bf{v}}_{t-1} + (1 - \beta_{1}) {\bf{g}}_{t}\]</div>
+<div class="math notranslate nohighlight">
+\[{\bf{s}}_{t} \leftarrow \beta_{2} {\bf{s}}_{t-1} - (1 - \beta_{2}) {\bf{g}}_{t}^{2}\]</div>
+<p>where both <span class="math notranslate nohighlight">\(\beta_{1}\)</span>, and <span class="math notranslate nohighlight">\(\beta_{2}\)</span> are non-negative. A typical initialization here would be something along the lines of <span class="math notranslate nohighlight">\(\beta_{1} = 0.9\)</span>, and <span class="math notranslate nohighlight">\(\beta_{2} = 0.999\)</span> s.t. the variance estimate moves much slower than the momentum term. As an initialization of <span class="math notranslate nohighlight">\({\bf{v}}_{0} = {\bf{s}}_{0} = 0\)</span> can lead to bias in the optimization algorithm, we have to re-normalize the state variables with</p>
+<div class="math notranslate nohighlight">
+\[{\hat{\bf{v}}}_{t} = \frac{{\bf{v}}_{t}}{1 - \beta_{1}^{t}} \text{  ,and  } {\hat{\bf{s}}}_{t} = \frac{{\bf{s}}_{t}}{1 - \beta_{2}^{t}}\]</div>
+<p>The Adam optimization algorithm furthermore rescales the gradient to obtain</p>
+<div class="math notranslate nohighlight">
+\[{\bf{g}}'_{t} = \frac{\eta {\hat{\bf{v}}}_{t}}{\sqrt{{\hat{\bf{s}}}_{t}} + \varepsilon} \]</div>
+<p>The update formula for Adam is then</p>
+<div class="math notranslate nohighlight">
+\[{\bf{x}}_{t} \leftarrow {\bf{x}}_{t-1} - {\bf{g}}'_{t}. \]</div>
+<blockquote>
+<div><p>The strength of the Adam optimization algorithm is the stability of its update rule.</p>
+</div></blockquote>
+</section>
+<section id="stochastic-gradient-descent">
+<h3>Stochastic Gradient Descent<a class="headerlink" href="#stochastic-gradient-descent" title="Permalink to this headline">#</a></h3>
+<p>In machine learning we often resort to taking the loss across an average of the entire training set. Writing down the objective function for the training set with <span class="math notranslate nohighlight">\(n\)</span> entries</p>
+<div class="math notranslate nohighlight">
+\[f({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n}f_{i}({\bf{x}})\]</div>
+<p>The gradient of the objective function is then</p>
+<div class="math notranslate nohighlight">
+\[\nabla f({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n} \nabla f_{i}({\bf{x}})\]</div>
+<p>With the cost of each independent variable iteration being <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> for gradient descent, stochastic gradient replaces this with a sampling step where we uniformly sample an index <span class="math notranslate nohighlight">\(i \in \{1, \ldots, n\}\)</span> at random, and then compute the gradient for the sampled index, and update <span class="math notranslate nohighlight">\({\bf{x}}\)</span></p>
+<div class="math notranslate nohighlight">
+\[{\bf{x}} \leftarrow {\bf{x}} - \eta \nabla f_{i}({\bf{x}})\]</div>
+<p>With this randomly sampled update the cost for each iteration drops to <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span>. Due to the sampling we now have to think of our gradient as an expectation, i.e. by drawing uniform random samples we are essentially creating an unbiased estimator of the gradient</p>
+<div class="math notranslate nohighlight">
+\[\mathbb{E}_{i} \nabla f_{i}({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n} \nabla f_{i}({\bf{x}}) = \nabla f({\bf{x}})\]</div>
+<p>Looking at an example stochastic gradient descent optimization process</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/np1tRgn.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>)</p>
+<p>we come to realize that the stochasticity induces too much noise for our chosen learning rate. As such we want to be able to dynamically adjust the learning rate <span class="math notranslate nohighlight">\(\eta\)</span> for a time-dependent learning rate <span class="math notranslate nohighlight">\(\eta(t)\)</span> to then control the rate of decay of <span class="math notranslate nohighlight">\(\eta\)</span>. The most common strategies are</p>
+<div class="math notranslate nohighlight">
+\[\eta(t) = \eta_{i} \text{ if } t_{i} \leq t \leq t_{i+1}, \quad \text{piecewise constant}\]</div>
+<div class="math notranslate nohighlight">
+\[\eta(t) = \eta_{0} \cdot e^{-\lambda t}, \quad \text{ exponential decay}\]</div>
+<div class="math notranslate nohighlight">
+\[\eta(t) = \eta_{0} \cdot \left( \beta t + 1 \right)^{- \alpha}, \quad \text{ polynomial decay}\]</div>
+<p>Going through the different proposed options in order:</p>
+<ul class="simple">
+<li><p>Piecewise constant: Decrease whenever optimization progress begins to stall.</p></li>
+<li><p>Exponential decay: Much more aggressive, can lead to premature stopping.</p></li>
+<li><p>Polynomial decay: Well-behaved when <span class="math notranslate nohighlight">\(\alpha = 0.5\)</span>.</p></li>
+</ul>
+<p>Corrected for the time-dependent learning rate, and using the exponential decay our optimization then takes the following shape:</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/UJ3J86r.png" alt="drawing" width="400"/>
+</div>
+<p>(Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>)</p>
+<p>Which is much much nicer behaved!</p>
+<section id="minibatching">
+<h4>Minibatching<a class="headerlink" href="#minibatching" title="Permalink to this headline">#</a></h4>
+<blockquote>
+<div><p>For data which is very similar, gradient descent is inefficient, whereas stochastic gradient descent relies on the power of vectorization.</p>
+</div></blockquote>
+<p>The answer to these ailments is the use of minibatches to exploit the memory and cache hierarchy a modern computer exposes to us. In essence we seek to avoid the many single matrix-vector multiplications to reduce the overhead and improve our computational cost. The update equation then becomes</p>
+<div class="math notranslate nohighlight">
+\[{\bf{g}}_{t} = \partial_{\omega}f({\bf{x}}_{t}, {\bf{\omega}})\]</div>
+<p>For computational efficiency we will now perform this update in its batched form</p>
+<div class="math notranslate nohighlight">
+\[{\bf{g}}_{t} = \partial_{\omega} \frac{1}{|\mathcal{B}_{t}|} \sum_{i \in \mathcal{B}_{t}} f({\bf{x}}_{i}, {\bf{\omega}})\]</div>
+<p>As both <span class="math notranslate nohighlight">\({\bf{g}}_{t}\)</span>, and <span class="math notranslate nohighlight">\({\bf{x}}_{t}\)</span> are drawn uniformly at random from the training set, we retain our unbiased gradient estimator. For size <span class="math notranslate nohighlight">\(b\)</span> of the dataset, i.e <span class="math notranslate nohighlight">\(b = | \mathcal{B}_{t} |\)</span> we obtain a reduction of the standard deviation by <span class="math notranslate nohighlight">\(b^{-\frac{1}{2}}\)</span>, while this is desirable we should in practice choose the minibatch-size s.t. our underlying hardware gets utilized as optimally as possible.</p>
+</section>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lecture"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="cc-1-linear.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Core Content 1: Linear Models</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../exercise/1_linReg_logReg.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1. Linear Regression and Logistic Regression</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By N. Adams, L. Paehler, A. Toshev<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
