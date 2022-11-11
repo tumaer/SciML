@@ -41,8 +41,8 @@ The iteration scheme can then be computed as:
 
 $$
 \begin{aligned}
-\frac{\partial J}{\partial \vartheta_{i}}&=\frac{\partial}{\partial \vartheta_{j}} \frac{1}{2} \sum_{i}\left(h\left(x^{(i)}\right)-y^{(i)}\right)^{2} \\
-&=\underset{i}{\sum} \frac{\partial }{\partial \vartheta_{i}}\left(h\left(x^{(i)}\right)-y^{(i)}\right)  \\
+\frac{\partial J}{\partial \vartheta_{j}}&=\frac{\partial}{\partial \vartheta_{j}} \frac{1}{2} \sum_{i}\left(h\left(x^{(i)}\right)-y^{(i)}\right)^{2} \\
+&=\underset{i}{\sum} \frac{\partial }{\partial \vartheta_{j}}\left(h\left(x^{(i)}\right)-y^{(i)}\right)  \\
 &=\sum_{i}\left(h\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}.
 \end{aligned}
 $$
@@ -615,14 +615,3 @@ In addition there exists highly curated didactic material from Michel Betancourt
 - [Sampling](https://betanalpha.github.io/assets/case_studies/sampling.html): Section 3, 4, and 5
 - [Towards a Principled Bayesian Workflow](https://betanalpha.github.io/assets/case_studies/principled_bayesian_workflow.html)
 - [Markov Chain Monte Carlo](https://betanalpha.github.io/assets/case_studies/markov_chain_monte_carlo.html): Section 1, 2, and 3
-
-
-
-<!--
-**To be replaced by appropriate references**
-
-- [Neural Networks: Zero to Hero](https://www.youtube.com/watch?v=VMj-3S1tku0&list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ) - Andrej Karpathy Youtube videos
-- [Lilian Weng's blogs](https://lilianweng.github.io/)
-- Papers?
-- CVPR/NeurIPS/ICLR tutorials
--->

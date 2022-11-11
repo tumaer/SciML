@@ -83,7 +83,7 @@ In the special case $p=1$ we recover the L1 loss, and the squared version of $p=
 
 *Figure*: The blue line represents the solution set of a under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms $p=0,...,1$, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For $p \ge 2$ the minimum-norm solution is not sparse, but all coordinates are active.
 
-(Source: [Brunton and Kutz 2019](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E))
+(Source: [Brunton and Kutz 2019](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E), Fig. 3.9)
 
 
 ## Gradient-based Methods
@@ -292,3 +292,11 @@ $${\bf{g}}_{t} = \partial_{\omega} \frac{1}{|\mathcal{B}_{t}|} \sum_{i \in \math
 
 As both ${\bf{g}}_{t}$, and ${\bf{x}}_{t}$ are drawn uniformly at random from the training set, we retain our unbiased gradient estimator. For size $b$ of the dataset, i.e $b = | \mathcal{B}_{t} |$ we obtain a reduction of the standard deviation by $b^{-\frac{1}{2}}$, while this is desirable we should in practice choose the minibatch-size s.t. our underlying hardware gets utilized as optimally as possible.
 
+
+
+## Further References
+
+**Gradient-Based Optimization**
+
+- [Patterns, Predictions, and Actions](https://mlstory.org/optimization.html), Chapter 5. Optimization; M. Hardt and B. Recht; 2022
+- [Dive into Deep Learning](https://d2l.ai/chapter_optimization/index.html), Chapter 12. Optimization Algorithms
