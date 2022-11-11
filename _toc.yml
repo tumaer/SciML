@@ -6,12 +6,14 @@ root: about.md
 parts:
 - caption: Lecture
   chapters:
-  - file: preliminaries.md
-  - file: motivation.md
-  - file: cc-1-linear.md
-  - file: cc-2-optimization.md
-# - caption: Exercise
-#   chapters:
+  - file: lecture/preliminaries.md
+  - file: lecture/motivation.md
+  - file: lecture/cc-1-linear.md
+  - file: lecture/cc-2-optimization.md
+- caption: Exercise
+  chapters:
+  - file: exercise/1_linReg_logReg.ipynb
+  - file: exercise/2_BayesianInference.ipynb
 - caption: Miscellaneous
   chapters:
   - file: admin.md

@@ -3,12 +3,18 @@
 
 title: Introduction to Scientific Machine Learning for Engineers
 author: N. Adams, L. Paehler, A. Toshev
+copyright: "2022"  # later "2022,2023"
 logo: logo.png
+exclude_patterns: [_build, venv, data, README.md]
 
-# Force re-execution of notebooks on each build.
+launch_buttons:
+  colab_url: https://colab.research.google.com
+  binderhub_url: "" # without this line the default is not empty
+
+# Do not force re-execution of notebooks on each build.
 # See https://jupyterbook.org/content/execute.html
 execute:
-  execute_notebooks: force
+  execute_notebooks: off # force
 
 # Define the name of the latex output file for PDF builds
 latex:

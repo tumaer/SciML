@@ -54,5 +54,7 @@ $$\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ w
 - Normal, $X \in \mathbb{R}$.
 $$p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
 - Multivariate Gaussian $\mathcal{N}(\mathbf{\mu}, \mathbf{\Sigma}), \; \mathbf{X}\in \mathbb{R}^n, \; \mathbf{\mu}\in \mathbb{R}^n, \; \mathbb{\Sigma}:\mathbf{n}\times\mathbf{n}$
+
 $$p_X(x)= \frac{1}{(2\pi)^{n/2}\sqrt{\det (\mathbf{\Sigma})}} \exp \left(-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{\top}\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu}\right),$$
+
 where $\mathbf{\mu}\in \mathbb{R}^n$: mean vector and $\mathbf{\Sigma}$: covariance matrix.

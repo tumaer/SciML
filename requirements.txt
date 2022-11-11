@@ -1,3 +1,14 @@
 jupyter-book
+
+pandas
+scikit-learn
+
 matplotlib
-numpy
+plotly
+seaborn
+arviz
+
+--extra-index-url https://download.pytorch.org/whl/cu116
+torch
+torchvision
+torchaudio
