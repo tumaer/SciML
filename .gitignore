@@ -2,3 +2,4 @@ _build/
 venv/
 data/
 .ipynb_checkpoints/
+.vscode/
