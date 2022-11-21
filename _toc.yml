@@ -10,6 +10,8 @@ parts:
   - file: lecture/motivation.md
   - file: lecture/cc-1-linear.md
   - file: lecture/cc-2-optimization.md
+  - file: lecture/cc-3-classic-ml.md
+  - file: lecture/cc-4-dl.md
 - caption: Exercise
   chapters:
   - file: exercise/1_linReg_logReg.ipynb
