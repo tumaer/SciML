@@ -13,7 +13,7 @@ In Core Content 1, we already saw the main building blocks of a supervised learn
 
 Point 1 is a matter of what we know about the world in advance and how we include that knowledge into the model, e.g. choose CNNs when working with images because the same pattern might appear at different locations of an image. In Core Contents 3 and 4, we will look at different models each of which is by construction better suited for different problem types.
 
-After selecting a model $h_{\vartheta}$, points 2 and 3 are critical to the success of the learning as the loss function (point 2) defines how we measure success and the optimizer (point 3) guides the process of moving from a random initial guess of the parameters to a parameter configuration with much smaller loss. These two point are the topic of Core Content 2: how do the loss influence training and which optimization methods exist?
+After selecting a model $h_{\vartheta}$, points 2 and 3 are critical to the success of the learning as the loss function (point 2) defines how we measure success and the optimizer (point 3) guides the process of moving from a random initial guess of the parameters to a parameter configuration with a much smaller loss. These two points are the topic of Core Content 2: how do the loss influence training and which optimization methods exist?
 
 ## Basics of Optimization
 
@@ -52,11 +52,7 @@ Two examples of convex functions are the Least Mean Square loss in linear regres
 
 > Note: Convexity is a property of the loss $J(\vartheta)$ w.r.t. $\vartheta$, i.e. it is now about the convexity of the loss w.r.t. the output of the function $h(x)$. This means, for $J(\vartheta)$ to be convex, the combination of model and loss functions has to result in a convex function in $\vartheta$.
 
-<!-- If we assume that $h(x)$ is a very complicated non-convex function, then we could assume that the choice of loss function should not matter too much. 
-
- -->
-
-Apparently, the choice of $h(x)$ plays an important role on the shape of $J(\vartheta)$, but how does the choice of loss function influence $J$?
+Apparently, the choice of $h(x)$ plays an important role in the shape of $J(\vartheta)$, but how does the choice of loss function influence $J$?
 
 ### Cost Functions
 
@@ -81,7 +77,7 @@ In the special case $p=1$ we recover the L1 loss, and the squared version of $p=
     <img src="https://i.imgur.com/Z05qdjO.png" alt="drawing" width="600"/>
 </div>
 
-*Figure*: The blue line represents the solution set of a under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms $p=0,...,1$, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For $p \ge 2$ the minimum-norm solution is not sparse, but all coordinates are active.
+*Figure*: The blue line represents the solution set of an under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms $p=0,...,1$, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For $p \ge 2$ the minimum-norm solution is not sparse, but all coordinates are active.
 
 (Source: [Brunton and Kutz 2019](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E), Fig. 3.9)
 
@@ -98,7 +94,7 @@ If we now consider the following, highly simplified, objective functions which w
 
 
 
-then we see that to find the global/local minimum gradient descent, an approach which we already encountered in high-school curve analysis, is best suited. While being the obvious choice for the two cases on the left, the picture becomes a little more muddy in the example on the right. 
+then we see that to find the global/local minimum gradient descent, an approach that we already encountered in high-school curve analysis, is best suited. While being the obvious choice for the two cases on the left, the picture becomes a little muddier in the example on the right. 
 
 ```{note}
 Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes $J \rightarrow f$ and the variable $\vartheta \rightarrow x$. Don't confuse this $x$ with the input measurements $\{x^{(i)},y^{(i)}\}_{i=0,...,m}$.
@@ -114,7 +110,7 @@ then our intuition would dictate that moving a small $\varepsilon$ in the direct
 
 $$\varepsilon = - \eta f'(x)$$
 
-To then be plugged back into the Taylor expansion
+to then be plugged back into the Taylor expansion
 
 $$f(x - \eta f'(x)) = f(x) - \eta f'^{2}(x) + \mathcal{O}(\eta^{2}f'^{2}(x))$$
 
@@ -128,7 +124,7 @@ $$x \leftarrow x - \eta f'(x)$$
 
 is the right algorithm to iterative over $x$ s.t. the value of our (objective) function $f(x)$ declines. The algorithm we hence end up with an algorithm in which we have to choose an initial value for $x$, a constant $\eta > 0$, and then continuously iterate $x$ until we reach our stopping criterion.
 
-$\eta$ is most commonly known as our _learning rate_ and has to be set by us at the current moment of time. Now, if $\eta$ is too small $x$ will update too slowly and requiring us to perform many more costly iterations than we'd ideally like to. But if we choose a learning which is too large, then the error term $\mathcal{O}(\eta^{2}f'^{2}(x))$ at the back of the Taylor-expansion will explode, and we will overshoot the minimum.
+$\eta$ is most commonly known as our _learning rate_ and has to be set by us at the current moment of time. Now, if $\eta$ is too small $x$ will update too slowly and require us to perform many more costly iterations than we'd ideally like to. But if we choose a learning rate that is too large, then the error term $\mathcal{O}(\eta^{2}f'^{2}(x))$ at the back of the Taylor-expansion will explode, and we will overshoot the minimum.
 
 Now, if we take a non-convex function for $f$ which might even have infinitely many local minima, then the choice of our learning rate and initialization becomes even more important. Take the following function $f$ for example.
 
@@ -144,7 +140,7 @@ then the optimization problem might end up looking like the following:
 (Source: [classic.d2l.ai](https://classic.d2l.ai/chapter_optimization/gd.html))
 
 
-If we now consider the case where we do not only have a one-dimensional (objective) function, but instead a function f s.t.
+If we now consider the case where we do not only have a one-dimensional (objective) function but instead a function f s.t.
 
 $$f: \mathbb{R}^{d} \rightarrow \mathbb{R}$$
 
@@ -152,7 +148,7 @@ vector are mapped to scalars, then the gradient is a vector of $d$ partial deriv
 
 $$\nabla f({\bf{x}}) = \left[ \frac{\partial f({\bf{x}})}{\partial x_{1}}, \frac{\partial f({\bf{x}})}{\partial x_{2}}, \ldots, \frac{\partial f({\bf{x}})}{\partial x_{d}} \right]^{\top}$$
 
-with each gradient indicating the rate of change in one of the many potential directions. Then we can use the Taylor-approximation as before, and derive the gradient descent algorithm for the multivariate case
+with each gradient indicating the rate of change in one of the many potential directions. Then we can use the Taylor-approximation as before and derive the gradient descent algorithm for the multivariate case
 
 $${\bf{x}} \leftarrow {\bf{x}} - \eta \nabla f({\bf{x}})$$
 
@@ -169,9 +165,9 @@ then our optimization will take the following shape
 
 (Source: [classic.d2l.ai](https://classic.d2l.ai/chapter_optimization/gd.html))
 
-Having up until now relied on a fixed learning rate $\eta$, we now want to expand upon the previous algorithm by _adaptively_ choosing $\eta$. For this we have to go back to **Newton's method**.
+Having up until now relied on a fixed learning rate $\eta$, we now want to expand upon the previous algorithm by _adaptively_ choosing $\eta$. For this, we have to go back to **Newton's method**.
 
-For this we have to further expand the initial Taylor-expansion to the third-order term
+For this, we have to further expand the initial Taylor-expansion to the third-order term
 
 $$f({\bf{x}} + {\bf{\varepsilon}}) = f({\bf{x}}) + {\bf{\varepsilon}}^{\top} \nabla f({\bf{x}}) + \frac{1}{2} {\bf{\varepsilon}}^{\top} \nabla^{2} f({\bf{x}}) {\bf{\varepsilon}} + \mathcal{O}(||{\bf{\varepsilon}}||^{3})$$
 
@@ -205,15 +201,15 @@ $$\sum_{\tau=0}^{\infty} \beta^{\tau} = \frac{1}{1 - \beta}$$
 Hence using the momentum GD results in a step size $\frac{\eta}{1 - \beta}$, which at the same time gives us much better gradient descent directions to follow to minimize our objective function.
 
 <div style="text-align:center">
-    <img src="https://i.imgur.com/TWw1t1s.png" alt="drawing" width="400"/>
+    <img src="../imgs/output_momentum.svg" alt="drawing" width="400"/>
 </div>
 
 (Source: [d2l.ai](https://d2l.ai/chapter_optimization/momentum.html))
 ### Adam
 
-The [Adam algorithm](https://arxiv.org/abs/1412.6980), then extends beyond traditional gradient descent by combining multiple tricks into a highly robust algorith, which is one of the most well-used optimization algorithms in machine learning.
+The [Adam algorithm](https://arxiv.org/abs/1412.6980), then extends beyond traditional gradient descent by combining multiple tricks into a highly robust algorithm, which is one of the most well-used optimization algorithms in machine learning.
 
-Expanding upon the previous use of momentum, Adam further utilizes the 1st, and 2nd momentum of the gradient i.e.
+Expanding upon the previous use of momentum, Adam further utilizes the 1st and 2nd momentum of the gradient i.e.
 
 $${\bf{v}}_{t} \leftarrow \beta_{1} {\bf{v}}_{t-1} + (1 - \beta_{1}) {\bf{g}}_{t}$$
 $${\bf{s}}_{t} \leftarrow \beta_{2} {\bf{s}}_{t-1} - (1 - \beta_{2}) {\bf{g}}_{t}^{2}$$
@@ -242,7 +238,7 @@ Converge to a Local Nash Equilibrium](https://proceedings.neurips.cc/paper/2017/
 
 ### Stochastic Gradient Descent
 
-In machine learning we often resort to taking the loss across an average of the entire training set. Writing down the objective function for the training set with $n$ entries
+In machine learning, we often resort to taking the loss across an average of the entire training set. Writing down the objective function for the training set with $n$ entries
 
 $$f({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n}f_{i}({\bf{x}})$$
 
@@ -254,7 +250,7 @@ With the cost of each independent variable iteration being $\mathcal{O}(n)$ for 
 
 $${\bf{x}} \leftarrow {\bf{x}} - \eta \nabla f_{i}({\bf{x}})$$
 
-With this randomly sampled update the cost for each iteration drops to $\mathcal{O}(1)$. Due to the sampling we now have to think of our gradient as an expectation, i.e. by drawing uniform random samples we are essentially creating an unbiased estimator of the gradient
+With this randomly sampled update, the cost for each iteration drops to $\mathcal{O}(1)$. Due to the sampling we now have to think of our gradient as an expectation, i.e. by drawing uniform random samples we are essentially creating an unbiased estimator of the gradient
 
 $$\mathbb{E}_{i} \nabla f_{i}({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n} \nabla f_{i}({\bf{x}}) = \nabla f({\bf{x}})$$
 
@@ -269,16 +265,15 @@ Looking at an example stochastic gradient descent optimization process
  
 we come to realize that the stochasticity induces too much noise for our chosen learning rate. To handle that we introduce learning rate scheduling.
 
-
 #### Minibatching
 
 > For data which is very similar, gradient descent is inefficient, whereas stochastic gradient descent relies on the power of vectorization.
 
-The answer to these ailments is the use of minibatches to exploit the memory and cache hierarchy a modern computer exposes to us. In essence we seek to avoid the many single matrix-vector multiplications to reduce the overhead and improve our computational cost. The update equation then becomes
+The answer to these ailments is the use of minibatches to exploit the memory and cache hierarchy a modern computer exposes to us. In essence, we seek to avoid the many single matrix-vector multiplications to reduce the overhead and improve our computational cost. The update equation then becomes
 
 $${\bf{g}}_{t} = \partial_{\omega}f({\bf{x}}_{t}, {\bf{\omega}})$$
 
-For computational efficiency we will now perform this update in its batched form
+For computational efficiency, we will now perform this update in its batched form
 
 $${\bf{g}}_{t} = \partial_{\omega} \frac{1}{|\mathcal{B}_{t}|} \sum_{i \in \mathcal{B}_{t}} f({\bf{x}}_{i}, {\bf{\omega}})$$
 
@@ -296,7 +291,7 @@ The reason for that is in part historic, automatic differentiation (to be explai
 
 #### Newton's method (aka Newton-Raphson method)
 
-A first example of the step toward second order methods is the Newton method. It is an iterative method to find a zero of a differentiable function defined as $f: \mathbb{R} \rightarrow \mathbb{R}$. The Newton-method begins with an initial guess $x_{0}$ to then iteratively update with 
+A first example of the step toward second-order methods is the Newton method. It is an iterative method to find a zero of a differentiable function defined as $f: \mathbb{R} \rightarrow \mathbb{R}$. The Newton-method begins with an initial guess $x_{0}$ to then iteratively update with 
 
 $$x_{t+1} = x_{t} - \frac{f(x_{t})}{f'(x_{t})}$$
 
@@ -331,11 +326,11 @@ To expand upon this, assume we have a linear system of equations
 
 $$M {\bf{x}} = {\bf{q}}$$
 
-then Newton's method can solve this system in **one** step whereas gradient descent requires multiple steps with the right stepsize chosen. The downside to this is the expensive step of inverting matrix $M$. In our general case this means we need to invert the expensive matrix
+then Newton's method can solve this system in **one** step whereas gradient descent requires multiple steps with the right step size chosen. The downside to this is the expensive step of inverting matrix $M$. In our general case, this means we need to invert the expensive matrix
 
 $$\nabla^{2} f(x_{0}).$$
 
-Another advantage of Newton's method is that it does not suffer from individual coordinates being at completely different scales, i.e. the $y$-direction changing very fast, whereas the $z$-direction only changes very slowly. Gradient descent only handles these cases suboptimally, whereas Newton's method does not suffer from this shortcoming.
+Another advantage of Newton's method is that it does not suffer from individual coordinates being at completely different scales, e.g. the $y$-direction changes very fast, whereas the $z$-direction only changes very slowly. Gradient descent only handles these cases suboptimally, whereas Newton's method does not suffer from this shortcoming.
 
 > Note: The Hessian has to be positive definite, otherwise we would end up in a local maximum.
 
@@ -352,11 +347,11 @@ The secant method is an alternative to Newton's method, which consciously does n
 
 $$\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}}$$
 
-then we cen replace the derivative in Newton's method with the finite difference approximation, i.e.
+then we can replace the derivative in Newton's method with the finite difference approximation, i.e.
 
 $$\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}} \approx f'(x_{t})$$
 
-For a small region around $x_{t}$. The secant update step, then takes the following form
+for a small region around $x_{t}$. The secant update step then takes the following form
 
 $$x_{t+1} = x_{t} - f(x_{t})\frac{x_{t} - x_{t-1}}{f(x_{t}) - f(x_{t-1})}, \quad t\geq 1$$
 
@@ -368,7 +363,7 @@ to approximate the Newton step at the detriment of having to choose two starting
 
 What this approach then does is to construct the line through the two points $(x_{t-1}, f(x_{t-1}))$, and $(x_{t}, f(x_{t}))$ on the graph of f, the next iteration is then given by the point where the line intersects the x-axis.
 
-When our function is first-order differentiable, we can also use the secant-method to derive a second-derivative-free version of Newton's method for optimization.
+When our function is first-order differentiable, we can also use the secant method to derive a second-derivative-free version of Newton's method for optimization.
 
 $$x_{t+1}=x_{t} - f'(x_{t})\frac{x_{t} - x_{t-1}}{f'(x_{t}) - f'(x_{t-1})}, \quad t \geq 1$$
 
@@ -410,13 +405,13 @@ I.e. our matrix $H_{t}$, the Hessian, only changes by a minor error matrix. Thes
 ##### BFGS
 (Broyden–Fletcher–Goldfarb–Shanno)
 
-For the BFGS algorithm this update matrix then assumes the form
+For the BFGS algorithm, this update matrix then assumes the form
 
 $$E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right)$$
 
 where $H=H_{t-1}^{-1}$, ${\bf{\sigma}} = x_{t} - x_{t-1}$, and $y = \nabla f(x_{t}) - \nabla f(x_{t-1})$.
 
-One of the core advantages of BFGS is that if $H'$ is positive definite, then the update $E$ maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition the cost of computation drops from the original $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$ to $\mathcal{O}(d^{2})$ for the BFGS approach. Scaling the update step, the individual iteration then becomes
+One of the core advantages of BFGS is that if $H'$ is positive definite, then the update $E$ maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$ to $\mathcal{O}(d^{2})$ for the BFGS approach. Scaling the update step, the individual iteration then becomes
 
 $$x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1$$
 
@@ -472,17 +467,17 @@ In local search for example we replace the entire gradient update with
 
 $$x_{t+1} = \underset{x \in nbr(x_{t})}{\text{argmax}}$$
 
-where $nbr$ is the neighborhood of the point $x_{t}$. This approach is also colloquially known as hill climbing, steepest ascent, or greedy search. In stochastic local search we would then define a probability distribution over the uphill neighbors proportional to how much they improve our function, and then sample at random. A second stochastic option is to start again from a different random starting point whenever we reach a local maximum. This approach is known as random restart hill climbing.
+where $nbr$ is the neighborhood of the point $x_{t}$. This approach is also colloquially known as hill climbing, steepest ascent, or greedy search. In stochastic local search, we would then define a probability distribution over the uphill neighbors proportional to how much they improve our function and then sample at random. A second stochastic option is to start again from a different random starting point whenever we reach a local maximum. This approach is known as random restart hill climbing.
 
-An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proved to be less efficient (see [J. Bergstra & Y. Bengio, 20212](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)), is the grid search, which chooses hyperparameters equidistantly in the same range used for grid search.
+An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see [J. Bergstra & Y. Bengio, 20212](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)), is the grid search, which chooses hyperparameters equidistantly in the same range used for grid search.
 
 <div style="text-align:center">
-    <img src="https://i.imgur.com/EMvUMXA.png" alt="drawing" width="600"/>
+    <img src="../imgs/grid and random search.png" alt="drawing" width="600"/>
 </div>
 
 (Source: [Random Search for Hyper-Parameter Optimization](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf))
 
-If we instead of throwing away our "old" good candidates keep them in a _population_ of good candidates, then we arrive at _evolutionary algorithms_. Here we maintain a population of $K$ good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.
+If instead of throwing away our "old" good candidates keep them in a _population_ of good candidates, then we arrive at _evolutionary algorithms_. Here we maintain a population of $K$ good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.
 
 
 
@@ -509,27 +504,20 @@ also represents a linear model in terms of its parameters $\vartheta_i$ (not to 
 
 $$h(x)=\vartheta_0 + \vartheta_1 \cdot x + \vartheta_3 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + \vartheta_6 \cdot \sqrt{x} + ...$$
 
-**Data Splitting**
-To train a machine learning model, we typically split the given data $\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}$ into three subsets.
+**Nonlinear Regression** 
 
-- **Training**: Data of which we optimize the parameters of a model.
-- **Validation**: Data of which we evaluate performance during hyperparameters optimization.
-- **Testing**: Data on which we evaluate the performance at the very end of tuning the model and its parameters.
+Any function that is more complicated than linear, e.g.
 
-Given that the dataset is large enough, typical splits for training/validation/testing data are 80/10/10 up to 60/20/20. If data is very limited, we have a very different problem and we might not want to sacrifice separate data for validation. Then we would use Cross Validation, which is explained later in this chapter.
-
-<div style="text-align:center">
-    <img src="https://i.imgur.com/gkDX7bb.png" alt="drawing" width="600"/>
-</div>
-
-(Source: [Train/Test Split and Cross Validation in Python](https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6))
+$$
+h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...
+$$
 
 ### Overfitting vs Underfitting
 
 Dealing with real-world data containing measurement noise, we run either in over- or underfitting, depending on the choice of such basis functions. Looking at the figure below, the left regression example corresponds to $h(x) = \vartheta_0 + \vartheta_1 \cdot x$ and the left classification example corresponds to logistic regression.
 
 <div style="text-align:center">
-    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
+    <img src="../imgs/over- and underfitting table.png" alt="drawing" width="600"/>
 </div>
 
 (Source: [Techniques for handling underfitting and overfitting in Machine Learning](https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9))
@@ -542,10 +530,12 @@ Typically, over- and underfitting are analyzed through the lens of the bias-vari
 
 - **Variance Error**: Variability of the model predictions at each position $x$ (averaged over infinitely many models trained on same-sized datasets coming from the same distribution). 
 
+- **Irreducible Error**: Originates from the noise in the measurements. Given a corupted dataset, this error cannot be reduced with ML.
+
 In the figure below, each point corresponds to the prediction of a model trained on a different dataset.
 
 <div style="text-align:center">
-    <img src="https://i.imgur.com/Y2IscaH.png" alt="drawing" width="400"/>
+    <img src="../imgs/bias-variance bulls-eye.png" alt="drawing" width="400"/>
 </div>
 
 (Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
@@ -563,47 +553,116 @@ J_{\vartheta}(x) &= \left(E[h(x)]-\tilde{h}(x)\right)^2 + E\left[(h(x)-E[h(x)])^
 $$
 
 <div style="text-align:center">
-    <img src="https://i.imgur.com/Pm1otyT.png" alt="drawing" width="400"/>
+    <img src="../imgs/bias-variance tradeoff vs model complexity.png" alt="drawing" width="400"/>
 </div>
 
 (Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
 
-Given the true model and enough data to calibrate it, we should be able to reduce both the bias and variance terms to zero. However, working with imperfect models and limited data, we strive for an optimum in terms of the model choice.
+Given the true model and enough data to calibrate it, we should be able to reduce both the bias and variance terms to zero. However, working with imperfect models and limited data, we strive for an optimum in terms of model choice.
 
-**Cross Validation**
+#### Advanced Topics: Double Descent
+
+In recent years, machine learning models have been growing extremely large, e.g. GPT-3 175B parameters. An empirical observation that has been studied by [M. Belkin et al. 2019](More data can hurt for linear regression: Sample-wise
+double descent) demonstrates that contrary to the theory behind the bias-variance tradeoff if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications, this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) of R. Sutton.
+
+<div style="text-align:center">
+    <img src="../imgs/double descent.png" alt="drawing" width="500"/>
+</div>
+
+(Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
+
+
+In contrast to linear models, almost all such functions result in a non-convex loss surface w.r.t. the parameters $\vartheta$.
+
+### Data Splitting
+To train a machine learning model, we typically split the given data $\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}$ into three subsets.
+
+- **Training**: Data of which we optimize the parameters of a model.
+- **Validation**: Data of which we evaluate performance during hyperparameters optimization.
+- **Testing**: Data on which we evaluate the performance at the very end of tuning the model and its parameters.
+
+Given that the dataset is large enough, typical splits for training/validation/testing data are 80/10/10 up to 60/20/20. If data is very limited, we have a very different problem and we might not want to sacrifice separate data for validation. Then we would use Cross Validation, which is explained later in this chapter.
+
+<div style="text-align:center">
+    <img src="../imgs/data splitting.png" alt="drawing" width="600"/>
+</div>
+
+(Source: [Train/Test Split and Cross Validation in Python](https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6))
+
+#### Cross Validation
 
 If we split a dataset into $K$ pieces, we could train the model $K$ times each time excluding a different subset. We could then evaluate the model performance on the test set for each of the $K$ models and by that get a good estimate of the variance of the error. If we select the model with the least error and train it further on the whole training set, then we talk about K-fold cross-validation.
 
-### Advanced Topics: Double Descent
-
-In recent years, machine learning models have been growing extremely large, e.g. GPT-3 175B parameters. An empirical observation that has been studied by [M. Belkin et al. 2019](More data can hurt for linear regression: Sample-wise
-double descent) demonstrates that contrary to the theory behind the bias-variance tradeoff, if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) of R. Sutton.
-
-<div style="text-align:center">
-    <img src="https://i.imgur.com/m6PppYk.png" alt="drawing" width="500"/>
-</div>
-
-(Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
-
 ### Regularization
 
-One possibility to counteract overfitting and still have an expressive model is regularization. There are many approaches which belong the class of regularization techniques. 
+One possibility to counteract overfitting and still have an expressive model is regularization. There are many approaches belonging to the class of regularization techniques. 
 
 - Adding a regularization term to the loss - add an additional term penalizing large weight values:
     - **L1 regularization** - promotes sparsity: 
 
-    $$J_{L1}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot ||\vartheta||_1$$
+    $$J_{L1}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot \sum_{i=1}^{\#params} |\vartheta_i|$$
 
-    - **L2 regularization** - typical choice: 
+    - **L2 regularization** - takes information from all features; typical choice: 
 
-    $$J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot ||\vartheta||_2$$
+    $$J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2$$
 
     For a visual interpretation, look back to the $l_p$ norms.
 
-- **Dropout**: randomly set some of the paremeters to zero, e.g. 5% of all $\vartheta_i$. This way the model learns to be more redundant and in the same time improved generalization. Also, this techniques is very easy to apply.
+- **Dropout**: randomly set some of the parameters to zero, e.g. 5% of all $\vartheta_i$. This way the model learns to be more redundant and at the same time improved generalization. Dropout reduces co-adaptation between terms of the model. Also, this technique is very easy to apply.
 - **Eary stopping**: Stop training as soon as the validation loss starts increasing. This is also a very common and easy technique.
 - etc.
     
+### Input Normalization and Parameter Initialization
+
+These two topics will be discussed in much more detail in Core Content 4 in the context of more modern deep-learning methods. For the time being, the idea behind input normalization and parameter initialization is simply to speed up the learning process, i.e. reduce the number of gradient descent iterations. 
+
+**Case Study 1 - Input Normalization**
+
+Imagine that the input is $x\in \mathbb{R}$ and its mean and standard deviation over the whole dataset are $1$ and $0.001$. Further, imagine that we by chance choose the true underlying linear model of the form 
+
+$$h(x) = \vartheta_0 + \vartheta_1 \cdot x_1,$$
+
+and the true $\vartheta^{true} = [2, 1000]$. If we start a GD optimization from an initial $\vartheta^0 = [1, 1]$, we would run into a problem. To make training work, we would need a rather small learning rate to move from the initial $\vartheta^0_0=1$ to  $\vartheta_0=2$, which would then require ~3 orders of magnitude more updates to move from $\vartheta^0_1=1$ to  $\vartheta_1=1000$. That is why it makes to normalize the inputs to a standard Gaussian distribution, e.g. $\mathcal{N}(0,1)$. 
+
+This can be achieved by precomputing the mean $\mu=1/m \sum_{i=1}^m x^{(i)}$ and variance $\sigma^2=1/m \sum_{i=1}^m \left(x^{(i)}-\mu \right)^2$ of the inputs, and then transforming each input to 
+
+$$\hat{x} = \frac{x-\mu}{\sigma}$$
+
+If $x \in \mathbb{R}^n$ with $n > 1$, we would do that to each of the dimensions individually. 
+
+In signal processing, a similar transformation is called the [whitening transformation](https://en.wikipedia.org/wiki/Whitening_transformation) - the only difference in whitening is that it also considers correlations between each of the inputs. 
+
+> Note: The same should be done with the outputs $y$.
+
+
+**Case Study 2 - Parameter Initialization**
+
+Imagine that the input is $x\in \mathbb{R}^n$ with $n>>1$ and its mean and standard deviation over the whole dataset in each of the two dimensions are $[1, ..., 1]$ and $[1, ..., 1]$ respectively. Further, imagine that we by chance choose the true underlying linear model of the form 
+
+$$h(x) = \vartheta_0 + \vartheta_1 \cdot x_1 + ... + \vartheta_n \cdot x_n,$$
+
+and the true $\vartheta^{true} = [0.1, ..., 0.1]$. If we start a GD optimization from an initial $\vartheta^0 = [1,2, ..., n+1]$, we would run into a problem. To make training work, we would again need a very small learning rate to move from the initial $\vartheta^0_0=0$ to  $\vartheta_0=0.1$, which would then require ~$n$ more updates to move $\vartheta^0_n=n+1$ to  $\vartheta_1=0.1$. 
+
+Xavier initialization has been proposed to alleviate this type of issue. It essentially starts with initial values drawn from $\mathcal{N}(0,1/n)$, i.e. a zero-centered normal distribution with variance $1/n$. This way we 
+
+1. Choose $\vartheta^0$ in the same order of magnitude, resulting in a similar weighting of each term in the model (given that the inputs are normalized beforehand)
+2. End up with an output $h(x^{(i)})$ also more or less from a standard normal distribution (up to correlation impact). And if we normalized $y$ beforehand, a $\mathcal{N}(0,1)$-distributed $h(x^{(i)})$ is what we want.
+
+
+
+### Hyperparameter Search
+
+A hyperparameter is a parameter that controls other parameters. We typically cannot afford to train hyperparameters with gradient-based methods and resort to DFO methods (see above). 
+
+One of the most important hyperparameters in 1st order gradient-based optimization is the learning rate $\eta$. We typically tune the learning rate by looking at the so-called training curves. To see the impact of different values of the learning rate on the **validation** loss, look at the following figure.
+
+<div style="text-align:center">
+    <img src="../imgs/loss curve vs lr.png" alt="drawing" width="400"/>
+</div>
+
+(Source: [CS231n CNNs for Visual Recognition](https://cs231n.github.io/neural-networks-3/))
+
+Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD, etc.. You will see many of them related to each model later in the lecture.
 
 ### Learning Rate Scheduling
 
@@ -616,7 +675,7 @@ $$\eta(t) = \eta_{0} \cdot \left( \beta t + 1 \right)^{- \alpha}, \quad \text{ p
 Going through the different proposed options in order:
 
 - **Piecewise constant**: Decrease whenever optimization progress begins to stall.
-- **Exponential decay**: Much more aggressive, can lead to premature stopping.
+- **Exponential decay**: Much more aggressive; can lead to premature stopping.
 - **Polynomial decay**: Well-behaved when $\alpha = 0.5$.
 
 Corrected for the time-dependent learning rate, and using the exponential decay our optimization then takes the following shape:
@@ -629,6 +688,22 @@ Corrected for the time-dependent learning rate, and using the exponential decay 
 
 
 Which is much much nicer behaved!
+
+### Recipe for Machine Learning
+
+If you are wondering how all of that fits together, Andrew Ng suggests this general workflow:
+
+<div style="text-align:center">
+    <img src="../imgs/recipe for ML.png" alt="drawing" width="500"/>
+</div>
+
+(Source: [Nuts and Bolts of Building Applications using Deep Learning](https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf))
+
+And a practical advice from [Prof. Matthias Niessner](http://niessnerlab.org/members/matthias_niessner/profile.html) at TUM is to:
+
+1. Train the model on 1 data point to essentially learn it by heart. This way you prove that the model and output work correctly.
+2. Train the model on a few samples. Proves that multiple inputs are handled correctly.
+3. Move from the overfitting regime to full training.
 
 ## Further References
 

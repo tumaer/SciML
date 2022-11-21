@@ -142,6 +142,16 @@ const thebe_selector_output = ".output, .cell_output"
    Core Content 2: Optimization
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cc-3-classic-ml.html">
+   Core Content 3: Classic ML
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cc-4-dl.html">
+   Core Content 4: Deep Learning
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -410,6 +420,11 @@ title="Print to PDF"
        Adaptive Rejection Sampling
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#markov-chain-monte-carlo">
+       Markov Chain Monte Carlo
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -534,6 +549,11 @@ title="Print to PDF"
        Adaptive Rejection Sampling
       </a>
      </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#markov-chain-monte-carlo">
+       Markov Chain Monte Carlo
+      </a>
+     </li>
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -626,7 +646,7 @@ y = y + np.random.normal(0, 1, N)  -->
 </li>
 <li><p>Then we need a strategy to fit our hypothesis parameters <span class="math notranslate nohighlight">\(\vartheta\)</span> to the data points we have <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>.</p>
 <ol>
-<li><p>Define a suitable cost function <span class="math notranslate nohighlight">\(J\)</span>, which emphasizes the importance of certain traits to the model. I.e. if a certain data area is of special importance to our model we should penalize modelling failures for those points much more heavily than others. A typical choice is the <em>Least Mean Square</em> (LMS) i.e.</p>
+<li><p>Define a suitable cost function <span class="math notranslate nohighlight">\(J\)</span>, which emphasizes the importance of certain traits to the model. I.e. if a certain data area is of special importance to our model we should penalize modeling failures for those points much more heavily than others. A typical choice is the <em>Least Mean Square</em> (LMS) i.e.</p>
 <div class="math notranslate nohighlight">
 \[J(\vartheta)=\frac{1}{2} \sum_{i=1}^{m}\left(h\left(x^{(i)}\right)-y^{(i)}\right)^{2}\]</div>
 </li>
@@ -645,9 +665,10 @@ y = y + np.random.normal(0, 1, N)  -->
 &amp;=\sum_{i}\left(h\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}.
 \end{aligned}
 \end{split}\]</div>
-<p>resubstituting the iteration scheme into the update function, we then obtain the formula for <strong>batch gradient descent</strong>
-$<span class="math notranslate nohighlight">\(\vartheta^{(k+1)}_j=\vartheta^{(k)}_j-\alpha\sum_{i}\left(h^{(k)}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}.\)</span>$
-If we choose an alternative update rate, and seek to update every hypothesis parameter individually, then we can apply stochastic gradient descent.</p>
+<p>resubstituting the iteration scheme into the update function, we then obtain the formula for <strong>batch gradient descent</strong></p>
+<div class="math notranslate nohighlight">
+\[\vartheta^{(k+1)}_j=\vartheta^{(k)}_j-\alpha\sum_{i}\left(h^{(k)}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}.\]</div>
+<p>If we choose an alternative update rate and seek to update every hypothesis parameter individually, then we can apply stochastic gradient descent.</p>
 <p>If we now utilize matrix-vector calculus, then we can find the optimal <span class="math notranslate nohighlight">\(\vartheta\)</span> in one shot. To do this we begin by defining our <strong>design matrix <span class="math notranslate nohighlight">\(X\)</span></strong></p>
 <div class="math notranslate nohighlight">
 \[\begin{split}X_{m \times n}=\left[\begin{array}{c}x^{(1) \top }\\ \vdots \\ x^{(i) \top} \\ \vdots \\ x^{(m) \top}\end{array}\right]\end{split}\]</div>
@@ -663,7 +684,7 @@ h\left(x^{(i)}\right)-y^{(i)} \\
 \vdots \\
 h\left(x^{(m)}\right)-y^{(m)}
 \end{array}\right]=X \vartheta _ {n\times 1} -Y\end{split}\]</div>
-<p>According to which the cost function then becomes</p>
+<p>According to which, the cost function then becomes</p>
 <div class="math notranslate nohighlight">
 \[J(\vartheta)=\frac{1}{2}(X \vartheta-Y)^{\top}(X \vartheta-Y).\]</div>
 <p>As our cost function <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> is convex, we now only need to check that there exists a minimum i.e.</p>
@@ -698,11 +719,11 @@ Implement the three approaches (batch gradient descent, stochastic gradient desc
 </ol>
 <section id="probabilistic-interpretation">
 <h3>Probabilistic Interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Permalink to this headline">#</a></h3>
-<p>With much data in practice, having error over the collected data itself, we want to be able to include a data error in our linear regression. The approach for this is <strong>Maximum Likelihood Estimation</strong> as introduced in the <em>Introduction</em>  lecture. I.e. this means data points are modeled as</p>
+<p>With much data in practice, having errors over the collected data itself, we want to be able to include a data error in our linear regression. The approach for this is <strong>Maximum Likelihood Estimation</strong> as introduced in the <em>Introduction</em> lecture. I.e. this means data points are modeled as</p>
 <!-- _{\uparrow} -->
 <div class="math notranslate nohighlight">
 \[y^{(i)}=\vartheta^{\top} x^{(i)}+\varepsilon^{(i)}\]</div>
-<p>Presuming that all our data points are <strong>indipendent, identically distributed (i.i.d)</strong> random variables. The noise is modeled with a normal distribution.</p>
+<p>Presuming that all our data points are <strong>independent, identically distributed (i.i.d)</strong> random variables. The noise is modeled with a normal distribution.</p>
 <div class="math notranslate nohighlight">
 \[p\left(\varepsilon^{(i)}\right)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\varepsilon^{(i) 2}}{2 \sigma^{2}}}\]</div>
 <blockquote>
@@ -720,7 +741,7 @@ L(\vartheta) &amp;=p(Y \mid X ; \vartheta)=\prod_{i=1}^{m} p\left(y^{(i)} \mid x
 &amp;=\prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\left(y^{(i)}-\vartheta^{T} x^{(i)}\right)^{2}}{2 \sigma^{2}}}
 \end{align}
 \end{split}\]</div>
-<p>The probabilistic strategy to determine the optimal hypothesis parameters <span class="math notranslate nohighlight">\(\vartheta\)</span> is then maximum likelihood approach for which we resort to the <strong>log-likelihood</strong> as it is monotonically increasing, and easier to optimize for.</p>
+<p>The probabilistic strategy to determine the optimal hypothesis parameters <span class="math notranslate nohighlight">\(\vartheta\)</span> is then the maximum likelihood approach for which we resort to the <strong>log-likelihood</strong> as it is monotonically increasing, and easier to optimize for.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
@@ -730,14 +751,14 @@ l(\vartheta)&amp;=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \s
 &amp;\Rightarrow \vartheta=\operatorname{argmax} l(\vartheta)=\operatorname{argmin} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
 \end{aligned}
 \end{split}\]</div>
-<p><strong>This is the same result as minimizing <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> from before.</strong> Interestingly enough, the Gaussian i.i.d. noise used in the maximum likelihood epproach is entirely independent of <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>.</p>
+<p><strong>This is the same result as minimizing <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> from before.</strong> Interestingly enough, the Gaussian i.i.d. noise used in the maximum likelihood approach is entirely independent of <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>.</p>
 <blockquote>
 <div><p>Least squares method (LMS), as well as maximum likelihood regression as above are <strong>parametric learning</strong> algorithms.</p>
 </div></blockquote>
 <blockquote>
 <div><p>If the number of parameters is <strong>not</strong> known beforehand, then the algorithms become <strong>non-parametric</strong> learning algorithms.</p>
 </div></blockquote>
-<p>Can maximum likelihood estimation (MLE) be made more non-parametric? Following intuition the linear MLE, as well as the LMS critically depend on the selection of the features, i.e the dimension of the parameter vector <span class="math notranslate nohighlight">\(\vartheta\)</span>. I.e. when the dimension of <span class="math notranslate nohighlight">\(\vartheta\)</span> is too low we have a tendency to underfit, where we do not capture some of the structure of our data. An approach to cope with the problem of underfitting here is to give more weight to new, unseen data <span class="math notranslate nohighlight">\(x\)</span>. E.g. for x, where we want to estimate y:</p>
+<p>Can maximum likelihood estimation (MLE) be made more non-parametric? Following intuition the linear MLE, as well as the LMS critically depends on the selection of the features, i.e the dimension of the parameter vector <span class="math notranslate nohighlight">\(\vartheta\)</span>. I.e. when the dimension of <span class="math notranslate nohighlight">\(\vartheta\)</span> is too low we tend to underfit, where we do not capture some of the structure of our data. An approach to cope with the problem of underfitting here is to give more weight to new, unseen data <span class="math notranslate nohighlight">\(x\)</span>. E.g. for x, where we want to estimate y:</p>
 <div class="math notranslate nohighlight">
 \[\hat{\delta}=\operatorname{argmax} \sum_{i=1}^{m} w^{(i)}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\omega\)</span> is given by</p>
@@ -776,7 +797,7 @@ h(x) = \varphi \left( \vartheta^{\top} x \right) = \frac{1}{1+e^{-\vartheta^{\to
 <p>where</p>
 <div class="math notranslate nohighlight">
 \[\varphi(x)=\frac{1}{1+e^{-x}}=\frac{1}{2}\left(1+\tanh\frac{x}{2}\right)\]</div>
-<p>is the logistic function, or also called the sigmoid function.</p>
+<p>is the logistic function, also called the sigmoid function.</p>
 <div style="text-align:center">
     <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Logistic-curve.svg" alt="drawing" width="400"/>
 </div>
@@ -818,7 +839,7 @@ l(\vartheta)=\log L(\vartheta)=\sum_{i=1}^{m}\left(y^{(i)} \log h\left(x^{(i)}\r
 \end{align}\end{split}\]</div>
 <div class="math notranslate nohighlight">
 \[\Rightarrow \vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\alpha \left( y^{(i)}-h(x^{(i)}) \right) x_j^{(i)}\]</div>
-<p>which we can then solve with either batch gradient descent, or stochastic gradient descent.</p>
+<p>which we can then solve with either batch gradient descent or stochastic gradient descent.</p>
 <blockquote>
 <div><p>The algorithm formally associated with the least squares method for logistic regression is slightly different!</p>
 </div></blockquote>
@@ -827,14 +848,12 @@ l(\vartheta)=\log L(\vartheta)=\sum_{i=1}^{m}\left(y^{(i)} \log h\left(x^{(i)}\r
 \[\vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}\left(\left.\frac{\partial^{2} \ell}{\partial \vartheta_{i} \partial \vartheta_{j}}\right|^{(k)}\right)^{-1} \frac{\partial l}{\partial \vartheta_{j}}\]</div>
 <p>Newton’s method converges quadratically, and our problem class is sufficiently smooth for Newton’s method to be applicable. The downside to this approach is that we have to compute the inverse Hessian matrix, which is an expensive computational operation.</p>
 <p><strong>Exercise: Vanilla Indicator</strong></p>
-<p>Using the “vanilla” indicator function instead of the sigmoid:
-$<span class="math notranslate nohighlight">\(
+<p>Using the “vanilla” indicator function instead of the sigmoid:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
 g(x)= \begin{cases}1, &amp; x \geqslant 0 \\ 0, &amp; x&lt;0\end{cases}
-\)</span>$
-derive the update functions for the gradient methods, as well as the Maximum Likelihood Estimator approach.</p>
-<!--
-## Sufficient Statistics
--->
+\end{split}\]</div>
+<p>derive the update functions for the gradient methods, as well as the Maximum Likelihood Estimator approach.</p>
 </section>
 <section id="exponential-family">
 <h2>Exponential Family<a class="headerlink" href="#exponential-family" title="Permalink to this headline">#</a></h2>
@@ -847,7 +866,7 @@ derive the update functions for the gradient methods, as well as the Maximum Lik
 <li><p>Poisson</p></li>
 <li><p>Beta</p></li>
 </ul>
-<p>At their core members of the exponential family all fit the same general probability distribution form</p>
+<p>At their core, members of the exponential family all fit the same general probability distribution form</p>
 <div class="math notranslate nohighlight">
 \[p(x|\eta) = h(x) \exp \left\{ \eta^{\top} t(x) - a(\eta) \right\}\]</div>
 <p>where the individual components are</p>
@@ -879,7 +898,7 @@ derive the update functions for the gradient methods, as well as the Maximum Lik
 \[a(\eta) = \frac{\mu^{2}}{2 \sigma^{2}} + \log \sigma\]</div>
 <div class="math notranslate nohighlight">
 \[h(x) = \frac{1}{\sqrt{2 \pi}}\]</div>
-<p>For the sufficient statistics we then need to derive the derivative of the log normalizer, i.e</p>
+<p>For the sufficient statistics, we then need to derive the derivative of the log normalizer, i.e</p>
 <div class="math notranslate nohighlight">
 \[\frac{d}{d\eta}a(\eta) = \mathbb{E}\left[ t(X) \right]\]</div>
 <p>Which yields</p>
@@ -899,12 +918,12 @@ derive the update functions for the gradient methods, as well as the Maximum Lik
 <li><p>Uncertainty over parameters -&gt; treatment as random variables</p></li>
 <li><p>A probability over a parameter essentially expresses a degree of belief</p></li>
 <li><p>Inference over parameters using rules of probability</p></li>
-<li><p>We combine the prior knowledge, and the observed data with Bayes’ theorem</p></li>
+<li><p>We combine the prior knowledge and the observed data with Bayes’ theorem</p></li>
 </ul>
 <blockquote>
 <div><p>Refresher - Bayes’ theorem is given by <span class="math notranslate nohighlight">\(\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\)</span></p>
 </div></blockquote>
-<p>So what we are interested in is the <strong>posterior</strong> distribution over our parameters, which can be found using Bayes’ theorem. While this may at first glance look straightforward, and holds for the <strong>unscaled posterior</strong> i.e the distribution which has not been normalized for by dividing by <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>, obtaining the scaled posterior is much much harder due to the difficulty in computing the divisor <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>. To evaluate this divisor we draw on Monte Carlo sampling.</p>
+<p>So what we are interested in is the <strong>posterior</strong> distribution over our parameters, which can be found using Bayes’ theorem. While this may at first glance look straightforward, and holds for the <strong>unscaled posterior</strong> i.e the distribution which has not been normalized by dividing by <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>, obtaining the scaled posterior is much much harder due to the difficulty in computing the divisor <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>. To evaluate this divisor we draw on Monte Carlo sampling.</p>
 <blockquote>
 <div><p>What is a <em>scaled posterior</em>? A scaled posterior is a distribution whose integral over the entire distribution evaluates to 1.</p>
 </div></blockquote>
@@ -925,18 +944,19 @@ derive the update functions for the gradient methods, as well as the Maximum Lik
 <ol class="simple">
 <li><p>Generate i.i.d. random samples <span class="math notranslate nohighlight">\(\mathbf{x}^{(i)}\in \mathbb{R}^d, \; i=1,2,...,N\)</span> from the density <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span>.</p></li>
 <li><p>Evaluate <span class="math notranslate nohighlight">\(h^{(i)}=h(\mathbf{x}^{(i)}), \; \forall i\)</span>.</p></li>
-<li><p>Approximate
-$<span class="math notranslate nohighlight">\(E[h(\mathbf{x})]\approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}\)</span>$</p></li>
+<li><p>Approximate</p></li>
 </ol>
+<div class="math notranslate nohighlight">
+\[E[h(\mathbf{x})]\approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}\]</div>
 <hr class="docutils" />
-<p>Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages to us:</p>
+<p>Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:</p>
 <ul class="simple">
 <li><p>Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)</p></li>
-<li><p>Sensitivity analysis of the model becomes more easy.</p></li>
+<li><p>Sensitivity analysis of the model becomes easier.</p></li>
 </ul>
 <section id="acceptance-rejection-sampling">
 <h4>Acceptance-Rejection Sampling<a class="headerlink" href="#acceptance-rejection-sampling" title="Permalink to this headline">#</a></h4>
-<p>Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. <em>The acceptance rejection algorithm is specially made for this scenario.</em> The acceptance rejection algorithm draws random samples from an easily sampable starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the candidate distribution <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span> has to dominate the posterior distribution, i.e. there must exist an <span class="math notranslate nohighlight">\(M\)</span> s.t.</p>
+<p>Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. <em>The acceptance-rejection algorithm is specially made for this scenario.</em> The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the candidate distribution <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span> has to dominate the posterior distribution, i.e. there must exist an <span class="math notranslate nohighlight">\(M\)</span> s.t.</p>
 <div class="math notranslate nohighlight">
 \[M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta\]</div>
 <p>Taking an example candidate density for an unscaled target as an example to show the “dominance” of the candidate distribution over the posterior distribution.</p>
@@ -948,8 +968,11 @@ $<span class="math notranslate nohighlight">\(E[h(\mathbf{x})]\approx \frac{1}{N
 <li><p>Draw a random sample of size <span class="math notranslate nohighlight">\(N\)</span> from the candidate distribution <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span>.</p></li>
 <li><p>Calculate the value of the unscaled target density at each random sample.</p></li>
 <li><p>Calculate the candidate density at each random sample, and multiply by <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
-<li><p>Compute the weights for each random sample
-$<span class="math notranslate nohighlight">\( w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}\)</span>$</p></li>
+<li><p>Compute the weights for each random sample</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}\]</div>
+<ol class="simple">
 <li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> samples from the <span class="math notranslate nohighlight">\(U(0, 1)\)</span> uniform distribution.</p></li>
 <li><p>If <span class="math notranslate nohighlight">\(u_{i} &lt; w_{i}\)</span> accept <span class="math notranslate nohighlight">\(\theta_{i}\)</span></p></li>
 </ol>
@@ -991,10 +1014,28 @@ $<span class="math notranslate nohighlight">\( w_{i} = \frac{g(\theta_{i}) \time
 <ol class="simple">
 <li><p>Construct an upper bound from piecewise exponential functions, which dominate the log-concave unscaled posterior</p></li>
 <li><p>With the envelope giving us the initial candidate density we draw <span class="math notranslate nohighlight">\(N\)</span> random samples</p></li>
-<li><p>Rejection sampling, see preceding two subsub-sections for details.</p></li>
+<li><p>Rejection sampling, see the preceding two subsections for details.</p></li>
 <li><p>If rejected, add another exponential piece which is tangent to the target density.</p></li>
 </ol>
-<p>As all three presented sampling approaches have their limitations, practicioners tend to rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings. In summary:</p>
+<p>As all three presented sampling approaches have their limitations, practitioners tend to rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.</p>
+</section>
+<section id="markov-chain-monte-carlo">
+<h4>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="Permalink to this headline">#</a></h4>
+<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct  an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(x_{next}|x_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
+<p><strong>Metropolis-Hastings</strong></p>
+<p>The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This is done by following the algorithm:</p>
+<ol class="simple">
+<li><p>Start at an initial point <span class="math notranslate nohighlight">\(\theta_{current} = \theta^0\)</span>.</p></li>
+<li><p>Sample <span class="math notranslate nohighlight">\(\theta' \sim q(\theta_{next}|\theta_{current})\)</span></p></li>
+<li><p>Compute
+$<span class="math notranslate nohighlight">\(\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}\)</span>$</p></li>
+<li><p>Sample <span class="math notranslate nohighlight">\(u\sim \text{Uniform}(0,1)\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\alpha &gt; u\)</span>, then <span class="math notranslate nohighlight">\(\theta_{current} = \theta'\)</span>, else <span class="math notranslate nohighlight">\(\theta_{current} = \theta_{current}\)</span></p></li>
+<li><p>Repeat <span class="math notranslate nohighlight">\(N\)</span> times from step 1.</p></li>
+</ol>
+<p>A special choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is for example the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algirhtm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm. For more information, refer to <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4757-4145-2">Monte Carlo Statistical Methods</a> by Rober &amp; Casella.</p>
+<hr class="docutils" />
+<p>In summary:</p>
 <ul class="simple">
 <li><p>The unscaled posterior <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span> contains the <em>shape information</em> of the posterior</p></li>
 <li><p>For the true posterior, the unscaled posterior needs to be divided by an integral over the whole parameter space.</p></li>
@@ -1004,7 +1045,7 @@ $<span class="math notranslate nohighlight">\( w_{i} = \frac{g(\theta_{i}) \time
 </section>
 <section id="id1">
 <h3>Bayesian Inference<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
-<p>In the Bayesian framework everything centers around the posterior distribution and our ability to relate our previous knowledge with newly gained evidence to the next stage of our belief (of a probability distribution). With the posterior being our entire inference about the parameters given the data there exist multiple inference approaches with their roots in frequentist statistics.</p>
+<p>In the Bayesian framework, everything centers around the posterior distribution and our ability to relate our previous knowledge with newly gained evidence to the next stage of our belief (of a probability distribution). With the posterior being our entire inference about the parameters given the data there exist multiple inference approaches with their roots in frequentist statistics.</p>
 <section id="bayesian-point-estimation">
 <h4>Bayesian Point Estimation<a class="headerlink" href="#bayesian-point-estimation" title="Permalink to this headline">#</a></h4>
 <p>Bayesian point estimation chooses a single value to represent the entire posterior distribution. Potential choices here are locations like the posterior mean, and posterior median. For the posterior mean squared error, the posterior mean is then the first moment of the posterior distribution</p>
@@ -1024,7 +1065,7 @@ $<span class="math notranslate nohighlight">\( w_{i} = \frac{g(\theta_{i}) \time
 </section>
 <section id="bayesian-interval-estimation">
 <h4>Bayesian Interval Estimation<a class="headerlink" href="#bayesian-interval-estimation" title="Permalink to this headline">#</a></h4>
-<p>Another type of Bayesian inference is the one in which we seek to find an interval which with a pre-determined probability contains the true value. In Bayesian statistics these are called credible intervals. Finding the interval with equal tail areas to both sides <span class="math notranslate nohighlight">\((\theta_{l}, \theta_{u})\)</span>, and which has the probability to contain the true value of the parameter, i.e.</p>
+<p>Another type of Bayesian inference is the one in which we seek to find an interval that, with a pre-determined probability, contains the true value. In Bayesian statistics, these are called credible intervals. Finding the interval with equal tail areas to both sides <span class="math notranslate nohighlight">\((\theta_{l}, \theta_{u})\)</span>, and which has the probability to contain the true value of the parameter, i.e.</p>
 <div class="math notranslate nohighlight">
 \[\int_{-\infty}^{\theta_{l}} g(\theta | y_{1}, \ldots, y_{n}) d\theta = \frac{\alpha}{2}\]</div>
 <div class="math notranslate nohighlight">
@@ -1050,7 +1091,7 @@ Blubba blub
 </section>
 <section id="bayesian-inference-from-a-posterior-random-sample">
 <h4>Bayesian Inference from a Posterior Random Sample<a class="headerlink" href="#bayesian-inference-from-a-posterior-random-sample" title="Permalink to this headline">#</a></h4>
-<p>When we only have a random sample from the posterior instead of the approximation, we are still able to apply the exact same techniques, but just applying them to the posterior sample.</p>
+<p>When we only have a random sample from the posterior instead of the approximation, we are still able to apply the same techniques, but just apply them to the posterior sample.</p>
 <p>With our rudimentary approximations of the denominator by sampling from the posterior. This only constitutes an approximation, but given the sampling budget, this approximation can be made as accurate as desired. In summary Bayesian inference can be condensed to the following main take-home knowledge:</p>
 <ul class="simple">
 <li><p>The posterior distribution is the current summary of beliefs about the parameter in the Bayesian framework.</p></li>
@@ -1088,7 +1129,7 @@ Blubba blub
 </section>
 <section id="bayesian-linear-regression">
 <h3>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this headline">#</a></h3>
-<p>To now introduce the Bayesian approach to linear regression we have to make the assumption that we already know the variance <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>, so the posterior which we actually compute at that point is</p>
+<p>To now introduce the Bayesian approach to linear regression we have to assume that we already know the variance <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>, so the posterior which we actually compute at that point is</p>
 <div class="math notranslate nohighlight">
 \[p(\omega | \mathcal{D}, \sigma^{2})\]</div>
 <p>If we then take a Gaussian distribution as our prior distribution <span class="math notranslate nohighlight">\(p(\omega)\)</span></p>
@@ -1097,14 +1138,14 @@ Blubba blub
 <p>Then we can write down the likelihood as a Multivariate-Normal distribution.</p>
 <div class="math notranslate nohighlight">
 \[p(\mathcal{D} | \omega, \sigma^{2}) = \prod_{n=1}^{N}p(y_{n}|{\bf{\omega^{\top}}}{\bf{x}}, \sigma^{2}) = \mathcal{N}({\bf{y}} | {\bf{X} \bf{\omega}}, \sigma^{2} {\bf{I}}_{N})\]</div>
-<p>The posterior can then be analytically derived using Bayes rule for Gaussians (see <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>, eq. 3.37)</p>
+<p>The posterior can then be analytically derived using Bayes’ rule for Gaussians (see <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>, eq. 3.37)</p>
 <div class="math notranslate nohighlight">
 \[p({\bf{\omega}} | {\bf{X}}, {\bf{y}}, \sigma^{2}) \propto \mathcal{N}(\omega | \breve{\omega}, \breve{\Sigma}) \mathcal{N}({\bf{y}} | {\bf{X} \bf{\omega}}, \sigma^{2} {\bf{I}}_{N}) = \mathcal{N}({\bf{\omega}} | {\bf{\hat{\omega}}}, {\bf{\hat{\Sigma}}}) \]</div>
 <div class="math notranslate nohighlight">
 \[{\bf{\hat{\omega}}} \equiv {\bf{\hat{\Sigma}}} \left( {\bf{\breve{\Sigma}}}^{-1} {\bf{\breve{\omega}}} + \frac{1}{\sigma^{2}} {\bf{X^{\top} y}}  \right)\]</div>
 <div class="math notranslate nohighlight">
 \[{\bf{\hat{\Sigma}}} \equiv \left( {\bf{\breve{\Sigma}}}^{-1} + \frac{1}{\sigma^{2}} {\bf{X^{\top} X}} \right)^{-1}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\hat{\omega}\)</span> is the posterior mean, and <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> is the posterior covariance. A good visual example for this is the sequential Bayesian inference on a linear regression model:</p>
+<p>where <span class="math notranslate nohighlight">\(\hat{\omega}\)</span> is the posterior mean, and <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> is the posterior covariance. A good visual example of this is the sequential Bayesian inference on a linear regression model:</p>
 <center>
 <img src = "https://i.imgur.com/87em7Vz.png" width = "550"></center>
 <p>(Source, <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
@@ -1115,8 +1156,8 @@ Blubba blub
 <p>Let’s consider the setup we have encountered so far in which we have labels <span class="math notranslate nohighlight">\(x\)</span>, hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span>, and seek to predict labels <span class="math notranslate nohighlight">\(y\)</span>. Probabilistically expressed this amounts to <span class="math notranslate nohighlight">\(p(y|x, \theta)\)</span>. Then the posterior is defined as <span class="math notranslate nohighlight">\(p(\theta| \mathcal{D})\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is our labeled dataset</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{D} = \left\{ (x_{n}, y_{n}):n=1:N \right\}\]</div>
-<p>Applying the previously discussed Bayesian approaches to these problems, and the respective model parameters is called <strong>Bayesian Machine Learning</strong>.</p>
-<p>While we loose computational efficiency at first glance, as we have to perform a sampling-based inference procedure, what we gain is a principled approach to discuss uncertainties within our model. This can help us most especially when we move in the <em>small-data limit</em>, where we can not realistically expect our model to converge. See e.g. below a Bayesian logistic regression example in which the posterior distribution is visualized.</p>
+<p>Applying the previously discussed Bayesian approaches to these problems, and the respective model parameters, are called <strong>Bayesian Machine Learning</strong>.</p>
+<p>While we lose computational efficiency at first glance, as we have to perform a sampling-based inference procedure, what we gain is a principled approach to discuss uncertainties within our model. This can help us most especially when we move in the <em>small-data limit</em>, where we can not realistically expect our model to converge. See e.g. below a Bayesian logistic regression example in which the posterior distribution is visualized.</p>
 <center>
 <img src = "https://i.imgur.com/AfikBRy.png" width = "550"></center>
 <p>(Source: <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
@@ -1134,7 +1175,7 @@ There exist a wide number of references to the herein presented Bayesian approac
 <li><p><a class="reference external" href="http://pyro.ai/examples/intro_long.html">Introduction to Pyro</a></p></li>
 <li><p><a class="reference external" href="https://m-clark.github.io/bayesian-basics/example.html#posterior-predictive">A Practical Example with Stan</a></p></li>
 </ul>
-<p>In addition there exists highly curated didactic material from Michel Betancourt:</p>
+<p>In addition, there exists highly curated didactic material from Michel Betancourt:</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://betanalpha.github.io/assets/case_studies/sampling.html">Sampling</a>: Section 3, 4, and 5</p></li>
 <li><p><a class="reference external" href="https://betanalpha.github.io/assets/case_studies/principled_bayesian_workflow.html">Towards a Principled Bayesian Workflow</a></p></li>
