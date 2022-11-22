@@ -448,7 +448,7 @@ Using the tangent method our algorithm then takes the following form:
 As all three presented sampling approaches have their limitations, practitioners tend to rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.
 #### Markov Chain Monte Carlo
 
-The idea of Markov Chain Monte Carlo (MCMC) is to construct  an ergodic Markov chain of samples $\{\theta^0, \theta^1, ...,\theta^N\}$ distributed according to the posterior distribution $g(\theta|y)$. This chain evolves according to a transition kernel given by $q(x_{next}|x_{current})$. Let's look at one of the most popular MCMC algorithms: Metropolis Hastings
+The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples $\{\theta^0, \theta^1, ...,\theta^N\}$ distributed according to the posterior distribution $g(\theta|y)$. This chain evolves according to a transition kernel given by $q(x_{next}|x_{current})$. Let's look at one of the most popular MCMC algorithms: Metropolis Hastings
 
 **Metropolis-Hastings**
 
@@ -462,7 +462,7 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
 4. If $\alpha > u$, then $\theta_{current} = \theta'$, else $\theta_{current} = \theta_{current}$
 5. Repeat $N$ times from step 1.
 
-A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algirhtm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm. For more information, refer to [Monte Carlo Statistical Methods](https://link.springer.com/book/10.1007/978-1-4757-4145-2) by Rober & Casella.
+A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm. For more information, refer to [Monte Carlo Statistical Methods](https://link.springer.com/book/10.1007/978-1-4757-4145-2) by Rober & Casella.
 
 
 --- 

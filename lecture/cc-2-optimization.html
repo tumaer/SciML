@@ -830,10 +830,9 @@ vis.ensmallen.org
 </div>
 <p>(Source: <a class="reference external" href="https://mlstory.org/optimization.html">mlstory</a>)</p>
 <p>then we see that to find the global/local minimum gradient descent, an approach that we already encountered in high-school curve analysis, is best suited. While being the obvious choice for the two cases on the left, the picture becomes a little muddier in the example on the right.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes <span class="math notranslate nohighlight">\(J \rightarrow f\)</span> and the variable <span class="math notranslate nohighlight">\(\vartheta \rightarrow x\)</span>. Don’t confuse this <span class="math notranslate nohighlight">\(x\)</span> with the input measurements <span class="math notranslate nohighlight">\(\{x^{(i)},y^{(i)}\}_{i=0,...,m}\)</span>.</p>
-</div>
+<blockquote>
+<div><p>Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes <span class="math notranslate nohighlight">\(J \rightarrow f\)</span> and the variable <span class="math notranslate nohighlight">\(\vartheta \rightarrow x\)</span>. Don’t confuse this <span class="math notranslate nohighlight">\(x\)</span> with the input measurements <span class="math notranslate nohighlight">\(\{x^{(i)},y^{(i)}\}_{i=0,...,m}\)</span>.</p>
+</div></blockquote>
 <section id="gradient-descent">
 <h3>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this headline">#</a></h3>
 <p>While the foundational concept, gradient descent is rarely used in its pure form, but mostly in its stochastic form these days. If we first consider it in its most foundational form in 1-dimension, then we can take a function <span class="math notranslate nohighlight">\(f\)</span>, and Taylor-expand it</p>
@@ -905,7 +904,7 @@ vis.ensmallen.org
 \[\sum_{\tau=0}^{\infty} \beta^{\tau} = \frac{1}{1 - \beta}\]</div>
 <p>Hence using the momentum GD results in a step size <span class="math notranslate nohighlight">\(\frac{\eta}{1 - \beta}\)</span>, which at the same time gives us much better gradient descent directions to follow to minimize our objective function.</p>
 <div style="text-align:center">
-    <img src="../imgs/output_momentum.svg" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/dX4hdUq.png" alt="drawing" width="400"/>
 </div>
 <p>(Source: <a class="reference external" href="https://d2l.ai/chapter_optimization/momentum.html">d2l.ai</a>)</p>
 </section>
@@ -932,8 +931,8 @@ vis.ensmallen.org
 </div></blockquote>
 <p>If the momentum GD algorithm can be understood as a ball rolling down a hill, the Adam algorithm behaves like a ball with friction (see <a class="reference external" href="https://proceedings.neurips.cc/paper/2017/file/8a1d694707eb0fefe65871369074926d-Paper.pdf">GANs Trained by a Two Time-Scale Update Rule
 Converge to a Local Nash Equilibrium</a>).</p>
-<p><img alt="Optimization" src="https://github.com/Jaewan-Yun/optimizer-visualization/blob/master/figures/movie11.gif" />
-(Source: <a class="reference external" href="https://github.com/Jaewan-Yun/optimizer-visualization">github.com/Jaewan-Yun/optimizer-visualization</a>)</p>
+<p><img alt="Optimization" src="../_images/movie11.gif" /></p>
+<p>(Source: <a class="reference external" href="https://github.com/Jaewan-Yun/optimizer-visualization">github.com/Jaewan-Yun/optimizer-visualization</a>)</p>
 </section>
 <section id="stochastic-gradient-descent">
 <h3>Stochastic Gradient Descent<a class="headerlink" href="#stochastic-gradient-descent" title="Permalink to this headline">#</a></h3>
@@ -1125,7 +1124,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 <p>where <span class="math notranslate nohighlight">\(nbr\)</span> is the neighborhood of the point <span class="math notranslate nohighlight">\(x_{t}\)</span>. This approach is also colloquially known as hill climbing, steepest ascent, or greedy search. In stochastic local search, we would then define a probability distribution over the uphill neighbors proportional to how much they improve our function and then sample at random. A second stochastic option is to start again from a different random starting point whenever we reach a local maximum. This approach is known as random restart hill climbing.</p>
 <p>An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate <span class="math notranslate nohighlight">\(x_{t+1}\)</span> is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">J. Bergstra &amp; Y. Bengio, 20212</a>), is the grid search, which chooses hyperparameters equidistantly in the same range used for grid search.</p>
 <div style="text-align:center">
-    <img src="../imgs/grid and random search.png" alt="drawing" width="600"/>
+    <img src="https://i.imgur.com/EMvUMXA.png" alt="drawing" width="600"/>
 </div>
 <p>(Source: <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">Random Search for Hyper-Parameter Optimization</a>)</p>
 <p>If instead of throwing away our “old” good candidates keep them in a <em>population</em> of good candidates, then we arrive at <em>evolutionary algorithms</em>. Here we maintain a population of <span class="math notranslate nohighlight">\(K\)</span> good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.</p>
@@ -1133,10 +1132,9 @@ Converge to a Local Nash Equilibrium</a>).</p>
 <section id="tricks-of-optimization">
 <h2>Tricks of Optimization<a class="headerlink" href="#tricks-of-optimization" title="Permalink to this headline">#</a></h2>
 <p>This is a collection of practical tools for designing and optimizing machine learning models.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Notation alert: In this sebsection, we switch back to the notation used in Chapter 1, i.e. <span class="math notranslate nohighlight">\(x\)</span> is the x-axis, <span class="math notranslate nohighlight">\(y\)</span> are measurements on the y-axis, <span class="math notranslate nohighlight">\(h(x)\)</span> is the model evaluated at <span class="math notranslate nohighlight">\(x\)</span>, and <span class="math notranslate nohighlight">\(J\)</span> the loss.</p>
-</div>
+<blockquote>
+<div><p>Notation alert: In this sebsection, we switch back to the notation used in Chapter 1, i.e. <span class="math notranslate nohighlight">\(x\)</span> is the x-axis, <span class="math notranslate nohighlight">\(y\)</span> are measurements on the y-axis, <span class="math notranslate nohighlight">\(h(x)\)</span> is the model evaluated at <span class="math notranslate nohighlight">\(x\)</span>, and <span class="math notranslate nohighlight">\(J\)</span> the loss.</p>
+</div></blockquote>
 <p><strong>Linear Regression (revised)</strong></p>
 <p>Looking back to <a class="reference internal" href="cc-1-linear.html"><span class="doc std std-doc">Chapter 1</span></a>, the simplest linear model for <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> is</p>
 <div class="math notranslate nohighlight">
@@ -1157,7 +1155,7 @@ h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...
 <h3>Overfitting vs Underfitting<a class="headerlink" href="#overfitting-vs-underfitting" title="Permalink to this headline">#</a></h3>
 <p>Dealing with real-world data containing measurement noise, we run either in over- or underfitting, depending on the choice of such basis functions. Looking at the figure below, the left regression example corresponds to <span class="math notranslate nohighlight">\(h(x) = \vartheta_0 + \vartheta_1 \cdot x\)</span> and the left classification example corresponds to logistic regression.</p>
 <div style="text-align:center">
-    <img src="../imgs/over- and underfitting table.png" alt="drawing" width="600"/>
+    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
 </div>
 <p>(Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</p>
 <section id="bias-variance-tradeoff">
@@ -1170,7 +1168,7 @@ h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...
 </ul>
 <p>In the figure below, each point corresponds to the prediction of a model trained on a different dataset.</p>
 <div style="text-align:center">
-    <img src="../imgs/bias-variance bulls-eye.png" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/Y2IscaH.png" alt="drawing" width="400"/>
 </div>
 <p>(Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</p>
 <p>Mathematically, the Bias-Variance decomposition relies on a decomposition of the expected loss. The assumption is that there is a true underlying relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> given by <span class="math notranslate nohighlight">\(y=\tilde{h}(x)+\epsilon\)</span> where the noise <span class="math notranslate nohighlight">\(\epsilon\)</span> is normally distributed, i.e. <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0,\sigma_{\epsilon})\)</span>. We try to approximate <span class="math notranslate nohighlight">\(\tilde{h}\)</span> by our model <span class="math notranslate nohighlight">\(h\)</span> which results in the error</p>
@@ -1184,7 +1182,7 @@ J_{\vartheta}(x) &amp;= \left(E[h(x)]-\tilde{h}(x)\right)^2 + E\left[(h(x)-E[h(x
 \end{align}
 \end{split}\]</div>
 <div style="text-align:center">
-    <img src="../imgs/bias-variance tradeoff vs model complexity.png" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/Pm1otyT.png" alt="drawing" width="400"/>
 </div>
 <p>(Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</p>
 <p>Given the true model and enough data to calibrate it, we should be able to reduce both the bias and variance terms to zero. However, working with imperfect models and limited data, we strive for an optimum in terms of model choice.</p>
@@ -1194,7 +1192,7 @@ J_{\vartheta}(x) &amp;= \left(E[h(x)]-\tilde{h}(x)\right)^2 + E\left[(h(x)-E[h(x
 <p>In recent years, machine learning models have been growing extremely large, e.g. GPT-3 175B parameters. An empirical observation that has been studied by [M. Belkin et al. 2019](More data can hurt for linear regression: Sample-wise
 double descent) demonstrates that contrary to the theory behind the bias-variance tradeoff if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications, this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with <a class="reference external" href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a> of R. Sutton.</p>
 <div style="text-align:center">
-    <img src="../imgs/double descent.png" alt="drawing" width="500"/>
+    <img src="https://i.imgur.com/CFdVvIq.png" alt="drawing" width="500"/>
 </div>
 <p>(Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</p>
 <p>In contrast to linear models, almost all such functions result in a non-convex loss surface w.r.t. the parameters <span class="math notranslate nohighlight">\(\vartheta\)</span>.</p>
@@ -1210,7 +1208,7 @@ double descent) demonstrates that contrary to the theory behind the bias-varianc
 </ul>
 <p>Given that the dataset is large enough, typical splits for training/validation/testing data are 80/10/10 up to 60/20/20. If data is very limited, we have a very different problem and we might not want to sacrifice separate data for validation. Then we would use Cross Validation, which is explained later in this chapter.</p>
 <div style="text-align:center">
-    <img src="../imgs/data splitting.png" alt="drawing" width="600"/>
+    <img src="https://i.imgur.com/9xHVNt9.png" alt="drawing" width="600"/>
 </div>
 <p>(Source: <a class="reference external" href="https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6">Train/Test Split and Cross Validation in Python</a>)</p>
 <section id="cross-validation">
@@ -1272,10 +1270,10 @@ double descent) demonstrates that contrary to the theory behind the bias-varianc
 <p>A hyperparameter is a parameter that controls other parameters. We typically cannot afford to train hyperparameters with gradient-based methods and resort to DFO methods (see above).</p>
 <p>One of the most important hyperparameters in 1st order gradient-based optimization is the learning rate <span class="math notranslate nohighlight">\(\eta\)</span>. We typically tune the learning rate by looking at the so-called training curves. To see the impact of different values of the learning rate on the <strong>validation</strong> loss, look at the following figure.</p>
 <div style="text-align:center">
-    <img src="../imgs/loss curve vs lr.png" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/2NVKmG8.png" alt="drawing" width="400"/>
 </div>
 <p>(Source: <a class="reference external" href="https://cs231n.github.io/neural-networks-3/">CS231n CNNs for Visual Recognition</a>)</p>
-<p>Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD, etc.. You will see many of them related to each model later in the lecture.</p>
+<p>Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD, etc. You will see many of them related to each model later in the lecture.</p>
 </section>
 <section id="learning-rate-scheduling">
 <h3>Learning Rate Scheduling<a class="headerlink" href="#learning-rate-scheduling" title="Permalink to this headline">#</a></h3>
@@ -1303,9 +1301,9 @@ double descent) demonstrates that contrary to the theory behind the bias-varianc
 <h3>Recipe for Machine Learning<a class="headerlink" href="#recipe-for-machine-learning" title="Permalink to this headline">#</a></h3>
 <p>If you are wondering how all of that fits together, Andrew Ng suggests this general workflow:</p>
 <div style="text-align:center">
-    <img src="../imgs/recipe for ML.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf">Nuts and Bolts of Building Applications using Deep Learning</a>)</p>
+    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="500"/>
+</div> 
+<p>Source: <a class="reference external" href="https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf">Nuts and Bolts of Building Applications using Deep Learning</a></p>
 <p>And a practical advice from <a class="reference external" href="http://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Niessner</a> at TUM is to:</p>
 <ol class="simple">
 <li><p>Train the model on 1 data point to essentially learn it by heart. This way you prove that the model and output work correctly.</p></li>

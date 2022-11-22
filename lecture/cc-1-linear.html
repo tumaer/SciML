@@ -1021,7 +1021,7 @@ g(x)= \begin{cases}1, &amp; x \geqslant 0 \\ 0, &amp; x&lt;0\end{cases}
 </section>
 <section id="markov-chain-monte-carlo">
 <h4>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="Permalink to this headline">#</a></h4>
-<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct  an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(x_{next}|x_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
+<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(x_{next}|x_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
 <p><strong>Metropolis-Hastings</strong></p>
 <p>The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This is done by following the algorithm:</p>
 <ol class="simple">
@@ -1033,7 +1033,7 @@ $<span class="math notranslate nohighlight">\(\alpha = min \left\{ 1, \frac{g(\t
 <li><p>If <span class="math notranslate nohighlight">\(\alpha &gt; u\)</span>, then <span class="math notranslate nohighlight">\(\theta_{current} = \theta'\)</span>, else <span class="math notranslate nohighlight">\(\theta_{current} = \theta_{current}\)</span></p></li>
 <li><p>Repeat <span class="math notranslate nohighlight">\(N\)</span> times from step 1.</p></li>
 </ol>
-<p>A special choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is for example the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algirhtm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm. For more information, refer to <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4757-4145-2">Monte Carlo Statistical Methods</a> by Rober &amp; Casella.</p>
+<p>A special choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is for example the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm. For more information, refer to <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4757-4145-2">Monte Carlo Statistical Methods</a> by Rober &amp; Casella.</p>
 <hr class="docutils" />
 <p>In summary:</p>
 <ul class="simple">
