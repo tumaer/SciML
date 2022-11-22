@@ -96,9 +96,7 @@ If we now consider the following, highly simplified, objective functions which w
 
 then we see that to find the global/local minimum gradient descent, an approach that we already encountered in high-school curve analysis, is best suited. While being the obvious choice for the two cases on the left, the picture becomes a little muddier in the example on the right. 
 
-```{note}
-Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes $J \rightarrow f$ and the variable $\vartheta \rightarrow x$. Don't confuse this $x$ with the input measurements $\{x^{(i)},y^{(i)}\}_{i=0,...,m}$.
-```
+> Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes $J \rightarrow f$ and the variable $\vartheta \rightarrow x$. Don't confuse this $x$ with the input measurements $\{x^{(i)},y^{(i)}\}_{i=0,...,m}$.
 
 ### Gradient Descent
 
@@ -201,7 +199,7 @@ $$\sum_{\tau=0}^{\infty} \beta^{\tau} = \frac{1}{1 - \beta}$$
 Hence using the momentum GD results in a step size $\frac{\eta}{1 - \beta}$, which at the same time gives us much better gradient descent directions to follow to minimize our objective function.
 
 <div style="text-align:center">
-    <img src="../imgs/output_momentum.svg" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/dX4hdUq.png" alt="drawing" width="400"/>
 </div>
 
 (Source: [d2l.ai](https://d2l.ai/chapter_optimization/momentum.html))
@@ -232,8 +230,10 @@ If the momentum GD algorithm can be understood as a ball rolling down a hill, th
 Converge to a Local Nash Equilibrium](https://proceedings.neurips.cc/paper/2017/file/8a1d694707eb0fefe65871369074926d-Paper.pdf)).
 
 
-![Optimization](https://github.com/Jaewan-Yun/optimizer-visualization/blob/master/figures/movie11.gif)
+![Optimization](../imgs/movie11.gif)
+
 (Source: [github.com/Jaewan-Yun/optimizer-visualization](https://github.com/Jaewan-Yun/optimizer-visualization))
+
 
 
 ### Stochastic Gradient Descent
@@ -472,7 +472,7 @@ where $nbr$ is the neighborhood of the point $x_{t}$. This approach is also coll
 An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see [J. Bergstra & Y. Bengio, 20212](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)), is the grid search, which chooses hyperparameters equidistantly in the same range used for grid search.
 
 <div style="text-align:center">
-    <img src="../imgs/grid and random search.png" alt="drawing" width="600"/>
+    <img src="https://i.imgur.com/EMvUMXA.png" alt="drawing" width="600"/>
 </div>
 
 (Source: [Random Search for Hyper-Parameter Optimization](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf))
@@ -486,9 +486,7 @@ If instead of throwing away our "old" good candidates keep them in a _population
 
 This is a collection of practical tools for designing and optimizing machine learning models.
 
-```{note}
-Notation alert: In this sebsection, we switch back to the notation used in Chapter 1, i.e. $x$ is the x-axis, $y$ are measurements on the y-axis, $h(x)$ is the model evaluated at $x$, and $J$ the loss.
-```
+> Notation alert: In this sebsection, we switch back to the notation used in Chapter 1, i.e. $x$ is the x-axis, $y$ are measurements on the y-axis, $h(x)$ is the model evaluated at $x$, and $J$ the loss.
 
 **Linear Regression (revised)**
 
@@ -517,7 +515,7 @@ $$
 Dealing with real-world data containing measurement noise, we run either in over- or underfitting, depending on the choice of such basis functions. Looking at the figure below, the left regression example corresponds to $h(x) = \vartheta_0 + \vartheta_1 \cdot x$ and the left classification example corresponds to logistic regression.
 
 <div style="text-align:center">
-    <img src="../imgs/over- and underfitting table.png" alt="drawing" width="600"/>
+    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
 </div>
 
 (Source: [Techniques for handling underfitting and overfitting in Machine Learning](https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9))
@@ -535,7 +533,7 @@ Typically, over- and underfitting are analyzed through the lens of the bias-vari
 In the figure below, each point corresponds to the prediction of a model trained on a different dataset.
 
 <div style="text-align:center">
-    <img src="../imgs/bias-variance bulls-eye.png" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/Y2IscaH.png" alt="drawing" width="400"/>
 </div>
 
 (Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
@@ -553,7 +551,7 @@ J_{\vartheta}(x) &= \left(E[h(x)]-\tilde{h}(x)\right)^2 + E\left[(h(x)-E[h(x)])^
 $$
 
 <div style="text-align:center">
-    <img src="../imgs/bias-variance tradeoff vs model complexity.png" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/Pm1otyT.png" alt="drawing" width="400"/>
 </div>
 
 (Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
@@ -566,7 +564,7 @@ In recent years, machine learning models have been growing extremely large, e.g.
 double descent) demonstrates that contrary to the theory behind the bias-variance tradeoff if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications, this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) of R. Sutton.
 
 <div style="text-align:center">
-    <img src="../imgs/double descent.png" alt="drawing" width="500"/>
+    <img src="https://i.imgur.com/CFdVvIq.png" alt="drawing" width="500"/>
 </div>
 
 (Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
@@ -584,7 +582,7 @@ To train a machine learning model, we typically split the given data $\left\{x^{
 Given that the dataset is large enough, typical splits for training/validation/testing data are 80/10/10 up to 60/20/20. If data is very limited, we have a very different problem and we might not want to sacrifice separate data for validation. Then we would use Cross Validation, which is explained later in this chapter.
 
 <div style="text-align:center">
-    <img src="../imgs/data splitting.png" alt="drawing" width="600"/>
+    <img src="https://i.imgur.com/9xHVNt9.png" alt="drawing" width="600"/>
 </div>
 
 (Source: [Train/Test Split and Cross Validation in Python](https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6))
@@ -657,12 +655,12 @@ A hyperparameter is a parameter that controls other parameters. We typically can
 One of the most important hyperparameters in 1st order gradient-based optimization is the learning rate $\eta$. We typically tune the learning rate by looking at the so-called training curves. To see the impact of different values of the learning rate on the **validation** loss, look at the following figure.
 
 <div style="text-align:center">
-    <img src="../imgs/loss curve vs lr.png" alt="drawing" width="400"/>
+    <img src="https://i.imgur.com/2NVKmG8.png" alt="drawing" width="400"/>
 </div>
 
 (Source: [CS231n CNNs for Visual Recognition](https://cs231n.github.io/neural-networks-3/))
 
-Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD, etc.. You will see many of them related to each model later in the lecture.
+Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD, etc. You will see many of them related to each model later in the lecture.
 
 ### Learning Rate Scheduling
 
@@ -694,10 +692,10 @@ Which is much much nicer behaved!
 If you are wondering how all of that fits together, Andrew Ng suggests this general workflow:
 
 <div style="text-align:center">
-    <img src="../imgs/recipe for ML.png" alt="drawing" width="500"/>
-</div>
+    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="500"/>
+</div> 
 
-(Source: [Nuts and Bolts of Building Applications using Deep Learning](https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf))
+Source: [Nuts and Bolts of Building Applications using Deep Learning](https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf)
 
 And a practical advice from [Prof. Matthias Niessner](http://niessnerlab.org/members/matthias_niessner/profile.html) at TUM is to:
 
