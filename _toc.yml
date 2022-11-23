@@ -16,6 +16,7 @@ parts:
   chapters:
   - file: exercise/1_linReg_logReg.ipynb
   - file: exercise/2_BayesianInference.ipynb
+  - file: exercise/3_optimization.ipynb
 - caption: Miscellaneous
   chapters:
   - file: admin.md
