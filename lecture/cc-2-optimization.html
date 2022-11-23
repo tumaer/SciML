@@ -169,6 +169,11 @@ const thebe_selector_output = ".output, .cell_output"
    2. Bayesian Linear and Logistic Regression
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/3_optimization.html">
+   3. Optimization
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -916,7 +921,7 @@ vis.ensmallen.org
 <div class="math notranslate nohighlight">
 \[{\bf{v}}_{t} \leftarrow \beta_{1} {\bf{v}}_{t-1} + (1 - \beta_{1}) {\bf{g}}_{t}\]</div>
 <div class="math notranslate nohighlight">
-\[{\bf{s}}_{t} \leftarrow \beta_{2} {\bf{s}}_{t-1} - (1 - \beta_{2}) {\bf{g}}_{t}^{2}\]</div>
+\[{\bf{s}}_{t} \leftarrow \beta_{2} {\bf{s}}_{t-1} + (1 - \beta_{2}) {\bf{g}}_{t}^{2}\]</div>
 <p>where both <span class="math notranslate nohighlight">\(\beta_{1}\)</span>, and <span class="math notranslate nohighlight">\(\beta_{2}\)</span> are non-negative. A typical initialization here would be something along the lines of <span class="math notranslate nohighlight">\(\beta_{1} = 0.9\)</span>, and <span class="math notranslate nohighlight">\(\beta_{2} = 0.999\)</span> s.t. the variance estimate moves much slower than the momentum term. As an initialization of <span class="math notranslate nohighlight">\({\bf{v}}_{0} = {\bf{s}}_{0} = 0\)</span> can lead to bias in the optimization algorithm towards small initial values, we have to re-normalize the state variables with</p>
 <div class="math notranslate nohighlight">
 \[{\hat{\bf{v}}}_{t} = \frac{{\bf{v}}_{t}}{1 - \beta_{1}^{t}} \text{  ,and  } {\hat{\bf{s}}}_{t} = \frac{{\bf{s}}_{t}}{1 - \beta_{2}^{t}}\]</div>
@@ -1301,9 +1306,9 @@ double descent) demonstrates that contrary to the theory behind the bias-varianc
 <h3>Recipe for Machine Learning<a class="headerlink" href="#recipe-for-machine-learning" title="Permalink to this headline">#</a></h3>
 <p>If you are wondering how all of that fits together, Andrew Ng suggests this general workflow:</p>
 <div style="text-align:center">
-    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="500"/>
+    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="600"/>
 </div> 
-<p>Source: <a class="reference external" href="https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf">Nuts and Bolts of Building Applications using Deep Learning</a></p>
+<p>(Source: <a class="reference external" href="https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf">Nuts and Bolts of Building Applications using Deep Learning</a>)</p>
 <p>And a practical advice from <a class="reference external" href="http://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Niessner</a> at TUM is to:</p>
 <ol class="simple">
 <li><p>Train the model on 1 data point to essentially learn it by heart. This way you prove that the model and output work correctly.</p></li>

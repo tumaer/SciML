@@ -210,7 +210,7 @@ The [Adam algorithm](https://arxiv.org/abs/1412.6980), then extends beyond tradi
 Expanding upon the previous use of momentum, Adam further utilizes the 1st and 2nd momentum of the gradient i.e.
 
 $${\bf{v}}_{t} \leftarrow \beta_{1} {\bf{v}}_{t-1} + (1 - \beta_{1}) {\bf{g}}_{t}$$
-$${\bf{s}}_{t} \leftarrow \beta_{2} {\bf{s}}_{t-1} - (1 - \beta_{2}) {\bf{g}}_{t}^{2}$$
+$${\bf{s}}_{t} \leftarrow \beta_{2} {\bf{s}}_{t-1} + (1 - \beta_{2}) {\bf{g}}_{t}^{2}$$
 
 where both $\beta_{1}$, and $\beta_{2}$ are non-negative. A typical initialization here would be something along the lines of $\beta_{1} = 0.9$, and $\beta_{2} = 0.999$ s.t. the variance estimate moves much slower than the momentum term. As an initialization of ${\bf{v}}_{0} = {\bf{s}}_{0} = 0$ can lead to bias in the optimization algorithm towards small initial values, we have to re-normalize the state variables with
 
@@ -692,10 +692,10 @@ Which is much much nicer behaved!
 If you are wondering how all of that fits together, Andrew Ng suggests this general workflow:
 
 <div style="text-align:center">
-    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="500"/>
+    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="600"/>
 </div> 
 
-Source: [Nuts and Bolts of Building Applications using Deep Learning](https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf)
+(Source: [Nuts and Bolts of Building Applications using Deep Learning](https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf))
 
 And a practical advice from [Prof. Matthias Niessner](http://niessnerlab.org/members/matthias_niessner/profile.html) at TUM is to:
 
