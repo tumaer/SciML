@@ -503,8 +503,8 @@ title="Print to PDF"
 <h3>Linearly Separable Sets<a class="headerlink" href="#linearly-separable-sets" title="Permalink to this headline">#</a></h3>
 <p>First, we need some mathematical formalism to solve constrained optimization problems. If we define our optimization problem as:</p>
 <div class="math notranslate nohighlight">
-\[\underset{\omega}{\min} f(\omega) \quad s.t. \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l\]</div>
-<p>Where the <span class="math notranslate nohighlight">\(\underset{\omega}{\min}\)</span> seek to find the minimum subject to the constraint(s) <span class="math notranslate nohighlight">\(h_{i}(\omega)\)</span>. To solve this we have to define a Lagrangian to take into account the constraints.</p>
+\[\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l\]</div>
+<p>Where the <span class="math notranslate nohighlight">\(\underset{\omega}{\min}\)</span> seeks to find the minimum subject to the constraint(s) <span class="math notranslate nohighlight">\(h_{i}(\omega)\)</span>. To solve this we have to define a Lagrangian to take into account the constraints.</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L}(\omega, \beta) = f(\omega) + \sum_{i=1}^{l} \beta_{i} h_{i}(\omega)\]</div>
 <p>The <span class="math notranslate nohighlight">\(\beta_{i}\)</span> are the <em>Lagrangian multipliers</em>, which need to be identified to find the constraint-satisfying <span class="math notranslate nohighlight">\(\omega\)</span>. The necessary condition to solve this problem for the optimum is to solve</p>
@@ -881,7 +881,7 @@ b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{
 </ul>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
-C=\alpha_{i}^{*} &amp; \xRightarrow{(\star)} \mu_{i}^{*}=0,\left\{\begin{array}{rr}
+C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{array}{rr}
 0 \leq \xi_{i} \leq 1 &amp; \text{(correctly classified)} \\ 
  \xi_{i}&gt;1 &amp; \text{(misclassified)}\end{array}\right.\\
 &amp; \Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \leq 1
@@ -891,7 +891,7 @@ C=\alpha_{i}^{*} &amp; \xRightarrow{(\star)} \mu_{i}^{*}=0,\left\{\begin{array}{
 </ul>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
-0 &lt; \alpha_{i}^{*}&lt;C &amp; \xRightarrow{(\star)} \mu_{i}^{*}&gt;0 \quad \Rightarrow \xi_{i}=0 \\
+0 &lt; \alpha_{i}^{*}&lt;C \quad &amp; (\star) \Rightarrow \mu_{i}^{*}&gt;0 \quad \Rightarrow \xi_{i}=0 \\
 &amp;\Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1
 \end{aligned}\end{split}\]</div>
 <p>The optimum <span class="math notranslate nohighlight">\(b^*\)</span> is obtained from averaging over all support vectors: condition to be satisfied by <span class="math notranslate nohighlight">\(b^*\)</span> is given by SVs on the margin:</p>

@@ -6,9 +6,9 @@
 
 First, we need some mathematical formalism to solve constrained optimization problems. If we define our optimization problem as:
 
-$$\underset{\omega}{\min} f(\omega) \quad s.t. \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l$$
+$$\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l$$
 
-Where the $\underset{\omega}{\min}$ seek to find the minimum subject to the constraint(s) $h_{i}(\omega)$. To solve this we have to define a Lagrangian to take into account the constraints.
+Where the $\underset{\omega}{\min}$ seeks to find the minimum subject to the constraint(s) $h_{i}(\omega)$. To solve this we have to define a Lagrangian to take into account the constraints.
 
 $$\mathcal{L}(\omega, \beta) = f(\omega) + \sum_{i=1}^{l} \beta_{i} h_{i}(\omega)$$
 
@@ -440,7 +440,7 @@ $$
 - Support vectors inside or outside margin
 
 $$\begin{aligned}
-C=\alpha_{i}^{*} & \xRightarrow{(\star)} \mu_{i}^{*}=0,\left\{\begin{array}{rr}
+C=\alpha_{i}^{*} \quad & (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{array}{rr}
 0 \leq \xi_{i} \leq 1 & \text{(correctly classified)} \\ 
  \xi_{i}>1 & \text{(misclassified)}\end{array}\right.\\
 & \Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \leq 1
@@ -449,7 +449,7 @@ C=\alpha_{i}^{*} & \xRightarrow{(\star)} \mu_{i}^{*}=0,\left\{\begin{array}{rr}
 - Support vectors on margin
 
 $$\begin{aligned}
-0 < \alpha_{i}^{*}<C & \xRightarrow{(\star)} \mu_{i}^{*}>0 \quad \Rightarrow \xi_{i}=0 \\
+0 < \alpha_{i}^{*}<C \quad & (\star) \Rightarrow \mu_{i}^{*}>0 \quad \Rightarrow \xi_{i}=0 \\
 &\Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1
 \end{aligned}$$
 
