@@ -384,13 +384,13 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#linearly-separable-sets">
-     Linearly Separable Sets
+    <a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">
+     Linearly Separable Sets - Maximum Margin Classifier (MMC)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#non-separable-sets">
-     Non-Separable Sets
+    <a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">
+     Non-Separable Sets - Soft Margin Classifier (SMC)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -410,16 +410,72 @@ title="Print to PDF"
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-methods">
+     Kernel Methods
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dual-representations">
+       Dual representations
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#construction-of-suitable-kernels">
+       Construction of suitable kernels
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recapitulation-of-svms">
+     Recapitulation of SVMs
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#kernel-methods">
-   Kernel Methods
-  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gaussian-processes">
    Gaussian Processes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multivariate-gaussian-distribution">
+     Multivariate Gaussian Distribution
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#st-and-2nd-moment">
+       1st and 2nd Moment
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conditional-gaussian-pdf">
+       Conditional Gaussian PDF
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#marginal-gaussian-pdf">
+       Marginal Gaussian PDF
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">
+       Bayes Theorem for Gaussian Variables
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">
+       Maximum Likelihood for Gaussians
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   Further References
   </a>
  </li>
 </ul>
@@ -447,13 +503,13 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#linearly-separable-sets">
-     Linearly Separable Sets
+    <a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">
+     Linearly Separable Sets - Maximum Margin Classifier (MMC)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#non-separable-sets">
-     Non-Separable Sets
+    <a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">
+     Non-Separable Sets - Soft Margin Classifier (SMC)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -473,16 +529,72 @@ title="Print to PDF"
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-methods">
+     Kernel Methods
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#dual-representations">
+       Dual representations
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#construction-of-suitable-kernels">
+       Construction of suitable kernels
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#recapitulation-of-svms">
+     Recapitulation of SVMs
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#kernel-methods">
-   Kernel Methods
-  </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#gaussian-processes">
    Gaussian Processes
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#multivariate-gaussian-distribution">
+     Multivariate Gaussian Distribution
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#st-and-2nd-moment">
+       1st and 2nd Moment
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#conditional-gaussian-pdf">
+       Conditional Gaussian PDF
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#marginal-gaussian-pdf">
+       Marginal Gaussian PDF
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">
+       Bayes Theorem for Gaussian Variables
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">
+       Maximum Likelihood for Gaussians
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   Further References
   </a>
  </li>
 </ul>
@@ -499,8 +611,9 @@ title="Print to PDF"
 <h1>Core Content 3: Classic ML<a class="headerlink" href="#core-content-3-classic-ml" title="Permalink to this headline">#</a></h1>
 <section id="support-vector-machines">
 <h2>Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this headline">#</a></h2>
-<section id="linearly-separable-sets">
-<h3>Linearly Separable Sets<a class="headerlink" href="#linearly-separable-sets" title="Permalink to this headline">#</a></h3>
+<section id="linearly-separable-sets-maximum-margin-classifier-mmc">
+<h3>Linearly Separable Sets - Maximum Margin Classifier (MMC)<a class="headerlink" href="#linearly-separable-sets-maximum-margin-classifier-mmc" title="Permalink to this headline">#</a></h3>
+<p>Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier.</p>
 <p>First, we need some mathematical formalism to solve constrained optimization problems. If we define our optimization problem as:</p>
 <div class="math notranslate nohighlight">
 \[\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l\]</div>
@@ -562,7 +675,7 @@ d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \theta_{D}(\alpha, \be
 \[
 d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) \leq \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) = p^{\star}
 \]</div>
-<p>where the inequality can under certain conditions turn into an equality. The conditions for this to turn into an equality are the following (going back to the Lagrangian form from above):</p>
+<p>where the inequality can, under certain conditions, turn into equality. The conditions for this to turn into equality are the following (going back to the Lagrangian form from above):</p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(f\)</span>, and <span class="math notranslate nohighlight">\(g_{i}\)</span> are convex, i.e. their Hessians are positive semi-definite. The exact definitions of the Hessians will be presented in 3 lectures.</p></li>
 <li><p>The <span class="math notranslate nohighlight">\(h_{i}\)</span> are affine, i.e. they can be expressed as linear functions of their arguments.</p></li>
@@ -599,7 +712,7 @@ d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset
 <div style="text-align:center">
     <img src="https://i.imgur.com/7VgPzdM.png" alt="drawing" width="400"/>
 </div>
-<p>If <span class="math notranslate nohighlight">\(g(\theta^{\top} x)\)</span> is then close to one, then we have a large confidence that <span class="math notranslate nohighlight">\(x\)</span> belongs to class <span class="math notranslate nohighlight">\(\mathcal{C}_{1}\)</span> with <span class="math notranslate nohighlight">\(y=1\)</span>, whereas if it is close to <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>, we have much less confidence:</p>
+<p>If <span class="math notranslate nohighlight">\(g(\theta^{\top} x)\)</span> is then close to one, then we have large confidence that <span class="math notranslate nohighlight">\(x\)</span> belongs to class <span class="math notranslate nohighlight">\(\mathcal{C}_{1}\)</span> with <span class="math notranslate nohighlight">\(y=1\)</span>, whereas if it is close to <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>, we have much less confidence:</p>
 <div style="text-align:center">
     <img src="https://i.imgur.com/4uZ08Td.png" alt="drawing" width="500"/>
 </div>
@@ -806,10 +919,10 @@ b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{
     &amp;= \sum_{i=1}^{m} \alpha_{i}^{\star} y^{(i)} \langle x^{(i)}, x \rangle + b
 \end{aligned}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\alpha_{i}\)</span> is only non-zero for support vectors, and calls the inner product <span class="math notranslate nohighlight">\(\langle x^{(i)}, x \rangle\)</span> which is hence a highly efficient computation. As such we have derived the support vector machine for the linear classification of sets. The formulation of the optimum set-boundary/decision boundary was formulated as the search for a margin optimization, then transformed into a convex constrained optimization problem, before restricting the contributions of the computation to contributions coming from the <em>support vectors</em>, i.e., vectors on the actual decision boundary estimate hence leading to a strong reduction of the problem dimensionality.</p>
+<p>where <span class="math notranslate nohighlight">\(\alpha_{i}\)</span> is only non-zero for support vectors and calls the inner product <span class="math notranslate nohighlight">\(\langle x^{(i)}, x \rangle\)</span> which is hence a highly efficient computation. As such we have derived the support vector machine for the linear classification of sets. The formulation of the optimum set-boundary/decision boundary was formulated as the search for a margin optimization, then transformed into a convex constrained optimization problem, before restricting the contributions of the computation to contributions coming from the <em>support vectors</em>, i.e., vectors on the actual decision boundary estimate hence leading to a strong reduction of the problem dimensionality.</p>
 </section>
-<section id="non-separable-sets">
-<h3>Non-Separable Sets<a class="headerlink" href="#non-separable-sets" title="Permalink to this headline">#</a></h3>
+<section id="non-separable-sets-soft-margin-classifier-smc">
+<h3>Non-Separable Sets - Soft Margin Classifier (SMC)<a class="headerlink" href="#non-separable-sets-soft-margin-classifier-smc" title="Permalink to this headline">#</a></h3>
 <div style="text-align:center">
     <img src="https://i.imgur.com/PMZV7it.png" alt="drawing" width="500"/>
 </div>
@@ -818,12 +931,12 @@ b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{
 <div style="text-align:center">
     <img src="https://i.imgur.com/8s61hRD.png" alt="drawing" width="500"/>
 </div>
-<p><strong>Original SVM optimisation problem</strong></p>
+<p><strong>Original SVM optimization problem</strong></p>
 <div class="math notranslate nohighlight">
 \[
 \min _{\omega, b} \frac{1}{2}\|\omega\|^{2}  \quad \text {s.t. } y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1, i=1, \ldots, m
 \]</div>
-<p>To make the algorithm work for non-linearly separable data, we introduce <span class="math notranslate nohighlight">\(l_1\)</span>-regularization, i.e. a penalty-term proportional to the magnitude of a certain quantity</p>
+<p>To make the algorithm work for non-linearly separable data, we introduce <span class="math notranslate nohighlight">\(l_1\)</span>-regularization, i.e. a penalty term proportional to the magnitude of a certain quantity</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow l_1\)</span>-regularised primal optimization problem</p>
 <div class="math notranslate nohighlight">
 \[
@@ -864,30 +977,32 @@ b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-&amp;\alpha_{i}^{*} \xi_{i}\left(\omega^{*}\right)=0 \Leftrightarrow \begin{cases}\alpha_{i}^{*}&gt;0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=0 \\ \alpha_{i}^{*}=0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)&lt;0\end{cases}\\
-&amp;\mu_{i}^{*} \xi_{i}=0 \Leftrightarrow \begin{cases}\mu_{i}^{*}&gt;0, &amp; \xi_{i}=0 \\ \mu_{i}^{*}=0, &amp; \xi_{i}&gt;0\end{cases}
+&amp;\alpha_{i}^{*} \left[y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)-1+\xi_{i}\right]=0 \Leftrightarrow \begin{cases}\alpha_{i}^{*}&gt;0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1-\xi_{i} \\ 
+\alpha_{i}^{*}=0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) &gt; 1-\xi_{i} \end{cases}\\
+&amp;\mu_{i}^{*} \xi_{i}=0 \Leftrightarrow \begin{cases}\mu_{i}^{*}&gt;0, &amp; \xi_{i}=0 \\ 
+\mu_{i}^{*}=0, &amp; \xi_{i}&gt;0\end{cases}
 \end{aligned}
 \end{split}\]</div>
 <p>The resulting dual complementarity conditions for determining the support vectors become:</p>
 <ul class="simple">
-<li><p>Support vectors on slack margin</p></li>
+<li><p>Support vectors on slack margin (<span class="math notranslate nohighlight">\(\alpha_i=0\)</span>, i.e. data point is ignored)</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[
 \alpha_{i}^{*}=0 \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1-\xi_{i}
 \]</div>
 <ul class="simple">
-<li><p>Support vectors inside or outside margin</p></li>
+<li><p>Support vectors inside or outside margin (<span class="math notranslate nohighlight">\(\alpha^*=C\)</span>, i.e. data point violates the MMC)</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
 C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{array}{rr}
-0 \leq \xi_{i} \leq 1 &amp; \text{(correctly classified)} \\ 
+0 &lt; \xi_{i} \leq 1 &amp; \text{(correctly classified)} \\ 
  \xi_{i}&gt;1 &amp; \text{(misclassified)}\end{array}\right.\\
-&amp; \Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \leq 1
+&amp; \Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) &lt; 1
 \end{aligned}\end{split}\]</div>
 <ul class="simple">
-<li><p>Support vectors on margin</p></li>
+<li><p>Support vectors on margin (<span class="math notranslate nohighlight">\(\alpha_i^*&gt;0\)</span> &amp; <span class="math notranslate nohighlight">\(\xi_i&gt;0\)</span>, i.e. data point on the margin)</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned}
@@ -907,9 +1022,9 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 \[b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{s}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)
 \]</div>
 <blockquote>
-<div><p>Recall : only data with <span class="math notranslate nohighlight">\(\alpha_{i}^*\ne 0\)</span> , i.e. support vectors, will contribute to the SVM prediction (last eq. of Linearly Separable Sets)</p>
+<div><p>Recall: only data with <span class="math notranslate nohighlight">\(\alpha_{i}^*\ne 0\)</span>, i.e. support vectors, will contribute to the SVM prediction (last eq. of Linearly Separable Sets).</p>
 </div></blockquote>
-<p>As conclusion, we illustrate the functionality of the slack variables.</p>
+<p>In conclusion, we illustrate the functionality of the slack variables.</p>
 <div style="text-align:center">
     <img src="https://i.imgur.com/luacvXq.png" alt="drawing" width="500"/>
 </div>
@@ -918,7 +1033,7 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 <h3>Sequential Minimal Optimization (SMO)<a class="headerlink" href="#sequential-minimal-optimization-smo" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Efficient algorithm for solving the SVM dual problem</p></li>
-<li><p>Based on <em>Coordination Ascent</em> algorithm.</p></li>
+<li><p>Based on <em>Coordinate Ascent</em> algorithm.</p></li>
 </ul>
 <section id="coordinate-ascent">
 <h4>Coordinate Ascent<a class="headerlink" href="#coordinate-ascent" title="Permalink to this headline">#</a></h4>
@@ -927,10 +1042,10 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 <li><p>Perform a component-wise search on <span class="math notranslate nohighlight">\(x\)</span></p></li>
 </ul>
 <p><em>Algorithm</em></p>
-<p><strong>do until converged</strong>
- <strong>for</strong> <span class="math notranslate nohighlight">\(i=1, \ldots, m\)</span>
-<span class="math notranslate nohighlight">\(\qquad x_{i}^{(k+1)}=\underset{\tilde{x}_{i}}{\operatorname{argmax} } f\left(x_{1}^{(k)}, \ldots, \tilde{x}_{i}, \ldots, x_{m}^{(k)}\right) \)</span>
- <strong>end for</strong>
+<p><strong>do until converged</strong> <br>
+ <strong>for</strong> <span class="math notranslate nohighlight">\(i=1, \ldots, m\)</span> <br>
+<span class="math notranslate nohighlight">\(\qquad x_{i}^{(k+1)}=\underset{\tilde{x}_{i}}{\operatorname{argmax} } f\left(x_{1}^{(k)}, \ldots, \tilde{x}_{i}, \ldots, x_{m}^{(k)}\right) \)</span> <br>
+ <strong>end for</strong> <br>
 <strong>end do</strong></p>
 <p><em>Sketch of algorithm</em></p>
 <div style="text-align:center">
@@ -952,9 +1067,9 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 \sum_{i=1}^{m} \alpha_{i} y^{(i)}=0
 \end{array}\right.
 \end{split}\]</div>
-<p>Consider now an iterative update for finding the optimum :</p>
+<p>Consider now an iterative update for finding the optimum:</p>
 <ul class="simple">
-<li><p>Iteration step delivers constraint satisfying set of <span class="math notranslate nohighlight">\(\alpha_{i}\)</span>.</p></li>
+<li><p>Iteration step delivers a constraint satisfying set of <span class="math notranslate nohighlight">\(\alpha_{i}\)</span>.</p></li>
 <li><p>Can we just change some <span class="math notranslate nohighlight">\(\alpha_{j} \epsilon\)</span> {<span class="math notranslate nohighlight">\(\alpha_{1}\)</span>,….,<span class="math notranslate nohighlight">\(\alpha_{m}\)</span>} according to coordinate ascent for finding the next iteration update?</p>
 <ul>
 <li><p>No, because <span class="math notranslate nohighlight">\(\sum_{i=1}^{m} \alpha_{i}y^{(i)}=0\)</span> constrains the sum of all <span class="math notranslate nohighlight">\(\alpha_{i}\)</span>, and varying only a single <span class="math notranslate nohighlight">\(\alpha_{p}\)</span> may lead to constraint violation</p></li>
@@ -1014,20 +1129,349 @@ H , \quad \alpha_{2}^{'}&gt;H \\
 L, \quad \alpha_{2}^{'}&lt;L
 \end{array}\right.\end{split}\]</div>
 <ul class="simple">
-<li><p>set <span class="math notranslate nohighlight">\(\alpha_2^{(k+1)} = \alpha_2^{''}\)</span>
-$<span class="math notranslate nohighlight">\(
+<li><p>set <span class="math notranslate nohighlight">\(\alpha_2^{(k+1)} = \alpha_2^{''}\)</span></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
 \alpha_{1}^{(k+1)}=\left(\rho-\alpha_{2}^{(k+1)} y^{(1)}\right) y^{(1)}
-\)</span>$</p></li>
+\]</div>
+<ul class="simple">
 <li><p>next iteration update</p></li>
 </ul>
 </section>
 </section>
-</section>
 <section id="kernel-methods">
-<h2>Kernel Methods<a class="headerlink" href="#kernel-methods" title="Permalink to this headline">#</a></h2>
+<h3>Kernel Methods<a class="headerlink" href="#kernel-methods" title="Permalink to this headline">#</a></h3>
+<p>Consider binary classification in the non-linearly-separable case:</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/uWMk3qq.png" alt="drawing" width="600"/>
+</div>
+<br>
+<p><em>Kernel trick</em> or kernel substitution :</p>
+<div class="math notranslate nohighlight">
+\[x\rightarrow\varphi(x)\]</div>
+<ul class="simple">
+<li><p><em>in general <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\varphi\)</span> are vectors where <span class="math notranslate nohighlight">\(\varphi\)</span> has the entire <span class="math notranslate nohighlight">\(x\)</span> as argument</em></p></li>
+</ul>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> modified classifyer</p>
+<div class="math notranslate nohighlight">
+\[h(x)= g(\omega^T \varphi(x)+b)\]</div>
+<p><em>e.g. such that the above problem becomes linearly separable</em></p>
+<p><strong>Example</strong></p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/qo0P4Yz.png" alt="drawing" width="300"/>
+</div>
+<p>This classification problem is non-linear as there is no linear decision boundary.</p>
+<p>Define feature map <span class="math notranslate nohighlight">\(\varphi (x_1,x_2) = x_1 x_2\)</span>  (<em>maps 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 1D</em>)</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/y55rIlC.png" alt="drawing" width="600"/>
+</div>
+<p>But of course, this is constructed, as then we could immediately guess <span class="math notranslate nohighlight">\(\varphi(x_1,x_2)\)</span>. In general, this is not possible.</p>
+<blockquote>
+<div><p>Recall : the dual problem of SVM involves a scalar product <span class="math notranslate nohighlight">\(x^{(i)T}x^{(j)}\)</span> of feature vectors.
+<span class="math notranslate nohighlight">\(\Rightarrow\)</span> motivates the general notation of a dual problem with feature maps.</p>
+</div></blockquote>
+<section id="dual-representations">
+<h4>Dual representations<a class="headerlink" href="#dual-representations" title="Permalink to this headline">#</a></h4>
+<p>Motivated by Least Mean Squares (LMS) regression, we consider the following <strong>regularized</strong> cost function:</p>
+<div class="math notranslate nohighlight">
+\[
+J(\omega)=\sum_{i=1}^{m}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda}{2} \omega^{T} \omega
+\]</div>
+<p>with penalty parameter <span class="math notranslate nohighlight">\(\lambda \geqslant 0\)</span>.</p>
+<blockquote>
+<div><p>Notation alert: in Core Content 1 we used <span class="math notranslate nohighlight">\(\vartheta\)</span> for the parameters instead of the <span class="math notranslate nohighlight">\(\omega\)</span> used here.</p>
+</div></blockquote>
+<p>Regularization helps to suppress the overfitting problem (see Core Content 2). The squared L2 regularization above is also called <strong>Tikhonov regularization</strong>.  In machine learning, linear regression in combination with Tikhonov regularization is often dubbed <strong>ridge regression</strong>.</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{\omega}J=0\]</div>
+<div class="math notranslate nohighlight">
+\[\Rightarrow \omega = -\frac{1}{\lambda} \sum_{i=1}^{m}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right)\varphi(x^{(j)})=\Phi^Ta\]</div>
+<p>with design matrix <span class="math notranslate nohighlight">\(\Phi\)</span> with feature map <span class="math notranslate nohighlight">\(\varphi\)</span> defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\Phi=\left[\begin{array}{l}\ldots \\ \varphi\left(x^{(j)}\right) \\ \cdots\end{array}\right] \in \mathbb{R}^{m \times n}\end{split}\]</div>
+<p>and</p>
+<div class="math notranslate nohighlight">
+\[a_i = -\frac{1}{\lambda}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right) \in \mathbb{R}^m\]</div>
+<p>Substituting the necessary condition  <span class="math notranslate nohighlight">\(\omega = \Phi^Ta\)</span> into <span class="math notranslate nohighlight">\(J(\omega)\)</span> we obtain the dual problem:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} J_{D}(a)=&amp; \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^Ta -a^T \Phi \Phi^T y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T \Phi \Phi^Ta \\=&amp; \frac{1}{2} a^T K K a-a^T K y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T Ka \end{aligned}\end{split}\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(K=\Phi\Phi^T\)</span> is a <strong>Grammatrix</strong> generated by a vector <span class="math notranslate nohighlight">\(\varphi\)</span> according to <span class="math notranslate nohighlight">\(K_{ij} = \langle \varphi_i , \varphi_j \rangle\)</span> where <span class="math notranslate nohighlight">\(\langle \cdot , \cdot \rangle\)</span> is an inner product - here <span class="math notranslate nohighlight">\(\langle \varphi(x^{(i)}),\varphi(x^{(j)}) \rangle\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) =: K(x^{(i)},x^{(j)})\]</div>
+<p>where <span class="math notranslate nohighlight">\(K(x^{(i)},x^{(j)})\)</span> is the <strong>kernel function</strong>.</p>
+<p>Now we find that we can express the LMS prediction in terms of the kernel function:</p>
+<div class="math notranslate nohighlight">
+\[J_{D}(a)=\frac{1}{2} a^{T} K K a-a^T K y-\frac{1}{2} y^{T} y+\frac{\lambda}{2} a^T K a\]</div>
+<p>In order to find <span class="math notranslate nohighlight">\(\max_{a} J_D (a)\)</span> we set <span class="math notranslate nohighlight">\(\nabla_a J_D (a) = 0\)</span></p>
+<div class="math notranslate nohighlight">
+\[\Rightarrow Ka - y + \lambda Ia = 0\]</div>
+<div class="math notranslate nohighlight">
+\[\Rightarrow a = (K+\lambda I)^{-1} y\]</div>
+<p>Upon inserting this result into a linear regression model with feature mapping</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+h(x) &amp;= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x) a \\
+&amp;=K^T (K+\lambda I)^{-1} y
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(K_i = K(x^{(i)},x)\)</span> are the components of K.</p>
+<p>Now, let’s do some bookkeeping</p>
+<div class="math notranslate nohighlight">
+\[\underbrace{a}_{M}=\underbrace{(K-\lambda I )^{-1}}_{M \times M} \underbrace{y}_{M}, \quad M = \text{number of data points}\]</div>
+<blockquote>
+<div><p>Recall from Class 2
+$<span class="math notranslate nohighlight">\(\underbrace{\vartheta}_{N}=\underbrace{(X^{T}X)^{-1}}_{N \times N} \underbrace{X^T}_{N \times M} \underbrace{y}_{M}, \quad N = \text{dim of input data vector}\)</span>$</p>
+</div></blockquote>
+<p>As typically <span class="math notranslate nohighlight">\(M&gt;&gt;N\)</span> we see that solving the dual problem for LMS requires us to invest a <span class="math notranslate nohighlight">\(MxM\)</span> matrix, whereas the primal problem tends only to a <span class="math notranslate nohighlight">\(NxN\)</span> matrix.</p>
+<p>The benefit of the dual problem with the kernel <span class="math notranslate nohighlight">\(K(x,x')\)</span> is that now we can work with the kernel directly
+<span class="math notranslate nohighlight">\(\Rightarrow\)</span> dimensionality of <span class="math notranslate nohighlight">\(\varphi(x)\)</span> matters no longer.
+<span class="math notranslate nohighlight">\(\Rightarrow\)</span> we can consider even an infinite-dimensional feature vector <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span>, i.e. a continuous <span class="math notranslate nohighlight">\(\varphi (x)\)</span></p>
+</section>
+<section id="construction-of-suitable-kernels">
+<h4>Construction of suitable kernels<a class="headerlink" href="#construction-of-suitable-kernels" title="Permalink to this headline">#</a></h4>
+<ul class="simple">
+<li><p>construction from feature map
+$<span class="math notranslate nohighlight">\( K(x,x') = \varphi^T (x) \varphi (x') = \sum_{i=1}^{N} \varphi_i (x) \varphi_i (x')\)</span>$</p></li>
+<li><p>direct construction with constraint that a <em>valid kernel</em> is obtained, i.e. it needs actually to correspond to a possible feature-map scalar product.</p></li>
+</ul>
+<p>A <strong>necessary and sufficient condition</strong> for a valid kernel is that <strong><span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite for all <span class="math notranslate nohighlight">\(x\)</span></strong>.</p>
+<p><strong>Examples (1)</strong></p>
+<p>Given is <span class="math notranslate nohighlight">\(x, x' \in \mathbb{R}^N\)</span> and a scalar kernel</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+K(x,x') &amp; = (x^Tx')^2 \\
+&amp; = \sum_{i=1}^N x_i x_i' \sum_{j=1}^N x_jx_j' \\
+&amp; = \sum_i \sum_j x_ix_jx_i'x_j'.
+\end{aligned}\end{split}\]</div>
+<p>The corresponding feature map for</p>
+<div class="math notranslate nohighlight">
+\[K(x,x') = \varphi^T(x)\varphi(x')\]</div>
+<p>for <span class="math notranslate nohighlight">\(N=3\)</span> is</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\varphi (x) = \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ x_1 x_3 \\ x_2 x_1 \\ \ldots \\ x_3x_3 \end{array}\right] \end{split}\]</div>
+<p><strong>Examples (2)</strong></p>
+<p>Alternative kernel with parameter <span class="math notranslate nohighlight">\(c\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[K(x,x') = (x^Tx'+c)^2 = \sum_{i,j} x_ix_jx_i'x_j' + \sum_i \sqrt{2c} x_i \sqrt{2c} x_j + c^2\]</div>
+<p>belongs to</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\varphi(x)= \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ \ldots \\ x_3x_3 \\ \sqrt{2c}x_1 \\ \sqrt{2c}x_2 \\ \sqrt{2c}x_3 \\ c  \end{array}\right]\end{split}\]</div>
+<br>
+<p>Considering that <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are vectors, the scalar product <span class="math notranslate nohighlight">\(K(x,x')=\varphi^T(x)\varphi(x')\)</span> expresses the projection of <span class="math notranslate nohighlight">\(\varphi(x')\)</span> onto <span class="math notranslate nohighlight">\(\varphi(x)\)</span>.</p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> the larger the kernel value, the more parallel the vectors are. Conversely, the smaller, the more orthogonal they are.</p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> intuitively <span class="math notranslate nohighlight">\(K(x,x')\)</span> is a measure of “how close” <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are.</p>
+<p><strong>Example: Gaussian kernel</strong></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}K(x,x')= \exp \left\{- \frac{(x-x')^T (x-x')}{2 \sigma^2} \right\} \\
+\left\{\begin{array}{l} \approx 1 , \quad x \text{ and } x' \text{ close}  \\ \approx 0 , \quad x \text{ and } x' \text{ far apart} \end{array}\right.\end{split}\]</div>
+<p>Now we show for illustration that a valid kernel is positive semidefinite, this is the above-mentioned necessary condition.</p>
+<p><strong>Proof:</strong></p>
+<div class="math notranslate nohighlight">
+\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) = \varphi^T(x^{(j)})\varphi(x^{(i)}) = K_{ji}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned} \Rightarrow (x')^TKx' &amp;= x'_i K_{ij}x'_j \\ 
+&amp; = x'_i \varphi^T(x^{(i)}) \varphi(x^{(j)}) x'_j \\
+&amp; = x'_i \varphi_k^{(i)} \varphi_k^{(j)} x'_j \\
+&amp; = \sum_k (x_i^{(i)} \varphi_k^{(i)})^2 \geqslant 0 \end{aligned}\end{split}\]</div>
+<p>The necessary and sufficient condition is due to <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">Mercer’s theorem</a></strong>:</p>
+<p>A given <span class="math notranslate nohighlight">\(K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}\)</span> is a valid kernel if for any {<span class="math notranslate nohighlight">\(x^{(1)},...,x^{(m)}\)</span>}, <span class="math notranslate nohighlight">\(m&lt;\infty\)</span> the resulting <span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite (which implies that it also must be symmetric).</p>
+<br>
+<p>For non-separable sets we still can apply MMC or slack-variable SMC: We simply replace the feature-scalar product within the SVM prediction.</p>
+<div class="math notranslate nohighlight">
+\[h(x) = \omega^{*T}x+b^* = \sum_{i=1}^m \alpha_i^* y^{(i)} \langle x^{(i)} , x \rangle + b^*\]</div>
+<p>We replace <span class="math notranslate nohighlight">\(\langle x^{(i)} , x \rangle\)</span> by <span class="math notranslate nohighlight">\(K(x^{(i)},x)\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[h(x) = \sum_{i=1}^m \alpha_i^* y^{(i)} K(x^{(i)},x)+ b^*\]</div>
+<p>This pulls through into the dual problem for determining <span class="math notranslate nohighlight">\(\alpha_i^*\)</span> and <span class="math notranslate nohighlight">\(b^*\)</span> such that by picking a suitable kernel function we may get close to a linearly separable transformation function without actually performing the feature mapping.</p>
+</section>
+</section>
+<section id="recapitulation-of-svms">
+<h3>Recapitulation of SVMs<a class="headerlink" href="#recapitulation-of-svms" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Problem of non-linearly separable sets</p>
+<ul>
+<li><p>introduction of controlled violations of the strict margin constraints</p></li>
+<li><p>introduction of feature maps</p></li>
+</ul>
+</li>
+<li><p>Controlled violation:
+slack variables <span class="math notranslate nohighlight">\(\rightarrow l_1\)</span>-regularized opt. problem <span class="math notranslate nohighlight">\(\rightarrow\)</span> modified dual problem <span class="math notranslate nohighlight">\(\rightarrow\)</span> solution by SMO</p></li>
+<li><p>Feature map:
+kernel function (tensorial product of feature maps) <span class="math notranslate nohighlight">\(\rightarrow\)</span> reformulated dual opt. problem <span class="math notranslate nohighlight">\(\rightarrow\)</span> prediction depends only on the kernel function</p></li>
+<li><p>Kernel construction:
+a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)</span> valid kernel</p></li>
+<li><p>Important kernel: Gaussian</p></li>
+<li><p>Solution of non-separable problems:</p>
+<ul>
+<li><p>pick a suitable kernel function</p></li>
+<li><p>run SVM with a kernel function</p></li>
+</ul>
+</li>
+</ul>
+</section>
 </section>
 <section id="gaussian-processes">
 <h2>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">#</a></h2>
+<p>As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We will analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>, Section 2.3.</p>
+<section id="multivariate-gaussian-distribution">
+<h3>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this headline">#</a></h3>
+<p>The <strong>univariate</strong> (for a scalar random variable) Gaussian distribution has the form</p>
+<div class="math notranslate nohighlight">
+\[mathcal{N}(x; \underbrace{\mu, \sigma^2}_{\text{parameters}}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left\{ - \frac{(x-\mu)^2}{2 \sigma^2}\right\}.\]</div>
+<p>The two parameters are the mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
+<p>The multivariate Gaussian distribution then has the following form</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{N}(x; \mu, \Sigma)= \frac{1}{(2\pi)^{d/2}\sqrt{\det (\Sigma)}} \exp \left(-\frac{1}{2}(x-\mu)^{\top}\Sigma^{-1}(x-\mu)\right),\]</div>
+<p>with</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(x \in \mathbb{R}^d \quad \)</span> - feature / sample / random vector</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu \in \mathbb{R}^d \quad \)</span> - mean vector</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{d \times d} \quad\)</span> - covariance matrix</p></li>
+</ul>
+<p>Properties:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\Delta^2=(x-\mu)^{\top}\Sigma^{-1}(x-\mu)\)</span> is a quadratic form.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Delta\)</span> is the Mahalanobis distance from <span class="math notranslate nohighlight">\(\mu\)</span> to <span class="math notranslate nohighlight">\(x\)</span>. It collapses to the Euclidean distance for <span class="math notranslate nohighlight">\(\Sigma = I\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> is symmetric positive semi-definite and its diagonal elements contain the variance, i.e. covariance with itself.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> can be diagonalized with real eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\sum u_i = \lambda_i u_i \quad i=1,...,d\]</div>
+<p>and eigenvectors <span class="math notranslate nohighlight">\(u_i\)</span> forming a unitary matrix</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}U= \left[\begin{array}{l} u_1^{\top} \\ ... \\ u_d^{\top}\\ \end{array}\right], \quad U^{\top}U=I\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[U\Sigma U^{\top} = \lambda, \quad \lambda \text{ diagonal matrix of eigenvalues}\]</div>
+<p>If we apply the variable transformation <span class="math notranslate nohighlight">\(y=U(x-\mu)\)</span>, we can transform the Gaussian PDF to the <span class="math notranslate nohighlight">\(y\)</span> coordinates according to the change of variables rule (see preliminaries)</p>
+<div class="math notranslate nohighlight">
+\[p_X(x) = p_Y(y) \underbrace{\left| \frac{\partial y}{\partial x} \right|}_{det|U_{ij}|},\]</div>
+<p>which leads to</p>
+<div class="math notranslate nohighlight">
+\[p(y) = \Pi_{i=1}^d \frac{1}{\sqrt{2 \pi \lambda_i}} \exp \left\{ - \frac{y_i^2}{2\lambda_i} \right\}\]</div>
+<p>Note that the diagonalization of <span class="math notranslate nohighlight">\(\Delta\)</span> leads to a factorization of the PDF into <span class="math notranslate nohighlight">\(d\)</span> 1D PDFs.</p>
+<section id="st-and-2nd-moment">
+<h4>1st and 2nd Moment<a class="headerlink" href="#st-and-2nd-moment" title="Permalink to this headline">#</a></h4>
+<div class="math notranslate nohighlight">
+\[E[x] = \mu\]</div>
+<div class="math notranslate nohighlight">
+\[E[xx^{\top}] = \mu \mu^{\top} + \Sigma\]</div>
+<div class="math notranslate nohighlight">
+\[Cov(x) = \Sigma\]</div>
+</section>
+<section id="conditional-gaussian-pdf">
+<h4>Conditional Gaussian PDF<a class="headerlink" href="#conditional-gaussian-pdf" title="Permalink to this headline">#</a></h4>
+<p>Consider the case <span class="math notranslate nohighlight">\(x \sim \mathcal{N}(x; \mu, \Sigma)\)</span> being a <span class="math notranslate nohighlight">\(d\)</span>-dimensional Gaussian random vector. We can partition <span class="math notranslate nohighlight">\(x\)</span> into two disjoint subsets <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+x=\left(\begin{array}{c}
+x_a \\
+x_b
+\end{array}\right) .
+\end{split}\]</div>
+<p>The corresponding partitions of the mean vector <span class="math notranslate nohighlight">\(\mu\)</span> and covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> become</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\mu=\left(\begin{array}{l}
+\mu_a \\
+\mu_b
+\end{array}\right)
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Sigma=\left(\begin{array}{ll}
+\Sigma_{a a} &amp; \Sigma_{a b} \\
+\Sigma_{b a} &amp; \Sigma_{b b}
+\end{array}\right) .
+\end{split}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\Sigma^T=\Sigma\)</span> implies that <span class="math notranslate nohighlight">\(\Sigma_{a a}\)</span> and <span class="math notranslate nohighlight">\(\Sigma_{b b}\)</span> are symmetric, while <span class="math notranslate nohighlight">\(\Sigma_{b a}=\Sigma_{a b}^{\mathrm{T}}\)</span>.</p>
+<p>We also define the precision matrix <span class="math notranslate nohighlight">\(\Lambda = \Sigma^{-1}\)</span>, being the inverse of the covariance matrix, where</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\Lambda=\left(\begin{array}{ll}
+\Lambda_{a a} &amp; \Lambda_{a b} \\
+\Lambda_{b a} &amp; \Lambda_{b b}
+\end{array}\right)
+\end{split}\]</div>
+<p>and <span class="math notranslate nohighlight">\(\Lambda_{a a}\)</span> and <span class="math notranslate nohighlight">\(\Lambda_{b b}\)</span> are symmetric, while <span class="math notranslate nohighlight">\(\Lambda_{a b}^{\mathrm{T}}=\Lambda_{b a}\)</span>. Note, <span class="math notranslate nohighlight">\(\Lambda_{a a}\)</span> is not simply the inverse of <span class="math notranslate nohighlight">\(\Sigma_{a a}\)</span>.</p>
+<p>Now, we want to evaluate <span class="math notranslate nohighlight">\(\mathcal{N}(x_a| x_b; \mu, \Sigma)\)</span> and use <span class="math notranslate nohighlight">\(p(x_a, x_b) = p(x_a|x_b)p(x_b)\)</span>. We expand all terms of the pdf given the split, and consider all terms that do not involve <span class="math notranslate nohighlight">\(x_a\)</span> as constant and then we compare with the generic form of a Gaussian for <span class="math notranslate nohighlight">\(p(x_a| x_b)\)</span>. We can decompose the equation into quadratic, linear and constant terms in <span class="math notranslate nohighlight">\(x_a\)</span> and find an expression for <span class="math notranslate nohighlight">\(p(x_a|x_b)\)</span>.</p>
+<blockquote>
+<div><p>For all intermediate steps refer to <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>.</p>
+</div></blockquote>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+\mu_{a \mid b} &amp; =\mu_a+\Sigma_{a b} \Sigma_{b b}^{-1}\left(x_b-\mu_b\right) \\
+\Sigma_{a \mid b} &amp; =\Sigma_{a a}-\Sigma_{a b} \Sigma_{b b}^{-1} \Sigma_{b a}
+\end{aligned}
+\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[p(x_a| x_b) = \mathcal{N(x; \mu_{a|b}, \Sigma_{a|b})}\]</div>
+</section>
+<section id="marginal-gaussian-pdf">
+<h4>Marginal Gaussian PDF<a class="headerlink" href="#marginal-gaussian-pdf" title="Permalink to this headline">#</a></h4>
+<p>For the marginal PDF we integrate out the dependence on <span class="math notranslate nohighlight">\(x_b\)</span> of the joint PDF:</p>
+<div class="math notranslate nohighlight">
+\[p(x_a) = \int p(x_a, x_b) dx_b.\]</div>
+<p>We can follow similar steps as above for separating terms that involve <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>. After integrating out the Guassian with a quadratic term depending on <span class="math notranslate nohighlight">\(x_b\)</span> we are left with a lengthy term involving <span class="math notranslate nohighlight">\(x_a\)</span> only. By comparison with a Gaussian PDF and re-using the block relation between <span class="math notranslate nohighlight">\(\Lambda\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> as above we obtain for the marginal</p>
+<div class="math notranslate nohighlight">
+\[p(x_a) = \mathcal{N}(x_a; \mu_a, \Sigma_{a a}).\]</div>
+</section>
+<section id="bayes-theorem-for-gaussian-variables">
+<h4>Bayes Theorem for Gaussian Variables<a class="headerlink" href="#bayes-theorem-for-gaussian-variables" title="Permalink to this headline">#</a></h4>
+<p>Generative learning addresses the problem of finding a posterior PDF from a likelihood and prior. The basis is Bayes rule for conditional probabilities</p>
+<div class="math notranslate nohighlight">
+\[p(x|y) = \frac{p(y|x)p(x)}{p(y)}\]</div>
+<p>We want to find the posterior <span class="math notranslate nohighlight">\(p(x|y)\)</span> and the evidence <span class="math notranslate nohighlight">\(p(y)\)</span> under the assumption that the likelihood <span class="math notranslate nohighlight">\(p(y|x)\)</span> and the prior are <strong>linear Gaussian models</strong>.</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p(y|x)\)</span> is Gaussian and has a mean that depends at most linearly on <span class="math notranslate nohighlight">\(x\)</span> and a variance that is independent of <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(x)\)</span> is Gaussian.</p></li>
+</ul>
+<p>These requirements correspond to the following structure of <span class="math notranslate nohighlight">\(p(x)\)</span> and <span class="math notranslate nohighlight">\(p(y|x)\)</span></p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+p(x) &amp; =\mathcal{N}\left(x \mid \mu, \Lambda^{-1}\right) \\
+p(x \mid x) &amp; =\mathcal{N}\left(x \mid A x+b, L^{-1}\right).
+\end{aligned}
+\end{split}\]</div>
+<p>From that we can derive an analytical evidence (marginal) and posterior (conditional) distributions (for more details see <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>):</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{aligned}
+p(x) &amp; =\mathcal{N}\left(x \mid A \mu+b, L^{-1}+A \Lambda^{-1} A^{\top}\right) \\
+p(x \mid x) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(x-b)+\Lambda \mu\right\}, \Sigma\right),
+\end{aligned}
+\end{split}\]</div>
+<p>where</p>
+<div class="math notranslate nohighlight">
+\[
+\Sigma=\left(\Lambda+A^{\top} L A\right)^{-1} .
+\]</div>
+</section>
+<section id="maximum-likelihood-for-gaussians">
+<h4>Maximum Likelihood for Gaussians<a class="headerlink" href="#maximum-likelihood-for-gaussians" title="Permalink to this headline">#</a></h4>
+<p>In generative learning, we need to infer PDFs from data. Given a dataset <span class="math notranslate nohighlight">\(X=(x_1, ..., x_N)\)</span>, where <span class="math notranslate nohighlight">\(x_i\)</span> are i.i.d. random variables drawn from a multivariate Gaussian, we can estimate <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> from the maximum likelihood (ML) (for more details see <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>):</p>
+<div class="math notranslate nohighlight">
+\[\mu_{ML} = \frac{1}{N} \sum_{n=1}^N x_n\]</div>
+<div class="math notranslate nohighlight">
+\[\Sigma_{ML} = \frac{1}{N} \sum_{n=1}^N (x-\mu)^{\top}(x-\mu)\]</div>
+<p><span class="math notranslate nohighlight">\(\mu_{ML}\)</span> and <span class="math notranslate nohighlight">\(\Sigma_{ML}\)</span> correspond to the so-called sample or empirical estimates. However, <span class="math notranslate nohighlight">\(\Sigma_{ML}\)</span> does not deliver an unbiased estimate of the covariance. The difference decreases with <span class="math notranslate nohighlight">\(N \to \infty\)</span>, but for a certain <span class="math notranslate nohighlight">\(N\)</span> we have <span class="math notranslate nohighlight">\(\Sigma_{ML}\neq \Sigma\)</span>. The practical reason used in the above derivation is that the <span class="math notranslate nohighlight">\(\mu_{ML}\)</span> estimate may occur as <span class="math notranslate nohighlight">\(\bar{x}\)</span> within the sampling of <span class="math notranslate nohighlight">\(\Sigma\)</span> <span class="math notranslate nohighlight">\(\Rightarrow\)</span> miscount by one. An unbiased sample variance can be defined as</p>
+<div class="math notranslate nohighlight">
+\[\widetilde{\Sigma} = \frac{1}{N-1} \sum_{n=1}^N (x_n-\mu_{ML})^{\top}(x_n-\mu_{ML})\]</div>
+</section>
+</section>
+</section>
+<section id="further-references">
+<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
+<p><strong>Support Vector Machines</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://cs229.stanford.edu/lectures-spring2022/main_notes.pdf">CS229 Lecture Notes</a>, Chapters 5 and 6; Andrew Ng; 2022</p></li>
+<li><p><a class="reference external" href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Section 17.3; Kevin Murphy; 2022</p></li>
+</ul>
+<p><strong>Gaussian Processes</strong></p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Section 2.3; Christopher Bishop; 2006</p></li>
+</ul>
 </section>
 </section>
 
