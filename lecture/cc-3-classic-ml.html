@@ -1219,8 +1219,7 @@ h(x) &amp;= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x)
 <div class="math notranslate nohighlight">
 \[\underbrace{a}_{M}=\underbrace{(K-\lambda I )^{-1}}_{M \times M} \underbrace{y}_{M}, \quad M = \text{number of data points}\]</div>
 <blockquote>
-<div><p>Recall from Class 2
-$<span class="math notranslate nohighlight">\(\underbrace{\vartheta}_{N}=\underbrace{(X^{T}X)^{-1}}_{N \times N} \underbrace{X^T}_{N \times M} \underbrace{y}_{M}, \quad N = \text{dim of input data vector}\)</span>$</p>
+<div><p>Recall from Class 2 <span class="math notranslate nohighlight">\(\underbrace{\vartheta}_{N}=\underbrace{(X^{T}X)^{-1}}_{N \times N} \underbrace{X^T}_{N \times M} \underbrace{y}_{M}, \quad N = \text{dim of input data vector}\)</span></p>
 </div></blockquote>
 <p>As typically <span class="math notranslate nohighlight">\(M&gt;&gt;N\)</span> we see that solving the dual problem for LMS requires us to invest a <span class="math notranslate nohighlight">\(MxM\)</span> matrix, whereas the primal problem tends only to a <span class="math notranslate nohighlight">\(NxN\)</span> matrix.</p>
 <p>The benefit of the dual problem with the kernel <span class="math notranslate nohighlight">\(K(x,x')\)</span> is that now we can work with the kernel directly
@@ -1230,8 +1229,11 @@ $<span class="math notranslate nohighlight">\(\underbrace{\vartheta}_{N}=\underb
 <section id="construction-of-suitable-kernels">
 <h4>Construction of suitable kernels<a class="headerlink" href="#construction-of-suitable-kernels" title="Permalink to this headline">#</a></h4>
 <ul class="simple">
-<li><p>construction from feature map
-$<span class="math notranslate nohighlight">\( K(x,x') = \varphi^T (x) \varphi (x') = \sum_{i=1}^{N} \varphi_i (x) \varphi_i (x')\)</span>$</p></li>
+<li><p>construction from feature map</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[ K(x,x') = \varphi^T (x) \varphi (x') = \sum_{i=1}^{N} \varphi_i (x) \varphi_i (x')\]</div>
+<ul class="simple">
 <li><p>direct construction with constraint that a <em>valid kernel</em> is obtained, i.e. it needs actually to correspond to a possible feature-map scalar product.</p></li>
 </ul>
 <p>A <strong>necessary and sufficient condition</strong> for a valid kernel is that <strong><span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite for all <span class="math notranslate nohighlight">\(x\)</span></strong>.</p>
@@ -1317,7 +1319,7 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 <h3>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this headline">#</a></h3>
 <p>The <strong>univariate</strong> (for a scalar random variable) Gaussian distribution has the form</p>
 <div class="math notranslate nohighlight">
-\[mathcal{N}(x; \underbrace{\mu, \sigma^2}_{\text{parameters}}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left\{ - \frac{(x-\mu)^2}{2 \sigma^2}\right\}.\]</div>
+\[\mathcal{N}(x; \underbrace{\mu, \sigma^2}_{\text{parameters}}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left\{ - \frac{(x-\mu)^2}{2 \sigma^2}\right\}.\]</div>
 <p>The two parameters are the mean <span class="math notranslate nohighlight">\(\mu\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2\)</span>.</p>
 <p>The multivariate Gaussian distribution then has the following form</p>
 <div class="math notranslate nohighlight">
@@ -1431,15 +1433,15 @@ x_b
 \[\begin{split}
 \begin{aligned}
 p(x) &amp; =\mathcal{N}\left(x \mid \mu, \Lambda^{-1}\right) \\
-p(x \mid x) &amp; =\mathcal{N}\left(x \mid A x+b, L^{-1}\right).
+p(y \mid x) &amp; =\mathcal{N}\left(y \mid A x+b, L^{-1}\right).
 \end{aligned}
 \end{split}\]</div>
 <p>From that we can derive an analytical evidence (marginal) and posterior (conditional) distributions (for more details see <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>):</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-p(x) &amp; =\mathcal{N}\left(x \mid A \mu+b, L^{-1}+A \Lambda^{-1} A^{\top}\right) \\
-p(x \mid x) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(x-b)+\Lambda \mu\right\}, \Sigma\right),
+p(y) &amp; =\mathcal{N}\left(y \mid A \mu+b, L^{-1}+A \Lambda^{-1} A^{\top}\right) \\
+p(x \mid y) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda \mu\right\}, \Sigma\right),
 \end{aligned}
 \end{split}\]</div>
 <p>where</p>

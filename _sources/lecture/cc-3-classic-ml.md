@@ -703,9 +703,7 @@ Now, let's do some bookkeeping
 $$\underbrace{a}_{M}=\underbrace{(K-\lambda I )^{-1}}_{M \times M} \underbrace{y}_{M}, \quad M = \text{number of data points}$$
 
 
-> Recall from Class 2
-$$\underbrace{\vartheta}_{N}=\underbrace{(X^{T}X)^{-1}}_{N \times N} \underbrace{X^T}_{N \times M} \underbrace{y}_{M}, \quad N = \text{dim of input data vector}$$
-
+> Recall from Class 2 $\underbrace{\vartheta}_{N}=\underbrace{(X^{T}X)^{-1}}_{N \times N} \underbrace{X^T}_{N \times M} \underbrace{y}_{M}, \quad N = \text{dim of input data vector}$
 
 As typically $M>>N$ we see that solving the dual problem for LMS requires us to invest a $MxM$ matrix, whereas the primal problem tends only to a $NxN$ matrix.
 
@@ -717,6 +715,7 @@ $\Rightarrow$ we can consider even an infinite-dimensional feature vector $N \ri
 #### Construction of suitable kernels
 
 * construction from feature map 
+
 $$ K(x,x') = \varphi^T (x) \varphi (x') = \sum_{i=1}^{N} \varphi_i (x) \varphi_i (x')$$
 
 * direct construction with constraint that a *valid kernel* is obtained, i.e. it needs actually to correspond to a possible feature-map scalar product.
@@ -824,7 +823,7 @@ As the main mathematical construct behind Gaussian Processes, we first introduce
 
 The **univariate** (for a scalar random variable) Gaussian distribution has the form
 
-$$mathcal{N}(x; \underbrace{\mu, \sigma^2}_{\text{parameters}}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left\{ - \frac{(x-\mu)^2}{2 \sigma^2}\right\}.$$
+$$\mathcal{N}(x; \underbrace{\mu, \sigma^2}_{\text{parameters}}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left\{ - \frac{(x-\mu)^2}{2 \sigma^2}\right\}.$$
 
 The two parameters are the mean $\mu$ and variance $\sigma^2$.
 
@@ -950,7 +949,7 @@ These requirements correspond to the following structure of $p(x)$ and $p(y|x)$
 $$
 \begin{aligned}
 p(x) & =\mathcal{N}\left(x \mid \mu, \Lambda^{-1}\right) \\
-p(x \mid x) & =\mathcal{N}\left(x \mid A x+b, L^{-1}\right).
+p(y \mid x) & =\mathcal{N}\left(y \mid A x+b, L^{-1}\right).
 \end{aligned}
 $$
 
@@ -958,8 +957,8 @@ From that we can derive an analytical evidence (marginal) and posterior (conditi
 
 $$
 \begin{aligned}
-p(x) & =\mathcal{N}\left(x \mid A \mu+b, L^{-1}+A \Lambda^{-1} A^{\top}\right) \\
-p(x \mid x) & =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(x-b)+\Lambda \mu\right\}, \Sigma\right),
+p(y) & =\mathcal{N}\left(y \mid A \mu+b, L^{-1}+A \Lambda^{-1} A^{\top}\right) \\
+p(x \mid y) & =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda \mu\right\}, \Sigma\right),
 \end{aligned}
 $$
 
