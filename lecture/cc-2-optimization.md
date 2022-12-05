@@ -600,7 +600,7 @@ One possibility to counteract overfitting and still have an expressive model is 
 
     $$J_{L1}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot \sum_{i=1}^{\#params} |\vartheta_i|$$
 
-    - **L2 regularization** - takes information from all features; typical choice: 
+    - **(squared) L2 regularization** - takes information from all features; typical choice: 
 
     $$J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2$$
 
