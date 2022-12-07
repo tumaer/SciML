@@ -174,6 +174,11 @@ const thebe_selector_output = ".output, .cell_output"
    3. Optimization
   </a>
  </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/4_SVM.html">
+   4. Support Vector Machines
+  </a>
+ </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
@@ -384,6 +389,11 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-constrained-optimization-problem">
+     The Constrained Optimization Problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">
      Linearly Separable Sets - Maximum Margin Classifier (MMC)
     </a>
@@ -503,6 +513,11 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-constrained-optimization-problem">
+     The Constrained Optimization Problem
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">
      Linearly Separable Sets - Maximum Margin Classifier (MMC)
     </a>
@@ -611,10 +626,10 @@ title="Print to PDF"
 <h1>Core Content 3: Classic ML<a class="headerlink" href="#core-content-3-classic-ml" title="Permalink to this headline">#</a></h1>
 <section id="support-vector-machines">
 <h2>Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this headline">#</a></h2>
-<section id="linearly-separable-sets-maximum-margin-classifier-mmc">
-<h3>Linearly Separable Sets - Maximum Margin Classifier (MMC)<a class="headerlink" href="#linearly-separable-sets-maximum-margin-classifier-mmc" title="Permalink to this headline">#</a></h3>
-<p>Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier.</p>
-<p>First, we need some mathematical formalism to solve constrained optimization problems. If we define our optimization problem as:</p>
+<p>First, we need some mathematical formalism to solve constrained optimization problems.</p>
+<section id="the-constrained-optimization-problem">
+<h3>The Constrained Optimization Problem<a class="headerlink" href="#the-constrained-optimization-problem" title="Permalink to this headline">#</a></h3>
+<p>If we define our optimization problem as:</p>
 <div class="math notranslate nohighlight">
 \[\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l\]</div>
 <p>Where the <span class="math notranslate nohighlight">\(\underset{\omega}{\min}\)</span> seeks to find the minimum subject to the constraint(s) <span class="math notranslate nohighlight">\(h_{i}(\omega)\)</span>. To solve this we have to define a Lagrangian to take into account the constraints.</p>
@@ -708,7 +723,12 @@ d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset
 \[
 \alpha_{i}^{\star} &gt; 0 \Longrightarrow g_{i}(\omega^{\star}) = 0
 \]</div>
-<p>i.e. <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> is “on the constraint boundary”. Now we can (re-)introduce the <em>linear discriminator</em>. Logistic regression <span class="math notranslate nohighlight">\(p(y=1| x; \theta)\)</span> is then modeled by <span class="math notranslate nohighlight">\(h(x) = g(\theta^{\top} x) = \text{sigm}(\theta^{\top} x)\)</span>:</p>
+<p>i.e. <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> is “on the constraint boundary”.</p>
+</section>
+<section id="linearly-separable-sets-maximum-margin-classifier-mmc">
+<h3>Linearly Separable Sets - Maximum Margin Classifier (MMC)<a class="headerlink" href="#linearly-separable-sets-maximum-margin-classifier-mmc" title="Permalink to this headline">#</a></h3>
+<p>Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier.</p>
+<p>Now, we can (re-)introduce the <em>linear discriminator</em>. Logistic regression <span class="math notranslate nohighlight">\(p(y=1| x; \theta)\)</span> is then modeled by <span class="math notranslate nohighlight">\(h(x) = g(\theta^{\top} x) = \text{sigm}(\theta^{\top} x)\)</span>:</p>
 <div style="text-align:center">
     <img src="https://i.imgur.com/7VgPzdM.png" alt="drawing" width="400"/>
 </div>
@@ -734,7 +754,7 @@ d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset
 <p>where <span class="math notranslate nohighlight">\(\omega^{\top} x + b\)</span> defines a hyperplane for our linear classifier. With <span class="math notranslate nohighlight">\(b\)</span> we now make the bias explicit, where it was previously implicit in our expressions. The functional margin of <span class="math notranslate nohighlight">\((\omega, b)\)</span> w.r.t.  a single training sample then is:</p>
 <div class="math notranslate nohighlight">
 \[
-g^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b)
+\hat{\gamma}^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b)
 \]</div>
 <p>For a confident prediction we would then like to have a maximum gap between the classes for a good classifier:</p>
 <div style="text-align:center">
@@ -963,7 +983,7 @@ b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{
 <p>The last equation arises from the additional condition due to slack variables. Upon inserting these conditions into <span class="math notranslate nohighlight">\(\mathcal{L}(\omega,b,\xi,\alpha,\mu)\)</span> we obtain the dual-problem Lagrangian:</p>
 <div class="math notranslate nohighlight">
 \[
-\max_{\alpha} \theta_{D}(\alpha)=\sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle
+\max_{\alpha} \theta_{D}(\alpha)=\max_{\alpha} \left( \sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle \right)
 \]</div>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -1019,7 +1039,7 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 \[\Rightarrow y^{(i)}(\omega^* x^{(i)} + b^*) = 1.\]</div>
 <p>A numerically stable option is to average over <span class="math notranslate nohighlight">\(m_{\Sigma}\)</span>, i.e. all SV on the margin satisfying <span class="math notranslate nohighlight">\(0&lt;\alpha_{i}^{*}&lt;C\)</span>:</p>
 <div class="math notranslate nohighlight">
-\[b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{s}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)
+\[b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{\Sigma}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)
 \]</div>
 <blockquote>
 <div><p>Recall: only data with <span class="math notranslate nohighlight">\(\alpha_{i}^*\ne 0\)</span>, i.e. support vectors, will contribute to the SVM prediction (last eq. of Linearly Separable Sets).</p>
