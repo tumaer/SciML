@@ -2,11 +2,11 @@
 
 ## Support Vector Machines
 
-### Linearly Separable Sets - Maximum Margin Classifier (MMC)
+First, we need some mathematical formalism to solve constrained optimization problems. 
 
-Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier.
+### The Constrained Optimization Problem
 
-First, we need some mathematical formalism to solve constrained optimization problems. If we define our optimization problem as:
+If we define our optimization problem as:
 
 $$\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l$$
 
@@ -113,7 +113,13 @@ $$
 \alpha_{i}^{\star} > 0 \Longrightarrow g_{i}(\omega^{\star}) = 0
 $$
 
-i.e. $\omega^{\star}$ is "on the constraint boundary". Now we can (re-)introduce the *linear discriminator*. Logistic regression $p(y=1| x; \theta)$ is then modeled by $h(x) = g(\theta^{\top} x) = \text{sigm}(\theta^{\top} x)$:
+i.e. $\omega^{\star}$ is "on the constraint boundary". 
+
+### Linearly Separable Sets - Maximum Margin Classifier (MMC)
+
+Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier.
+
+Now, we can (re-)introduce the *linear discriminator*. Logistic regression $p(y=1| x; \theta)$ is then modeled by $h(x) = g(\theta^{\top} x) = \text{sigm}(\theta^{\top} x)$:
 
 <div style="text-align:center">
     <img src="https://i.imgur.com/7VgPzdM.png" alt="drawing" width="400"/>
@@ -143,7 +149,7 @@ $$
 where $\omega^{\top} x + b$ defines a hyperplane for our linear classifier. With $b$ we now make the bias explicit, where it was previously implicit in our expressions. The functional margin of $(\omega, b)$ w.r.t.  a single training sample then is:
 
 $$
-g^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b)
+\hat{\gamma}^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b)
 $$
 
 For a confident prediction we would then like to have a maximum gap between the classes for a good classifier:
@@ -410,7 +416,7 @@ $$
 The last equation arises from the additional condition due to slack variables. Upon inserting these conditions into $\mathcal{L}(\omega,b,\xi,\alpha,\mu)$ we obtain the dual-problem Lagrangian:
 
 $$
-\max_{\alpha} \theta_{D}(\alpha)=\sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle
+\max_{\alpha} \theta_{D}(\alpha)=\max_{\alpha} \left( \sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle \right)
 $$
 
 $$
@@ -470,7 +476,7 @@ $$\Rightarrow y^{(i)}(\omega^* x^{(i)} + b^*) = 1.$$
 A numerically stable option is to average over $m_{\Sigma}$, i.e. all SV on the margin satisfying $0<\alpha_{i}^{*}<C$:
 
 
-$$b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{s}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)
+$$b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{\Sigma}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)
 $$
 
 > Recall: only data with $\alpha_{i}^*\ne 0$, i.e. support vectors, will contribute to the SVM prediction (last eq. of Linearly Separable Sets).
