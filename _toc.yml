@@ -11,6 +11,9 @@ parts:
   - file: lecture/cc-1-linear.md
   - file: lecture/cc-2-optimization.md
   - file: lecture/cc-3-classic-ml.md
+    sections:
+    - file: lecture/cc-3-sub-SVM.md
+    - file: lecture/cc-3-sub-GP.md
   - file: lecture/cc-4-dl.md
 - caption: Exercise
   chapters:
