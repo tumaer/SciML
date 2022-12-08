@@ -105,17 +105,9 @@ const thebe_selector_output = ".output, .cell_output"
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        
-        <ul class="nav bd-sidenav bd-sidenav__home-link">
-            <li class="toctree-l1">
-                <a class="reference internal" href="../about.html">
-                    About this Lecture
-                </a>
-            </li>
-        </ul>
         <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Lecture
@@ -142,10 +134,27 @@ const thebe_selector_output = ".output, .cell_output"
    Core Content 2: Optimization
   </a>
  </li>
- <li class="toctree-l1">
+ <li class="toctree-l1 has-children">
   <a class="reference internal" href="../lecture/cc-3-classic-ml.html">
    Core Content 3: Classic ML
   </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-3-sub-SVM.html">
+     Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-3-sub-GP.html">
+     Gaussian Processes
+    </a>
+   </li>
+  </ul>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../lecture/cc-4-dl.html">
@@ -214,7 +223,7 @@ const thebe_selector_output = ".output, .cell_output"
              <!-- To handle the deprecated key -->
             
             <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
             </div>
             
         </div>
@@ -257,35 +266,6 @@ title="Toggle navigation"
         
     </div>
     <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://colab.research.google.com/github/arturtoshev/SciML22-23/blob/master/exercise/4_SVM.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
->
-  
-
-<span class="headerbtn__icon-container">
-  
-    <img src="../_static/images/logo_colab.png">
-  </span>
-<span class="headerbtn__text-container">Colab</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
 <button onclick="toggleFullScreen()"
   class="headerbtn"
   data-toggle="tooltip"
@@ -299,51 +279,6 @@ title="Fullscreen mode"
   </span>
 
 </button>
-
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
-  </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/arturtoshev/SciML22-23"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Fexercise/4_SVM.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
 
 <div class="menu-dropdown menu-dropdown-download-buttons">
   <button class="headerbtn menu-dropdown__trigger"
@@ -423,8 +358,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gradient-descent-optimization">
-   4.3 Gradient Descent Optimization
+  <a class="reference internal nav-link" href="#multiclass-classification-with-svm-and-smo">
+   4.3 Multiclass Classification with SVM and SMO
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-descent-optimization-of-soft-margin-classifier">
+   4.4 Gradient Descent Optimization of Soft Margin Classifier
   </a>
  </li>
 </ul>
@@ -457,8 +397,13 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gradient-descent-optimization">
-   4.3 Gradient Descent Optimization
+  <a class="reference internal nav-link" href="#multiclass-classification-with-svm-and-smo">
+   4.3 Multiclass Classification with SVM and SMO
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-descent-optimization-of-soft-margin-classifier">
+   4.4 Gradient Descent Optimization of Soft Margin Classifier
   </a>
  </li>
 </ul>
@@ -481,17 +426,14 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
-<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span><span class="p">,</span> <span class="n">make_circles</span><span class="p">,</span> <span class="n">make_moons</span>
-<span class="kn">from</span> <span class="nn">sklearn.preprocessing</span> <span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_blobs</span>
 </pre></div>
 </div>
 </div>
@@ -533,20 +475,20 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># X as features and Y as labels</span>
-<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+<span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="n">make_blobs</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">centers</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">cluster_std</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
 <span class="c1"># by default the labels are {0, 1}, so we change them to {-1,1}</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Y</span><span class="o">==</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
 <span class="c1"># we also center the input data (per dimension) and scale it to unit variance to make trainig more efficient</span>
 <span class="n">X</span> <span class="o">=</span> <span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">X</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span><span class="o">/</span><span class="n">X</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 
-<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">Y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7fd8a05ab3d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f4f549fbe20&gt;
 </pre></div>
 </div>
 <img alt="../_images/4_SVM_4_1.png" src="../_images/4_SVM_4_1.png" />
@@ -570,7 +512,7 @@ title="Print to PDF"
     <span class="n">xrange</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">resolution</span><span class="p">)</span>
     <span class="n">yrange</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span>
                          <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">resolution</span><span class="p">)</span>
-    <span class="n">grid</span> <span class="o">=</span> <span class="p">[[</span><span class="n">decision_function</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">,</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="p">[[</span><span class="n">decision_function</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span>
                                <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">,</span>
                                <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">xr</span><span class="p">,</span> <span class="n">yr</span><span class="p">]),</span> <span class="n">model</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="k">for</span> <span class="n">xr</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">]</span> <span class="k">for</span> <span class="n">yr</span> <span class="ow">in</span> <span class="n">yrange</span><span class="p">]</span>
     <span class="n">grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">xrange</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">yrange</span><span class="p">))</span>
@@ -580,13 +522,13 @@ title="Print to PDF"
     <span class="n">ax</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">xrange</span><span class="p">,</span> <span class="n">yrange</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="n">levels</span><span class="p">,</span> <span class="n">linewidths</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
                <span class="n">linestyles</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">),</span> <span class="n">colors</span><span class="o">=</span><span class="n">colors</span><span class="p">)</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span>
-               <span class="n">c</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
+               <span class="n">c</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.25</span><span class="p">)</span>
 
     <span class="c1"># Plot support vectors (non-zero alphas)</span>
     <span class="c1"># as circled points (linewidth &gt; 0)</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">round</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">decimals</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">!=</span> <span class="mf">0.0</span>
     <span class="n">ax</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">[</span><span class="n">mask</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-               <span class="n">c</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
+               <span class="n">c</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">mask</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">viridis</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">grid</span><span class="p">,</span> <span class="n">ax</span>
 </pre></div>
@@ -599,9 +541,9 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SMOModel</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Container object for the model used for sequential minimal optimization.&quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>               <span class="c1"># training data vector</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>               <span class="c1"># class label vector</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Y</span> <span class="o">=</span> <span class="n">Y</span>               <span class="c1"># class label vector</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">C</span> <span class="o">=</span> <span class="n">C</span>               <span class="c1"># regularization parameter</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>     <span class="c1"># kernel function</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">alphas</span> <span class="o">=</span> <span class="n">alphas</span>     <span class="c1"># lagrange multiplier vector</span>
@@ -633,10 +575,9 @@ title="Print to PDF"
 <span class="sd">    kernel inverse width parameter `gamma` (set to 1 by default).&quot;&quot;&quot;</span>
     
     <span class="c1">######################</span>
-    <span class="c1"># TODO:</span>
+    <span class="c1"># TODO: you might find this helpful: https://jonchar.net/notebooks/SVM/</span>
     
-    <span class="k">raise</span> <span class="ne">NotImplementedError</span>
-
+    <span class="k">pass</span>
     <span class="c1">#######################</span>
 </pre></div>
 </div>
@@ -686,8 +627,8 @@ The decision function simple imlements <span class="math notranslate nohighlight
 
     <span class="n">alph1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
     <span class="n">alph2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
-    <span class="n">y1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
-    <span class="n">y2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
     <span class="n">E1</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="n">i1</span><span class="p">]</span>
     <span class="n">E2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
     <span class="n">s</span> <span class="o">=</span> <span class="n">y1</span> <span class="o">*</span> <span class="n">y2</span>
@@ -724,10 +665,10 @@ The decision function simple imlements <span class="math notranslate nohighlight
         <span class="n">alphas_adj</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
         <span class="n">alphas_adj</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span> <span class="o">=</span> <span class="n">L</span>
         <span class="c1"># objective function output with a2 = L</span>
-        <span class="n">Lobj</span> <span class="o">=</span> <span class="n">objective_function</span><span class="p">(</span><span class="n">alphas_adj</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">Lobj</span> <span class="o">=</span> <span class="n">objective_function</span><span class="p">(</span><span class="n">alphas_adj</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
         <span class="n">alphas_adj</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span> <span class="o">=</span> <span class="n">H</span>
         <span class="c1"># objective function output with a2 = H</span>
-        <span class="n">Hobj</span> <span class="o">=</span> <span class="n">objective_function</span><span class="p">(</span><span class="n">alphas_adj</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+        <span class="n">Hobj</span> <span class="o">=</span> <span class="n">objective_function</span><span class="p">(</span><span class="n">alphas_adj</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">Lobj</span> <span class="o">&gt;</span> <span class="p">(</span><span class="n">Hobj</span> <span class="o">+</span> <span class="n">eps</span><span class="p">):</span>
             <span class="n">a2</span> <span class="o">=</span> <span class="n">L</span>
         <span class="k">elif</span> <span class="n">Lobj</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">Hobj</span> <span class="o">-</span> <span class="n">eps</span><span class="p">):</span>
@@ -791,7 +732,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">examine_example</span><span class="p">(</span><span class="n">i2</span><span class="p">,</span> <span class="n">model</span><span class="p">):</span>
 
-    <span class="n">y2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
     <span class="n">alph2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
     <span class="n">E2</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">errors</span><span class="p">[</span><span class="n">i2</span><span class="p">]</span>
     <span class="n">r2</span> <span class="o">=</span> <span class="n">E2</span> <span class="o">*</span> <span class="n">y2</span>
@@ -843,7 +784,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
                 <span class="n">numChanged</span> <span class="o">+=</span> <span class="n">examine_result</span>
                 <span class="k">if</span> <span class="n">examine_result</span><span class="p">:</span>
                     <span class="n">obj_result</span> <span class="o">=</span> <span class="n">objective_function</span><span class="p">(</span>
-                        <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
                     <span class="n">model</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj_result</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="c1"># loop over examples where alphas are not already at their limits</span>
@@ -852,7 +793,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
                 <span class="n">numChanged</span> <span class="o">+=</span> <span class="n">examine_result</span>
                 <span class="k">if</span> <span class="n">examine_result</span><span class="p">:</span>
                     <span class="n">obj_result</span> <span class="o">=</span> <span class="n">objective_function</span><span class="p">(</span>
-                        <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
+                        <span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">)</span>
                     <span class="n">model</span><span class="o">.</span><span class="n">_obj</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">obj_result</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">examineAll</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
             <span class="n">examineAll</span> <span class="o">=</span> <span class="mi">0</span>
@@ -868,7 +809,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set model parameters and initial values</span>
-<span class="n">C</span> <span class="o">=</span> <span class="mf">1000.0</span>
+<span class="n">C</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">initial_alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="n">initial_b</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -879,35 +820,19 @@ The decision function simple imlements <span class="math notranslate nohighlight
 
 <span class="c1"># Instantiate model</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">SMOModel</span><span class="p">(</span>
-    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> 
-    <span class="n">kernel</span><span class="o">=</span><span class="n">linear_kernel</span><span class="p">,</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> 
+    <span class="n">kernel</span><span class="o">=</span><span class="n">gaussian_kernel</span><span class="p">,</span> <span class="c1"># TODO: try linear_kernel and  gaussian_kernel</span>
     <span class="n">alphas</span><span class="o">=</span><span class="n">initial_alphas</span><span class="p">,</span>
     <span class="n">b</span><span class="o">=</span><span class="n">initial_b</span><span class="p">,</span>
     <span class="n">errors</span><span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="p">)</span>
 
 <span class="c1"># Initialize error cache</span>
-<span class="n">initial_error</span> <span class="o">=</span> <span class="n">decision_function</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span>
-                                  <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">y</span>
+<span class="n">initial_error</span> <span class="o">=</span> <span class="n">decision_function</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">alphas</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">kernel</span><span class="p">,</span>
+                                  <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">X</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="o">-</span> <span class="n">model</span><span class="o">.</span><span class="n">Y</span>
 <span class="n">model</span><span class="o">.</span><span class="n">errors</span> <span class="o">=</span> <span class="n">initial_error</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># show initial performance</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">()</span>
-<span class="n">grid</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plot_decision_boundary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_37058/1098051293.py:18: UserWarning: No contour levels were found within the data range.
-  ax.contour(xrange, yrange, grid, levels=levels, linewidths=(1, 1, 1),
-</pre></div>
-</div>
-<img alt="../_images/4_SVM_20_1.png" src="../_images/4_SVM_20_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -926,7 +851,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4_SVM_22_0.png" src="../_images/4_SVM_22_0.png" />
+<img alt="../_images/4_SVM_21_0.png" src="../_images/4_SVM_21_0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -939,70 +864,241 @@ The decision function simple imlements <span class="math notranslate nohighlight
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7fd8accbba30&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f4f55e47d30&gt;]
 </pre></div>
 </div>
-<img alt="../_images/4_SVM_23_1.png" src="../_images/4_SVM_23_1.png" />
+<img alt="../_images/4_SVM_22_1.png" src="../_images/4_SVM_22_1.png" />
 </div>
 </div>
 </section>
-<section id="gradient-descent-optimization">
-<h2>4.3 Gradient Descent Optimization<a class="headerlink" href="#gradient-descent-optimization" title="Permalink to this headline">#</a></h2>
-<p>We can also directly solve the primal problem with gradient-based optimization, if we slightly reformulate it. This reformulation requires using the hinge loss <span class="math notranslate nohighlight">\(\max(0, y_{pred}-1)\)</span></p>
+<section id="multiclass-classification-with-svm-and-smo">
+<h2>4.3 Multiclass Classification with SVM and SMO<a class="headerlink" href="#multiclass-classification-with-svm-and-smo" title="Permalink to this headline">#</a></h2>
+<p>We look at a problem we have seen before: the classification of the iris dataset. The task is to use two of the measured input features (“sepal_length” and “sepal_width”) and to build a classifier capable of distinguishing among the three possible flowers, which we index by [0, 1, 2].</p>
+<p>Getting the data is equivalent to the process we saw in <a class="reference internal" href="1_linReg_logReg.html"><span class="doc std std-doc">exercise Nr. 1</span></a> in the Logistic Regression section.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get iris dataset</span>
+<span class="kn">from</span> <span class="nn">urllib.request</span> <span class="kn">import</span> <span class="n">urlretrieve</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="s1">&#39;http://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data&#39;</span>
+<span class="n">urlretrieve</span><span class="p">(</span><span class="n">iris</span><span class="p">)</span>
+<span class="n">df0</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">iris</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+
+<span class="c1"># name columns</span>
+<span class="n">attributes</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;sepal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;sepal_width&quot;</span><span class="p">,</span>
+              <span class="s2">&quot;petal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal_width&quot;</span><span class="p">,</span> <span class="s2">&quot;class&quot;</span><span class="p">]</span>
+<span class="n">df0</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">attributes</span>
+
+<span class="c1"># add species index</span>
+<span class="n">species</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df0</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">unique</span><span class="p">())</span>
+<span class="n">df0</span><span class="p">[</span><span class="s2">&quot;class_idx&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df0</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">species</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Count occurence of each class:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df0</span><span class="p">[</span><span class="s2">&quot;class&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">())</span>
+
+<span class="c1"># let&#39;s extract two of the features, and the indexed classes [0,1,2]</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">df0</span><span class="p">[[</span><span class="s2">&quot;petal_length&quot;</span><span class="p">,</span> <span class="s2">&quot;petal_width&quot;</span><span class="p">,</span> <span class="s2">&quot;class_idx&quot;</span><span class="p">]]</span>
+
+<span class="n">X_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;petal_length&#39;</span><span class="p">,</span> <span class="s1">&#39;petal_width&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">Y_train</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;class_idx&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Training data:&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Count occurence of each class:
+Iris-versicolor    50
+Iris-virginica     50
+Iris-setosa        49
+Name: class, dtype: int64
+Training data:
+     petal_length  petal_width  class_idx
+0             1.4          0.2          0
+1             1.3          0.2          0
+2             1.5          0.2          0
+3             1.4          0.2          0
+4             1.7          0.4          0
+..            ...          ...        ...
+144           5.2          2.3          2
+145           5.0          1.9          2
+146           5.2          2.0          2
+147           5.4          2.3          2
+148           5.1          1.8          2
+
+[149 rows x 3 columns]
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Exercise</strong></p>
+<p>Now, your task is to implement a SVM-based multi-class classifier, which can be trained using the SMO algorithm. A solution will be presented during the next exercise session.</p>
+<p>Hint: <a class="reference external" href="https://github.com/itsikad/svm-smo">this</a> repository and the one-vs-all classifier.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">####################</span>
+<span class="c1"># TODO: </span>
+
+
+
+
+<span class="c1">####################</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/4_SVM_26_0.png" src="../_images/4_SVM_26_0.png" />
+</div>
+</div>
+</section>
+<section id="gradient-descent-optimization-of-soft-margin-classifier">
+<h2>4.4 Gradient Descent Optimization of Soft Margin Classifier<a class="headerlink" href="#gradient-descent-optimization-of-soft-margin-classifier" title="Permalink to this headline">#</a></h2>
+<p>We can also directly solve the primal problem with gradient-based optimization, if we slightly reformulate it. This reformulation requires using the <a class="reference external" href="https://en.wikipedia.org/wiki/Hinge_loss">hinge loss</a>:</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}_{hinge}(x) = \max(0, 1-x)\]</div>
+<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hinge_loss_vs_zero_one_loss.svg/1280px-Hinge_loss_vs_zero_one_loss.svg.png" alt="drawing" width="500"/>
+<p>What we would give as an input to the hinge loss is the “raw” output of the classifier, e.g. for linear SVMs <span class="math notranslate nohighlight">\(out= \omega x + b\)</span>, multiplied with the correct output <span class="math notranslate nohighlight">\(y\)</span>. Thus, the hinge loss of a single sample <span class="math notranslate nohighlight">\(i\)</span> for a linear SVM becomes</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L}_i = \max \left( 0, \; y^{(i)}(\omega^{\top} x^{(i)} + b) \right)\]</div>
+<p>To fully recover the Soft Margin Classifier, we simply add the squared L2 regularization to this loss, thus the total loss becomes</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{L} = \frac{1}{M}\sum_{i=1}^M \max \left( 0, \; y^{(i)}(\omega^{\top} x^{(i)} + b) \right) + \lambda ||w||_2^2\]</div>
+<p>Here, the parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is inversely proportional to the <span class="math notranslate nohighlight">\(C\)</span> from the Soft Margin Classifier formalism.</p>
 <p><strong>Visualization Utils</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_torch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_torch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    based on </span>
 <span class="sd">    https://scikit-learn.org/stable/auto_examples/svm/plot_svm_margin.html#sphx-glr-auto-examples-svm-plot-svm-margin-py</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">if</span> <span class="n">model</span><span class="p">:</span>
-        <span class="k">assert</span> <span class="n">w</span> <span class="o">==</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">==</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;Either w, b or model can be provided&quot;</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-        <span class="n">b</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
-
-    <span class="c1"># extend bounds by 0.1 to improve the plot</span>
-    <span class="n">x_min</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="mf">0.1</span>
-    <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="mf">0.1</span>
-
-    <span class="c1"># solving $w0+x1 + w1*x2 + b = 0$ for $x2$ leads to $x2 = -w0/w1 - b/w1$</span>
-    <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
-    <span class="n">yy</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">xx</span> <span class="o">-</span> <span class="n">b</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-
-    <span class="c1"># $margin = 1 / ||w||_2$</span>
-    <span class="c1"># Why? Recall that the distance between a point (x_p, y_P) and a line</span>
-    <span class="c1"># $ax+by+c=0$ is given by $|ax_p+by_p+c|/\sqrt{a^2+b^2}$. As we set the</span>
-    <span class="c1"># functional margin to 1, i.e. $|ax_i+by_i+c|=1$ for a support vector</span>
-    <span class="c1"># point, then the total margin becomes $1 / ||w||_2$.</span>
-    <span class="n">margin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-    <span class="n">yy_up</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span>
-    <span class="n">yy_down</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">Y</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s2">&quot;k-&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_up</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_down</span><span class="p">,</span> <span class="s2">&quot;b--&quot;</span><span class="p">)</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">bias</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    
+    <span class="n">delta</span> <span class="o">=</span> <span class="mf">0.02</span>
+
+    <span class="k">if</span> <span class="n">linear</span><span class="p">:</span>
+
+        <span class="c1"># extend bounds by &quot;delta&quot; to improve the plot</span>
+        <span class="n">x_min</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">-</span> <span class="n">delta</span>
+        <span class="n">x_max</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">+</span> <span class="n">delta</span>
+
+        <span class="c1"># solving $w0+x1 + w1*x2 + b = 0$ for $x2$ leads to $x2 = -w0/w1 - b/w1$</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="o">-</span><span class="n">w</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">xx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">x_min</span><span class="p">,</span> <span class="n">x_max</span><span class="p">,</span> <span class="mi">50</span><span class="p">)</span>
+        <span class="n">yy</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="n">xx</span> <span class="o">-</span> <span class="n">b</span> <span class="o">/</span> <span class="n">w</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="c1"># $margin = 1 / ||w||_2$</span>
+        <span class="c1"># Why? Recall that the distance between a point (x_p, y_P) and a line</span>
+        <span class="c1"># $ax+by+c=0$ is given by $|ax_p+by_p+c|/\sqrt{a^2+b^2}$. As we set the</span>
+        <span class="c1"># functional margin to 1, i.e. $|ax_i+by_i+c|=1$ for a support vector</span>
+        <span class="c1"># point, then the total margin becomes $1 / ||w||_2$.</span>
+        <span class="n">margin</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+        <span class="n">yy_up</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span>
+        <span class="n">yy_down</span> <span class="o">=</span> <span class="n">yy</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">margin</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">,</span> <span class="s2">&quot;r-&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_up</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy_down</span><span class="p">,</span> <span class="s2">&quot;r--&quot;</span><span class="p">)</span>
+        
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">(),</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">(),</span> <span class="n">delta</span><span class="p">)</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">xy</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ravel</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">]))</span>
+        <span class="n">xy</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">xy</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">z</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        
+        <span class="n">cs0</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">contourf</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">z</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">contour</span><span class="p">(</span><span class="n">cs0</span><span class="p">,</span> <span class="s1">&#39;-&#39;</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;decision boundary&#39;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+        
+    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">([</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">delta</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">+</span> <span class="n">delta</span><span class="p">,</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">delta</span><span class="p">])</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>Let’s first look at the case of a linear kernel.</p>
+<p>Let’s first define a base SVM class, a linear kernel, the hinge loss, and the regularization over weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SupportVectorMachine</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># X_train.shape should be (num_samples, dim x)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">phi_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">phi_x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+
+<span class="k">class</span> <span class="nc">LinearKernel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">x</span>
+    
+    
+<span class="k">class</span> <span class="nc">RBFKernel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span> <span class="o">-</span> <span class="n">out</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">out</span>
+
+<span class="k">def</span> <span class="nf">hinge_loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Hinge loss&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">out</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+
+
+<span class="k">def</span> <span class="nf">sq_l2_reg</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Squared L2 regularization of weights&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">square</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Exercise</strong></p>
+<p>Implement the Radial Basis Function kernel. After that, use your new kernel implementation to run a training process and visualize results.</p>
+<p>Hint: <a class="reference external" href="https://gist.github.com/mlaves/c98cd4e6bcb9dbd4d0c03b34bacb0f65">this</a> reference.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RBFKernel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Radial Basis Function kernel</span>
+<span class="sd">    Lifts the dimension from X.shape[-1] to X.shape[0]&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">gamma</span> <span class="o">=</span> <span class="n">gamma</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1">##############################</span>
+        <span class="c1"># TODO: implement the forward methods</span>
+        
+        <span class="k">pass</span>
+
+        <span class="c1">##############################</span>
 </pre></div>
 </div>
 </div>
@@ -1012,7 +1108,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># prepare the data</span>
 <span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
 <span class="n">N</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1020,16 +1116,26 @@ The decision function simple imlements <span class="math notranslate nohighlight
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># set hyperparameters</span>
-<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.01</span>
-<span class="n">epoch</span> <span class="o">=</span> <span class="mi">500</span>
-<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">10</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
+<span class="c1"># set hyperparameters</span>
+<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.1</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">reg_lambda</span> <span class="o">=</span> <span class="mf">0.001</span>
+<span class="n">kernel_type</span> <span class="o">=</span> <span class="s1">&#39;rbf&#39;</span>  <span class="c1"># TODO: try both &quot;lin&quot; and &quot;rbf&quot;</span>
+
+<span class="k">if</span> <span class="n">kernel_type</span> <span class="o">==</span> <span class="s1">&#39;lin&#39;</span><span class="p">:</span>
+  <span class="n">kernel</span> <span class="o">=</span> <span class="n">LinearKernel</span><span class="p">()</span> 
+  <span class="n">input_size</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="k">elif</span> <span class="n">kernel_type</span> <span class="o">==</span> <span class="s1">&#39;rbf&#39;</span><span class="p">:</span>
+  <span class="n">kernel</span> <span class="o">=</span> <span class="n">RBFKernel</span><span class="p">(</span><span class="n">X_train</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> 
+  <span class="n">input_size</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+  
 <span class="c1"># initialize model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">SupportVectorMachine</span><span class="p">()</span>
-<span class="c1"># define hinge loss</span>
-<span class="n">criterion</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">out</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">out</span> <span class="o">*</span> <span class="n">y</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">SupportVectorMachine</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span> 
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
 
 <span class="c1"># print initial parameters</span>
@@ -1039,27 +1145,83 @@ The decision function simple imlements <span class="math notranslate nohighlight
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>model.weight :  tensor([[-0.0933, -0.4716]])
-model.bias :  tensor([-0.3917])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[ 0.0342,  0.0371, -0.0105,  0.0411, -0.0098,  0.0090, -0.0218,  0.0263,
+          0.0394, -0.0328,  0.0389,  0.0084,  0.0330,  0.0061,  0.0216, -0.0063,
+          0.0345,  0.0066, -0.0209,  0.0114, -0.0206, -0.0052, -0.0182,  0.0297,
+         -0.0353, -0.0206, -0.0126, -0.0269,  0.0042, -0.0442,  0.0404, -0.0380,
+          0.0345,  0.0074, -0.0145,  0.0276,  0.0070,  0.0361,  0.0049, -0.0141,
+          0.0120, -0.0121,  0.0188,  0.0399,  0.0259, -0.0196,  0.0258,  0.0080,
+          0.0227, -0.0273, -0.0443, -0.0173, -0.0343,  0.0367,  0.0129,  0.0185,
+          0.0141, -0.0008,  0.0350, -0.0318,  0.0028, -0.0305,  0.0138, -0.0154,
+          0.0137, -0.0093,  0.0371, -0.0265, -0.0267, -0.0267,  0.0402,  0.0149,
+          0.0430, -0.0369, -0.0444, -0.0350, -0.0301,  0.0181,  0.0160,  0.0372,
+         -0.0231, -0.0305,  0.0237, -0.0181,  0.0271, -0.0106,  0.0256, -0.0347,
+         -0.0226,  0.0136,  0.0095, -0.0114,  0.0267,  0.0304, -0.0324, -0.0239,
+          0.0409, -0.0151, -0.0159, -0.0433, -0.0256,  0.0112, -0.0059, -0.0325,
+          0.0010, -0.0305, -0.0379, -0.0246, -0.0391, -0.0285,  0.0447,  0.0084,
+          0.0138, -0.0417, -0.0294, -0.0149,  0.0070, -0.0394, -0.0193, -0.0268,
+          0.0001, -0.0166, -0.0031, -0.0303, -0.0307, -0.0261, -0.0153, -0.0353,
+          0.0375, -0.0089,  0.0385,  0.0139, -0.0379,  0.0309, -0.0123, -0.0171,
+         -0.0371, -0.0445,  0.0128, -0.0098,  0.0174, -0.0367,  0.0332, -0.0328,
+         -0.0077,  0.0093,  0.0231,  0.0361,  0.0407, -0.0355,  0.0113, -0.0192,
+         -0.0049, -0.0335,  0.0407, -0.0328,  0.0239,  0.0157,  0.0145, -0.0242,
+          0.0406,  0.0098,  0.0058, -0.0394,  0.0188, -0.0067, -0.0205,  0.0384,
+          0.0100, -0.0247, -0.0226, -0.0021,  0.0250, -0.0114, -0.0255, -0.0153,
+         -0.0334,  0.0159,  0.0346, -0.0421,  0.0104,  0.0231,  0.0081, -0.0159,
+          0.0233,  0.0235,  0.0167, -0.0079, -0.0118,  0.0048, -0.0079, -0.0133,
+          0.0286,  0.0384, -0.0044, -0.0100,  0.0007, -0.0027,  0.0108,  0.0125,
+         -0.0406, -0.0165,  0.0377,  0.0174, -0.0022, -0.0270, -0.0274, -0.0401,
+         -0.0146,  0.0151,  0.0285,  0.0206, -0.0395, -0.0269, -0.0071,  0.0433,
+          0.0065, -0.0116,  0.0185, -0.0170, -0.0289,  0.0326, -0.0203, -0.0090,
+         -0.0445,  0.0299,  0.0339,  0.0163, -0.0312, -0.0441, -0.0363,  0.0333,
+          0.0215,  0.0376,  0.0234,  0.0113, -0.0004, -0.0340, -0.0383, -0.0418,
+          0.0183, -0.0220, -0.0090, -0.0257, -0.0081, -0.0315, -0.0292,  0.0148,
+         -0.0133,  0.0276, -0.0143, -0.0328, -0.0079, -0.0217, -0.0137, -0.0426,
+          0.0250, -0.0311,  0.0225,  0.0203,  0.0320, -0.0343,  0.0322, -0.0211,
+          0.0166,  0.0420, -0.0063, -0.0003, -0.0103, -0.0373,  0.0215, -0.0444,
+          0.0278,  0.0335,  0.0423, -0.0105, -0.0367,  0.0101,  0.0247, -0.0445,
+         -0.0102, -0.0268, -0.0039, -0.0220, -0.0183, -0.0142, -0.0425,  0.0367,
+          0.0375, -0.0070, -0.0051, -0.0183, -0.0404, -0.0435,  0.0166, -0.0246,
+         -0.0288, -0.0035, -0.0149, -0.0145,  0.0014, -0.0095, -0.0154, -0.0214,
+         -0.0364,  0.0375, -0.0179,  0.0119, -0.0155,  0.0036,  0.0417,  0.0206,
+         -0.0388,  0.0178,  0.0425,  0.0118,  0.0300,  0.0441, -0.0069,  0.0093,
+         -0.0311, -0.0092,  0.0331,  0.0229, -0.0283, -0.0359, -0.0306, -0.0441,
+         -0.0345, -0.0111,  0.0302,  0.0075, -0.0340, -0.0359,  0.0222, -0.0333,
+         -0.0055,  0.0215, -0.0207, -0.0049, -0.0039, -0.0106, -0.0227, -0.0399,
+         -0.0362, -0.0239,  0.0432, -0.0216, -0.0300,  0.0108,  0.0123,  0.0245,
+          0.0340,  0.0249, -0.0443,  0.0040,  0.0271, -0.0041, -0.0264,  0.0426,
+         -0.0167, -0.0255, -0.0403,  0.0020,  0.0198,  0.0099,  0.0088, -0.0339,
+         -0.0418,  0.0008,  0.0408,  0.0258, -0.0260, -0.0058, -0.0330, -0.0216,
+          0.0081,  0.0244,  0.0370, -0.0411,  0.0299, -0.0315,  0.0167,  0.0378,
+          0.0006,  0.0407, -0.0381, -0.0171,  0.0261, -0.0097, -0.0092, -0.0186,
+          0.0308,  0.0219,  0.0143, -0.0251, -0.0363,  0.0048,  0.0132, -0.0206,
+         -0.0125,  0.0302,  0.0036,  0.0020, -0.0110, -0.0405, -0.0420, -0.0214,
+         -0.0227,  0.0139, -0.0130, -0.0175,  0.0426,  0.0156,  0.0319, -0.0217,
+         -0.0183,  0.0164, -0.0298, -0.0292, -0.0022, -0.0164, -0.0335,  0.0265,
+          0.0360,  0.0073, -0.0078, -0.0414, -0.0163,  0.0114,  0.0211, -0.0057,
+         -0.0177,  0.0249, -0.0356,  0.0283, -0.0173,  0.0007, -0.0088,  0.0054,
+         -0.0135,  0.0325, -0.0012,  0.0349,  0.0430, -0.0218, -0.0326,  0.0359,
+          0.0350, -0.0341, -0.0035, -0.0441, -0.0366,  0.0086,  0.0119,  0.0095,
+         -0.0122,  0.0413,  0.0064, -0.0264, -0.0025,  0.0107,  0.0157, -0.0316,
+          0.0168, -0.0228, -0.0372, -0.0244,  0.0431,  0.0382,  0.0400,  0.0263,
+          0.0338, -0.0060, -0.0246,  0.0223, -0.0232, -0.0302, -0.0143,  0.0094,
+          0.0230, -0.0174, -0.0263,  0.0060, -0.0264, -0.0291,  0.0233, -0.0075,
+          0.0409,  0.0435,  0.0134,  0.0154,  0.0103,  0.0007, -0.0033,  0.0006,
+          0.0167,  0.0416, -0.0116, -0.0189]])
+linear.bias :  tensor([-0.0108])
 </pre></div>
 </div>
 </div>
 </div>
+<p>Now, we can train the model.</p>
+<p>We iterate over the data by following these two steps in each epoch:</p>
+<ol class="simple">
+<li><p>randomly permute all indices up to the number of training data points at each epoch.</p></li>
+<li><p>iterate over all batches by picking the samples corresponding to the current subset of indices</p></li>
+</ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># visualize decision boundary and margins before training</span>
-<span class="n">visualize_torch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/4_SVM_32_0.png" src="../_images/4_SVM_32_0.png" />
-</div>
-</div>
-<p>Now, we train the model</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epoch</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
     <span class="n">random_nums</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randperm</span><span class="p">(</span><span class="n">N</span><span class="p">)</span>
 
     <span class="c1"># Iterate over the individual batches</span>
@@ -1067,13 +1229,10 @@ model.bias :  tensor([-0.3917])
         <span class="n">x</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">random_nums</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]]</span>
         <span class="n">y</span> <span class="o">=</span> <span class="n">Y</span><span class="p">[</span><span class="n">random_nums</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="n">batch_size</span><span class="p">]]</span>
 
-        <span class="n">x</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-        <span class="n">y</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
-
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
         <span class="n">output</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-
-        <span class="n">loss</span> <span class="o">=</span> <span class="n">criterion</span><span class="p">(</span><span class="n">output</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        
+        <span class="n">loss</span> <span class="o">=</span> <span class="n">hinge_loss</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">unsqueeze</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">output</span><span class="p">)</span> <span class="o">+</span> <span class="n">reg_lambda</span> <span class="o">*</span> <span class="n">sq_l2_reg</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
         <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 
@@ -1082,506 +1241,1006 @@ model.bias :  tensor([-0.3917])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, loss 1.0
-epoch 1, loss 1.037710428237915
-epoch 2, loss 0.6296830177307129
-epoch 3, loss 1.0113270282745361
-epoch 4, loss 0.9945489764213562
-epoch 5, loss 0.9861934185028076
-epoch 6, loss 0.9714006185531616
-epoch 7, loss 0.9780317544937134
-epoch 8, loss 0.9693995118141174
-epoch 9, loss 0.8684085011482239
-epoch 10, loss 1.0023398399353027
-epoch 11, loss 1.01217782497406
-epoch 12, loss 0.949317991733551
-epoch 13, loss 0.9097648859024048
-epoch 14, loss 1.0
-epoch 15, loss 1.0052322149276733
-epoch 16, loss 0.998340368270874
-epoch 17, loss 0.9999999403953552
-epoch 18, loss 0.9599748253822327
-epoch 19, loss 1.0006119012832642
-epoch 20, loss 1.0211067199707031
-epoch 21, loss 0.9878845810890198
-epoch 22, loss 1.0
-epoch 23, loss 0.9629693627357483
-epoch 24, loss 0.897744357585907
-epoch 25, loss 0.9095276594161987
-epoch 26, loss 0.9665170311927795
-epoch 27, loss 1.0085572004318237
-epoch 28, loss 0.9593522548675537
-epoch 29, loss 0.986879289150238
-epoch 30, loss 1.0107148885726929
-epoch 31, loss 1.0
-epoch 32, loss 1.0185199975967407
-epoch 33, loss 0.9756385684013367
-epoch 34, loss 1.0026373863220215
-epoch 35, loss 1.0018682479858398
-epoch 36, loss 0.9247942566871643
-epoch 37, loss 0.9876608848571777
-epoch 38, loss 1.0066548585891724
-epoch 39, loss 1.0158905982971191
-epoch 40, loss 0.975191593170166
-epoch 41, loss 1.0
-epoch 42, loss 0.8577518463134766
-epoch 43, loss 0.7346863746643066
-epoch 44, loss 0.9791869521141052
-epoch 45, loss 1.0081143379211426
-epoch 46, loss 1.0119354724884033
-epoch 47, loss 0.9935455322265625
-epoch 48, loss 0.9511392116546631
-epoch 49, loss 0.8916271924972534
-epoch 50, loss 0.9949738383293152
-epoch 51, loss 0.9579364061355591
-epoch 52, loss 0.9443272352218628
-epoch 53, loss 0.7384126782417297
-epoch 54, loss 0.9512062668800354
-epoch 55, loss 0.7629111409187317
-epoch 56, loss 0.9912386536598206
-epoch 57, loss 0.9688662886619568
-epoch 58, loss 0.8397905230522156
-epoch 59, loss 0.8345715999603271
-epoch 60, loss 1.0245447158813477
-epoch 61, loss 0.9339427351951599
-epoch 62, loss 0.9687446355819702
-epoch 63, loss 1.0077906847000122
-epoch 64, loss 0.9800364971160889
-epoch 65, loss 1.002061128616333
-epoch 66, loss 0.8873255848884583
-epoch 67, loss 1.0092377662658691
-epoch 68, loss 0.9837936162948608
-epoch 69, loss 0.9893543124198914
-epoch 70, loss 0.8706488609313965
-epoch 71, loss 0.7362289428710938
-epoch 72, loss 1.0141046047210693
-epoch 73, loss 1.019364595413208
-epoch 74, loss 0.7662438750267029
-epoch 75, loss 0.7309564352035522
-epoch 76, loss 0.9788610935211182
-epoch 77, loss 0.9100192189216614
-epoch 78, loss 1.0000429153442383
-epoch 79, loss 0.9911007881164551
-epoch 80, loss 0.9126284718513489
-epoch 81, loss 0.9845589995384216
-epoch 82, loss 0.7803347110748291
-epoch 83, loss 1.003717303276062
-epoch 84, loss 0.984480082988739
-epoch 85, loss 0.8967791199684143
-epoch 86, loss 0.9765903353691101
-epoch 87, loss 0.9878063797950745
-epoch 88, loss 0.8273986577987671
-epoch 89, loss 1.0110886096954346
-epoch 90, loss 0.9706304669380188
-epoch 91, loss 0.9066428542137146
-epoch 92, loss 0.9954428672790527
-epoch 93, loss 0.8234254717826843
-epoch 94, loss 0.9877461194992065
-epoch 95, loss 0.8528421521186829
-epoch 96, loss 0.9616749286651611
-epoch 97, loss 0.9505128264427185
-epoch 98, loss 0.9611236453056335
-epoch 99, loss 0.8801714181900024
-epoch 100, loss 0.9667996168136597
-epoch 101, loss 0.9728180766105652
-epoch 102, loss 0.9643974304199219
-epoch 103, loss 0.7903271317481995
-epoch 104, loss 0.8889490365982056
-epoch 105, loss 0.9832819104194641
-epoch 106, loss 0.9687583446502686
-epoch 107, loss 0.9910491704940796
-epoch 108, loss 0.7804783582687378
-epoch 109, loss 1.003686785697937
-epoch 110, loss 0.9917494058609009
-epoch 111, loss 0.9186831116676331
-epoch 112, loss 1.0098146200180054
-epoch 113, loss 0.9875274896621704
-epoch 114, loss 0.956317126750946
-epoch 115, loss 0.9790907502174377
-epoch 116, loss 0.7961788773536682
-epoch 117, loss 0.8917703032493591
-epoch 118, loss 0.9744589328765869
-epoch 119, loss 0.970123291015625
-epoch 120, loss 0.9801238775253296
-epoch 121, loss 1.0006357431411743
-epoch 122, loss 0.9792355298995972
-epoch 123, loss 1.012761116027832
-epoch 124, loss 0.8514796495437622
-epoch 125, loss 0.9091484546661377
-epoch 126, loss 0.973507821559906
-epoch 127, loss 0.9710741639137268
-epoch 128, loss 0.871924638748169
-epoch 129, loss 0.970205545425415
-epoch 130, loss 1.0
-epoch 131, loss 0.963347852230072
-epoch 132, loss 0.9796186685562134
-epoch 133, loss 0.9902626872062683
-epoch 134, loss 0.9236887097358704
-epoch 135, loss 1.0043938159942627
-epoch 136, loss 1.0
-epoch 137, loss 0.9073061943054199
-epoch 138, loss 0.9877458810806274
-epoch 139, loss 0.9816917181015015
-epoch 140, loss 0.8138841390609741
-epoch 141, loss 1.002414345741272
-epoch 142, loss 0.9521365165710449
-epoch 143, loss 0.9593631029129028
-epoch 144, loss 1.0
-epoch 145, loss 0.9716899991035461
-epoch 146, loss 1.0087952613830566
-epoch 147, loss 1.0021259784698486
-epoch 148, loss 0.5194268226623535
-epoch 149, loss 0.9762963652610779
-epoch 150, loss 0.9839429259300232
-epoch 151, loss 0.9763769507408142
-epoch 152, loss 0.8637781739234924
-epoch 153, loss 0.9669919013977051
-epoch 154, loss 0.9590266942977905
-epoch 155, loss 1.007880687713623
-epoch 156, loss 0.9882107377052307
-epoch 157, loss 0.5884894728660583
-epoch 158, loss 0.9663892388343811
-epoch 159, loss 0.7169971466064453
-epoch 160, loss 0.9799883961677551
-epoch 161, loss 1.0017037391662598
-epoch 162, loss 1.0
-epoch 163, loss 0.788357138633728
-epoch 164, loss 0.986650824546814
-epoch 165, loss 0.970573902130127
-epoch 166, loss 0.9826675653457642
-epoch 167, loss 0.8934544324874878
-epoch 168, loss 0.8904402852058411
-epoch 169, loss 0.9762740135192871
-epoch 170, loss 0.997861921787262
-epoch 171, loss 0.8700777292251587
-epoch 172, loss 0.9037505984306335
-epoch 173, loss 0.8753330111503601
-epoch 174, loss 0.9642042517662048
-epoch 175, loss 0.8835246562957764
-epoch 176, loss 0.9822958111763
-epoch 177, loss 1.0009410381317139
-epoch 178, loss 0.5121200680732727
-epoch 179, loss 0.9545382857322693
-epoch 180, loss 0.7563140988349915
-epoch 181, loss 0.7586513757705688
-epoch 182, loss 0.9632856845855713
-epoch 183, loss 1.0
-epoch 184, loss 1.0048812627792358
-epoch 185, loss 1.002465009689331
-epoch 186, loss 0.8616963028907776
-epoch 187, loss 1.0095605850219727
-epoch 188, loss 1.0203423500061035
-epoch 189, loss 1.0025535821914673
-epoch 190, loss 0.9824723601341248
-epoch 191, loss 0.5613083839416504
-epoch 192, loss 0.983604907989502
-epoch 193, loss 1.0
-epoch 194, loss 0.9760587811470032
-epoch 195, loss 1.0082528591156006
-epoch 196, loss 0.9061172008514404
-epoch 197, loss 0.9452160000801086
-epoch 198, loss 0.8762983679771423
-epoch 199, loss 0.7515954375267029
-epoch 200, loss 0.5494152307510376
-epoch 201, loss 1.0186548233032227
-epoch 202, loss 1.0054141283035278
-epoch 203, loss 0.7501610517501831
-epoch 204, loss 1.0
-epoch 205, loss 0.9583802819252014
-epoch 206, loss 1.0
-epoch 207, loss 1.0093626976013184
-epoch 208, loss 0.9903441071510315
-epoch 209, loss 1.0031989812850952
-epoch 210, loss 1.0
-epoch 211, loss 1.001011848449707
-epoch 212, loss 0.9290847778320312
-epoch 213, loss 1.0122004747390747
-epoch 214, loss 0.8874508738517761
-epoch 215, loss 0.7990261316299438
-epoch 216, loss 1.0071334838867188
-epoch 217, loss 0.6306087374687195
-epoch 218, loss 0.8529619574546814
-epoch 219, loss 0.8529518842697144
-epoch 220, loss 0.7092634439468384
-epoch 221, loss 0.981809675693512
-epoch 222, loss 1.002475619316101
-epoch 223, loss 0.47598302364349365
-epoch 224, loss 1.0082573890686035
-epoch 225, loss 1.0048518180847168
-epoch 226, loss 0.9657196998596191
-epoch 227, loss 0.9756826162338257
-epoch 228, loss 0.992584228515625
-epoch 229, loss 1.0189528465270996
-epoch 230, loss 1.0000001192092896
-epoch 231, loss 1.0026452541351318
-epoch 232, loss 1.0
-epoch 233, loss 0.9184619188308716
-epoch 234, loss 0.8553222417831421
-epoch 235, loss 0.9880959391593933
-epoch 236, loss 0.9933522939682007
-epoch 237, loss 0.9283249378204346
-epoch 238, loss 1.0179874897003174
-epoch 239, loss 0.9636187553405762
-epoch 240, loss 0.9878755807876587
-epoch 241, loss 0.9719681739807129
-epoch 242, loss 0.9595047235488892
-epoch 243, loss 0.9910354018211365
-epoch 244, loss 0.9570895433425903
-epoch 245, loss 0.9591806530952454
-epoch 246, loss 1.0000388622283936
-epoch 247, loss 0.965547502040863
-epoch 248, loss 0.9517300128936768
-epoch 249, loss 0.8599995970726013
-epoch 250, loss 0.9136371612548828
-epoch 251, loss 0.8980486392974854
-epoch 252, loss 0.9786529541015625
-epoch 253, loss 0.9497442841529846
-epoch 254, loss 0.9951822757720947
-epoch 255, loss 1.0067527294158936
-epoch 256, loss 1.0000001192092896
-epoch 257, loss 0.8979646563529968
-epoch 258, loss 1.004197359085083
-epoch 259, loss 0.9647287130355835
-epoch 260, loss 1.0029557943344116
-epoch 261, loss 0.9807553887367249
-epoch 262, loss 1.005663275718689
-epoch 263, loss 0.8616124987602234
-epoch 264, loss 0.8937824964523315
-epoch 265, loss 0.8443956971168518
-epoch 266, loss 0.958560049533844
-epoch 267, loss 0.8879004120826721
-epoch 268, loss 0.9644744992256165
-epoch 269, loss 0.8711795210838318
-epoch 270, loss 0.9884974956512451
-epoch 271, loss 0.9712914228439331
-epoch 272, loss 0.8592371344566345
-epoch 273, loss 0.9797601103782654
-epoch 274, loss 1.0098210573196411
-epoch 275, loss 1.0173571109771729
-epoch 276, loss 0.9753369092941284
-epoch 277, loss 0.9819003343582153
-epoch 278, loss 0.980548083782196
-epoch 279, loss 0.9698505401611328
-epoch 280, loss 0.8970954418182373
-epoch 281, loss 0.9907931685447693
-epoch 282, loss 1.0
-epoch 283, loss 0.8580665588378906
-epoch 284, loss 1.0051864385604858
-epoch 285, loss 1.002549171447754
-epoch 286, loss 0.9906319379806519
-epoch 287, loss 1.0066957473754883
-epoch 288, loss 0.9851635098457336
-epoch 289, loss 1.0000001192092896
-epoch 290, loss 0.9379422068595886
-epoch 291, loss 0.9875370264053345
-epoch 292, loss 0.7273862957954407
-epoch 293, loss 0.7680506110191345
-epoch 294, loss 0.7416651248931885
-epoch 295, loss 1.0
-epoch 296, loss 0.9598860740661621
-epoch 297, loss 0.9698327779769897
-epoch 298, loss 0.9593179225921631
-epoch 299, loss 1.0000001192092896
-epoch 300, loss 0.8532005548477173
-epoch 301, loss 0.9585923552513123
-epoch 302, loss 0.9498233199119568
-epoch 303, loss 0.9403447508811951
-epoch 304, loss 0.906289279460907
-epoch 305, loss 0.9654911756515503
-epoch 306, loss 1.0098098516464233
-epoch 307, loss 1.0045851469039917
-epoch 308, loss 0.9055326581001282
-epoch 309, loss 0.9596560001373291
-epoch 310, loss 0.9923341274261475
-epoch 311, loss 0.9579740166664124
-epoch 312, loss 1.0055687427520752
-epoch 313, loss 0.9852626323699951
-epoch 314, loss 0.9931254386901855
-epoch 315, loss 0.8835042715072632
-epoch 316, loss 0.9773779511451721
-epoch 317, loss 0.9894806742668152
-epoch 318, loss 0.9837033748626709
-epoch 319, loss 0.9554867744445801
-epoch 320, loss 0.9760284423828125
-epoch 321, loss 0.893510639667511
-epoch 322, loss 0.8810583353042603
-epoch 323, loss 0.9006463885307312
-epoch 324, loss 0.9811911582946777
-epoch 325, loss 0.9806697368621826
-epoch 326, loss 0.9800317883491516
-epoch 327, loss 0.9075248837471008
-epoch 328, loss 1.0008519887924194
-epoch 329, loss 0.9168627858161926
-epoch 330, loss 0.9574272632598877
-epoch 331, loss 0.9561792016029358
-epoch 332, loss 0.7682241201400757
-epoch 333, loss 0.9875774383544922
-epoch 334, loss 1.0104649066925049
-epoch 335, loss 1.0000001192092896
-epoch 336, loss 0.7380847334861755
-epoch 337, loss 0.892010509967804
-epoch 338, loss 0.9773390889167786
-epoch 339, loss 0.7902604937553406
-epoch 340, loss 0.4683600664138794
-epoch 341, loss 0.978522539138794
-epoch 342, loss 0.8834629654884338
-epoch 343, loss 0.9599162340164185
-epoch 344, loss 0.4535447061061859
-epoch 345, loss 0.9020493030548096
-epoch 346, loss 0.8817819952964783
-epoch 347, loss 0.7557035684585571
-epoch 348, loss 0.7607058882713318
-epoch 349, loss 1.0024312734603882
-epoch 350, loss 1.0117783546447754
-epoch 351, loss 0.8831143379211426
-epoch 352, loss 1.003628134727478
-epoch 353, loss 0.9970279932022095
-epoch 354, loss 0.9928879737854004
-epoch 355, loss 1.0021123886108398
-epoch 356, loss 0.9692739844322205
-epoch 357, loss 0.9714933633804321
-epoch 358, loss 0.8298184871673584
-epoch 359, loss 0.9778311252593994
-epoch 360, loss 0.9999999403953552
-epoch 361, loss 1.0091196298599243
-epoch 362, loss 0.9698331356048584
-epoch 363, loss 1.0002210140228271
-epoch 364, loss 0.9810900688171387
-epoch 365, loss 0.895753026008606
-epoch 366, loss 0.9999999403953552
-epoch 367, loss 0.9808343648910522
-epoch 368, loss 0.9095247387886047
-epoch 369, loss 0.9051044583320618
-epoch 370, loss 0.9603816270828247
-epoch 371, loss 0.8914593458175659
-epoch 372, loss 0.7400664687156677
-epoch 373, loss 1.01244056224823
-epoch 374, loss 1.005530595779419
-epoch 375, loss 0.8937408924102783
-epoch 376, loss 0.9999999403953552
-epoch 377, loss 0.9905313849449158
-epoch 378, loss 0.9680088758468628
-epoch 379, loss 1.012833833694458
-epoch 380, loss 0.9222905039787292
-epoch 381, loss 0.8726086616516113
-epoch 382, loss 0.9703901410102844
-epoch 383, loss 0.8023843169212341
-epoch 384, loss 0.9846141934394836
-epoch 385, loss 0.9850583076477051
-epoch 386, loss 1.002663254737854
-epoch 387, loss 0.9758524298667908
-epoch 388, loss 0.9828431606292725
-epoch 389, loss 1.0092377662658691
-epoch 390, loss 0.9665771722793579
-epoch 391, loss 0.971088707447052
-epoch 392, loss 0.7102927565574646
-epoch 393, loss 1.0117775201797485
-epoch 394, loss 0.8697155117988586
-epoch 395, loss 0.9765112996101379
-epoch 396, loss 0.9902604818344116
-epoch 397, loss 1.0086578130722046
-epoch 398, loss 1.0054203271865845
-epoch 399, loss 0.9786081910133362
-epoch 400, loss 0.8920361995697021
-epoch 401, loss 0.9866202473640442
-epoch 402, loss 0.9770287871360779
-epoch 403, loss 0.9890164732933044
-epoch 404, loss 1.0045239925384521
-epoch 405, loss 0.9881640672683716
-epoch 406, loss 1.0
-epoch 407, loss 1.0
-epoch 408, loss 0.8671116828918457
-epoch 409, loss 0.891978919506073
-epoch 410, loss 1.020151138305664
-epoch 411, loss 1.0041978359222412
-epoch 412, loss 0.9294971227645874
-epoch 413, loss 1.0149617195129395
-epoch 414, loss 1.0264673233032227
-epoch 415, loss 0.9866558909416199
-epoch 416, loss 1.0095648765563965
-epoch 417, loss 0.9810484051704407
-epoch 418, loss 0.9627165794372559
-epoch 419, loss 0.9719622731208801
-epoch 420, loss 0.9663816094398499
-epoch 421, loss 0.9863829016685486
-epoch 422, loss 0.7488980293273926
-epoch 423, loss 1.0120466947555542
-epoch 424, loss 0.9063392877578735
-epoch 425, loss 0.9891396164894104
-epoch 426, loss 0.959923505783081
-epoch 427, loss 1.0116605758666992
-epoch 428, loss 0.9766094088554382
-epoch 429, loss 0.9782812595367432
-epoch 430, loss 0.8980039358139038
-epoch 431, loss 1.0141191482543945
-epoch 432, loss 0.8946372270584106
-epoch 433, loss 0.993833601474762
-epoch 434, loss 0.9823238253593445
-epoch 435, loss 1.008481502532959
-epoch 436, loss 0.9835047125816345
-epoch 437, loss 1.004319429397583
-epoch 438, loss 1.0035380125045776
-epoch 439, loss 0.5526009202003479
-epoch 440, loss 1.0
-epoch 441, loss 0.9544010162353516
-epoch 442, loss 0.9606465101242065
-epoch 443, loss 0.703154981136322
-epoch 444, loss 1.0013070106506348
-epoch 445, loss 0.9989950656890869
-epoch 446, loss 0.9454715251922607
-epoch 447, loss 0.9741108417510986
-epoch 448, loss 0.9434594511985779
-epoch 449, loss 1.0
-epoch 450, loss 1.0007059574127197
-epoch 451, loss 1.0176995992660522
-epoch 452, loss 1.0
-epoch 453, loss 0.9707262516021729
-epoch 454, loss 0.9805618524551392
-epoch 455, loss 1.0
-epoch 456, loss 0.7681581377983093
-epoch 457, loss 0.982069194316864
-epoch 458, loss 1.0030490159988403
-epoch 459, loss 0.8722622394561768
-epoch 460, loss 0.876607358455658
-epoch 461, loss 1.0
-epoch 462, loss 0.9416155219078064
-epoch 463, loss 1.0
-epoch 464, loss 0.9782851934432983
-epoch 465, loss 0.9732925891876221
-epoch 466, loss 0.977173388004303
-epoch 467, loss 1.0069071054458618
-epoch 468, loss 0.9822711944580078
-epoch 469, loss 0.9624573588371277
-epoch 470, loss 0.8626136183738708
-epoch 471, loss 0.978076159954071
-epoch 472, loss 1.0003551244735718
-epoch 473, loss 0.9664459228515625
-epoch 474, loss 0.9116548299789429
-epoch 475, loss 0.9754084944725037
-epoch 476, loss 0.862754762172699
-epoch 477, loss 0.9111805558204651
-epoch 478, loss 1.0055004358291626
-epoch 479, loss 0.9605598449707031
-epoch 480, loss 1.0030605792999268
-epoch 481, loss 0.960761308670044
-epoch 482, loss 0.9067330360412598
-epoch 483, loss 1.000022530555725
-epoch 484, loss 0.5202656388282776
-epoch 485, loss 1.0
-epoch 486, loss 0.9726881980895996
-epoch 487, loss 0.9858840107917786
-epoch 488, loss 0.9793750643730164
-epoch 489, loss 1.0
-epoch 490, loss 1.005529522895813
-epoch 491, loss 0.9803292751312256
-epoch 492, loss 1.0030367374420166
-epoch 493, loss 1.0
-epoch 494, loss 0.9892929792404175
-epoch 495, loss 0.9686628580093384
-epoch 496, loss 0.9758394360542297
-epoch 497, loss 1.0088305473327637
-epoch 498, loss 0.9633033871650696
-epoch 499, loss 0.990884006023407
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, loss 0.6529232263565063
+epoch 1, loss 0.3293291926383972
+epoch 2, loss 0.21102982759475708
+epoch 3, loss 0.1605272740125656
+epoch 4, loss 0.0688493475317955
+epoch 5, loss 0.06849966198205948
+epoch 6, loss 0.06332069635391235
+epoch 7, loss 0.02352367900311947
+epoch 8, loss 0.01134116668254137
+epoch 9, loss 0.01460360549390316
+epoch 10, loss 0.020687459036707878
+epoch 11, loss 0.022596335038542747
+epoch 12, loss 0.0361754484474659
+epoch 13, loss 0.01191086694598198
+epoch 14, loss 0.02031996287405491
+epoch 15, loss 0.010045344941318035
+epoch 16, loss 0.019348012283444405
+epoch 17, loss 0.02869298867881298
+epoch 18, loss 0.016887042671442032
+epoch 19, loss 0.017847873270511627
+epoch 20, loss 0.011874405667185783
+epoch 21, loss 0.027022406458854675
+epoch 22, loss 0.017283421009778976
+epoch 23, loss 0.011979825794696808
+epoch 24, loss 0.035601016134023666
+epoch 25, loss 0.02742944099009037
+epoch 26, loss 0.008837726898491383
+epoch 27, loss 0.019427523016929626
+epoch 28, loss 0.014539334923028946
+epoch 29, loss 0.027257703244686127
+epoch 30, loss 0.01395105104893446
+epoch 31, loss 0.016992004588246346
+epoch 32, loss 0.02810915932059288
+epoch 33, loss 0.019938457757234573
+epoch 34, loss 0.01238109078258276
+epoch 35, loss 0.01626821793615818
+epoch 36, loss 0.011231927201151848
+epoch 37, loss 0.009365128353238106
+epoch 38, loss 0.01096801832318306
+epoch 39, loss 0.01671580597758293
+epoch 40, loss 0.0082730483263731
+epoch 41, loss 0.016769351437687874
+epoch 42, loss 0.036282241344451904
+epoch 43, loss 0.021709803491830826
+epoch 44, loss 0.019587185233831406
+epoch 45, loss 0.009943408891558647
+epoch 46, loss 0.01649230346083641
+epoch 47, loss 0.018892180174589157
+epoch 48, loss 0.023943837732076645
+epoch 49, loss 0.031966377049684525
+epoch 50, loss 0.018467653542757034
+epoch 51, loss 0.010412734933197498
+epoch 52, loss 0.015215297229588032
+epoch 53, loss 0.011900649406015873
+epoch 54, loss 0.011811639182269573
+epoch 55, loss 0.02877976931631565
+epoch 56, loss 0.009267931804060936
+epoch 57, loss 0.020183203741908073
+epoch 58, loss 0.026072073727846146
+epoch 59, loss 0.014507859945297241
+epoch 60, loss 0.02144475094974041
+epoch 61, loss 0.02239488810300827
+epoch 62, loss 0.013368267565965652
+epoch 63, loss 0.02006545662879944
+epoch 64, loss 0.03154151141643524
+epoch 65, loss 0.019181570038199425
+epoch 66, loss 0.013332797214388847
+epoch 67, loss 0.011456653475761414
+epoch 68, loss 0.0113198421895504
+epoch 69, loss 0.033634934574365616
+epoch 70, loss 0.008578321896493435
+epoch 71, loss 0.01856151968240738
+epoch 72, loss 0.02798723429441452
+epoch 73, loss 0.020916074514389038
+epoch 74, loss 0.02493014559149742
+epoch 75, loss 0.02221701666712761
+epoch 76, loss 0.007936622016131878
+epoch 77, loss 0.01581568829715252
+epoch 78, loss 0.023603588342666626
+epoch 79, loss 0.021080585196614265
+epoch 80, loss 0.01964881271123886
+epoch 81, loss 0.013153810054063797
+epoch 82, loss 0.025596709921956062
+epoch 83, loss 0.029831476509571075
+epoch 84, loss 0.01684911549091339
+epoch 85, loss 0.008610463701188564
+epoch 86, loss 0.01449434831738472
+epoch 87, loss 0.017094910144805908
+epoch 88, loss 0.01653248257935047
+epoch 89, loss 0.012447424232959747
+epoch 90, loss 0.015650784596800804
+epoch 91, loss 0.013402219861745834
+epoch 92, loss 0.010773280635476112
+epoch 93, loss 0.007344099227339029
+epoch 94, loss 0.02304656431078911
+epoch 95, loss 0.013455508276820183
+epoch 96, loss 0.01634683459997177
+epoch 97, loss 0.019475331529974937
+epoch 98, loss 0.014577014371752739
+epoch 99, loss 0.025311220437288284
+epoch 100, loss 0.02871127985417843
+epoch 101, loss 0.02820686064660549
+epoch 102, loss 0.007999724708497524
+epoch 103, loss 0.01218842901289463
+epoch 104, loss 0.014394380152225494
+epoch 105, loss 0.013174626976251602
+epoch 106, loss 0.021523792296648026
+epoch 107, loss 0.015360859222710133
+epoch 108, loss 0.0323307104408741
+epoch 109, loss 0.02972329594194889
+epoch 110, loss 0.007502985652536154
+epoch 111, loss 0.02229909412562847
+epoch 112, loss 0.019809339195489883
+epoch 113, loss 0.01371634379029274
+epoch 114, loss 0.011643067002296448
+epoch 115, loss 0.007505903486162424
+epoch 116, loss 0.024656236171722412
+epoch 117, loss 0.011912627145648003
+epoch 118, loss 0.013722234405577183
+epoch 119, loss 0.014054994098842144
+epoch 120, loss 0.011613824404776096
+epoch 121, loss 0.022435631603002548
+epoch 122, loss 0.029105838388204575
+epoch 123, loss 0.030918171629309654
+epoch 124, loss 0.021611273288726807
+epoch 125, loss 0.007471729069948196
+epoch 126, loss 0.013262221589684486
+epoch 127, loss 0.017662616446614265
+epoch 128, loss 0.012117394246160984
+epoch 129, loss 0.013487694784998894
+epoch 130, loss 0.017615212127566338
+epoch 131, loss 0.015423175878822803
+epoch 132, loss 0.02071080543100834
+epoch 133, loss 0.019103417173027992
+epoch 134, loss 0.016329001635313034
+epoch 135, loss 0.015450743958353996
+epoch 136, loss 0.024294434115290642
+epoch 137, loss 0.011115817353129387
+epoch 138, loss 0.019154725596308708
+epoch 139, loss 0.008755515329539776
+epoch 140, loss 0.009991697035729885
+epoch 141, loss 0.011265546083450317
+epoch 142, loss 0.01751871034502983
+epoch 143, loss 0.015367771498858929
+epoch 144, loss 0.007419365458190441
+epoch 145, loss 0.018673868849873543
+epoch 146, loss 0.011314205825328827
+epoch 147, loss 0.02611156553030014
+epoch 148, loss 0.03926727548241615
+epoch 149, loss 0.016636012122035027
+epoch 150, loss 0.008008843287825584
+epoch 151, loss 0.024944979697465897
+epoch 152, loss 0.00798041932284832
+epoch 153, loss 0.027744676917791367
+epoch 154, loss 0.021698936820030212
+epoch 155, loss 0.010719475336372852
+epoch 156, loss 0.010714607313275337
+epoch 157, loss 0.022424696013331413
+epoch 158, loss 0.0076647051610052586
+epoch 159, loss 0.023317933082580566
+epoch 160, loss 0.020734213292598724
+epoch 161, loss 0.030158009380102158
+epoch 162, loss 0.01752951741218567
+epoch 163, loss 0.007734219077974558
+epoch 164, loss 0.01954415813088417
+epoch 165, loss 0.007499006111174822
+epoch 166, loss 0.01942308619618416
+epoch 167, loss 0.007399627473205328
+epoch 168, loss 0.015846431255340576
+epoch 169, loss 0.02299071103334427
+epoch 170, loss 0.02391822449862957
+epoch 171, loss 0.014458240941166878
+epoch 172, loss 0.008431075140833855
+epoch 173, loss 0.0074187153950333595
+epoch 174, loss 0.013393942266702652
+epoch 175, loss 0.023419633507728577
+epoch 176, loss 0.007446145638823509
+epoch 177, loss 0.02020084671676159
+epoch 178, loss 0.017660092562437057
+epoch 179, loss 0.01705516315996647
+epoch 180, loss 0.010244714096188545
+epoch 181, loss 0.026752930134534836
+epoch 182, loss 0.020140865817666054
+epoch 183, loss 0.02482450380921364
+epoch 184, loss 0.026737181469798088
+epoch 185, loss 0.03359006717801094
+epoch 186, loss 0.027558257803320885
+epoch 187, loss 0.03429475799202919
+epoch 188, loss 0.022292418405413628
+epoch 189, loss 0.01488095335662365
+epoch 190, loss 0.02280324138700962
+epoch 191, loss 0.01587464101612568
+epoch 192, loss 0.01517421379685402
+epoch 193, loss 0.007817328907549381
+epoch 194, loss 0.03291420266032219
+epoch 195, loss 0.020599674433469772
+epoch 196, loss 0.0077356863766908646
+epoch 197, loss 0.027948621660470963
+epoch 198, loss 0.016022268682718277
+epoch 199, loss 0.020696960389614105
+epoch 200, loss 0.007486091926693916
+epoch 201, loss 0.01950039528310299
+epoch 202, loss 0.008072389289736748
+epoch 203, loss 0.015519269742071629
+epoch 204, loss 0.01061311922967434
+epoch 205, loss 0.01703711599111557
+epoch 206, loss 0.019501741975545883
+epoch 207, loss 0.007373841013759375
+epoch 208, loss 0.012818758375942707
+epoch 209, loss 0.00998804159462452
+epoch 210, loss 0.015913991257548332
+epoch 211, loss 0.016092129051685333
+epoch 212, loss 0.015514090657234192
+epoch 213, loss 0.016746357083320618
+epoch 214, loss 0.012399724684655666
+epoch 215, loss 0.01769760623574257
+epoch 216, loss 0.01643187925219536
+epoch 217, loss 0.01667395979166031
+epoch 218, loss 0.012276727706193924
+epoch 219, loss 0.009525096043944359
+epoch 220, loss 0.01707282103598118
+epoch 221, loss 0.017055058851838112
+epoch 222, loss 0.028141537681221962
+epoch 223, loss 0.025859637185931206
+epoch 224, loss 0.023126821964979172
+epoch 225, loss 0.011897669173777103
+epoch 226, loss 0.025050979107618332
+epoch 227, loss 0.01312289573252201
+epoch 228, loss 0.021602297201752663
+epoch 229, loss 0.01138235628604889
+epoch 230, loss 0.01578201726078987
+epoch 231, loss 0.01297757774591446
+epoch 232, loss 0.017293667420744896
+epoch 233, loss 0.010641125962138176
+epoch 234, loss 0.008753531612455845
+epoch 235, loss 0.016898836940526962
+epoch 236, loss 0.02861199527978897
+epoch 237, loss 0.010159879922866821
+epoch 238, loss 0.0168612040579319
+epoch 239, loss 0.02260567620396614
+epoch 240, loss 0.008756722323596478
+epoch 241, loss 0.024092592298984528
+epoch 242, loss 0.00749982800334692
+epoch 243, loss 0.010913586243987083
+epoch 244, loss 0.013152627274394035
+epoch 245, loss 0.021902088075876236
+epoch 246, loss 0.03293941915035248
+epoch 247, loss 0.02427181601524353
+epoch 248, loss 0.020593110471963882
+epoch 249, loss 0.017180971801280975
+epoch 250, loss 0.018093664199113846
+epoch 251, loss 0.00750272860750556
+epoch 252, loss 0.019565753638744354
+epoch 253, loss 0.024369964376091957
+epoch 254, loss 0.007513335905969143
+epoch 255, loss 0.008334976620972157
+epoch 256, loss 0.013441195711493492
+epoch 257, loss 0.018888438120484352
+epoch 258, loss 0.014966906979680061
+epoch 259, loss 0.007504779379814863
+epoch 260, loss 0.0183013416826725
+epoch 261, loss 0.026826368644833565
+epoch 262, loss 0.027259983122348785
+epoch 263, loss 0.020195286720991135
+epoch 264, loss 0.02040087804198265
+epoch 265, loss 0.015563320368528366
+epoch 266, loss 0.024225281551480293
+epoch 267, loss 0.021226365119218826
+epoch 268, loss 0.02058424800634384
+epoch 269, loss 0.01535172387957573
+epoch 270, loss 0.017954476177692413
+epoch 271, loss 0.008661163039505482
+epoch 272, loss 0.017460430040955544
+epoch 273, loss 0.007597330957651138
+epoch 274, loss 0.025724701583385468
+epoch 275, loss 0.02070033550262451
+epoch 276, loss 0.030581414699554443
+epoch 277, loss 0.02360602095723152
+epoch 278, loss 0.025621917098760605
+epoch 279, loss 0.017670636996626854
+epoch 280, loss 0.01549626886844635
+epoch 281, loss 0.03480513393878937
+epoch 282, loss 0.013794045895338058
+epoch 283, loss 0.01184186339378357
+epoch 284, loss 0.016611088067293167
+epoch 285, loss 0.015127685852348804
+epoch 286, loss 0.012672673910856247
+epoch 287, loss 0.01942654326558113
+epoch 288, loss 0.01515969168394804
+epoch 289, loss 0.014757199212908745
+epoch 290, loss 0.02449043095111847
+epoch 291, loss 0.017946545034646988
+epoch 292, loss 0.024638645350933075
+epoch 293, loss 0.0104353167116642
+epoch 294, loss 0.027055876329541206
+epoch 295, loss 0.013050515204668045
+epoch 296, loss 0.010601220652461052
+epoch 297, loss 0.01226009614765644
+epoch 298, loss 0.015035904943943024
+epoch 299, loss 0.02992951311171055
+epoch 300, loss 0.020099440589547157
+epoch 301, loss 0.013573632575571537
+epoch 302, loss 0.02014109492301941
+epoch 303, loss 0.009499231353402138
+epoch 304, loss 0.009850902482867241
+epoch 305, loss 0.021772779524326324
+epoch 306, loss 0.01923082023859024
+epoch 307, loss 0.011842114850878716
+epoch 308, loss 0.012719891034066677
+epoch 309, loss 0.008080151863396168
+epoch 310, loss 0.010718030855059624
+epoch 311, loss 0.013380918651819229
+epoch 312, loss 0.02217015251517296
+epoch 313, loss 0.022562433034181595
+epoch 314, loss 0.020005712285637856
+epoch 315, loss 0.01098802499473095
+epoch 316, loss 0.018386946991086006
+epoch 317, loss 0.027493508532643318
+epoch 318, loss 0.03860054537653923
+epoch 319, loss 0.014543494209647179
+epoch 320, loss 0.008281511254608631
+epoch 321, loss 0.029730817303061485
+epoch 322, loss 0.02774086222052574
+epoch 323, loss 0.038139186799526215
+epoch 324, loss 0.014449574053287506
+epoch 325, loss 0.024452466517686844
+epoch 326, loss 0.027696583420038223
+epoch 327, loss 0.018638864159584045
+epoch 328, loss 0.02394719421863556
+epoch 329, loss 0.01826174184679985
+epoch 330, loss 0.01896761916577816
+epoch 331, loss 0.01554875262081623
+epoch 332, loss 0.02289714477956295
+epoch 333, loss 0.011939074844121933
+epoch 334, loss 0.01804123818874359
+epoch 335, loss 0.01591324806213379
+epoch 336, loss 0.018665526062250137
+epoch 337, loss 0.013349082320928574
+epoch 338, loss 0.019267939031124115
+epoch 339, loss 0.020053885877132416
+epoch 340, loss 0.031883370131254196
+epoch 341, loss 0.017944278195500374
+epoch 342, loss 0.007581883110105991
+epoch 343, loss 0.0315198190510273
+epoch 344, loss 0.013411542400717735
+epoch 345, loss 0.008408541791141033
+epoch 346, loss 0.011493694968521595
+epoch 347, loss 0.008248403668403625
+epoch 348, loss 0.010008057579398155
+epoch 349, loss 0.013388371095061302
+epoch 350, loss 0.00899459421634674
+epoch 351, loss 0.020080648362636566
+epoch 352, loss 0.026478180661797523
+epoch 353, loss 0.01327190175652504
+epoch 354, loss 0.014000395312905312
+epoch 355, loss 0.015805186703801155
+epoch 356, loss 0.011977044865489006
+epoch 357, loss 0.018513716757297516
+epoch 358, loss 0.007750303950160742
+epoch 359, loss 0.00793924368917942
+epoch 360, loss 0.017750468105077744
+epoch 361, loss 0.027842771261930466
+epoch 362, loss 0.01719547249376774
+epoch 363, loss 0.012407288886606693
+epoch 364, loss 0.025100674480199814
+epoch 365, loss 0.027935069054365158
+epoch 366, loss 0.03271298483014107
+epoch 367, loss 0.01950753666460514
+epoch 368, loss 0.019254595041275024
+epoch 369, loss 0.023136582225561142
+epoch 370, loss 0.011981005780398846
+epoch 371, loss 0.022422470152378082
+epoch 372, loss 0.02032533474266529
+epoch 373, loss 0.022688888013362885
+epoch 374, loss 0.008264489471912384
+epoch 375, loss 0.026838047429919243
+epoch 376, loss 0.007939986884593964
+epoch 377, loss 0.01931254379451275
+epoch 378, loss 0.027878258377313614
+epoch 379, loss 0.01522131823003292
+epoch 380, loss 0.013193021528422832
+epoch 381, loss 0.023049065843224525
+epoch 382, loss 0.014024724252521992
+epoch 383, loss 0.02394382283091545
+epoch 384, loss 0.009695753455162048
+epoch 385, loss 0.010693741030991077
+epoch 386, loss 0.0290047787129879
+epoch 387, loss 0.01662794128060341
+epoch 388, loss 0.010754553601145744
+epoch 389, loss 0.024565115571022034
+epoch 390, loss 0.007644571829587221
+epoch 391, loss 0.007629550527781248
+epoch 392, loss 0.021021034568548203
+epoch 393, loss 0.013780297711491585
+epoch 394, loss 0.007618877571076155
+epoch 395, loss 0.014168494381010532
+epoch 396, loss 0.022333160042762756
+epoch 397, loss 0.019907163456082344
+epoch 398, loss 0.012690842151641846
+epoch 399, loss 0.007581889163702726
+epoch 400, loss 0.014067012816667557
+epoch 401, loss 0.010768815875053406
+epoch 402, loss 0.023471597582101822
+epoch 403, loss 0.028813408687710762
+epoch 404, loss 0.01580222137272358
+epoch 405, loss 0.010210935957729816
+epoch 406, loss 0.025472883135080338
+epoch 407, loss 0.01590462028980255
+epoch 408, loss 0.015087505802512169
+epoch 409, loss 0.03215155377984047
+epoch 410, loss 0.012034342624247074
+epoch 411, loss 0.026140984147787094
+epoch 412, loss 0.016037199646234512
+epoch 413, loss 0.014943236485123634
+epoch 414, loss 0.019016116857528687
+epoch 415, loss 0.020992442965507507
+epoch 416, loss 0.01902170106768608
+epoch 417, loss 0.02372993715107441
+epoch 418, loss 0.014432249590754509
+epoch 419, loss 0.010911465622484684
+epoch 420, loss 0.022941552102565765
+epoch 421, loss 0.015976008027791977
+epoch 422, loss 0.01589987985789776
+epoch 423, loss 0.02047642692923546
+epoch 424, loss 0.017937632277607918
+epoch 425, loss 0.010402240790426731
+epoch 426, loss 0.015696922317147255
+epoch 427, loss 0.007656199857592583
+epoch 428, loss 0.027224382385611534
+epoch 429, loss 0.01614195853471756
+epoch 430, loss 0.022959977388381958
+epoch 431, loss 0.01813630759716034
+epoch 432, loss 0.01594565436244011
+epoch 433, loss 0.01789017952978611
+epoch 434, loss 0.025183258578181267
+epoch 435, loss 0.01884186640381813
+epoch 436, loss 0.010210203938186169
+epoch 437, loss 0.027670152485370636
+epoch 438, loss 0.022403676062822342
+epoch 439, loss 0.008679335005581379
+epoch 440, loss 0.017477866262197495
+epoch 441, loss 0.00756862061098218
+epoch 442, loss 0.014442622661590576
+epoch 443, loss 0.009209012612700462
+epoch 444, loss 0.011491131037473679
+epoch 445, loss 0.008771305903792381
+epoch 446, loss 0.015956003218889236
+epoch 447, loss 0.023526687175035477
+epoch 448, loss 0.02055303007364273
+epoch 449, loss 0.016042321920394897
+epoch 450, loss 0.019551770761609077
+epoch 451, loss 0.013386140577495098
+epoch 452, loss 0.02307923138141632
+epoch 453, loss 0.0074484278447926044
+epoch 454, loss 0.022188376635313034
+epoch 455, loss 0.01291652861982584
+epoch 456, loss 0.007357793860137463
+epoch 457, loss 0.011774582788348198
+epoch 458, loss 0.02229812555015087
+epoch 459, loss 0.010826006531715393
+epoch 460, loss 0.02189336158335209
+epoch 461, loss 0.014071226119995117
+epoch 462, loss 0.016131741926074028
+epoch 463, loss 0.01492309384047985
+epoch 464, loss 0.018942898139357567
+epoch 465, loss 0.023475730791687965
+epoch 466, loss 0.016991008073091507
+epoch 467, loss 0.02192123793065548
+epoch 468, loss 0.011908980086445808
+epoch 469, loss 0.009975583292543888
+epoch 470, loss 0.02262495830655098
+epoch 471, loss 0.028198709711432457
+epoch 472, loss 0.014094449579715729
+epoch 473, loss 0.021748237311840057
+epoch 474, loss 0.0076257530599832535
+epoch 475, loss 0.014296378940343857
+epoch 476, loss 0.03339006006717682
+epoch 477, loss 0.020608361810445786
+epoch 478, loss 0.029442917555570602
+epoch 479, loss 0.017182597890496254
+epoch 480, loss 0.034117378294467926
+epoch 481, loss 0.018307488411664963
+epoch 482, loss 0.012989819049835205
+epoch 483, loss 0.02618907392024994
+epoch 484, loss 0.015392987057566643
+epoch 485, loss 0.016315946355462074
+epoch 486, loss 0.0234330166131258
+epoch 487, loss 0.007587025407701731
+epoch 488, loss 0.007555147632956505
+epoch 489, loss 0.022952372208237648
+epoch 490, loss 0.01865863986313343
+epoch 491, loss 0.008372824639081955
+epoch 492, loss 0.01778210513293743
+epoch 493, loss 0.025661952793598175
+epoch 494, loss 0.027667922899127007
+epoch 495, loss 0.014580128714442253
+epoch 496, loss 0.02234004996716976
+epoch 497, loss 0.027612512931227684
+epoch 498, loss 0.011857803910970688
+epoch 499, loss 0.014246856793761253
+epoch 500, loss 0.010020067915320396
+epoch 501, loss 0.01584589295089245
+epoch 502, loss 0.010426953434944153
+epoch 503, loss 0.01129063218832016
+epoch 504, loss 0.0239639300853014
+epoch 505, loss 0.018720589578151703
+epoch 506, loss 0.015410794876515865
+epoch 507, loss 0.015049421228468418
+epoch 508, loss 0.014464166946709156
+epoch 509, loss 0.02986174263060093
+epoch 510, loss 0.007543663028627634
+epoch 511, loss 0.015897169709205627
+epoch 512, loss 0.022516369819641113
+epoch 513, loss 0.007407485041767359
+epoch 514, loss 0.020130883902311325
+epoch 515, loss 0.02567139081656933
+epoch 516, loss 0.011908268555998802
+epoch 517, loss 0.0160747691988945
+epoch 518, loss 0.007362619042396545
+epoch 519, loss 0.02591545693576336
+epoch 520, loss 0.01051662489771843
+epoch 521, loss 0.012154946103692055
+epoch 522, loss 0.01071983389556408
+epoch 523, loss 0.02021731622517109
+epoch 524, loss 0.0075440313667058945
+epoch 525, loss 0.023976419121026993
+epoch 526, loss 0.02109687775373459
+epoch 527, loss 0.022670108824968338
+epoch 528, loss 0.016502579674124718
+epoch 529, loss 0.013281190767884254
+epoch 530, loss 0.026108883321285248
+epoch 531, loss 0.03023149073123932
+epoch 532, loss 0.015768516808748245
+epoch 533, loss 0.018717598170042038
+epoch 534, loss 0.01070027519017458
+epoch 535, loss 0.01961800642311573
+epoch 536, loss 0.016131967306137085
+epoch 537, loss 0.022142574191093445
+epoch 538, loss 0.020171090960502625
+epoch 539, loss 0.01864553987979889
+epoch 540, loss 0.026814982295036316
+epoch 541, loss 0.012648634612560272
+epoch 542, loss 0.024785052984952927
+epoch 543, loss 0.022091850638389587
+epoch 544, loss 0.018694600090384483
+epoch 545, loss 0.02411961928009987
+epoch 546, loss 0.028321459889411926
+epoch 547, loss 0.008746173232793808
+epoch 548, loss 0.024111123755574226
+epoch 549, loss 0.01999148167669773
+epoch 550, loss 0.019441690295934677
+epoch 551, loss 0.02060997113585472
+epoch 552, loss 0.028627652674913406
+epoch 553, loss 0.019727615639567375
+epoch 554, loss 0.014555413275957108
+epoch 555, loss 0.018485071137547493
+epoch 556, loss 0.020580288022756577
+epoch 557, loss 0.018965300172567368
+epoch 558, loss 0.010614162310957909
+epoch 559, loss 0.034860871732234955
+epoch 560, loss 0.013769551180303097
+epoch 561, loss 0.019377578049898148
+epoch 562, loss 0.01672222837805748
+epoch 563, loss 0.007509451825171709
+epoch 564, loss 0.022813934832811356
+epoch 565, loss 0.007950417697429657
+epoch 566, loss 0.016818828880786896
+epoch 567, loss 0.039609394967556
+epoch 568, loss 0.013739880174398422
+epoch 569, loss 0.024238482117652893
+epoch 570, loss 0.024471057578921318
+epoch 571, loss 0.01688484102487564
+epoch 572, loss 0.009280111640691757
+epoch 573, loss 0.013076773844659328
+epoch 574, loss 0.015209258534014225
+epoch 575, loss 0.007500879000872374
+epoch 576, loss 0.007520255167037249
+epoch 577, loss 0.008797318674623966
+epoch 578, loss 0.0325162298977375
+epoch 579, loss 0.010184167884290218
+epoch 580, loss 0.022670991718769073
+epoch 581, loss 0.00837774109095335
+epoch 582, loss 0.02388295717537403
+epoch 583, loss 0.016264092177152634
+epoch 584, loss 0.01842571422457695
+epoch 585, loss 0.020984617993235588
+epoch 586, loss 0.016903087496757507
+epoch 587, loss 0.008182181976735592
+epoch 588, loss 0.014422125183045864
+epoch 589, loss 0.019617440178990364
+epoch 590, loss 0.010466637089848518
+epoch 591, loss 0.02295723930001259
+epoch 592, loss 0.02028406783938408
+epoch 593, loss 0.01848560944199562
+epoch 594, loss 0.013535358011722565
+epoch 595, loss 0.0198717899620533
+epoch 596, loss 0.01835082285106182
+epoch 597, loss 0.011660639196634293
+epoch 598, loss 0.026517357677221298
+epoch 599, loss 0.012123550288379192
+epoch 600, loss 0.007492431439459324
+epoch 601, loss 0.009064697660505772
+epoch 602, loss 0.016980953514575958
+epoch 603, loss 0.012284808792173862
+epoch 604, loss 0.010763145983219147
+epoch 605, loss 0.015930885449051857
+epoch 606, loss 0.02236921712756157
+epoch 607, loss 0.013067111372947693
+epoch 608, loss 0.013040079735219479
+epoch 609, loss 0.0187620148062706
+epoch 610, loss 0.01771625503897667
+epoch 611, loss 0.028800740838050842
+epoch 612, loss 0.014437928795814514
+epoch 613, loss 0.012829838320612907
+epoch 614, loss 0.01822667196393013
+epoch 615, loss 0.014977354556322098
+epoch 616, loss 0.008858873508870602
+epoch 617, loss 0.010579529218375683
+epoch 618, loss 0.00996475387364626
+epoch 619, loss 0.02286412939429283
+epoch 620, loss 0.012249489314854145
+epoch 621, loss 0.013470891863107681
+epoch 622, loss 0.019624970853328705
+epoch 623, loss 0.02231425605714321
+epoch 624, loss 0.0130700021982193
+epoch 625, loss 0.01797177456319332
+epoch 626, loss 0.010366102680563927
+epoch 627, loss 0.023187335580587387
+epoch 628, loss 0.017895206809043884
+epoch 629, loss 0.007616092916578054
+epoch 630, loss 0.01532946340739727
+epoch 631, loss 0.02439289167523384
+epoch 632, loss 0.009857798926532269
+epoch 633, loss 0.008954901248216629
+epoch 634, loss 0.017348438501358032
+epoch 635, loss 0.00917550828307867
+epoch 636, loss 0.026873426511883736
+epoch 637, loss 0.007454643491655588
+epoch 638, loss 0.022965092211961746
+epoch 639, loss 0.013309992849826813
+epoch 640, loss 0.027318112552165985
+epoch 641, loss 0.015342509374022484
+epoch 642, loss 0.021810680627822876
+epoch 643, loss 0.018697772175073624
+epoch 644, loss 0.01832311972975731
+epoch 645, loss 0.020469319075345993
+epoch 646, loss 0.007497725076973438
+epoch 647, loss 0.010091397911310196
+epoch 648, loss 0.03622547909617424
+epoch 649, loss 0.010620560497045517
+epoch 650, loss 0.019516462460160255
+epoch 651, loss 0.01588594913482666
+epoch 652, loss 0.014486372470855713
+epoch 653, loss 0.009768720716238022
+epoch 654, loss 0.009969718754291534
+epoch 655, loss 0.01657717674970627
+epoch 656, loss 0.03168190270662308
+epoch 657, loss 0.00763922743499279
+epoch 658, loss 0.008672168478369713
+epoch 659, loss 0.01615973934531212
+epoch 660, loss 0.009895333088934422
+epoch 661, loss 0.014828262850642204
+epoch 662, loss 0.022810546681284904
+epoch 663, loss 0.021427147090435028
+epoch 664, loss 0.016831159591674805
+epoch 665, loss 0.022515011951327324
+epoch 666, loss 0.028656335547566414
+epoch 667, loss 0.012317424640059471
+epoch 668, loss 0.029015593230724335
+epoch 669, loss 0.015419981442391872
+epoch 670, loss 0.01893225684762001
+epoch 671, loss 0.01917259953916073
+epoch 672, loss 0.01205811370164156
+epoch 673, loss 0.017502442002296448
+epoch 674, loss 0.012152370065450668
+epoch 675, loss 0.031347133219242096
+epoch 676, loss 0.012579051777720451
+epoch 677, loss 0.007517105434089899
+epoch 678, loss 0.009409360587596893
+epoch 679, loss 0.017972713336348534
+epoch 680, loss 0.007631159853190184
+epoch 681, loss 0.008369703777134418
+epoch 682, loss 0.01992218755185604
+epoch 683, loss 0.026277057826519012
+epoch 684, loss 0.034345533698797226
+epoch 685, loss 0.025323886424303055
+epoch 686, loss 0.007380353752523661
+epoch 687, loss 0.013059226796030998
+epoch 688, loss 0.012950622476637363
+epoch 689, loss 0.023126382380723953
+epoch 690, loss 0.023301206529140472
+epoch 691, loss 0.01695537194609642
+epoch 692, loss 0.014894522726535797
+epoch 693, loss 0.022557683289051056
+epoch 694, loss 0.012436388060450554
+epoch 695, loss 0.014360705390572548
+epoch 696, loss 0.02858520857989788
+epoch 697, loss 0.01322242897003889
+epoch 698, loss 0.029339931905269623
+epoch 699, loss 0.01736217923462391
+epoch 700, loss 0.03155801445245743
+epoch 701, loss 0.021206025034189224
+epoch 702, loss 0.015177497640252113
+epoch 703, loss 0.015819013118743896
+epoch 704, loss 0.013090841472148895
+epoch 705, loss 0.01022686529904604
+epoch 706, loss 0.038064055144786835
+epoch 707, loss 0.007726407144218683
+epoch 708, loss 0.025303607806563377
+epoch 709, loss 0.013491467572748661
+epoch 710, loss 0.03141433000564575
+epoch 711, loss 0.02003057487308979
+epoch 712, loss 0.024771399796009064
+epoch 713, loss 0.012878027744591236
+epoch 714, loss 0.019465047866106033
+epoch 715, loss 0.0076874359510838985
+epoch 716, loss 0.030669206753373146
+epoch 717, loss 0.011763807386159897
+epoch 718, loss 0.018806016072630882
+epoch 719, loss 0.016273681074380875
+epoch 720, loss 0.007592839654535055
+epoch 721, loss 0.014606604352593422
+epoch 722, loss 0.019653890281915665
+epoch 723, loss 0.02158265933394432
+epoch 724, loss 0.03668655455112457
+epoch 725, loss 0.026853159070014954
+epoch 726, loss 0.02200721576809883
+epoch 727, loss 0.007745882961899042
+epoch 728, loss 0.017784181982278824
+epoch 729, loss 0.029641784727573395
+epoch 730, loss 0.023073803633451462
+epoch 731, loss 0.007881280034780502
+epoch 732, loss 0.026650767773389816
+epoch 733, loss 0.016735127195715904
+epoch 734, loss 0.007739576976746321
+epoch 735, loss 0.011589383706450462
+epoch 736, loss 0.0076589686796069145
+epoch 737, loss 0.028237473219633102
+epoch 738, loss 0.013116641901433468
+epoch 739, loss 0.019993498921394348
+epoch 740, loss 0.018335537984967232
+epoch 741, loss 0.013605316169559956
+epoch 742, loss 0.013484794646501541
+epoch 743, loss 0.007502962835133076
+epoch 744, loss 0.020506396889686584
+epoch 745, loss 0.030463237315416336
+epoch 746, loss 0.01844029128551483
+epoch 747, loss 0.0173768550157547
+epoch 748, loss 0.03006422147154808
+epoch 749, loss 0.01877448707818985
+epoch 750, loss 0.025452755391597748
+epoch 751, loss 0.017951004207134247
+epoch 752, loss 0.0185528676956892
+epoch 753, loss 0.016717974096536636
+epoch 754, loss 0.012752702459692955
+epoch 755, loss 0.013211420737206936
+epoch 756, loss 0.014406364411115646
+epoch 757, loss 0.03285311162471771
+epoch 758, loss 0.018850037828087807
+epoch 759, loss 0.034285351634025574
+epoch 760, loss 0.027191076427698135
+epoch 761, loss 0.022385483607649803
+epoch 762, loss 0.03380111977458
+epoch 763, loss 0.011411279439926147
+epoch 764, loss 0.02633907087147236
+epoch 765, loss 0.015571685507893562
+epoch 766, loss 0.015001364052295685
+epoch 767, loss 0.020825568586587906
+epoch 768, loss 0.013522675260901451
+epoch 769, loss 0.0206284336745739
+epoch 770, loss 0.02121509239077568
+epoch 771, loss 0.01331806555390358
+epoch 772, loss 0.017225708812475204
+epoch 773, loss 0.009636938571929932
+epoch 774, loss 0.014846649020910263
+epoch 775, loss 0.007610867731273174
+epoch 776, loss 0.010264512151479721
+epoch 777, loss 0.023951906710863113
+epoch 778, loss 0.01881738379597664
+epoch 779, loss 0.0075548384338617325
+epoch 780, loss 0.017606671899557114
+epoch 781, loss 0.030771329998970032
+epoch 782, loss 0.02165372669696808
+epoch 783, loss 0.010484379716217518
+epoch 784, loss 0.016524914652109146
+epoch 785, loss 0.01440965011715889
+epoch 786, loss 0.011205509305000305
+epoch 787, loss 0.017194446176290512
+epoch 788, loss 0.014458950608968735
+epoch 789, loss 0.022276481613516808
+epoch 790, loss 0.02453441172838211
+epoch 791, loss 0.0285005122423172
+epoch 792, loss 0.007673668209463358
+epoch 793, loss 0.017815757542848587
+epoch 794, loss 0.007449339143931866
+epoch 795, loss 0.008626950904726982
+epoch 796, loss 0.02208532765507698
+epoch 797, loss 0.01692276820540428
+epoch 798, loss 0.0353664793074131
+epoch 799, loss 0.00949486717581749
+epoch 800, loss 0.007684657350182533
+epoch 801, loss 0.023190505802631378
+epoch 802, loss 0.03451141342520714
+epoch 803, loss 0.009023310616612434
+epoch 804, loss 0.021446751430630684
+epoch 805, loss 0.025723297148942947
+epoch 806, loss 0.012182076461613178
+epoch 807, loss 0.022535182535648346
+epoch 808, loss 0.012011762708425522
+epoch 809, loss 0.029566865414381027
+epoch 810, loss 0.00810241885483265
+epoch 811, loss 0.023924697190523148
+epoch 812, loss 0.00747322803363204
+epoch 813, loss 0.025016766041517258
+epoch 814, loss 0.019854094833135605
+epoch 815, loss 0.019345836713910103
+epoch 816, loss 0.016949575394392014
+epoch 817, loss 0.016314703971147537
+epoch 818, loss 0.0075331153348088264
+epoch 819, loss 0.014514897018671036
+epoch 820, loss 0.007350636646151543
+epoch 821, loss 0.012861611321568489
+epoch 822, loss 0.030636871233582497
+epoch 823, loss 0.012880075722932816
+epoch 824, loss 0.0075751193799078465
+epoch 825, loss 0.013449937105178833
+epoch 826, loss 0.017664790153503418
+epoch 827, loss 0.008153730072081089
+epoch 828, loss 0.017833391204476357
+epoch 829, loss 0.016653377562761307
+epoch 830, loss 0.015882249921560287
+epoch 831, loss 0.024150224402546883
+epoch 832, loss 0.010710115544497967
+epoch 833, loss 0.021543538197875023
+epoch 834, loss 0.010035738348960876
+epoch 835, loss 0.007750558201223612
+epoch 836, loss 0.028765326365828514
+epoch 837, loss 0.016920853406190872
+epoch 838, loss 0.028056807816028595
+epoch 839, loss 0.02447356842458248
+epoch 840, loss 0.01740868389606476
+epoch 841, loss 0.010254322551190853
+epoch 842, loss 0.026383226737380028
+epoch 843, loss 0.01658186875283718
+epoch 844, loss 0.02445029839873314
+epoch 845, loss 0.017158636823296547
+epoch 846, loss 0.012533284723758698
+epoch 847, loss 0.020487219095230103
+epoch 848, loss 0.012785227969288826
+epoch 849, loss 0.02462506666779518
+epoch 850, loss 0.02494869939982891
+epoch 851, loss 0.01598278619349003
+epoch 852, loss 0.02164105884730816
+epoch 853, loss 0.011759605258703232
+epoch 854, loss 0.018908001482486725
+epoch 855, loss 0.024952834472060204
+epoch 856, loss 0.02362382411956787
+epoch 857, loss 0.012039527297019958
+epoch 858, loss 0.01568535342812538
+epoch 859, loss 0.01618991419672966
+epoch 860, loss 0.01839376986026764
+epoch 861, loss 0.023780561983585358
+epoch 862, loss 0.032943081110715866
+epoch 863, loss 0.017679687589406967
+epoch 864, loss 0.013374030590057373
+epoch 865, loss 0.01473630964756012
+epoch 866, loss 0.01716749742627144
+epoch 867, loss 0.02424795553088188
+epoch 868, loss 0.0326608270406723
+epoch 869, loss 0.009964062832295895
+epoch 870, loss 0.010328001342713833
+epoch 871, loss 0.034459780901670456
+epoch 872, loss 0.015104321762919426
+epoch 873, loss 0.012209194712340832
+epoch 874, loss 0.016967346891760826
+epoch 875, loss 0.01296798512339592
+epoch 876, loss 0.011117687448859215
+epoch 877, loss 0.008476653136312962
+epoch 878, loss 0.01683948189020157
+epoch 879, loss 0.02623843401670456
+epoch 880, loss 0.03110363334417343
+epoch 881, loss 0.011663421057164669
+epoch 882, loss 0.007876220159232616
+epoch 883, loss 0.007449612952768803
+epoch 884, loss 0.036440569907426834
+epoch 885, loss 0.011196949519217014
+epoch 886, loss 0.018665995448827744
+epoch 887, loss 0.032639067620038986
+epoch 888, loss 0.02173745632171631
+epoch 889, loss 0.012189550325274467
+epoch 890, loss 0.010980552062392235
+epoch 891, loss 0.028880640864372253
+epoch 892, loss 0.012488305568695068
+epoch 893, loss 0.023488827049732208
+epoch 894, loss 0.02143757790327072
+epoch 895, loss 0.04317639768123627
+epoch 896, loss 0.007776353973895311
+epoch 897, loss 0.013368985615670681
+epoch 898, loss 0.012168614193797112
+epoch 899, loss 0.012253777123987675
+epoch 900, loss 0.007529892958700657
+epoch 901, loss 0.02691866084933281
+epoch 902, loss 0.01695903018116951
+epoch 903, loss 0.032728418707847595
+epoch 904, loss 0.03219088539481163
+epoch 905, loss 0.021859686821699142
+epoch 906, loss 0.008296105079352856
+epoch 907, loss 0.012783197686076164
+epoch 908, loss 0.027042368426918983
+epoch 909, loss 0.007805246859788895
+epoch 910, loss 0.032862331718206406
+epoch 911, loss 0.03748755902051926
+epoch 912, loss 0.008069807663559914
+epoch 913, loss 0.008795464411377907
+epoch 914, loss 0.008985237218439579
+epoch 915, loss 0.017346033826470375
+epoch 916, loss 0.007739311084151268
+epoch 917, loss 0.01824977621436119
+epoch 918, loss 0.01517540868371725
+epoch 919, loss 0.01641557179391384
+epoch 920, loss 0.01211579516530037
+epoch 921, loss 0.019136451184749603
+epoch 922, loss 0.008605285547673702
+epoch 923, loss 0.026616020128130913
+epoch 924, loss 0.014502530917525291
+epoch 925, loss 0.018323784694075584
+epoch 926, loss 0.023610500618815422
+epoch 927, loss 0.021013328805565834
+epoch 928, loss 0.022920064628124237
+epoch 929, loss 0.03079129382967949
+epoch 930, loss 0.020340561866760254
+epoch 931, loss 0.012389861047267914
+epoch 932, loss 0.01695152372121811
+epoch 933, loss 0.024516085162758827
+epoch 934, loss 0.017874447628855705
+epoch 935, loss 0.014015205204486847
+epoch 936, loss 0.01189584843814373
+epoch 937, loss 0.017378833144903183
+epoch 938, loss 0.01146402582526207
+epoch 939, loss 0.00889667309820652
+epoch 940, loss 0.017544012516736984
+epoch 941, loss 0.02616111934185028
+epoch 942, loss 0.011684868484735489
+epoch 943, loss 0.019128764048218727
+epoch 944, loss 0.02096439152956009
+epoch 945, loss 0.007531927898526192
+epoch 946, loss 0.023502491414546967
+epoch 947, loss 0.02391768805682659
+epoch 948, loss 0.021799886599183083
+epoch 949, loss 0.025123804807662964
+epoch 950, loss 0.015130491927266121
+epoch 951, loss 0.008404579013586044
+epoch 952, loss 0.017272088676691055
+epoch 953, loss 0.034752897918224335
+epoch 954, loss 0.007398664485663176
+epoch 955, loss 0.023963527753949165
+epoch 956, loss 0.008190227672457695
+epoch 957, loss 0.01572483964264393
+epoch 958, loss 0.007463965564966202
+epoch 959, loss 0.029094137251377106
+epoch 960, loss 0.01076517067849636
+epoch 961, loss 0.01160553190857172
+epoch 962, loss 0.025566307827830315
+epoch 963, loss 0.025117328390479088
+epoch 964, loss 0.0234988983720541
+epoch 965, loss 0.020106852054595947
+epoch 966, loss 0.02058454044163227
+epoch 967, loss 0.016476023942232132
+epoch 968, loss 0.03169805929064751
+epoch 969, loss 0.029034826904535294
+epoch 970, loss 0.01968291401863098
+epoch 971, loss 0.014024743810296059
+epoch 972, loss 0.019483700394630432
+epoch 973, loss 0.020644718781113625
+epoch 974, loss 0.02384609542787075
+epoch 975, loss 0.009490415453910828
+epoch 976, loss 0.008157865144312382
+epoch 977, loss 0.01973652094602585
+epoch 978, loss 0.008165490813553333
+epoch 979, loss 0.023046698421239853
+epoch 980, loss 0.031857945024967194
+epoch 981, loss 0.008724672719836235
+epoch 982, loss 0.00870177149772644
+epoch 983, loss 0.007649124599993229
+epoch 984, loss 0.011187387630343437
+epoch 985, loss 0.01703462190926075
+epoch 986, loss 0.015550121665000916
+epoch 987, loss 0.0202175285667181
+epoch 988, loss 0.008466003462672234
+epoch 989, loss 0.012255251407623291
+epoch 990, loss 0.007416948676109314
+epoch 991, loss 0.017378276214003563
+epoch 992, loss 0.01041490025818348
+epoch 993, loss 0.022198718041181564
+epoch 994, loss 0.00880573969334364
+epoch 995, loss 0.02067861519753933
+epoch 996, loss 0.014311905950307846
+epoch 997, loss 0.01080263126641512
+epoch 998, loss 0.01690388284623623
+epoch 999, loss 0.009909208863973618
 </pre></div>
 </div>
 </div>
@@ -1595,8 +2254,8 @@ epoch 499, loss 0.990884006023407
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>model.weight :  tensor([[ 0.0682, -0.7003]])
-model.bias :  tensor([0.0114])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[ 0.4454, -2.5498]])
+linear.bias :  tensor([-0.0819])
 </pre></div>
 </div>
 </div>
@@ -1604,25 +2263,16 @@ model.bias :  tensor([0.0114])
 <p>In this formulation all samples are used to fit the parameters. This in contranst to the SMO solution might take longer to optimize, but is more stable because we don’t select individial samples and ignore all the others.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_torch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="o">.</span><span class="n">model</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">visualize_torch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4_SVM_37_0.png" src="../_images/4_SVM_37_0.png" />
-</div>
-</div>
-<p><strong>Exercise</strong></p>
-<p>Implement the Radial Basis Function (RBF) kernel.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1">###########</span>
-<span class="c1"># TODO: </span>
-
-
-<span class="c1">###########</span>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_37058/3784346825.py:49: UserWarning: The following kwargs were not used by contour: &#39;linewidth&#39;
+  plt.contour(cs0, &#39;-&#39;, levels=[0], colors=&#39;r&#39;, linewidth=5)
 </pre></div>
 </div>
+<img alt="../_images/4_SVM_41_1.png" src="../_images/4_SVM_41_1.png" />
 </div>
 </div>
 </section>
