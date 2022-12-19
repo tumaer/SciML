@@ -621,9 +621,7 @@ d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset
     \end{cases}
 \end{align*}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\omega^{\top} x + b\)</span> defines a hyperplane for our linear classifier. With <span class="math notranslate nohighlight">\(b\)</span> we now make the bias explicit, where it was previously implicit in our expressions.</p>
-<p><strong>Functional Margin</strong></p>
-<p>The <em>functional margin</em> of <span class="math notranslate nohighlight">\((\omega, b)\)</span> w.r.t.  a single training sample then is:</p>
+<p>where <span class="math notranslate nohighlight">\(\omega^{\top} x + b\)</span> defines a hyperplane for our linear classifier. With <span class="math notranslate nohighlight">\(b\)</span> we now make the bias explicit, where it was previously implicit in our expressions. The functional margin of <span class="math notranslate nohighlight">\((\omega, b)\)</span> w.r.t.  a single training sample then is:</p>
 <div class="math notranslate nohighlight">
 \[
 \hat{\gamma}^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b)
@@ -647,12 +645,11 @@ g(\omega^{\top}x + b) = g(2\omega^{\top}x + 2b) = \ldots
 \[
 \hat{\gamma} = \underset{i}{\min} \hspace{2pt} \hat{\gamma}^{(i)}
 \]</div>
-<p><strong>Geometric Margin</strong></p>
-<p>Now we can define the <em>geometric margin</em> with respect to a single sample <span class="math notranslate nohighlight">\(\gamma^{(i)}\)</span> as follows.</p>
+<p>Now we can define a geometric margin with respect to a single sample as</p>
 <div style="text-align:center">
     <img src="https://i.imgur.com/UrEUiGA.png" alt="drawing" width="300"/>
 </div>
-<p>The distance <span class="math notranslate nohighlight">\(\gamma^{(i)}\)</span> of <span class="math notranslate nohighlight">\(x^{(i)}\)</span> from the decision boundary, i.e. from point P, is given by</p>
+<p>The distance <span class="math notranslate nohighlight">\(y^{(i)}\)</span> of <span class="math notranslate nohighlight">\(x^{(i)}\)</span> from the decision boundary, i.e. from point P is given by</p>
 <div class="math notranslate nohighlight">
 \[
 \omega^{\top}\left(x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}\right) + b = 0
@@ -672,7 +669,6 @@ g(\omega^{\top}x + b) = g(2\omega^{\top}x + 2b) = \ldots
 \[
 \gamma = \underset{i}{\min} \gamma^{(i)}
 \]</div>
-<p><strong>Maximum Margin Classifier</strong></p>
 <p>With these mathematical tools we are now ready to derive the <strong>Support Vector Machine (SVM)</strong> for linearly separable sets by maximizing the previously derived geometric margin:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
