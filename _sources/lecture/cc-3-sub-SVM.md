@@ -144,7 +144,11 @@ $$
 \end{align*}
 $$
 
-where $\omega^{\top} x + b$ defines a hyperplane for our linear classifier. With $b$ we now make the bias explicit, where it was previously implicit in our expressions. The functional margin of $(\omega, b)$ w.r.t.  a single training sample then is:
+where $\omega^{\top} x + b$ defines a hyperplane for our linear classifier. With $b$ we now make the bias explicit, where it was previously implicit in our expressions.
+
+**Functional Margin**
+
+ The *functional margin* of $(\omega, b)$ w.r.t.  a single training sample then is:
 
 $$
 \hat{\gamma}^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b)
@@ -174,13 +178,15 @@ $$
 \hat{\gamma} = \underset{i}{\min} \hspace{2pt} \hat{\gamma}^{(i)}
 $$
 
-Now we can define a geometric margin with respect to a single sample as
+**Geometric Margin**
+
+Now we can define the *geometric margin* with respect to a single sample $\gamma^{(i)}$ as follows.
 
 <div style="text-align:center">
     <img src="https://i.imgur.com/UrEUiGA.png" alt="drawing" width="300"/>
 </div>
 
-The distance $y^{(i)}$ of $x^{(i)}$ from the decision boundary, i.e. from point P is given by 
+The distance $\gamma^{(i)}$ of $x^{(i)}$ from the decision boundary, i.e. from point P, is given by 
 
 $$
 \omega^{\top}\left(x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}\right) + b = 0
@@ -198,11 +204,13 @@ $$
 \gamma^{(i)} = y^{(i)} \left( \left(\frac{\omega}{|| \omega ||}\right)^{\top} x^{(i)} + \frac{b}{|| \omega ||} \right)
 $$
 
-Please note that the geometric margin is indeed **scale invariant**. For the entire set of samples, we can then define the geometric margin as:
+Please note that the geometric margin indeed is **scale invariant**. For the entire set of samples, we can then define the geometric margin as:
 
 $$
 \gamma = \underset{i}{\min} \gamma^{(i)}
 $$
+
+**Maximum Margin Classifier**
 
 With these mathematical tools we are now ready to derive the **Support Vector Machine (SVM)** for linearly separable sets by maximizing the previously derived geometric margin:
 

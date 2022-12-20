@@ -53,7 +53,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="1. Linear Regression and Logistic Regression" href="../exercise/1_linReg_logReg.html" />
+    <link rel="next" title="Gradients" href="cc-4-gradients.html" />
     <link rel="prev" title="Gaussian Processes" href="cc-3-sub-GP.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -154,10 +154,22 @@ const thebe_selector_output = ".output, .cell_output"
    </li>
   </ul>
  </li>
- <li class="toctree-l1 current active">
+ <li class="toctree-l1 current active has-children">
   <a class="current reference internal" href="#">
    Core Content 4: Deep Learning
   </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-gradients.html">
+     Gradients
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 <p aria-level="2" class="caption" role="heading">
@@ -323,46 +335,12 @@ title="Print to PDF"
     </ul>
   </div>
 </div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
-</label>
 
     </div>
 </div>
 
 <!-- Table of contents -->
 <div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#artificial-neural-networks">
-   Artificial Neural Networks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convolutional-neural-networks">
-   Convolutional Neural Networks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#recurrent-neural-networks">
-   Recurrent Neural Networks
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
     </div>
     <div class="article row">
@@ -374,29 +352,6 @@ title="Print to PDF"
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#artificial-neural-networks">
-   Artificial Neural Networks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#convolutional-neural-networks">
-   Convolutional Neural Networks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#recurrent-neural-networks">
-   Recurrent Neural Networks
-  </a>
- </li>
-</ul>
-
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -406,21 +361,12 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="core-content-4-deep-learning">
 <h1>Core Content 4: Deep Learning<a class="headerlink" href="#core-content-4-deep-learning" title="Permalink to this headline">#</a></h1>
-<section id="artificial-neural-networks">
-<h2>Artificial Neural Networks<a class="headerlink" href="#artificial-neural-networks" title="Permalink to this headline">#</a></h2>
-<!-- 
-### Backpropagation
-
-### Tricks of Optimization 2
-
-#### Exploding vs Vanishing Gradients -->
-</section>
-<section id="convolutional-neural-networks">
-<h2>Convolutional Neural Networks<a class="headerlink" href="#convolutional-neural-networks" title="Permalink to this headline">#</a></h2>
-</section>
-<section id="recurrent-neural-networks">
-<h2>Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Permalink to this headline">#</a></h2>
-</section>
+<p>Barring the last bits of training infrastructure, the ability to compute the right gradients, we can now build up modern machine learning architectures and their uses in practice.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cc-4-gradients.html">Gradients</a></li>
+</ul>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
@@ -457,10 +403,10 @@ title="Print to PDF"
             <p class="prev-next-title">Gaussian Processes</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="../exercise/1_linReg_logReg.html" title="next page">
+    <a class='right-next' id="next-link" href="cc-4-gradients.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">1. Linear Regression and Logistic Regression</p>
+        <p class="prev-next-title">Gradients</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
