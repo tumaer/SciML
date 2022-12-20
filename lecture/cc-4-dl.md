@@ -1,13 +1,7 @@
 # Core Content 4: Deep Learning
 
-## Artificial Neural Networks
-<!-- 
-### Backpropagation
+Barring the last bits of training infrastructure, the ability to compute the right gradients, we can now build up modern machine learning architectures and their uses in practice.
 
-### Tricks of Optimization 2
 
-#### Exploding vs Vanishing Gradients -->
-
-## Convolutional Neural Networks
-
-## Recurrent Neural Networks
+```{tableofcontents}
+```
