@@ -1,0 +1,1709 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>5. Gaussian Processes &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Admin" href="../admin.html" />
+    <link rel="prev" title="4. Support Vector Machines" href="4_SVM.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../lecture/preliminaries.html">
+   Preliminaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../lecture/motivation.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../lecture/cc-1-linear.html">
+   Core Content 1: Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../lecture/cc-2-optimization.html">
+   Core Content 2: Optimization
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lecture/cc-3-classic-ml.html">
+   Core Content 3: Classic ML
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-3-sub-SVM.html">
+     Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-3-sub-GP.html">
+     Gaussian Processes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lecture/cc-4-dl.html">
+   Core Content 4: Deep Learning
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-gradients.html">
+     Gradients
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercise
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_linReg_logReg.html">
+   1. Linear Regression and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="2_BayesianInference.html">
+   2. Bayesian Linear and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_optimization.html">
+   3. Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_SVM.html">
+   4. Support Vector Machines
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   5. Gaussian Processes
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../admin.html">
+   Admin
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../books.html">
+   Books
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preliminary_knowledge.html">
+   Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../faq.html">
+   Frequently Asked Questions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/exercise/5_GPs.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tl-dr-of-gaussian-process-theory">
+   Tl;dr of Gaussian Process Theory
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-process-from-sketch">
+   Gaussian Process from Sketch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#helper-function-for-plotting">
+   Helper Function for Plotting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#synthetic-dataset">
+   Synthetic Dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-definition">
+   Model Definition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inference">
+   Inference
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-a-posterior-estimation-map">
+   Maximum a Posterior Estimation (MAP)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-process-classification">
+   Gaussian Process Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combining-kernels">
+   Combining Kernels
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#remarks">
+   Remarks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tasks">
+   Tasks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#methods-of-inference-and-the-computational-cost-of-methods">
+     Methods of Inference and the Computational Cost of Methods
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-choices">
+     Kernel Choices
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>5. Gaussian Processes</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tl-dr-of-gaussian-process-theory">
+   Tl;dr of Gaussian Process Theory
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-process-from-sketch">
+   Gaussian Process from Sketch
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#helper-function-for-plotting">
+   Helper Function for Plotting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#synthetic-dataset">
+   Synthetic Dataset
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#model-definition">
+   Model Definition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#inference">
+   Inference
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-a-posterior-estimation-map">
+   Maximum a Posterior Estimation (MAP)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gaussian-process-classification">
+   Gaussian Process Classification
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#combining-kernels">
+   Combining Kernels
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#remarks">
+   Remarks
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tasks">
+   Tasks
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#methods-of-inference-and-the-computational-cost-of-methods">
+     Methods of Inference and the Computational Cost of Methods
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#kernel-choices">
+     Kernel Choices
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="gaussian-processes">
+<h1>5. Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">#</a></h1>
+<p>At the end of this exercise you will be more familiar with Gaussian Processes and the way they work in practice, as well as how you can adapt them to your problems (such as the ones on the mock exam)</p>
+<ul class="simple">
+<li><p>Training Setup</p></li>
+<li><p>GP Regression</p></li>
+<li><p>GP Classification</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
+import matplotlib.pyplot as plt
+import torch
+import numpy as np
+
+# Helper library to more efficiently handle Gaussian Processes in PyTorch
+import pyro
+import pyro.contrib.gp as gp
+import pyro.distributions as dist
+
+from matplotlib.animation import FuncAnimation
+from mpl_toolkits.axes_grid1 import make_axes_locatable
+
+import seaborn as sns
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+
+pyro.set_rng_seed(0)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fontconfig warning: ignoring UTF-8: not a valid region tag
+</pre></div>
+</div>
+</div>
+</div>
+<section id="tl-dr-of-gaussian-process-theory">
+<h2>Tl;dr of Gaussian Process Theory<a class="headerlink" href="#tl-dr-of-gaussian-process-theory" title="Permalink to this headline">#</a></h2>
+<p>Why GPs?</p>
+<ul class="simple">
+<li><p>Elegant mathematical theory which affords us guarantees for our predictive model’s behaviour</p></li>
+<li><p>Conceptually, they give us a way to define priors over functions</p></li>
+<li><p>Are able to reason over uncertainty as they are rooted in the Bayesian setting</p></li>
+</ul>
+<p>As GPs do in practice require a tiny bit of infrastructure below them to work, and be efficient, we will rely on <a class="reference external" href="https://github.com/pyro-ppl/pyro">Pyro</a> to provide us with the required abstractions. Our model is defined as</p>
+<div class="math notranslate nohighlight">
+\[
+f \sim \mathcal{GP}\left( 0, \text{K}_{f}(x, x') \right)
+\]</div>
+<p>with our presumed data following the relationship</p>
+<div class="math notranslate nohighlight">
+\[
+y = f(x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, \beta^{-1} \textbf{I})
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(x\)</span>, <span class="math notranslate nohighlight">\(x'\)</span> are points in the input space, and y is a point in the output space. <span class="math notranslate nohighlight">\(f\)</span> then represents a function from the input space to the output space in which we <strong>draw</strong> from the Gaussian Process prior specified by the mean, and the kernel.</p>
+<p>As already mentioned in the lecture, the radial basis function is one of the most common kernels and one which you have probably by now also encountered in use with Support Vector Machines:</p>
+<div class="math notranslate nohighlight">
+\[
+k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \right)
+\]</div>
+<p>where the variance <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>, and lengthscale <span class="math notranslate nohighlight">\(l\)</span> are kernel specification parameters.</p>
+</section>
+<section id="gaussian-process-from-sketch">
+<h2>Gaussian Process from Sketch<a class="headerlink" href="#gaussian-process-from-sketch" title="Permalink to this headline">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import torch.nn as nn
+import torch.optim as optim
+from torch.autograd import Variable
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class GaussianProcess(nn.Module):
+
+    &quot;&quot;&quot;Gaussian process regression model.
+
+    Built for multi-input, single-output functions.
+    &quot;&quot;&quot;
+    def __init__(self, kernel, sigma_n=None, eps=1e-6):
+        &quot;&quot;&quot;Constructs an instance of a Gaussian process.
+
+        Args:
+            kernel (Kernel): Kernel
+            sigma_n (Tensor): Noise standard deviation
+            eps (Float): Minimum bound for parameters.
+        &quot;&quot;&quot;
+        super(GaussianProcess, self).__init__()
+        self.kernel = kernel
+        self.sigma_n = torch.nn.Parameter(
+            torch.randn(1) if sigma_n is None else sigma_n
+        )
+        self._eps = eps
+        self._is_set = False
+
+    def _update_k(self):
+        &quot;&quot;&quot;Update the K matrix.&quot;&quot;&quot;
+        X = self._X
+        Y = self._Y
+
+        # Compute K and guarantee it is positive definite
+        var_n = (self.sigma_n**2).clamp(self._eps, 1e5)
+        K = self.kernel(X, X)
+        K = (K + K.t()).mul(0.5)
+        self._K = K + (self._reg + var_n) * torch.eye(X.shape[0])
+
+        # Compute K&#39;s inverse and Cholesky factorization
+        self._L = torch.cholesky(self._K)
+        self._K_inv = self._K.inverse()
+    
+    def set_data(self, X, Y, normalize_y=True, reg=1e-5):
+        &quot;&quot;&quot;Set the training data.
+
+        Args:
+            X (Tensor): Training inputs
+            Y (Tensor): Training outputs
+            normalize_y (Boolean): Normalize the outputs
+        &quot;&quot;&quot;
+        self._non_normalized_Y = Y
+
+        if normalize_y:
+            Y_mean = torch.mean(Y, dim=0)
+            Y_variance = torch.std(Y, dim=0)
+            Y = (Y - Y_mean) / Y_variance
+        
+        self._X = X
+        self._Y = Y
+        self._reg = reg
+        self._update_k()
+        self._is_set = True
+    
+    def loss(self):
+        &quot;&quot;&quot;Negative marginal log likelihood.&quot;&quot;&quot;
+        if not self._is_set:
+            raise RuntimeError(&quot;You must call set_data() first&quot;)
+
+        Y = self._Y
+        self._update_k()
+        K_inv = self._K_inv
+
+        # Compute the log likelihood
+        log_likelihood_dims = -0.5 * Y.t().mm(K_inv.mm(Y)).sum(dim=0)
+        log_likelihood_dims -= self._L.diag().log().sum()
+        log_likelihood_dims -= self._L.shape[0] / 2.0 * np.log(2 * np.pi)
+        log_likelihood = log_likelihood_dims.sum(dim=-1)
+
+        return -log_likelihood
+    
+    def forward(self,
+                x,
+                return_mean=True,
+                return_var=False,
+                return_covar=False,
+                return_std=False,
+                **kwargs):
+        &quot;&quot;&quot;Compute the GP estimate.
+
+        Args:
+            x (Tensor): Inputs
+            return_mean (Boolean): Return the mean
+            return_covar (Boolean): Return the full covariance matrix
+            return_var (Boolean): Return the variance
+            return_std (Boolean): Return the standard deviation
+        
+        Returns:
+            Tensor or tuple of Tensors.
+            The order of the tuple if all outputs are requested is:
+                (mean, covariance, variance, standard deviation)
+        &quot;&quot;&quot;
+        if not self._is_set:
+            raise RuntimeError(&quot;You must call set_data() first&quot;)
+        
+        X = self._X
+        Y = self._Y
+        K_inv = self._K_inv
+
+        # Kernel functions
+        K_ss = self.kernel(x, x)
+        K_s = self.kernel(x, X)
+
+        # Compute the mean
+        outputs = []
+        if return_mean:
+            # Non-normalized for scale
+            mean = K_s.mm(K_inv.mm(self._non_normalized_Y))
+            outputs.append(mean)
+        
+        # Compute covariance/variance/standard deviation
+        if return_covar or return_var or return_std:
+            covar = K_ss - K_s.mm(K_inv.mm(K_s.t()))
+            if return_covar:
+                outputs.append(covar)
+            if return_var or return_std:
+                var = covar.diag().reshape(-1, 1)
+                if return_var:
+                    outputs.append(var)
+                if return_std:
+                    std = var.sqrt()
+                    outputs.append(std)
+        
+        if len(outputs) == 1:
+            return outputs[0]
+        
+        return tuple(outputs)
+    
+    def fit(self, tol=1e-6, reg_factor=10.0, max_reg=1.0, max_iter=1000):
+        &quot;&quot;&quot;Fits the model to the data.
+
+        Args:
+            tol (Float): Tolerance
+            reg_factor (Float): Regularization multiplicative factor
+            max_reg (Float): Maximum regularization term
+            max_iter (Integer): Maximum number of iterations
+        
+        Returns:
+            Number of iterations.
+        &quot;&quot;&quot;
+        if not self._is_set:
+            raise RuntimeError(&quot;You must call set_data() first&quot;)
+            
+        opt = torch.optim.Adam(p for p in self.parameters() if p.requires_grad)
+
+        while self._reg &lt;= max_reg:
+            try:
+                curr_loss = np.inf
+                n_iter = 0
+
+                while n_iter &lt; max_iter:
+                    opt.zero_grad()
+
+                    prev_loss = self.loss()
+                    prev_loss.backward(retain_graph=True)
+                    opt.step()
+
+                    curr_loss = self.loss()
+                    dloss = curr_loss - prev_loss
+                    n_iter += 1
+                    if dloss.abs() &lt;= tol:
+                        break
+                
+                return n_iter
+            except RuntimeError:
+                # Increase regularization term until it succeeds
+                self._reg *= reg_factor
+                continue
+</pre></div>
+</div>
+</div>
+</div>
+<p>For which we then need to define our kernel base class</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class Kernel(nn.Module):
+    &quot;&quot;&quot;Base class for the kernel functions.&quot;&quot;&quot;
+
+    def __add__(self, other):
+        &quot;&quot;&quot;Sums two kernels together.and
+        
+        Args:
+            other (Kernel): Other kernel.
+        
+        Returns:
+            Aggregate Kernel
+        &quot;&quot;&quot;
+        return AggregateKernel(self, other, torch.add)
+    
+    def __mul__(self, other):
+        &quot;&quot;&quot;Multiplies two kernel together.
+
+        Args:
+            other (Kernel): Other kernel
+        
+        Returns:
+            Aggregate Kernel
+        &quot;&quot;&quot;
+        return AggregateKernel(self, other, torch.mul)
+    
+    def __sub__(self, other):
+        &quot;&quot;&quot;Subtracts two kernels from each other.
+
+        Args:
+            other (Kernel): Other kernel
+        
+        Returns:
+            Aggregate Kernel
+        &quot;&quot;&quot;
+        return AggregateKernel(self, other, torch.sub)
+    
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
+
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        raise NotImplementedError
+
+
+class AggregateKernel(Kernel):
+    &quot;&quot;&quot;An aggregate kernel.&quot;&quot;&quot;
+
+    def __init__(self, first, second, op):
+        &quot;&quot;&quot;Constructs an Aggregate Kernel
+
+        Args:
+            first (Kernel): First kernel
+            second (Kernel): Second kernel
+            op (Function): Operation to apply
+        &quot;&quot;&quot;
+        super(Kernel, self).__init__()
+        self.first = first
+        self.second = second
+        self.op = op
+    
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
+
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        first = self.first(xi, xj, *args, **kwargs)
+        second = self.second(xi, xj, *args, **kwargs)
+        return self.op(first, second)
+
+def mahalanobis_squared(xi, xj, VI=None):
+    &quot;&quot;&quot;Computes the pair-wise squared mahalanobis distance matrix.
+
+    Args:
+        xi (Tensor): xi input matrix
+        xj (Tensor): xj input matrix
+        VI (Tensor): The inverse of the covariance matrix, by default the
+            identity matrix
+    
+    Returns:
+        Weighted matrix of all pair-wise distances (Tensor)
+    &quot;&quot;&quot;
+    if VI is None:
+        xi_VI = xi
+        xj_VI = xj
+    else:
+        xi_VI = xi.mm(VI)
+        xj_VI = xj.mm(VI)
+    
+    D_squared = (xi_VI * xi).sum(dim=-1).reshape(-1, 1) \
+                + (xj_VI * xj).sum(dim=-1).reshape(1, -1) \
+                - 2 * xi_VI.mm(xj.t())
+    
+    return D_squared
+</pre></div>
+</div>
+</div>
+</div>
+<p>With which we can then define the RBF Kernel, and the White Noise Kernel</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class RBFKernel(Kernel):
+
+    &quot;&quot;&quot;Radial-basis function kernel.&quot;&quot;&quot;
+    
+    def __init__(self, length_scale=None, sigma_s=None, eps=1e-6):
+        &quot;&quot;&quot;Constructs an RBF Kernel
+
+        Args:
+            length_scale (Tensor): Length scale
+            sigma_s (Tensor): Signal standard deviation
+            eps (Float): Minimum bound for parameters
+        &quot;&quot;&quot;
+        super(Kernel, self).__init__()
+        self.length_scale = torch.nn.Parameter(
+            torch.randn(1) if length_scale is None else length_scale
+        )
+        self.sigma_s = torch.nn.Parameter(
+            torch.randn(1) if sigma_s is None else sigma_s
+        )
+        self._eps = eps
+    
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
+
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        length_scale = (self.length_scale**-2).clamp(self._eps, 1e5)
+        var_s = (self.sigma_s**2).clamp(self._eps, 1e5)
+
+        M = torch.eye(xi.shape[1]) * length_scale
+        dist = mahalanobis_squared(xi, xj, M)
+        return var_s * (-0.5 * dist).exp()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class WhiteNoiseKernel(Kernel):
+
+    &quot;&quot;&quot;White noise kernel.&quot;&quot;&quot;
+
+    def __init__(self, sigma_n=None, eps=1e-6):
+        &quot;&quot;&quot;Instantiates a white noise kernel
+
+        Args:
+            sigma_n (Tensor): Noise standard deviation
+            eps (Float): Minimum bound for parameters
+        &quot;&quot;&quot;
+        super(Kernel, self).__init__()
+        self.sigma_n = torch.nn.Parameter(
+            torch.randn(1) if sigma_n is None else sigma_n
+        )
+        self._eps = eps
+    
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
+
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        var_n = (self.sigma_n**2).clamp(self._eps, 1e5)
+        return var_n
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now set up the training and test data to test this handwritten implementation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X = 10 * torch.rand(50, 1) - 4
+X_train = torch.tensor(sorted(torch.cat([X] * 4))).reshape(-1, 1)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import math
+
+def real_data_distribution(x, noise=0.0):
+    return torch.sin(x*2*math.pi) + math.sqrt(noise) * torch.randn(x.shape)
+
+Y_train = real_data_distribution(X_train, noise=0.04)
+</pre></div>
+</div>
+</div>
+</div>
+<p>With which we can now train the handwritten Gaussian Process implementation</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import time
+
+k = RBFKernel() + WhiteNoiseKernel()
+gp = GaussianProcess(k)
+gp.set_data(X_train, Y_train)
+start = time.time()
+gp.fit()
+end = time.time()
+print(&quot;The GP took {} seconds to train.&quot;.format(end - start))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The GP took 2.873868942260742 seconds to train.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot;loss&quot;, gp.loss().detach().numpy())
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loss 83.53136
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for name, value in gp.named_parameters():
+    print(name, value.detach().numpy())
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sigma_n [0.29112184]
+kernel.first.length_scale [0.23748162]
+kernel.first.sigma_s [1.1469231]
+kernel.second.sigma_n [-0.01116978]
+</pre></div>
+</div>
+</div>
+</div>
+<p>Writing down this entire machinery every single time we want to use Gaussian processes and e.g. train them with inference algorithms is hugely unproductive, and as such researchers started writing libraries to abstract away the lower layers of the implementation, and be able to implement their Gaussian Processes with <strong>much fewer lines of code</strong>, and <strong>much faster implementations</strong>.</p>
+<p>With which we can see some of the key properties of Gaussian process regression:</p>
+<ul class="simple">
+<li><p>It can interpolate data-points</p></li>
+<li><p>The prediction variance does not depend on the observations</p></li>
+<li><p>The mean predictor does not depend on the variance parameter</p></li>
+<li><p>The mean tends to come back to zero when predicting far away from the observations</p></li>
+<li><p>Data-efficient models</p></li>
+<li><p>Immediate quantification of uncertainties in our model, which is highly welcome in downstream applications in engineering and the sciences</p></li>
+</ul>
+<p>The complexity of the Gaussian process regression is a limit though. As we saw in the implementation from scratch we need to store the covariance matrix, which results in a storage footprint of <span class="math notranslate nohighlight">\(\mathcal{O}(n^{2})\)</span> and have to invert the covariance matrix using the Cholesky factorization and applying triangular solves which is of computational complexity <span class="math notranslate nohighlight">\(\mathcal{O}(n^{3})\)</span>. We are hence limited to much fewer datapoints than we would usually witness in neural network models. This is the reason why practitioners resort to spare matrix-math when dealing with large datasets.</p>
+</section>
+<section id="helper-function-for-plotting">
+<h2>Helper Function for Plotting<a class="headerlink" href="#helper-function-for-plotting" title="Permalink to this headline">#</a></h2>
+<p>We first define a helper function for the plotting which allow us to</p>
+<ul class="simple">
+<li><p>Plot the observed data</p></li>
+<li><p>Plot the prediction from the learned GP after conditioning on the data</p></li>
+<li><p>Plot the samples from the GP prior</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot(
+    plot_observed_data=False,
+    plot_predictions=False,
+    n_prior_samples=0,
+    model=None,
+    kernel=None,
+    n_test=500,
+    ax=None,
+):
+
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(12, 6))
+    if plot_observed_data:
+        ax.plot(X.numpy(), y.numpy(), &quot;kx&quot;)
+    if plot_predictions:
+        Xtest = torch.linspace(-0.5, 5.5, n_test)  # test inputs
+        # compute predictive mean and variance
+        with torch.no_grad():
+            if type(model) == gp.models.VariationalSparseGP:
+                mean, cov = model(Xtest, full_cov=True)
+            else:
+                mean, cov = model(Xtest, full_cov=True, noiseless=False)
+        sd = cov.diag().sqrt()  # standard deviation at each input point x
+        ax.plot(Xtest.numpy(), mean.numpy(), &quot;r&quot;, lw=2)  # plot the mean
+        ax.fill_between(
+            Xtest.numpy(),  # plot the two-sigma uncertainty about the mean
+            (mean - 2.0 * sd).numpy(),
+            (mean + 2.0 * sd).numpy(),
+            color=&quot;C0&quot;,
+            alpha=0.3,
+        )
+    if n_prior_samples &gt; 0:  # plot samples from the GP prior
+        Xtest = torch.linspace(-0.5, 5.5, n_test)  # test inputs
+        noise = (
+            model.noise
+            if type(model) != gp.models.VariationalSparseGP
+            else model.likelihood.variance
+        )
+        cov = kernel.forward(Xtest) + noise.expand(n_test).diag()
+        samples = dist.MultivariateNormal(
+            torch.zeros(n_test), covariance_matrix=cov
+        ).sample(sample_shape=(n_prior_samples,))
+        ax.plot(Xtest.numpy(), samples.numpy().T, lw=2, alpha=0.4)
+
+    ax.set_xlim(-0.5, 5.5)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="synthetic-dataset">
+<h2>Synthetic Dataset<a class="headerlink" href="#synthetic-dataset" title="Permalink to this headline">#</a></h2>
+<p>We begin by synthetically sampling a dataset of 50 points following the relation of</p>
+<div class="math notranslate nohighlight">
+\[
+y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
+\]</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>N = 50
+X = dist.Uniform(0.0, 5.0).sample(sample_shape=(N,))
+y = 0.5 * torch.sin(3 * X) + dist.Normal(0.0, 0.2).sample(sample_shape=(N,))
+
+plot(plot_observed_data=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_24_0.png" src="../_images/5_GPs_24_0.png" />
+</div>
+</div>
+</section>
+<section id="model-definition">
+<h2>Model Definition<a class="headerlink" href="#model-definition" title="Permalink to this headline">#</a></h2>
+<p>Beginning with the definition of the RBF kernel, we then construct a Gaussian Process regression object and sample from this prior without training it for our synthetic data.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(6.0), lengthscale=torch.tensor(0.05)
+)
+gpr = gp.models.GPRegression(X, y, kernel, noise=torch.tensor(0.1))
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot(model=gpr, kernel=kernel, n_prior_samples=5)
+_ = plt.ylim((-8, 8))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_27_0.png" src="../_images/5_GPs_27_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>What would change if we increase the lengthscale? We will obtain much smoother function samples.</p></li>
+<li><p>In reverse, this means that the shorter the lengthscale the more rugged our function samples are.</p></li>
+<li><p>What happens if we reduce the variance and the noise? The vertical amplitude gets smaller and smaller.</p></li>
+<li><p>In reverse, this means that the larger the variance and the noise, the larger the vertical amplitude of our function samples.</p></li>
+</ul>
+<p>In examples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel2 = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(6.0), lengthscale=torch.tensor(1)
+)
+gpr2 = gp.models.GPRegression(X, y, kernel2, noise=torch.tensor(0.1))
+plot(model=gpr2, kernel=kernel2, n_prior_samples=2)
+_ = plt.ylim((-8, 8))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_29_0.png" src="../_images/5_GPs_29_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel3 = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(1.0), lengthscale=torch.tensor(1)
+)
+gpr3 = gp.models.GPRegression(X, y, kernel3, noise=torch.tensor(0.01))
+plot(model=gpr3, kernel=kernel3, n_prior_samples=2)
+_ = plt.ylim((-8, 8))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_30_0.png" src="../_images/5_GPs_30_0.png" />
+</div>
+</div>
+</section>
+<section id="inference">
+<h2>Inference<a class="headerlink" href="#inference" title="Permalink to this headline">#</a></h2>
+<p>To now adjust the kernel hyperparameters to our synthetic data, we have to perform inference. For this we define ourselves the Evidence-Lower-Bound (ELBO), to the construct a scenario in which we essentially perform <strong>gradient ascent</strong> on the log marginal likelihood, i.e. we computationally solve the <strong>Marginal Likelihood Estimation (MLE)</strong> to infer the right hyperparameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer = torch.optim.Adam(gpr.parameters(), lr=0.005)
+loss_fn = pyro.infer.Trace_ELBO().differentiable_loss
+losses = []
+variances = []
+lengthscales = []
+noises = []
+num_steps = 2000
+for i in range(num_steps):
+    variances.append(gpr.kernel.variance.item())
+    noises.append(gpr.noise.item())
+    lengthscales.append(gpr.kernel.lengthscale.item())
+    optimizer.zero_grad()
+    loss = loss_fn(gpr.model, gpr.guide)
+    loss.backward()
+    optimizer.step()
+    losses.append(loss.item())
+</pre></div>
+</div>
+</div>
+</div>
+<p>Plotting the loss curve after 2000 training iterations</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_loss(loss):
+    plt.plot(loss)
+    plt.xlabel(&quot;Iterations&quot;)
+    _ = plt.ylabel(&quot;Loss&quot;)  # supress output text
+
+
+plot_loss(losses)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_34_0.png" src="../_images/5_GPs_34_0.png" />
+</div>
+</div>
+<p>With that the behaviour of our Gaussian Process should now be much more reasonable, let’s inspect it</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot(model=gpr, plot_observed_data=True, plot_predictions=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_36_0.png" src="../_images/5_GPs_36_0.png" />
+</div>
+</div>
+<p>In this plot we have the typical case of GP representation:</p>
+<ul class="simple">
+<li><p>A, in this case red, line represents the mean prediction</p></li>
+<li><p>A shaded area, in this case blue, represents the 2-sigma uncertainty around the mean</p></li>
+</ul>
+<p>But what are the actual hyperparameters we just learned?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.kernel.variance.item()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1970929503440857
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.kernel.lengthscale.item()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5308124423027039
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.noise.item()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0501394160091877
+</pre></div>
+</div>
+</div>
+</div>
+<p>The learning process can furthermore be illustrated for the GP’s behaviour across training iterations:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(figsize=(12, 6))
+
+
+def update(iteration):
+    pyro.clear_param_store()
+    ax.cla()
+    kernel_iter = gp.kernels.RBF(
+        input_dim=1,
+        variance=torch.tensor(variances[iteration]),
+        lengthscale=torch.tensor(lengthscales[iteration]),
+    )
+    gpr_iter = gp.models.GPRegression(
+        X, y, kernel_iter, noise=torch.tensor(noises[iteration])
+    )
+    plot(model=gpr_iter, plot_observed_data=True, plot_predictions=True, ax=ax)
+    ax.set_title(f&quot;Iteration: {iteration}, Loss: {losses[iteration]:0.2f}&quot;)
+
+
+anim = FuncAnimation(fig, update, frames=np.arange(0, num_steps, 30), interval=100)
+plt.close()
+
+anim.save(&quot;../imgs/gpr-fit.gif&quot;, fps=60)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MovieWriter ffmpeg unavailable; using Pillow instead.
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="maximum-a-posterior-estimation-map">
+<h2>Maximum a Posterior Estimation (MAP)<a class="headerlink" href="#maximum-a-posterior-estimation-map" title="Permalink to this headline">#</a></h2>
+<p>A second option is then to use MAP estimation for which we need to define priors over our hyperparameters to then infer the <em>true</em> hyperparameters.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pyro.clear_param_store()
+kernel = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(5.0), lengthscale=torch.tensor(10.0)
+)
+gpr = gp.models.GPRegression(X, y, kernel, noise=torch.tensor(1.0))
+
+# Define the priors over our hyperparameters
+gpr.kernel.lengthscale = pyro.nn.PyroSample(dist.LogNormal(0.0, 1.0))
+gpr.kernel.variance = pyro.nn.PyroSample(dist.LogNormal(0.0, 1.0))
+
+optimizer = torch.optim.Adam(gpr.parameters(), lr=0.005)
+loss_fn = pyro.infer.Trace_ELBO().differentiable_loss
+losses = []
+num_steps = 2000
+for i in range(num_steps):
+    optimizer.zero_grad()
+    loss = loss_fn(gpr.model, gpr.guide)
+    loss.backward()
+    optimizer.step()
+    losses.append(loss.item())
+
+plot_loss(losses)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_44_0.png" src="../_images/5_GPs_44_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot(model=gpr, plot_observed_data=True, plot_predictions=True)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_45_0.png" src="../_images/5_GPs_45_0.png" />
+</div>
+</div>
+<p>What we then realize is that due to the priors we have defined, we end up with different hyperparameters than under the Maximum Likelihood Estimation (MLE)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.set_mode(&quot;guide&quot;)
+print(&quot;variance = {}&quot;.format(gpr.kernel.variance))
+print(&quot;lengthscale = {}&quot;.format(gpr.kernel.lengthscale))
+print(&quot;noise = {}&quot;.format(gpr.noise))
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>variance = 0.18086832761764526
+lengthscale = 0.5018941164016724
+noise = 0.05002204328775406
+</pre></div>
+</div>
+</div>
+</div>
+<p>For the choice of prior we would ideally like to select parameters which maximise the model likelihood, which is defined by</p>
+<div class="math notranslate nohighlight">
+\[
+L = \Pi_{i=1}^{p} f(x_{i})
+\]</div>
+<p>For a single observation our likelihood would then be</p>
+<div class="math notranslate nohighlight">
+\[
+L(\sigma^{2}, \theta) = \frac{1}{(2\pi)^{\frac{n}{2}} |k(x, x)|^{\frac{1}{2}}} \exp \left( - \frac{1}{2} F^{\top} k(x, x)^{-1} F \right)
+\]</div>
+<p>We hence seek to <strong>maximise</strong> the likelihood, or the log-likelihood with respect to the kernel’s parameters in order to find the most well-suited prior. As priors encode our prior belief over the function to approximate, they are hugely important choices to make which later on determine the performance of our Gaussian process. The question one should hence ask in selecting kernels are:</p>
+<ul class="simple">
+<li><p>Is my data stationary?</p></li>
+<li><p>Is it differentiable, if so what is it’s regularity?</p></li>
+<li><p>Do I expect any particular trends?</p></li>
+<li><p>Do I expect periodicity, cycles, additivity, or other patterns?</p></li>
+</ul>
+</section>
+<section id="gaussian-process-classification">
+<h2>Gaussian Process Classification<a class="headerlink" href="#gaussian-process-classification" title="Permalink to this headline">#</a></h2>
+<p>To use Gaussian Processes for classification we first need to a softmax to our function prior</p>
+<div class="math notranslate nohighlight">
+\[
+p(y | f) = \text{Softmax}(f)
+\]</div>
+<p>or going further</p>
+<div class="math notranslate nohighlight">
+\[
+y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
+\]</div>
+<p>using one of Seaborn’s naturally provided datasets, the Iris dataset we can then construct a classification problem with 3 classes:</p>
+<ol class="simple">
+<li><p>Setosa</p></li>
+<li><p>Versicolor</p></li>
+<li><p>Virginica</p></li>
+</ol>
+<p>with just the petal length, and the petal width as input featurs.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = sns.load_dataset(&quot;iris&quot;)
+df.head()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X = torch.from_numpy(
+    df[df.columns[2:4]].values.astype(&quot;float32&quot;),
+)
+df[&quot;species&quot;] = df[&quot;species&quot;].astype(&quot;category&quot;)
+# encode the species as 0, 1, 2
+y = torch.from_numpy(df[&quot;species&quot;].cat.codes.values.copy())
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors=(0, 0, 0))
+plt.xlabel(&quot;Feature 1 (Petal length)&quot;)
+_ = plt.ylabel(&quot;Feature 2 (Petal width)&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_52_0.png" src="../_images/5_GPs_52_0.png" />
+</div>
+</div>
+<p>Using the classical RBF-kernel</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel = gp.kernels.RBF(input_dim=2)
+pyro.clear_param_store()
+likelihood = gp.likelihoods.MultiClass(num_classes=3)
+# Important -- we need to add latent_shape argument here to the number of classes we have in the data
+model = gp.models.VariationalGP(
+    X,
+    y,
+    kernel,
+    likelihood=likelihood,
+    whiten=True,
+    jitter=1e-03,
+    latent_shape=torch.Size([3]),
+)
+num_steps = 1000
+loss = gp.util.train(model, num_steps=num_steps)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_loss(loss)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/5_GPs_55_0.png" src="../_images/5_GPs_55_0.png" />
+</div>
+</div>
+<p>With which we can now inspect the accuracy of our classifier</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mean, var = model(X)
+y_hat = model.likelihood(mean, var)
+
+print(f&quot;Accuracy: {(y_hat==y).sum()*100/(len(y)) :0.2f}%&quot;)
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 94.67%
+</pre></div>
+</div>
+</div>
+</div>
+<p>And can furthermore use the confusion matrix to assess the accuracy of our predictions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cm = confusion_matrix(y, y_hat, labels=[0, 1, 2])
+ConfusionMatrixDisplay(cm).plot()
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x17fdc5b10&gt;
+</pre></div>
+</div>
+<img alt="../_images/5_GPs_59_1.png" src="../_images/5_GPs_59_1.png" />
+</div>
+</div>
+</section>
+<section id="combining-kernels">
+<h2>Combining Kernels<a class="headerlink" href="#combining-kernels" title="Permalink to this headline">#</a></h2>
+<p>Pyro provides utilities to combine the different kernels, the most important of which are shown by example below:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>linear = gp.kernels.Linear(
+    input_dim=1,
+)
+periodic = gp.kernels.Periodic(
+    input_dim=1, period=torch.tensor(0.5), lengthscale=torch.tensor(4.0)
+)
+rbf = gp.kernels.RBF(
+    input_dim=1, lengthscale=torch.tensor(0.5), variance=torch.tensor(0.5)
+)
+k1 = gp.kernels.Product(kern0=rbf, kern1=periodic)
+
+k = gp.kernels.Sum(linear, k1)
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="remarks">
+<h2>Remarks<a class="headerlink" href="#remarks" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p>If you have to apply Gaussian Processes to large datasets, or the training is too slow for your liking, take a look at <strong>Sparse Gaussian Processes</strong>. This class of Gaussian Processes seeks to avoid the computational constraints of traditional Gaussian Processes.</p></li>
+</ul>
+</section>
+<section id="tasks">
+<h2>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">#</a></h2>
+<section id="methods-of-inference-and-the-computational-cost-of-methods">
+<h3>Methods of Inference and the Computational Cost of Methods<a class="headerlink" href="#methods-of-inference-and-the-computational-cost-of-methods" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Explore the use of other inference methods to infer the hyperparameters of the Gaussian Processes Regression with Monte Carlo-style algorithms as you’ve encountered earlier in the course</p>
+<ul>
+<li><p>Measure the difference in computational cost between the three approaches</p></li>
+</ul>
+</li>
+<li><p>Repeat the same task for Gaussian Process Classification</p></li>
+</ul>
+</section>
+<section id="kernel-choices">
+<h3>Kernel Choices<a class="headerlink" href="#kernel-choices" title="Permalink to this headline">#</a></h3>
+<ul class="simple">
+<li><p>Experiment with the different combinations of the different kernels, visualize the combinations, and consider for which kind of function you would potentially use them</p></li>
+<li><p>Inspect the performance of your constructed kernels for GP Regression</p></li>
+<li><p>Repeat the same task for Gaussian Process Classification</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./exercise"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="4_SVM.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">4. Support Vector Machines</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../admin.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Admin</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By N. Adams, L. Paehler, A. Toshev<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
