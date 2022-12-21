@@ -3,6 +3,7 @@ jupyter-book
 pandas
 scikit-learn
 
+ipykernel
 matplotlib
 plotly
 seaborn
