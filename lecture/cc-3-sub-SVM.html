@@ -1018,7 +1018,7 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 <p><span class="math notranslate nohighlight">\(\rightarrow\)</span> Do you see what happened here?</p>
 <p>Answer:</p>
 <p><span class="math notranslate nohighlight">\(\alpha_{1} y^{(1)}+\alpha_{2} y^{(2)}=\rho \quad / \cdot y^{(1)}\)</span></p>
-<p><span class="math notranslate nohighlight">\(\Rightarrow \alpha_{1} y^{(1)^2}=\left(\rho-\alpha_{2} y^{2}\right) y^{(1)}\)</span></p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow \alpha_{1} y^{(1)^2}=\left(\rho-\alpha_{2} y^{(2)}\right) y^{(1)}\)</span></p>
 <p><span class="math notranslate nohighlight">\(y^{(1)^2}=1,\)</span> as <span class="math notranslate nohighlight">\(y \in\{-1,1\}\)</span></p>
 <div class="math notranslate nohighlight">
 \[\Rightarrow \theta_{D}(\alpha)=\sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle\]</div>
@@ -1039,7 +1039,7 @@ L, \quad \alpha_{2}^{'}&lt;L
 </ul>
 <div class="math notranslate nohighlight">
 \[
-\alpha_{1}^{(k+1)}=\left(\rho-\alpha_{2}^{(k+1)} y^{(1)}\right) y^{(1)}
+\alpha_{1}^{(k+1)}=\left(\rho-\alpha_{2}^{(k+1)} y^{(2)}\right) y^{(1)}
 \]</div>
 <ul class="simple">
 <li><p>next iteration update</p></li>
@@ -1095,10 +1095,10 @@ J(\omega)=\sum_{i=1}^{m}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right)^{
 \[\Rightarrow \omega = -\frac{1}{\lambda} \sum_{i=1}^{m}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right)\varphi(x^{(j)})=\Phi^Ta\]</div>
 <p>with design matrix <span class="math notranslate nohighlight">\(\Phi\)</span> with feature map <span class="math notranslate nohighlight">\(\varphi\)</span> defined as</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\Phi=\left[\begin{array}{l}\ldots \\ \varphi\left(x^{(j)}\right) \\ \cdots\end{array}\right] \in \mathbb{R}^{m \times n}\end{split}\]</div>
+\[\begin{split}\Phi=\left[\begin{array}{c}\vdots \\ \varphi\left(x^{(j)}\right) \\ \vdots\end{array}\right] \in \mathbb{R}^{m \times n}\end{split}\]</div>
 <p>and</p>
 <div class="math notranslate nohighlight">
-\[a_i = -\frac{1}{\lambda}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right) \in \mathbb{R}^m\]</div>
+\[\begin{split}a = -\frac{1}{\lambda} \left[\begin{array}{c}\vdots \\ w^{T} \varphi\left(x^{(i)}\right)-y^{(i)} \\ \vdots\end{array}\right] \in \mathbb{R}^m\end{split}\]</div>
 <p>Substituting the necessary condition  <span class="math notranslate nohighlight">\(\omega = \Phi^Ta\)</span> into <span class="math notranslate nohighlight">\(J(\omega)\)</span> we obtain the dual problem:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{aligned} J_{D}(a)=&amp; \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^Ta -a^T \Phi \Phi^T y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T \Phi \Phi^Ta \\=&amp; \frac{1}{2} a^T K K a-a^T K y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T Ka \end{aligned}\end{split}\]</div>
