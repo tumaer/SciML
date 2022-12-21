@@ -586,7 +586,7 @@ Answer:
 
 $\alpha_{1} y^{(1)}+\alpha_{2} y^{(2)}=\rho \quad / \cdot y^{(1)}$
 
-$\Rightarrow \alpha_{1} y^{(1)^2}=\left(\rho-\alpha_{2} y^{2}\right) y^{(1)}$
+$\Rightarrow \alpha_{1} y^{(1)^2}=\left(\rho-\alpha_{2} y^{(2)}\right) y^{(1)}$
 
 $y^{(1)^2}=1,$ as $y \in\{-1,1\}$
 
@@ -608,7 +608,7 @@ L, \quad \alpha_{2}^{'}<L
 * set $\alpha_2^{(k+1)} = \alpha_2^{''}$
 
 $$
-\alpha_{1}^{(k+1)}=\left(\rho-\alpha_{2}^{(k+1)} y^{(1)}\right) y^{(1)}
+\alpha_{1}^{(k+1)}=\left(\rho-\alpha_{2}^{(k+1)} y^{(2)}\right) y^{(1)}
 $$
 
 * next iteration update
@@ -675,11 +675,11 @@ $$\Rightarrow \omega = -\frac{1}{\lambda} \sum_{i=1}^{m}\left(w^{T} \varphi\left
 
 with design matrix $\Phi$ with feature map $\varphi$ defined as
 
-$$\Phi=\left[\begin{array}{l}\ldots \\ \varphi\left(x^{(j)}\right) \\ \cdots\end{array}\right] \in \mathbb{R}^{m \times n}$$
+$$\Phi=\left[\begin{array}{c}\vdots \\ \varphi\left(x^{(j)}\right) \\ \vdots\end{array}\right] \in \mathbb{R}^{m \times n}$$
 
 and 
 
-$$a_i = -\frac{1}{\lambda}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right) \in \mathbb{R}^m$$
+$$a = -\frac{1}{\lambda} \left[\begin{array}{c}\vdots \\ w^{T} \varphi\left(x^{(i)}\right)-y^{(i)} \\ \vdots\end{array}\right] \in \mathbb{R}^m$$
 
 Substituting the necessary condition  $\omega = \Phi^Ta$ into $J(\omega)$ we obtain the dual problem:
 
