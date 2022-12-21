@@ -23,6 +23,7 @@ parts:
   - file: exercise/2_BayesianInference.ipynb
   - file: exercise/3_optimization.ipynb
   - file: exercise/4_SVM.ipynb
+  - file: exercise/5_GPs.ipynb
 - caption: Miscellaneous
   chapters:
   - file: admin.md
