@@ -439,7 +439,7 @@ Evaluating the KKT3-complementarity condition leads to
 $$
 \begin{aligned}
 &\alpha_{i}^{*} \left[y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)-1+\xi_{i}\right]=0 \Leftrightarrow \begin{cases}\alpha_{i}^{*}>0, & y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1-\xi_{i} \\ 
-\alpha_{i}^{*}=0, & y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) > 1-\xi_{i} \end{cases}\\
+\alpha_{i}^{*}=0, & y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1-\xi_{i} \end{cases}\\
 &\mu_{i}^{*} \xi_{i}=0 \Leftrightarrow \begin{cases}\mu_{i}^{*}>0, & \xi_{i}=0 \\ 
 \mu_{i}^{*}=0, & \xi_{i}>0\end{cases}
 \end{aligned}
@@ -450,7 +450,7 @@ The resulting dual complementarity conditions for determining the support vector
 - Support vectors on slack margin ($\alpha_i=0$, i.e. data point is ignored)
 
 $$
-\alpha_{i}^{*}=0 \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1-\xi_{i}
+\alpha_{i}^{*}=0 \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1
 $$
 
 - Support vectors inside or outside margin ($\alpha^*=C$, i.e. data point violates the MMC)
