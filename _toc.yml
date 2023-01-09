@@ -17,6 +17,8 @@ parts:
   - file: lecture/cc-4-dl.md
     sections:
     - file: lecture/cc-4-gradients.md
+    - file: lecture/cc-4-sub-MLP.md
+    - file: lecture/cc-4-sub-CNN.md
 - caption: Exercise
   chapters:
   - file: exercise/1_linReg_logReg.ipynb
