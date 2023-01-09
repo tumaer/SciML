@@ -3,7 +3,7 @@
 ## Limitations of MLP
 
 In the previous subsection, we saw how the Multilayer Perceptron (a.k.a. Feedforward Neural Network, or Fully Connected Neural Network) generalizes linear models by stacking many linear models and placing nonlinear activation functions in between. Also, by the Universal Approximation Theorem, we saw that such a construction is enough to learn any function. But is an MLP always practical?
-1AJ3d98
+
 In this subsection, we will concentrate on working with images. Imagine that we have an image with 1000x1000 pixels and 3 RGB channels. If we take an MLP with one hidden layer of size 1000, this means that the weight matrix from input to layer 1 would have 3 billion parameters to map all 3M inputs to each of the 1k neurons in layer 1. This number is too large for most modern consumer hardware and thus such a network could not be easily trained or deployed.
 
 MLPs are in a sense the most brute-force deep learning technique. By directly connecting all inputs to all next-layer neurons, we don't introduce any bias and this is at least currently just too hard for image data.
@@ -41,8 +41,7 @@ In image processing, specific (convolution) kernels have a well-understood meani
 
 (Source: [Wikipedia](https://en.wikipedia.org/wiki/Kernel_(image_processing))
 
-The kernels is modern deep learnig look more like this:
-
+The kernels is modern deep learnig lead to features like these:
 
 <div style="text-align:center">
     <img src="https://i.imgur.com/xvljdrQ.png" alt="drawing" width="600"/>
@@ -60,9 +59,9 @@ Output: $(C_{out}, H_{out}, W_{out})$
 
 Here, $C$ is the number of channels, e.g. 3 for an RGB input image, $H$ is the height, and $W$ is the width of an image.
 
-$$H_{out}= \left\lfloor \frac{H_{in} + 2\cdot \text{padding}[0] - \text{dilation}[0] \cdot (\text{kernel\_size}[0]-1) - 1}{\text{stride}[0]} + 1 \right\rfloor$$
+$$H_{out}= \left\lfloor \frac{H_{in} + 2\cdot \text{padding}[0] - \text{dilation}[0] \cdot (\text{kernel_size}[0]-1) - 1}{\text{stride}[0]} + 1 \right\rfloor$$
 
-$$W_{out}=\left\lfloor \frac{W_{in} + 2\cdot \text{padding}[1] - \text{dilation}[1] \cdot (\text{kernel\_size}[1]-1) - 1}{\text{stride}[1]} + 1 \right\rfloor$$
+$$W_{out}=\left\lfloor \frac{W_{in} + 2\cdot \text{padding}[1] - \text{dilation}[1] \cdot (\text{kernel_size}[1]-1) - 1}{\text{stride}[1]} + 1 \right\rfloor$$
 
 With $\lfloor \cdot \rfloor$ we denote the floor operator. Let's look at what each of these new terms means.
 
@@ -127,9 +126,9 @@ If we are interested in image classification, we don't just want to transform th
 
 ### Channels
 
-Each convolution kernel operates on all $C_{in}$ input channels, resulting in a number of parameters per kernel $C_{in} \cdot \text{kernel\_size}[0] \cdot \text{kernel\_size}[1]$. Having $C_{out}$ number of kernels results in a number of parameters per convolution layer of 
+Each convolution kernel operates on all $C_{in}$ input channels, resulting in a number of parameters per kernel $C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$. Having $C_{out}$ number of kernels results in a number of parameters per convolution layer of 
 
-$C_{in} \cdot C_{out} \cdot \text{kernel\_size}[0] \cdot \text{kernel\_size}[1]$
+$C_{in} \cdot C_{out} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$
 
 <div style="text-align:center">
     <img src="https://i.imgur.com/JMVifDx.png" alt="drawing" width="550"/>
