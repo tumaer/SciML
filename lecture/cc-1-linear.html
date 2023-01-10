@@ -799,8 +799,8 @@ L(\vartheta) &amp;=p(Y \mid X ; \vartheta)=\prod_{i=1}^{m} p\left(y^{(i)} \mid x
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-l(\vartheta)&amp;=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
-&amp;=\sum_{i=1}^{m} \log \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{ \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
+l(\vartheta)&amp;=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
+&amp;=\sum_{i=1}^{m} \log \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{- \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
 &amp;=m \log \frac{1}{\sqrt{2 \pi \sigma^{2}}}-\frac{1}{2 \sigma^{2}} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
 &amp;\Rightarrow \vartheta=\operatorname{argmax} l(\vartheta)=\operatorname{argmin} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
 \end{aligned}

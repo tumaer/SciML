@@ -143,8 +143,8 @@ The probabilistic strategy to determine the optimal hypothesis parameters $\vart
 
 $$
 \begin{aligned}
-l(\vartheta)&=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
-&=\sum_{i=1}^{m} \log \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{ \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
+l(\vartheta)&=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
+&=\sum_{i=1}^{m} \log \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{- \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
 &=m \log \frac{1}{\sqrt{2 \pi \sigma^{2}}}-\frac{1}{2 \sigma^{2}} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
 &\Rightarrow \vartheta=\operatorname{argmax} l(\vartheta)=\operatorname{argmin} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
 \end{aligned}
