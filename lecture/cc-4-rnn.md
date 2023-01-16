@@ -1,6 +1,6 @@
 # Recurrent Models
 
-While CNNs, and MLPs are excellent neural networkc architectures for **spatial** relations, they yet struggle with the modeling of **temporal** relations which they are incapable of modeling. For this task there exist a number of specialized architectures most notably:
+While CNNs, and MLPs are excellent neural networkc architectures for **spatial** relations, they yet struggle with the modeling of **temporal** relations which they are incapable of modeling in their default configuration. For this task there exist a number of specialized architectures most notably:
 
 1. [Recurrent Neural Networks](https://www.cs.utoronto.ca/~ilya/pubs/ilya_sutskever_phd_thesis.pdf)
 2. [Long Short-term Memory (LSTM) networks](https://direct.mit.edu/neco/article-abstract/9/8/1735/6109/Long-Short-Term-Memory?redirectedFrom=fulltext)
@@ -16,7 +16,7 @@ Where we before mapped from an input space of e.g. images, Recurrent Neural Netw
 * Sequence Classification
 * Sequence Translation
 
-we will be focussing on sequence generation, and sequence translation in this lecture.
+we will be focussing on the three in the very same order.
 
 ### Sequence Generation
 
@@ -290,7 +290,7 @@ def lstm(inputs, state, params):
 
 There exists a great many variations on this initial architecture, but the core LSTMs' architecture as well as performance have prevailed over time so far. A different approach to sequence generation is the use of causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as not relevant to the exam.
 
-## 1-D CNNs
+## 1-Dimensional CNNs
 
 While RNNs have very strong temporal prediction abilities with their memory, as well as stateful computation, 1-D CNNs can constitute a viable alternative as they don't have to carry along the long term hidden state, as well as being easier to train as they do not suffer from exploding or vanishing gradients.
 
