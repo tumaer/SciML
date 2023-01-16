@@ -53,7 +53,7 @@ $$
 for the deterministic function $f$. A typical choice constitutes
 
 $$
-h_{t} = \varphi(W_{xh}[x;y_{t-1}] + W_{hh}h_{t-1} + b_{h})
+h_{t} = \varphi(W_{xh}x_{t} + W_{hh}h_{t-1} + b_{h})
 $$
 
 with $W_{hh}$ the hidden-to-hidden weights, and $W_{xh}$ the input-to-hidden weights. The output distribution is then either given by
@@ -125,7 +125,7 @@ the model is then defined as
 
 $$
 \begin{align}
-    h_{t}^{\rightarrow} &= \varphi(W_{xh}^{\rightarrow} + W_{hh}^{\rightarrow}h_{t-1}^{\rightarrow} + b_{h}^{\rightarrow}) \\
+    h_{t}^{\rightarrow} &= \varphi(W_{xh}^{\rightarrow}x_{t} + W_{hh}^{\rightarrow}h_{t-1}^{\rightarrow} + b_{h}^{\rightarrow}) \\
     h_{t}^{\leftarrow} &= \varphi(W_{xh}^{\leftarrow} x_{t} + W_{hh}^{\leftarrow} h_{t+1}^{\leftarrow} + b_{h}^{\leftarrow})
 \end{align}
 $$
@@ -145,9 +145,9 @@ $$
 \end{align}
 $$
 
-## Sequence Translation
+### Sequence Translation
 
-In sequence translation we have a variable length sequence as an input. and a variable length sequence as an output. This can mathematically be expressed as
+In sequence translation we have a variable length sequence as an input and a variable length sequence as an output. This can mathematically be expressed as
 
 $$
 f_{\theta}: \mathbb{R}^{TD} \rightarrow \mathbb{R}^{T'C}
@@ -162,7 +162,7 @@ for ease of notation, this has to be broken down into two subcases:
     <img src="https://i.imgur.com/yUbVJRN.png" width="400">
 </center>
 
-### Aligned Sequences
+#### Aligned Sequences
 
 We begin by examining the case for $T'=T$, i.e. with the same length of input-, and output-sequences. In this case  we have to predict one label per location, and can hence modify our existing RNN for this task
 
@@ -188,7 +188,7 @@ $$
 o_{t} = W_{ho} h_{t}^{L} + b_{o}
 $$
 
-### Unaligned Sequences
+#### Unaligned Sequences
 
 In the unaligned case we have to learn a mapping from the input-sequence to the output-sequence, where we first have to encode the input sequence into context vectors
 
@@ -207,7 +207,7 @@ this is what is called a **encoder-decoder architecture** which dominates genera
 
 * U-Net
 * Convolutional LSTM, i.e. encoding with CNNs, propagating in time with the LSTM, and then decoding with CNNs again
-* Sequence Translationa as just now
+* Sequence Translation as just now
 
 and an unending list of applications which you have seen in practice but have not seen in the course yet
 
@@ -288,7 +288,90 @@ def lstm(inputs, state, params):
     return torch.cat(outputs, dim=0), (H, C)
 ```
 
-There exists a great many variations on this initial architecture, but the core LSTMs' architecture as well as performance have prevailed over time so far. A different approach to sequence generation is the use of causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as beyond the scope of this course.
+There exists a great many variations on this initial architecture, but the core LSTMs' architecture as well as performance have prevailed over time so far. A different approach to sequence generation is the use of causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as not relevant to the exam.
+
+## 1-D CNNs
+
+While RNNs have very strong temporal prediction abilities with their memory, as well as stateful computation, 1-D CNNs can constitute a viable alternative as they don't have to carry along the long term hidden state, as well as being easier to train as they do not suffer from exploding or vanishing gradients.
+
+### Sequence Classification
+
+Recalling, for sequence classification we consider the seq2vev case, in which we have a mapping of the form
+
+$$
+f_{\theta}: \mathbb{R}^{DT} \rightarrow \mathbb{R}^{C}
+$$
+
+A 1-D convolution applied to an input sequence of length $T$, and $D$ features per input then takes the form
+
+<center>
+    <img src="https://i.imgur.com/MeBNs8k.png" width="450">
+</center>
+
+With $D>1$ input channels of each input sequence, each channel is then convolved separately and the results are then added up with each channel having its own separate 1-D kernel s.t. (recalling from the CNN lecture)
+
+$$
+z_{i} = \sum_{d} x^{\top}_{i-k:i+k,d} w_{d}
+$$
+
+with $k$ being the size of the receptive field, and $w_{d}$ the filter for the input channel $d$. Which produces a 1-D input vector $z \in \mathbb{R}^{T}$, i.e. for each output channel $c$ we then get
+
+$$
+z_{ic} = \sum_{d} x^{\top}_{i-k:i+k, d} w_{d, c}
+$$
+
+to then reduce this to a fixed size vector $z \in \mathbb{R}^{C}$, we have to use max-pooling over time s.t.
+
+$$
+z_{c} = \max_{i} z_{ic}
+$$
+
+which is then passed into a softmax layer. What this construction permits is that by choosing kernels of different widths we can essentially use a library of different filters to capture patterns of different frequencies (length scales). In code this then looks the following:
+
+```python
+class TextCNN(nn.Module):
+    def __init__(self, vocab_size, embed_size, kernel_sizes, num_channels, **kwargs):
+        super(TextCNN, self).__init__(**kwargs)
+        self.embedding = nn.Embedding(vocab_size, embed_size)
+        self.constant_embedding = nn.Embedding(vocab_size, embed_size) # not being trained
+        self.dropout = nn.Dropout(0.5)
+        self.decoder = nn.Linear(sum(num_channels), 2)
+        self.pool = nn.AdaptiveAvgPool1d(1)  # no weight and can hence share the instance
+        self.relu = nn.ReLU()
+        # Creating the one-dimensional convolutional layers with different kernel widths
+        self.convs = nn.ModuleList()
+        for c, k in zip(num_channels, kernel_sizes):
+            self.convs.append(nn.Conv1d(2 * embed_size, c, k))
+
+    def forward(self, inputs):
+        # Concatenation of the two embedding layers
+        embeddings = torch.cat((self.embedding(inputs), self.constant_embedding(inputs)), dim=2)
+        # Channel dimension of the 1-D conv layer is transformed
+        embeddings = embeddings.permute(0, 2, 1)
+        # Flattening to remove overhanging dimension, and concatenate on the channel dimension
+        # For each one-dimensional convolutional layer, after max-over-time
+        encoding = torch.cat(
+            [torch.squeeze(self.relu(self.pool(conv(embeddings))), dim=-1) for conv in self.convs], dim=1
+        )
+        outputs = self.decoder(self.dropout(encoding))
+        return outputs
+```
+
+### Sequence Generation
+
+To use CNNs generatively, we need to introduce **causality** into the model, this results in the model definition of
+
+$$
+p(y) = \prod_{t=1}^{T} p(y_{t}|y_{1:t-1}) = \prod_{t=1}^{T} \text{Cat}(y_{t}| \text{softmax}(\varphi(\sum_{\tau = 1}^{t-k}w^{\top}y_{\tau:\tau+k})))
+$$
+
+where we have the convolutional filter $w$, a nonlinearity $\varphi$. This results in a masking out of future inputs, such that $y_{t}$ can only depend on past information, and no future information. This is called a **causal convolution**. One poster-child example of this approach is the [WaveNet](https://www.deepmind.com/blog/wavenet-a-generative-model-for-raw-audio) architecture, which takes in text as input sequences to generate raw audio such as speech. The WaveNet architecture utilizes dilated convolutions in which the dilation increases with powers of 2 with each successive layer.
+
+<center>
+    <img src="https://i.imgur.com/8MgJ9On.png" width="450">
+</center>
+
+This then takes following form in [code](https://github.com/antecessor/Wavenet/blob/master/Wavenet.py).
 
 ## Flagship Applications
 
