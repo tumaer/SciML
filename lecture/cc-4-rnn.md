@@ -8,7 +8,7 @@ While CNNs, and MLPs are excellent neural networkc architectures for **spatial**
 
 While Transformers have become the dominant architecture in machine learning these days, their roots lie in the development of RNNs from whom we will begin to build up the content of this section to introduce the architectures in order, show their similarities, as well as special properties and where you most appropriately deploy them.
 
-## Recurrent Neural Networks (RNN)
+## Recurrent Neural Networks (RNNs)
 
 Where we before mapped from an input space of e.g. images, Recurrent Neural Networks (RNNs) map from an input space of sequences, to an output space of sequences. Where their core property is the **stateful** prediction, i.e. if we seek to predict an output $y$, then $y$ depends not only only on the input $x$ but also on the **hidden state of the system** $h$. The hidden state of the neural network is updated as time progresses during the processing of the sequence. There are a number of usecases for such model such as:
 
