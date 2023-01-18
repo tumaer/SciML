@@ -1,0 +1,1027 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>Recurrent Models &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+    
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. Linear Regression and Logistic Regression" href="../exercise/1_linReg_logReg.html" />
+    <link rel="prev" title="Convolutional Neural Network" href="cc-4-sub-CNN.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
+
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+        
+      
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About this Lecture
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="preliminaries.html">
+   Preliminaries
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="motivation.html">
+   Introduction
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cc-1-linear.html">
+   Core Content 1: Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="cc-2-optimization.html">
+   Core Content 2: Optimization
+  </a>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="cc-3-classic-ml.html">
+   Core Content 3: Classic ML
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-3-sub-SVM.html">
+     Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-3-sub-GP.html">
+     Gaussian Processes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="cc-4-dl.html">
+   Core Content 4: Deep Learning
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-gradients.html">
+     Gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-sub-MLP.html">
+     Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-sub-CNN.html">
+     Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Recurrent Models
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercise
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/1_linReg_logReg.html">
+   1. Linear Regression and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/2_BayesianInference.html">
+   2. Bayesian Linear and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/3_optimization.html">
+   3. Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/4_SVM.html">
+   4. Support Vector Machines
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/5_GPs.html">
+   5. Gaussian Processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/6_CNNs.html">
+   CNNs
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../admin.html">
+   Admin
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../books.html">
+   Books
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preliminary_knowledge.html">
+   Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../faq.html">
+   Frequently Asked Questions
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
+    </div>
+    <div id="rtd-footer-container"></div>
+</div>
+
+
+          
+
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
+<div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
+
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<button onclick="toggleFullScreen()"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/arturtoshev/SciML22-23"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Flecture/cc-4-rnn.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lecture/cc-4-rnn.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
+    </div>
+</div>
+
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recurrent-neural-networks-rnns">
+   Recurrent Neural Networks (RNNs)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequence-generation">
+     Sequence Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequence-classification">
+     Sequence Classification
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequence-translation">
+     Sequence Translation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#aligned-sequences">
+       Aligned Sequences
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#unaligned-sequences">
+       Unaligned Sequences
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#long-short-term-memory-lstm">
+   Long Short-term Memory (LSTM)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dimensional-cnns">
+   1-Dimensional CNNs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Sequence Classification
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Sequence Generation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flagship-applications">
+   Flagship Applications
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-reading">
+   Further Reading
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Recurrent Models</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recurrent-neural-networks-rnns">
+   Recurrent Neural Networks (RNNs)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequence-generation">
+     Sequence Generation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequence-classification">
+     Sequence Classification
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#sequence-translation">
+     Sequence Translation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#aligned-sequences">
+       Aligned Sequences
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#unaligned-sequences">
+       Unaligned Sequences
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#long-short-term-memory-lstm">
+   Long Short-term Memory (LSTM)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#dimensional-cnns">
+   1-Dimensional CNNs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     Sequence Classification
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id2">
+     Sequence Generation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#flagship-applications">
+   Flagship Applications
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-reading">
+   Further Reading
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
+                
+              <div>
+                
+  <section class="tex2jax_ignore mathjax_ignore" id="recurrent-models">
+<h1>Recurrent Models<a class="headerlink" href="#recurrent-models" title="Permalink to this headline">#</a></h1>
+<p>While CNNs, and MLPs are excellent neural networkc architectures for <strong>spatial</strong> relations, they yet struggle with the modeling of <strong>temporal</strong> relations which they are incapable of modeling in their default configuration. For this task there exist a number of specialized architectures most notably:</p>
+<ol class="simple">
+<li><p><a class="reference external" href="https://www.cs.utoronto.ca/~ilya/pubs/ilya_sutskever_phd_thesis.pdf">Recurrent Neural Networks</a></p></li>
+<li><p><a class="reference external" href="https://direct.mit.edu/neco/article-abstract/9/8/1735/6109/Long-Short-Term-Memory?redirectedFrom=fulltext">Long Short-term Memory (LSTM) networks</a></p></li>
+<li><p><a class="reference external" href="https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html">Transformers</a></p></li>
+</ol>
+<p>While Transformers have become the dominant architecture in machine learning these days, their roots lie in the development of RNNs from whom we will begin to build up the content of this section to introduce the architectures in order, show their similarities, as well as special properties and where you most appropriately deploy them.</p>
+<section id="recurrent-neural-networks-rnns">
+<h2>Recurrent Neural Networks (RNNs)<a class="headerlink" href="#recurrent-neural-networks-rnns" title="Permalink to this headline">#</a></h2>
+<p>Where we before mapped from an input space of e.g. images, Recurrent Neural Networks (RNNs) map from an input space of sequences, to an output space of sequences. Where their core property is the <strong>stateful</strong> prediction, i.e. if we seek to predict an output <span class="math notranslate nohighlight">\(y\)</span>, then <span class="math notranslate nohighlight">\(y\)</span> depends not only only on the input <span class="math notranslate nohighlight">\(x\)</span> but also on the <strong>hidden state of the system</strong> <span class="math notranslate nohighlight">\(h\)</span>. The hidden state of the neural network is updated as time progresses during the processing of the sequence. There are a number of usecases for such model such as:</p>
+<ul class="simple">
+<li><p>Sequence Generation</p></li>
+<li><p>Sequence Classification</p></li>
+<li><p>Sequence Translation</p></li>
+</ul>
+<p>we will be focussing on the three in the very same order.</p>
+<section id="sequence-generation">
+<h3>Sequence Generation<a class="headerlink" href="#sequence-generation" title="Permalink to this headline">#</a></h3>
+<p>Sequence generation can mathematically be summarized as</p>
+<div class="math notranslate nohighlight">
+\[
+f_{\theta}: \mathbb{R}^{D} \longrightarrow \mathbb{R}^{N_{\infty}C}
+\]</div>
+<p>with an input vector of size <span class="math notranslate nohighlight">\(D\)</span>, and an output sequence of <span class="math notranslate nohighlight">\(N_{\infty}\)</span> vectors each with size <span class="math notranslate nohighlight">\(C\)</span>. As we are essentially mapping a vector to a sequence, these models are also called <strong>vec2seq</strong> models. The output sequence is generated one token at a time, where we sample at each step from the current hidden state <span class="math notranslate nohighlight">\(h_{t}\)</span> of our neural network, which is subsequently fed back into the model to update the hidden state to the new state <span class="math notranslate nohighlight">\(h_{t+1}\)</span>.</p>
+<center>
+    <img src = "https://i.imgur.com/ji2oQ7V.png" width = "350">
+</center>
+<p>To summarize, a vec2seq model is a probabilistic model of the form</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_{1:T}|x)
+\]</div>
+<p>if we now break this probabilistic model down into its actual mechanics then we end up with the following conditional <strong>generative model</strong></p>
+<div class="math notranslate nohighlight">
+\[
+p(y_{1:T}|x) = \sum_{h_{1:T}} p(y_{1:T}, h_{1:T} | x) = \sum_{h_{1:T}} \prod^{T}_{t=1} p(y_{t}|h_{t})p(h_{t}|h_{t-1}, y_{t-1}, x)
+\]</div>
+<p>Just like a Runge-Kutta scheme, this requires this model requires the seeding with an initial hidden state distribution. This distribution has to be predetermined and is most often deterministic. The computation of the hidden state is then presumed to be</p>
+<div class="math notranslate nohighlight">
+\[
+p(h_{t}|h_{t-1}, y_{t-1}, x) = \mathbb{I}(h_{t}=f(h_{t-1}, y_{t-1}, x))
+\]</div>
+<p>for the deterministic function <span class="math notranslate nohighlight">\(f\)</span>. A typical choice constitutes</p>
+<div class="math notranslate nohighlight">
+\[
+h_{t} = \varphi(W_{xh}x_{t} + W_{hh}h_{t-1} + b_{h})
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(W_{hh}\)</span> the hidden-to-hidden weights, and <span class="math notranslate nohighlight">\(W_{xh}\)</span> the input-to-hidden weights. The output distribution is then either given by</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_{t}|h_{t}) = \text{Cat}(y_{t}| \text{softmax}(W_{hy}h_{t} + b_{y}))
+\]</div>
+<p>where “Cat” is the concatenation of the outputs, or by</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_{t}|h_{t}) = \mathcal{N}(y_{t}|W_{hy} h_{t} + b_{y}, \sigma^{2}{\bf{I}})
+\]</div>
+<p>for real-valued outputs. Now if we seek to express this in code, then our model looks something like this</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">rnn</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="c1"># Here `inputs` shape: (`num_steps`, `batch_size`, `vocab_size`)</span>
+    <span class="n">W_xh</span><span class="p">,</span> <span class="n">W_hh</span><span class="p">,</span> <span class="n">b_h</span><span class="p">,</span> <span class="n">W_hq</span><span class="p">,</span> <span class="n">b_q</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="p">(</span><span class="n">H</span><span class="p">,)</span> <span class="o">=</span> <span class="n">state</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Shape of `X`: (`batch_size`, `vocab_size`)</span>
+    <span class="k">for</span> <span class="n">X</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_xh</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W_hh</span><span class="p">)</span> <span class="o">+</span> <span class="n">b_h</span><span class="p">)</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W_hq</span><span class="p">)</span> <span class="o">+</span> <span class="n">b_q</span>
+        <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">H</span><span class="p">,)</span>
+</pre></div>
+</div>
+<p>for the usual output. If you remember one thing about this section:</p>
+<ul class="simple">
+<li><p>The key to RNNs is their unbounded memory, which allows them to make more stable predictions, and also remember further back in time.</p></li>
+<li><p>The stochasticity in the model comes from the noise in the output model.</p></li>
+</ul>
+<blockquote>
+<div><p>To forecast spatio-temporal data, one has to combine RNNs with CNNs. The classical form of this is the <a class="reference external" href="https://proceedings.neurips.cc/paper/2015/file/07563a3fe3bbe7e3ba84431ad9d055af-Paper.pdf">convolutional LSTM</a>.</p>
+</div></blockquote>
+<center>
+    <img src = "https://i.imgur.com/SMhdrjt.png" width = "400">
+</center>
+</section>
+<section id="sequence-classification">
+<h3>Sequence Classification<a class="headerlink" href="#sequence-classification" title="Permalink to this headline">#</a></h3>
+<p>If we now presume to have a fixed-length output vector, but with a variable length sequence as input, then we mathematically seek to learn</p>
+<div class="math notranslate nohighlight">
+\[
+f_{\theta}: \mathbb{R}^{TD} \longrightarrow \mathbb{R}^{C}
+\]</div>
+<p>this is called a <strong>seq2vec</strong> model. Here we presume the output <span class="math notranslate nohighlight">\(y\)</span> to be a class label.</p>
+<center>
+    <img src="https://i.imgur.com/3OPqG9c.png" width="400">
+</center>
+<p>In its simplest form we can just use the final state of the RNN as the input to the classifier</p>
+<div class="math notranslate nohighlight">
+\[
+p(y|x_{1:T}) = \text{Cat}(y| \text{softmax}(Wh_{T}))
+\]</div>
+<p>While this simple form can already produce good results,  the RNN principle can be extended further by allowing <strong>information to flow in both directions</strong>, i.e. we allow the hidden states to depend on past and future contexts. For this we have to use two basic RNN building blocks, to then assemble them into a <strong>bidirectional RNN</strong>.</p>
+<center>
+    <img src="https://i.imgur.com/yquh339.png" width="400">
+</center>
+<p>the model is then defined as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    h_{t}^{\rightarrow} &amp;= \varphi(W_{xh}^{\rightarrow}x_{t} + W_{hh}^{\rightarrow}h_{t-1}^{\rightarrow} + b_{h}^{\rightarrow}) \\
+    h_{t}^{\leftarrow} &amp;= \varphi(W_{xh}^{\leftarrow} x_{t} + W_{hh}^{\leftarrow} h_{t+1}^{\leftarrow} + b_{h}^{\leftarrow})
+\end{align}
+\end{split}\]</div>
+<p>where the hidden state then transforms into a vector of forward-, and reverse-time hidden state</p>
+<div class="math notranslate nohighlight">
+\[
+h = [ h_{t}^{\rightarrow}, h_{t}^{\leftarrow} ]
+\]</div>
+<p>one has to then average pool over these states to arrive at the predictive model</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    p(y|x_{1:T}) &amp;= \text{Cat}(y| W \hspace{2pt} \text{softmax}(\bar{h})) \\
+    \bar{h} &amp;= \frac{1}{T} \sum_{t=1}^{T} h_{t}
+\end{align}
+\end{split}\]</div>
+</section>
+<section id="sequence-translation">
+<h3>Sequence Translation<a class="headerlink" href="#sequence-translation" title="Permalink to this headline">#</a></h3>
+<p>In sequence translation we have a variable length sequence as an input and a variable length sequence as an output. This can mathematically be expressed as</p>
+<div class="math notranslate nohighlight">
+\[
+f_{\theta}: \mathbb{R}^{TD} \rightarrow \mathbb{R}^{T'C}
+\]</div>
+<p>for ease of notation, this has to be broken down into two subcases:</p>
+<ol class="simple">
+<li><p><span class="math notranslate nohighlight">\(T'=T\)</span> i.e. we have the same length of input- and output-sequences</p></li>
+<li><p><span class="math notranslate nohighlight">\(T' \neq T\)</span>, i.e. we have different lengths between the input- and the output-sequence</p></li>
+</ol>
+<center>
+    <img src="https://i.imgur.com/yUbVJRN.png" width="400">
+</center>
+<section id="aligned-sequences">
+<h4>Aligned Sequences<a class="headerlink" href="#aligned-sequences" title="Permalink to this headline">#</a></h4>
+<p>We begin by examining the case for <span class="math notranslate nohighlight">\(T'=T\)</span>, i.e. with the same length of input-, and output-sequences. In this case  we have to predict one label per location, and can hence modify our existing RNN for this task</p>
+<div class="math notranslate nohighlight">
+\[
+p(y_{1:T}| x_{1:T}) = \sum_{h_{1:T}} \prod^{T}_{t=1} p(y_{t}|h_{t}) \mathbb{I}(h_{t} = f(h_{t-1}, x_{t}))
+\]</div>
+<p>once again, results can be improved by allowing for bi-directional information flow with a bidirectional RNN which can be constructed as shown before, or by <strong>stacking multiple layers on top of each other</strong> and creating a <strong>deep RNN</strong>.</p>
+<center>
+    <img src="https://i.imgur.com/jvWmqMo.png" width="400">
+</center>
+<p>in the case of stacking layers on top of each other to create deeper networks, we have hidden layers lying on top of hidden layers. The individual layers are then computed with</p>
+<div class="math notranslate nohighlight">
+\[
+h_{t}^{l} = \varphi_{l}(W^{l}_{xh} h^{l-1}_{t} + W^{l}_{hh} h^{l}_{t-1} + b_{h}^{l})
+\]</div>
+<p>and the output being computed from the final layer</p>
+<div class="math notranslate nohighlight">
+\[
+o_{t} = W_{ho} h_{t}^{L} + b_{o}
+\]</div>
+</section>
+<section id="unaligned-sequences">
+<h4>Unaligned Sequences<a class="headerlink" href="#unaligned-sequences" title="Permalink to this headline">#</a></h4>
+<p>In the unaligned case we have to learn a mapping from the input-sequence to the output-sequence, where we first have to encode the input sequence into context vectors</p>
+<div class="math notranslate nohighlight">
+\[
+c = f_{e}(x_{1:T})
+\]</div>
+<p>using the last state of an RNN, before then generating the output sequence using an RNN where there exist a plethora of tokenizers to construct the context vectors, and a plethora of decoding approaches such as the greedy decoding shown below.</p>
+<center>
+    <img src="https://i.imgur.com/oNvsDLN.png" width="400">
+    <img src="https://i.imgur.com/Puui40V.png" width="400">
+</center>
+<p>this is what is called a <strong>encoder-decoder architecture</strong> which dominates general machine learning, as well as scientific machine learning. Examining the use-cases you have seen up to now:</p>
+<ul class="simple">
+<li><p>U-Net</p></li>
+<li><p>Convolutional LSTM, i.e. encoding with CNNs, propagating in time with the LSTM, and then decoding with CNNs again</p></li>
+<li><p>Sequence Translation as just now</p></li>
+</ul>
+<p>and an unending list of applications which you have seen in practice but have not seen in the course yet</p>
+<ul class="simple">
+<li><p>Transformer models</p>
+<ul>
+<li><p>GPT</p></li>
+<li><p>BERT</p></li>
+<li><p>ChatGPT</p></li>
+</ul>
+</li>
+<li><p>Stable Diffusion</p></li>
+<li><p>…</p></li>
+</ul>
+<blockquote>
+<div><p>But if RNNs can already do so much, why are Transformers then dominating machine learning research these days and not RNNs?</p>
+</div></blockquote>
+<p>Training RNNs is far from trivial with a well-known problem being <strong>exploding gradients</strong>, and <strong>vanishing gradients</strong>. In both cases the activations of the RNN explode or decay as we go forward in time as we multiply with the weight matrix <span class="math notranslate nohighlight">\(W_{hh}\)</span> at each time step. The same can happen as we go backwards in time, as we repeatedly multiply the Jacobians and unless the spectrum of the Hessian is 1, this will result in exploding or vanishing gradients. A way to tackle this is via <strong>control of the spectral radius</strong> where the optimization problem gets converted into a convex optimization problem, which is then called an <strong>echo state network</strong>. Which is in literature often used under the umbrella term of <strong>reservoir computing</strong>.</p>
+</section>
+</section>
+</section>
+<section id="long-short-term-memory-lstm">
+<h2>Long Short-term Memory (LSTM)<a class="headerlink" href="#long-short-term-memory-lstm" title="Permalink to this headline">#</a></h2>
+<p>A way to avoid this problem, beyond Gated Recurrent Units (GRU) which we omit in this course, is the long short term memory (LSTM) model of Schmidhuber. In the LSTM the hidden state <span class="math notranslate nohighlight">\(h\)</span> is augmented with a <strong>memory cell c</strong>. This cell is then controlled with 3 gates</p>
+<ul class="simple">
+<li><p>Output gate <span class="math notranslate nohighlight">\(O_{t}\)</span></p></li>
+<li><p>Input gate <span class="math notranslate nohighlight">\(I_{t}\)</span></p></li>
+<li><p>Forget gate <span class="math notranslate nohighlight">\(F_{t}\)</span></p></li>
+</ul>
+<p>where the forget gate determines when the memory cell is to be reset. The individual cells are then computed as</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{align}
+    O_{t} &amp;= \sigma(X_{t}W_{xo} + H_{t-1}W_{ho} + b_{o}) \\
+    I_{t} &amp;= \sigma(X_{t} W_{xi} + H_{t-1} W_{hi} + b_{i}) \\
+    F_{t} &amp;= \sigma(X_{t}W_{xf} H_{t-1}W_{hf} + b_{f})
+\end{align}
+\end{split}\]</div>
+<p>from which the cell state can then be computed</p>
+<div class="math notranslate nohighlight">
+\[
+    \tilde{C}_{t}= \tanh(X_{t} W_{xc} + H_{t-1}W_{hc} + b_{c})
+\]</div>
+<p>with the actual update then given by either the candidate cell, if the input gate permits it, or the old cell, if the not-forget gate is on</p>
+<div class="math notranslate nohighlight">
+\[
+C_{t} = F_{t} \odot C_{t-1} + I_{t} \odot \tilde{C}_{t}
+\]</div>
+<p>the hidden state is then computed as a transformed version of the memory cell if the output gate is on</p>
+<div class="math notranslate nohighlight">
+\[
+H_{t} = O_{t} \odot \tanh(C_{t})
+\]</div>
+<p>Visually this then looks like the following:</p>
+<center>
+    <img src="https://i.imgur.com/Jv06vrG.png" width="450">
+</center>
+<p>This split results in the following properties:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(H_{t}\)</span> acts as a short-term memory</p></li>
+<li><p><span class="math notranslate nohighlight">\(C_{t}\)</span> acts as a long-term memory</p></li>
+</ul>
+<p>In practice this then takes the following form in code:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lstm</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="p">[</span><span class="n">W_xi</span><span class="p">,</span> <span class="n">W_hi</span><span class="p">,</span> <span class="n">b_i</span><span class="p">,</span> <span class="n">W_xf</span><span class="p">,</span> <span class="n">W_hf</span><span class="p">,</span> <span class="n">b_f</span><span class="p">,</span> <span class="n">W_xo</span><span class="p">,</span> <span class="n">W_ho</span><span class="p">,</span> <span class="n">b_o</span><span class="p">,</span> <span class="n">W_xc</span><span class="p">,</span> <span class="n">W_hc</span><span class="p">,</span> <span class="n">b_c</span><span class="p">,</span> <span class="n">W_hq</span><span class="p">,</span> <span class="n">b_q</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span>
+    <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span> <span class="o">=</span> <span class="n">state</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">X</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+        <span class="n">I</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">((</span><span class="n">X</span> <span class="o">@</span> <span class="n">W_xi</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">H</span> <span class="o">@</span> <span class="n">W_hi</span><span class="p">)</span> <span class="o">+</span> <span class="n">b_i</span><span class="p">)</span>
+        <span class="n">F</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">((</span><span class="n">X</span> <span class="o">@</span> <span class="n">W_xf</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">H</span> <span class="o">@</span> <span class="n">W_hf</span><span class="p">)</span> <span class="o">+</span> <span class="n">b_f</span><span class="p">)</span>
+        <span class="n">O</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">((</span><span class="n">X</span> <span class="o">@</span> <span class="n">W_xo</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">H</span> <span class="o">@</span> <span class="n">W_ho</span><span class="p">)</span> <span class="o">+</span> <span class="n">b_o</span><span class="p">)</span>
+        <span class="n">C_tilda</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">((</span><span class="n">X</span> <span class="o">@</span> <span class="n">W_xc</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">H</span> <span class="o">@</span> <span class="n">W_hc</span><span class="p">)</span> <span class="o">+</span> <span class="n">b_c</span><span class="p">)</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">F</span> <span class="o">*</span> <span class="n">C</span> <span class="o">+</span> <span class="n">I</span> <span class="o">*</span> <span class="n">C_tilda</span>
+        <span class="n">H</span> <span class="o">=</span> <span class="n">O</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">C</span><span class="p">)</span>
+        <span class="n">Y</span> <span class="o">=</span> <span class="p">(</span><span class="n">H</span> <span class="o">@</span> <span class="n">W_hq</span><span class="p">)</span> <span class="o">+</span> <span class="n">b_q</span>
+        <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Y</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>There exists a great many variations on this initial architecture, but the core LSTMs’ architecture as well as performance have prevailed over time so far. A different approach to sequence generation is the use of causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as not relevant to the exam.</p>
+</section>
+<section id="dimensional-cnns">
+<h2>1-Dimensional CNNs<a class="headerlink" href="#dimensional-cnns" title="Permalink to this headline">#</a></h2>
+<p>While RNNs have very strong temporal prediction abilities with their memory, as well as stateful computation, 1-D CNNs can constitute a viable alternative as they don’t have to carry along the long term hidden state, as well as being easier to train as they do not suffer from exploding or vanishing gradients.</p>
+<section id="id1">
+<h3>Sequence Classification<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
+<p>Recalling, for sequence classification we consider the seq2vev case, in which we have a mapping of the form</p>
+<div class="math notranslate nohighlight">
+\[
+f_{\theta}: \mathbb{R}^{DT} \rightarrow \mathbb{R}^{C}
+\]</div>
+<p>A 1-D convolution applied to an input sequence of length <span class="math notranslate nohighlight">\(T\)</span>, and <span class="math notranslate nohighlight">\(D\)</span> features per input then takes the form</p>
+<center>
+    <img src="https://i.imgur.com/MeBNs8k.png" width="450">
+</center>
+<p>With <span class="math notranslate nohighlight">\(D&gt;1\)</span> input channels of each input sequence, each channel is then convolved separately and the results are then added up with each channel having its own separate 1-D kernel s.t. (recalling from the CNN lecture)</p>
+<div class="math notranslate nohighlight">
+\[
+z_{i} = \sum_{d} x^{\top}_{i-k:i+k,d} w_{d}
+\]</div>
+<p>with <span class="math notranslate nohighlight">\(k\)</span> being the size of the receptive field, and <span class="math notranslate nohighlight">\(w_{d}\)</span> the filter for the input channel <span class="math notranslate nohighlight">\(d\)</span>. Which produces a 1-D input vector <span class="math notranslate nohighlight">\(z \in \mathbb{R}^{T}\)</span>, i.e. for each output channel <span class="math notranslate nohighlight">\(c\)</span> we then get</p>
+<div class="math notranslate nohighlight">
+\[
+z_{ic} = \sum_{d} x^{\top}_{i-k:i+k, d} w_{d, c}
+\]</div>
+<p>to then reduce this to a fixed size vector <span class="math notranslate nohighlight">\(z \in \mathbb{R}^{C}\)</span>, we have to use max-pooling over time s.t.</p>
+<div class="math notranslate nohighlight">
+\[
+z_{c} = \max_{i} z_{ic}
+\]</div>
+<p>which is then passed into a softmax layer. What this construction permits is that by choosing kernels of different widths we can essentially use a library of different filters to capture patterns of different frequencies (length scales). In code this then looks the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TextCNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_size</span><span class="p">,</span> <span class="n">kernel_sizes</span><span class="p">,</span> <span class="n">num_channels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TextCNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_size</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">constant_embedding</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_size</span><span class="p">)</span> <span class="c1"># not being trained</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">num_channels</span><span class="p">),</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">AdaptiveAvgPool1d</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># no weight and can hence share the instance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+        <span class="c1"># Creating the one-dimensional convolutional layers with different kernel widths</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">convs</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ModuleList</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">num_channels</span><span class="p">,</span> <span class="n">kernel_sizes</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">convs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Conv1d</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">embed_size</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">k</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="c1"># Concatenation of the two embedding layers</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">embedding</span><span class="p">(</span><span class="n">inputs</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">constant_embedding</span><span class="p">(</span><span class="n">inputs</span><span class="p">)),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="c1"># Channel dimension of the 1-D conv layer is transformed</span>
+        <span class="n">embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">permute</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="c1"># Flattening to remove overhanging dimension, and concatenate on the channel dimension</span>
+        <span class="c1"># For each one-dimensional convolutional layer, after max-over-time</span>
+        <span class="n">encoding</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">conv</span><span class="p">(</span><span class="n">embeddings</span><span class="p">))),</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">conv</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">convs</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span>
+        <span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">decoder</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span><span class="n">encoding</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">outputs</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Sequence Generation<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h3>
+<p>To use CNNs generatively, we need to introduce <strong>causality</strong> into the model, this results in the model definition of</p>
+<div class="math notranslate nohighlight">
+\[
+p(y) = \prod_{t=1}^{T} p(y_{t}|y_{1:t-1}) = \prod_{t=1}^{T} \text{Cat}(y_{t}| \text{softmax}(\varphi(\sum_{\tau = 1}^{t-k}w^{\top}y_{\tau:\tau+k})))
+\]</div>
+<p>where we have the convolutional filter <span class="math notranslate nohighlight">\(w\)</span>, a nonlinearity <span class="math notranslate nohighlight">\(\varphi\)</span>. This results in a masking out of future inputs, such that <span class="math notranslate nohighlight">\(y_{t}\)</span> can only depend on past information, and no future information. This is called a <strong>causal convolution</strong>. One poster-child example of this approach is the <a class="reference external" href="https://www.deepmind.com/blog/wavenet-a-generative-model-for-raw-audio">WaveNet</a> architecture, which takes in text as input sequences to generate raw audio such as speech. The WaveNet architecture utilizes dilated convolutions in which the dilation increases with powers of 2 with each successive layer.</p>
+<center>
+    <img src="https://i.imgur.com/8MgJ9On.png" width="450">
+</center>
+<p>This then takes following form in <a class="reference external" href="https://github.com/antecessor/Wavenet/blob/master/Wavenet.py">code</a>.</p>
+</section>
+</section>
+<section id="flagship-applications">
+<h2>Flagship Applications<a class="headerlink" href="#flagship-applications" title="Permalink to this headline">#</a></h2>
+<p>With so many flagship models of AI these days relying on sequence models, I have compiled a list of a very few of them below for you to play around with. While attention was beyond the scope of this lecture, you can have a look at Lilian Weng’s blog post on attention below to dive into it.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://opt.alpa.ai">Opt 175bn Parameter Model for Text Generation</a></p>
+<ul>
+<li><p>This allows for the free playing with the model by prompting it</p></li>
+</ul>
+</li>
+<li><p><a class="reference external" href="https://openai.com/dall-e-2/">OpenAI’s Dall-E 2</a></p></li>
+<li><p><a class="reference external" href="https://openai.com/blog/gpt-3-apps/">GPT-3</a></p></li>
+<li><p><a class="reference external" href="https://openai.com/blog/chatgpt/">ChatGPT: Optimizing Language Models for Dialogue</a></p></li>
+<li><p><a class="reference external" href="https://txt.cohere.ai/generative-ai-part-1/">Cohere AI Blog Posts</a></p></li>
+<li><p><a class="reference external" href="https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html">BERT</a></p></li>
+</ul>
+</section>
+<section id="further-reading">
+<h2>Further Reading<a class="headerlink" href="#further-reading" title="Permalink to this headline">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">RNN blog post by Andrej Karpathy</a></p></li>
+<li><p><a class="reference external" href="https://colah.github.io/posts/2015-08-Understanding-LSTMs">LSTM blog post by Chris Olah</a></p></li>
+<li><p><a class="reference external" href="https://lilianweng.github.io/posts/2018-06-24-attention/">Lilian Weng’s blog post on Transformers</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./lecture"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="cc-4-sub-CNN.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Convolutional Neural Network</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="../exercise/1_linReg_logReg.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">1. Linear Regression and Logistic Regression</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+            </footer>
+        </div>
+    </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By N. Adams, L. Paehler, A. Toshev<br/>
+  
+      &copy; Copyright 2022.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+
+
+  </body>
+</html>
