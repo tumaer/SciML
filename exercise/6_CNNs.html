@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>CNNs &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+    <title>6. CNNs &#8212; Introduction to Scientific Machine Learning for Engineers</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -187,6 +187,11 @@ const thebe_selector_output = ".output, .cell_output"
      Convolutional Neural Network
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-rnn.html">
+     Recurrent Models
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -223,7 +228,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   CNNs
+   6. CNNs
   </a>
  </li>
 </ul>
@@ -461,12 +466,12 @@ title="Print to PDF"
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#training-a-classifier">
-   1. Training a Classifier
+   6.1. Training a Classifier
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pretraining">
-   Pretraining
+   6.2. Pretraining
   </a>
  </li>
 </ul>
@@ -478,7 +483,7 @@ title="Print to PDF"
         <div class="col pl-md-3 pl-lg-5 content-container">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>CNNs</h1>
+                <h1>6. CNNs</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -490,12 +495,12 @@ title="Print to PDF"
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#training-a-classifier">
-   1. Training a Classifier
+   6.1. Training a Classifier
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#pretraining">
-   Pretraining
+   6.2. Pretraining
   </a>
  </li>
 </ul>
@@ -509,7 +514,7 @@ title="Print to PDF"
               <div>
                 
   <section class="tex2jax_ignore mathjax_ignore" id="cnns">
-<h1>CNNs<a class="headerlink" href="#cnns" title="Permalink to this headline">#</a></h1>
+<h1>6. CNNs<a class="headerlink" href="#cnns" title="Permalink to this headline">#</a></h1>
 <p>At the end of this exercise you will know how to:</p>
 <ul class="simple">
 <li><p>construct a CNN image classification pipeline from scratch, based on the <a class="reference external" href="https://pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html">Training a Classifier</a> PyTorch tutorial</p></li>
@@ -546,9 +551,15 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tensorboard extension is already loaded. To reload it, use:
+  %reload_ext tensorboard
+</pre></div>
+</div>
+</div>
 </div>
 <section id="training-a-classifier">
-<h2>1. Training a Classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this headline">#</a></h2>
+<h2>6.1. Training a Classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this headline">#</a></h2>
 <p>We will be working with the Cifar10 dataset, which is probably the second best known classification dataset just after Mnist and just before ImageNet. It consists of 60,000 RGB images of shape 3x32x32 from 10 different classes with 6000 images per class. The python dataset requires around 160 MB space.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -611,7 +622,7 @@ Files already downloaded and verified
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/6_CNNs_5_0.png" src="../_images/6_CNNs_5_0.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>deer  horse horse horse
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dog   car   horse plane
 Shapes of images: torch.Size([4, 3, 32, 32]) and labels: torch.Size([4])
 </pre></div>
 </div>
@@ -686,18 +697,18 @@ Shapes of images: torch.Size([4, 3, 32, 32]) and labels: torch.Size([4])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 1.254
-[1,  4000] loss: 1.243
-[1,  6000] loss: 1.216
-[1,  8000] loss: 1.227
-[1, 10000] loss: 1.209
-[1, 12000] loss: 1.184
-[2,  2000] loss: 1.124
-[2,  4000] loss: 1.139
-[2,  6000] loss: 1.128
-[2,  8000] loss: 1.134
-[2, 10000] loss: 1.125
-[2, 12000] loss: 1.114
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 1.486
+[1,  4000] loss: 1.424
+[1,  6000] loss: 1.403
+[1,  8000] loss: 1.362
+[1, 10000] loss: 1.342
+[1, 12000] loss: 1.316
+[2,  2000] loss: 1.225
+[2,  4000] loss: 1.237
+[2,  6000] loss: 1.219
+[2,  8000] loss: 1.201
+[2, 10000] loss: 1.192
+[2, 12000] loss: 1.203
 Finished Training
 </pre></div>
 </div>
@@ -717,15 +728,15 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reusing TensorBoard on port 6006 (pid 48687), started 0:03:46 ago. (Use &#39;!kill 48687&#39; to kill it.)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reusing TensorBoard on port 6006 (pid 66592), started 0:00:02 ago. (Use &#39;!kill 66592&#39; to kill it.)
 </pre></div>
 </div>
 <div class="output text_html">
-<iframe id="tensorboard-frame-8a7680eaabbf5857" width="100%" height="800" frameborder="0">
+<iframe id="tensorboard-frame-a63026533c7e5b49" width="100%" height="800" frameborder="0">
 </iframe>
 <script>
   (function() {
-    const frame = document.getElementById("tensorboard-frame-8a7680eaabbf5857");
+    const frame = document.getElementById("tensorboard-frame-a63026533c7e5b49");
     const url = new URL("http://localhost");
     const port = 6006;
     if (port) {
@@ -755,7 +766,7 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted:  cat   car   ship  plane
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted:  cat   plane truck plane
 GroundTruth:  cat   ship  ship  plane
 </pre></div>
 </div>
@@ -779,6 +790,11 @@ GroundTruth:  cat   ship  ship  plane
 
 <span class="nb">print</span><span class="p">(</span>
     <span class="sa">f</span><span class="s1">&#39;Accuracy of the network on the 10000 test images: </span><span class="si">{</span><span class="mi">100</span> <span class="o">*</span> <span class="n">correct</span> <span class="o">//</span> <span class="n">total</span><span class="si">}</span><span class="s1"> %&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy of the network on the 10000 test images: 55 %
 </pre></div>
 </div>
 </div>
@@ -811,16 +827,16 @@ GroundTruth:  cat   ship  ship  plane
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy for class: plane is 73.4 %
-Accuracy for class: car   is 67.2 %
-Accuracy for class: bird  is 52.1 %
-Accuracy for class: cat   is 32.0 %
-Accuracy for class: deer  is 39.8 %
-Accuracy for class: dog   is 55.1 %
-Accuracy for class: frog  is 70.8 %
-Accuracy for class: horse is 69.6 %
-Accuracy for class: ship  is 66.3 %
-Accuracy for class: truck is 70.7 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy for class: plane is 66.4 %
+Accuracy for class: car   is 44.2 %
+Accuracy for class: bird  is 28.2 %
+Accuracy for class: cat   is 24.7 %
+Accuracy for class: deer  is 45.6 %
+Accuracy for class: dog   is 66.4 %
+Accuracy for class: frog  is 77.0 %
+Accuracy for class: horse is 71.6 %
+Accuracy for class: ship  is 48.8 %
+Accuracy for class: truck is 78.9 %
 </pre></div>
 </div>
 </div>
@@ -835,6 +851,40 @@ Accuracy for class: truck is 70.7 %
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>cuda:0
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>nvidia-smi
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Wed Jan 18 17:22:06 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 525.60.11    Driver Version: 525.60.11    CUDA Version: 12.0     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |
+| N/A   60C    P8     5W /  N/A |   1256MiB /  8192MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1864      G   /usr/lib/xorg/Xorg                  4MiB |
+|    0   N/A  N/A      2964      G   /usr/lib/xorg/Xorg                124MiB |
+|    0   N/A  N/A     25178    C+G   ...969673609438195022,131072      496MiB |
+|    0   N/A  N/A     53180      C   ...ciML22-23/venv/bin/python      624MiB |
++-----------------------------------------------------------------------------+
 </pre></div>
 </div>
 </div>
@@ -876,18 +926,18 @@ Accuracy for class: truck is 70.7 %
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 2.160
-[1,  4000] loss: 1.866
-[1,  6000] loss: 1.676
-[1,  8000] loss: 1.577
-[1, 10000] loss: 1.502
-[1, 12000] loss: 1.468
-[2,  2000] loss: 1.416
-[2,  4000] loss: 1.380
-[2,  6000] loss: 1.329
-[2,  8000] loss: 1.337
-[2, 10000] loss: 1.304
-[2, 12000] loss: 1.266
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 2.201
+[1,  4000] loss: 1.878
+[1,  6000] loss: 1.699
+[1,  8000] loss: 1.603
+[1, 10000] loss: 1.553
+[1, 12000] loss: 1.487
+[2,  2000] loss: 1.429
+[2,  4000] loss: 1.398
+[2,  6000] loss: 1.372
+[2,  8000] loss: 1.348
+[2, 10000] loss: 1.325
+[2, 12000] loss: 1.304
 Finished Training
 </pre></div>
 </div>
@@ -895,7 +945,7 @@ Finished Training
 </div>
 </section>
 <section id="pretraining">
-<h2>Pretraining<a class="headerlink" href="#pretraining" title="Permalink to this headline">#</a></h2>
+<h2>6.2. Pretraining<a class="headerlink" href="#pretraining" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
@@ -919,7 +969,7 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x7f825c6ea0d0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x7f8193a23d30&gt;
 </pre></div>
 </div>
 </div>
