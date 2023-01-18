@@ -33,4 +33,5 @@ parts:
   - file: admin.md
   - file: books.md
   - file: preliminary_knowledge.md
+  - file: software.md
   - file: faq.md
