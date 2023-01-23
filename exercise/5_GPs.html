@@ -194,6 +194,11 @@ const thebe_selector_output = ".output, .cell_output"
      Recurrent Models
     </a>
    </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-ae.html">
+     Encoder-Decoder Models: Aa Focus on the Necessary
+    </a>
+   </li>
   </ul>
  </li>
 </ul>
@@ -253,6 +258,11 @@ const thebe_selector_output = ".output, .cell_output"
  <li class="toctree-l1">
   <a class="reference internal" href="../preliminary_knowledge.html">
    Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../software.html">
+   Software Infrastructure
   </a>
  </li>
  <li class="toctree-l1">
@@ -663,23 +673,23 @@ title="Print to PDF"
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import os
+import matplotlib.pyplot as plt
+import torch
+import numpy as np
 
-<span class="c1"># Helper library to more efficiently handle Gaussian Processes in PyTorch</span>
-<span class="kn">import</span> <span class="nn">pyro</span>
-<span class="kn">import</span> <span class="nn">pyro.contrib.gp</span> <span class="k">as</span> <span class="nn">gp</span>
-<span class="kn">import</span> <span class="nn">pyro.distributions</span> <span class="k">as</span> <span class="nn">dist</span>
+# Helper library to more efficiently handle Gaussian Processes in PyTorch
+import pyro
+import pyro.contrib.gp as gp
+import pyro.distributions as dist
 
-<span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span>
-<span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
+from matplotlib.animation import FuncAnimation
+from mpl_toolkits.axes_grid1 import make_axes_locatable
 
-<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
+import seaborn as sns
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 
-<span class="n">pyro</span><span class="o">.</span><span class="n">set_rng_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+pyro.set_rng_seed(0)
 </pre></div>
 </div>
 </div>
@@ -714,187 +724,187 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <h2>Gaussian Processes from Sketch<a class="headerlink" href="#gaussian-processes-from-sketch" title="Permalink to this headline">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
-<span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
-<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import torch.nn as nn
+import torch.optim as optim
+from torch.autograd import Variable
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">GaussianProcess</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class GaussianProcess(nn.Module):
 
-    <span class="sd">&quot;&quot;&quot;Gaussian process regression model.</span>
+    &quot;&quot;&quot;Gaussian process regression model.
 
-<span class="sd">    Built for multi-input, single-output functions.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">sigma_n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Constructs an instance of a Gaussian process.</span>
+    Built for multi-input, single-output functions.
+    &quot;&quot;&quot;
+    def __init__(self, kernel, sigma_n=None, eps=1e-6):
+        &quot;&quot;&quot;Constructs an instance of a Gaussian process.
 
-<span class="sd">        Args:</span>
-<span class="sd">            kernel (Kernel): Kernel</span>
-<span class="sd">            sigma_n (Tensor): Noise standard deviation</span>
-<span class="sd">            eps (Float): Minimum bound for parameters.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">GaussianProcess</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_n</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">sigma_n</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">sigma_n</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_eps</span> <span class="o">=</span> <span class="n">eps</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_set</span> <span class="o">=</span> <span class="kc">False</span>
+        Args:
+            kernel (Kernel): Kernel
+            sigma_n (Tensor): Noise standard deviation
+            eps (Float): Minimum bound for parameters.
+        &quot;&quot;&quot;
+        super(GaussianProcess, self).__init__()
+        self.kernel = kernel
+        self.sigma_n = torch.nn.Parameter(
+            torch.randn(1) if sigma_n is None else sigma_n
+        )
+        self._eps = eps
+        self._is_set = False
 
-    <span class="k">def</span> <span class="nf">_update_k</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Update the K matrix.&quot;&quot;&quot;</span>
-        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_X</span>
-        <span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Y</span>
+    def _update_k(self):
+        &quot;&quot;&quot;Update the K matrix.&quot;&quot;&quot;
+        X = self._X
+        Y = self._Y
 
-        <span class="c1"># Compute K and guarantee it is positive definite</span>
-        <span class="n">var_n</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eps</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">)</span>
-        <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
-        <span class="n">K</span> <span class="o">=</span> <span class="p">(</span><span class="n">K</span> <span class="o">+</span> <span class="n">K</span><span class="o">.</span><span class="n">t</span><span class="p">())</span><span class="o">.</span><span class="n">mul</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_K</span> <span class="o">=</span> <span class="n">K</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_reg</span> <span class="o">+</span> <span class="n">var_n</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        # Compute K and guarantee it is positive definite
+        var_n = (self.sigma_n**2).clamp(self._eps, 1e5)
+        K = self.kernel(X, X)
+        K = (K + K.t()).mul(0.5)
+        self._K = K + (self._reg + var_n) * torch.eye(X.shape[0])
 
-        <span class="c1"># Compute K&#39;s inverse and Cholesky factorization</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_L</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cholesky</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_K</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_K_inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_K</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span>
+        # Compute K&#39;s inverse and Cholesky factorization
+        self._L = torch.cholesky(self._K)
+        self._K_inv = self._K.inverse()
     
-    <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">normalize_y</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">reg</span><span class="o">=</span><span class="mf">1e-5</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Set the training data.</span>
+    def set_data(self, X, Y, normalize_y=True, reg=1e-5):
+        &quot;&quot;&quot;Set the training data.
 
-<span class="sd">        Args:</span>
-<span class="sd">            X (Tensor): Training inputs</span>
-<span class="sd">            Y (Tensor): Training outputs</span>
-<span class="sd">            normalize_y (Boolean): Normalize the outputs</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_non_normalized_Y</span> <span class="o">=</span> <span class="n">Y</span>
+        Args:
+            X (Tensor): Training inputs
+            Y (Tensor): Training outputs
+            normalize_y (Boolean): Normalize the outputs
+        &quot;&quot;&quot;
+        self._non_normalized_Y = Y
 
-        <span class="k">if</span> <span class="n">normalize_y</span><span class="p">:</span>
-            <span class="n">Y_mean</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">Y_variance</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">Y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-            <span class="n">Y</span> <span class="o">=</span> <span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">Y_mean</span><span class="p">)</span> <span class="o">/</span> <span class="n">Y_variance</span>
+        if normalize_y:
+            Y_mean = torch.mean(Y, dim=0)
+            Y_variance = torch.std(Y, dim=0)
+            Y = (Y - Y_mean) / Y_variance
         
-        <span class="bp">self</span><span class="o">.</span><span class="n">_X</span> <span class="o">=</span> <span class="n">X</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_Y</span> <span class="o">=</span> <span class="n">Y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_reg</span> <span class="o">=</span> <span class="n">reg</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_k</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_is_set</span> <span class="o">=</span> <span class="kc">True</span>
+        self._X = X
+        self._Y = Y
+        self._reg = reg
+        self._update_k()
+        self._is_set = True
     
-    <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Negative marginal log likelihood.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_set</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You must call set_data() first&quot;</span><span class="p">)</span>
+    def loss(self):
+        &quot;&quot;&quot;Negative marginal log likelihood.&quot;&quot;&quot;
+        if not self._is_set:
+            raise RuntimeError(&quot;You must call set_data() first&quot;)
 
-        <span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Y</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_update_k</span><span class="p">()</span>
-        <span class="n">K_inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_K_inv</span>
+        Y = self._Y
+        self._update_k()
+        K_inv = self._K_inv
 
-        <span class="c1"># Compute the log likelihood</span>
-        <span class="n">log_likelihood_dims</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">Y</span><span class="o">.</span><span class="n">t</span><span class="p">()</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">K_inv</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-        <span class="n">log_likelihood_dims</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_L</span><span class="o">.</span><span class="n">diag</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-        <span class="n">log_likelihood_dims</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_L</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
-        <span class="n">log_likelihood</span> <span class="o">=</span> <span class="n">log_likelihood_dims</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+        # Compute the log likelihood
+        log_likelihood_dims = -0.5 * Y.t().mm(K_inv.mm(Y)).sum(dim=0)
+        log_likelihood_dims -= self._L.diag().log().sum()
+        log_likelihood_dims -= self._L.shape[0] / 2.0 * np.log(2 * np.pi)
+        log_likelihood = log_likelihood_dims.sum(dim=-1)
 
-        <span class="k">return</span> <span class="o">-</span><span class="n">log_likelihood</span>
+        return -log_likelihood
     
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                <span class="n">x</span><span class="p">,</span>
-                <span class="n">return_mean</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="n">return_var</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">return_covar</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="n">return_std</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Compute the GP estimate.</span>
+    def forward(self,
+                x,
+                return_mean=True,
+                return_var=False,
+                return_covar=False,
+                return_std=False,
+                **kwargs):
+        &quot;&quot;&quot;Compute the GP estimate.
 
-<span class="sd">        Args:</span>
-<span class="sd">            x (Tensor): Inputs</span>
-<span class="sd">            return_mean (Boolean): Return the mean</span>
-<span class="sd">            return_covar (Boolean): Return the full covariance matrix</span>
-<span class="sd">            return_var (Boolean): Return the variance</span>
-<span class="sd">            return_std (Boolean): Return the standard deviation</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Tensor or tuple of Tensors.</span>
-<span class="sd">            The order of the tuple if all outputs are requested is:</span>
-<span class="sd">                (mean, covariance, variance, standard deviation)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_set</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You must call set_data() first&quot;</span><span class="p">)</span>
+        Args:
+            x (Tensor): Inputs
+            return_mean (Boolean): Return the mean
+            return_covar (Boolean): Return the full covariance matrix
+            return_var (Boolean): Return the variance
+            return_std (Boolean): Return the standard deviation
         
-        <span class="n">X</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_X</span>
-        <span class="n">Y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Y</span>
-        <span class="n">K_inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_K_inv</span>
+        Returns:
+            Tensor or tuple of Tensors.
+            The order of the tuple if all outputs are requested is:
+                (mean, covariance, variance, standard deviation)
+        &quot;&quot;&quot;
+        if not self._is_set:
+            raise RuntimeError(&quot;You must call set_data() first&quot;)
+        
+        X = self._X
+        Y = self._Y
+        K_inv = self._K_inv
 
-        <span class="c1"># Kernel functions</span>
-        <span class="n">K_ss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
-        <span class="n">K_s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+        # Kernel functions
+        K_ss = self.kernel(x, x)
+        K_s = self.kernel(x, X)
 
-        <span class="c1"># Compute the mean</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">return_mean</span><span class="p">:</span>
-            <span class="c1"># Non-normalized for scale</span>
-            <span class="n">mean</span> <span class="o">=</span> <span class="n">K_s</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">K_inv</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_non_normalized_Y</span><span class="p">))</span>
-            <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mean</span><span class="p">)</span>
+        # Compute the mean
+        outputs = []
+        if return_mean:
+            # Non-normalized for scale
+            mean = K_s.mm(K_inv.mm(self._non_normalized_Y))
+            outputs.append(mean)
         
-        <span class="c1"># Compute covariance/variance/standard deviation</span>
-        <span class="k">if</span> <span class="n">return_covar</span> <span class="ow">or</span> <span class="n">return_var</span> <span class="ow">or</span> <span class="n">return_std</span><span class="p">:</span>
-            <span class="n">covar</span> <span class="o">=</span> <span class="n">K_ss</span> <span class="o">-</span> <span class="n">K_s</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">K_inv</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">K_s</span><span class="o">.</span><span class="n">t</span><span class="p">()))</span>
-            <span class="k">if</span> <span class="n">return_covar</span><span class="p">:</span>
-                <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">covar</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">return_var</span> <span class="ow">or</span> <span class="n">return_std</span><span class="p">:</span>
-                <span class="n">var</span> <span class="o">=</span> <span class="n">covar</span><span class="o">.</span><span class="n">diag</span><span class="p">()</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">return_var</span><span class="p">:</span>
-                    <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">var</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">return_std</span><span class="p">:</span>
-                    <span class="n">std</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>
-                    <span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">std</span><span class="p">)</span>
+        # Compute covariance/variance/standard deviation
+        if return_covar or return_var or return_std:
+            covar = K_ss - K_s.mm(K_inv.mm(K_s.t()))
+            if return_covar:
+                outputs.append(covar)
+            if return_var or return_std:
+                var = covar.diag().reshape(-1, 1)
+                if return_var:
+                    outputs.append(var)
+                if return_std:
+                    std = var.sqrt()
+                    outputs.append(std)
         
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        if len(outputs) == 1:
+            return outputs[0]
         
-        <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+        return tuple(outputs)
     
-    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tol</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">,</span> <span class="n">reg_factor</span><span class="o">=</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">max_reg</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Fits the model to the data.</span>
+    def fit(self, tol=1e-6, reg_factor=10.0, max_reg=1.0, max_iter=1000):
+        &quot;&quot;&quot;Fits the model to the data.
 
-<span class="sd">        Args:</span>
-<span class="sd">            tol (Float): Tolerance</span>
-<span class="sd">            reg_factor (Float): Regularization multiplicative factor</span>
-<span class="sd">            max_reg (Float): Maximum regularization term</span>
-<span class="sd">            max_iter (Integer): Maximum number of iterations</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Number of iterations.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_set</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You must call set_data() first&quot;</span><span class="p">)</span>
+        Args:
+            tol (Float): Tolerance
+            reg_factor (Float): Regularization multiplicative factor
+            max_reg (Float): Maximum regularization term
+            max_iter (Integer): Maximum number of iterations
+        
+        Returns:
+            Number of iterations.
+        &quot;&quot;&quot;
+        if not self._is_set:
+            raise RuntimeError(&quot;You must call set_data() first&quot;)
             
-        <span class="n">opt</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">)</span>
+        opt = torch.optim.Adam(p for p in self.parameters() if p.requires_grad)
 
-        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_reg</span> <span class="o">&lt;=</span> <span class="n">max_reg</span><span class="p">:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">curr_loss</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">inf</span>
-                <span class="n">n_iter</span> <span class="o">=</span> <span class="mi">0</span>
+        while self._reg &lt;= max_reg:
+            try:
+                curr_loss = np.inf
+                n_iter = 0
 
-                <span class="k">while</span> <span class="n">n_iter</span> <span class="o">&lt;</span> <span class="n">max_iter</span><span class="p">:</span>
-                    <span class="n">opt</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+                while n_iter &lt; max_iter:
+                    opt.zero_grad()
 
-                    <span class="n">prev_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">()</span>
-                    <span class="n">prev_loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">retain_graph</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-                    <span class="n">opt</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+                    prev_loss = self.loss()
+                    prev_loss.backward(retain_graph=True)
+                    opt.step()
 
-                    <span class="n">curr_loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="p">()</span>
-                    <span class="n">dloss</span> <span class="o">=</span> <span class="n">curr_loss</span> <span class="o">-</span> <span class="n">prev_loss</span>
-                    <span class="n">n_iter</span> <span class="o">+=</span> <span class="mi">1</span>
-                    <span class="k">if</span> <span class="n">dloss</span><span class="o">.</span><span class="n">abs</span><span class="p">()</span> <span class="o">&lt;=</span> <span class="n">tol</span><span class="p">:</span>
-                        <span class="k">break</span>
+                    curr_loss = self.loss()
+                    dloss = curr_loss - prev_loss
+                    n_iter += 1
+                    if dloss.abs() &lt;= tol:
+                        break
                 
-                <span class="k">return</span> <span class="n">n_iter</span>
-            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
-                <span class="c1"># Increase regularization term until it succeeds</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">_reg</span> <span class="o">*=</span> <span class="n">reg_factor</span>
-                <span class="k">continue</span>
+                return n_iter
+            except RuntimeError:
+                # Increase regularization term until it succeeds
+                self._reg *= reg_factor
+                continue
 </pre></div>
 </div>
 </div>
@@ -902,109 +912,109 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <p>For which we then need to define our kernel base class</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Kernel</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base class for the kernel functions.&quot;&quot;&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class Kernel(nn.Module):
+    &quot;&quot;&quot;Base class for the kernel functions.&quot;&quot;&quot;
 
-    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Sums two kernels together.and</span>
-<span class="sd">        </span>
-<span class="sd">        Args:</span>
-<span class="sd">            other (Kernel): Other kernel.</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Aggregate Kernel</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">AggregateKernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">add</span><span class="p">)</span>
+    def __add__(self, other):
+        &quot;&quot;&quot;Sums two kernels together.and
+        
+        Args:
+            other (Kernel): Other kernel.
+        
+        Returns:
+            Aggregate Kernel
+        &quot;&quot;&quot;
+        return AggregateKernel(self, other, torch.add)
     
-    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Multiplies two kernel together.</span>
+    def __mul__(self, other):
+        &quot;&quot;&quot;Multiplies two kernel together.
 
-<span class="sd">        Args:</span>
-<span class="sd">            other (Kernel): Other kernel</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Aggregate Kernel</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">AggregateKernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">mul</span><span class="p">)</span>
+        Args:
+            other (Kernel): Other kernel
+        
+        Returns:
+            Aggregate Kernel
+        &quot;&quot;&quot;
+        return AggregateKernel(self, other, torch.mul)
     
-    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Subtracts two kernels from each other.</span>
+    def __sub__(self, other):
+        &quot;&quot;&quot;Subtracts two kernels from each other.
 
-<span class="sd">        Args:</span>
-<span class="sd">            other (Kernel): Other kernel</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Aggregate Kernel</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">AggregateKernel</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">sub</span><span class="p">)</span>
+        Args:
+            other (Kernel): Other kernel
+        
+        Returns:
+            Aggregate Kernel
+        &quot;&quot;&quot;
+        return AggregateKernel(self, other, torch.sub)
     
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Covariance function</span>
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
 
-<span class="sd">        Args:</span>
-<span class="sd">            xi (Tensor): First matrix</span>
-<span class="sd">            xj (Tensor): Second matrix</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Covariance (Tensor)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span>
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        raise NotImplementedError
 
 
-<span class="k">class</span> <span class="nc">AggregateKernel</span><span class="p">(</span><span class="n">Kernel</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;An aggregate kernel.&quot;&quot;&quot;</span>
+class AggregateKernel(Kernel):
+    &quot;&quot;&quot;An aggregate kernel.&quot;&quot;&quot;
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">,</span> <span class="n">op</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Constructs an Aggregate Kernel</span>
+    def __init__(self, first, second, op):
+        &quot;&quot;&quot;Constructs an Aggregate Kernel
 
-<span class="sd">        Args:</span>
-<span class="sd">            first (Kernel): First kernel</span>
-<span class="sd">            second (Kernel): Second kernel</span>
-<span class="sd">            op (Function): Operation to apply</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Kernel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">first</span> <span class="o">=</span> <span class="n">first</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">second</span> <span class="o">=</span> <span class="n">second</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">op</span> <span class="o">=</span> <span class="n">op</span>
+        Args:
+            first (Kernel): First kernel
+            second (Kernel): Second kernel
+            op (Function): Operation to apply
+        &quot;&quot;&quot;
+        super(Kernel, self).__init__()
+        self.first = first
+        self.second = second
+        self.op = op
     
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Covariance function</span>
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
 
-<span class="sd">        Args:</span>
-<span class="sd">            xi (Tensor): First matrix</span>
-<span class="sd">            xj (Tensor): Second matrix</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Covariance (Tensor)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">first</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">first</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="n">second</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">second</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">op</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">second</span><span class="p">)</span>
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        first = self.first(xi, xj, *args, **kwargs)
+        second = self.second(xi, xj, *args, **kwargs)
+        return self.op(first, second)
 
-<span class="k">def</span> <span class="nf">mahalanobis_squared</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="n">VI</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Computes the pair-wise squared mahalanobis distance matrix.</span>
+def mahalanobis_squared(xi, xj, VI=None):
+    &quot;&quot;&quot;Computes the pair-wise squared mahalanobis distance matrix.
 
-<span class="sd">    Args:</span>
-<span class="sd">        xi (Tensor): xi input matrix</span>
-<span class="sd">        xj (Tensor): xj input matrix</span>
-<span class="sd">        VI (Tensor): The inverse of the covariance matrix, by default the</span>
-<span class="sd">            identity matrix</span>
-<span class="sd">    </span>
-<span class="sd">    Returns:</span>
-<span class="sd">        Weighted matrix of all pair-wise distances (Tensor)</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">if</span> <span class="n">VI</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">xi_VI</span> <span class="o">=</span> <span class="n">xi</span>
-        <span class="n">xj_VI</span> <span class="o">=</span> <span class="n">xj</span>
-    <span class="k">else</span><span class="p">:</span>
-        <span class="n">xi_VI</span> <span class="o">=</span> <span class="n">xi</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">VI</span><span class="p">)</span>
-        <span class="n">xj_VI</span> <span class="o">=</span> <span class="n">xj</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">VI</span><span class="p">)</span>
+    Args:
+        xi (Tensor): xi input matrix
+        xj (Tensor): xj input matrix
+        VI (Tensor): The inverse of the covariance matrix, by default the
+            identity matrix
     
-    <span class="n">D_squared</span> <span class="o">=</span> <span class="p">(</span><span class="n">xi_VI</span> <span class="o">*</span> <span class="n">xi</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> \
-                <span class="o">+</span> <span class="p">(</span><span class="n">xj_VI</span> <span class="o">*</span> <span class="n">xj</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> \
-                <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">xi_VI</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">xj</span><span class="o">.</span><span class="n">t</span><span class="p">())</span>
+    Returns:
+        Weighted matrix of all pair-wise distances (Tensor)
+    &quot;&quot;&quot;
+    if VI is None:
+        xi_VI = xi
+        xj_VI = xj
+    else:
+        xi_VI = xi.mm(VI)
+        xj_VI = xj.mm(VI)
     
-    <span class="k">return</span> <span class="n">D_squared</span>
+    D_squared = (xi_VI * xi).sum(dim=-1).reshape(-1, 1) \
+                + (xj_VI * xj).sum(dim=-1).reshape(1, -1) \
+                - 2 * xi_VI.mm(xj.t())
+    
+    return D_squared
 </pre></div>
 </div>
 </div>
@@ -1012,78 +1022,78 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <p>With which we can then define the RBF Kernel, and the White Noise Kernel</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">RBFKernel</span><span class="p">(</span><span class="n">Kernel</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class RBFKernel(Kernel):
 
-    <span class="sd">&quot;&quot;&quot;Radial-basis function kernel.&quot;&quot;&quot;</span>
+    &quot;&quot;&quot;Radial-basis function kernel.&quot;&quot;&quot;
     
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">length_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">sigma_s</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Constructs an RBF Kernel</span>
+    def __init__(self, length_scale=None, sigma_s=None, eps=1e-6):
+        &quot;&quot;&quot;Constructs an RBF Kernel
 
-<span class="sd">        Args:</span>
-<span class="sd">            length_scale (Tensor): Length scale</span>
-<span class="sd">            sigma_s (Tensor): Signal standard deviation</span>
-<span class="sd">            eps (Float): Minimum bound for parameters</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Kernel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">length_scale</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">length_scale</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">length_scale</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">sigma_s</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">sigma_s</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_eps</span> <span class="o">=</span> <span class="n">eps</span>
+        Args:
+            length_scale (Tensor): Length scale
+            sigma_s (Tensor): Signal standard deviation
+            eps (Float): Minimum bound for parameters
+        &quot;&quot;&quot;
+        super(Kernel, self).__init__()
+        self.length_scale = torch.nn.Parameter(
+            torch.randn(1) if length_scale is None else length_scale
+        )
+        self.sigma_s = torch.nn.Parameter(
+            torch.randn(1) if sigma_s is None else sigma_s
+        )
+        self._eps = eps
     
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Covariance function</span>
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
 
-<span class="sd">        Args:</span>
-<span class="sd">            xi (Tensor): First matrix</span>
-<span class="sd">            xj (Tensor): Second matrix</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Covariance (Tensor)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">length_scale</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">length_scale</span><span class="o">**-</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eps</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">)</span>
-        <span class="n">var_s</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_s</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eps</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">)</span>
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        length_scale = (self.length_scale**-2).clamp(self._eps, 1e5)
+        var_s = (self.sigma_s**2).clamp(self._eps, 1e5)
 
-        <span class="n">M</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">eye</span><span class="p">(</span><span class="n">xi</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">*</span> <span class="n">length_scale</span>
-        <span class="n">dist</span> <span class="o">=</span> <span class="n">mahalanobis_squared</span><span class="p">(</span><span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="n">M</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">var_s</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">dist</span><span class="p">)</span><span class="o">.</span><span class="n">exp</span><span class="p">()</span>
+        M = torch.eye(xi.shape[1]) * length_scale
+        dist = mahalanobis_squared(xi, xj, M)
+        return var_s * (-0.5 * dist).exp()
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">WhiteNoiseKernel</span><span class="p">(</span><span class="n">Kernel</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class WhiteNoiseKernel(Kernel):
 
-    <span class="sd">&quot;&quot;&quot;White noise kernel.&quot;&quot;&quot;</span>
+    &quot;&quot;&quot;White noise kernel.&quot;&quot;&quot;
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma_n</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-6</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Instantiates a white noise kernel</span>
+    def __init__(self, sigma_n=None, eps=1e-6):
+        &quot;&quot;&quot;Instantiates a white noise kernel
 
-<span class="sd">        Args:</span>
-<span class="sd">            sigma_n (Tensor): Noise standard deviation</span>
-<span class="sd">            eps (Float): Minimum bound for parameters</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Kernel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">sigma_n</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Parameter</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">sigma_n</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">sigma_n</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_eps</span> <span class="o">=</span> <span class="n">eps</span>
+        Args:
+            sigma_n (Tensor): Noise standard deviation
+            eps (Float): Minimum bound for parameters
+        &quot;&quot;&quot;
+        super(Kernel, self).__init__()
+        self.sigma_n = torch.nn.Parameter(
+            torch.randn(1) if sigma_n is None else sigma_n
+        )
+        self._eps = eps
     
-    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xi</span><span class="p">,</span> <span class="n">xj</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Covariance function</span>
+    def forward(self, xi, xj, *args, **kwargs):
+        &quot;&quot;&quot;Covariance function
 
-<span class="sd">        Args:</span>
-<span class="sd">            xi (Tensor): First matrix</span>
-<span class="sd">            xj (Tensor): Second matrix</span>
-<span class="sd">        </span>
-<span class="sd">        Returns:</span>
-<span class="sd">            Covariance (Tensor)</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">var_n</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sigma_n</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_eps</span><span class="p">,</span> <span class="mf">1e5</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">var_n</span>
+        Args:
+            xi (Tensor): First matrix
+            xj (Tensor): Second matrix
+        
+        Returns:
+            Covariance (Tensor)
+        &quot;&quot;&quot;
+        var_n = (self.sigma_n**2).clamp(self._eps, 1e5)
+        return var_n
 </pre></div>
 </div>
 </div>
@@ -1091,20 +1101,20 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <p>We can now set up the training and test data to test this handwritten implementation</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">-</span> <span class="mi">4</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">([</span><span class="n">X</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span><span class="p">)))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X = 10 * torch.rand(50, 1) - 4
+X_train = torch.tensor(sorted(torch.cat([X] * 4))).reshape(-1, 1)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import math
 
-<span class="k">def</span> <span class="nf">real_data_distribution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+def real_data_distribution(x, noise=0.0):
+    return torch.sin(x*2*math.pi) + math.sqrt(noise) * torch.randn(x.shape)
 
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">real_data_distribution</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.04</span><span class="p">)</span>
+Y_train = real_data_distribution(X_train, noise=0.04)
 </pre></div>
 </div>
 </div>
@@ -1112,15 +1122,15 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <p>With which we can now train the handwritten Gaussian Process implementation</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import time
 
-<span class="n">k</span> <span class="o">=</span> <span class="n">RBFKernel</span><span class="p">()</span> <span class="o">+</span> <span class="n">WhiteNoiseKernel</span><span class="p">()</span>
-<span class="n">gp</span> <span class="o">=</span> <span class="n">GaussianProcess</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
-<span class="n">gp</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>
-<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">gp</span><span class="o">.</span><span class="n">fit</span><span class="p">()</span>
-<span class="n">end</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The GP took </span><span class="si">{}</span><span class="s2"> seconds to train.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">end</span> <span class="o">-</span> <span class="n">start</span><span class="p">))</span>
+k = RBFKernel() + WhiteNoiseKernel()
+gp = GaussianProcess(k)
+gp.set_data(X_train, Y_train)
+start = time.time()
+gp.fit()
+end = time.time()
+print(&quot;The GP took {} seconds to train.&quot;.format(end - start))
 </pre></div>
 </div>
 </div>
@@ -1144,7 +1154,7 @@ This transform will produce equivalent results for all valid (symmetric positive
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;loss&quot;</span><span class="p">,</span> <span class="n">gp</span><span class="o">.</span><span class="n">loss</span><span class="p">()</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>print(&quot;loss&quot;, gp.loss().detach().numpy())
 </pre></div>
 </div>
 </div>
@@ -1156,8 +1166,8 @@ This transform will produce equivalent results for all valid (symmetric positive
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">gp</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>for name, value in gp.named_parameters():
+    print(name, value.detach().numpy())
 </pre></div>
 </div>
 </div>
@@ -1194,51 +1204,51 @@ kernel.second.sigma_n [0.00084626]
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot</span><span class="p">(</span>
-    <span class="n">plot_observed_data</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">plot_predictions</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="n">n_prior_samples</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-    <span class="n">model</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">kernel</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-    <span class="n">n_test</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-    <span class="n">ax</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-<span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot(
+    plot_observed_data=False,
+    plot_predictions=False,
+    n_prior_samples=0,
+    model=None,
+    kernel=None,
+    n_test=500,
+    ax=None,
+):
 
-    <span class="k">if</span> <span class="n">ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">plot_observed_data</span><span class="p">:</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">y</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s2">&quot;kx&quot;</span><span class="p">)</span>
-    <span class="k">if</span> <span class="n">plot_predictions</span><span class="p">:</span>
-        <span class="n">Xtest</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>  <span class="c1"># test inputs</span>
-        <span class="c1"># compute predictive mean and variance</span>
-        <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="o">==</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">VariationalSparseGP</span><span class="p">:</span>
-                <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">full_cov</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">mean</span><span class="p">,</span> <span class="n">cov</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">Xtest</span><span class="p">,</span> <span class="n">full_cov</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">noiseless</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-        <span class="n">sd</span> <span class="o">=</span> <span class="n">cov</span><span class="o">.</span><span class="n">diag</span><span class="p">()</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span>  <span class="c1"># standard deviation at each input point x</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Xtest</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">mean</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="s2">&quot;r&quot;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># plot the mean</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span>
-            <span class="n">Xtest</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>  <span class="c1"># plot the two-sigma uncertainty about the mean</span>
-            <span class="p">(</span><span class="n">mean</span> <span class="o">-</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">sd</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
-            <span class="p">(</span><span class="n">mean</span> <span class="o">+</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">sd</span><span class="p">)</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span>
-            <span class="n">color</span><span class="o">=</span><span class="s2">&quot;C0&quot;</span><span class="p">,</span>
-            <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span>
-        <span class="p">)</span>
-    <span class="k">if</span> <span class="n">n_prior_samples</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  <span class="c1"># plot samples from the GP prior</span>
-        <span class="n">Xtest</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">,</span> <span class="n">n_test</span><span class="p">)</span>  <span class="c1"># test inputs</span>
-        <span class="n">noise</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">model</span><span class="o">.</span><span class="n">noise</span>
-            <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">model</span><span class="p">)</span> <span class="o">!=</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">VariationalSparseGP</span>
-            <span class="k">else</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="o">.</span><span class="n">variance</span>
-        <span class="p">)</span>
-        <span class="n">cov</span> <span class="o">=</span> <span class="n">kernel</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">Xtest</span><span class="p">)</span> <span class="o">+</span> <span class="n">noise</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">n_test</span><span class="p">)</span><span class="o">.</span><span class="n">diag</span><span class="p">()</span>
-        <span class="n">samples</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">MultivariateNormal</span><span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">n_test</span><span class="p">),</span> <span class="n">covariance_matrix</span><span class="o">=</span><span class="n">cov</span>
-        <span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_shape</span><span class="o">=</span><span class="p">(</span><span class="n">n_prior_samples</span><span class="p">,))</span>
-        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">Xtest</span><span class="o">.</span><span class="n">numpy</span><span class="p">(),</span> <span class="n">samples</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+    if ax is None:
+        fig, ax = plt.subplots(figsize=(12, 6))
+    if plot_observed_data:
+        ax.plot(X.numpy(), y.numpy(), &quot;kx&quot;)
+    if plot_predictions:
+        Xtest = torch.linspace(-0.5, 5.5, n_test)  # test inputs
+        # compute predictive mean and variance
+        with torch.no_grad():
+            if type(model) == gp.models.VariationalSparseGP:
+                mean, cov = model(Xtest, full_cov=True)
+            else:
+                mean, cov = model(Xtest, full_cov=True, noiseless=False)
+        sd = cov.diag().sqrt()  # standard deviation at each input point x
+        ax.plot(Xtest.numpy(), mean.numpy(), &quot;r&quot;, lw=2)  # plot the mean
+        ax.fill_between(
+            Xtest.numpy(),  # plot the two-sigma uncertainty about the mean
+            (mean - 2.0 * sd).numpy(),
+            (mean + 2.0 * sd).numpy(),
+            color=&quot;C0&quot;,
+            alpha=0.3,
+        )
+    if n_prior_samples &gt; 0:  # plot samples from the GP prior
+        Xtest = torch.linspace(-0.5, 5.5, n_test)  # test inputs
+        noise = (
+            model.noise
+            if type(model) != gp.models.VariationalSparseGP
+            else model.likelihood.variance
+        )
+        cov = kernel.forward(Xtest) + noise.expand(n_test).diag()
+        samples = dist.MultivariateNormal(
+            torch.zeros(n_test), covariance_matrix=cov
+        ).sample(sample_shape=(n_prior_samples,))
+        ax.plot(Xtest.numpy(), samples.numpy().T, lw=2, alpha=0.4)
 
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+    ax.set_xlim(-0.5, 5.5)
 </pre></div>
 </div>
 </div>
@@ -1253,11 +1263,11 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 \]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">N</span> <span class="o">=</span> <span class="mi">50</span>
-<span class="n">X</span> <span class="o">=</span> <span class="n">dist</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_shape</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,))</span>
-<span class="n">y</span> <span class="o">=</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">)</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">sample_shape</span><span class="o">=</span><span class="p">(</span><span class="n">N</span><span class="p">,))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>N = 50
+X = dist.Uniform(0.0, 5.0).sample(sample_shape=(N,))
+y = 0.5 * torch.sin(3 * X) + dist.Normal(0.0, 0.2).sample(sample_shape=(N,))
 
-<span class="n">plot</span><span class="p">(</span><span class="n">plot_observed_data</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+plot(plot_observed_data=True)
 </pre></div>
 </div>
 </div>
@@ -1271,18 +1281,18 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>Beginning with the definition of the RBF kernel, we then construct a Gaussian Process regression object and sample from this prior without training it for our synthetic data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">6.0</span><span class="p">),</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">gpr</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(6.0), lengthscale=torch.tensor(0.05)
+)
+gpr = gp.models.GPRegression(X, y, kernel, noise=torch.tensor(0.1))
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gpr</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span> <span class="n">n_prior_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot(model=gpr, kernel=kernel, n_prior_samples=2)
+_ = plt.ylim((-8, 8))
 </pre></div>
 </div>
 </div>
@@ -1299,12 +1309,12 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>In examples:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel2</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">6.0</span><span class="p">),</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">gpr2</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kernel2</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.1</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gpr2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel2</span><span class="p">,</span> <span class="n">n_prior_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel2 = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(6.0), lengthscale=torch.tensor(1)
+)
+gpr2 = gp.models.GPRegression(X, y, kernel2, noise=torch.tensor(0.1))
+plot(model=gpr2, kernel=kernel2, n_prior_samples=2)
+_ = plt.ylim((-8, 8))
 </pre></div>
 </div>
 </div>
@@ -1314,12 +1324,12 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel3</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">),</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">gpr3</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kernel3</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
-<span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gpr3</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">kernel3</span><span class="p">,</span> <span class="n">n_prior_samples</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">((</span><span class="o">-</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel3 = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(1.0), lengthscale=torch.tensor(1)
+)
+gpr3 = gp.models.GPRegression(X, y, kernel3, noise=torch.tensor(0.01))
+plot(model=gpr3, kernel=kernel3, n_prior_samples=2)
+_ = plt.ylim((-8, 8))
 </pre></div>
 </div>
 </div>
@@ -1333,22 +1343,22 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>To now adjust the kernel hyperparameters to our synthetic data, we have to perform inference. For this we define ourselves the Evidence-Lower-Bound (ELBO), to the construct a scenario in which we essentially perform <strong>gradient ascent</strong> on the log marginal likelihood, i.e. we computationally solve the <strong>Marginal Likelihood Estimation (MLE)</strong> to infer the right</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
-<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">Trace_ELBO</span><span class="p">()</span><span class="o">.</span><span class="n">differentiable_loss</span>
-<span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">variances</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">lengthscales</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">noises</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">num_steps</span> <span class="o">=</span> <span class="mi">2000</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
-    <span class="n">variances</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-    <span class="n">noises</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-    <span class="n">lengthscales</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
-    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">gpr</span><span class="o">.</span><span class="n">guide</span><span class="p">)</span>
-    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>optimizer = torch.optim.Adam(gpr.parameters(), lr=0.005)
+loss_fn = pyro.infer.Trace_ELBO().differentiable_loss
+losses = []
+variances = []
+lengthscales = []
+noises = []
+num_steps = 2000
+for i in range(num_steps):
+    variances.append(gpr.kernel.variance.item())
+    noises.append(gpr.noise.item())
+    lengthscales.append(gpr.kernel.lengthscale.item())
+    optimizer.zero_grad()
+    loss = loss_fn(gpr.model, gpr.guide)
+    loss.backward()
+    optimizer.step()
+    losses.append(loss.item())
 </pre></div>
 </div>
 </div>
@@ -1356,13 +1366,13 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>Plotting the loss curve after 2000 training iterations</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_loss</span><span class="p">(</span><span class="n">loss</span><span class="p">):</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Iterations&quot;</span><span class="p">)</span>
-    <span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Loss&quot;</span><span class="p">)</span>  <span class="c1"># supress output text</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>def plot_loss(loss):
+    plt.plot(loss)
+    plt.xlabel(&quot;Iterations&quot;)
+    _ = plt.ylabel(&quot;Loss&quot;)  # supress output text
 
 
-<span class="n">plot_loss</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+plot_loss(losses)
 </pre></div>
 </div>
 </div>
@@ -1373,7 +1383,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>With that the behaviour of our Gaussian Process should now be much more reasonable, let’s inspect it</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gpr</span><span class="p">,</span> <span class="n">plot_observed_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot(model=gpr, plot_observed_data=True, plot_predictions=True)
 </pre></div>
 </div>
 </div>
@@ -1389,7 +1399,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>But what are the actual hyperparameters we just learned?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">variance</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.kernel.variance.item()
 </pre></div>
 </div>
 </div>
@@ -1401,7 +1411,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.kernel.lengthscale.item()
 </pre></div>
 </div>
 </div>
@@ -1413,7 +1423,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpr</span><span class="o">.</span><span class="n">noise</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.noise.item()
 </pre></div>
 </div>
 </div>
@@ -1426,28 +1436,28 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>The learning process can furthermore be illustrated for the GP’s behaviour across training iterations:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>fig, ax = plt.subplots(figsize=(12, 6))
 
 
-<span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="n">iteration</span><span class="p">):</span>
-    <span class="n">pyro</span><span class="o">.</span><span class="n">clear_param_store</span><span class="p">()</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">cla</span><span class="p">()</span>
-    <span class="n">kernel_iter</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-        <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-        <span class="n">variance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">variances</span><span class="p">[</span><span class="n">iteration</span><span class="p">]),</span>
-        <span class="n">lengthscale</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">lengthscales</span><span class="p">[</span><span class="n">iteration</span><span class="p">]),</span>
-    <span class="p">)</span>
-    <span class="n">gpr_iter</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span>
-        <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kernel_iter</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">noises</span><span class="p">[</span><span class="n">iteration</span><span class="p">])</span>
-    <span class="p">)</span>
-    <span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gpr_iter</span><span class="p">,</span> <span class="n">plot_observed_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-    <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Iteration: </span><span class="si">{</span><span class="n">iteration</span><span class="si">}</span><span class="s2">, Loss: </span><span class="si">{</span><span class="n">losses</span><span class="p">[</span><span class="n">iteration</span><span class="p">]</span><span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+def update(iteration):
+    pyro.clear_param_store()
+    ax.cla()
+    kernel_iter = gp.kernels.RBF(
+        input_dim=1,
+        variance=torch.tensor(variances[iteration]),
+        lengthscale=torch.tensor(lengthscales[iteration]),
+    )
+    gpr_iter = gp.models.GPRegression(
+        X, y, kernel_iter, noise=torch.tensor(noises[iteration])
+    )
+    plot(model=gpr_iter, plot_observed_data=True, plot_predictions=True, ax=ax)
+    ax.set_title(f&quot;Iteration: {iteration}, Loss: {losses[iteration]:0.2f}&quot;)
 
 
-<span class="n">anim</span> <span class="o">=</span> <span class="n">FuncAnimation</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">update</span><span class="p">,</span> <span class="n">frames</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="mi">30</span><span class="p">),</span> <span class="n">interval</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+anim = FuncAnimation(fig, update, frames=np.arange(0, num_steps, 30), interval=100)
+plt.close()
 
-<span class="n">anim</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;../imgs/gpr-fit.gif&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+anim.save(&quot;../imgs/gpr-fit.gif&quot;, fps=60)
 </pre></div>
 </div>
 </div>
@@ -1463,28 +1473,28 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>A second option is then to use MAP estimation for which we need to define priors over our hyperparameters to then infer the <em>true</em> hyperparameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pyro</span><span class="o">.</span><span class="n">clear_param_store</span><span class="p">()</span>
-<span class="n">kernel</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">variance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">5.0</span><span class="p">),</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">10.0</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">gpr</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">GPRegression</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">1.0</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>pyro.clear_param_store()
+kernel = gp.kernels.RBF(
+    input_dim=1, variance=torch.tensor(5.0), lengthscale=torch.tensor(10.0)
+)
+gpr = gp.models.GPRegression(X, y, kernel, noise=torch.tensor(1.0))
 
-<span class="c1"># Define the priors over our hyperparameters</span>
-<span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">lengthscale</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">PyroSample</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">LogNormal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
-<span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">variance</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">PyroSample</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">LogNormal</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+# Define the priors over our hyperparameters
+gpr.kernel.lengthscale = pyro.nn.PyroSample(dist.LogNormal(0.0, 1.0))
+gpr.kernel.variance = pyro.nn.PyroSample(dist.LogNormal(0.0, 1.0))
 
-<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
-<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">infer</span><span class="o">.</span><span class="n">Trace_ELBO</span><span class="p">()</span><span class="o">.</span><span class="n">differentiable_loss</span>
-<span class="n">losses</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="n">num_steps</span> <span class="o">=</span> <span class="mi">2000</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_steps</span><span class="p">):</span>
-    <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
-    <span class="n">loss</span> <span class="o">=</span> <span class="n">loss_fn</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">model</span><span class="p">,</span> <span class="n">gpr</span><span class="o">.</span><span class="n">guide</span><span class="p">)</span>
-    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
-    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">losses</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+optimizer = torch.optim.Adam(gpr.parameters(), lr=0.005)
+loss_fn = pyro.infer.Trace_ELBO().differentiable_loss
+losses = []
+num_steps = 2000
+for i in range(num_steps):
+    optimizer.zero_grad()
+    loss = loss_fn(gpr.model, gpr.guide)
+    loss.backward()
+    optimizer.step()
+    losses.append(loss.item())
 
-<span class="n">plot_loss</span><span class="p">(</span><span class="n">losses</span><span class="p">)</span>
+plot_loss(losses)
 </pre></div>
 </div>
 </div>
@@ -1494,7 +1504,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">gpr</span><span class="p">,</span> <span class="n">plot_observed_data</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">plot_predictions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot(model=gpr, plot_observed_data=True, plot_predictions=True)
 </pre></div>
 </div>
 </div>
@@ -1505,10 +1515,10 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <p>What we then realize is that due to the priors we have defined, we end up with different hyperparameters than under the Maximum Likelihood Estimation (MLE)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gpr</span><span class="o">.</span><span class="n">set_mode</span><span class="p">(</span><span class="s2">&quot;guide&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;variance = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">variance</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;lengthscale = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">kernel</span><span class="o">.</span><span class="n">lengthscale</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;noise = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">noise</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>gpr.set_mode(&quot;guide&quot;)
+print(&quot;variance = {}&quot;.format(gpr.kernel.variance))
+print(&quot;lengthscale = {}&quot;.format(gpr.kernel.lengthscale))
+print(&quot;noise = {}&quot;.format(gpr.noise))
 </pre></div>
 </div>
 </div>
@@ -1559,8 +1569,8 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 <p>with just the petal length, and the petal width as input featurs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">load_dataset</span><span class="p">(</span><span class="s2">&quot;iris&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>df = sns.load_dataset(&quot;iris&quot;)
+df.head()
 </pre></div>
 </div>
 </div>
@@ -1637,21 +1647,21 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span>
-    <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;float32&quot;</span><span class="p">),</span>
-<span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
-<span class="c1"># encode the species as 0, 1, 2</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;species&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">codes</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>X = torch.from_numpy(
+    df[df.columns[2:4]].values.astype(&quot;float32&quot;),
+)
+df[&quot;species&quot;] = df[&quot;species&quot;].astype(&quot;category&quot;)
+# encode the species as 0, 1, 2
+y = torch.from_numpy(df[&quot;species&quot;].cat.codes.values.copy())
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Paired</span><span class="p">,</span> <span class="n">edgecolors</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Feature 1 (Petal length)&quot;</span><span class="p">)</span>
-<span class="n">_</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Feature 2 (Petal width)&quot;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired, edgecolors=(0, 0, 0))
+plt.xlabel(&quot;Feature 1 (Petal length)&quot;)
+_ = plt.ylabel(&quot;Feature 2 (Petal width)&quot;)
 </pre></div>
 </div>
 </div>
@@ -1662,28 +1672,28 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 <p>Using the classical RBF-kernel</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">kernel</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span><span class="n">input_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-<span class="n">pyro</span><span class="o">.</span><span class="n">clear_param_store</span><span class="p">()</span>
-<span class="n">likelihood</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">likelihoods</span><span class="o">.</span><span class="n">MultiClass</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-<span class="c1"># Important -- we need to add latent_shape argument here to the number of classes we have in the data</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">VariationalGP</span><span class="p">(</span>
-    <span class="n">X</span><span class="p">,</span>
-    <span class="n">y</span><span class="p">,</span>
-    <span class="n">kernel</span><span class="p">,</span>
-    <span class="n">likelihood</span><span class="o">=</span><span class="n">likelihood</span><span class="p">,</span>
-    <span class="n">whiten</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="n">jitter</span><span class="o">=</span><span class="mf">1e-03</span><span class="p">,</span>
-    <span class="n">latent_shape</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">Size</span><span class="p">([</span><span class="mi">3</span><span class="p">]),</span>
-<span class="p">)</span>
-<span class="n">num_steps</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">util</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">num_steps</span><span class="o">=</span><span class="n">num_steps</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>kernel = gp.kernels.RBF(input_dim=2)
+pyro.clear_param_store()
+likelihood = gp.likelihoods.MultiClass(num_classes=3)
+# Important -- we need to add latent_shape argument here to the number of classes we have in the data
+model = gp.models.VariationalGP(
+    X,
+    y,
+    kernel,
+    likelihood=likelihood,
+    whiten=True,
+    jitter=1e-03,
+    latent_shape=torch.Size([3]),
+)
+num_steps = 1000
+loss = gp.util.train(model, num_steps=num_steps)
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">plot_loss</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>plot_loss(loss)
 </pre></div>
 </div>
 </div>
@@ -1694,10 +1704,10 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 <p>With which we can now inspect the accuracy of our classifier</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">mean</span><span class="p">,</span> <span class="n">var</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
-<span class="n">y_hat</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">likelihood</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">var</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>mean, var = model(X)
+y_hat = model.likelihood(mean, var)
 
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy: </span><span class="si">{</span><span class="p">(</span><span class="n">y_hat</span><span class="o">==</span><span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">*</span><span class="mi">100</span><span class="o">/</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="p">))</span> <span class="si">:</span><span class="s2">0.2f</span><span class="si">}</span><span class="s2">%&quot;</span><span class="p">)</span>
+print(f&quot;Accuracy: {(y_hat==y).sum()*100/(len(y)) :0.2f}%&quot;)
 </pre></div>
 </div>
 </div>
@@ -1710,8 +1720,8 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 <p>And can furthermore use the confusion matrix to assess the accuracy of our predictions</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">y_hat</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
-<span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">cm</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>cm = confusion_matrix(y, y_hat, labels=[0, 1, 2])
+ConfusionMatrixDisplay(cm).plot()
 </pre></div>
 </div>
 </div>
@@ -1817,18 +1827,18 @@ q(f_{X}|y) = \mathcal{N}(f_{X}; m_{x} + k_{xX} K_{XX}^{-1}(\hat{f} - m_{x}), k_{
 <p>Pyro provides utilities to combine the different kernels, the most important of which are shown by example below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">linear</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="n">periodic</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">Periodic</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">period</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">4.0</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">rbf</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">RBF</span><span class="p">(</span>
-    <span class="n">input_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">lengthscale</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">variance</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="p">)</span>
-<span class="n">k1</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">Product</span><span class="p">(</span><span class="n">kern0</span><span class="o">=</span><span class="n">rbf</span><span class="p">,</span> <span class="n">kern1</span><span class="o">=</span><span class="n">periodic</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>linear = gp.kernels.Linear(
+    input_dim=1,
+)
+periodic = gp.kernels.Periodic(
+    input_dim=1, period=torch.tensor(0.5), lengthscale=torch.tensor(4.0)
+)
+rbf = gp.kernels.RBF(
+    input_dim=1, lengthscale=torch.tensor(0.5), variance=torch.tensor(0.5)
+)
+k1 = gp.kernels.Product(kern0=rbf, kern1=periodic)
 
-<span class="n">k</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">kernels</span><span class="o">.</span><span class="n">Sum</span><span class="p">(</span><span class="n">linear</span><span class="p">,</span> <span class="n">k1</span><span class="p">)</span>
+k = gp.kernels.Sum(linear, k1)
 </pre></div>
 </div>
 </div>
