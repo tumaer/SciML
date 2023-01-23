@@ -1,4 +1,4 @@
-# Encoder-Decoder Models: Aa Focus on the Necessary
+# Encoder-Decoder Models
 
 A great many models in machine learning build on the Encoder-Decoder paradigm, but what is the intuition behind said paradigm? The core intuition is that while our original data may be high-dimensional, a good prediction only depends on a few key sub-dimensions of the original data, and as such we are able to dimensionally reduce our original data through an _Encoder_ before predicting or reconstructing our data onto the original data-plane with the _Decoder_.
 
