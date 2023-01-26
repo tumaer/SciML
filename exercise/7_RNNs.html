@@ -535,43 +535,6 @@ title="Print to PDF"
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>--2023-01-25 15:47:57--  https://download.pytorch.org/tutorial/data.zip
-Resolving download.pytorch.org (download.pytorch.org)... 2600:9000:237d:4800:d:607e:4540:93a1, 2600:9000:237d:7800:d:607e:4540:93a1, 2600:9000:237d:a000:d:607e:4540:93a1, ...
-Connecting to download.pytorch.org (download.pytorch.org)|2600:9000:237d:4800:d:607e:4540:93a1|:443... connected.
-HTTP request sent, awaiting response... 200 OK
-Length: 2882130 (2.7M) [application/zip]
-Saving to: ‘data.zip’
-
-data.zip            100%[===================&gt;]   2.75M  1.60MB/s    in 1.7s    
-
-2023-01-25 15:47:59 (1.60 MB/s) - ‘data.zip’ saved [2882130/2882130]
-
-Archive:  data.zip
-   creating: data/
-  inflating: data/eng-fra.txt        
-   creating: data/names/
-  inflating: data/names/Arabic.txt   
-  inflating: data/names/Chinese.txt  
-  inflating: data/names/Czech.txt    
-  inflating: data/names/Dutch.txt    
-  inflating: data/names/English.txt  
-  inflating: data/names/French.txt   
-  inflating: data/names/German.txt   
-  inflating: data/names/Greek.txt    
-  inflating: data/names/Irish.txt    
-  inflating: data/names/Italian.txt  
-  inflating: data/names/Japanese.txt  
-  inflating: data/names/Korean.txt   
-  inflating: data/names/Polish.txt   
-  inflating: data/names/Portuguese.txt  
-  inflating: data/names/Russian.txt  
-  inflating: data/names/Scottish.txt  
-  inflating: data/names/Spanish.txt  
-  inflating: data/names/Vietnamese.txt  
-</pre></div>
-</div>
-</div>
 </div>
 <p>Getting a dictionary, we then need to process the data</p>
 <div class="cell docutils container">
@@ -709,9 +672,9 @@ print(output)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[-2.8554, -2.9434, -2.8635, -2.9034, -2.8198, -3.0112, -2.9386, -2.8283,
-         -2.8667, -2.8405, -2.9416, -2.8832, -2.8567, -2.8561, -2.9914, -2.7951,
-         -2.9989, -2.8679]], grad_fn=&lt;LogSoftmaxBackward0&gt;)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>tensor([[-2.7974, -2.9007, -2.9274, -2.8731, -2.8189, -3.0194, -2.7888, -2.9014,
+         -2.8996, -2.8004, -2.9938, -2.9044, -2.9080, -2.8285, -2.8810, -2.9778,
+         -2.8698, -2.9768]], grad_fn=&lt;LogSoftmaxBackward0&gt;)
 </pre></div>
 </div>
 </div>
@@ -729,7 +692,7 @@ print(categoryFromOutput(output))
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Dutch&#39;, 15)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(&#39;Russian&#39;, 6)
 </pre></div>
 </div>
 </div>
@@ -755,16 +718,16 @@ for i in range(10):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>category = French / line = Porcher
-category = Czech / line = Savchak
-category = Portuguese / line = Melo
-category = Russian / line = Kalaberda
-category = Vietnamese / line = Truong
-category = Polish / line = Maslanka
-category = Greek / line = Kouros
-category = English / line = Holdsworth
-category = Czech / line = Schlantz
-category = Greek / line = Tassioglou
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>category = German / line = Mendel
+category = Dutch / line = Haanraads
+category = Russian / line = Hanenya
+category = Spanish / line = Vargas
+category = Russian / line = Verpeto
+category = Greek / line = Alexandropoulos
+category = Dutch / line = Haenraats
+category = German / line = Brotz
+category = Japanese / line = Kamon
+category = Chinese / line = Miao
 </pre></div>
 </div>
 </div>
@@ -773,7 +736,7 @@ category = Greek / line = Tassioglou
 <ol class="simple">
 <li><p>Create input and target tensors</p></li>
 <li><p>Create a zeroed initial hidden state</p></li>
-<li><p>Reach each letter in, and retain the hidden state for the next lettero</p></li>
+<li><p>Reach each letter in, and retain the hidden state for the next letter</p></li>
 <li><p>Compare the final output to the target output</p></li>
 <li><p>Back-propagate the loss</p></li>
 <li><p>Return the output and the loss</p></li>
@@ -781,13 +744,8 @@ category = Greek / line = Tassioglou
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>criterion = nn.NLLLoss()
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>learning_rate = 0.005
+
+learning_rate = 0.005
 def train(category_tensor, line_tensor):
     hidden = rnn.initHidden()
 
@@ -817,7 +775,6 @@ import math
 n_iters = 100000
 print_every = 5000
 plot_every = 1000
-
 
 
 # Keep track of losses for plotting
@@ -852,26 +809,26 @@ for iter in range(1, n_iters + 1):
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5000 5% (0m 1s) 1.9192 Dubanowski / Italian ✗ (Polish)
-10000 10% (0m 3s) 3.2465 Alexander / German ✗ (Scottish)
-15000 15% (0m 5s) 0.4875 Sniegowski / Polish ✓
-20000 20% (0m 6s) 1.3725 Gu / Vietnamese ✗ (Korean)
-25000 25% (0m 8s) 0.8463 Chu / Vietnamese ✓
-30000 30% (0m 10s) 1.6752 Marmo / Portuguese ✗ (Italian)
-35000 35% (0m 11s) 1.3022 Cleirich / Irish ✓
-40000 40% (0m 13s) 0.7217 Nolan / Irish ✓
-45000 45% (0m 15s) 1.8031 Aiza / Japanese ✗ (Spanish)
-50000 50% (0m 16s) 0.7363 Sabbag / Arabic ✓
-55000 55% (0m 18s) 0.6143 Sommer / German ✓
-60000 60% (0m 20s) 0.9487 Ha / Vietnamese ✓
-65000 65% (0m 21s) 0.2188 Panoulias / Greek ✓
-70000 70% (0m 23s) 0.4349 Walther / German ✓
-75000 75% (0m 25s) 0.2679 Numata / Japanese ✓
-80000 80% (0m 26s) 0.0034 Warszawski / Polish ✓
-85000 85% (0m 28s) 3.4036 Gavril / French ✗ (Greek)
-90000 90% (0m 30s) 1.8837 Date / German ✗ (Japanese)
-95000 95% (0m 32s) 2.6864 Machado / Japanese ✗ (Spanish)
-100000 100% (0m 33s) 0.4798 Fionn / Irish ✓
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>5000 5% (0m 2s) 1.5506 Chrysanthopoulos / Greek ✓
+10000 10% (0m 4s) 1.8246 Courtemanche / French ✓
+15000 15% (0m 6s) 2.6841 Fakhoury / Irish ✗ (Arabic)
+20000 20% (0m 8s) 1.8530 Luong / Vietnamese ✓
+25000 25% (0m 10s) 0.9614 Tighearnach / Irish ✓
+30000 30% (0m 12s) 0.0129 Hishikawa / Japanese ✓
+35000 35% (0m 14s) 1.3759 Puerta / Spanish ✓
+40000 40% (0m 16s) 0.6204 Cai / Chinese ✓
+45000 45% (0m 19s) 3.7291 Thomas / Arabic ✗ (French)
+50000 50% (0m 21s) 2.3927 Leon / Chinese ✗ (French)
+55000 55% (0m 23s) 0.7460 Nghiem / Vietnamese ✓
+60000 60% (0m 25s) 0.3842 Kwang  / Korean ✓
+65000 65% (0m 27s) 5.4761 Fabian / Irish ✗ (Polish)
+70000 70% (0m 29s) 1.9013 Hora / Japanese ✗ (Czech)
+75000 75% (0m 31s) 0.9403 Medeiros / Portuguese ✓
+80000 80% (0m 33s) 3.1636 Viner / German ✗ (English)
+85000 85% (0m 35s) 1.6028 Loh / Vietnamese ✗ (Chinese)
+90000 90% (0m 38s) 0.1875 Lefevre / French ✓
+95000 95% (0m 40s) 0.3024 Antwerpen / Dutch ✓
+100000 100% (0m 42s) 0.0443 Tsuruya / Japanese ✓
 </pre></div>
 </div>
 </div>
@@ -887,10 +844,10 @@ plt.plot(all_losses)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x12f7a4e80&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x146ff21a0&gt;]
 </pre></div>
 </div>
-<img alt="../_images/7_RNNs_19_1.png" src="../_images/7_RNNs_19_1.png" />
+<img alt="../_images/7_RNNs_18_1.png" src="../_images/7_RNNs_18_1.png" />
 </div>
 </div>
 <p>As we are performing a classification, a direct assessment of the goodness classification is the confusion matrix for every language. For this the network is frozen, and samples are run through the network to obtain a set of predictions, and then assess the correctness of the predictions.</p>
@@ -941,13 +898,13 @@ plt.show()
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3w/7v1njqbd2h10vfhnbwb23hth0000gn/T/ipykernel_10702/3585656379.py:33: UserWarning: FixedFormatter should only be used together with FixedLocator
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3w/7v1njqbd2h10vfhnbwb23hth0000gn/T/ipykernel_34689/3585656379.py:33: UserWarning: FixedFormatter should only be used together with FixedLocator
   ax.set_xticklabels([&#39;&#39;] + all_categories, rotation=90)
-/var/folders/3w/7v1njqbd2h10vfhnbwb23hth0000gn/T/ipykernel_10702/3585656379.py:34: UserWarning: FixedFormatter should only be used together with FixedLocator
+/var/folders/3w/7v1njqbd2h10vfhnbwb23hth0000gn/T/ipykernel_34689/3585656379.py:34: UserWarning: FixedFormatter should only be used together with FixedLocator
   ax.set_yticklabels([&#39;&#39;] + all_categories)
 </pre></div>
 </div>
-<img alt="../_images/7_RNNs_21_1.png" src="../_images/7_RNNs_21_1.png" />
+<img alt="../_images/7_RNNs_20_1.png" src="../_images/7_RNNs_20_1.png" />
 </div>
 </div>
 <p>A more direct test of our trained model is then running it with a bunch of sample prompts</p>
@@ -976,19 +933,19 @@ predict(&#39;Adams&#39;)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&gt; Toshev
-(-0.79) Russian
-(-1.36) Korean
-(-2.40) Vietnamese
+(-0.29) Russian
+(-2.74) Vietnamese
+(-2.94) Korean
 
 &gt; Paehler
-(-0.60) German
-(-2.11) English
-(-2.37) Dutch
+(-0.90) German
+(-1.51) Dutch
+(-2.31) French
 
 &gt; Adams
-(-0.29) Arabic
-(-2.77) Portuguese
-(-3.21) Japanese
+(-0.80) Arabic
+(-1.80) Dutch
+(-2.55) English
 </pre></div>
 </div>
 </div>
