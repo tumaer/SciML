@@ -29,6 +29,7 @@ parts:
   - file: exercise/4_SVM.ipynb
   - file: exercise/5_GPs.ipynb
   - file: exercise/6_CNNs.ipynb
+  - file: exercise/7_RNNs.ipynb
 - caption: Miscellaneous
   chapters:
   - file: admin.md
