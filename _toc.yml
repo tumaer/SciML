@@ -20,6 +20,7 @@ parts:
     - file: lecture/cc-4-sub-MLP.md
     - file: lecture/cc-4-sub-CNN.md
     - file: lecture/cc-4-rnn.md
+    - file: lecture/cc-4-ae.md
 - caption: Exercise
   chapters:
   - file: exercise/1_linReg_logReg.ipynb
@@ -28,6 +29,7 @@ parts:
   - file: exercise/4_SVM.ipynb
   - file: exercise/5_GPs.ipynb
   - file: exercise/6_CNNs.ipynb
+  - file: exercise/7_RNNs.ipynb
 - caption: Miscellaneous
   chapters:
   - file: admin.md
