@@ -34,4 +34,5 @@ parts:
   - file: books.md
   - file: preliminary_knowledge.md
   - file: software.md
+  - file: practical_exam.ipynb
   - file: faq.md
