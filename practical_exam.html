@@ -749,26 +749,26 @@ title="Print to PDF"
 <hr class="docutils" />
 <p>Your tasks will be as follows:</p>
 <ol class="simple">
-<li><p>[28 Pts] Dimensionality Reduction and Regression</p></li>
-</ol>
-<p>In this task, we ask you to transform the data to a lower dimensional space and do simple regression on this low-dimensional space.</p>
+<li><p>[28 Pts] <strong>Dimensionality Reduction and Regression</strong> <br> In this task, we ask you to transform the data to a lower dimensional space and do simple regression on this low-dimensional space.</p>
 <ol class="simple">
 <li><p>[4 Pts] Argue which dimensionality reduction and regression approaches are suitable for this problem.</p></li>
 <li><p>[12 Pts] Implement the dimensionality reduction method, fit its parameters, and demonstrate its performance  qualitatively + quantitatively.</p></li>
 <li><p>[12 Pts] Implement the regression model, fit its parameters, and demonstrate its performance qualitatively + quantitatively.</p></li>
-<li><p>[22 Pts] CNN Regression</p></li>
 </ol>
-<p>CNNsco have proven their effectiveness on image classification and segmentation tasks. Here, we ask you to apply a CNN to the same regression problem from the previous task.</p>
+</li>
+<li><p>[22 Pts] <strong>CNN Regression</strong> <br> CNNsco have proven their effectiveness on image classification and segmentation tasks. Here, we ask you to apply a CNN to the same regression problem from the previous task.</p>
 <ol class="simple">
 <li><p>[4 Pts] Argue which properties a CNN needs to have for this task. Manually compute the shape of the latent feature maps in each hidden layer of the CNN you chose.</p></li>
 <li><p>[8 Pts]  Implement the CNN-based regression model.</p></li>
 <li><p>[10 Pts] Apply 5 tricks for performance improvement of your model. For each of them, train the model and demonstrate its performance qualitatively and quantitatively. If the performance drops after some of these tricks, explain why this could happen.</p></li>
-<li><p>[10 Pts] Benchmarking</p></li>
 </ol>
-<p>For comparison, train on our data one of the state-of-the-art (SOTA) models <code class="docutils literal notranslate"><span class="pre">DilResNet-128</span></code> (see <a class="reference external" href="https://arxiv.org/abs/2209.15616">Towards Multi-spatiotemporal-scale Generalized PDE Modeling</a> (Section 3. PDE Surrogates, specifically <em>(Dilated) ResNet</em>) provided in the benchmarking repository.</p>
+</li>
+<li><p>[10 Pts] <strong>Benchmarking</strong> <br> For comparison, train on our data one of the state-of-the-art (SOTA) models <code class="docutils literal notranslate"><span class="pre">DilResNet-128</span></code> (see <a class="reference external" href="https://arxiv.org/abs/2209.15616">Towards Multi-spatiotemporal-scale Generalized PDE Modeling</a> (Section 3. PDE Surrogates, specifically <em>(Dilated) ResNet</em>) provided in the benchmarking repository.</p>
 <ol class="simple">
 <li><p>[2 Pts] Train the <code class="docutils literal notranslate"><span class="pre">DilResNet-128</span></code> model on our data. Try a few different hyperparameter configurations.</p></li>
 <li><p>[8 Pts] Compare the performance of both regression approaches you implemented against the SOTA model in a table (including number of learnable parameters and one-step MSE). Discuss the performance and characteristics of all three methods. Then, make a suggestion for further improvements on each of the approaches.</p></li>
+</ol>
+</li>
 </ol>
 <blockquote>
 <div><p>Note: Tuning hyperparameters is not the core of these tasks. However, your should demonstrate somewhat plausible results.</p>
