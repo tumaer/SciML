@@ -536,10 +536,10 @@ title="Print to PDF"
 <h2>Probability Theory<a class="headerlink" href="#probability-theory" title="Permalink to this headline">#</a></h2>
 <section id="basic-building-blocks">
 <h3>Basic Building Blocks<a class="headerlink" href="#basic-building-blocks" title="Permalink to this headline">#</a></h3>
-<ul class="simple">
+<ul>
 <li><p><span class="math notranslate nohighlight">\(\Omega\)</span> - sample space: the set of all outcomes of a random experiment.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{P}(E)\)</span> - probability measure of an event <span class="math notranslate nohighlight">\(E \in \Omega\)</span>: a function <span class="math notranslate nohighlight">\(\mathbb{P}: \Omega \rightarrow \mathbb{R}\)</span> which satisfies the following three properties:</p>
-<ul>
+<ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(0 \le \mathbb{P}(E) \le 1 \quad \forall E \in \Omega\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{P}(\Omega)=1\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{P}(\cup_{i=1}^n E_i) = \sum_{i=1}^n \mathbb{P}(E_i) \;\)</span> for disjoint events <span class="math notranslate nohighlight">\({E_1, ..., E_n}\)</span></p></li>
@@ -547,19 +547,27 @@ title="Print to PDF"
 </li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A, B)\)</span> - joint probability: probability that both <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> occur simultaneously.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A | B)\)</span> - conditional probability: probability that <span class="math notranslate nohighlight">\(A\)</span> occurs, if <span class="math notranslate nohighlight">\(B\)</span> has occured.</p></li>
-<li><p>Product rule of probabilites:</p>
-<ul>
-<li><p>general case:
-$<span class="math notranslate nohighlight">\(\mathbb{P}(A, B) = \mathbb{P}(A | B)\cdot  \mathbb{P}(B) = \mathbb{P}(B | A) \cdot \mathbb{P}(A)\)</span>$</p></li>
-<li><p>independent events:
-$<span class="math notranslate nohighlight">\(\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\)</span>$</p></li>
+<li><p>Product rule of probabilities:</p>
+<ul class="simple">
+<li><p>general case: <br></p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A, B) = \mathbb{P}(A | B)\cdot  \mathbb{P}(B) = \mathbb{P}(B | A) \cdot \mathbb{P}(A)\]</div>
+<ul class="simple">
+<li><p>independent events: <br></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\]</div>
 </li>
-<li><p>Sum rule of probabilites:
-$<span class="math notranslate nohighlight">\(\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)\)</span>$</p></li>
-<li><p>Bayes rule: solving the general case of the product rule for <span class="math notranslate nohighlight">\(\mathbb{P}(A)\)</span> results in:
-$<span class="math notranslate nohighlight">\( \mathbb{P}(B|A) = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\sum_{i=1}^n \mathbb{P}(B|A_i)\mathbb{P}(A_i)}\)</span>$</p>
+<li><p>Sum rule of probabilities:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)\]</div>
 <ul>
+<li><p>Bayes rule: solving the general case of the product rule for <span class="math notranslate nohighlight">\(\mathbb{P}(A)\)</span> results in:</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{P}(B|A) = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\sum_{i=1}^n \mathbb{P}(A|B_i)\mathbb{P}(B_i)}\]</div>
+<ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(p(B|A)\)</span>: posterior</p></li>
 <li><p><span class="math notranslate nohighlight">\(p(A|B)\)</span>: likelihood</p></li>
 <li><p><span class="math notranslate nohighlight">\(p(B)\)</span>: prior</p></li>
@@ -570,15 +578,19 @@ $<span class="math notranslate nohighlight">\( \mathbb{P}(B|A) = \frac{\mathbb{P
 </section>
 <section id="random-variables-and-their-properties">
 <h3>Random Variables and Their Properties<a class="headerlink" href="#random-variables-and-their-properties" title="Permalink to this headline">#</a></h3>
-<ul class="simple">
+<ul>
 <li><p>Random variable (r.v.) <span class="math notranslate nohighlight">\(X\)</span>: a function <span class="math notranslate nohighlight">\(X:\Omega \rightarrow \mathbb{R}\)</span>. This is the formal way by which we move from abstract events to real-valued numbers. <span class="math notranslate nohighlight">\(X\)</span> is essentially a variable that does not have a fixed value, but can have different values with certain probabilities.</p></li>
 <li><p>Continuous r.v.:</p>
-<ul>
-<li><p>Cumulative distribution function (cdf) <span class="math notranslate nohighlight">\(F_X(x)\)</span> - probability that the r.v. <span class="math notranslate nohighlight">\(X\)</span> is smaller than some value <span class="math notranslate nohighlight">\(x\)</span>:
-$<span class="math notranslate nohighlight">\(F_X(x) = \mathbb{P}(X\le x)\)</span>$</p></li>
-<li><p>Probability density function (pdf) <span class="math notranslate nohighlight">\(p_X(x)\)</span>:
-$<span class="math notranslate nohighlight">\(p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1\)</span>$</p></li>
+<ul class="simple">
+<li><p>Cumulative distribution function (cdf) <span class="math notranslate nohighlight">\(F_X(x)\)</span> - probability that the r.v. <span class="math notranslate nohighlight">\(X\)</span> is smaller than some value <span class="math notranslate nohighlight">\(x\)</span>:</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[F_X(x) = \mathbb{P}(X\le x)\]</div>
+<ul class="simple">
+<li><p>Probability density function (pdf) <span class="math notranslate nohighlight">\(p_X(x)\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1\]</div>
 </li>
 </ul>
 <div style="text-align:center">
@@ -590,23 +602,36 @@ $<span class="math notranslate nohighlight">\(p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\
 <li><p>Probability mass function (pmf) - same as the pdf but for a discrete r.v. <span class="math notranslate nohighlight">\(X\)</span>. Integrals become sums.</p></li>
 </ul>
 </li>
-<li><p><span class="math notranslate nohighlight">\(\mu = E[X]\)</span> - mean value or expected value:
-$<span class="math notranslate nohighlight">\(E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx\)</span>$</p></li>
-<li><p><span class="math notranslate nohighlight">\(\sigma^2 = Var[X]\)</span> - variance:
-$<span class="math notranslate nohighlight">\(Var[X] = \int_{-\infty}^{+\infty}x^2 \, p_X(x) \, dx = E[(X-\mu)^2]\)</span>$</p></li>
-<li><p><span class="math notranslate nohighlight">\(Cov[X,Y]=E[(X-\mu_X)(Y-\mu_Y)]\)</span></p></li>
-<li><p>Change of variables - if <span class="math notranslate nohighlight">\(X \sim p_X\)</span> and <span class="math notranslate nohighlight">\(Y=h(X)\)</span>, then the distribution of <span class="math notranslate nohighlight">\(Y\)</span> becomes:
-$<span class="math notranslate nohighlight">\(p_Y(y)=\frac{p_X(h^{-1}(y))}{\left|\frac{dh}{dx}\right|}\)</span>$</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu = E[X]\)</span> - mean value or expected value:</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sigma^2 = Var[X]\)</span> - variance:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[Var[X] = \int_{-\infty}^{+\infty}x^2 \, p_X(x) \, dx = E[(X-\mu)^2]\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Cov[X,Y]=E[(X-\mu_X)(Y-\mu_Y)]\)</span></p></li>
+<li><p>Change of variables - if <span class="math notranslate nohighlight">\(X \sim p_X\)</span> and <span class="math notranslate nohighlight">\(Y=h(X)\)</span>, then the distribution of <span class="math notranslate nohighlight">\(Y\)</span> becomes:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p_Y(y)=\frac{p_X(h^{-1}(y))}{\left|\frac{dh}{dx}\right|}\]</div>
 </section>
 <section id="catalogue-of-important-distributions">
 <h3>Catalogue of important distributions<a class="headerlink" href="#catalogue-of-important-distributions" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>Binomial, <span class="math notranslate nohighlight">\(X\in\{0,1,...,n\}\)</span>. Describes how often we get <span class="math notranslate nohighlight">\(k\)</span> positive outcomes out of <span class="math notranslate nohighlight">\(n\)</span> independent experiments. Parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is the success probability of each trial.
-$<span class="math notranslate nohighlight">\(\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).\)</span>$</p></li>
+<li><p>Binomial, <span class="math notranslate nohighlight">\(X\in\{0,1,...,n\}\)</span>. Describes how often we get <span class="math notranslate nohighlight">\(k\)</span> positive outcomes out of <span class="math notranslate nohighlight">\(n\)</span> independent experiments. Parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is the success probability of each trial.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).\]</div>
+<ul class="simple">
 <li><p>Bernoulli - special case of Binomial with <span class="math notranslate nohighlight">\(n=1\)</span>.</p></li>
-<li><p>Normal, <span class="math notranslate nohighlight">\(X \in \mathbb{R}\)</span>.
-$<span class="math notranslate nohighlight">\(p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\)</span>$</p></li>
+<li><p>Normal, <span class="math notranslate nohighlight">\(X \in \mathbb{R}\)</span>.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\]</div>
+<ul class="simple">
 <li><p>Multivariate Gaussian <span class="math notranslate nohighlight">\(\mathcal{N}(\mathbf{\mu}, \mathbf{\Sigma}), \; \mathbf{X}\in \mathbb{R}^n, \; \mathbf{\mu}\in \mathbb{R}^n, \; \mathbb{\Sigma}:\mathbf{n}\times\mathbf{n}\)</span></p></li>
 </ul>
 <div class="math notranslate nohighlight">
