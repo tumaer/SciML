@@ -726,9 +726,10 @@ title="Print to PDF"
 <ul class="simple">
 <li><p>Given: given is a set of measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span> and <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p></li>
 <li><p>Question:  if a give you a novel <span class="math notranslate nohighlight">\(x\)</span>, what would be your best guess about its corresponding <span class="math notranslate nohighlight">\(y\)</span> <strong>and how certain are you about it</strong>?</p></li>
-<li><p>Linear regression assumption:
-$<span class="math notranslate nohighlight">\(y \approx h(x) = wx + b + \epsilon\)</span>$</p></li>
+<li><p>Linear regression assumption:</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[y \approx h(x) = wx + b + \epsilon\]</div>
 <p>Where we have moved to the more common weights <span class="math notranslate nohighlight">\(w = [\vartheta_1, ..., \vartheta_n]\)</span> and bias <span class="math notranslate nohighlight">\(b=\vartheta_0\)</span> notation. Other than the change of notation, the only difference up until now is the random noise term <span class="math notranslate nohighlight">\(\epsilon\)</span>, which can, in general, originate from any probability distribution. The difference to the maximul likelihood interpretation on the normal linear regression we discussed in <a class="reference external" href="https://github.com/arturtoshev/SciML_22-23/blob/master/1_linReg_logReg.ipynb">Exercise 1</a>, is that here we allow for any distribution in contrast to restricting ourselves to the Gaussian.</p>
 <p>The other novel part is that in the Bayesian setting the parameters of the model (<span class="math notranslate nohighlight">\(w, b\)</span>) are random variables with some prior distribution.</p>
 <p><strong>References</strong></p>
@@ -842,13 +843,14 @@ bias [2.9260273]
 <li><p>Parameters <span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">pyro.param</span></code>.</p></li>
 </ol>
 <p>The model below essentially makes the following prior assumptions:</p>
-<p>\begin{align}
-y_i &amp;\sim \mathcal{N}(\mu, \sigma)\
-\mu &amp;= w \cdot x_i + b\
-w &amp;\sim \mathcal{N}(0,1)\
-b &amp;\sim \mathcal{N}(0,10)\
-\sigma &amp;\sim U(0,1)\
-\end{align}</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+y_i &amp;\sim \mathcal{N}(\mu, \sigma)\\
+\mu &amp;= w \cdot x_i + b\\
+w &amp;\sim \mathcal{N}(0,1)\\
+b &amp;\sim \mathcal{N}(0,10)\\
+\sigma &amp;\sim U(0,1)\\
+\end{align}\end{split}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BayesianLinearRegression</span><span class="p">(</span><span class="n">PyroModule</span><span class="p">):</span>
