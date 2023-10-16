@@ -2,7 +2,7 @@
 
 ## Famous Recent Examples of Scientific Machine Learning
 
-With scientific machine learning becoming an ever larger mainstay at machine learning conferences, a/nd ever more venues and research centres at the intersection of machine learning and the natural sciences / engineering appearing there exist ever more impressive examples of algorithms which connect the very best of machine learning with deep scientific insight into the respective underlying problem to advance the field.
+With scientific machine learning becoming an ever larger mainstay at machine learning conferences, and ever more venues and research centres at the intersection of machine learning and the natural sciences / engineering appearing there exist ever more impressive examples of algorithms which connect the very best of machine learning with deep scientific insight into the respective underlying problem to advance the field.
 
 Below are a few prime examples of recent flagship algorithms in scientific machine learning, of which every single one of them personifies the very best algorithmic approaches we have available to us today.
 
@@ -38,7 +38,7 @@ Geometric deep learning aims to generalize neural network models to non-Euclidea
     </div>
     
     
-#### [SEGNN](https://arxiv.org/abs/2110.02905) - molecular property prediction algorithm
+#### [SEGNN](https://arxiv.org/abs/2110.02905) - molecular property prediction model
 
 <div style="text-align:center">
         <img src="https://i.imgur.com/bbJThJf.png" alt="drawing" width="500"/>
@@ -50,6 +50,20 @@ Geometric deep learning aims to generalize neural network models to non-Euclidea
 <div style="text-align:center">
     <img src="https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/465cccc6-2a57-48f1-8235-e646b2b39f5b/Stability+AI+Stable+Diffusion+Art.jpg" alt="drawing" width="500"/>
 </div><br/>
+
+### [Stable Diffusion reconstructing visual experiences from human brain activity](https://sites.google.com/view/stablediffusion-with-brain/?s=09)
+
+<div style="text-align:center">
+    <img src="https://lh6.googleusercontent.com/iPKJ70HPZuBtR7wbhSLrodZ_WdqsuU9BELtA5yRcwpig2itQ8_NAR9sVc8AfHC6l7_o0LxVVxy8Rf_bXK-5afV5pqKxCABTTTQY-2m33D-PJho0_LipJsK0Hz9y9GS34lA=w1280" alt="drawing" width="700"/>
+</div><br/>
+
+### [ImageBind](https://ai.meta.com/blog/imagebind-six-modalities-binding-ai/) - Holistic AI learning across six modalities
+
+<div style="text-align:center">
+    <img src="https://scontent-fra3-1.xx.fbcdn.net/v/t39.2365-6/346043463_232473059401385_3386551006568978005_n.gif?_nc_cat=101&ccb=1-7&_nc_sid=e280be&_nc_ohc=45ud6mUogL4AX9Bjtwa&_nc_ht=scontent-fra3-1.xx&oh=00_AfB2WwBvM5FULVXM7Et8sSvjKP0XJdPx9mxcQi3AN-bnUQ&oe=65474770" alt="drawing" width="600"/>
+</div>
+<br/>
+
 
 ## Definition
 
@@ -77,17 +91,17 @@ There exist 3 main types of modern day machine learning:
 
 ### Supervised Learning
 
-In supervised learning we have a mapping $x \longrightarrow y$, where the inputs $x$ are also called **features**, **covariates**, or **predictors**. The outputs $y$ are often also called the **labels**, **targets**, or **responses**. The correct mapping is then learned from a **labeled** training set
+In supervised learning we have a mapping $f: X \rightarrow Y$, where the inputs $x \in X$ are also called **features**, **covariates**, or **predictors**. The outputs $y \in Y$ are often also called the **labels**, **targets**, or **responses**. The correct mapping is then learned from a **labeled** training set
 
-$$\mathcal{D}_{n} = \left\{ \left( x_{i} \right)_{i=1,n} \right\}$$
+$$\mathcal{D}_{N} = \left\{ \left( x_{n}, y_{n} \right)_{n=1:N} \right\}$$
 
-with $n$ the number of observations. Depending on the type of the response vector $y$, we can then perform either **regression**, or **classification**
+with $N$ the number of observations. Depending on the type of the response vector $y$, we can then perform either **regression**, or **classification**
 
 > Some also call it "glorified curve-fitting"
 
 #### Regression
 
-In regression the target $y$ is is real-valued, i.e. $y \in \mathbb{R}$
+In regression, the target $y$ is real-valued, i.e. $y \in \mathbb{R}$
 
 <div style="text-align:center">
     <img src="https://i.imgur.com/sjxzmNa.jpg" alt="drawing" width="600"/>
@@ -95,7 +109,7 @@ In regression the target $y$ is is real-valued, i.e. $y \in \mathbb{R}$
 
 (Source: [Murphy](https://github.com/probml/pml-book))
 
-at the example of a response surface being fitted to a number of data points in 3 dimensions, where in this instance the $x$, and $y$ axes are a two-dimensional space, and the $z$-axis is the temperature in the two-dimensional space.
+Example of a response surface being fitted to a number of data points in 3 dimensions, where in this instance the x- and y-axes are a two-dimensional space, and the z-axis is the temperature in the two-dimensional space.
 
 #### Classification
 
@@ -107,20 +121,20 @@ In classification the labels $y$ are categorical i.e. $y \in \mathcal{C}$, where
 
 (Source: [Murphy](https://github.com/probml/pml-book))
 
-for the example of flower classification, where we aim to find the decision boundaries which will sort each individual node into the respective class.
+Example of flower classification, where we aim to find the decision boundaries which will sort each individual node into the respective class.
 
 
 ### Unsupervised Learning
 
-In unsupervised learning we only receive a dataset of inputs
+In unsupervised learning, we only receive a dataset of inputs
 
-$$\mathcal{D} = \{x_{n}: n = 1:N\}$$
+$$\mathcal{D}_{N} = \left\{ x_{1:N} \right\}$$
 
 without the respective outputs $y_{n}$, i.e. we only have **unlabelled** data.
 
 > The implicit goal here is to describe the system, and identify features in the **high-dimensional inputs**.
 
-Two famous examples of unsupervised learning are **clustering**, and especially **principal component analysis** which is commonly used in engineering and scientific applications.
+Two famous examples of unsupervised learning are **clustering** (e.g. k-means) and especially **dimensionality reduction** (e.g. principal component analysis) which is commonly used in engineering and scientific applications.
 
 #### Clustering of Principal Components
 
@@ -140,7 +154,7 @@ The difference can furthermore be expressed in probabilistic terms, i.e., in sup
 
 ### Reinforcement Learning
 
-In reinforcement learning one sequentially interact with an unknown environment to obtain an interaction trajectory $T$, or a batch thereof. Reinforcement learning then seeks to optimize the way it interacts with the environment through its actions $a_{t}$ to maximize for a (cumulative) reward function to obtain an optimal strategy.
+In reinforcement learning, an agent sequentially interact with an unknown environment to obtain an interaction trajectory $T$, or a batch thereof. Reinforcement learning then seeks to optimize the way the agent interacts with the environment through its actions $a_{t}$ to maximize for a (cumulative) reward function to obtain an optimal strategy.
 
 <div style="text-align:center">
     <img src="https://i.imgur.com/xexKADj.png" alt="drawing" width="500"/>
@@ -158,9 +172,9 @@ Let's presume we have a simple regression problem, e.g.
 
 (Source: [Murphy](https://github.com/probml/pml-book))
 
-then we have a number of observations ${\bf{x}} = (x_{1}, \ldots, x_{N})$, and a target ${\bf{y}} = (y_{1}, \ldots, y_{N})$. Then the tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function
+Then we have a number of scalar observations ${\bf{x}} = (x_{1}, \ldots, x_{N})$ and targets ${\bf{y}} = (y_{1}, \ldots, y_{N})$. Then the tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function
 
-$$y(x, w) = \omega_{0} + \omega_{1}x + \omega_{2} x^{2} + \ldots + \omega_{M}x^{M} = \sum_{j=0}^{M}\omega_{j}x^{j}$$
+$$y(x, \mathbf{w}) = \omega_{0} + \omega_{1}x + \omega_{2} x^{2} + \ldots + \omega_{M}x^{M} = \sum_{j=0}^{M}\omega_{j}x^{j}$$
 
 Then a crucial choice is the degree of the polynomial function.
 
@@ -168,7 +182,7 @@ Then a crucial choice is the degree of the polynomial function.
 
 We can then construct an error function with the sum of squares approach in which we are computing the distance of every target data point to our polynomial
 
-$$E(w) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_{n}, w) - y_{n} \}^{2}$$
+$$E(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_{n}, \mathbf{w}) - y_{n} \}^{2}$$
 
 in which we are then optimizing for the value of $w$.
 
@@ -187,7 +201,7 @@ which we are optimizing for and by setting to 0, we can then find the minimum
 
 $$\sum_{n=1}^{N}\sum_{j=0}^{M}\omega_{j}x_{n}^{i}x_{n}^{j}=\sum_{n=1}^{N}y_{n}x_{n}^{i}$$
 
-this can be solved by the trusty old Gaussian elimination. A general problem with this approach is that the degree of the polynomial is a decisive factor which often leads to over-fitting and hence makes this a less desirable approach. Gaussian elimination, or a matrix inversion approach when implemented on a computer can also be a highly expensive computational operation for large datasets.
+This can be solved by the trusty old Gaussian elimination. A general problem with this approach is that the degree of the polynomial is a decisive factor which often leads to over-fitting and hence makes this a less desirable approach. Gaussian elimination, or a matrix inversion approach when implemented on a computer can also be a highly expensive computational operation for large datasets.
 
 > This is a special case of the **Maximum Likelihood** method.
 
@@ -198,13 +212,13 @@ this can be solved by the trusty old Gaussian elimination. A general problem wit
 
 $$\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}$$
 
-If we now seek to reformulate the curve-fitting in probabilistic terms, then we have to begin by expressing our uncertainty over the target y with a probability distribution. For this we presume a Gaussian distribution over each target where the mean is the point value we previously considered, i.e.
+If we now seek to reformulate the curve-fitting in probabilistic terms, then we have to begin by expressing our uncertainty over the target $y$ with a probability distribution. For this we presume a Gaussian distribution over each target where the mean is the point value we previously considered, i.e.
 
-$$p(y|x, w, \beta)=\mathcal{N}(y|y(x, w), \beta^{-1})$$
+$$p(y|x, \mathbf{w}, \beta)=\mathcal{N}(y|y(x, \mathbf{w}), \beta^{-1}),$$
 
-$\beta$ corresponds to the inverse variance of the distribution $\mathcal{N}$. We can then apply the maximum likelihood principle to find the optimal parameter $w$ with our new likelihood function
+where $\beta$ corresponds to the inverse variance of the normal distribution $\mathcal{N}$. We can then apply the maximum likelihood principle to find the optimal parameters $\mathbf{w}$ with our new likelihood function
 
-$$p(y|x, w, \beta)=\prod^{N}_{n=1}\mathcal{N}(y_{n}|y(x_{n},w), \beta^{-1}).$$
+$$p(y|x, \mathbf{w}, \beta)=\prod^{N}_{n=1}\mathcal{N}(y_{n}|y(x_{n},\mathbf{w}), \beta^{-1}).$$
 
 <div style="text-align:center">
     <img src="https://i.imgur.com/RVl2Z8R.png" alt="drawing" width="400"/>
@@ -214,15 +228,15 @@ $$p(y|x, w, \beta)=\prod^{N}_{n=1}\mathcal{N}(y_{n}|y(x_{n},w), \beta^{-1}).$$
 
 Taking the log likelihood we are then able to find the definitions of the optimal parameters
 
-$$\text{ln } p(y|x, w, \beta) = - \frac{\beta}{2} \sum^{N}_{2} \{ y(x_{n}, w) - y_{n} \}^{2} + \frac{N}{2} \text{ln } \beta - \frac{N}{2} \text{ln }(2 \pi)$$
+$$\text{ln } p(y|x, \mathbf{w}, \beta) = - \frac{\beta}{2} \sum^{N}_{2} \{ y(x_{n}, \mathbf{w}) - y_{n} \}^{2} + \frac{N}{2} \text{ln } \beta - \frac{N}{2} \text{ln }(2 \pi)$$
 
-Which we can then optimize for the $w$.
+Which we can then optimize for the $\mathbf{w}$.
 
 > If we consider the special case of $\frac{\beta}{2}=\frac{1}{2}$, and instead of maximizing, minimizing the negative log-likelihood, then this is equivalent to the sum-of-squares error function. 
 
-The herein obtained optimal maximum likelihood parameter $w_{ML}$, and $\beta_{ML}$ can then be resubstituted to obtain the **predictive distribution** for the targets $y$.
+The herein obtained optimal maximum likelihood parameters $\mathbf{w}_{ML}$ and $\beta_{ML}$ can then be resubstituted to obtain the **predictive distribution** for the targets $y$.
 
-$$p(y|x, w_{ML}, \beta_{ML})=\mathcal{N}(y|y(x, w_{ML}),\beta_{ML}^{-1})$$
+$$p(y|x, \mathbf{w}_{ML}, \beta_{ML})=\mathcal{N}(y|y(x, \mathbf{w}_{ML}),\beta_{ML}^{-1})$$
 
 To arrive at the full Bayesian curve-fitting approach we now have to apply the sum and product rules of probability
 
@@ -231,15 +245,13 @@ To arrive at the full Bayesian curve-fitting approach we now have to apply the s
 $$\mathbb{P}(A \cap B) = \mathbb{P}(A) + \mathbb{P}(B)$$
 
 
-**Recap: Product Rules of Probability**
+**Recap: Product Rules of Probability** - for **independent** events $A,B$.
 
-$$\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B),$$
-where $A$, and $B$ must be **independent** events.
-
+$$\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$$
 
 The Bayesian curve fitting formula is hence
 
-$$p(y|x, {\bf{x}}, {\bf{y}}) = \int p(y|x, w)p(w|{\bf{x}}, {\bf{y}})dw$$
+$$p(y|x, {\bf{x}}, {\bf{y}}) = \int p(y|x, \mathbf{w})p(\mathbf{w}|{\bf{x}}, {\bf{y}})d\mathbf{w}$$
 
 with the dependence on $\beta$ omitted for legibility reasons. This integral can be solved analytically hence giving the following predictive distribution 
 
@@ -260,9 +272,7 @@ and ${\bf{I}}$ the unit matrix, while $\phi(x)$ is defined by $\phi_{i}(x) = x^{
 - The second term of the variance is caused by the uncertainty in the parameters $w$.
 
 
-## Maximum Likelihood, Information Theory & Log-Likelihood
-
-### Maximum Likelihood & Log-Likelihood
+## Maximum Likelihood & Log-Likelihood
 
 Formalizing the principle of maximum likelihood estimation, we seek to act in a similar fashion to function extrema calculation in high school in that we seek to differentiate our likelihood function, and then find the maximum value of it by setting the derivative equal to zero.
 
@@ -273,26 +283,6 @@ where $\mathcal{L}$ is the likelihood function. In the derivation of the Bayesia
 $$l(\theta;y) = \ln \mathcal{L}_{n}(\theta;y).$$
 
 
-### Information Theory
-
-The core concept of information theory to consider here is that not every data point is equal to us! If an individual data point is outside of the previously estimated dynamics model, then it is a much more valuable data point than a data point which is e.g. directly on the response surface. Such information content can be measure with a function which is a logarithm of the probability of us observing a specific data point $p(x)$.
-
-$$h(x) = - \text{log}_{2} p(x)$$
-
-i.e. the $-$ ensures that provided information value is either net-positive or neutral. This can be further formalized with the concept of **information entropy** which is the expectation of $h(x)$
-
-$$H[x] = - \sum_{x} p(x) \text{log}_{2} p(x).$$
-
-Using statistical mechanics one can then derive the definitions of the entropy for continuous, as well as discrete variables.
-
-**Entropy of Discrete Variables**
-
-$$H[p]= - \sum_{i} p(x_{i}) \text{ln } p(x_{i})$$
-
-**Entropy of Continuous Variables**
-
-$$H[x] = - \int p(x) \text{ln }p(x) dx$$
-
 
 ## Recap
 
@@ -302,7 +292,6 @@ $$H[x] = - \int p(x) \text{ln }p(x) dx$$
     - Polynomial Curve Fitting a special case
     - Wasteful of training data, and tends to overfit
     - Bayesian approach less prone to overfitting
-- Information theory, and more specifically the concept of entropy, is the vehicle with which we can quantify just how valuable an added datapoint is to us.
 
 
 ## Further References
