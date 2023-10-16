@@ -1,6 +1,6 @@
 # GMM and MC
 
-This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) and Markov chain Monta Carlo (MCMC).
+This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) and Markov chain Monte Carlo (MCMC).
 
 
 ## Probability Theory

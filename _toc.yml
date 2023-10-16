@@ -6,11 +6,11 @@ root: about.md
 parts:
 - caption: Lecture
   chapters:
-  - file: lecture/intro.md
+  - file: lecture/introduction.md
   - file: lecture/cc-1-0-basics.md
     sections:
     - file: lecture/cc-1-1-linear.md
-    - file: lecture/cc-1-2-gmm-mc.md
+    - file: lecture/cc-1-2-gmm-mcmc.md
     - file: lecture/cc-1-3-bayes.md
   - file: lecture/cc-2-0-optim.md
     sections:
