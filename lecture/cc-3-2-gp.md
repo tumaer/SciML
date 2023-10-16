@@ -401,7 +401,7 @@ And in practive for a 1-dimensional function, which is being approximated with a
 
 > This immediately shows the utility of GP-regression for engineering applications where we often have few data points but yet need to be able to provide guarantees for our predictions which GPs offer at a reasonable computational cost.
 
-#### Further Kernel Configurations
+### Further Kernel Configurations
 
 There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple "basis" kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels:
 

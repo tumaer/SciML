@@ -3,7 +3,7 @@
 
 ## Limitations of Linear Regression
 
-Looking back to [Chapter 2](cc-2-optimization.md) and the Tricks of Optimization, we discussed that the most general linear model could be any linear combination of $x$-values lifted to a predefined basis space $\varphi(x)$, e.g. polynomial, exponent, sin, tanh, etc. basis:
+Looking back to [Chapter 2](cc-2-0-optim.md) and the Tricks of Optimization, we discussed that the most general linear model could be any linear combination of $x$-values lifted to a predefined basis space $\varphi(x)$, e.g. polynomial, exponent, sin, tanh, etc. basis:
 
 $$h(x)= \vartheta^{\top} \varphi(x) = \vartheta_0 + \vartheta_1 \cdot x + \vartheta_3 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + ...$$
 

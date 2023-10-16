@@ -38,7 +38,7 @@ Geometric deep learning aims to generalize neural network models to non-Euclidea
     </div>
     
     
-#### [SEGNN](https://arxiv.org/abs/2110.02905) - molecular property prediction algorithm
+#### [SEGNN](https://arxiv.org/abs/2110.02905) - molecular property prediction model
 
 <div style="text-align:center">
         <img src="https://i.imgur.com/bbJThJf.png" alt="drawing" width="500"/>
@@ -48,7 +48,7 @@ Geometric deep learning aims to generalize neural network models to non-Euclidea
 ### [Stable Diffusion](https://stability.ai/blog/stable-diffusion-public-release) - generating images from natural text description
 
 <div style="text-align:center">
-    <img src="https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/0715034d-4044-4c55-9131-e4bfd6dd20ca/2_4x.png" alt="drawing" width="500"/>
+    <img src="https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/465cccc6-2a57-48f1-8235-e646b2b39f5b/Stability+AI+Stable+Diffusion+Art.jpg" alt="drawing" width="500"/>
 </div><br/>
 
 ## Definition

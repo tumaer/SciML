@@ -6,21 +6,27 @@ root: about.md
 parts:
 - caption: Lecture
   chapters:
-  - file: lecture/preliminaries.md
-  - file: lecture/motivation.md
-  - file: lecture/cc-1-linear.md
-  - file: lecture/cc-2-optimization.md
-  - file: lecture/cc-3-classic-ml.md
+  - file: lecture/intro.md
+  - file: lecture/cc-1-0-basics.md
     sections:
-    - file: lecture/cc-3-sub-SVM.md
-    - file: lecture/cc-3-sub-GP.md
-  - file: lecture/cc-4-dl.md
+    - file: lecture/cc-1-1-linear.md
+    - file: lecture/cc-1-2-gmm-mc.md
+    - file: lecture/cc-1-3-bayes.md
+  - file: lecture/cc-2-0-optim.md
     sections:
-    - file: lecture/cc-4-gradients.md
-    - file: lecture/cc-4-sub-MLP.md
-    - file: lecture/cc-4-sub-CNN.md
-    - file: lecture/cc-4-rnn.md
-    - file: lecture/cc-4-ae.md
+    - file: lecture/cc-2-1-algorithms.md
+    - file: lecture/cc-2-2-tricks.md
+  - file: lecture/cc-3-0-ml.md
+    sections:
+    - file: lecture/cc-3-1-svm.md
+    - file: lecture/cc-3-2-gp.md
+  - file: lecture/cc-4-0-dl.md
+    sections:
+    - file: lecture/cc-4-1-gradients.md
+    - file: lecture/cc-4-2-mlp.md
+    - file: lecture/cc-4-3-cnn.md
+    - file: lecture/cc-4-4-rnn.md
+    - file: lecture/cc-4-5-ae.md
 - caption: Exercise
   chapters:
   - file: exercise/1_linReg_logReg.ipynb
