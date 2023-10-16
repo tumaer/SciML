@@ -1,0 +1,863 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>GMM and MC &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture/cc-1-2-gmm-mc';</script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Bayesian methods" href="cc-1-3-bayes.html" />
+    <link rel="prev" title="Linear Models" href="cc-1-1-linear.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../about.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About this Lecture
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-1-0-basics.html">Core Content 1: Basics</a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">Linear Models</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">GMM and MC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-3-bayes.html">Bayesian methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-2-0-optim.html">Core Content 2: Optimization</a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-1-algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-2-tricks.html">Tricks of Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-3-0-ml.html">Core Content 3: Classic ML</a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-3-1-svm.html">Support Vector Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-3-2-gp.html">Gaussian Processes</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-4-0-dl.html">Core Content 4: Deep Learning</a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-1-gradients.html">Gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-2-mlp.html">Multilayer Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-3-cnn.html">Convolutional Neural Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-4-rnn.html">Recurrent Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-5-ae.html">Encoder-Decoder Models</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exercise/1_linReg_logReg.html">1. Linear Regression and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/2_BayesianInference.html">2. Bayesian Linear and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/3_optimization.html">3. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/4_SVM.html">4. Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/5_GPs.html">5. Gaussian Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/6_CNNs.html">6. CNNs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/7_RNNs.html">7. RNNs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/arturtoshev/SciML22-23" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Flecture/cc-1-2-gmm-mc.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture/cc-1-2-gmm-mc.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>GMM and MC</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-theory">Probability Theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-building-blocks">Basic Building Blocks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables-and-their-properties">Random Variables and Their Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogue-of-important-distributions">Catalogue of important distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-family">Exponential Family</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm">GMM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc">MCMC</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-sampling">Monte Carlo Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acceptance-rejection-sampling">Acceptance-Rejection Sampling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-importance-resampling-bayesian-bootstrap">Sampling-Importance-Resampling / Bayesian Bootstrap</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-rejection-sampling">Adaptive Rejection Sampling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chain-monte-carlo">Markov Chain Monte Carlo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="gmm-and-mc">
+<h1>GMM and MC<a class="headerlink" href="#gmm-and-mc" title="Permalink to this heading">#</a></h1>
+<p>This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) and Markov chain Monta Carlo (MCMC).</p>
+<section id="probability-theory">
+<h2>Probability Theory<a class="headerlink" href="#probability-theory" title="Permalink to this heading">#</a></h2>
+<section id="basic-building-blocks">
+<h3>Basic Building Blocks<a class="headerlink" href="#basic-building-blocks" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(\Omega\)</span> - sample space: the set of all outcomes of a random experiment.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(E)\)</span> - probability measure of an event <span class="math notranslate nohighlight">\(E \in \Omega\)</span>: a function <span class="math notranslate nohighlight">\(\mathbb{P}: \Omega \rightarrow \mathbb{R}\)</span> which satisfies the following three properties:</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(0 \le \mathbb{P}(E) \le 1 \quad \forall E \in \Omega\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(\Omega)=1\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(\cup_{i=1}^n E_i) = \sum_{i=1}^n \mathbb{P}(E_i) \;\)</span> for disjoint events <span class="math notranslate nohighlight">\({E_1, ..., E_n}\)</span></p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A, B)\)</span> - joint probability: probability that both <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> occur simultaneously.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A | B)\)</span> - conditional probability: probability that <span class="math notranslate nohighlight">\(A\)</span> occurs, if <span class="math notranslate nohighlight">\(B\)</span> has occured.</p></li>
+<li><p>Product rule of probabilities:</p>
+<ul class="simple">
+<li><p>general case: <br></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A, B) = \mathbb{P}(A | B)\cdot  \mathbb{P}(B) = \mathbb{P}(B | A) \cdot \mathbb{P}(A)\]</div>
+<ul class="simple">
+<li><p>independent events: <br></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\]</div>
+</li>
+<li><p>Sum rule of probabilities:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)\]</div>
+<ul>
+<li><p>Bayes rule: solving the general case of the product rule for <span class="math notranslate nohighlight">\(\mathbb{P}(A)\)</span> results in:</p>
+<div class="math notranslate nohighlight">
+\[ \mathbb{P}(B|A) = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\sum_{i=1}^n \mathbb{P}(A|B_i)\mathbb{P}(B_i)}\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(p(B|A)\)</span>: posterior</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(A|B)\)</span>: likelihood</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(B)\)</span>: prior</p></li>
+<li><p><span class="math notranslate nohighlight">\(p(A)\)</span>: evidence</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="random-variables-and-their-properties">
+<h3>Random Variables and Their Properties<a class="headerlink" href="#random-variables-and-their-properties" title="Permalink to this heading">#</a></h3>
+<ul>
+<li><p>Random variable (r.v.) <span class="math notranslate nohighlight">\(X\)</span>: a function <span class="math notranslate nohighlight">\(X:\Omega \rightarrow \mathbb{R}\)</span>. This is the formal way by which we move from abstract events to real-valued numbers. <span class="math notranslate nohighlight">\(X\)</span> is essentially a variable that does not have a fixed value, but can have different values with certain probabilities.</p></li>
+<li><p>Continuous r.v.:</p>
+<ul class="simple">
+<li><p>Cumulative distribution function (cdf) <span class="math notranslate nohighlight">\(F_X(x)\)</span> - probability that the r.v. <span class="math notranslate nohighlight">\(X\)</span> is smaller than some value <span class="math notranslate nohighlight">\(x\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[F_X(x) = \mathbb{P}(X\le x)\]</div>
+<ul class="simple">
+<li><p>Probability density function (pdf) <span class="math notranslate nohighlight">\(p_X(x)\)</span>:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1\]</div>
+</li>
+</ul>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/uHHQU4r.png" alt="drawing" width="400"/>
+</div>
+<ul class="simple">
+<li><p>discrete r.v.:</p>
+<ul>
+<li><p>Probability mass function (pmf) - same as the pdf but for a discrete r.v. <span class="math notranslate nohighlight">\(X\)</span>. Integrals become sums.</p></li>
+</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(\mu = E[X]\)</span> - mean value or expected value:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\sigma^2 = Var[X]\)</span> - variance:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[Var[X] = \int_{-\infty}^{+\infty}x^2 \, p_X(x) \, dx = E[(X-\mu)^2]\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Cov[X,Y]=E[(X-\mu_X)(Y-\mu_Y)]\)</span></p></li>
+<li><p>Change of variables - if <span class="math notranslate nohighlight">\(X \sim p_X\)</span> and <span class="math notranslate nohighlight">\(Y=h(X)\)</span>, then the distribution of <span class="math notranslate nohighlight">\(Y\)</span> becomes:</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p_Y(y)=\frac{p_X(h^{-1}(y))}{\left|\frac{dh}{dx}\right|}\]</div>
+</section>
+<section id="catalogue-of-important-distributions">
+<h3>Catalogue of important distributions<a class="headerlink" href="#catalogue-of-important-distributions" title="Permalink to this heading">#</a></h3>
+<ul class="simple">
+<li><p>Binomial, <span class="math notranslate nohighlight">\(X\in\{0,1,...,n\}\)</span>. Describes how often we get <span class="math notranslate nohighlight">\(k\)</span> positive outcomes out of <span class="math notranslate nohighlight">\(n\)</span> independent experiments. Parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is the success probability of each trial.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).\]</div>
+<ul class="simple">
+<li><p>Bernoulli - special case of Binomial with <span class="math notranslate nohighlight">\(n=1\)</span>.</p></li>
+<li><p>Normal, <span class="math notranslate nohighlight">\(X \in \mathbb{R}\)</span>.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)\]</div>
+<ul class="simple">
+<li><p>Multivariate Gaussian <span class="math notranslate nohighlight">\(\mathcal{N}(\mathbf{\mu}, \mathbf{\Sigma}), \; \mathbf{X}\in \mathbb{R}^n, \; \mathbf{\mu}\in \mathbb{R}^n, \; \mathbb{\Sigma}:\mathbf{n}\times\mathbf{n}\)</span></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[p_X(x)= \frac{1}{(2\pi)^{n/2}\sqrt{\det (\mathbf{\Sigma})}} \exp \left(-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{\top}\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu}\right),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mathbf{\mu}\in \mathbb{R}^n\)</span>: mean vector and <span class="math notranslate nohighlight">\(\mathbf{\Sigma}\)</span>: covariance matrix.</p>
+</section>
+<section id="exponential-family">
+<h3>Exponential Family<a class="headerlink" href="#exponential-family" title="Permalink to this heading">#</a></h3>
+<p>The exponential family of distributions is a large family of distributions with shared properties, some of which we have already encountered in other courses before. Prominent members of the exponential family include</p>
+<ul class="simple">
+<li><p>Bernoulli</p></li>
+<li><p>Gaussian</p></li>
+<li><p>Dirichlet</p></li>
+<li><p>Gamma</p></li>
+<li><p>Poisson</p></li>
+<li><p>Beta</p></li>
+</ul>
+<p>At their core, members of the exponential family all fit the same general probability distribution form</p>
+<div class="math notranslate nohighlight">
+\[p(x|\eta) = h(x) \exp \left\{ \eta^{\top} t(x) - a(\eta) \right\}\]</div>
+<p>where the individual components are</p>
+<ul class="simple">
+<li><p>Natural parameter <span class="math notranslate nohighlight">\(\eta\)</span></p></li>
+<li><p>Sufficient statistic <span class="math notranslate nohighlight">\(t(x)\)</span></p></li>
+<li><p>Probability support measure <span class="math notranslate nohighlight">\(h(x)\)</span></p></li>
+<li><p>Log normalizer <span class="math notranslate nohighlight">\(a(\eta)\)</span> to guarantee that the probability density integrates to 1.</p></li>
+</ul>
+<blockquote>
+<div><p>If you are unfamiliar with the concept of probability measures, then <span class="math notranslate nohighlight">\(h(x)\)</span> can safely be disregarded. Conceptually it describes the area in the probability space over which the probability distribution is defined.</p>
+</div></blockquote>
+<p><strong>Why is this family of distributions relevant to this course?</strong></p>
+<blockquote>
+<div><p>The exponential family has a direct connection to graphical models, which are a formalism favored by many people to visualize machine learning models, and the way individual components interact with each other. As such they are highly instructive, and at the same time foundational to many probabilistic approaches covered in this course.</p>
+</div></blockquote>
+<p>Let’s inspect the practical example of the Gaussian distribution to see how the theory translates into practice. Taking the probability density function which we have also previously worked with</p>
+<div class="math notranslate nohighlight">
+\[p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{(x - \mu)^{2}}{2 \sigma^{2}} \right\}\]</div>
+<p>We can then expand the square in the exponent of the Gaussian to isolate the individual components of the exponential family</p>
+<div class="math notranslate nohighlight">
+\[p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{\mu}{\sigma^{2}}x - \frac{1}{2 \sigma^{2}}x^{2} - \frac{1}{2 \sigma^{2}} \mu^{2} - \log \sigma \right\}\]</div>
+<p>Then the individual components of the Gaussian are</p>
+<div class="math notranslate nohighlight">
+\[\eta = \langle \frac{\mu}{\sigma^{2}}, - \frac{1}{2 \sigma^{2}} \rangle\]</div>
+<div class="math notranslate nohighlight">
+\[t(x) = \langle x, x^{2} \rangle\]</div>
+<div class="math notranslate nohighlight">
+\[a(\eta) = \frac{\mu^{2}}{2 \sigma^{2}} + \log \sigma\]</div>
+<div class="math notranslate nohighlight">
+\[h(x) = \frac{1}{\sqrt{2 \pi}}\]</div>
+<p>For the sufficient statistics, we then need to derive the derivative of the log normalizer, i.e</p>
+<div class="math notranslate nohighlight">
+\[\frac{d}{d\eta}a(\eta) = \mathbb{E}\left[ t(X) \right]\]</div>
+<p>Which yields</p>
+<div class="math notranslate nohighlight">
+\[\frac{da(\eta)}{d\eta_{1}} = \mu = \mathbb{E}[X] \]</div>
+<div class="math notranslate nohighlight">
+\[\frac{da(\eta)}{d\eta_{2}} = \mu = \mathbb{E}[X^{2}] \]</div>
+<p><strong>Exercise: Exponential Family 1</strong></p>
+<p>Show that the Dirichlet distribution is a member of the exponential family.</p>
+<p><strong>Exercise: Exponential Family 2</strong></p>
+<p>Show that the Bernoulli distribution is a member of the exponential family</p>
+</section>
+</section>
+<section id="gmm">
+<h2>GMM<a class="headerlink" href="#gmm" title="Permalink to this heading">#</a></h2>
+</section>
+<section id="mcmc">
+<h2>MCMC<a class="headerlink" href="#mcmc" title="Permalink to this heading">#</a></h2>
+<section id="monte-carlo-sampling">
+<h3>Monte Carlo Sampling<a class="headerlink" href="#monte-carlo-sampling" title="Permalink to this heading">#</a></h3>
+<p>To approximate this quantity with Monte Carlo sampling techniques we then need to draw from the posterior <span class="math notranslate nohighlight">\(\int f(y|\theta) g(\theta) d\theta\)</span>. A process which given enough samples always converges to the true value of the denominator according to the <a class="reference external" href="http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf">Monte Carlo theorem</a>.</p>
+<p>Monte Carlo integration is a fundamental tool first developed by Physicists dealing with the solution of high-dimensional integrals. The main objective is solving integrals like</p>
+<div class="math notranslate nohighlight">
+\[E[h(\mathbf{x})]=\int h(\mathbf{x}) p(\mathbf{x}) d\mathbf{x}, \quad \mathbf{x}\in \mathbb{R}^d\]</div>
+<p>with some function of interest <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> being a r.v.</p>
+<p>The approach consists of the following three steps:</p>
+<ol class="arabic simple">
+<li><p>Generate i.i.d. random samples <span class="math notranslate nohighlight">\(\mathbf{x}^{(i)}\in \mathbb{R}^d, \; i=1,2,...,N\)</span> from the density <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span>.</p></li>
+<li><p>Evaluate <span class="math notranslate nohighlight">\(h^{(i)}=h(\mathbf{x}^{(i)}), \; \forall i\)</span>.</p></li>
+<li><p>Approximate</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[E[h(\mathbf{x})]\approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}\]</div>
+<hr class="docutils" />
+<p>Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:</p>
+<ul class="simple">
+<li><p>Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)</p></li>
+<li><p>Sensitivity analysis of the model becomes easier.</p></li>
+</ul>
+<section id="acceptance-rejection-sampling">
+<h4>Acceptance-Rejection Sampling<a class="headerlink" href="#acceptance-rejection-sampling" title="Permalink to this heading">#</a></h4>
+<p>Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. <em>The acceptance-rejection algorithm is specially made for this scenario.</em> The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the candidate distribution <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span> has to dominate the posterior distribution, i.e. there must exist an <span class="math notranslate nohighlight">\(M\)</span> s.t.</p>
+<div class="math notranslate nohighlight">
+\[M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta\]</div>
+<p>Taking an example candidate density for an unscaled target as an example to show the “dominance” of the candidate distribution over the posterior distribution.</p>
+<center>
+<img src = "https://i.imgur.com/1xzbFI5.png" width = "450"></center>
+<p>(Source, Bolstad <em>Understanding Computational Bayesian Statistics</em>)</p>
+<p>To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:</p>
+<ol class="arabic simple">
+<li><p>Draw a random sample of size <span class="math notranslate nohighlight">\(N\)</span> from the candidate distribution <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span>.</p></li>
+<li><p>Calculate the value of the unscaled target density at each random sample.</p></li>
+<li><p>Calculate the candidate density at each random sample, and multiply by <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
+<li><p>Compute the weights for each random sample</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}\]</div>
+<ol class="arabic simple" start="5">
+<li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> samples from the <span class="math notranslate nohighlight">\(U(0, 1)\)</span> uniform distribution.</p></li>
+<li><p>If <span class="math notranslate nohighlight">\(u_{i} &lt; w_{i}\)</span> accept <span class="math notranslate nohighlight">\(\theta_{i}\)</span></p></li>
+</ol>
+</section>
+<section id="sampling-importance-resampling-bayesian-bootstrap">
+<h4>Sampling-Importance-Resampling / Bayesian Bootstrap<a class="headerlink" href="#sampling-importance-resampling-bayesian-bootstrap" title="Permalink to this heading">#</a></h4>
+<p>The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling which has an improved weight-calculation, but most importantly employs a <em>resampling</em> step. This resampling step resamples from the space of parameters. The weight is then calculated as</p>
+<div class="math notranslate nohighlight">
+\[w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)} \]</div>
+<p>The algorithm to sample from the posterior distribution is then:</p>
+<ol class="arabic simple">
+<li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> random samples <span class="math notranslate nohighlight">\(\theta_{i}\)</span> from the starting density <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span></p></li>
+<li><p>Calculate the value of the unscaled target density at each random sample.</p></li>
+<li><p>Calculate the starting density at each random sample, and multiply by <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
+<li><p>Calculate the ratio of the unscaled posterior to the starting distribution</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}\]</div>
+<ol class="arabic simple" start="5">
+<li><p>Calculate the importance weights</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[w_{i} = \frac{r_{i}}{\sum r_{i}}\]</div>
+<ol class="arabic simple" start="6">
+<li><p>Draw <span class="math notranslate nohighlight">\(n \leq 0.1 \times N\)</span> random samples with the sampling probabilities given by the importance weights.</p></li>
+</ol>
+</section>
+<section id="adaptive-rejection-sampling">
+<h4>Adaptive Rejection Sampling<a class="headerlink" href="#adaptive-rejection-sampling" title="Permalink to this heading">#</a></h4>
+<p>If we are unable to find a candidate/starting distribution, which dominates the unscaled posterior distribution immediately, then we have to rely on <em>adaptive rejection sampling</em>.</p>
+<blockquote>
+<div><p>This approach only works for a log-concave posterior!</p>
+</div></blockquote>
+<p>See below for an example of a log-concave distribution.</p>
+<center>
+<img src = "https://i.imgur.com/8j4zCVo.png" width = "550"></center>
+<p>(Source: Bolstad, <em>Understanding Computational Bayesian Statistics</em>)</p>
+<p>Using the tangent method our algorithm then takes the following form:</p>
+<ol class="arabic simple">
+<li><p>Construct an upper bound from piecewise exponential functions, which dominate the log-concave unscaled posterior</p></li>
+<li><p>With the envelope giving us the initial candidate density we draw <span class="math notranslate nohighlight">\(N\)</span> random samples</p></li>
+<li><p>Rejection sampling, see the preceding two subsections for details.</p></li>
+<li><p>If rejected, add another exponential piece which is tangent to the target density.</p></li>
+</ol>
+<p>As all three presented sampling approaches have their limitations, practitioners tend to rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.</p>
+</section>
+<section id="markov-chain-monte-carlo">
+<h4>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="Permalink to this heading">#</a></h4>
+<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(x_{next}|x_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
+<p><strong>Metropolis-Hastings</strong></p>
+<p>The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This is done by following the algorithm:</p>
+<ol class="arabic simple" start="0">
+<li><p>Start at an initial point <span class="math notranslate nohighlight">\(\theta_{current} = \theta^0\)</span>.</p></li>
+<li><p>Sample <span class="math notranslate nohighlight">\(\theta' \sim q(\theta_{next}|\theta_{current})\)</span></p></li>
+<li><p>Compute
+$<span class="math notranslate nohighlight">\(\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}\)</span>$</p></li>
+<li><p>Sample <span class="math notranslate nohighlight">\(u\sim \text{Uniform}(0,1)\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(\alpha &gt; u\)</span>, then <span class="math notranslate nohighlight">\(\theta_{current} = \theta'\)</span>, else <span class="math notranslate nohighlight">\(\theta_{current} = \theta_{current}\)</span></p></li>
+<li><p>Repeat <span class="math notranslate nohighlight">\(N\)</span> times from step 1.</p></li>
+</ol>
+<p>A special choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is for example the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm. For more information, refer to <a class="reference external" href="https://link.springer.com/book/10.1007/978-1-4757-4145-2">Monte Carlo Statistical Methods</a> by Rober &amp; Casella.</p>
+<hr class="docutils" />
+<p>In summary:</p>
+<ul class="simple">
+<li><p>The unscaled posterior <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span> contains the <em>shape information</em> of the posterior</p></li>
+<li><p>For the true posterior, the unscaled posterior needs to be divided by an integral over the whole parameter space.</p></li>
+<li><p>Integral has to be evaluated numerically for which we rely on the just presented Monte Carlo sampling techniques.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="further-references">
+<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cc-1-1-linear.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Linear Models</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cc-1-3-bayes.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Bayesian methods</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-theory">Probability Theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-building-blocks">Basic Building Blocks</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables-and-their-properties">Random Variables and Their Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogue-of-important-distributions">Catalogue of important distributions</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-family">Exponential Family</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gmm">GMM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc">MCMC</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-sampling">Monte Carlo Sampling</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#acceptance-rejection-sampling">Acceptance-Rejection Sampling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-importance-resampling-bayesian-bootstrap">Sampling-Importance-Resampling / Bayesian Bootstrap</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-rejection-sampling">Adaptive Rejection Sampling</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chain-monte-carlo">Markov Chain Monte Carlo</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By N. Adams, L. Paehler, A. Toshev
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,727 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>Bayesian methods &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture/cc-1-3-bayes';</script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Core Content 2: Optimization" href="cc-2-0-optim.html" />
+    <link rel="prev" title="GMM and MC" href="cc-1-2-gmm-mc.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../about.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../about.html">
+                    About this Lecture
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-1-0-basics.html">Core Content 1: Basics</a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">Linear Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mc.html">GMM and MC</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Bayesian methods</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-2-0-optim.html">Core Content 2: Optimization</a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-1-algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-2-tricks.html">Tricks of Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-3-0-ml.html">Core Content 3: Classic ML</a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-3-1-svm.html">Support Vector Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-3-2-gp.html">Gaussian Processes</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-4-0-dl.html">Core Content 4: Deep Learning</a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-1-gradients.html">Gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-2-mlp.html">Multilayer Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-3-cnn.html">Convolutional Neural Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-4-rnn.html">Recurrent Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-5-ae.html">Encoder-Decoder Models</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../exercise/1_linReg_logReg.html">1. Linear Regression and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/2_BayesianInference.html">2. Bayesian Linear and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/3_optimization.html">3. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/4_SVM.html">4. Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/5_GPs.html">5. Gaussian Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/6_CNNs.html">6. CNNs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/7_RNNs.html">7. RNNs</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/arturtoshev/SciML22-23" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Flecture/cc-1-3-bayes.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture/cc-1-3-bayes.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Bayesian methods</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference">Bayesian Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-point-estimation">Bayesian Point Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-interval-estimation">Bayesian Interval Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictive-distribution-of-a-new-observation">Predictive Distribution of a New Observation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference-from-a-posterior-random-sample">Bayesian Inference from a Posterior Random Sample</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-approaches-to-regression">Bayesian Approaches to Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-logistic-regression">Bayesian Logistic Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-linear-regression">Bayesian Linear Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-machine-learning">Bayesian Machine Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="bayesian-methods">
+<h1>Bayesian methods<a class="headerlink" href="#bayesian-methods" title="Permalink to this heading">#</a></h1>
+<p>We present Bayesian Inference and its applications to regression and classification.</p>
+<section id="bayesian-inference">
+<h2>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this heading">#</a></h2>
+<p>The main ideals upon which Bayesian statistics is founded are</p>
+<ul class="simple">
+<li><p>Uncertainty over parameters -&gt; treatment as random variables</p></li>
+<li><p>A probability over a parameter essentially expresses a degree of belief</p></li>
+<li><p>Inference over parameters using rules of probability</p></li>
+<li><p>We combine the prior knowledge and the observed data with Bayes’ theorem</p></li>
+</ul>
+<blockquote>
+<div><p>Refresher - Bayes’ theorem is given by <span class="math notranslate nohighlight">\(\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\)</span></p>
+</div></blockquote>
+<p>So what we are interested in is the <strong>posterior</strong> distribution over our parameters, which can be found using Bayes’ theorem. While this may at first glance look straightforward, and holds for the <strong>unscaled posterior</strong> i.e the distribution which has not been normalized by dividing by <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>, obtaining the scaled posterior is much much harder due to the difficulty in computing the divisor <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>. To evaluate this divisor we draw on Monte Carlo sampling.</p>
+<blockquote>
+<div><p>What is a <em>scaled posterior</em>? A scaled posterior is a distribution whose integral over the entire distribution evaluates to 1.</p>
+</div></blockquote>
+<p>Taking Bayes’ theorem, and using the probability theorems in their conditional form we then obtain the following formula for the posterior density</p>
+<div class="math notranslate nohighlight">
+\[g(\theta | y) = \frac{g(\theta) \times f(y | \theta)}{\int g(\theta) \times f(y | \theta) d\theta}\]</div>
+<p>If we now seek to compute the denominator, then we have to integrate</p>
+<div class="math notranslate nohighlight">
+\[\int f(y|\theta) g(\theta) d\theta.\]</div>
+<blockquote>
+<div><p>See previous lecture and MCMC</p>
+</div></blockquote>
+<p>In the Bayesian framework, everything centers around the posterior distribution and our ability to relate our previous knowledge with newly gained evidence to the next stage of our belief (of a probability distribution). With the posterior being our entire inference about the parameters given the data there exist multiple inference approaches with their roots in frequentist statistics.</p>
+<section id="bayesian-point-estimation">
+<h3>Bayesian Point Estimation<a class="headerlink" href="#bayesian-point-estimation" title="Permalink to this heading">#</a></h3>
+<p>Bayesian point estimation chooses a single value to represent the entire posterior distribution. Potential choices here are locations like the posterior mean, and posterior median. For the posterior mean squared error, the posterior mean is then the first moment of the posterior distribution</p>
+<div class="math notranslate nohighlight">
+\[PMS(\hat{\theta}) = \int (\theta - \hat{\theta})^{2} g(\theta | y_{1}, \ldots, y_{n})d\theta\]</div>
+<div class="math notranslate nohighlight">
+\[\hat{\theta} = \int_{-\infty}^{\infty} \theta g(\theta | y_{1}, \ldots, y_{n})d \theta\]</div>
+<center>
+<img src = "https://i.imgur.com/C5WdqqR.png" width = "450"></center>
+<p>and for the posterior median <span class="math notranslate nohighlight">\(\tilde{\theta}\)</span></p>
+<div class="math notranslate nohighlight">
+\[PMAD(\hat{\theta}) = \int |\theta - \hat{\theta}| g(\theta| y_{1}, \ldots, y_{n})d\theta\]</div>
+<div class="math notranslate nohighlight">
+\[.5 = \int_{-\infty}^{\tilde{\theta}} g(\theta | y_{1}, \ldots, y_{n}) d\theta\]</div>
+<center>
+<img src = "https://i.imgur.com/u2b81gQ.png" width = "450"></center>
+</section>
+<section id="bayesian-interval-estimation">
+<h3>Bayesian Interval Estimation<a class="headerlink" href="#bayesian-interval-estimation" title="Permalink to this heading">#</a></h3>
+<p>Another type of Bayesian inference is the one in which we seek to find an interval that, with a pre-determined probability, contains the true value. In Bayesian statistics, these are called credible intervals. Finding the interval with equal tail areas to both sides <span class="math notranslate nohighlight">\((\theta_{l}, \theta_{u})\)</span>, and which has the probability to contain the true value of the parameter, i.e.</p>
+<div class="math notranslate nohighlight">
+\[\int_{-\infty}^{\theta_{l}} g(\theta | y_{1}, \ldots, y_{n}) d\theta = \frac{\alpha}{2}\]</div>
+<div class="math notranslate nohighlight">
+\[\int_{\theta_{u}}^{\infty} g(\theta | y_{1}, \ldots, y_{n}) d\theta = \frac{\alpha}{2}\]</div>
+<p>which we then only need to solve. A visual example of such a scenario is in the following picture:</p>
+<center>
+<img src = "https://i.imgur.com/ofkfuF0.png" width = "450"></center>
+<p>(Source: Bolstad, <em>Understanding Computational Bayesian Statistics</em>)</p>
+<!---
+#### Maximum A Posteriori Estimation (MAP)
+
+Blubba blub
+--->
+</section>
+<section id="predictive-distribution-of-a-new-observation">
+<h3>Predictive Distribution of a New Observation<a class="headerlink" href="#predictive-distribution-of-a-new-observation" title="Permalink to this heading">#</a></h3>
+<p>If we obtain a new observation, then we can compute the updated predictive distribution by combining the conditional distribution of the new observation, and conditioning it on the previous observations. Then we only need to integrate the parameter out of the joint posterior</p>
+<div class="math notranslate nohighlight">
+\[f(y_{n+1}|y_{1}, \ldots, y_{n}) \propto \int g(\theta) \times f(y_{n+1}| \theta) \times \ldots \times f(y_{1}|\theta) d\theta\]</div>
+<div class="math notranslate nohighlight">
+\[\propto \int f(y_{n+1}|\theta)g(\theta|y_{1}, \ldots, y_{n}) d\theta\]</div>
+<p>and marginalize it out.</p>
+</section>
+<section id="bayesian-inference-from-a-posterior-random-sample">
+<h3>Bayesian Inference from a Posterior Random Sample<a class="headerlink" href="#bayesian-inference-from-a-posterior-random-sample" title="Permalink to this heading">#</a></h3>
+<p>When we only have a random sample from the posterior instead of the approximation, we are still able to apply the same techniques, but just apply them to the posterior sample.</p>
+<p>With our rudimentary approximations of the denominator by sampling from the posterior. This only constitutes an approximation, but given the sampling budget, this approximation can be made as accurate as desired. In summary Bayesian inference can be condensed to the following main take-home knowledge:</p>
+<ul class="simple">
+<li><p>The posterior distribution is the current summary of beliefs about the parameter in the Bayesian framework.</p></li>
+<li><p>Bayesian inference is then performed using the probabilities calculated from the posterior distribution of the parameter.</p>
+<ul>
+<li><p>To get an approximation of the scaling factor for the posterior we have to utilize sampling-based Monte Carlo techniques to approximate the requisite integral.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+</section>
+<section id="bayesian-approaches-to-regression">
+<h2>Bayesian Approaches to Regression<a class="headerlink" href="#bayesian-approaches-to-regression" title="Permalink to this heading">#</a></h2>
+<p>If we are faced with the scenario of having very little data, then we ideally seek to quantify the uncertainty of our model and preserve the predictive utility of our machine learning model. The right approach to this is to extend Linear Regression, and Logistic Regression with the just presented Bayesian Approach utilizing Bayesian Inference.</p>
+<section id="bayesian-logistic-regression">
+<h3>Bayesian Logistic Regression<a class="headerlink" href="#bayesian-logistic-regression" title="Permalink to this heading">#</a></h3>
+<p>If we now want to capture the uncertainty over our predictions in our logistic regression, then we have to resort to the Bayesian approach. To make the Bayesian approach work for logistic regression, we have to apply something called the <em>Laplace Approximation</em> in which we approximate the posterior using a Gaussian</p>
+<div class="math notranslate nohighlight">
+\[p(\omega | \mathcal{D}) \approx \mathcal{N}({\bf{\omega}}| {\bf{\hat{\omega}}}, {\bf{H}}^{-1})\]</div>
+<p>where <span class="math notranslate nohighlight">\(H^{-1}\)</span> is the inverse of the Hessian, <span class="math notranslate nohighlight">\(\omega\)</span> corresponds to the learned parameters <span class="math notranslate nohighlight">\(\vartheta\)</span>, and <span class="math notranslate nohighlight">\(\hat{\omega}\)</span> is the MLE of <span class="math notranslate nohighlight">\(\vartheta\)</span>. There exist many different modes representing viable solutions for this problem when we seek to optimize it.</p>
+<center>
+<img src = "https://i.imgur.com/1nGR1Ju.png" width = "450"></center>
+<p>(Source, <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+<p>Using a Gaussian prior centered at the origin, we can then multiply our prior with the likelihood to obtain the unnormalized posterior. Which yields us the posterior predictive distribution</p>
+<div class="math notranslate nohighlight">
+\[p(y|x, \mathcal{D}) = \int p(y | x, \omega) p(\omega | \mathcal{D})) d\omega\]</div>
+<p>To now compute the uncertainty in our predictions we use a Gaussian prior, and then perform a <em>Monte Carlo Approximation</em> of the integral using <span class="math notranslate nohighlight">\(S\)</span> samples from the posterior <span class="math notranslate nohighlight">\(\omega_s \sim p(\omega|\mathcal{D})\)</span></p>
+<div class="math notranslate nohighlight">
+\[p(y=1 | x, \mathcal{D}) = \frac{1}{S} \sum_{s=1}^{S} \sigma \left( \omega_{s}^{\top} x \right)\]</div>
+<p>Looking at a larger visual example of Bayesian Logistic Regression applied.</p>
+<center>
+<img src = "https://i.imgur.com/oBsUrVi.jpg" width = "600"></center>
+<p>(Source: <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+</section>
+<section id="bayesian-linear-regression">
+<h3>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this heading">#</a></h3>
+<p>To now introduce the Bayesian approach to linear regression we have to assume that we already know the variance <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>, so the posterior which we actually compute at that point is</p>
+<div class="math notranslate nohighlight">
+\[p(\omega | \mathcal{D}, \sigma^{2})\]</div>
+<p>If we then take a Gaussian distribution as our prior distribution <span class="math notranslate nohighlight">\(p(\omega)\)</span></p>
+<div class="math notranslate nohighlight">
+\[p(\omega) = \mathcal{N}(\omega | \breve{\omega}, \breve{\Sigma})\]</div>
+<p>Then we can write down the likelihood as a Multivariate-Normal distribution.</p>
+<div class="math notranslate nohighlight">
+\[p(\mathcal{D} | \omega, \sigma^{2}) = \prod_{n=1}^{N}p(y_{n}|{\bf{\omega^{\top}}}{\bf{x}}, \sigma^{2}) = \mathcal{N}({\bf{y}} | {\bf{X} \bf{\omega}}, \sigma^{2} {\bf{I}}_{N})\]</div>
+<p>The posterior can then be analytically derived using Bayes’ rule for Gaussians (see <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>, eq. 3.37)</p>
+<div class="math notranslate nohighlight">
+\[p({\bf{\omega}} | {\bf{X}}, {\bf{y}}, \sigma^{2}) \propto \mathcal{N}(\omega | \breve{\omega}, \breve{\Sigma}) \mathcal{N}({\bf{y}} | {\bf{X} \bf{\omega}}, \sigma^{2} {\bf{I}}_{N}) = \mathcal{N}({\bf{\omega}} | {\bf{\hat{\omega}}}, {\bf{\hat{\Sigma}}}) \]</div>
+<div class="math notranslate nohighlight">
+\[{\bf{\hat{\omega}}} \equiv {\bf{\hat{\Sigma}}} \left( {\bf{\breve{\Sigma}}}^{-1} {\bf{\breve{\omega}}} + \frac{1}{\sigma^{2}} {\bf{X^{\top} y}}  \right)\]</div>
+<div class="math notranslate nohighlight">
+\[{\bf{\hat{\Sigma}}} \equiv \left( {\bf{\breve{\Sigma}}}^{-1} + \frac{1}{\sigma^{2}} {\bf{X^{\top} X}} \right)^{-1}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\hat{\omega}\)</span> is the posterior mean, and <span class="math notranslate nohighlight">\(\hat{\Sigma}\)</span> is the posterior covariance. A good visual example of this is the sequential Bayesian inference on a linear regression model:</p>
+<center>
+<img src = "https://i.imgur.com/87em7Vz.png" width = "550"></center>
+<p>(Source, <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+</section>
+</section>
+<section id="bayesian-machine-learning">
+<h2>Bayesian Machine Learning<a class="headerlink" href="#bayesian-machine-learning" title="Permalink to this heading">#</a></h2>
+<p>Let’s consider the setup we have encountered so far in which we have labels <span class="math notranslate nohighlight">\(x\)</span>, hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span>, and seek to predict labels <span class="math notranslate nohighlight">\(y\)</span>. Probabilistically expressed this amounts to <span class="math notranslate nohighlight">\(p(y|x, \theta)\)</span>. Then the posterior is defined as <span class="math notranslate nohighlight">\(p(\theta| \mathcal{D})\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is our labeled dataset</p>
+<div class="math notranslate nohighlight">
+\[\mathcal{D} = \left\{ (x_{n}, y_{n}):n=1:N \right\}\]</div>
+<p>Applying the previously discussed Bayesian approaches to these problems, and the respective model parameters, are called <strong>Bayesian Machine Learning</strong>.</p>
+<p>While we lose computational efficiency at first glance, as we have to perform a sampling-based inference procedure, what we gain is a principled approach to discuss uncertainties within our model. This can help us most especially when we move in the <em>small-data limit</em>, where we can not realistically expect our model to converge. See e.g. below a Bayesian logistic regression example in which the posterior distribution is visualized.</p>
+<center>
+<img src = "https://i.imgur.com/AfikBRy.png" width = "550"></center>
+<p>(Source: <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+</section>
+<section id="further-references">
+<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
+<p><strong>Bayesian Methods</strong>
+There exist a wide number of references to the herein presented Bayesian approach, most famously introductory treatment of Probabilistic Programming frameworks, which utilize the herein presented modeling approach to obtain posteriors over programs.</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://pyro.ai/examples/intro_long.html">Introduction to Pyro</a></p></li>
+<li><p><a class="reference external" href="https://m-clark.github.io/bayesian-basics/example.html#posterior-predictive">A Practical Example with Stan</a></p></li>
+</ul>
+<p>In addition, there exists highly curated didactic material from Michel Betancourt:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://betanalpha.github.io/assets/case_studies/sampling.html">Sampling</a>: Section 3, 4, and 5</p></li>
+<li><p><a class="reference external" href="https://betanalpha.github.io/assets/case_studies/principled_bayesian_workflow.html">Towards a Principled Bayesian Workflow</a></p></li>
+<li><p><a class="reference external" href="https://betanalpha.github.io/assets/case_studies/markov_chain_monte_carlo.html">Markov Chain Monte Carlo</a>: Section 1, 2, and 3</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./lecture"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="cc-1-2-gmm-mc.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">GMM and MC</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="cc-2-0-optim.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Core Content 2: Optimization</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference">Bayesian Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-point-estimation">Bayesian Point Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-interval-estimation">Bayesian Interval Estimation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictive-distribution-of-a-new-observation">Predictive Distribution of a New Observation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference-from-a-posterior-random-sample">Bayesian Inference from a Posterior Random Sample</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-approaches-to-regression">Bayesian Approaches to Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-logistic-regression">Bayesian Logistic Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-linear-regression">Bayesian Linear Regression</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-machine-learning">Bayesian Machine Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By N. Adams, L. Paehler, A. Toshev
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -6,7 +6,7 @@ A basic handling of linear algebra, and probability theory are required to under
 
 Exercises, and practicising the practical parts of the course require a basic handling of Python.
 
-> If you are an ardent believer of programming language X, we will not force you to use Python. Problem sets, as well as model solutions will only be provided in Python, but there is nothing keeping you from doing the exercises in e.g. Rust.
+> If you are an ardent believer of programming language X, we will not force you to use Python. Problem sets, as well as model solutions will only be provided in Python, but there is nothing keeping you from doing the exercises in e.g. Julia.
 
 
 ## Sources for Preliminary Reading in Case you Seek to Refresh your Memory

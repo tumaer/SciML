@@ -1,48 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
     <title>4. Support Vector Machines &#8212; Introduction to Scientific Machine Learning for Engineers</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,62 +64,103 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'exercise/4_SVM';</script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="5. Gaussian Processes" href="5_GPs.html" />
     <link rel="prev" title="3. Optimization" href="3_optimization.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-    
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../about.html">
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -116,447 +169,293 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lecture
- </span>
-</p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../lecture/preliminaries.html">
-   Preliminaries
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../lecture/motivation.html">
-   Introduction
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../lecture/cc-1-linear.html">
-   Core Content 1: Linear Models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../lecture/cc-2-optimization.html">
-   Core Content 2: Optimization
-  </a>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../lecture/cc-3-classic-ml.html">
-   Core Content 3: Classic ML
-  </a>
-  <input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../lecture/cc-3-sub-SVM.html">
-     Support Vector Machines
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../lecture/cc-3-sub-GP.html">
-     Gaussian Processes
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="../lecture/cc-4-dl.html">
-   Core Content 4: Deep Learning
-  </a>
-  <input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-  <label for="toctree-checkbox-2">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../lecture/cc-4-gradients.html">
-     Gradients
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../lecture/cc-4-sub-MLP.html">
-     Multilayer Perceptron
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../lecture/cc-4-sub-CNN.html">
-     Convolutional Neural Network
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../lecture/cc-4-rnn.html">
-     Recurrent Models
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../lecture/cc-4-ae.html">
-     Encoder-Decoder Models
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../lecture/intro.html">Introduction</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-1-0-basics.html">Core Content 1: Basics</a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-1-linear.html">Linear Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-2-gmm-mc.html">GMM and MC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-3-bayes.html">Bayesian methods</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Exercise
- </span>
-</p>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-2-0-optim.html">Core Content 2: Optimization</a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-2-1-algorithms.html">Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-2-2-tricks.html">Tricks of Optimization</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-3-0-ml.html">Core Content 3: Classic ML</a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-3-1-svm.html">Support Vector Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-3-2-gp.html">Gaussian Processes</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-4-0-dl.html">Core Content 4: Deep Learning</a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-1-gradients.html">Gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-2-mlp.html">Multilayer Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-3-cnn.html">Convolutional Neural Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-4-rnn.html">Recurrent Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-5-ae.html">Encoder-Decoder Models</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="1_linReg_logReg.html">
-   1. Linear Regression and Logistic Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="2_BayesianInference.html">
-   2. Bayesian Linear and Logistic Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="3_optimization.html">
-   3. Optimization
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   4. Support Vector Machines
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="5_GPs.html">
-   5. Gaussian Processes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="6_CNNs.html">
-   6. CNNs
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="7_RNNs.html">
-   7. RNNs
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="1_linReg_logReg.html">1. Linear Regression and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="2_BayesianInference.html">2. Bayesian Linear and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="3_optimization.html">3. Optimization</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="5_GPs.html">5. Gaussian Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="6_CNNs.html">6. CNNs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="7_RNNs.html">7. RNNs</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Miscellaneous
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../admin.html">
-   Admin
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../books.html">
-   Books
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../preliminary_knowledge.html">
-   Preliminary Knowledge
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../software.html">
-   Software Infrastructure
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_exam.html">
-   Practical Exam WS22/23
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../faq.html">
-   Frequently Asked Questions
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
 
-          
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
 
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
-
-
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
->
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
   
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
-  </span>
-
-</label>
-
-        
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
-    <div class="header-article__right">
-<div class="menu-dropdown menu-dropdown-launch-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Launch interactive content">
-      <i class="fas fa-rocket"></i>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://colab.research.google.com/github/arturtoshev/SciML22-23/blob/master/exercise/4_SVM.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Launch on Colab"
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/arturtoshev/SciML22-23/blob/master/exercise/4_SVM.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="headerbtn__text-container">Colab</span>
+<span class="btn__text-container">Colab</span>
 </a>
-
-      </li>
+</li>
       
-    </ul>
-  </div>
+  </ul>
 </div>
 
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/arturtoshev/SciML22-23" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Fexercise/4_SVM.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/exercise/4_SVM.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/arturtoshev/SciML22-23"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
-
-      </li>
-      
-      <li>
-        <a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Fexercise/4_SVM.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/exercise/4_SVM.ipynb"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.ipynb</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#artificial-dataset">
-   4.1 Artificial Dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">
-   4.2 Sequential Minimal Optimization (SMO)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multiclass-classification-with-svm-and-smo">
-   4.3 Multiclass Classification with SVM and SMO
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gradient-descent-optimization-of-soft-margin-classifier">
-   4.4 Gradient Descent Optimization of Soft Margin Classifier
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>4. Support Vector Machines</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#artificial-dataset">
-   4.1 Artificial Dataset
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">
-   4.2 Sequential Minimal Optimization (SMO)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multiclass-classification-with-svm-and-smo">
-   4.3 Multiclass Classification with SVM and SMO
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gradient-descent-optimization-of-soft-margin-classifier">
-   4.4 Gradient Descent Optimization of Soft Margin Classifier
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>4. Support Vector Machines</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#artificial-dataset">4.1 Artificial Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">4.2 Sequential Minimal Optimization (SMO)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass-classification-with-svm-and-smo">4.3 Multiclass Classification with SVM and SMO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-optimization-of-soft-margin-classifier">4.4 Gradient Descent Optimization of Soft Margin Classifier</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="support-vector-machines">
-<h1>4. Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this headline">#</a></h1>
+<h1>4. Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this heading">#</a></h1>
 <p>At the end of this exercise you will know:</p>
 <ul class="simple">
 <li><p>How to train a SVM using Sequential Minimal Optimization (SMO)</p></li>
@@ -609,7 +508,7 @@ title="Print to PDF"
 <div><p>Note: for <span class="math notranslate nohighlight">\(C \to \infty\)</span> this problem ends up being the Hard Margin SVM.</p>
 </div></blockquote>
 <section id="artificial-dataset">
-<h2>4.1 Artificial Dataset<a class="headerlink" href="#artificial-dataset" title="Permalink to this headline">#</a></h2>
+<h2>4.1 Artificial Dataset<a class="headerlink" href="#artificial-dataset" title="Permalink to this heading">#</a></h2>
 <p>We use scikit-learn and <a class="reference external" href="http://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_blobs.html"><code class="docutils literal notranslate"><span class="pre">make_blobs</span></code></a> to generate a binary dataset with input features <span class="math notranslate nohighlight">\(x\in \mathbb{R}^2\)</span> and labels <span class="math notranslate nohighlight">\(y\in \{-1, +1\}\)</span>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -630,19 +529,19 @@ title="Print to PDF"
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f847ea27af0&gt;
 </pre></div>
 </div>
-<img alt="../_images/4_SVM_4_1.png" src="../_images/4_SVM_4_1.png" />
+<img alt="../_images/9460151d768c541068b7652ad6bb53081b1326e36dfedabbe8d4272d8292db58.png" src="../_images/9460151d768c541068b7652ad6bb53081b1326e36dfedabbe8d4272d8292db58.png" />
 </div>
 </div>
 </section>
 <section id="sequential-minimal-optimization-smo">
-<h2>4.2 Sequential Minimal Optimization (SMO)<a class="headerlink" href="#sequential-minimal-optimization-smo" title="Permalink to this headline">#</a></h2>
+<h2>4.2 Sequential Minimal Optimization (SMO)<a class="headerlink" href="#sequential-minimal-optimization-smo" title="Permalink to this heading">#</a></h2>
 <p>This algorithm was originally developed by <a class="reference external" href="http://research.microsoft.com/pubs/69644/tr-98-14.pdf">John Platt in 1998</a> and is optimized for SVM optimization. This algorithm solves the dual problem in a gradient-free manner. It selects two multiplier <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\alpha_j\)</span> and optimizes them while keeping all other <span class="math notranslate nohighlight">\(\alpha\)</span>s constant. And then itertively repeats the procedure over all <span class="math notranslate nohighlight">\(\alpha\)</span>s. The efficiency lies in the heuristic used for selecting two <span class="math notranslate nohighlight">\(\alpha\)</span> values, which is based on information from previous iterations. In the end we obtain a vector of <span class="math notranslate nohighlight">\(M\)</span> values for <span class="math notranslate nohighlight">\(\alpha\)</span> corresponding to each training data point, for which most of the <span class="math notranslate nohighlight">\(\alpha\)</span> values are <span class="math notranslate nohighlight">\(0\)</span> and only the non-zero values contribute to the predictions made by the model.</p>
 <p>We adapt the implementation of the SMO algorithm from <a class="reference external" href="https://jonchar.net/notebooks/SVM/">this</a> reference code by Jon Charest.</p>
 <p><strong>Visualization Utils</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">),</span> <span class="n">levels</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
-    <span class="sd">&quot;&quot;&quot;Plots the model&#39;s decision boundary on the input axes object.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plots the model&#39;s decision boundary on the input axes object.</span>
 <span class="sd">        Range of decision boundary grid is determined by the training data.</span>
 <span class="sd">        Returns decision boundary grid and axes object (`grid`, `ax`).&quot;&quot;&quot;</span>
 
@@ -678,7 +577,7 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SMOModel</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Container object for the model used for sequential minimal optimization.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container object for the model used for sequential minimal optimization.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">alphas</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">X</span> <span class="o">=</span> <span class="n">X</span>               <span class="c1"># training data vector</span>
@@ -704,13 +603,13 @@ title="Print to PDF"
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">linear_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the linear combination of arrays `x` and `y` with</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the linear combination of arrays `x` and `y` with</span>
 <span class="sd">    the optional bias term `b` (set to 1 by default).&quot;&quot;&quot;</span>
 
     <span class="k">return</span> <span class="n">x</span> <span class="o">@</span> <span class="n">y</span><span class="o">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">b</span>  <span class="c1"># Note the @ operator for matrix multiplication</span>
 
 <span class="k">def</span> <span class="nf">gaussian_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the gaussian similarity of arrays `x` and `y` with</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the gaussian similarity of arrays `x` and `y` with</span>
 <span class="sd">    kernel inverse width parameter `gamma` (set to 1 by default).&quot;&quot;&quot;</span>
     
     <span class="c1">######################</span>
@@ -736,7 +635,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Objective function to optimize, i.e. loss function</span>
 
 <span class="k">def</span> <span class="nf">objective_function</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">X_train</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the SVM objective function based in the input model defined by:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the SVM objective function based in the input model defined by:</span>
 <span class="sd">    `alphas`: vector of Lagrange multipliers</span>
 <span class="sd">    `target`: vector of class labels (-1 or 1) for training data</span>
 <span class="sd">    `kernel`: kernel function</span>
@@ -748,7 +647,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 <span class="c1"># Decision function, i.e. forward model evaluation</span>
 
 <span class="k">def</span> <span class="nf">decision_function</span><span class="p">(</span><span class="n">alphas</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Applies the SVM decision function to the input feature vectors in `x_test`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Applies the SVM decision function to the input feature vectors in `x_test`.&quot;&quot;&quot;</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="n">alphas</span> <span class="o">*</span> <span class="n">target</span><span class="p">)</span> <span class="o">@</span> <span class="n">kernel</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">)</span> <span class="o">-</span> <span class="n">b</span>
     <span class="k">return</span> <span class="n">result</span>
@@ -997,7 +896,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4_SVM_21_0.png" src="../_images/4_SVM_21_0.png" />
+<img alt="../_images/36771bdb411ae6d7d005b11a8b01929261fb20bc6cfda988aaaa4efdfbadd1ba.png" src="../_images/36771bdb411ae6d7d005b11a8b01929261fb20bc6cfda988aaaa4efdfbadd1ba.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1013,12 +912,12 @@ The decision function simple imlements <span class="math notranslate nohighlight
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f8476f45970&gt;]
 </pre></div>
 </div>
-<img alt="../_images/4_SVM_22_1.png" src="../_images/4_SVM_22_1.png" />
+<img alt="../_images/55e1f52303a36b8bb33c1718038ffc0aad399abefe2a00525abb9819e0e0087d.png" src="../_images/55e1f52303a36b8bb33c1718038ffc0aad399abefe2a00525abb9819e0e0087d.png" />
 </div>
 </div>
 </section>
 <section id="multiclass-classification-with-svm-and-smo">
-<h2>4.3 Multiclass Classification with SVM and SMO<a class="headerlink" href="#multiclass-classification-with-svm-and-smo" title="Permalink to this headline">#</a></h2>
+<h2>4.3 Multiclass Classification with SVM and SMO<a class="headerlink" href="#multiclass-classification-with-svm-and-smo" title="Permalink to this heading">#</a></h2>
 <p>We look at a problem we have seen before: the classification of the iris dataset. The task is to use two of the measured input features (“sepal_length” and “sepal_width”) and to build a classifier capable of distinguishing among the three possible flowers, which we index by [0, 1, 2].</p>
 <p>Getting the data is equivalent to the process we saw in <a class="reference internal" href="1_linReg_logReg.html"><span class="doc std std-doc">exercise Nr. 1</span></a> in the Logistic Regression section.</p>
 <div class="cell docutils container">
@@ -1145,7 +1044,7 @@ Training data:
 
 
 <span class="k">def</span> <span class="nf">plot_decision_boundary_multiclass</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">ax</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Plots the model&#39;s decision boundary on the input axes object.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plots the model&#39;s decision boundary on the input axes object.</span>
 <span class="sd">        Range of decision boundary grid is determined by the training data.</span>
 <span class="sd">        Returns decision boundary grid and axes object (`grid`, `ax`).&quot;&quot;&quot;</span>
 
@@ -1190,12 +1089,12 @@ Training data:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/4_SVM_26_0.png" src="../_images/4_SVM_26_0.png" />
+<img alt="../_images/e159cd41c4af2871317532d5fbaa893017108dea6958af6dde113e89eebe6bee.png" src="../_images/e159cd41c4af2871317532d5fbaa893017108dea6958af6dde113e89eebe6bee.png" />
 </div>
 </div>
 </section>
 <section id="gradient-descent-optimization-of-soft-margin-classifier">
-<h2>4.4 Gradient Descent Optimization of Soft Margin Classifier<a class="headerlink" href="#gradient-descent-optimization-of-soft-margin-classifier" title="Permalink to this headline">#</a></h2>
+<h2>4.4 Gradient Descent Optimization of Soft Margin Classifier<a class="headerlink" href="#gradient-descent-optimization-of-soft-margin-classifier" title="Permalink to this heading">#</a></h2>
 <p>We can also directly solve the primal problem with gradient-based optimization, if we slightly reformulate it. This reformulation requires using the <a class="reference external" href="https://en.wikipedia.org/wiki/Hinge_loss">hinge loss</a>:</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L}_{hinge}(x) = \max(0, 1-x)\]</div>
@@ -1215,7 +1114,7 @@ Training data:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">visualize_torch</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">linear</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    based on </span>
 <span class="sd">    https://scikit-learn.org/stable/auto_examples/svm/plot_svm_margin.html#sphx-glr-auto-examples-svm-plot-svm-margin-py</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1303,12 +1202,12 @@ Training data:
     
 
 <span class="k">def</span> <span class="nf">hinge_loss</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">out</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Hinge loss&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Hinge loss&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y</span> <span class="o">*</span> <span class="n">out</span><span class="p">,</span> <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
 
 
 <span class="k">def</span> <span class="nf">sq_l2_reg</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Squared L2 regularization of weights&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Squared L2 regularization of weights&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">model</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span><span class="o">.</span><span class="n">square</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -1320,7 +1219,7 @@ Training data:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">PhiRBF</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Something like a Radial Basis Function feature map</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Something like a Radial Basis Function feature map</span>
 <span class="sd">    Lifts the dimension from X.shape[-1] to X.shape[0]&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">gamma</span><span class="p">):</span>
@@ -1454,7 +1353,7 @@ linear.bias :  tensor([-0.0108])
 </div>
 <p>Now, we can train the model.</p>
 <p>We iterate over the data by following these two steps in each epoch:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>randomly permute all indices up to the number of training data points at each epoch.</p></li>
 <li><p>iterate over all batches by picking the samples corresponding to the current subset of indices</p></li>
 </ol>
@@ -2613,7 +2512,7 @@ linear.bias :  tensor([-0.3326])
   plt.contour(cs0, &#39;-&#39;, levels=[0], colors=&#39;r&#39;, linewidth=5)
 </pre></div>
 </div>
-<img alt="../_images/4_SVM_41_1.png" src="../_images/4_SVM_41_1.png" />
+<img alt="../_images/d973409edbb8ed3f9754f4ae3bac4709b93cc8687b7a6e6984a2b244ac7d00d2.png" src="../_images/d973409edbb8ed3f9754f4ae3bac4709b93cc8687b7a6e6984a2b244ac7d00d2.png" />
 </div>
 </div>
 </section>
@@ -2631,7 +2530,7 @@ linear.bias :  tensor([-0.3326])
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./exercise"
         },
         predefinedOutput: true
@@ -2639,50 +2538,104 @@ linear.bias :  tensor([-0.3326])
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="3_optimization.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">3. Optimization</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="3_optimization.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">3. Optimization</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="5_GPs.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="5_GPs.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">5. Gaussian Processes</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#artificial-dataset">4.1 Artificial Dataset</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">4.2 Sequential Minimal Optimization (SMO)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiclass-classification-with-svm-and-smo">4.3 Multiclass Classification with SVM and SMO</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent-optimization-of-soft-margin-classifier">4.4 Gradient Descent Optimization of Soft Margin Classifier</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By N. Adams, L. Paehler, A. Toshev<br/>
-  
-      &copy; Copyright 2022.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By N. Adams, L. Paehler, A. Toshev
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
