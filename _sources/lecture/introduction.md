@@ -8,62 +8,95 @@ Below are a few prime examples of recent flagship algorithms in scientific machi
 
 ### [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2) - predicts 3D protein structure given its sequence:
 
-<div style="text-align:center">
-    <img src="https://media.springernature.com/full/springer-static/image/art%3A10.1038%2Fs41586-021-03819-2/MediaObjects/41586_2021_3819_Fig1_HTML.png?as=webp" alt="drawing" width="500"/>
-</div><br/>
 
+```{figure} ../imgs/intro/alphafold.png
+---
+width: 500px
+align: center
+name: alphafold
+---
+AlphaFold model. (Source:  [Jumper et al., 2021](https://www.nature.com/articles/s41586-021-03819-2))
+```
 
-### [GNS](http://proceedings.mlr.press/v119/sanchez-gonzalez20a/sanchez-gonzalez20a.pdf) - capable of simulating the motion of water particles:
+### [GNS](https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html) - capable of simulating the motion of water particles:
 
-<div style="text-align:center">
-    <img src="https://user-images.githubusercontent.com/544269/88065293-60aaba80-cba7-11ea-8f1e-ce3b30774775.png" alt="drawing" width="500"/>
-</div><br/>
-
+```{figure} ../imgs/intro/gns.png
+---
+width: 500px
+align: center
+name: gns
+---
+GNS model. (Source:  [Sanchez-Gonzalez et al., 2020](https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html))
+```
 
 ### [Codex](https://arxiv.org/abs/2107.03374) - translating natural language to code:
 
-<div style="text-align:center">
-    <img src="https://miro.medium.com/max/720/0*yfxfvwdlLBoGlmyU.gif" alt="drawing" width="500"/>
-</div>
-<br/>
+```{figure} ../imgs/intro/codex.gif
+---
+width: 500px
+align: center
+name: codex
+---
+Codex demo (Source: [openai.com](https://openai.com/blog/openai-codex))
+```
 
 ### [Geometric Deep Learning](https://geometricdeeplearning.com/) 
 Geometric deep learning aims to generalize neural network models to non-Euclidean domains such as graphs and manifolds. Good examples of this line of research include:
 
 #### [SFCNN](https://arxiv.org/abs/1711.07289) - steerable rotation equivariant CNN, e.g. for image segmentation
 
-<div style="text-align:center">
-        <img src="https://i.imgur.com/t7DL28y.png" alt="drawing" width="500"/>
-    <br/>
-    </div>
-    
-    
+```{figure} ../imgs/intro/sfcnn.png
+---
+width: 500px
+align: center
+name: sfcnn
+---
+SFCNN model. (Source: [Weiler et al., 2018](https://arxiv.org/abs/1711.07289))
+``` 
+
 #### [SEGNN](https://arxiv.org/abs/2110.02905) - molecular property prediction model
 
-<div style="text-align:center">
-        <img src="https://i.imgur.com/bbJThJf.png" alt="drawing" width="500"/>
-</div>
-
+```{figure} ../imgs/intro/segnn.png
+---
+width: 500px
+align: center
+name: segnn
+---
+SEGNN model. (Source: [Brandstetter et al., 2022](https://arxiv.org/abs/2110.02905))
+```
 
 ### [Stable Diffusion](https://stability.ai/blog/stable-diffusion-public-release) - generating images from natural text description
 
-<div style="text-align:center">
-    <img src="https://images.squarespace-cdn.com/content/v1/6213c340453c3f502425776e/465cccc6-2a57-48f1-8235-e646b2b39f5b/Stability+AI+Stable+Diffusion+Art.jpg" alt="drawing" width="500"/>
-</div><br/>
+```{figure} ../imgs/intro/stable_diffusion_art.jpg
+---
+width: 500px
+align: center
+name: stablediffusion
+---
+Stable Diffusion art. (Source: [stability.ai](https://stability.ai/blog/stable-diffusion-public-release))
+```
 
-### [Stable Diffusion reconstructing visual experiences from human brain activity](https://sites.google.com/view/stablediffusion-with-brain/?s=09)
+### [Stable Diffusion reconstructing visual experiences from human brain activity](https://www.biorxiv.org/content/10.1101/2022.11.18.517004v3)
 
-<div style="text-align:center">
-    <img src="https://lh6.googleusercontent.com/iPKJ70HPZuBtR7wbhSLrodZ_WdqsuU9BELtA5yRcwpig2itQ8_NAR9sVc8AfHC6l7_o0LxVVxy8Rf_bXK-5afV5pqKxCABTTTQY-2m33D-PJho0_LipJsK0Hz9y9GS34lA=w1280" alt="drawing" width="700"/>
-</div><br/>
+```{figure} ../imgs/intro/stable_diffusion_brain.jpg
+---
+width: 700px
+align: center
+name: stablediffusion_brain
+---
+Stable Diffusion brain signal reconstruction. (Source: [Takagi & Nishimito, 2023](https://sites.google.com/view/stablediffusion-with-brain/?s=09))
+```
 
-### [ImageBind](https://ai.meta.com/blog/imagebind-six-modalities-binding-ai/) - Holistic AI learning across six modalities
+### [ImageBind](https://arxiv.org/abs/2305.05665) - Holistic AI learning across six modalities
 
-<div style="text-align:center">
-    <img src="https://scontent-fra3-1.xx.fbcdn.net/v/t39.2365-6/346043463_232473059401385_3386551006568978005_n.gif?_nc_cat=101&ccb=1-7&_nc_sid=e280be&_nc_ohc=45ud6mUogL4AX9Bjtwa&_nc_ht=scontent-fra3-1.xx&oh=00_AfB2WwBvM5FULVXM7Et8sSvjKP0XJdPx9mxcQi3AN-bnUQ&oe=65474770" alt="drawing" width="600"/>
-</div>
-<br/>
-
+```{figure} ../imgs/intro/imagebind.gif
+---
+width: 600px
+align: center
+name: imagebind
+---
+ImageBind modalities. (Source: [ai.meta.com](https://ai.meta.com/blog/imagebind-six-modalities-binding-ai/))
+```
 
 ## Definition
 
@@ -93,7 +126,7 @@ There exist 3 main types of modern day machine learning:
 
 In supervised learning we have a mapping $f: X \rightarrow Y$, where the inputs $x \in X$ are also called **features**, **covariates**, or **predictors**. The outputs $y \in Y$ are often also called the **labels**, **targets**, or **responses**. The correct mapping is then learned from a **labeled** training set
 
-$$\mathcal{D}_{N} = \left\{ \left( x_{n}, y_{n} \right)_{n=1:N} \right\}$$
+$$\mathcal{D}_{N} = \left\{ \left( x_{n}, y_{n} \right) \right\}_{n=1:N}$$
 
 with $N$ the number of observations. Depending on the type of the response vector $y$, we can then perform either **regression**, or **classification**
 
@@ -103,11 +136,14 @@ with $N$ the number of observations. Depending on the type of the response vecto
 
 In regression, the target $y$ is real-valued, i.e. $y \in \mathbb{R}$
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/sjxzmNa.jpg" alt="drawing" width="600"/>
-</div>
-
-(Source: [Murphy](https://github.com/probml/pml-book))
+```{figure} ../imgs/intro/2d_regression_ex.jpg
+---
+width: 600px
+align: center
+name: 2d_regression_ex
+---
+2D regression example. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+```
 
 Example of a response surface being fitted to a number of data points in 3 dimensions, where in this instance the x- and y-axes are a two-dimensional space, and the z-axis is the temperature in the two-dimensional space.
 
@@ -115,11 +151,14 @@ Example of a response surface being fitted to a number of data points in 3 dimen
 
 In classification the labels $y$ are categorical i.e. $y \in \mathcal{C}$, where $\mathcal{C}$ defines a set of classes.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/DHD5IvI.png" alt="drawing" width="350"/>
-</div>
-
-(Source: [Murphy](https://github.com/probml/pml-book))
+```{figure} ../imgs/intro/iris_classification.png
+---
+width: 350px
+align: center
+name: iris_classification
+---
+Classification example. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+```
 
 Example of flower classification, where we aim to find the decision boundaries which will sort each individual node into the respective class.
 
@@ -128,7 +167,7 @@ Example of flower classification, where we aim to find the decision boundaries w
 
 In unsupervised learning, we only receive a dataset of inputs
 
-$$\mathcal{D}_{N} = \left\{ x_{1:N} \right\}$$
+$$\mathcal{D}_{N} = \left\{ x_{n} \right\}_{n=1:N}$$
 
 without the respective outputs $y_{n}$, i.e. we only have **unlabelled** data.
 
@@ -138,11 +177,14 @@ Two famous examples of unsupervised learning are **clustering** (e.g. k-means) a
 
 #### Clustering of Principal Components
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/PyetOat.png" alt="drawing" width="400"/>
-</div>
-
-(Source: [Data-Driven Science and Engineering](http://databookuw.com))
+```{figure} ../imgs/intro/pca_clustering.png
+---
+width: 400px
+align: center
+name: pca_clustering
+---
+Clustering based on principal components. (Source: [Brunton & Kutz, 2019](http://databookuw.com))
+```
 
 Combining clustering with principal component analysis to show the samples which have cancer in the first three principal component coordinates.
 
@@ -156,21 +198,27 @@ The difference can furthermore be expressed in probabilistic terms, i.e., in sup
 
 In reinforcement learning, an agent sequentially interact with an unknown environment to obtain an interaction trajectory $T$, or a batch thereof. Reinforcement learning then seeks to optimize the way the agent interacts with the environment through its actions $a_{t}$ to maximize for a (cumulative) reward function to obtain an optimal strategy.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/xexKADj.png" alt="drawing" width="500"/>
-</div>
-
-(Source: [lilianweng](https://lilianweng.github.io/posts/2018-02-19-rl-overview/))
+```{figure} ../imgs/intro/rl.png
+---
+width: 500px
+align: center
+name: rl
+---
+Reinforcement learning overview. (Source: [lilianweng](https://lilianweng.github.io/posts/2018-02-19-rl-overview/))
+```
 
 ## Polynomial Curve Fitting
 
 Let's presume we have a simple regression problem, e.g.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/ZU886t2.png" alt="drawing" width="400"/>
-</div>
-
-(Source: [Murphy](https://github.com/probml/pml-book))
+```{figure} ../imgs/cc1/lin_reg_1d.png
+---
+width: 400px
+align: center
+name: lin_reg_1d
+---
+Linear regression example. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+```
 
 Then we have a number of scalar observations ${\bf{x}} = (x_{1}, \ldots, x_{N})$ and targets ${\bf{y}} = (y_{1}, \ldots, y_{N})$. Then the tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function
 
@@ -186,12 +234,14 @@ $$E(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_{n}, \mathbf{w}) - y_{n} \}^
 
 in which we are then optimizing for the value of $w$.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/yfnGi4C.png" alt="drawing" width="400"/>
-</div>
-
-(Source: [Murphy](https://github.com/probml/pml-book))
-
+```{figure} ../imgs/cc1/lin_reg_1d_distances.png
+---
+width: 400px
+align: center
+name: lin_reg_1d_distances
+---
+Linear regression error computation. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+```
 
 To minimize this we then have to take the derivative with respect to the coefficients $\omega_{i}$, i.e.
 
@@ -220,11 +270,14 @@ where $\beta$ corresponds to the inverse variance of the normal distribution $\m
 
 $$p(y|x, \mathbf{w}, \beta)=\prod^{N}_{n=1}\mathcal{N}(y_{n}|y(x_{n},\mathbf{w}), \beta^{-1}).$$
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/RVl2Z8R.png" alt="drawing" width="400"/>
-</div>
-
-(Source: [Bishop](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf))
+```{figure} ../imgs/intro/bayesian_reg_1d.png
+---
+width: 400px
+align: center
+name: bayesian_reg_1d
+---
+Bayesian regression example. (Source: [Bishop, 2006](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf))
+```
 
 Taking the log likelihood we are then able to find the definitions of the optimal parameters
 

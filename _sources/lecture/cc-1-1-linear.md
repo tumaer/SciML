@@ -5,19 +5,25 @@
 Linear regression belongs to the family of **supervised learning** approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be "Given measurement pairs $\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}$, how to fit a line $h(x)$ to best approximate $y$?"
 
 
-<center><img src = "https://i.imgur.com/kCnveaq.png" width = "350">
-<img src = "https://i.imgur.com/pqga0NA.png" width = "350"></center>
-<!-- 
-x = np.linspace(1.0, 5, N)
-X0 = x.reshape(N, 1)
-X = np.c_[np.ones((N, 1)), X0]
-w = np.array([1., 1 / 9.0])
-y = 15 + w[0] * x + w[1] * np.square(x)
-y = y + np.random.normal(0, 1, N)  -->
-
-(Source: adapted from [Murphy](https://github.com/probml/pml-book))
-
-
+``````{admonition} Remember from last lecture?
+`````{grid}
+:gutter: 2
+````{grid-item}
+```{image} ../imgs/cc1/lin_reg_1d.png
+:alt: 2013_FordFusion_CFDTopandSide.png
+:width: 80%
+:align: center
+```
+````
+````{grid-item}
+```{image} ../imgs/cc1/lin_reg_1d_distances.png
+:alt:
+:width: 80%
+:align: center
+```
+````
+`````
+``````
 
 *How does it work?*
 
@@ -177,11 +183,14 @@ Summarizing the differences between regression and classification:
 | $y \in \mathbb{R}$  | $y \in\{0,1\}$ |
 
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/ZIb72vK.png" alt="drawing" width="500"/>
-</div>
-
-(Source: [Murphy](https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb))
+```{figure} ../imgs/cc1/iris_classification_linear.png
+---
+width: 500px
+align: center
+name: iris_classification_linear
+---
+Linear classification example. (Source: [Murphy, 2012](https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb))
+```
 
 To achieve such classification ability we have to introduce a new hypothesis function $h(x)$. A reasonable choice would be to model the probability that $y=1$ given $x$ with a function $h:\mathbb{R}\rightarrow [0,1]$. The logistic regression approach chooses
 
@@ -195,12 +204,14 @@ $$\varphi(x)=\frac{1}{1+e^{-x}}=\frac{1}{2}\left(1+\tanh\frac{x}{2}\right)$$
 
 is the logistic function, also called the sigmoid function. 
 
-
-<div style="text-align:center">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Logistic-curve.svg" alt="drawing" width="400"/>
-</div>
-
-(Source: [Wikipedia](https://en.wikipedia.org/wiki/Sigmoid_function))
+```{figure} ../imgs/cc1/sigmoid.svg
+---
+width: 400px
+align: center
+name: sigmoid
+---
+Sigmoid function. (Source: [Wikipedia](https://en.wikipedia.org/wiki/Sigmoid_function))
+```
 
 The advantage of this function lies in its many nice properties, such as its derivative:
 

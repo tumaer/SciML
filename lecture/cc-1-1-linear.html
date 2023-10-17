@@ -430,16 +430,19 @@ document.write(`
 <section id="linear-regression">
 <h2>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this heading">#</a></h2>
 <p>Linear regression belongs to the family of <strong>supervised learning</strong> approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be “Given measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>, how to fit a line <span class="math notranslate nohighlight">\(h(x)\)</span> to best approximate <span class="math notranslate nohighlight">\(y\)</span>?”</p>
-<center><img src = "https://i.imgur.com/kCnveaq.png" width = "350">
-<img src = "https://i.imgur.com/pqga0NA.png" width = "350"></center>
-<!-- 
-x = np.linspace(1.0, 5, N)
-X0 = x.reshape(N, 1)
-X = np.c_[np.ones((N, 1)), X0]
-w = np.array([1., 1 / 9.0])
-y = 15 + w[0] * x + w[1] * np.square(x)
-y = y + np.random.normal(0, 1, N)  -->
-<p>(Source: adapted from <a class="reference external" href="https://github.com/probml/pml-book">Murphy</a>)</p>
+<div class="admonition-remember-from-last-lecture admonition">
+<p class="admonition-title">Remember from last lecture?</p>
+<div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
+<div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
+<div class="sd-col sd-d-flex-column docutils">
+<a class="reference internal image-reference" href="../_images/lin_reg_1d.png"><img alt="2013_FordFusion_CFDTopandSide.png" class="align-center" src="../_images/lin_reg_1d.png" style="width: 80%;" /></a>
+</div>
+<div class="sd-col sd-d-flex-column docutils">
+<a class="reference internal image-reference" href="../_images/lin_reg_1d_distances.png"><img alt="" class="align-center" src="../_images/lin_reg_1d_distances.png" style="width: 80%;" /></a>
+</div>
+</div>
+</div>
+</div>
 <p><em>How does it work?</em></p>
 <ol class="arabic">
 <li><p>We begin by formulating a hypothesis for the relation between input <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span>, and output <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{p}\)</span>. For conceptual clarity, we will initially set <span class="math notranslate nohighlight">\(p=1\)</span>. Then our hypothesis is represented by</p>
@@ -588,10 +591,12 @@ l(\vartheta)&amp;=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \s
 </tr>
 </tbody>
 </table>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/ZIb72vK.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb">Murphy</a>)</p>
+<figure class="align-center" id="iris-classification-linear">
+<a class="reference internal image-reference" href="../_images/iris_classification_linear.png"><img alt="../_images/iris_classification_linear.png" src="../_images/iris_classification_linear.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Linear classification example. (Source: <a class="reference external" href="https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb">Murphy, 2012</a>)</span><a class="headerlink" href="#iris-classification-linear" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>To achieve such classification ability we have to introduce a new hypothesis function <span class="math notranslate nohighlight">\(h(x)\)</span>. A reasonable choice would be to model the probability that <span class="math notranslate nohighlight">\(y=1\)</span> given <span class="math notranslate nohighlight">\(x\)</span> with a function <span class="math notranslate nohighlight">\(h:\mathbb{R}\rightarrow [0,1]\)</span>. The logistic regression approach chooses</p>
 <div class="math notranslate nohighlight">
 \[
@@ -601,10 +606,12 @@ h(x) = \varphi \left( \vartheta^{\top} x \right) = \frac{1}{1+e^{-\vartheta^{\to
 <div class="math notranslate nohighlight">
 \[\varphi(x)=\frac{1}{1+e^{-x}}=\frac{1}{2}\left(1+\tanh\frac{x}{2}\right)\]</div>
 <p>is the logistic function, also called the sigmoid function.</p>
-<div style="text-align:center">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/Logistic-curve.svg" alt="drawing" width="400"/>
-</div>
-<p>(Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Sigmoid_function">Wikipedia</a>)</p>
+<figure class="align-center" id="sigmoid">
+<a class="reference internal image-reference" href="../_images/sigmoid.svg"><img alt="../_images/sigmoid.svg" src="../_images/sigmoid.svg" width="400px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Sigmoid function. (Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Sigmoid_function">Wikipedia</a>)</span><a class="headerlink" href="#sigmoid" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The advantage of this function lies in its many nice properties, such as its derivative:</p>
 <div class="math notranslate nohighlight">
 \[\varphi^{\prime} (x)=\frac{1}{1+e^{-x}} e^{-x}=\frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right)=\varphi(x)(1-\varphi(x))\]</div>
