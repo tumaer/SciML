@@ -409,6 +409,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">Linear Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">Analytical Solution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic Interpretation</a></li>
 </ul>
 </li>
@@ -430,8 +431,8 @@ document.write(`
 <section id="linear-regression">
 <h2>Linear Regression<a class="headerlink" href="#linear-regression" title="Permalink to this heading">#</a></h2>
 <p>Linear regression belongs to the family of <strong>supervised learning</strong> approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be “Given measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>, how to fit a line <span class="math notranslate nohighlight">\(h(x)\)</span> to best approximate <span class="math notranslate nohighlight">\(y\)</span>?”</p>
-<div class="admonition-remember-from-last-lecture admonition">
-<p class="admonition-title">Remember from last lecture?</p>
+<div class="admonition-do-you-remember-this-from-last-lecture admonition">
+<p class="admonition-title">Do you remember this from last lecture?</p>
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
 <div class="sd-col sd-d-flex-column docutils">
@@ -447,14 +448,14 @@ document.write(`
 <ol class="arabic">
 <li><p>We begin by formulating a hypothesis for the relation between input <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span>, and output <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{p}\)</span>. For conceptual clarity, we will initially set <span class="math notranslate nohighlight">\(p=1\)</span>. Then our hypothesis is represented by</p>
 <div class="math notranslate nohighlight">
-\[h(x)=\vartheta^{\top} x, \quad h \in \mathbb{R}^{p}\]</div>
-<p>as above <span class="math notranslate nohighlight">\(p=1\)</span> in this case, and <span class="math notranslate nohighlight">\(\vartheta \in \mathbb{R}^{n}\)</span> are the parameters of our hypothesis.</p>
+\[h(x)=\vartheta^{\top} x, \quad h \in \mathbb{R} \qquad(\text{more generally, } h \in \mathbb{R}^p),\]</div>
+<p>where <span class="math notranslate nohighlight">\(\vartheta \in \mathbb{R}^{n}\)</span> are the parameters of our hypothesis. To add an offset to this linear model, we could assume that the actual dimension of <span class="math notranslate nohighlight">\(x\)</span> is <span class="math notranslate nohighlight">\(n-1\)</span>, and we add a dummy dimension of ones to <span class="math notranslate nohighlight">\(x\)</span> (see Exercise 1 for more details).</p>
 </li>
 <li><p>Then we need a strategy to fit our hypothesis parameters <span class="math notranslate nohighlight">\(\vartheta\)</span> to the data points we have <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>.</p>
 <ol class="arabic">
 <li><p>Define a suitable cost function <span class="math notranslate nohighlight">\(J\)</span>, which emphasizes the importance of certain traits to the model. I.e. if a certain data area is of special importance to our model we should penalize modeling failures for those points much more heavily than others. A typical choice is the <em>Least Mean Square</em> (LMS) i.e.</p>
 <div class="math notranslate nohighlight">
-\[J(\vartheta)=\frac{1}{2} \sum_{i=1}^{m}\left(h\left(x^{(i)}\right)-y^{(i)}\right)^{2}\]</div>
+\[J(\vartheta)=\frac{1}{2} \sum_{i=1}^{m}\left(h(x^{(i)})-y^{(i)}\right)^{2}\]</div>
 </li>
 <li><p>Through an iterative application of gradient descent (more on this later in the course) find a <span class="math notranslate nohighlight">\(\vartheta\)</span> which minimizes the cost function <span class="math notranslate nohighlight">\(J(\vartheta)\)</span>. If we apply gradient descent, our update function for the hypothesis parameters then takes the following shape</p></li>
 </ol>
@@ -466,47 +467,49 @@ document.write(`
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-\frac{\partial J}{\partial \vartheta_{j}}&amp;=\frac{\partial}{\partial \vartheta_{j}} \frac{1}{2} \sum_{i}\left(h\left(x^{(i)}\right)-y^{(i)}\right)^{2} \\
-&amp;=\underset{i}{\sum} \frac{\partial }{\partial \vartheta_{j}}\left(h\left(x^{(i)}\right)-y^{(i)}\right)  \\
-&amp;=\sum_{i}\left(h\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}.
+\frac{\partial J}{\partial \vartheta_{j}}&amp;=\frac{\partial}{\partial \vartheta_{j}} \frac{1}{2} \sum_{i}\left(h(x^{(i)})-y^{(i)}\right)^{2} \\
+&amp;=\underset{i}{\sum} \left(h(x^{(i)})-y^{(i)}\right) \frac{\partial }{\partial \vartheta_{j}}\left(h(x^{(i)})-y^{(i)}\right)  \\
+&amp;=\sum_{i}\left(h(x^{(i)})-y^{(i)}\right) x_{j}^{(i)}.
 \end{aligned}
 \end{split}\]</div>
-<p>resubstituting the iteration scheme into the update function, we then obtain the formula for <strong>batch gradient descent</strong></p>
+<p>Resubstituting the iteration scheme into the update function, we then obtain the formula for <strong>batch gradient descent</strong></p>
 <div class="math notranslate nohighlight">
-\[\vartheta^{(k+1)}_j=\vartheta^{(k)}_j-\alpha\sum_{i}\left(h^{(k)}\left(x^{(i)}\right)-y^{(i)}\right) x_{j}^{(i)}.\]</div>
-<p>If we choose an alternative update rate and seek to update every hypothesis parameter individually, then we can apply stochastic gradient descent.</p>
-<p>If we now utilize matrix-vector calculus, then we can find the optimal <span class="math notranslate nohighlight">\(\vartheta\)</span> in one shot. To do this we begin by defining our <strong>design matrix <span class="math notranslate nohighlight">\(X\)</span></strong></p>
+\[\vartheta^{(k+1)}_j=\vartheta^{(k)}_j-\alpha\sum_{i=1}^m\left(h^{(k)}(x^{(i)})-y^{(i)}\right) x_{j}^{(i)}, \qquad (\text{for every }j).\]</div>
+<p>We can choose to use randomly drawn subsets of all <span class="math notranslate nohighlight">\(m\)</span> data points at each iteration step, and then we call the method <strong>stochastic gradient descent</strong>.</p>
+<section id="analytical-solution">
+<h3>Analytical Solution<a class="headerlink" href="#analytical-solution" title="Permalink to this heading">#</a></h3>
+<p>If we now utilize matrix-vector calculus, then we can find the optimal <span class="math notranslate nohighlight">\(\vartheta\)</span> in one shot. To do this, we begin by defining our <strong>design matrix <span class="math notranslate nohighlight">\(X\)</span></strong></p>
 <div class="math notranslate nohighlight">
-\[\begin{split}X_{m \times n}=\left[\begin{array}{c}x^{(1) \top }\\ \vdots \\ x^{(i) \top} \\ \vdots \\ x^{(m) \top}\end{array}\right]\end{split}\]</div>
+\[\begin{split}X_{m \times n}=\left[\begin{array}{c}x^{(1) \top }\\ \vdots \\ x^{(i) \top} \\ \vdots \\ x^{(m) \top}\end{array}\right].\end{split}\]</div>
 <p>and then define the feature vector from all samples as</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}Y_{m \times 1}=\left[\begin{array}{c}y^{(1)} \\ \vdots \\ y^{(i)} \\ \vdots \\ y^{(m)}\end{array}\right]\end{split}\]</div>
+\[\begin{split}Y_{m \times 1}=\left[\begin{array}{c}y^{(1)} \\ \vdots \\ y^{(i)} \\ \vdots \\ y^{(m)}\end{array}\right].\end{split}\]</div>
 <p>Connecting the individual pieces we then get the update function as</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\left[\begin{array}{c}
-h\left(x^{(0)}\right)-y^{(1)} \\
+\[\begin{split}X \vartheta _ {n\times 1} -Y = 
+\left[\begin{array}{c}
+h(x^{(0)})-y^{(1)} \\
 \vdots \\
-h\left(x^{(i)}\right)-y^{(i)} \\
+h(x^{(i)})-y^{(i)} \\
 \vdots \\
-h\left(x^{(m)}\right)-y^{(m)}
-\end{array}\right]=X \vartheta _ {n\times 1} -Y\end{split}\]</div>
+h(x^{(m)})-y^{(m)}
+\end{array}\right].\end{split}\]</div>
 <p>According to which, the cost function then becomes</p>
 <div class="math notranslate nohighlight">
 \[J(\vartheta)=\frac{1}{2}(X \vartheta-Y)^{\top}(X \vartheta-Y).\]</div>
-<p>As our cost function <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> is convex, we now only need to check that there exists a minimum i.e.</p>
+<p>As our cost function <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> is <strong>convex</strong>, we now only need to check that there exists a minimum, i.e.</p>
 <div class="math notranslate nohighlight">
 \[\nabla_{\vartheta} J(\vartheta) \stackrel{!}{=} 0.\]</div>
 <p>Computing the derivative</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\begin{align}
 \nabla_{\vartheta} J(\vartheta)&amp;=\frac{1}{2} \nabla_{\vartheta}(X \vartheta-Y)^{\top}(X \vartheta-Y) \\
-&amp; =\frac{1}{2} \nabla_{\vartheta}(\underbrace{\vartheta^{\top} X^{\top} X \vartheta-\vartheta^{\top} X^{\top} Y-Y^{\top} X \vartheta}_{\text {this is in fact a scalar for $p=1$}}+Y^{\top} Y) \quad \operatorname{as} {\nabla}_{\vartheta} Y^{\top} Y=0 \\
-&amp;=\frac{1}{2}\left(2X^{\top} X \vartheta-2 X^{\top} Y\right)
+&amp; =\frac{1}{2} \nabla_{\vartheta}(\underbrace{\vartheta^{\top} X^{\top} X \vartheta-\vartheta^{\top} X^{\top} Y-Y^{\top} X \vartheta}_{\text {this is in fact a scalar for $p=1$}}+Y^{\top} Y)\\
+&amp;=\frac{1}{2}\left(2X^{\top} X \vartheta-2 X^{\top} Y\right)  \qquad (\text{use } {\nabla}_{\vartheta} Y^{\top} Y=0) 
 \\
-&amp;=X^{\top} X \vartheta-X^{\top} Y \stackrel{!}{=} 0
+&amp;=X^{\top} X \vartheta-X^{\top} Y \stackrel{!}{=} 0.
 \end{align}
 \end{split}\]</div>
-<!-- &=\frac{1}{2} \nabla_{\vartheta} \operatorname{tr}(\cdots) -->
 <p>From which follows</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -516,6 +519,7 @@ h\left(x^{(m)}\right)-y^{(m)}
 \Rightarrow &amp;\quad\vartheta=\left(X^{\top}X\right)^{-1}X^{\top}Y
 \end{align}
 \end{split}\]</div>
+<p>How do we know that we are at a minumum and not a miximum? In the case of scalar intput <span class="math notranslate nohighlight">\(x\in\mathbb{R}\)</span>, the second derivative of the error function <span class="math notranslate nohighlight">\(\Delta_{\vartheta}J(\vartheta)\)</span> becomes <span class="math notranslate nohighlight">\(X^2\ge0\)</span>, which guarantees that the extremum is a minimum.</p>
 <p><strong>Exercise: Linear Regression Implementations</strong>
 Implement the three approaches (batch gradient descent, stochastic gradient descent, and the matrix approach) to linear regression and compare their performance.</p>
 <ol class="arabic simple">
@@ -523,53 +527,53 @@ Implement the three approaches (batch gradient descent, stochastic gradient desc
 <li><p>Stochastic Gradient Descent</p></li>
 <li><p>Matrix Approach</p></li>
 </ol>
+</section>
 <section id="probabilistic-interpretation">
 <h3>Probabilistic Interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Permalink to this heading">#</a></h3>
 <p>With much data in practice, having errors over the collected data itself, we want to be able to include a data error in our linear regression. The approach for this is <strong>Maximum Likelihood Estimation</strong> as introduced in the <em>Introduction</em> lecture. I.e. this means data points are modeled as</p>
-<!-- _{\uparrow} -->
 <div class="math notranslate nohighlight">
 \[y^{(i)}=\vartheta^{\top} x^{(i)}+\varepsilon^{(i)}\]</div>
-<p>Presuming that all our data points are <strong>independent, identically distributed (i.i.d)</strong> random variables. The noise is modeled with a normal distribution.</p>
+<p>Presuming that all our data points are <strong>independent, identically distributed (i.i.d)</strong> random variables. The noise is modeled with a normal distribution</p>
 <div class="math notranslate nohighlight">
-\[p\left(\varepsilon^{(i)}\right)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\varepsilon^{(i) 2}}{2 \sigma^{2}}}\]</div>
+\[p(\varepsilon^{(i)})=\frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(-\frac{\varepsilon^{(i) 2}}{2 \sigma^{2}}\right)}.\]</div>
 <blockquote>
 <div><p>While most noise distributions in practice are not normal, the normal (a.k.a. Gaussian) distribution has many nice theoretical properties making it much friendlier for theoretical derivations.</p>
 </div></blockquote>
 <p>Using the data error assumption, we can now derive the probability density function (pdf) for the data</p>
 <div class="math notranslate nohighlight">
-\[p\left(y^{(i)} \mid x^{(i)} ; \vartheta\right)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2\sigma^{2}}}\]</div>
+\[p(y^{(i)} \mid x^{(i)} ; \vartheta)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left({-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2\sigma^{2}}}\right)}\]</div>
 <p>where <span class="math notranslate nohighlight">\(y^{(i)}\)</span> is conditioned on <span class="math notranslate nohighlight">\(x^{(i)}\)</span>. If we now consider not just the individual sample <span class="math notranslate nohighlight">\(i\)</span>, but the entire dataset, we can define the likelihood for our hypothesis parameters as</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{align}
-L(\vartheta) &amp;=p(Y \mid X ; \vartheta)=\prod_{i=1}^{m} p\left(y^{(i)} \mid x^{(i)} ; \vartheta\right)
+L(\vartheta) &amp;=p(Y \mid X ; \vartheta)=\prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)} ; \vartheta)
 \\
-&amp;=\prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\left(y^{(i)}-\vartheta^{T} x^{(i)}\right)^{2}}{2 \sigma^{2}}}
+&amp;=\prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)}
 \end{align}
 \end{split}\]</div>
 <p>The probabilistic strategy to determine the optimal hypothesis parameters <span class="math notranslate nohighlight">\(\vartheta\)</span> is then the maximum likelihood approach for which we resort to the <strong>log-likelihood</strong> as it is monotonically increasing, and easier to optimize for.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
 \begin{aligned}
-l(\vartheta)&amp;=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
-&amp;=\sum_{i=1}^{m} \log \frac{1}{\sqrt{2 \pi \sigma^{2}}} e^{- \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}}\\
+l(\vartheta)&amp;=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)}\\
+&amp;=\sum_{i=1}^{m} \log \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(- \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)}\\
 &amp;=m \log \frac{1}{\sqrt{2 \pi \sigma^{2}}}-\frac{1}{2 \sigma^{2}} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
-&amp;\Rightarrow \vartheta=\operatorname{argmax} l(\vartheta)=\operatorname{argmin} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
+&amp;\Rightarrow \vartheta=\underset{\vartheta}{\arg \max}\; l(\vartheta)=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
 \end{aligned}
 \end{split}\]</div>
 <p><strong>This is the same result as minimizing <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> from before.</strong> Interestingly enough, the Gaussian i.i.d. noise used in the maximum likelihood approach is entirely independent of <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>.</p>
 <blockquote>
-<div><p>Least squares method (LMS), as well as maximum likelihood regression as above are <strong>parametric learning</strong> algorithms.</p>
+<div><p>Least mean squares (<strong>LMS</strong>) method, as well as maximum likelihood regression as above are <strong>parametric learning</strong> algorithms.</p>
 </div></blockquote>
 <blockquote>
 <div><p>If the number of parameters is <strong>not</strong> known beforehand, then the algorithms become <strong>non-parametric</strong> learning algorithms.</p>
 </div></blockquote>
-<p>Can maximum likelihood estimation (MLE) be made more non-parametric? Following intuition the linear MLE, as well as the LMS critically depends on the selection of the features, i.e the dimension of the parameter vector <span class="math notranslate nohighlight">\(\vartheta\)</span>. I.e. when the dimension of <span class="math notranslate nohighlight">\(\vartheta\)</span> is too low we tend to underfit, where we do not capture some of the structure of our data. An approach to cope with the problem of underfitting here is to give more weight to new, unseen data <span class="math notranslate nohighlight">\(x\)</span>. E.g. for x, where we want to estimate y:</p>
+<p>Can maximum likelihood estimation (<strong>MLE</strong>) be made more non-parametric? Following intuition, the linear MLE as well as the LMS critically depend on the selection of the features, i.e the dimension of the parameter vector <span class="math notranslate nohighlight">\(\vartheta\)</span>. I.e. when the dimension of <span class="math notranslate nohighlight">\(\vartheta\)</span> is too low we tend to underfit, where we do not capture some of the structure of our data (more on under- and overfitting in Core Content 2). An approach called locally weighted linear regression (<strong>LWR</strong>) copes with the problem of underfitting by giving more weight to new, unseen query points <span class="math notranslate nohighlight">\(x\)</span>. E.g. for <span class="math notranslate nohighlight">\(x\)</span>, where we want to estimate <span class="math notranslate nohighlight">\(y\)</span> by <span class="math notranslate nohighlight">\(h(x)=\vartheta x\)</span>, we solve</p>
 <div class="math notranslate nohighlight">
-\[\hat{\delta}=\operatorname{argmax} \sum_{i=1}^{m} w^{(i)}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\omega\)</span> is given by</p>
+\[\vartheta=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m} w^{(i)}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2},\]</div>
+<p>where the weights <span class="math notranslate nohighlight">\(\omega\)</span> are given by</p>
 <div class="math notranslate nohighlight">
-\[\omega^{(i)}=e^{-\frac{\left(x^{(i)}-x\right)^{2}}{2 \tau^{2}}}.\]</div>
+\[\omega^{(i)}=\exp{\left(-\frac{\left(x^{(i)}-x\right)^{2}}{2 \tau^{2}}\right)}.\]</div>
 <p>This approach naturally gives more weight to new datapoints in <span class="math notranslate nohighlight">\(x\)</span>. Hence making <span class="math notranslate nohighlight">\(\vartheta\)</span> crucially depend on <span class="math notranslate nohighlight">\(x\)</span>, and making it more non-parametric.</p>
 </section>
 </section>
@@ -597,10 +601,10 @@ l(\vartheta)&amp;=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \s
 <p><span class="caption-number">Fig. 16 </span><span class="caption-text">Linear classification example. (Source: <a class="reference external" href="https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb">Murphy, 2012</a>)</span><a class="headerlink" href="#iris-classification-linear" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>To achieve such classification ability we have to introduce a new hypothesis function <span class="math notranslate nohighlight">\(h(x)\)</span>. A reasonable choice would be to model the probability that <span class="math notranslate nohighlight">\(y=1\)</span> given <span class="math notranslate nohighlight">\(x\)</span> with a function <span class="math notranslate nohighlight">\(h:\mathbb{R}\rightarrow [0,1]\)</span>. The logistic regression approach chooses</p>
+<p>To achieve such classification ability we have to introduce a new hypothesis function <span class="math notranslate nohighlight">\(h(x)\)</span>. A reasonable choice would be to model the probability that <span class="math notranslate nohighlight">\(y=1\)</span> given <span class="math notranslate nohighlight">\(x\)</span> with a function <span class="math notranslate nohighlight">\(h:\mathbb{R}\rightarrow [0,1]\)</span>. In the logistic regression approach</p>
 <div class="math notranslate nohighlight">
 \[
-h(x) = \varphi \left( \vartheta^{\top} x \right) = \frac{1}{1+e^{-\vartheta^{\top} x}}
+h(x) = \varphi ( \vartheta^{\top} x ) = \frac{1}{1+e^{-\vartheta^{\top} x}},
 \]</div>
 <p>where</p>
 <div class="math notranslate nohighlight">
@@ -614,31 +618,31 @@ h(x) = \varphi \left( \vartheta^{\top} x \right) = \frac{1}{1+e^{-\vartheta^{\to
 </figure>
 <p>The advantage of this function lies in its many nice properties, such as its derivative:</p>
 <div class="math notranslate nohighlight">
-\[\varphi^{\prime} (x)=\frac{1}{1+e^{-x}} e^{-x}=\frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right)=\varphi(x)(1-\varphi(x))\]</div>
+\[\varphi^{\prime} (x)=\frac{1}{1+e^{-x}} e^{-x}=\frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right)=\varphi(x)(1-\varphi(x)).\]</div>
 <p>If we now want to apply the <em>Maximum Likelihood Estimation</em> approach, then we need to use our hypothesis to assign probabilities to the discrete events</p>
 <div class="math notranslate nohighlight">
-\[\begin{split}\begin{cases}p(y=1 \mid x ; \vartheta)=h(x) &amp; \\ p(y=0 \mid x ; \vartheta)=1-h(x) &amp;
+\[\begin{split}\begin{cases}p(y=1 \mid x ; \vartheta)=h(x), &amp; \\ p(y=0 \mid x ; \vartheta)=1-h(x). &amp;
 \end{cases}\end{split}\]</div>
-<p>Our probability density function then becomes</p>
+<p>Our probability density function then becomes the Bernoiulli distribution</p>
 <div class="math notranslate nohighlight">
-\[p(y \mid x ; \vartheta)=h^{y}(x)(1-h(x))^{1-y}\]</div>
+\[p(y \mid x ; \vartheta)=h^{y}(x)(1-h(x))^{1-y}.\]</div>
 <blockquote>
 <div><p>This will look quite different for other types of labels, so be cautious in just copying this form of the pdf!</p>
 </div></blockquote>
 <p>With our pdf we can then again construct the likelihood function</p>
 <div class="math notranslate nohighlight">
-\[L(\vartheta) = p(y | x ; \vartheta) =\prod_{i=1}^{m} p\left(y^{(i)} \mid x^{(i)}, \vartheta\right)\]</div>
+\[L(\vartheta) = p(y | x ; \vartheta) =\prod_{i=1}^{m} p\left(y^{(i)} \mid x^{(i)}; \vartheta\right).\]</div>
 <p>Assuming the previously presumed classification buckets, and that the data is i.i.d.</p>
 <div class="math notranslate nohighlight">
 \[
-L(\vartheta)=\prod_{i=1}^{m} h^{y^{(i)}}(x^{(i)})\left(1-h\left(x^{(i)}\right)\right)^{1-y^{(i)}}
+L(\vartheta)=\prod_{i=1}^{m} h^{y^{(i)}}(x^{(i)})\left(1-h(x^{(i)})\right)^{1-y^{(i)}},
 \]</div>
 <p>and then the log-likelihood decomposes to</p>
 <div class="math notranslate nohighlight">
 \[
-l(\vartheta)=\log L(\vartheta)=\sum_{i=1}^{m}\left(y^{(i)} \log h\left(x^{(i)}\right)+\left(1-y^{(i)}\right) \log \left(1-h\left(x^{(i)}\right)\right)\right).
+l(\vartheta)=\log L(\vartheta)=\sum_{i=1}^{m}y^{(i)} \log h(x^{(i)})+(1-y^{(i)}) \log (1-h(x^{(i)})).
 \]</div>
-<p>Again we can find <span class="math notranslate nohighlight">\(\operatorname{argmax} l(\vartheta)\)</span> e.g. by gradient ascent (batch or stochastic):</p>
+<p>Again we can find <span class="math notranslate nohighlight">\(\arg\max l(\vartheta)\)</span> e.g. by gradient ascent (batch or stochastic):</p>
 <div class="math notranslate nohighlight">
 \[\vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\left.\alpha \frac{\partial l(\vartheta)}{\partial \vartheta}\right|^{(k)}\]</div>
 <div class="math notranslate nohighlight">
@@ -648,16 +652,9 @@ l(\vartheta)=\log L(\vartheta)=\sum_{i=1}^{m}\left(y^{(i)} \log h\left(x^{(i)}\r
 &amp;=(y- h(x)) x_j
 \end{align}\end{split}\]</div>
 <div class="math notranslate nohighlight">
-\[\Rightarrow \vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\alpha \left( y^{(i)}-h(x^{(i)}) \right) x_j^{(i)}\]</div>
+\[\Rightarrow \vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\alpha \left( y^{(i)}-h(x^{(i)}) \right) x_j^{(i)},\]</div>
 <p>which we can then solve with either batch gradient descent or stochastic gradient descent.</p>
-<blockquote>
-<div><p>The algorithm formally associated with the least squares method for logistic regression is slightly different!</p>
-</div></blockquote>
-<p>The alternative here is to utilize Newton’s method, which we have encountered before in numerical methods lectures. An application of Newton’s method then looks like the following:</p>
-<div class="math notranslate nohighlight">
-\[\vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}\left(\left.\frac{\partial^{2} \ell}{\partial \vartheta_{i} \partial \vartheta_{j}}\right|^{(k)}\right)^{-1} \frac{\partial l}{\partial \vartheta_{j}}\]</div>
-<p>Newton’s method converges quadratically, and our problem class is sufficiently smooth for Newton’s method to be applicable. The downside to this approach is that we have to compute the inverse Hessian matrix, which is an expensive computational operation.</p>
-<p><strong>Exercise: Vanilla Indicator</strong></p>
+<p><strong>Exercise: Vanilla Indicator (Perceptron)</strong></p>
 <p>Using the “vanilla” indicator function instead of the sigmoid:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -669,8 +666,9 @@ g(x)= \begin{cases}1, &amp; x \geqslant 0 \\ 0, &amp; x&lt;0\end{cases}
 <h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
 <p><strong>Linear &amp; Logistic Regression</strong></p>
 <ul class="simple">
-<li><p>Machine Learning Basics <a class="reference external" href="https://www.youtube.com/watch?v=73RL3WPPFE0&amp;list=PLQ8Y4kIIbzy_OaXv86lfbQwPHSomk2o2e&amp;index=2">video</a> and <a class="reference external" href="https://niessner.github.io/I2DL/slides/2.Linear.pdf">slides</a> from the “Introduction to Deep Learning” course for Informatics students at TUM.</p></li>
+<li><p>Machine Learning Basics <a class="reference external" href="https://www.youtube.com/watch?v=73RL3WPPFE0&amp;list=PLQ8Y4kIIbzy_OaXv86lfbQwPHSomk2o2e&amp;index=2">video</a> and <a class="reference external" href="https://niessner.github.io/I2DL/slides/2.Linear.pdf">slides</a> from I2DL by Matthias Niessner (TUM).</p></li>
 <li><p><a class="reference external" href="https://betanalpha.github.io/assets/case_studies/underdetermined_linear_regression.html">What happens if a linear regression is underdetermined i.e. we have fewer observations than parameters?</a></p></li>
+<li><p><a class="reference external" href="https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf">CS229 Lecture notes</a>, Andrew Ng, Parts I and II</p></li>
 </ul>
 </section>
 </section>
@@ -739,6 +737,7 @@ g(x)= \begin{cases}1, &amp; x \geqslant 0 \\ 0, &amp; x&lt;0\end{cases}
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">Linear Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">Analytical Solution</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">Probabilistic Interpretation</a></li>
 </ul>
 </li>
