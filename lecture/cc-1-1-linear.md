@@ -222,7 +222,7 @@ $$\begin{cases}p(y=1 \mid x ; \vartheta)=h(x), & \\ p(y=0 \mid x ; \vartheta)=1-
 
 Our probability density function then becomes the Bernoiulli distribution
 
-$$p(y \mid x ; \vartheta)=h^{y}(x)(1-h(x))^{1-y}.$$
+$$p(y \mid x ; \vartheta)=\left(h(x)\right)^{y}(1-h(x))^{1-y}.$$
 
 > This will look quite different for other types of labels, so be cautious in just copying this form of the pdf!
 
@@ -233,7 +233,7 @@ $$L(\vartheta) = p(y | x ; \vartheta) =\prod_{i=1}^{m} p\left(y^{(i)} \mid x^{(i
 Assuming the previously presumed classification buckets, and that the data is i.i.d.
 
 $$
-L(\vartheta)=\prod_{i=1}^{m} h^{y^{(i)}}(x^{(i)})\left(1-h(x^{(i)})\right)^{1-y^{(i)}},
+L(\vartheta)=\prod_{i=1}^{m} \left(h(x^{(i)})\right)^{y^{(i)}}\left(1-h(x^{(i)})\right)^{1-y^{(i)}},
 $$
 
 and then the log-likelihood decomposes to
@@ -247,12 +247,12 @@ Again we can find $\arg\max l(\vartheta)$ e.g. by gradient ascent (batch or stoc
 $$\vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\left.\alpha \frac{\partial l(\vartheta)}{\partial \vartheta}\right|^{(k)}$$
 
 $$\begin{align}
-\frac{\partial \ell(\vartheta)}{\partial \vartheta_j} &=\left(y \frac{1}{h(x)}-(1-y) \frac{1}{1-h(x )}\right) \frac{\partial h(x)}{\partial \vartheta_j }\\
-&=\left(\frac{y-h(x)}{h(x)(1-h(x))}\right) h (x)(1-h (x)) x_j\\
-&=(y- h(x)) x_j
+\frac{\partial \ell(\vartheta)}{\partial \vartheta_j} &=\sum_{i=1}^m\left(y^{(i)} \frac{1}{h(x^{(i)})}-(1-y^{(i)}) \frac{1}{1-h(x^{(i)})}\right) \frac{\partial h(x^{(i)})}{\partial \vartheta_j }\\
+&=\sum_{i=1}^m\left(\frac{y^{(i)}-h(x^{(i)})}{h(x^{(i)})(1-h(x^{(i)}))}\right) h (x^{(i)})(1-h (x^{(i)})) x_j^{(i)}\\
+&=\sum_{i=1}^m(y^{(i)}- h(x^{(i)})) x_j^{(i)}
 \end{align}$$
 
-$$\Rightarrow \vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\alpha \left( y^{(i)}-h(x^{(i)}) \right) x_j^{(i)},$$
+$$\Rightarrow \vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\alpha \sum_{i=1}^m\left( y^{(i)}-h^{(k)}(x^{(i)}) \right) x_j^{(i)},$$
 
 which we can then solve with either batch gradient descent or stochastic gradient descent.
 
@@ -271,6 +271,6 @@ derive the update functions for the gradient methods, as well as the Maximum Lik
 
 **Linear & Logistic Regression**
 
+- [CS229 Lecture notes](https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf), Andrew Ng, Parts I and II - main reference
 - Machine Learning Basics [video](https://www.youtube.com/watch?v=73RL3WPPFE0&list=PLQ8Y4kIIbzy_OaXv86lfbQwPHSomk2o2e&index=2) and [slides](https://niessner.github.io/I2DL/slides/2.Linear.pdf) from I2DL by Matthias Niessner (TUM).
 - [What happens if a linear regression is underdetermined i.e. we have fewer observations than parameters?](https://betanalpha.github.io/assets/case_studies/underdetermined_linear_regression.html)
-- [CS229 Lecture notes](https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf), Andrew Ng, Parts I and II
