@@ -1,90 +1,111 @@
-# GMM and MC
+# GMM and MCMC
 
-This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) and Markov chain Monte Carlo (MCMC).
+This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) and some popular sampling methods like Markov Chain Monte Carlo (MCMC).
 
+On a high level, GMMs and MCMC are two complementary approaches:
+- GMMs estimate the density of a given set of samples
+- MCMC generates samples from a given density
+
+
+```{figure} ../imgs/cc1/density_estimation_vs_sampling.png
+---
+width: 500px
+align: center
+name: density_estim_vs_sampling
+---
+Density estimation vs sampling.
+```
+
+But first, we revise Probability Theory.
 
 ## Probability Theory
 
 ### Basic Building Blocks
-- $\Omega$ - sample space: the set of all outcomes of a random experiment.
-- $\mathbb{P}(E)$ - probability measure of an event $E \in \Omega$: a function $\mathbb{P}: \Omega \rightarrow \mathbb{R}$ which satisfies the following three properties:
+- $\Omega$ - *sample space*; the set of all outcomes of a random experiment.
+- $\mathbb{P}(E)$ - *probability measure of an event $E \in \Omega$*; a function $\mathbb{P}: \Omega \rightarrow \mathbb{R}$  satisfies the following three properties:
     - $0 \le \mathbb{P}(E) \le 1 \quad \forall E \in \Omega$
     - $\mathbb{P}(\Omega)=1$
     - $\mathbb{P}(\cup_{i=1}^n E_i) = \sum_{i=1}^n \mathbb{P}(E_i) \;$ for disjoint events ${E_1, ..., E_n}$
-- $\mathbb{P}(A, B)$ - joint probability: probability that both $A$ and $B$ occur simultaneously.
-- $\mathbb{P}(A | B)$ - conditional probability: probability that $A$ occurs, if $B$ has occured.
+- $\mathbb{P}(A, B)$ - *joint probability*; probability that both $A$ and $B$ occur simultaneously.
+- $\mathbb{P}(A | B)$ - *conditional probability*; probability that $A$ occurs, if $B$ has occured.
 - Product rule of probabilities:
     - general case: <br>
 
-    $$\mathbb{P}(A, B) = \mathbb{P}(A | B)\cdot  \mathbb{P}(B) = \mathbb{P}(B | A) \cdot \mathbb{P}(A)$$
+    $$\mathbb{P}(A, B) = \mathbb{P}(A | B)\cdot  \mathbb{P}(B) = \mathbb{P}(B | A) \cdot \mathbb{P}(A)$$ (product_rule_general)
 
     - independent events: <br>
 
-    $$\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$$
+    $$\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$$ (product_rule_indep)
 
 - Sum rule of probabilities: 
 
-$$\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)$$
+$$\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)$$ (sum_rule)
 
 - Bayes rule: solving the general case of the product rule for $\mathbb{P}(A)$ results in:
 
-    $$ \mathbb{P}(B|A) = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\sum_{i=1}^n \mathbb{P}(A|B_i)\mathbb{P}(B_i)}$$
+    $$ \mathbb{P}(B|A) = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\sum_{i=1}^n \mathbb{P}(A|B_i)\mathbb{P}(B_i)}$$ (bayes_rule)
 
-    - $p(B|A)$: posterior
-    - $p(A|B)$: likelihood
-    - $p(B)$: prior
-    - $p(A)$: evidence
+    - $p(B|A)$ - *posterior*
+    - $p(A|B)$ - *likelihood*
+    - $p(B)$ - *prior*
+    - $p(A)$ - *evidence*
     
 ### Random Variables and Their Properties
-- Random variable (r.v.) $X$: a function $X:\Omega \rightarrow \mathbb{R}$. This is the formal way by which we move from abstract events to real-valued numbers. $X$ is essentially a variable that does not have a fixed value, but can have different values with certain probabilities.
+- *Random variable* (r.v.) $X$ is a function $X:\Omega \rightarrow \mathbb{R}$. This is the formal way by which we move from abstract events to real-valued numbers. $X$ is essentially a variable that does not have a fixed value, but can have different values with certain probabilities.
 - Continuous r.v.:
-    - Cumulative distribution function (cdf) $F_X(x)$ - probability that the r.v. $X$ is smaller than some value $x$:
+    - $F_X(x)$ - *Cumulative distribution function* (CDF); probability that the r.v. $X$ is smaller than some value $x$:
     
-    $$F_X(x) = \mathbb{P}(X\le x)$$
+    $$F_X(x) = \mathbb{P}(X\le x)$$ (cdf)
 
-    - Probability density function (pdf) $p_X(x)$:
+    - $p_X(x)$ - *Probability density function* (PDF):
 
-    $$p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1$$
+    $$p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1$$ (pdf)
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/uHHQU4r.png" alt="drawing" width="400"/>
-</div>
+
+
+```{figure} ../imgs/cc1/pdf_cdf.png
+---
+width: 400px
+align: center
+name: pdf_cdf
+---
+PDF and CDF functions.
+```
+
 
 - discrete r.v.:
-    - Probability mass function (pmf) - same as the pdf but for a discrete r.v. $X$. Integrals become sums.
-- $\mu = E[X]$ - mean value or expected value:
+    - *Probability mass function* (PMF) - same as the pdf but for a discrete r.v. $X$. Integrals become sums.
+- $\mu = E[X]$ - *mean value* or *expected value*
 
-$$E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx$$
+$$E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx$$ (mean)
 
-- $\sigma^2 = Var[X]$ - variance:
+- $\sigma^2 = Var[X]$ - *variance*
 
-$$Var[X] = \int_{-\infty}^{+\infty}x^2 \, p_X(x) \, dx = E[(X-\mu)^2]$$
+$$Var[X] = \int_{-\infty}^{+\infty}x^2 \, p_X(x) \, dx = E[(X-\mu)^2]$$ (variance)
 
-- $Cov[X,Y]=E[(X-\mu_X)(Y-\mu_Y)]$
-- Change of variables - if $X \sim p_X$ and $Y=h(X)$, then the distribution of $Y$ becomes:
+- $Cov[X,Y]=E[(X-\mu_X)(Y-\mu_Y)]$ - *covariance*
+- *Change of variables* - if $X \sim p_X$ and $Y=h(X)$, then the distribution of $Y$ becomes:
 
-$$p_Y(y)=\frac{p_X(h^{-1}(y))}{\left|\frac{dh}{dx}\right|}$$ 
+$$p_Y(y)=\frac{p_X(h^{-1}(y))}{\left|\frac{dh}{dx}\right|}$$  (change_of_vars)
 
-### Catalogue of important distributions
+### Catalogue of Important Distributions
 
-- Binomial, $X\in\{0,1,...,n\}$. Describes how often we get $k$ positive outcomes out of $n$ independent experiments. Parameter $\lambda$ is the success probability of each trial.
+- *Binomial*, $X\in\{0,1,...,n\}$. Describes how often we get $k$ positive outcomes out of $n$ independent experiments. Parameter $\lambda$ is the success probability of each trial.
 
-$$\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).$$
+$$\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).$$ (binomial)
 
-- Bernoulli - special case of Binomial with $n=1$.
-- Normal, $X \in \mathbb{R}$.
+- *Bernoulli* - special case of Binomial with $n=1$.
+- *Normal* (aka *Gaussian*), $X \in \mathbb{R}$.
 
-$$p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$
+$$p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$ (gaussian)
 
-- Multivariate Gaussian $\mathcal{N}(\mathbf{\mu}, \mathbf{\Sigma}), \; \mathbf{X}\in \mathbb{R}^n, \; \mathbf{\mu}\in \mathbb{R}^n, \; \mathbb{\Sigma}:\mathbf{n}\times\mathbf{n}$
+- *Multivariate Gaussian* $\mathcal{N}(\mathbf{\mu}, \mathbf{\Sigma})$ of $\mathbf{X}\in \mathbb{R}^n$ with mean $\mathbf{\mu}\in \mathbb{R}^n $ and covariance $\mathbb{\Sigma} \in \mathbb{R}_{+}^{n\times n}$.
 
-$$p_X(x)= \frac{1}{(2\pi)^{n/2}\sqrt{\det (\mathbf{\Sigma})}} \exp \left(-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{\top}\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu}\right),$$
-
-where $\mathbf{\mu}\in \mathbb{R}^n$: mean vector and $\mathbf{\Sigma}$: covariance matrix.
+$$p_X(x)= \frac{1}{(2\pi)^{n/2}\sqrt{\det (\mathbf{\Sigma})}} \exp \left(-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{\top}\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right).$$ (multivariate_gaussian)
 
 ### Exponential Family
 
-The exponential family of distributions is a large family of distributions with shared properties, some of which we have already encountered in other courses before. Prominent members of the exponential family include
+The exponential family of distributions is a large family of distributions with shared properties, some of which we have already encountered in other courses before. Prominent members of the exponential family include:
 
 - Bernoulli
 - Gaussian
@@ -95,14 +116,14 @@ The exponential family of distributions is a large family of distributions with 
 
 At their core, members of the exponential family all fit the same general probability distribution form
 
-$$p(x|\eta) = h(x) \exp \left\{ \eta^{\top} t(x) - a(\eta) \right\}$$
+$$p(x|\eta) = h(x) \exp \left\{ \eta^{\top} t(x) - a(\eta) \right\},$$ (exponential_pdfs)
 
-where the individual components are
+where the individual components are:
 
-- Natural parameter $\eta$
-- Sufficient statistic $t(x)$
-- Probability support measure $h(x)$
-- Log normalizer $a(\eta)$ to guarantee that the probability density integrates to 1.
+- $\eta$ - *natural parameter*
+- $t(x)$ - *sufficient statistic*
+- $h(x)$ - *probability support measure*
+- $a(\eta)$ - *log normalizer*; guarantees that the probability density integrates to 1.
 
 > If you are unfamiliar with the concept of probability measures, then $h(x)$ can safely be disregarded. Conceptually it describes the area in the probability space over which the probability distribution is defined.
 
@@ -112,27 +133,27 @@ where the individual components are
 
 Let's inspect the practical example of the Gaussian distribution to see how the theory translates into practice. Taking the probability density function which we have also previously worked with
 
-$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{(x - \mu)^{2}}{2 \sigma^{2}} \right\}$$
+$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{(x - \mu)^{2}}{2 \sigma^{2}} \right\}.$$ (gaussian_2)
 
 We can then expand the square in the exponent of the Gaussian to isolate the individual components of the exponential family
 
-$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{\mu}{\sigma^{2}}x - \frac{1}{2 \sigma^{2}}x^{2} - \frac{1}{2 \sigma^{2}} \mu^{2} - \log \sigma \right\}$$
+$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{\mu}{\sigma^{2}}x - \frac{1}{2 \sigma^{2}}x^{2} - \frac{1}{2 \sigma^{2}} \mu^{2} - \log \sigma \right\}.$$ (gaussian_expanded)
 
 Then the individual components of the Gaussian are
 
 $$\eta = \langle \frac{\mu}{\sigma^{2}}, - \frac{1}{2 \sigma^{2}} \rangle$$
 $$t(x) = \langle x, x^{2} \rangle$$
 $$a(\eta) = \frac{\mu^{2}}{2 \sigma^{2}} + \log \sigma$$
-$$h(x) = \frac{1}{\sqrt{2 \pi}}$$
+$$h(x) = \frac{1}{\sqrt{2 \pi}}$$ (gaussian_as_exponential)
 
 For the sufficient statistics, we then need to derive the derivative of the log normalizer, i.e 
 
-$$\frac{d}{d\eta}a(\eta) = \mathbb{E}\left[ t(X) \right]$$
+$$\frac{d}{d\eta}a(\eta) = \mathbb{E}\left[ t(X) \right]$$ (gaussian_as_exponential_suff_stats)
 
 Which yields
 
 $$\frac{da(\eta)}{d\eta_{1}} = \mu = \mathbb{E}[X] $$
-$$\frac{da(\eta)}{d\eta_{2}} = \mu = \mathbb{E}[X^{2}] $$
+$$\frac{da(\eta)}{d\eta_{2}} = \sigma^2 - \mu^2 = \mathbb{E}[X^{2}] $$ (gaussian_as_exponential_suff_stats_2)
 
 **Exercise: Exponential Family 1**
 
@@ -144,36 +165,87 @@ Show that the Dirichlet distribution is a member of the exponential family.
 Show that the Bernoulli distribution is a member of the exponential family
 
 
-## GMM
+## Gaussian Mixture Models
+
+Assume that we have a set of measurements $\{x^{(1)}, \dots x^{(m)}\}$. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels. 
+
+Gaussian Mixture Models (GMMs) assume that the data comes from a mixture of $K$ Gaussian distributions in the form
+
+$$p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k),$$ (gmm_model)
+
+with $\pi_k$ called mixing coefficients. We define a K-dimensional r.v. $z$ which satisfies $z\in \{0,1\}$ and $\sum_k z_k=1$ (i.e. with only one of its dimensions being 1, while all others are 0), such that $z_k~\sim \text{Categorical}(\pi_k)$ and $p(z_k=1) = \pi_k$ . For Eq. {eq}`gmm_model` to be valid, the parameters $\{\pi_k\}$ must satisfy $0\le\pi_k\le 1$ and $\sum_k \pi_k=1$.
+
+The marginal distribution of $z$ can be equivalently written as 
+
+$$p(z)=\prod_{k=1}^{K} \pi_k^{z_k},$$ (gmm_marginal_z)
+
+whereas the conditional $p(x|z_k=1) = \mathcal{N}(x|\mu_k, \Sigma_k)$ becomes
+
+$$p(x|z) = \prod_{k=1}^{K}\mathcal{N}(x|\mu_k, \Sigma_k)^{z_k}.$$ (gmm_conditional)
+
+If we then express the distribution of interest $p(x)$ as the marginalized joint distribution, we obtain
+
+$$
+\begin{aligned}
+p(x) &= \sum_z p(x,z) \\
+& = \sum_z p(x|z) p(z) \\
+& = \sum_{k=1}^K \pi_k\mathcal{N}(x| \mu_k, \Sigma_k)
+\end{aligned}
+$$ (gmm_marginalization)
+
+Thus, the unknown parameters are $\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}$. We can write the maximum likelihood of the data as
+
+$$
+\begin{aligned}
+l(x | \pi,\mu,\Sigma) &= \sum_{i=1}^{m}\log p(x^{(i)}|\pi,\mu,\Sigma) \\
+&= \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}
+\end{aligned}$$ (gmm_mle)
+
+However, if we try to analytically solve this problem, we will see that there is no closed form solution. The problem is that we do not know which $z_k$ each of the measurements comes from.
+
+### Expectation-Maximization
 
 
-## MCMC
-
-### Monte Carlo Sampling
-
-To approximate this quantity with Monte Carlo sampling techniques we then need to draw from the posterior $\int f(y|\theta) g(\theta) d\theta$. A process which given enough samples always converges to the true value of the denominator according to the [Monte Carlo theorem](http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf). 
-
-Monte Carlo integration is a fundamental tool first developed by Physicists dealing with the solution of high-dimensional integrals. The main objective is solving integrals like
-
-$$E[h(\mathbf{x})]=\int h(\mathbf{x}) p(\mathbf{x}) d\mathbf{x}, \quad \mathbf{x}\in \mathbb{R}^d$$
-
-with some function of interest $h$ and $\mathbf{x}$ being a r.v.
-
-The approach consists of the following three steps:
-1. Generate i.i.d. random samples $\mathbf{x}^{(i)}\in \mathbb{R}^d, \; i=1,2,...,N$ from the density $p(\mathbf{x})$.
-2. Evaluate $h^{(i)}=h(\mathbf{x}^{(i)}), \; \forall i$.
-3. Approximate
-
-$$E[h(\mathbf{x})]\approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}$$
-
+```{figure} ../imgs/cc1/em_algorithm.png
 ---
+width: 600px
+align: center
+name: em_algorithm
+---
+EM algorithm for a GMM with $k=2$ (Source: [Bishop, 2006](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf), Section 9.2).
+```
 
-Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:
+There is an iterative algorithms that can solve the maximum likelihood problem by alternating between two steps. The algorithm goes as follows:
 
-- Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)
-- Sensitivity analysis of the model becomes easier.
+0. Guess the number of modes $K$
+1. Randomly initialize the means $\mu_k$, covariances $\Sigma_k$, and mixing coefficients $\pi_k$, and evaluate the likelihood
+2. **(E-step)**. Evaluate the weights 
+    $$w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma)$$ (gmm_e_step)
+3. **(M-step)**. Update the parameters by solving the maximum likelihood probelms for fixed $z_k$ values.
+    $$\begin{aligned}
+    \pi_k &:= \frac{1}{m}\sum_{i=1}^m w_k^{(i)} \\
+    \mu_k &:= \frac{\sum_{i=1}^{m} w_k^{(i)}x^{(i)}}{\sum_{i=1}^{m} w_k^{(i)}} \\
+    \Sigma_k &:= \frac{\sum_{i=1}^{m} w_k^{(i)}(x^{(i)}-\mu_k)(x^{(i)}-\mu_k)^{\top}}{\sum_{i=1}^{m} w_k^{(i)}}
+    \end{aligned}
+    $$ (gmm_m_step)
+4. Evaluate the log likelihood 
+    $$l(x | \pi,\mu,\Sigma) = \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}$$ (gmm_lig_likelihood)
+    and check for convergence. If not converged, return to step 2.
 
-#### Acceptance-Rejection Sampling
+In the E-step, we compute the posterior probability of $z^{(i)}_k$ given the data point $x^{(i)}$ and the current $\pi$, $\mu$, $\Sigma$ values as 
+
+$$
+\begin{aligned}
+p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)p(z^{(i)}=k,\pi)}{\sum_{l=1}^K p(x^{(i)}|z^{(i)}=l, \mu, \Sigma)p(z^{(i)}=l,\pi)} \\
+ &= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_K, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
+\end{aligned}$$ (gmm_responsibilities)
+
+The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating the $k$th Gaussian with parameters $\mu_k$ and $\Sigma_k$. And $p(z^{(i)}=k,\pi)$ is just $\pi_k$.
+
+## Sampling Methods
+
+
+### Acceptance-Rejection Sampling
 
 Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. _The acceptance-rejection algorithm is specially made for this scenario._ The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the candidate distribution $g_{0}(\theta)$ has to dominate the posterior distribution, i.e. there must exist an $M$ s.t.
 
@@ -181,10 +253,14 @@ $$M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta$$
 
 Taking an example candidate density for an unscaled target as an example to show the "dominance" of the candidate distribution over the posterior distribution.
 
-<center>
-<img src = "https://i.imgur.com/1xzbFI5.png" width = "450"></center>
-
-(Source, Bolstad _Understanding Computational Bayesian Statistics_)
+```{figure} ../imgs/cc1/acceptance_rejection.png
+---
+width: 450px
+align: center
+name: acceptance_rejection
+---
+Acceptance-rejection algorithm (Source: Bolstad, 2009).
+```
 
 To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:
 
@@ -199,7 +275,7 @@ $$ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \ti
 6. If $u_{i} < w_{i}$ accept $\theta_{i}$
 
 
-#### Sampling-Importance-Resampling / Bayesian Bootstrap
+### Sampling-Importance-Resampling / Bayesian Bootstrap
 
 The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling which has an improved weight-calculation, but most importantly employs a _resampling_ step. This resampling step resamples from the space of parameters. The weight is then calculated as
 
@@ -221,7 +297,7 @@ $$w_{i} = \frac{r_{i}}{\sum r_{i}}$$
 6. Draw $n \leq 0.1 \times N$ random samples with the sampling probabilities given by the importance weights. 
 
 
-#### Adaptive Rejection Sampling
+### Adaptive Rejection Sampling
 
 If we are unable to find a candidate/starting distribution, which dominates the unscaled posterior distribution immediately, then we have to rely on _adaptive rejection sampling_.
 
@@ -229,10 +305,14 @@ If we are unable to find a candidate/starting distribution, which dominates the 
 
 See below for an example of a log-concave distribution.
 
-<center>
-<img src = "https://i.imgur.com/8j4zCVo.png" width = "550"></center>
-
-(Source: Bolstad, _Understanding Computational Bayesian Statistics_)
+```{figure} ../imgs/cc1/adaptive_rejection_sampling.png
+---
+width: 450px
+align: center
+name: adaptive_rejection_sapling
+---
+Adaptive rejection sampling (Source: Bolstad, 2009).
+```
 
 Using the tangent method our algorithm then takes the following form:
 
@@ -242,7 +322,8 @@ Using the tangent method our algorithm then takes the following form:
 4. If rejected, add another exponential piece which is tangent to the target density.
 
 As all three presented sampling approaches have their limitations, practitioners tend to rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.
-#### Markov Chain Monte Carlo
+
+### Markov Chain Monte Carlo
 
 The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples $\{\theta^0, \theta^1, ...,\theta^N\}$ distributed according to the posterior distribution $g(\theta|y)$. This chain evolves according to a transition kernel given by $q(x_{next}|x_{current})$. Let's look at one of the most popular MCMC algorithms: Metropolis Hastings
 
@@ -258,8 +339,7 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
 4. If $\alpha > u$, then $\theta_{current} = \theta'$, else $\theta_{current} = \theta_{current}$
 5. Repeat $N$ times from step 1.
 
-A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm. For more information, refer to [Monte Carlo Statistical Methods](https://link.springer.com/book/10.1007/978-1-4757-4145-2) by Rober & Casella.
-
+A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
 
 --- 
 
@@ -270,3 +350,20 @@ A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\
 - Integral has to be evaluated numerically for which we rely on the just presented Monte Carlo sampling techniques.
 
 ## Further References
+
+**Probability Theory**
+
+- [CS229 Lecture notes](https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf), Andrew Ng, Parts III, "The exponential family"
+
+
+**Gaussian Mixture Models**
+
+- [CS229 Lecture notes](https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf), Andrew Ng, Parts VIII, "Mixtures of Gaussians and the EM algorithm"
+- [Pattern Recognition and Machine Learning](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf), Bishop, 2006,
+Section 9.2
+
+**Markov Chain Monte Carlo**
+
+- [Interactive MCMC visualizations](https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana)
+- [Monte Carlo Statistical Methods](https://link.springer.com/book/10.1007/978-1-4757-4145-2), Rober & Casella, 2004
+

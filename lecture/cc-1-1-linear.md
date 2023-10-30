@@ -223,9 +223,9 @@ If we now want to apply the *Maximum Likelihood Estimation* approach, then we ne
 $$\begin{cases}p(y=1 \mid x ; \vartheta)=h(x), & \\ p(y=0 \mid x ; \vartheta)=1-h(x). &
 \end{cases}$$ (logistic_regression_hypothesis)
 
-Our probability density function then becomes the Bernoiulli distribution
+This probability mass function corresponds to the Bernoiulli distribution and can be equivalently written as
 
-$$p(y \mid x ; \vartheta)=\left(h(x)\right)^{y}(1-h(x))^{1-y}.$$ (logistic_regression_density)
+$$p(y \mid x ; \vartheta)=\left(h(x)\right)^{y}(1-h(x))^{1-y}.$$ (logistic_regression_distribution)
 
 > This will look quite different for other types of labels, so be cautious in just copying this form of the pdf!
 
