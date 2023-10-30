@@ -27,7 +27,31 @@ If we now seek to compute the denominator, then we have to integrate
 
 $$\int f(y|\theta) g(\theta) d\theta.$$
 
-> See previous lecture and MCMC
+
+### Monte Carlo Integration
+To approximate this quantity with Monte Carlo sampling techniques we then need to draw from the posterior $\int f(y|\theta) g(\theta) d\theta$. A process which given enough samples always converges to the true value of the denominator according to the [Monte Carlo theorem](http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf). 
+
+Monte Carlo integration is a fundamental tool first developed by Physicists dealing with the solution of high-dimensional integrals. The main objective is solving integrals like
+
+$$E[h(\mathbf{x})]=\int h(\mathbf{x}) p(\mathbf{x}) d\mathbf{x}, \quad \mathbf{x}\in \mathbb{R}^d$$
+
+with some function of interest $h$ and $\mathbf{x}$ being a r.v.
+
+The approach consists of the following three steps:
+1. Generate i.i.d. random samples $\mathbf{x}^{(i)}\in \mathbb{R}^d, \; i=1,2,...,N$ from the density $p(\mathbf{x})$.
+2. Evaluate $h^{(i)}=h(\mathbf{x}^{(i)}), \; \forall i$.
+3. Approximate
+
+$$E[h(\mathbf{x})]\approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}$$
+
+---
+
+Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:
+
+- Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)
+- Sensitivity analysis of the model becomes easier.
+
+---
 
 In the Bayesian framework, everything centers around the posterior distribution and our ability to relate our previous knowledge with newly gained evidence to the next stage of our belief (of a probability distribution). With the posterior being our entire inference about the parameters given the data there exist multiple inference approaches with their roots in frequentist statistics.
 

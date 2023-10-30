@@ -69,7 +69,7 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Core Content 2: Optimization" href="cc-2-0-optim.html" />
-    <link rel="prev" title="GMM and MC" href="cc-1-2-gmm-mcmc.html" />
+    <link rel="prev" title="GMM and MCMC" href="cc-1-2-gmm-mcmc.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-1-0-basics.html">Core Content 1: Basics</a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">Linear Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mcmc.html">GMM and MC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mcmc.html">GMM and MCMC</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Bayesian methods</a></li>
 </ul>
 </li>
@@ -409,6 +409,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference">Bayesian Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-integration">Monte Carlo Integration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-point-estimation">Bayesian Point Estimation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-interval-estimation">Bayesian Interval Estimation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictive-distribution-of-a-new-observation">Predictive Distribution of a New Observation</a></li>
@@ -458,10 +459,30 @@ document.write(`
 <p>If we now seek to compute the denominator, then we have to integrate</p>
 <div class="math notranslate nohighlight">
 \[\int f(y|\theta) g(\theta) d\theta.\]</div>
-<blockquote>
-<div><p>See previous lecture and MCMC</p>
-</div></blockquote>
+<section id="monte-carlo-integration">
+<h3>Monte Carlo Integration<a class="headerlink" href="#monte-carlo-integration" title="Permalink to this heading">#</a></h3>
+<p>To approximate this quantity with Monte Carlo sampling techniques we then need to draw from the posterior <span class="math notranslate nohighlight">\(\int f(y|\theta) g(\theta) d\theta\)</span>. A process which given enough samples always converges to the true value of the denominator according to the <a class="reference external" href="http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf">Monte Carlo theorem</a>.</p>
+<p>Monte Carlo integration is a fundamental tool first developed by Physicists dealing with the solution of high-dimensional integrals. The main objective is solving integrals like</p>
+<div class="math notranslate nohighlight">
+\[E[h(\mathbf{x})]=\int h(\mathbf{x}) p(\mathbf{x}) d\mathbf{x}, \quad \mathbf{x}\in \mathbb{R}^d\]</div>
+<p>with some function of interest <span class="math notranslate nohighlight">\(h\)</span> and <span class="math notranslate nohighlight">\(\mathbf{x}\)</span> being a r.v.</p>
+<p>The approach consists of the following three steps:</p>
+<ol class="arabic simple">
+<li><p>Generate i.i.d. random samples <span class="math notranslate nohighlight">\(\mathbf{x}^{(i)}\in \mathbb{R}^d, \; i=1,2,...,N\)</span> from the density <span class="math notranslate nohighlight">\(p(\mathbf{x})\)</span>.</p></li>
+<li><p>Evaluate <span class="math notranslate nohighlight">\(h^{(i)}=h(\mathbf{x}^{(i)}), \; \forall i\)</span>.</p></li>
+<li><p>Approximate</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[E[h(\mathbf{x})]\approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}\]</div>
+<hr class="docutils" />
+<p>Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:</p>
+<ul class="simple">
+<li><p>Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)</p></li>
+<li><p>Sensitivity analysis of the model becomes easier.</p></li>
+</ul>
+<hr class="docutils" />
 <p>In the Bayesian framework, everything centers around the posterior distribution and our ability to relate our previous knowledge with newly gained evidence to the next stage of our belief (of a probability distribution). With the posterior being our entire inference about the parameters given the data there exist multiple inference approaches with their roots in frequentist statistics.</p>
+</section>
 <section id="bayesian-point-estimation">
 <h3>Bayesian Point Estimation<a class="headerlink" href="#bayesian-point-estimation" title="Permalink to this heading">#</a></h3>
 <p>Bayesian point estimation chooses a single value to represent the entire posterior distribution. Potential choices here are locations like the posterior mean, and posterior median. For the posterior mean squared error, the posterior mean is then the first moment of the posterior distribution</p>
@@ -630,7 +651,7 @@ There exist a wide number of references to the herein presented Bayesian approac
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">GMM and MC</p>
+        <p class="prev-next-title">GMM and MCMC</p>
       </div>
     </a>
     <a class="right-next"
@@ -658,6 +679,7 @@ There exist a wide number of references to the herein presented Bayesian approac
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference">Bayesian Inference</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#monte-carlo-integration">Monte Carlo Integration</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-point-estimation">Bayesian Point Estimation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-interval-estimation">Bayesian Interval Estimation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictive-distribution-of-a-new-observation">Predictive Distribution of a New Observation</a></li>

@@ -174,7 +174,7 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../lecture/introduction.html">Introduction</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-1-0-basics.html">Core Content 1: Basics</a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-1-linear.html">Linear Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-2-gmm-mcmc.html">GMM and MC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-2-gmm-mcmc.html">GMM and MCMC</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-3-bayes.html">Bayesian methods</a></li>
 </ul>
 </li>
@@ -531,9 +531,10 @@ document.write(`
 <ul class="simple">
 <li><p>Given: given is a set of measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span> and <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p></li>
 <li><p>Question:  if a give you a novel <span class="math notranslate nohighlight">\(x\)</span>, what would be your best guess about its corresponding <span class="math notranslate nohighlight">\(y\)</span> <strong>and how certain are you about it</strong>?</p></li>
-<li><p>Linear regression assumption:
-$<span class="math notranslate nohighlight">\(y \approx h(x) = wx + b + \epsilon\)</span>$</p></li>
+<li><p>Linear regression assumption:</p></li>
 </ul>
+<div class="math notranslate nohighlight">
+\[y \approx h(x) = wx + b + \epsilon\]</div>
 <p>Where we have moved to the more common weights <span class="math notranslate nohighlight">\(w = [\vartheta_1, ..., \vartheta_n]\)</span> and bias <span class="math notranslate nohighlight">\(b=\vartheta_0\)</span> notation. Other than the change of notation, the only difference up until now is the random noise term <span class="math notranslate nohighlight">\(\epsilon\)</span>, which can, in general, originate from any probability distribution. The difference to the maximul likelihood interpretation on the normal linear regression we discussed in <a class="reference external" href="https://github.com/arturtoshev/SciML_22-23/blob/master/1_linReg_logReg.ipynb">Exercise 1</a>, is that here we allow for any distribution in contrast to restricting ourselves to the Gaussian.</p>
 <p>The other novel part is that in the Bayesian setting the parameters of the model (<span class="math notranslate nohighlight">\(w, b\)</span>) are random variables with some prior distribution.</p>
 <p><strong>References</strong></p>
