@@ -167,13 +167,19 @@ Show that the Bernoulli distribution is a member of the exponential family
 
 ## Gaussian Mixture Models
 
-Assume that we have a set of measurements $\{x^{(1)}, \dots x^{(m)}\}$. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels. 
+Assume that we have a set of measurements $\{x^{(1)}, \dots x^{(m)}\}$. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels $y$. 
 
 Gaussian Mixture Models (GMMs) assume that the data comes from a mixture of $K$ Gaussian distributions in the form
 
 $$p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k),$$ (gmm_model)
 
-with $\pi_k$ called mixing coefficients. We define a K-dimensional r.v. $z$ which satisfies $z\in \{0,1\}$ and $\sum_k z_k=1$ (i.e. with only one of its dimensions being 1, while all others are 0), such that $z_k~\sim \text{Categorical}(\pi_k)$ and $p(z_k=1) = \pi_k$ . For Eq. {eq}`gmm_model` to be valid, the parameters $\{\pi_k\}$ must satisfy $0\le\pi_k\le 1$ and $\sum_k \pi_k=1$.
+with 
+
+- $\pi = (\pi_1,...,\pi_k)$ called mixing coefficients, or cluster probabilities,
+- $\mu = (\mu_1,...,\mu_k)$ the cluster means, and
+- $\Sigma = (\Sigma_1,...,\Sigma_k)$ the cluster covariance matrices.
+
+We define a K-dimensional r.v. $z$ which satisfies $z\in \{0,1\}$ and $\sum_k z_k=1$ (i.e. with only one of its dimensions being 1, while all others are 0), such that $z_k~\sim \text{Multinomial}(\pi_k)$ and $p(z_k=1) = \pi_k$ . For Eq. {eq}`gmm_model` to be a valid probability density, the parameters $\{\pi_k\}$ must satisfy $0\le\pi_k\le 1$ and $\sum_k \pi_k=1$.
 
 The marginal distribution of $z$ can be equivalently written as 
 
@@ -193,7 +199,7 @@ p(x) &= \sum_z p(x,z) \\
 \end{aligned}
 $$ (gmm_marginalization)
 
-Thus, the unknown parameters are $\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}$. We can write the maximum likelihood of the data as
+Thus, the unknown parameters are $\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}$. We can write the log likelihood of the data as
 
 $$
 \begin{aligned}
@@ -204,7 +210,6 @@ l(x | \pi,\mu,\Sigma) &= \sum_{i=1}^{m}\log p(x^{(i)}|\pi,\mu,\Sigma) \\
 However, if we try to analytically solve this problem, we will see that there is no closed form solution. The problem is that we do not know which $z_k$ each of the measurements comes from.
 
 ### Expectation-Maximization
-
 
 ```{figure} ../imgs/cc1/em_algorithm.png
 ---
@@ -219,8 +224,8 @@ There is an iterative algorithms that can solve the maximum likelihood problem b
 
 0. Guess the number of modes $K$
 1. Randomly initialize the means $\mu_k$, covariances $\Sigma_k$, and mixing coefficients $\pi_k$, and evaluate the likelihood
-2. **(E-step)**. Evaluate the weights 
-    $$w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma)$$ (gmm_e_step)
+2. **(E-step)**. Evaluate $\omega_k^{(i)}$ assuming constant $\pi, \mu, \Sigma$ (see expression after the algorithm)
+    $$w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma).$$ (gmm_e_step)
 3. **(M-step)**. Update the parameters by solving the maximum likelihood probelms for fixed $z_k$ values.
     $$\begin{aligned}
     \pi_k &:= \frac{1}{m}\sum_{i=1}^m w_k^{(i)} \\
@@ -240,16 +245,40 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)p
  &= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_K, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
 \end{aligned}$$ (gmm_responsibilities)
 
-The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating the $k$th Gaussian with parameters $\mu_k$ and $\Sigma_k$. And $p(z^{(i)}=k,\pi)$ is just $\pi_k$.
+The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating the $k$th Gaussian with parameters $\mu_k$ and $\Sigma_k$. And $p(z^{(i)}=k,\pi)$ is just $\pi_k$. 
+
+**Exercise: derive the M-step update equations following the maximum likelihood approach.**
+
+> Hint: look at [Bishop, 2006](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf), Section 9.2. 
+
+### Applications and Limitations
+
+Once we have fitted a GMM on $p(x)$, we can use it for:
+
+1. Density estimation: by evaluate the probability $p(\tilde{x})$ of any new point $\tilde{x}$, we can say how probable it is that this point comes from the same distribution as the training data.
+2. Clustering: so far we have talked about density estimation, but GMMs are typically used for clustering. Given a new query point $\tilde{x}$, we can evaluate each of the $K$ Gaussians and scale their probability by the respective $\pi_k$. These will be the probabilities of $\tilde{x}$ to be part of cluster $k$.
+
+Most limitations of this approach arive from the assumption that the indivudual clusters follow the Gaussian distribution:
+
+- If the data does not follow a Gaussian distribution, e.g. heavy-tailed ditribution with outliers, then too much weight will be given to the outliers
+- If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.
+- The choice of $K$ is crucial and this parameters need to be optimized in a outer loop.
+- GMMs do now scale well to high dimensions.
+
 
 ## Sampling Methods
 
+The opposite process to density estimation is sampling. Here, we will look at the general case of an unnormalized ($\int_{\Omega}p(\cdot)\ne 1$) *target distribution*
+
+$$p(y,\theta) = g(\theta)f(y|\theta).$$ (target_density)
+
+The task we will be trying to solve here is how to generate samples from this distribution. How these samples are useful and why we choose this particular form of a target distribution will be the topic of next week's lecture.
 
 ### Acceptance-Rejection Sampling
 
-Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. _The acceptance-rejection algorithm is specially made for this scenario._ The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the candidate distribution $g_{0}(\theta)$ has to dominate the posterior distribution, i.e. there must exist an $M$ s.t.
+Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. _The acceptance-rejection algorithm is specially made for this scenario._ The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the *candidate distribution* $g_{0}(\theta)$ has to dominate the posterior distribution, i.e. there must exist an $M$ s.t.
 
-$$M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta$$
+$$M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta$$ (acceptance_rejection)
 
 Taking an example candidate density for an unscaled target as an example to show the "dominance" of the candidate distribution over the posterior distribution.
 
@@ -259,7 +288,7 @@ width: 450px
 align: center
 name: acceptance_rejection
 ---
-Acceptance-rejection algorithm (Source: Bolstad, 2009).
+Acceptance-rejection candidate and target distributions (Source: Bolstad, 2009).
 ```
 
 To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:
@@ -269,7 +298,7 @@ To then apply acceptance-rejection sampling to the posterior distribution we can
 3. Calculate the candidate density at each random sample, and multiply by $M$.
 4. Compute the weights for each random sample
 
-$$ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}$$
+$$ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}$$ (acceptance_rejection_weights)
 
 5. Draw $N$ samples from the $U(0, 1)$ uniform distribution.
 6. If $u_{i} < w_{i}$ accept $\theta_{i}$
@@ -279,7 +308,7 @@ $$ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \ti
 
 The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling which has an improved weight-calculation, but most importantly employs a _resampling_ step. This resampling step resamples from the space of parameters. The weight is then calculated as
 
-$$w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)} $$
+$$w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)} $$ (sampling_importance_resampling_weights)
 
 The algorithm to sample from the posterior distribution is then:
 
@@ -288,11 +317,11 @@ The algorithm to sample from the posterior distribution is then:
 3. Calculate the starting density at each random sample, and multiply by $M$.
 4. Calculate the ratio of the unscaled posterior to the starting distribution
 
-$$r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}$$
+$$r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}$$ (sampling_importance_resampling_weights_r)
 
 5. Calculate the importance weights
 
-$$w_{i} = \frac{r_{i}}{\sum r_{i}}$$
+$$w_{i} = \frac{r_{i}}{\sum r_{i}}$$ (sampling_importance_resampling_weights_w)
 
 6. Draw $n \leq 0.1 \times N$ random samples with the sampling probabilities given by the importance weights. 
 
@@ -311,21 +340,21 @@ width: 450px
 align: center
 name: adaptive_rejection_sapling
 ---
-Adaptive rejection sampling (Source: Bolstad, 2009).
+(Not) log-concave function (Source: Bolstad, 2009).
 ```
 
-Using the tangent method our algorithm then takes the following form:
+Using the tangent method, our algorithm then takes the following form:
 
 1. Construct an upper bound from piecewise exponential functions, which dominate the log-concave unscaled posterior
 2. With the envelope giving us the initial candidate density we draw $N$ random samples
 3. Rejection sampling, see the preceding two subsections for details.
 4. If rejected, add another exponential piece which is tangent to the target density.
 
-As all three presented sampling approaches have their limitations, practitioners tend to rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.
+> As all three presented sampling approaches have their limitations, practitioners often rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.
 
 ### Markov Chain Monte Carlo
 
-The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples $\{\theta^0, \theta^1, ...,\theta^N\}$ distributed according to the posterior distribution $g(\theta|y)$. This chain evolves according to a transition kernel given by $q(x_{next}|x_{current})$. Let's look at one of the most popular MCMC algorithms: Metropolis Hastings
+The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples $\{\theta^0, \theta^1, ...,\theta^N\}$ distributed according to the posterior distribution $g(\theta|y) \propto g(\theta)f(y|\theta)$. This chain evolves according to a transition kernel given by $q(x_{next}|x_{current})$. Let's look at one of the most popular MCMC algorithms: Metropolis Hastings
 
 **Metropolis-Hastings**
 
@@ -333,13 +362,22 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
 
 0. Start at an initial point $\theta_{current} = \theta^0$.
 1. Sample $\theta' \sim q(\theta_{next}|\theta_{current})$
-2. Compute 
+2. Compute the ecceptance probability
     $$\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}$$
 3. Sample $u\sim \text{Uniform}(0,1)$
 4. If $\alpha > u$, then $\theta_{current} = \theta'$, else $\theta_{current} = \theta_{current}$
 5. Repeat $N$ times from step 1.
 
 A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
+
+```{figure} ../imgs/cc1/metropolis_hastings.png
+---
+width: 450px
+align: center
+name: metropolis_hastings
+---
+Metropolis-Hastings trajectory (Source: [relguzman.blogpost.com](https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html)).
+```
 
 --- 
 
