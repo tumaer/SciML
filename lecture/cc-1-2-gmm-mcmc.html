@@ -417,6 +417,7 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">Gaussian Mixture Models</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization">Expectation-Maximization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-and-limitations">Applications and Limitations</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-methods">Sampling Methods</a><ul class="nav section-nav flex-column">
@@ -620,11 +621,17 @@ document.write(`
 </section>
 <section id="gaussian-mixture-models">
 <h2>Gaussian Mixture Models<a class="headerlink" href="#gaussian-mixture-models" title="Permalink to this heading">#</a></h2>
-<p>Assume that we have a set of measurements <span class="math notranslate nohighlight">\(\{x^{(1)}, \dots x^{(m)}\}\)</span>. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels.</p>
+<p>Assume that we have a set of measurements <span class="math notranslate nohighlight">\(\{x^{(1)}, \dots x^{(m)}\}\)</span>. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <p>Gaussian Mixture Models (GMMs) assume that the data comes from a mixture of <span class="math notranslate nohighlight">\(K\)</span> Gaussian distributions in the form</p>
 <div class="math notranslate nohighlight" id="equation-gmm-model">
 <span class="eqno">(51)<a class="headerlink" href="#equation-gmm-model" title="Permalink to this equation">#</a></span>\[p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k),\]</div>
-<p>with <span class="math notranslate nohighlight">\(\pi_k\)</span> called mixing coefficients. We define a K-dimensional r.v. <span class="math notranslate nohighlight">\(z\)</span> which satisfies <span class="math notranslate nohighlight">\(z\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\sum_k z_k=1\)</span> (i.e. with only one of its dimensions being 1, while all others are 0), such that <span class="math notranslate nohighlight">\(z_k~\sim \text{Categorical}(\pi_k)\)</span> and <span class="math notranslate nohighlight">\(p(z_k=1) = \pi_k\)</span> . For Eq. <a class="reference internal" href="#equation-gmm-model">(51)</a> to be valid, the parameters <span class="math notranslate nohighlight">\(\{\pi_k\}\)</span> must satisfy <span class="math notranslate nohighlight">\(0\le\pi_k\le 1\)</span> and <span class="math notranslate nohighlight">\(\sum_k \pi_k=1\)</span>.</p>
+<p>with</p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\pi = (\pi_1,...,\pi_k)\)</span> called mixing coefficients, or cluster probabilities,</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu = (\mu_1,...,\mu_k)\)</span> the cluster means, and</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma = (\Sigma_1,...,\Sigma_k)\)</span> the cluster covariance matrices.</p></li>
+</ul>
+<p>We define a K-dimensional r.v. <span class="math notranslate nohighlight">\(z\)</span> which satisfies <span class="math notranslate nohighlight">\(z\in \{0,1\}\)</span> and <span class="math notranslate nohighlight">\(\sum_k z_k=1\)</span> (i.e. with only one of its dimensions being 1, while all others are 0), such that <span class="math notranslate nohighlight">\(z_k~\sim \text{Multinomial}(\pi_k)\)</span> and <span class="math notranslate nohighlight">\(p(z_k=1) = \pi_k\)</span> . For Eq. <a class="reference internal" href="#equation-gmm-model">(51)</a> to be a valid probability density, the parameters <span class="math notranslate nohighlight">\(\{\pi_k\}\)</span> must satisfy <span class="math notranslate nohighlight">\(0\le\pi_k\le 1\)</span> and <span class="math notranslate nohighlight">\(\sum_k \pi_k=1\)</span>.</p>
 <p>The marginal distribution of <span class="math notranslate nohighlight">\(z\)</span> can be equivalently written as</p>
 <div class="math notranslate nohighlight" id="equation-gmm-marginal-z">
 <span class="eqno">(52)<a class="headerlink" href="#equation-gmm-marginal-z" title="Permalink to this equation">#</a></span>\[p(z)=\prod_{k=1}^{K} \pi_k^{z_k},\]</div>
@@ -640,7 +647,7 @@ p(x) &amp;= \sum_z p(x,z) \\
 &amp; = \sum_{k=1}^K \pi_k\mathcal{N}(x| \mu_k, \Sigma_k)
 \end{aligned}
 \end{split}\]</div>
-<p>Thus, the unknown parameters are <span class="math notranslate nohighlight">\(\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}\)</span>. We can write the maximum likelihood of the data as</p>
+<p>Thus, the unknown parameters are <span class="math notranslate nohighlight">\(\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}\)</span>. We can write the log likelihood of the data as</p>
 <div class="math notranslate nohighlight" id="equation-gmm-mle">
 <span class="eqno">(55)<a class="headerlink" href="#equation-gmm-mle" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
@@ -660,8 +667,8 @@ l(x | \pi,\mu,\Sigma) &amp;= \sum_{i=1}^{m}\log p(x^{(i)}|\pi,\mu,\Sigma) \\
 <ol class="arabic simple" start="0">
 <li><p>Guess the number of modes <span class="math notranslate nohighlight">\(K\)</span></p></li>
 <li><p>Randomly initialize the means <span class="math notranslate nohighlight">\(\mu_k\)</span>, covariances <span class="math notranslate nohighlight">\(\Sigma_k\)</span>, and mixing coefficients <span class="math notranslate nohighlight">\(\pi_k\)</span>, and evaluate the likelihood</p></li>
-<li><p><strong>(E-step)</strong>. Evaluate the weights
-$<span class="math notranslate nohighlight">\(w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma)\)</span>$ (gmm_e_step)</p></li>
+<li><p><strong>(E-step)</strong>. Evaluate <span class="math notranslate nohighlight">\(\omega_k^{(i)}\)</span> assuming constant <span class="math notranslate nohighlight">\(\pi, \mu, \Sigma\)</span> (see expression after the algorithm)
+$<span class="math notranslate nohighlight">\(w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma).\)</span>$ (gmm_e_step)</p></li>
 <li><p><strong>(M-step)</strong>. Update the parameters by solving the maximum likelihood probelms for fixed <span class="math notranslate nohighlight">\(z_k\)</span> values.
 $<span class="math notranslate nohighlight">\(\begin{aligned}
  \pi_k &amp;:= \frac{1}{m}\sum_{i=1}^m w_k^{(i)} \\
@@ -681,20 +688,43 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
  &amp;= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_K, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
 \end{aligned}\end{split}\]</div>
 <p>The values of <span class="math notranslate nohighlight">\(p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)\)</span> can be computed by evaluating the <span class="math notranslate nohighlight">\(k\)</span>th Gaussian with parameters <span class="math notranslate nohighlight">\(\mu_k\)</span> and <span class="math notranslate nohighlight">\(\Sigma_k\)</span>. And <span class="math notranslate nohighlight">\(p(z^{(i)}=k,\pi)\)</span> is just <span class="math notranslate nohighlight">\(\pi_k\)</span>.</p>
+<p><strong>Exercise: derive the M-step update equations following the maximum likelihood approach.</strong></p>
+<blockquote>
+<div><p>Hint: look at <a class="reference external" href="https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Bishop, 2006</a>, Section 9.2.</p>
+</div></blockquote>
+</section>
+<section id="applications-and-limitations">
+<h3>Applications and Limitations<a class="headerlink" href="#applications-and-limitations" title="Permalink to this heading">#</a></h3>
+<p>Once we have fitted a GMM on <span class="math notranslate nohighlight">\(p(x)\)</span>, we can use it for:</p>
+<ol class="arabic simple">
+<li><p>Density estimation: by evaluate the probability <span class="math notranslate nohighlight">\(p(\tilde{x})\)</span> of any new point <span class="math notranslate nohighlight">\(\tilde{x}\)</span>, we can say how probable it is that this point comes from the same distribution as the training data.</p></li>
+<li><p>Clustering: so far we have talked about density estimation, but GMMs are typically used for clustering. Given a new query point <span class="math notranslate nohighlight">\(\tilde{x}\)</span>, we can evaluate each of the <span class="math notranslate nohighlight">\(K\)</span> Gaussians and scale their probability by the respective <span class="math notranslate nohighlight">\(\pi_k\)</span>. These will be the probabilities of <span class="math notranslate nohighlight">\(\tilde{x}\)</span> to be part of cluster <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
+</ol>
+<p>Most limitations of this approach arive from the assumption that the indivudual clusters follow the Gaussian distribution:</p>
+<ul class="simple">
+<li><p>If the data does not follow a Gaussian distribution, e.g. heavy-tailed ditribution with outliers, then too much weight will be given to the outliers</p></li>
+<li><p>If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.</p></li>
+<li><p>The choice of <span class="math notranslate nohighlight">\(K\)</span> is crucial and this parameters need to be optimized in a outer loop.</p></li>
+<li><p>GMMs do now scale well to high dimensions.</p></li>
+</ul>
 </section>
 </section>
 <section id="sampling-methods">
 <h2>Sampling Methods<a class="headerlink" href="#sampling-methods" title="Permalink to this heading">#</a></h2>
+<p>The opposite process to density estimation is sampling. Here, we will look at the general case of an unnormalized (<span class="math notranslate nohighlight">\(\int_{\Omega}p(\cdot)\ne 1\)</span>) <em>target distribution</em></p>
+<div class="math notranslate nohighlight" id="equation-target-density">
+<span class="eqno">(57)<a class="headerlink" href="#equation-target-density" title="Permalink to this equation">#</a></span>\[p(y,\theta) = g(\theta)f(y|\theta).\]</div>
+<p>The task we will be trying to solve here is how to generate samples from this distribution. How these samples are useful and why we choose this particular form of a target distribution will be the topic of next week’s lecture.</p>
 <section id="acceptance-rejection-sampling">
 <h3>Acceptance-Rejection Sampling<a class="headerlink" href="#acceptance-rejection-sampling" title="Permalink to this heading">#</a></h3>
-<p>Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. <em>The acceptance-rejection algorithm is specially made for this scenario.</em> The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the candidate distribution <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span> has to dominate the posterior distribution, i.e. there must exist an <span class="math notranslate nohighlight">\(M\)</span> s.t.</p>
-<div class="math notranslate nohighlight">
-\[M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta\]</div>
+<p>Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. <em>The acceptance-rejection algorithm is specially made for this scenario.</em> The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the <em>candidate distribution</em> <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span> has to dominate the posterior distribution, i.e. there must exist an <span class="math notranslate nohighlight">\(M\)</span> s.t.</p>
+<div class="math notranslate nohighlight" id="equation-acceptance-rejection">
+<span class="eqno">(58)<a class="headerlink" href="#equation-acceptance-rejection" title="Permalink to this equation">#</a></span>\[M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta\]</div>
 <p>Taking an example candidate density for an unscaled target as an example to show the “dominance” of the candidate distribution over the posterior distribution.</p>
 <figure class="align-center" id="acceptance-rejection">
 <a class="reference internal image-reference" href="../_images/acceptance_rejection.png"><img alt="../_images/acceptance_rejection.png" src="../_images/acceptance_rejection.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Acceptance-rejection algorithm (Source: Bolstad, 2009).</span><a class="headerlink" href="#acceptance-rejection" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 21 </span><span class="caption-text">Acceptance-rejection candidate and target distributions (Source: Bolstad, 2009).</span><a class="headerlink" href="#acceptance-rejection" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:</p>
@@ -704,8 +734,8 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 <li><p>Calculate the candidate density at each random sample, and multiply by <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
 <li><p>Compute the weights for each random sample</p></li>
 </ol>
-<div class="math notranslate nohighlight">
-\[ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}\]</div>
+<div class="math notranslate nohighlight" id="equation-acceptance-rejection-weights">
+<span class="eqno">(59)<a class="headerlink" href="#equation-acceptance-rejection-weights" title="Permalink to this equation">#</a></span>\[ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}\]</div>
 <ol class="arabic simple" start="5">
 <li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> samples from the <span class="math notranslate nohighlight">\(U(0, 1)\)</span> uniform distribution.</p></li>
 <li><p>If <span class="math notranslate nohighlight">\(u_{i} &lt; w_{i}\)</span> accept <span class="math notranslate nohighlight">\(\theta_{i}\)</span></p></li>
@@ -714,8 +744,8 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 <section id="sampling-importance-resampling-bayesian-bootstrap">
 <h3>Sampling-Importance-Resampling / Bayesian Bootstrap<a class="headerlink" href="#sampling-importance-resampling-bayesian-bootstrap" title="Permalink to this heading">#</a></h3>
 <p>The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling which has an improved weight-calculation, but most importantly employs a <em>resampling</em> step. This resampling step resamples from the space of parameters. The weight is then calculated as</p>
-<div class="math notranslate nohighlight">
-\[w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)} \]</div>
+<div class="math notranslate nohighlight" id="equation-sampling-importance-resampling-weights">
+<span class="eqno">(60)<a class="headerlink" href="#equation-sampling-importance-resampling-weights" title="Permalink to this equation">#</a></span>\[w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)} \]</div>
 <p>The algorithm to sample from the posterior distribution is then:</p>
 <ol class="arabic simple">
 <li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> random samples <span class="math notranslate nohighlight">\(\theta_{i}\)</span> from the starting density <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span></p></li>
@@ -723,13 +753,13 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 <li><p>Calculate the starting density at each random sample, and multiply by <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
 <li><p>Calculate the ratio of the unscaled posterior to the starting distribution</p></li>
 </ol>
-<div class="math notranslate nohighlight">
-\[r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}\]</div>
+<div class="math notranslate nohighlight" id="equation-sampling-importance-resampling-weights-r">
+<span class="eqno">(61)<a class="headerlink" href="#equation-sampling-importance-resampling-weights-r" title="Permalink to this equation">#</a></span>\[r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}\]</div>
 <ol class="arabic simple" start="5">
 <li><p>Calculate the importance weights</p></li>
 </ol>
-<div class="math notranslate nohighlight">
-\[w_{i} = \frac{r_{i}}{\sum r_{i}}\]</div>
+<div class="math notranslate nohighlight" id="equation-sampling-importance-resampling-weights-w">
+<span class="eqno">(62)<a class="headerlink" href="#equation-sampling-importance-resampling-weights-w" title="Permalink to this equation">#</a></span>\[w_{i} = \frac{r_{i}}{\sum r_{i}}\]</div>
 <ol class="arabic simple" start="6">
 <li><p>Draw <span class="math notranslate nohighlight">\(n \leq 0.1 \times N\)</span> random samples with the sampling probabilities given by the importance weights.</p></li>
 </ol>
@@ -744,33 +774,41 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 <figure class="align-center" id="adaptive-rejection-sapling">
 <a class="reference internal image-reference" href="../_images/adaptive_rejection_sampling.png"><img alt="../_images/adaptive_rejection_sampling.png" src="../_images/adaptive_rejection_sampling.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 22 </span><span class="caption-text">Adaptive rejection sampling (Source: Bolstad, 2009).</span><a class="headerlink" href="#adaptive-rejection-sapling" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 22 </span><span class="caption-text">(Not) log-concave function (Source: Bolstad, 2009).</span><a class="headerlink" href="#adaptive-rejection-sapling" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Using the tangent method our algorithm then takes the following form:</p>
+<p>Using the tangent method, our algorithm then takes the following form:</p>
 <ol class="arabic simple">
 <li><p>Construct an upper bound from piecewise exponential functions, which dominate the log-concave unscaled posterior</p></li>
 <li><p>With the envelope giving us the initial candidate density we draw <span class="math notranslate nohighlight">\(N\)</span> random samples</p></li>
 <li><p>Rejection sampling, see the preceding two subsections for details.</p></li>
 <li><p>If rejected, add another exponential piece which is tangent to the target density.</p></li>
 </ol>
-<p>As all three presented sampling approaches have their limitations, practitioners tend to rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.</p>
+<blockquote>
+<div><p>As all three presented sampling approaches have their limitations, practitioners often rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.</p>
+</div></blockquote>
 </section>
 <section id="markov-chain-monte-carlo">
 <h3>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="Permalink to this heading">#</a></h3>
-<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(x_{next}|x_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
+<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(x_{next}|x_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
 <p><strong>Metropolis-Hastings</strong></p>
 <p>The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This is done by following the algorithm:</p>
 <ol class="arabic simple" start="0">
 <li><p>Start at an initial point <span class="math notranslate nohighlight">\(\theta_{current} = \theta^0\)</span>.</p></li>
 <li><p>Sample <span class="math notranslate nohighlight">\(\theta' \sim q(\theta_{next}|\theta_{current})\)</span></p></li>
-<li><p>Compute
+<li><p>Compute the ecceptance probability
 $<span class="math notranslate nohighlight">\(\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}\)</span>$</p></li>
 <li><p>Sample <span class="math notranslate nohighlight">\(u\sim \text{Uniform}(0,1)\)</span></p></li>
 <li><p>If <span class="math notranslate nohighlight">\(\alpha &gt; u\)</span>, then <span class="math notranslate nohighlight">\(\theta_{current} = \theta'\)</span>, else <span class="math notranslate nohighlight">\(\theta_{current} = \theta_{current}\)</span></p></li>
 <li><p>Repeat <span class="math notranslate nohighlight">\(N\)</span> times from step 1.</p></li>
 </ol>
 <p>A special choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is for example the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.</p>
+<figure class="align-center" id="metropolis-hastings">
+<a class="reference internal image-reference" href="../_images/metropolis_hastings.png"><img alt="../_images/metropolis_hastings.png" src="../_images/metropolis_hastings.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 23 </span><span class="caption-text">Metropolis-Hastings trajectory (Source: <a class="reference external" href="https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html">relguzman.blogpost.com</a>).</span><a class="headerlink" href="#metropolis-hastings" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <hr class="docutils" />
 <p>In summary:</p>
 <ul class="simple">
@@ -872,6 +910,7 @@ Section 9.2</p></li>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-mixture-models">Gaussian Mixture Models</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#expectation-maximization">Expectation-Maximization</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-and-limitations">Applications and Limitations</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-methods">Sampling Methods</a><ul class="nav section-nav flex-column">
