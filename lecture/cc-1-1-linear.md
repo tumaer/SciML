@@ -190,7 +190,7 @@ width: 500px
 align: center
 name: iris_classification_linear
 ---
-Linear classification example. (Source: [Murphy, 2012](https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb))
+Linear classification example. (Source: {cite}`pml1Book`, [iris_logreg.ipynb](https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb))
 ```
 
 To achieve such classification ability we have to introduce a new hypothesis function $h(x)$. A reasonable choice would be to model the probability that $y=1$ given $x$ with a function $h:\mathbb{R}\rightarrow [0,1]$. In the logistic regression approach

@@ -43,7 +43,7 @@ parts:
   chapters:
   - file: admin.md
   - file: books.md
-  # - file: references.md
+  - file: references.md
   - file: preliminary_knowledge.md
   - file: software.md
   - file: practical_exam.ipynb
