@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Gaussian Processes &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+    <title>3.2. Gaussian Processes &#8212; Introduction to Scientific Machine Learning for Engineers</title>
   
   
   
@@ -68,8 +68,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Core Content 4: Deep Learning" href="cc-4-0-dl.html" />
-    <link rel="prev" title="Support Vector Machines" href="cc-3-1-svm.html" />
+    <link rel="next" title="4. Deep Learning" href="cc-4-0-dl.html" />
+    <link rel="prev" title="3.1. Support Vector Machines" href="cc-3-1-svm.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -169,31 +169,33 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-1-0-basics.html">Core Content 1: Basics</a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">Linear Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mcmc.html">GMM and MCMC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-3-bayes.html">Bayesian methods</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-1-0-basics.html">1. <strong>Basics</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">1.1. Linear Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mcmc.html">1.2. GMM and MCMC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-3-bayes.html">1.3. Bayesian methods</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-2-0-optim.html">Core Content 2: Optimization</a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-2-1-algorithms.html">Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-2-2-tricks.html">Tricks of Optimization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-2-0-optim.html">2. <strong>Optimization</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-1-algorithms.html">2.1. Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-2-tricks.html">2.2. Tricks of Optimization</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-3-0-ml.html">Core Content 3: Classic ML</a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="cc-3-1-svm.html">Support Vector Machines</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Gaussian Processes</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-3-0-ml.html">3. <strong>Machine Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="cc-3-1-svm.html">3.1. Support Vector Machines</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.2. Gaussian Processes</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-4-0-dl.html">Core Content 4: Deep Learning</a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-1-gradients.html">Gradients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-2-mlp.html">Multilayer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-3-cnn.html">Convolutional Neural Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-4-rnn.html">Recurrent Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-5-ae.html">Encoder-Decoder Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-4-0-dl.html">4. <strong>Deep Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-1-gradients.html">4.1. Gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-2-mlp.html">4.2. Multilayer Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-3-cnn.html">4.3. Convolutional Neural Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-4-rnn.html">4.4. Recurrent Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-5-ae.html">4.5. Encoder-Decoder Models</a></li>
 </ul>
 </li>
 </ul>
@@ -211,6 +213,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
@@ -269,7 +272,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/arturtoshev/SciML22-23" target="_blank"
+      <li><a href="https://github.com/tumaer/SciML" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -286,7 +289,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Flecture/cc-3-2-gp.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Flecture/cc-3-2-gp.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -408,25 +411,25 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-gaussian-distribution">Multivariate Gaussian Distribution</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#st-and-2nd-moment">1st and 2nd Moment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gaussian-pdf">Conditional Gaussian PDF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-gaussian-pdf">Marginal Gaussian PDF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">Bayes Theorem for Gaussian Variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">Maximum Likelihood for Gaussians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-gaussian-distribution">3.2.1. Multivariate Gaussian Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#st-and-2nd-moment">3.2.1.1. 1st and 2nd Moment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gaussian-pdf">3.2.1.2. Conditional Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-gaussian-pdf">3.2.1.3. Marginal Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">3.2.1.4. Bayes Theorem for Gaussian Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">3.2.1.5. Maximum Likelihood for Gaussians</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-the-gaussian-process">Definition of the Gaussian Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-for-regression">Gaussian Process for Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-kernel-configurations">Further Kernel Configurations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-prediction">Multivariate Prediction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">Notes on Gaussian Process Regression</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-hyperparameters">Learning the Hyperparameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-the-gaussian-process">3.2.2. Definition of the Gaussian Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-for-regression">3.2.3. Gaussian Process for Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-kernel-configurations">3.2.3.1. Further Kernel Configurations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-prediction">3.2.3.2. Multivariate Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">3.2.3.3. Notes on Gaussian Process Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-hyperparameters">3.2.3.4. Learning the Hyperparameters</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-for-classification">Gaussian Processes for Classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-of-gaussian-processes-to-neural-networks">Relation of Gaussian Processes to Neural Networks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-for-classification">3.2.4. Gaussian Processes for Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-of-gaussian-processes-to-neural-networks">3.2.5. Relation of Gaussian Processes to Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">3.2.6. Further References</a></li>
 </ul>
             </nav>
         </div>
@@ -439,10 +442,10 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gaussian-processes">
-<h1>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">3.2. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this heading">#</a></h1>
 <p>As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We will analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>, Section 2.3.</p>
 <section id="multivariate-gaussian-distribution">
-<h2>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.2.1. </span>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this heading">#</a></h2>
 <p>The <strong>univariate</strong> (for a scalar random variable) Gaussian distribution has the form</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{N}(x; \underbrace{\mu, \sigma^2}_{\text{parameters}}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left\{ - \frac{(x-\mu)^2}{2 \sigma^2}\right\}.\]</div>
@@ -478,7 +481,7 @@ document.write(`
 \[p(y) = \Pi_{i=1}^d \frac{1}{\sqrt{2 \pi \lambda_i}} \exp \left\{ - \frac{y_i^2}{2\lambda_i} \right\}\]</div>
 <p>Note that the diagonalization of <span class="math notranslate nohighlight">\(\Delta\)</span> leads to a factorization of the PDF into <span class="math notranslate nohighlight">\(d\)</span> 1D PDFs.</p>
 <section id="st-and-2nd-moment">
-<h3>1st and 2nd Moment<a class="headerlink" href="#st-and-2nd-moment" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.1.1. </span>1st and 2nd Moment<a class="headerlink" href="#st-and-2nd-moment" title="Permalink to this heading">#</a></h3>
 <div class="math notranslate nohighlight">
 \[E[x] = \mu\]</div>
 <div class="math notranslate nohighlight">
@@ -487,7 +490,7 @@ document.write(`
 \[Cov(x) = \Sigma\]</div>
 </section>
 <section id="conditional-gaussian-pdf">
-<h3>Conditional Gaussian PDF<a class="headerlink" href="#conditional-gaussian-pdf" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.1.2. </span>Conditional Gaussian PDF<a class="headerlink" href="#conditional-gaussian-pdf" title="Permalink to this heading">#</a></h3>
 <p>Consider the case <span class="math notranslate nohighlight">\(x \sim \mathcal{N}(x; \mu, \Sigma)\)</span> being a <span class="math notranslate nohighlight">\(d\)</span>-dimensional Gaussian random vector. We can partition <span class="math notranslate nohighlight">\(x\)</span> into two disjoint subsets <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>.</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -536,7 +539,7 @@ x_b
 \[p(x_a| x_b) = \mathcal{N(x; \mu_{a|b}, \Sigma_{a|b})}\]</div>
 </section>
 <section id="marginal-gaussian-pdf">
-<h3>Marginal Gaussian PDF<a class="headerlink" href="#marginal-gaussian-pdf" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.1.3. </span>Marginal Gaussian PDF<a class="headerlink" href="#marginal-gaussian-pdf" title="Permalink to this heading">#</a></h3>
 <p>For the marginal PDF we integrate out the dependence on <span class="math notranslate nohighlight">\(x_b\)</span> of the joint PDF:</p>
 <div class="math notranslate nohighlight">
 \[p(x_a) = \int p(x_a, x_b) dx_b.\]</div>
@@ -545,7 +548,7 @@ x_b
 \[p(x_a) = \mathcal{N}(x_a; \mu_a, \Sigma_{a a}).\]</div>
 </section>
 <section id="bayes-theorem-for-gaussian-variables">
-<h3>Bayes Theorem for Gaussian Variables<a class="headerlink" href="#bayes-theorem-for-gaussian-variables" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.1.4. </span>Bayes Theorem for Gaussian Variables<a class="headerlink" href="#bayes-theorem-for-gaussian-variables" title="Permalink to this heading">#</a></h3>
 <p>Generative learning addresses the problem of finding a posterior PDF from a likelihood and prior. The basis is Bayes rule for conditional probabilities</p>
 <div class="math notranslate nohighlight">
 \[p(x|y) = \frac{p(y|x)p(x)}{p(y)}\]</div>
@@ -577,7 +580,7 @@ p(x \mid y) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda 
 \]</div>
 </section>
 <section id="maximum-likelihood-for-gaussians">
-<h3>Maximum Likelihood for Gaussians<a class="headerlink" href="#maximum-likelihood-for-gaussians" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.1.5. </span>Maximum Likelihood for Gaussians<a class="headerlink" href="#maximum-likelihood-for-gaussians" title="Permalink to this heading">#</a></h3>
 <p>In generative learning, we need to infer PDFs from data. Given a dataset <span class="math notranslate nohighlight">\(X=(x_1, ..., x_N)\)</span>, where <span class="math notranslate nohighlight">\(x_i\)</span> are i.i.d. random variables drawn from a multivariate Gaussian, we can estimate <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> from the maximum likelihood (ML) (for more details see <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>):</p>
 <div class="math notranslate nohighlight">
 \[\mu_{ML} = \frac{1}{N} \sum_{n=1}^N x_n\]</div>
@@ -589,7 +592,7 @@ p(x \mid y) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda 
 </section>
 </section>
 <section id="definition-of-the-gaussian-process">
-<h2>Definition of the Gaussian Process<a class="headerlink" href="#definition-of-the-gaussian-process" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.2.2. </span>Definition of the Gaussian Process<a class="headerlink" href="#definition-of-the-gaussian-process" title="Permalink to this heading">#</a></h2>
 <p>Gaussian Processes are a generalization of the generative learning concept based on Bayes rule and Gaussian distributions as models derived from <a class="reference external" href="https://www.eecs189.org/static/notes/n18.pdf">Gaussian Discriminant Analysis</a>. We explain Gaussian Processes (GPs) on the example of regression and discuss an adaptation to discrimination in the spirit of Gaussian Discriminant Analysis (GDA), however not being identical to GDA at the same time. Consider linear regression:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -624,7 +627,7 @@ y = \phi \hspace{2pt} \omega
 </ul>
 </section>
 <section id="gaussian-process-for-regression">
-<h2>Gaussian Process for Regression<a class="headerlink" href="#gaussian-process-for-regression" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.2.3. </span>Gaussian Process for Regression<a class="headerlink" href="#gaussian-process-for-regression" title="Permalink to this heading">#</a></h2>
 <p>Take into account Gaussian noise, a modeling assumption, on sample data:</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -795,7 +798,7 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}
 <div><p>This immediately shows the utility of GP-regression for engineering applications where we often have few data points but yet need to be able to provide guarantees for our predictions which GPs offer at a reasonable computational cost.</p>
 </div></blockquote>
 <section id="further-kernel-configurations">
-<h3>Further Kernel Configurations<a class="headerlink" href="#further-kernel-configurations" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.3.1. </span>Further Kernel Configurations<a class="headerlink" href="#further-kernel-configurations" title="Permalink to this heading">#</a></h3>
 <p>There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple “basis” kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels:</p>
 <ul class="simple">
 <li><p>Squared Exponential (SE) kernel</p></li>
@@ -826,7 +829,7 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}
 </div>
 </section>
 <section id="multivariate-prediction">
-<h3>Multivariate Prediction<a class="headerlink" href="#multivariate-prediction" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.3.2. </span>Multivariate Prediction<a class="headerlink" href="#multivariate-prediction" title="Permalink to this heading">#</a></h3>
 <p>The extension to multivariate prediction is then straightforward. For the unseen data</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -871,7 +874,7 @@ y = \left[
 \end{split}\]</div>
 </section>
 <section id="notes-on-gaussian-process-regression">
-<h3>Notes on Gaussian Process Regression<a class="headerlink" href="#notes-on-gaussian-process-regression" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.3.3. </span>Notes on Gaussian Process Regression<a class="headerlink" href="#notes-on-gaussian-process-regression" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(K + \frac{1}{\beta}I\)</span> needs to be symmetric and positive definite, where positive definite implies that the matrix is symmetric. <span class="math notranslate nohighlight">\(K\)</span> can be constructed from valid kernel functions involving some hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
 <li><p>GP regression involves a <span class="math notranslate nohighlight">\(n \times n\)</span> matrix inversion, which requires <span class="math notranslate nohighlight">\(\mathcal{O}(n^{3})\)</span> operations for learning.</p></li>
@@ -880,7 +883,7 @@ y = \left[
 </ul>
 </section>
 <section id="learning-the-hyperparameters">
-<h3>Learning the Hyperparameters<a class="headerlink" href="#learning-the-hyperparameters" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.2.3.4. </span>Learning the Hyperparameters<a class="headerlink" href="#learning-the-hyperparameters" title="Permalink to this heading">#</a></h3>
 <p>To infer the kernel hyperparameters from data we need to:</p>
 <ol class="arabic simple">
 <li><p>Introduce an appropriate likelihood function <span class="math notranslate nohighlight">\(p(y | \theta)\)</span></p></li>
@@ -898,7 +901,7 @@ y = \left[
 </section>
 </section>
 <section id="gaussian-processes-for-classification">
-<h2>Gaussian Processes for Classification<a class="headerlink" href="#gaussian-processes-for-classification" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.2.4. </span>Gaussian Processes for Classification<a class="headerlink" href="#gaussian-processes-for-classification" title="Permalink to this heading">#</a></h2>
 <p>Without discussing all the details, we will now provide a brief sketch how Gaussian Processes can be adapted to the task of classification. Consider for simplicity the 2-class problem:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -957,11 +960,11 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
 <p><span class="math notranslate nohighlight">\(p(\varphi^{(n+1)}|y)\)</span> is the posterior PDF, which is computed from the conditional PDF <span class="math notranslate nohighlight">\(p(y| \varphi)\)</span> with a Gaussian prior <span class="math notranslate nohighlight">\(p(\varphi)\)</span>.</p>
 </section>
 <section id="relation-of-gaussian-processes-to-neural-networks">
-<h2>Relation of Gaussian Processes to Neural Networks<a class="headerlink" href="#relation-of-gaussian-processes-to-neural-networks" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.2.5. </span>Relation of Gaussian Processes to Neural Networks<a class="headerlink" href="#relation-of-gaussian-processes-to-neural-networks" title="Permalink to this heading">#</a></h2>
 <p>We have not presented a definition a neural network yet, but we have already met the most primitive definition of a neural network, the perceptron, for classification. The perceptron can be thought of as a neural network with just one layer of “neurons”. On the other hand, the number of hidden units should be limited for perceptrons to limit overfitting. The essential power of neural networks  i.e. the outputs sharing the hidden units tends to get lost when the number of hidden units becomes very large. This is the core connection between neural networks and GPs, <strong>a neural network with infinite width recovers a Gaussian process</strong>.</p>
 </section>
 <section id="further-references">
-<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.2.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://link.springer.com/book/9780387310732">Pattern Recognition and Machine Learning</a>, Section 2.3; Christopher Bishop; 2006.</p></li>
 <li><p><a class="reference external" href="https://www.cs.toronto.edu/~duvenaud/thesis.pdf">Automatic Model Construction with Gaussian Processes</a>, up to page 22; David Duvenaud; 2014.</p></li>
@@ -1006,7 +1009,7 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Support Vector Machines</p>
+        <p class="prev-next-title"><span class="section-number">3.1. </span>Support Vector Machines</p>
       </div>
     </a>
     <a class="right-next"
@@ -1014,7 +1017,7 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Core Content 4: Deep Learning</p>
+        <p class="prev-next-title"><span class="section-number">4. </span><strong>Deep Learning</strong></p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1033,25 +1036,25 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-gaussian-distribution">Multivariate Gaussian Distribution</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#st-and-2nd-moment">1st and 2nd Moment</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gaussian-pdf">Conditional Gaussian PDF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-gaussian-pdf">Marginal Gaussian PDF</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">Bayes Theorem for Gaussian Variables</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">Maximum Likelihood for Gaussians</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-gaussian-distribution">3.2.1. Multivariate Gaussian Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#st-and-2nd-moment">3.2.1.1. 1st and 2nd Moment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gaussian-pdf">3.2.1.2. Conditional Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-gaussian-pdf">3.2.1.3. Marginal Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">3.2.1.4. Bayes Theorem for Gaussian Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">3.2.1.5. Maximum Likelihood for Gaussians</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-the-gaussian-process">Definition of the Gaussian Process</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-for-regression">Gaussian Process for Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-kernel-configurations">Further Kernel Configurations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-prediction">Multivariate Prediction</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">Notes on Gaussian Process Regression</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-hyperparameters">Learning the Hyperparameters</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition-of-the-gaussian-process">3.2.2. Definition of the Gaussian Process</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-process-for-regression">3.2.3. Gaussian Process for Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-kernel-configurations">3.2.3.1. Further Kernel Configurations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-prediction">3.2.3.2. Multivariate Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">3.2.3.3. Notes on Gaussian Process Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-hyperparameters">3.2.3.4. Learning the Hyperparameters</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-for-classification">Gaussian Processes for Classification</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-of-gaussian-processes-to-neural-networks">Relation of Gaussian Processes to Neural Networks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gaussian-processes-for-classification">3.2.4. Gaussian Processes for Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-of-gaussian-processes-to-neural-networks">3.2.5. Relation of Gaussian Processes to Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">3.2.6. Further References</a></li>
 </ul>
   </nav></div>
 
@@ -1075,7 +1078,7 @@ By N. Adams, L. Paehler, A. Toshev
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2022,2023.
       <br/>
     
   </p>

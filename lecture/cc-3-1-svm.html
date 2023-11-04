@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Support Vector Machines &#8212; Introduction to Scientific Machine Learning for Engineers</title>
+    <title>3.1. Support Vector Machines &#8212; Introduction to Scientific Machine Learning for Engineers</title>
   
   
   
@@ -68,8 +68,8 @@ const thebe_selector_output = ".output, .cell_output"
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Gaussian Processes" href="cc-3-2-gp.html" />
-    <link rel="prev" title="Core Content 3: Classic ML" href="cc-3-0-ml.html" />
+    <link rel="next" title="3.2. Gaussian Processes" href="cc-3-2-gp.html" />
+    <link rel="prev" title="3. Machine Learning" href="cc-3-0-ml.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -169,31 +169,33 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+        <ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-1-0-basics.html">Core Content 1: Basics</a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">Linear Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mcmc.html">GMM and MCMC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-3-bayes.html">Bayesian methods</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-1-0-basics.html">1. <strong>Basics</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">1.1. Linear Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mcmc.html">1.2. GMM and MCMC</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-1-3-bayes.html">1.3. Bayesian methods</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-2-0-optim.html">Core Content 2: Optimization</a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-2-1-algorithms.html">Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-2-2-tricks.html">Tricks of Optimization</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-2-0-optim.html">2. <strong>Optimization</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-1-algorithms.html">2.1. Algorithms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-2-2-tricks.html">2.2. Tricks of Optimization</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-3-0-ml.html">Core Content 3: Classic ML</a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Support Vector Machines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-3-2-gp.html">Gaussian Processes</a></li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-3-0-ml.html">3. <strong>Machine Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">3.1. Support Vector Machines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-3-2-gp.html">3.2. Gaussian Processes</a></li>
 </ul>
 </li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-4-0-dl.html">Core Content 4: Deep Learning</a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-1-gradients.html">Gradients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-2-mlp.html">Multilayer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-3-cnn.html">Convolutional Neural Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-4-rnn.html">Recurrent Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-5-ae.html">Encoder-Decoder Models</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="cc-4-0-dl.html">4. <strong>Deep Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-1-gradients.html">4.1. Gradients</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-2-mlp.html">4.2. Multilayer Perceptron</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-3-cnn.html">4.3. Convolutional Neural Network</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-4-rnn.html">4.4. Recurrent Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cc-4-5-ae.html">4.5. Encoder-Decoder Models</a></li>
 </ul>
 </li>
 </ul>
@@ -211,6 +213,7 @@ const thebe_selector_output = ".output, .cell_output"
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
@@ -269,7 +272,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/arturtoshev/SciML22-23" target="_blank"
+      <li><a href="https://github.com/tumaer/SciML" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -286,7 +289,7 @@ const thebe_selector_output = ".output, .cell_output"
       
       
       
-      <li><a href="https://github.com/arturtoshev/SciML22-23/issues/new?title=Issue%20on%20page%20%2Flecture/cc-3-1-svm.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Flecture/cc-3-1-svm.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -408,21 +411,21 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-constrained-optimization-problem">The Constrained Optimization Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">Linearly Separable Sets - Maximum Margin Classifier (MMC)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">Non-Separable Sets - Soft Margin Classifier (SMC)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">Sequential Minimal Optimization (SMO)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-ascent">Coordinate Ascent</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline-of-smo-for-svm">Outline of SMO for SVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-constrained-optimization-problem">3.1.1. The Constrained Optimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">3.1.2. Linearly Separable Sets - Maximum Margin Classifier (MMC)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">3.1.3. Non-Separable Sets - Soft Margin Classifier (SMC)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">3.1.4. Sequential Minimal Optimization (SMO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-ascent">3.1.4.1. Coordinate Ascent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline-of-smo-for-svm">3.1.4.2. Outline of SMO for SVM</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">Kernel Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">Dual representations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">Construction of suitable kernels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">3.1.5. Kernel Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">3.1.5.1. Dual representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">3.1.5.2. Construction of suitable kernels</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recapitulation-of-svms">Recapitulation of SVMs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recapitulation-of-svms">3.1.6. Recapitulation of SVMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">3.1.7. Further References</a></li>
 </ul>
             </nav>
         </div>
@@ -435,10 +438,10 @@ document.write(`
                 <article class="bd-article" role="main">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="support-vector-machines">
-<h1>Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">3.1. </span>Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this heading">#</a></h1>
 <p>First, we need some mathematical formalism to solve constrained optimization problems.</p>
 <section id="the-constrained-optimization-problem">
-<h2>The Constrained Optimization Problem<a class="headerlink" href="#the-constrained-optimization-problem" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1.1. </span>The Constrained Optimization Problem<a class="headerlink" href="#the-constrained-optimization-problem" title="Permalink to this heading">#</a></h2>
 <p>If we define our optimization problem as:</p>
 <div class="math notranslate nohighlight">
 \[\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l\]</div>
@@ -536,7 +539,7 @@ d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset
 <p>i.e. <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> is “on the constraint boundary”.</p>
 </section>
 <section id="linearly-separable-sets-maximum-margin-classifier-mmc">
-<h2>Linearly Separable Sets - Maximum Margin Classifier (MMC)<a class="headerlink" href="#linearly-separable-sets-maximum-margin-classifier-mmc" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1.2. </span>Linearly Separable Sets - Maximum Margin Classifier (MMC)<a class="headerlink" href="#linearly-separable-sets-maximum-margin-classifier-mmc" title="Permalink to this heading">#</a></h2>
 <p>Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier.</p>
 <p>Now, we can (re-)introduce the <em>linear discriminator</em>. Logistic regression <span class="math notranslate nohighlight">\(p(y=1| x; \theta)\)</span> is then modeled by <span class="math notranslate nohighlight">\(h(x) = g(\theta^{\top} x) = \text{sigm}(\theta^{\top} x)\)</span>:</p>
 <div style="text-align:center">
@@ -756,7 +759,7 @@ b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{
 <p>where <span class="math notranslate nohighlight">\(\alpha_{i}\)</span> is only non-zero for support vectors and calls the inner product <span class="math notranslate nohighlight">\(\langle x^{(i)}, x \rangle\)</span> which is hence a highly efficient computation. As such we have derived the support vector machine for the linear classification of sets. The formulation of the optimum set-boundary/decision boundary was formulated as the search for a margin optimization, then transformed into a convex constrained optimization problem, before restricting the contributions of the computation to contributions coming from the <em>support vectors</em>, i.e., vectors on the actual decision boundary estimate hence leading to a strong reduction of the problem dimensionality.</p>
 </section>
 <section id="non-separable-sets-soft-margin-classifier-smc">
-<h2>Non-Separable Sets - Soft Margin Classifier (SMC)<a class="headerlink" href="#non-separable-sets-soft-margin-classifier-smc" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1.3. </span>Non-Separable Sets - Soft Margin Classifier (SMC)<a class="headerlink" href="#non-separable-sets-soft-margin-classifier-smc" title="Permalink to this heading">#</a></h2>
 <div style="text-align:center">
     <img src="https://i.imgur.com/PMZV7it.png" alt="drawing" width="500"/>
 </div>
@@ -864,13 +867,13 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 </div>
 </section>
 <section id="sequential-minimal-optimization-smo">
-<h2>Sequential Minimal Optimization (SMO)<a class="headerlink" href="#sequential-minimal-optimization-smo" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1.4. </span>Sequential Minimal Optimization (SMO)<a class="headerlink" href="#sequential-minimal-optimization-smo" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Efficient algorithm for solving the SVM dual problem</p></li>
 <li><p>Based on <em>Coordinate Ascent</em> algorithm.</p></li>
 </ul>
 <section id="coordinate-ascent">
-<h3>Coordinate Ascent<a class="headerlink" href="#coordinate-ascent" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.1.4.1. </span>Coordinate Ascent<a class="headerlink" href="#coordinate-ascent" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>Task : find <span class="math notranslate nohighlight">\(\max _{x} f\left(x_{1}, \ldots, x_{m}\right)\)</span></p></li>
 <li><p>Perform a component-wise search on <span class="math notranslate nohighlight">\(x\)</span></p></li>
@@ -888,7 +891,7 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 <p>Coordinate ascent converges for convex continuous functions but may not converge to the dual optimum!</p>
 </section>
 <section id="outline-of-smo-for-svm">
-<h3>Outline of SMO for SVM<a class="headerlink" href="#outline-of-smo-for-svm" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.1.4.2. </span>Outline of SMO for SVM<a class="headerlink" href="#outline-of-smo-for-svm" title="Permalink to this heading">#</a></h3>
 <p>Task: solve SVM dual optimization problem</p>
 <div class="math notranslate nohighlight">
 \[
@@ -975,7 +978,7 @@ L, \quad \alpha_{2}^{'}&lt;L
 </section>
 </section>
 <section id="kernel-methods">
-<h2>Kernel Methods<a class="headerlink" href="#kernel-methods" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1.5. </span>Kernel Methods<a class="headerlink" href="#kernel-methods" title="Permalink to this heading">#</a></h2>
 <p>Consider binary classification in the non-linearly-separable case:</p>
 <div style="text-align:center">
     <img src="https://i.imgur.com/uWMk3qq.png" alt="drawing" width="600"/>
@@ -1006,7 +1009,7 @@ L, \quad \alpha_{2}^{'}&lt;L
 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> motivates the general notation of a dual problem with feature maps.</p>
 </div></blockquote>
 <section id="dual-representations">
-<h3>Dual representations<a class="headerlink" href="#dual-representations" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.1.5.1. </span>Dual representations<a class="headerlink" href="#dual-representations" title="Permalink to this heading">#</a></h3>
 <p>Motivated by Least Mean Squares (LMS) regression, we consider the following <strong>regularized</strong> cost function:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1061,7 +1064,7 @@ h(x) &amp;= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x)
 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> we can consider even an infinite-dimensional feature vector <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span>, i.e. a continuous <span class="math notranslate nohighlight">\(\varphi (x)\)</span></p>
 </section>
 <section id="construction-of-suitable-kernels">
-<h3>Construction of suitable kernels<a class="headerlink" href="#construction-of-suitable-kernels" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">3.1.5.2. </span>Construction of suitable kernels<a class="headerlink" href="#construction-of-suitable-kernels" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p>construction from feature map</p></li>
 </ul>
@@ -1122,7 +1125,7 @@ K(x,x') &amp; = (x^Tx')^2 \\
 </section>
 </section>
 <section id="recapitulation-of-svms">
-<h2>Recapitulation of SVMs<a class="headerlink" href="#recapitulation-of-svms" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1.6. </span>Recapitulation of SVMs<a class="headerlink" href="#recapitulation-of-svms" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Problem of non-linearly separable sets</p>
 <ul>
@@ -1146,7 +1149,7 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 </ul>
 </section>
 <section id="further-references">
-<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">3.1.7. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://cs229.stanford.edu/lectures-spring2022/main_notes.pdf">CS229 Lecture Notes</a>, Chapters 5 and 6; Andrew Ng; 2022</p></li>
 <li><p><a class="reference external" href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Section 17.3; Kevin Murphy; 2022</p></li>
@@ -1190,7 +1193,7 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Core Content 3: Classic ML</p>
+        <p class="prev-next-title"><span class="section-number">3. </span><strong>Machine Learning</strong></p>
       </div>
     </a>
     <a class="right-next"
@@ -1198,7 +1201,7 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Gaussian Processes</p>
+        <p class="prev-next-title"><span class="section-number">3.2. </span>Gaussian Processes</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -1217,21 +1220,21 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-constrained-optimization-problem">The Constrained Optimization Problem</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">Linearly Separable Sets - Maximum Margin Classifier (MMC)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">Non-Separable Sets - Soft Margin Classifier (SMC)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">Sequential Minimal Optimization (SMO)</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-ascent">Coordinate Ascent</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline-of-smo-for-svm">Outline of SMO for SVM</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-constrained-optimization-problem">3.1.1. The Constrained Optimization Problem</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">3.1.2. Linearly Separable Sets - Maximum Margin Classifier (MMC)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">3.1.3. Non-Separable Sets - Soft Margin Classifier (SMC)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">3.1.4. Sequential Minimal Optimization (SMO)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-ascent">3.1.4.1. Coordinate Ascent</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline-of-smo-for-svm">3.1.4.2. Outline of SMO for SVM</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">Kernel Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">Dual representations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">Construction of suitable kernels</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">3.1.5. Kernel Methods</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">3.1.5.1. Dual representations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">3.1.5.2. Construction of suitable kernels</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recapitulation-of-svms">Recapitulation of SVMs</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recapitulation-of-svms">3.1.6. Recapitulation of SVMs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">3.1.7. Further References</a></li>
 </ul>
   </nav></div>
 
@@ -1255,7 +1258,7 @@ By N. Adams, L. Paehler, A. Toshev
     
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2022,2023.
       <br/>
     
   </p>

@@ -137,7 +137,7 @@ $$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{(x
 
 We can then expand the square in the exponent of the Gaussian to isolate the individual components of the exponential family
 
-$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{\mu}{\sigma^{2}}x - \frac{1}{2 \sigma^{2}}x^{2} - \frac{1}{2 \sigma^{2}} \mu^{2} - \log \sigma \right\}.$$ (gaussian_expanded)
+$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi}} \exp \left\{ \frac{\mu}{\sigma^{2}}x - \frac{1}{2 \sigma^{2}}x^{2} - \frac{1}{2 \sigma^{2}} \mu^{2} - \log \sigma \right\}.$$ (gaussian_expanded)
 
 Then the individual components of the Gaussian are
 
