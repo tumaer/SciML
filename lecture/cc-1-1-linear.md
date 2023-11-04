@@ -163,15 +163,15 @@ $$ (lms_optimization_task)
 
 > If the number of parameters is **not** known beforehand, then the algorithms become **non-parametric** learning algorithms.
 
-Can maximum likelihood estimation (**MLE**) be made more non-parametric? Following intuition, the linear MLE as well as the LMS critically depend on the selection of the features, i.e the dimension of the parameter vector $\vartheta$. I.e. when the dimension of $\vartheta$ is too low we tend to underfit, where we do not capture some of the structure of our data (more on under- and overfitting in Core Content 2). An approach called locally weighted linear regression (**LWR**) copes with the problem of underfitting by giving more weight to new, unseen query points $x$. E.g. for $x$, where we want to estimate $y$ by $h(x)=\vartheta x$, we solve
+Can maximum likelihood estimation (**MLE**) be made more non-parametric? Following intuition, the linear MLE as well as the LMS critically depend on the selection of the features, i.e the dimension of the parameter vector $\vartheta$. I.e. when the dimension of $\vartheta$ is too low we tend to underfit, where we do not capture some of the structure of our data (more on under- and overfitting in Core Content 2). An approach called locally weighted linear regression (**LWR**) copes with the problem of underfitting by giving more weight to new, unseen query points $\tilde{x}$. E.g. for $\tilde{x}$, where we want to estimate $y$ by $h(\tilde{x})=\vartheta \tilde{x}$, we solve
 
 $$\vartheta=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m} w^{(i)}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2},$$ (lwr_formulation)
 
 where the weights $\omega$ are given by
 
-$$\omega^{(i)}=\exp{\left(-\frac{\left(x^{(i)}-x\right)^{2}}{2 \tau^{2}}\right)}.$$ (lwr_weights)
+$$\omega^{(i)}=\exp{\left(-\frac{\left(x^{(i)}-\tilde{x}\right)^{2}}{2 \tau^{2}}\right)},$$ (lwr_weights)
 
-This approach naturally gives more weight to new datapoints in $x$. Hence making $\vartheta$ crucially depend on $x$, and making it more non-parametric.
+with $\tau$ being a hyperparameter. This approach naturally gives more weight to new datapoints. Hence making $\vartheta$ crucially depend on $\tilde{x}$, and making it more non-parametric.
 
 
 ## Classification & Logistic Regression
