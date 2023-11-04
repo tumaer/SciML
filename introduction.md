@@ -9,7 +9,7 @@ Below are a few prime examples of recent flagship algorithms in scientific machi
 ### [AlphaFold](https://www.nature.com/articles/s41586-021-03819-2) - predicts 3D protein structure given its sequence:
 
 
-```{figure} ../imgs/intro/alphafold.png
+```{figure} imgs/intro/alphafold.png
 ---
 width: 500px
 align: center
@@ -20,7 +20,7 @@ AlphaFold model. (Source:  [Jumper et al., 2021](https://www.nature.com/articles
 
 ### [GNS](https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html) - capable of simulating the motion of water particles:
 
-```{figure} ../imgs/intro/gns.png
+```{figure} imgs/intro/gns.png
 ---
 width: 500px
 align: center
@@ -31,7 +31,7 @@ GNS model. (Source:  [Sanchez-Gonzalez et al., 2020](https://proceedings.mlr.pre
 
 ### [Codex](https://arxiv.org/abs/2107.03374) - translating natural language to code:
 
-```{figure} ../imgs/intro/codex.gif
+```{figure} imgs/intro/codex.gif
 ---
 width: 500px
 align: center
@@ -45,7 +45,7 @@ Geometric deep learning aims to generalize neural network models to non-Euclidea
 
 #### [SFCNN](https://arxiv.org/abs/1711.07289) - steerable rotation equivariant CNN, e.g. for image segmentation
 
-```{figure} ../imgs/intro/sfcnn.png
+```{figure} imgs/intro/sfcnn.png
 ---
 width: 500px
 align: center
@@ -56,7 +56,7 @@ SFCNN model. (Source: [Weiler et al., 2018](https://arxiv.org/abs/1711.07289))
 
 #### [SEGNN](https://arxiv.org/abs/2110.02905) - molecular property prediction model
 
-```{figure} ../imgs/intro/segnn.png
+```{figure} imgs/intro/segnn.png
 ---
 width: 500px
 align: center
@@ -67,7 +67,7 @@ SEGNN model. (Source: [Brandstetter et al., 2022](https://arxiv.org/abs/2110.029
 
 ### [Stable Diffusion](https://stability.ai/blog/stable-diffusion-public-release) - generating images from natural text description
 
-```{figure} ../imgs/intro/stable_diffusion_art.jpg
+```{figure} imgs/intro/stable_diffusion_art.jpg
 ---
 width: 500px
 align: center
@@ -78,7 +78,7 @@ Stable Diffusion art. (Source: [stability.ai](https://stability.ai/blog/stable-d
 
 ### [Stable Diffusion reconstructing visual experiences from human brain activity](https://www.biorxiv.org/content/10.1101/2022.11.18.517004v3)
 
-```{figure} ../imgs/intro/stable_diffusion_brain.jpg
+```{figure} imgs/intro/stable_diffusion_brain.jpg
 ---
 width: 700px
 align: center
@@ -89,7 +89,7 @@ Stable Diffusion brain signal reconstruction. (Source: [Takagi & Nishimito, 2023
 
 ### [ImageBind](https://arxiv.org/abs/2305.05665) - Holistic AI learning across six modalities
 
-```{figure} ../imgs/intro/imagebind.gif
+```{figure} imgs/intro/imagebind.gif
 ---
 width: 600px
 align: center
@@ -136,7 +136,7 @@ with $N$ the number of observations. Depending on the type of the response vecto
 
 In regression, the target $y$ is real-valued, i.e. $y \in \mathbb{R}$
 
-```{figure} ../imgs/intro/2d_regression_ex.jpg
+```{figure} imgs/intro/2d_regression_ex.jpg
 ---
 width: 600px
 align: center
@@ -151,7 +151,7 @@ Example of a response surface being fitted to a number of data points in 3 dimen
 
 In classification the labels $y$ are categorical i.e. $y \in \mathcal{C}$, where $\mathcal{C}$ defines a set of classes.
 
-```{figure} ../imgs/intro/iris_classification.png
+```{figure} imgs/intro/iris_classification.png
 ---
 width: 350px
 align: center
@@ -177,7 +177,7 @@ Two famous examples of unsupervised learning are **clustering** (e.g. k-means) a
 
 #### Clustering of Principal Components
 
-```{figure} ../imgs/intro/pca_clustering.png
+```{figure} imgs/intro/pca_clustering.png
 ---
 width: 400px
 align: center
@@ -198,7 +198,7 @@ The difference can furthermore be expressed in probabilistic terms, i.e., in sup
 
 In reinforcement learning, an agent sequentially interact with an unknown environment to obtain an interaction trajectory $T$, or a batch thereof. Reinforcement learning then seeks to optimize the way the agent interacts with the environment through its actions $a_{t}$ to maximize for a (cumulative) reward function to obtain an optimal strategy.
 
-```{figure} ../imgs/intro/rl.png
+```{figure} imgs/intro/rl.png
 ---
 width: 500px
 align: center
@@ -211,7 +211,7 @@ Reinforcement learning overview. (Source: [lilianweng](https://lilianweng.github
 
 Let's presume we have a simple regression problem, e.g.
 
-```{figure} ../imgs/cc1/lin_reg_1d.png
+```{figure} imgs/cc1/lin_reg_1d.png
 ---
 width: 400px
 align: center
@@ -234,7 +234,7 @@ $$E(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_{n}, \mathbf{w}) - y_{n} \}^
 
 in which we are then optimizing for the value of $w$.
 
-```{figure} ../imgs/cc1/lin_reg_1d_distances.png
+```{figure} imgs/cc1/lin_reg_1d_distances.png
 ---
 width: 400px
 align: center
@@ -270,7 +270,7 @@ where $\beta$ corresponds to the inverse variance of the normal distribution $\m
 
 $$p(y|x, \mathbf{w}, \beta)=\prod^{N}_{n=1}\mathcal{N}(y_{n}|y(x_{n},\mathbf{w}), \beta^{-1}).$$ (bayesian_lin_reg_joint_likelihood)
 
-```{figure} ../imgs/intro/bayesian_reg_1d.png
+```{figure} imgs/intro/bayesian_reg_1d.png
 ---
 width: 400px
 align: center
