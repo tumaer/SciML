@@ -4,9 +4,12 @@
 format: jb-book
 root: about.md
 parts:
-- caption: Lecture
+- caption: 
   chapters:
-  - file: lecture/introduction.md
+  - file: introduction.md
+- caption: Lecture
+  numbered: true
+  chapters:
   - file: lecture/cc-1-0-basics.md
     sections:
     - file: lecture/cc-1-1-linear.md
@@ -40,6 +43,7 @@ parts:
   chapters:
   - file: admin.md
   - file: books.md
+  # - file: references.md
   - file: preliminary_knowledge.md
   - file: software.md
   - file: practical_exam.ipynb
