@@ -39,8 +39,11 @@ html:
 
 parse:
   myst_enable_extensions:
-    - amsmath
-    - dollarmath
+    - amsmath # enable direct parsing of amsmath LaTeX equations
+    - dollarmath # enable dollar delimited math
+    - linkify # automatically identify “bare” web URLs and add hyperlinks
+#     - html_image # convert any isolated img tags to the representation used in sphinx
+#     - colon_fence # enable using ::: delimiters to denote directives, instead of ```
 
 # to expand embedded files, i.e. sections. Reference:
 # https://github.com/executablebooks/jupyter-book/issues/1134
@@ -49,3 +52,5 @@ sphinx:
   config:
     html_theme_options:
       show_navbar_depth: 2
+    bibtex_reference_style: author_year
+    # mathjax_path: https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
