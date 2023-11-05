@@ -142,7 +142,7 @@ width: 600px
 align: center
 name: 2d_regression_ex
 ---
-2D regression example. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+2D regression example. (Source: {cite}`murphy2022`, Introduction)
 ```
 
 Example of a response surface being fitted to a number of data points in 3 dimensions, where in this instance the x- and y-axes are a two-dimensional space, and the z-axis is the temperature in the two-dimensional space.
@@ -157,7 +157,7 @@ width: 350px
 align: center
 name: iris_classification
 ---
-Classification example. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+Classification example. (Source: {cite}`murphy2022`, Introduction)
 ```
 
 Example of flower classification, where we aim to find the decision boundaries which will sort each individual node into the respective class.
@@ -183,7 +183,7 @@ width: 400px
 align: center
 name: pca_clustering
 ---
-Clustering based on principal components. (Source: [Brunton & Kutz, 2019](http://databookuw.com))
+Clustering based on principal components. (Source: {cite}`brunton2019`, Section 1.5)
 ```
 
 Combining clustering with principal component analysis to show the samples which have cancer in the first three principal component coordinates.
@@ -217,7 +217,7 @@ width: 400px
 align: center
 name: lin_reg_1d
 ---
-Linear regression example. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+Linear regression example. (Source: {cite}`murphy2022`, Introduction)
 ```
 
 Then we have a number of scalar observations ${\bf{x}} = (x_{1}, \ldots, x_{N})$ and targets ${\bf{y}} = (y_{1}, \ldots, y_{N})$. Then the tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function
@@ -240,7 +240,7 @@ width: 400px
 align: center
 name: lin_reg_1d_distances
 ---
-Linear regression error computation. (Source: [Murphy, 2012](https://probml.github.io/pml-book/book0.html))
+Linear regression error computation. (Source: {cite}`murphy2022`, Introduction)
 ```
 
 To minimize this we then have to take the derivative with respect to the coefficients $\omega_{i}$, i.e.
@@ -276,7 +276,7 @@ width: 400px
 align: center
 name: bayesian_reg_1d
 ---
-Bayesian regression example. (Source: [Bishop, 2006](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf))
+Bayesian regression example. (Source: {cite}`bishop2006`, Section 1.2)
 ```
 
 Taking the log likelihood we are then able to find the definitions of the optimal parameters
