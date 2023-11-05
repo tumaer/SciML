@@ -1,60 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>2.1. Algorithms &#8212; Introduction to Scientific Machine Learning for Engineers</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -64,103 +52,62 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture/cc-2-1-algorithms';</script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="2.2. Tricks of Optimization" href="cc-2-2-tricks.html" />
     <link rel="prev" title="2. Optimization" href="cc-2-0-optim.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
+    
+    <div class="container-fluid" id="banner"></div>
 
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="../about.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -170,300 +117,663 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction.html">
+   Introduction
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture
+ </span>
+</p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-1-0-basics.html">1. <strong>Basics</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-1-linear.html">1.1. Linear Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-2-gmm-mcmc.html">1.2. GMM and MCMC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-1-3-bayes.html">1.3. Bayesian methods</a></li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="cc-1-0-basics.html">
+   1.
+   <strong>
+    Basics
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-1-1-linear.html">
+     1.1. Linear Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-1-2-gmm-mcmc.html">
+     1.2. GMM and Sampling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-1-3-bayes.html">
+     1.3. Bayesian methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 current active has-children">
+  <a class="reference internal" href="cc-2-0-optim.html">
+   2.
+   <strong>
+    Optimization
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul class="current">
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     2.1. Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-2-2-tricks.html">
+     2.2. Tricks of Optimization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="cc-3-0-ml.html">
+   3.
+   <strong>
+    Machine Learning
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-3-1-svm.html">
+     3.1. Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-3-2-gp.html">
+     3.2. Gaussian Processes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="cc-4-0-dl.html">
+   4.
+   <strong>
+    Deep Learning
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-1-gradients.html">
+     4.1. Gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-2-mlp.html">
+     4.2. Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-3-cnn.html">
+     4.3. Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-4-rnn.html">
+     4.4. Recurrent Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="cc-4-5-ae.html">
+     4.5. Encoder-Decoder Models
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
-</li>
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="cc-2-0-optim.html">2. <strong>Optimization</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">2.1. Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-2-2-tricks.html">2.2. Tricks of Optimization</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-3-0-ml.html">3. <strong>Machine Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-3-1-svm.html">3.1. Support Vector Machines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-3-2-gp.html">3.2. Gaussian Processes</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="cc-4-0-dl.html">4. <strong>Deep Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-1-gradients.html">4.1. Gradients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-2-mlp.html">4.2. Multilayer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-3-cnn.html">4.3. Convolutional Neural Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-4-rnn.html">4.4. Recurrent Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cc-4-5-ae.html">4.5. Encoder-Decoder Models</a></li>
-</ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercise
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../exercise/1_linReg_logReg.html">1. Linear Regression and Logistic Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../exercise/2_BayesianInference.html">2. Bayesian Linear and Logistic Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../exercise/3_optimization.html">3. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../exercise/4_SVM.html">4. Support Vector Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../exercise/5_GPs.html">5. Gaussian Processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../exercise/6_CNNs.html">6. CNNs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../exercise/7_RNNs.html">7. RNNs</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/1_linReg_logReg.html">
+   1. Linear Regression and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/2_BayesianInference.html">
+   2. Bayesian Linear and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/3_optimization.html">
+   3. Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/4_SVM.html">
+   4. Support Vector Machines
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/5_GPs.html">
+   5. Gaussian Processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/6_CNNs.html">
+   6. CNNs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../exercise/7_RNNs.html">
+   7. RNNs
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../admin.html">
+   Admin
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../books.html">
+   Books
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preliminary_knowledge.html">
+   Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../software.html">
+   Software Infrastructure
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../practical_exam.html">
+   Practical Exam WS22/23
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../faq.html">
+   Frequently Asked Questions
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+    <div id="rtd-footer-container"></div>
+</div>
 
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
+          
 
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
 
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
   
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
     </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/tumaer/SciML" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Flecture/cc-2-1-algorithms.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="../_sources/lecture/cc-2-1-algorithms.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
+    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
   </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tumaer/SciML"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
   
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Algorithms</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-optimization">2.1.1. Basics of Optimization</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convexity">2.1.1.1. Convexity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-functions">2.1.1.2. Cost Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#l-p-norm">2.1.1.2.1. <span class="math notranslate nohighlight">\(l_p\)</span> norm</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-based-methods">2.1.2. Gradient-based Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">2.1.2.1. Gradient Descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#momentum">2.1.2.1.1. Momentum</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">2.1.2.2. Adam</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">2.1.2.3. Stochastic Gradient Descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#minibatching">2.1.2.3.1. Minibatching</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-order-methods">2.1.2.4. Second-Order Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-s-method-aka-newton-raphson-method">2.1.2.4.1. Newton’s method (aka Newton-Raphson method)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-quasi-newton-approach">2.1.2.4.2. The Quasi-Newton Approach</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#the-secant-method">2.1.2.4.2.1. The Secant Method</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#quasi-newton-methods">2.1.2.4.2.2. Quasi-Newton Methods</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bfgs">2.1.2.4.2.3. BFGS</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#l-bfgs">2.1.2.4.2.4. L-BFGS</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blackbox-or-derivative-free-optimization-dfo">2.1.3. Blackbox or Derivative Free Optimization (DFO)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">2.1.4. Further References</a></li>
-</ul>
-            </nav>
-        </div>
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Flecture/cc-2-1-algorithms.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/lecture/cc-2-1-algorithms.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-              
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basics-of-optimization">
+   2.1.1. Basics of Optimization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convexity">
+     2.1.1.1. Convexity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cost-functions">
+     2.1.1.2. Cost Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l-p-norm">
+       2.1.1.2.1.
+       <span class="math notranslate nohighlight">
+        \(l_p\)
+       </span>
+       norm
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-based-methods">
+   2.1.2. Gradient-based Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descent">
+     2.1.2.1. Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#momentum">
+       2.1.2.1.1. Momentum
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adam">
+     2.1.2.2. Adam
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stochastic-gradient-descent">
+     2.1.2.3. Stochastic Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#minibatching">
+       2.1.2.3.1. Minibatching
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#second-order-methods">
+     2.1.2.4. Second-Order Methods
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#newton-s-method-aka-newton-raphson-method">
+       2.1.2.4.1. Newton’s method (aka Newton-Raphson method)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-quasi-newton-approach">
+       2.1.2.4.2. The Quasi-Newton Approach
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#the-secant-method">
+         2.1.2.4.2.1. The Secant Method
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#quasi-newton-methods">
+         2.1.2.4.2.2. Quasi-Newton Methods
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#bfgs">
+         2.1.2.4.2.3. BFGS
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#l-bfgs">
+         2.1.2.4.2.4. L-BFGS
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#blackbox-or-derivative-free-optimization-dfo">
+   2.1.3. Blackbox or Derivative Free Optimization (DFO)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   2.1.4. Further References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Algorithms</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#basics-of-optimization">
+   2.1.1. Basics of Optimization
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#convexity">
+     2.1.1.1. Convexity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#cost-functions">
+     2.1.1.2. Cost Functions
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l-p-norm">
+       2.1.1.2.1.
+       <span class="math notranslate nohighlight">
+        \(l_p\)
+       </span>
+       norm
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gradient-based-methods">
+   2.1.2. Gradient-based Methods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gradient-descent">
+     2.1.2.1. Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#momentum">
+       2.1.2.1.1. Momentum
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adam">
+     2.1.2.2. Adam
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stochastic-gradient-descent">
+     2.1.2.3. Stochastic Gradient Descent
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#minibatching">
+       2.1.2.3.1. Minibatching
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#second-order-methods">
+     2.1.2.4. Second-Order Methods
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#newton-s-method-aka-newton-raphson-method">
+       2.1.2.4.1. Newton’s method (aka Newton-Raphson method)
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#the-quasi-newton-approach">
+       2.1.2.4.2. The Quasi-Newton Approach
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#the-secant-method">
+         2.1.2.4.2.1. The Secant Method
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#quasi-newton-methods">
+         2.1.2.4.2.2. Quasi-Newton Methods
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#bfgs">
+         2.1.2.4.2.3. BFGS
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#l-bfgs">
+         2.1.2.4.2.4. L-BFGS
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#blackbox-or-derivative-free-optimization-dfo">
+   2.1.3. Blackbox or Derivative Free Optimization (DFO)
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   2.1.4. Further References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+              <div>
+                
   <section class="tex2jax_ignore mathjax_ignore" id="algorithms">
-<h1><span class="section-number">2.1. </span>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this heading">#</a></h1>
+<h1><span class="section-number">2.1. </span>Algorithms<a class="headerlink" href="#algorithms" title="Permalink to this headline">#</a></h1>
 <!-- 
 [link](https://mlstory.org/optimization.html) 
 [link](https://www.d2l.ai/chapter_optimization/index.html)
 vis.ensmallen.org
 -->
 <p>In Core Content 1, we already saw the main building blocks of a supervised learning algorithm:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p><strong>Model</strong> <span class="math notranslate nohighlight">\(h\)</span> of the relationship between inputs <span class="math notranslate nohighlight">\(x\)</span> and outputs <span class="math notranslate nohighlight">\(y\)</span>,</p></li>
 <li><p><strong>Loss</strong> (aka <strong>Cost</strong>, <strong>Error</strong>) function <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> quantifying the discrepancy between <span class="math notranslate nohighlight">\(h_{\vartheta}(x^{(i)})\)</span> and <span class="math notranslate nohighlight">\(y^{(i)}\)</span> for each of the measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>, and</p></li>
 <li><p>Optimization algorithm (aka <strong>Optimizer</strong>) minimizing the loss.</p></li>
@@ -471,11 +781,10 @@ vis.ensmallen.org
 <p>Point 1 is a matter of what we know about the world in advance and how we include that knowledge into the model, e.g. choose CNNs when working with images because the same pattern might appear at different locations of an image. In Core Contents 3 and 4, we will look at different models each of which is by construction better suited for different problem types.</p>
 <p>After selecting a model <span class="math notranslate nohighlight">\(h_{\vartheta}\)</span>, points 2 and 3 are critical to the success of the learning as the loss function (point 2) defines how we measure success and the optimizer (point 3) guides the process of moving from a random initial guess of the parameters to a parameter configuration with a much smaller loss. These two points are the topic of Core Content 2: how do the loss influence training and which optimization methods exist?</p>
 <section id="basics-of-optimization">
-<h2><span class="section-number">2.1.1. </span>Basics of Optimization<a class="headerlink" href="#basics-of-optimization" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.1.1. </span>Basics of Optimization<a class="headerlink" href="#basics-of-optimization" title="Permalink to this headline">#</a></h2>
 <p>First, we define the general (unconstrained) minimization problem</p>
 <div class="math notranslate nohighlight">
 \[\text{argmin}_{\vartheta} \; J(\vartheta),\]</div>
-<!-- $$\text{argmin}_{\vartheta} \; J(\vartheta),$$ (min_objective) -->
 <p>where <span class="math notranslate nohighlight">\(J:\mathbb{R}^n \rightarrow \mathbb{R}\)</span> is a real-valued function. We call the optimal solution of this problem the <em>minimizer</em> of <span class="math notranslate nohighlight">\(J\)</span> and denote it as <span class="math notranslate nohighlight">\(\vartheta_{\star}\)</span>. The minimizer is defined as <span class="math notranslate nohighlight">\(J(\vartheta_{\star}) \le J(\vartheta)\)</span> for all <span class="math notranslate nohighlight">\(\vartheta\)</span>. If the relation <span class="math notranslate nohighlight">\(J(\vartheta_{\star}) \le J(\vartheta)\)</span> holds in a local neighborhood <span class="math notranslate nohighlight">\(||\vartheta - \vartheta_{\star}|| \le \epsilon\)</span>, for some <span class="math notranslate nohighlight">\(\epsilon&gt;0\)</span>, then we call <span class="math notranslate nohighlight">\(\vartheta_{\star}\)</span> a local optimizer.</p>
 <p>In the figure below we see examples of functions with (left) one global minimum, (middle) infinitely many global minima, and (right) multiple local as well as one global minimum.</p>
 <div style="text-align:center">
@@ -483,7 +792,7 @@ vis.ensmallen.org
 </div>
 <p>(Source: <a class="reference external" href="https://mlstory.org/optimization.html">mlstory</a>)</p>
 <section id="convexity">
-<h3><span class="section-number">2.1.1.1. </span>Convexity<a class="headerlink" href="#convexity" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.1.1.1. </span>Convexity<a class="headerlink" href="#convexity" title="Permalink to this headline">#</a></h3>
 <p>Convexity is a property of a function and has a very clear geometric meaning.</p>
 <p>If the function <span class="math notranslate nohighlight">\(J\)</span> fulfills the following inequality</p>
 <div class="math notranslate nohighlight">
@@ -501,7 +810,7 @@ vis.ensmallen.org
 <p>Apparently, the choice of <span class="math notranslate nohighlight">\(h(x)\)</span> plays an important role in the shape of <span class="math notranslate nohighlight">\(J(\vartheta)\)</span>, but how does the choice of loss function influence <span class="math notranslate nohighlight">\(J\)</span>?</p>
 </section>
 <section id="cost-functions">
-<h3><span class="section-number">2.1.1.2. </span>Cost Functions<a class="headerlink" href="#cost-functions" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.1.1.2. </span>Cost Functions<a class="headerlink" href="#cost-functions" title="Permalink to this headline">#</a></h3>
 <p>Some of the most common loss functions include:</p>
 <ul class="simple">
 <li><p>Regression loss</p>
@@ -517,11 +826,10 @@ vis.ensmallen.org
 </li>
 </ul>
 <section id="l-p-norm">
-<h4><span class="section-number">2.1.1.2.1. </span><span class="math notranslate nohighlight">\(l_p\)</span> norm<a class="headerlink" href="#l-p-norm" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">2.1.1.2.1. </span><span class="math notranslate nohighlight">\(l_p\)</span> norm<a class="headerlink" href="#l-p-norm" title="Permalink to this headline">#</a></h4>
 <p>To better understand the regression losses, we will look at the general <span class="math notranslate nohighlight">\(l_p\)</span> norm of vector <span class="math notranslate nohighlight">\(w\in \mathbb{R}^m\)</span>:</p>
 <div class="math notranslate nohighlight">
 \[||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.\]</div>
-<!-- $$||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.$$ (p_norm) -->
 <p>In the special case <span class="math notranslate nohighlight">\(p=1\)</span> we recover the L1 loss, and the squared version of <span class="math notranslate nohighlight">\(p=2\)</span> corresponds to the MSE loss. Other special case is <span class="math notranslate nohighlight">\(p \to \infty\)</span> leading to <span class="math notranslate nohighlight">\(||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{m}| \right\}\)</span>. We see that with increasing <span class="math notranslate nohighlight">\(p\)</span> the larger terms dominate</p>
 <div style="text-align:center">
     <img src="https://i.imgur.com/Z05qdjO.png" alt="drawing" width="600"/>
@@ -532,7 +840,7 @@ vis.ensmallen.org
 </section>
 </section>
 <section id="gradient-based-methods">
-<h2><span class="section-number">2.1.2. </span>Gradient-based Methods<a class="headerlink" href="#gradient-based-methods" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.1.2. </span>Gradient-based Methods<a class="headerlink" href="#gradient-based-methods" title="Permalink to this headline">#</a></h2>
 <p>If we now consider the following, highly simplified, objective functions which we would now seek to optimize</p>
 <div style="text-align:center">
     <img src="https://i.imgur.com/kw9yqs6.png" alt="drawing" width="500"/>
@@ -543,7 +851,7 @@ vis.ensmallen.org
 <div><p>Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes <span class="math notranslate nohighlight">\(J \rightarrow f\)</span> and the variable <span class="math notranslate nohighlight">\(\vartheta \rightarrow x\)</span>. Don’t confuse this <span class="math notranslate nohighlight">\(x\)</span> with the input measurements <span class="math notranslate nohighlight">\(\{x^{(i)},y^{(i)}\}_{i=0,...,m}\)</span>.</p>
 </div></blockquote>
 <section id="gradient-descent">
-<h3><span class="section-number">2.1.2.1. </span>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.1.2.1. </span>Gradient Descent<a class="headerlink" href="#gradient-descent" title="Permalink to this headline">#</a></h3>
 <p>While the foundational concept, gradient descent is rarely used in its pure form, but mostly in its stochastic form these days. If we first consider it in its most foundational form in 1-dimension, then we can take a function <span class="math notranslate nohighlight">\(f\)</span>, and Taylor-expand it</p>
 <div class="math notranslate nohighlight">
 \[f(x+\varepsilon) = f(x) + \varepsilon f'(x) + \mathcal{O}(\varepsilon^{2})\]</div>
@@ -599,7 +907,7 @@ vis.ensmallen.org
 \[{\bf{x}} \leftarrow {\bf{x}} - \eta \text{diag }(\nabla^{2} f({\bf{x}}))^{-1} \nabla f({\bf{x}})\]</div>
 <p>What the preconditioning then achieves is to in essence select a specific learning rule for every single variable.</p>
 <section id="momentum">
-<h4><span class="section-number">2.1.2.1.1. </span>Momentum<a class="headerlink" href="#momentum" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">2.1.2.1.1. </span>Momentum<a class="headerlink" href="#momentum" title="Permalink to this headline">#</a></h4>
 <p>If we now have a mismatch in the scales of two variables contained in our objective function, then we end up with an unsolvable optimization problem. To solve it, we require the <em>momentum method</em></p>
 <div class="math notranslate nohighlight">
 \[{\bf{v}}_{t} \leftarrow \beta {\bf{v}}_{t-1} + {\bf{g}}_{t}\]</div>
@@ -619,7 +927,7 @@ vis.ensmallen.org
 </section>
 </section>
 <section id="adam">
-<h3><span class="section-number">2.1.2.2. </span>Adam<a class="headerlink" href="#adam" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.1.2.2. </span>Adam<a class="headerlink" href="#adam" title="Permalink to this headline">#</a></h3>
 <p>The <a class="reference external" href="https://arxiv.org/abs/1412.6980">Adam algorithm</a>, then extends beyond traditional gradient descent by combining multiple tricks into a highly robust algorithm, which is one of the most well-used optimization algorithms in machine learning.</p>
 <p>Expanding upon the previous use of momentum, Adam further utilizes the 1st and 2nd momentum of the gradient i.e.</p>
 <div class="math notranslate nohighlight">
@@ -644,7 +952,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 <p>(Source: <a class="reference external" href="https://github.com/Jaewan-Yun/optimizer-visualization">github.com/Jaewan-Yun/optimizer-visualization</a>)</p>
 </section>
 <section id="stochastic-gradient-descent">
-<h3><span class="section-number">2.1.2.3. </span>Stochastic Gradient Descent<a class="headerlink" href="#stochastic-gradient-descent" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.1.2.3. </span>Stochastic Gradient Descent<a class="headerlink" href="#stochastic-gradient-descent" title="Permalink to this headline">#</a></h3>
 <p>In machine learning, we often resort to taking the loss across an average of the entire training set. Writing down the objective function for the training set with <span class="math notranslate nohighlight">\(n\)</span> entries</p>
 <div class="math notranslate nohighlight">
 \[f({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n}f_{i}({\bf{x}})\]</div>
@@ -664,7 +972,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 <p>(Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>)</p>
 <p>we come to realize that the stochasticity induces too much noise for our chosen learning rate. To handle that we introduce learning rate scheduling.</p>
 <section id="minibatching">
-<h4><span class="section-number">2.1.2.3.1. </span>Minibatching<a class="headerlink" href="#minibatching" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">2.1.2.3.1. </span>Minibatching<a class="headerlink" href="#minibatching" title="Permalink to this headline">#</a></h4>
 <blockquote>
 <div><p>For data which is very similar, gradient descent is inefficient, whereas stochastic gradient descent relies on the power of vectorization.</p>
 </div></blockquote>
@@ -678,11 +986,11 @@ Converge to a Local Nash Equilibrium</a>).</p>
 </section>
 </section>
 <section id="second-order-methods">
-<h3><span class="section-number">2.1.2.4. </span>Second-Order Methods<a class="headerlink" href="#second-order-methods" title="Permalink to this heading">#</a></h3>
+<h3><span class="section-number">2.1.2.4. </span>Second-Order Methods<a class="headerlink" href="#second-order-methods" title="Permalink to this headline">#</a></h3>
 <p>With first-order methods only taking the gradient itself into account there is much information we are leaving untapped in attempting to solve our optimization problem, such as gradient curvature for which we’d need 2nd order gradients.</p>
 <p>The reason for that is in part historic, automatic differentiation (to be explained in-depth in a later lecture) suffers from an exponential compute-graph blow-up when computing higher-order gradients. The automatic differentiation engines the first popularized machine learning engines from AlexNet, LeNet etc. were built on were unable to handle higher-order gradients for the above reason, and only modern automatic differentiation engines have been able to circumvent that problem. As such 2nd-order gradient methods have seen a recent resurgence with methods like <a class="reference external" href="https://research.google/pubs/pub47079/">Shampoo</a>, <a class="reference external" href="https://arxiv.org/pdf/2210.15255.pdf">RePAST</a>, and <a class="reference external" href="https://openreview.net/forum?id=cScb-RrBQC">Fishy</a>.</p>
 <section id="newton-s-method-aka-newton-raphson-method">
-<h4><span class="section-number">2.1.2.4.1. </span>Newton’s method (aka Newton-Raphson method)<a class="headerlink" href="#newton-s-method-aka-newton-raphson-method" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">2.1.2.4.1. </span>Newton’s method (aka Newton-Raphson method)<a class="headerlink" href="#newton-s-method-aka-newton-raphson-method" title="Permalink to this headline">#</a></h4>
 <p>A first example of the step toward second-order methods is the Newton method. It is an iterative method to find a zero of a differentiable function defined as <span class="math notranslate nohighlight">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span>. The Newton-method begins with an initial guess <span class="math notranslate nohighlight">\(x_{0}\)</span> to then iteratively update with</p>
 <div class="math notranslate nohighlight">
 \[x_{t+1} = x_{t} - \frac{f(x_{t})}{f'(x_{t})}\]</div>
@@ -721,10 +1029,10 @@ Converge to a Local Nash Equilibrium</a>).</p>
 <p>A matrix <span class="math notranslate nohighlight">\(H\)</span> is positive definite if the real number <span class="math notranslate nohighlight">\(z^{\top} H z\)</span> is positive for every nonzero real-valued vector <span class="math notranslate nohighlight">\(z\)</span>.</p>
 </section>
 <section id="the-quasi-newton-approach">
-<h4><span class="section-number">2.1.2.4.2. </span>The Quasi-Newton Approach<a class="headerlink" href="#the-quasi-newton-approach" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">2.1.2.4.2. </span>The Quasi-Newton Approach<a class="headerlink" href="#the-quasi-newton-approach" title="Permalink to this headline">#</a></h4>
 <p>With the main computational bottleneck of Newton’s approach being that the inversion of the Hessian matrix costs <span class="math notranslate nohighlight">\(\mathcal{O}(d^{3})\)</span> for a matrix of size <span class="math notranslate nohighlight">\(d \times d\)</span>, there exist multiple approaches which try to circumvent this costly operation.</p>
 <section id="the-secant-method">
-<h5><span class="section-number">2.1.2.4.2.1. </span>The Secant Method<a class="headerlink" href="#the-secant-method" title="Permalink to this heading">#</a></h5>
+<h5><span class="section-number">2.1.2.4.2.1. </span>The Secant Method<a class="headerlink" href="#the-secant-method" title="Permalink to this headline">#</a></h5>
 <p>The secant method is an alternative to Newton’s method, which consciously does not use derivatives and has hence much less stringent requirements on our objective function such as it not needing to be differentiable. Essentially taking a finite difference approximation</p>
 <div class="math notranslate nohighlight">
 \[\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}}\]</div>
@@ -744,7 +1052,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 \[x_{t+1}=x_{t} - f'(x_{t})\frac{x_{t} - x_{t-1}}{f'(x_{t}) - f'(x_{t-1})}, \quad t \geq 1\]</div>
 </section>
 <section id="quasi-newton-methods">
-<h5><span class="section-number">2.1.2.4.2.2. </span>Quasi-Newton Methods<a class="headerlink" href="#quasi-newton-methods" title="Permalink to this heading">#</a></h5>
+<h5><span class="section-number">2.1.2.4.2.2. </span>Quasi-Newton Methods<a class="headerlink" href="#quasi-newton-methods" title="Permalink to this headline">#</a></h5>
 <p>If we consider the so-called secant condition, then we have the following approximation</p>
 <div class="math notranslate nohighlight">
 \[H_{t} = \frac{f'(x_{t}) - f'(x_{t-1})}{x_{t} - x_{t-1}} \approx f''(x_{t})\]</div>
@@ -769,7 +1077,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 <p>I.e. our matrix <span class="math notranslate nohighlight">\(H_{t}\)</span>, the Hessian, only changes by a minor error matrix. These errors should also be as small as possible.</p>
 </section>
 <section id="bfgs">
-<h5><span class="section-number">2.1.2.4.2.3. </span>BFGS<a class="headerlink" href="#bfgs" title="Permalink to this heading">#</a></h5>
+<h5><span class="section-number">2.1.2.4.2.3. </span>BFGS<a class="headerlink" href="#bfgs" title="Permalink to this headline">#</a></h5>
 <p>(Broyden–Fletcher–Goldfarb–Shanno)</p>
 <p>For the BFGS algorithm, this update matrix then assumes the form</p>
 <div class="math notranslate nohighlight">
@@ -784,7 +1092,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 </div>
 </section>
 <section id="l-bfgs">
-<h5><span class="section-number">2.1.2.4.2.4. </span>L-BFGS<a class="headerlink" href="#l-bfgs" title="Permalink to this heading">#</a></h5>
+<h5><span class="section-number">2.1.2.4.2.4. </span>L-BFGS<a class="headerlink" href="#l-bfgs" title="Permalink to this headline">#</a></h5>
 <p>(Limited-memory BFGS)</p>
 <p>Especially in high dimensions a cost of <span class="math notranslate nohighlight">\(\mathcal{O}(d^{2})\)</span> may still be too prohibitive. Only using information from the past <span class="math notranslate nohighlight">\(m\)</span> iterations for <span class="math notranslate nohighlight">\(m\)</span> being a small value, L-BFGS then approximates the entire <span class="math notranslate nohighlight">\(H'\nabla f(x_{t})\)</span> term. L-BFGS then builds on modeling <span class="math notranslate nohighlight">\(H'\)</span> as</p>
 <div class="math notranslate nohighlight">
@@ -808,7 +1116,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 </section>
 </section>
 <section id="blackbox-or-derivative-free-optimization-dfo">
-<h2><span class="section-number">2.1.3. </span>Blackbox or Derivative Free Optimization (DFO)<a class="headerlink" href="#blackbox-or-derivative-free-optimization-dfo" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.1.3. </span>Blackbox or Derivative Free Optimization (DFO)<a class="headerlink" href="#blackbox-or-derivative-free-optimization-dfo" title="Permalink to this headline">#</a></h2>
 <p>If we are unable to compute gradients for any reason, then we need to rely on derivative-free optimization (DFO). This is most commonly used in blackbox function optimization, or discrete optimization.</p>
 <blockquote>
 <div><p>If you as an engineer would have to optimize the design of some model given to you, but where you are not allowed to touch the code or even look at the code of the model, but only query it for outputs, then this would constitute a case of blackbox function optimization.</p>
@@ -839,7 +1147,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
 <p>If instead of throwing away our “old” good candidates keep them in a <em>population</em> of good candidates, then we arrive at <em>evolutionary algorithms</em>. Here we maintain a population of <span class="math notranslate nohighlight">\(K\)</span> good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.</p>
 </section>
 <section id="further-references">
-<h2><span class="section-number">2.1.4. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
+<h2><span class="section-number">2.1.4. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
 <p><strong>Gradient-Based Optimization</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://mlstory.org/optimization.html">Patterns, Predictions, and Actions</a>, Chapter 5. Optimization; M. Hardt and B. Recht; 2022</p></li>
@@ -861,7 +1169,7 @@ Converge to a Local Nash Equilibrium</a>).</p>
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./lecture"
         },
         predefinedOutput: true
@@ -869,133 +1177,50 @@ Converge to a Local Nash Equilibrium</a>).</p>
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="cc-2-0-optim.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">2. </span><strong>Optimization</strong></p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="cc-2-0-optim.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title"><span class="section-number">2. </span><strong>Optimization</strong></p>
+        </div>
     </a>
-    <a class="right-next"
-       href="cc-2-2-tricks.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="cc-2-2-tricks.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><span class="section-number">2.2. </span>Tricks of Optimization</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#basics-of-optimization">2.1.1. Basics of Optimization</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convexity">2.1.1.1. Convexity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cost-functions">2.1.1.2. Cost Functions</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#l-p-norm">2.1.1.2.1. <span class="math notranslate nohighlight">\(l_p\)</span> norm</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-based-methods">2.1.2. Gradient-based Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gradient-descent">2.1.2.1. Gradient Descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#momentum">2.1.2.1.1. Momentum</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adam">2.1.2.2. Adam</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stochastic-gradient-descent">2.1.2.3. Stochastic Gradient Descent</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#minibatching">2.1.2.3.1. Minibatching</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#second-order-methods">2.1.2.4. Second-Order Methods</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#newton-s-method-aka-newton-raphson-method">2.1.2.4.1. Newton’s method (aka Newton-Raphson method)</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#the-quasi-newton-approach">2.1.2.4.2. The Quasi-Newton Approach</a><ul class="nav section-nav flex-column">
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#the-secant-method">2.1.2.4.2.1. The Secant Method</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#quasi-newton-methods">2.1.2.4.2.2. Quasi-Newton Methods</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#bfgs">2.1.2.4.2.3. BFGS</a></li>
-<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#l-bfgs">2.1.2.4.2.4. L-BFGS</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#blackbox-or-derivative-free-optimization-dfo">2.1.3. Blackbox or Derivative Free Optimization (DFO)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">2.1.4. Further References</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By N. Adams, L. Paehler, A. Toshev
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2022,2023.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
+            </footer>
+        </div>
     </div>
-  </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By N. Adams, L. Paehler, A. Toshev<br/>
+  
+      &copy; Copyright 2022,2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>

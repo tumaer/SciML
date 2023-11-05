@@ -1,60 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>2. Bayesian Linear and Logistic Regression &#8212; Introduction to Scientific Machine Learning for Engineers</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -64,103 +52,62 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'exercise/2_BayesianInference';</script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="3. Optimization" href="3_optimization.html" />
     <link rel="prev" title="1. Linear Regression and Logistic Regression" href="1_linReg_logReg.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
+    
+    <div class="container-fluid" id="banner"></div>
 
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="../search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="../about.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      <img src="../_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -170,309 +117,607 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../introduction.html">
+   Introduction
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-1-0-basics.html">1. <strong>Basics</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-1-linear.html">1.1. Linear Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-2-gmm-mcmc.html">1.2. GMM and MCMC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-1-3-bayes.html">1.3. Bayesian methods</a></li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lecture/cc-1-0-basics.html">
+   1.
+   <strong>
+    Basics
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-1-1-linear.html">
+     1.1. Linear Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-1-2-gmm-mcmc.html">
+     1.2. GMM and Sampling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-1-3-bayes.html">
+     1.3. Bayesian methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lecture/cc-2-0-optim.html">
+   2.
+   <strong>
+    Optimization
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-2-1-algorithms.html">
+     2.1. Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-2-2-tricks.html">
+     2.2. Tricks of Optimization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lecture/cc-3-0-ml.html">
+   3.
+   <strong>
+    Machine Learning
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-3-1-svm.html">
+     3.1. Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-3-2-gp.html">
+     3.2. Gaussian Processes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="../lecture/cc-4-0-dl.html">
+   4.
+   <strong>
+    Deep Learning
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-1-gradients.html">
+     4.1. Gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-2-mlp.html">
+     4.2. Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-3-cnn.html">
+     4.3. Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-4-rnn.html">
+     4.4. Recurrent Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../lecture/cc-4-5-ae.html">
+     4.5. Encoder-Decoder Models
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-2-0-optim.html">2. <strong>Optimization</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-2-1-algorithms.html">2.1. Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-2-2-tricks.html">2.2. Tricks of Optimization</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-3-0-ml.html">3. <strong>Machine Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-3-1-svm.html">3.1. Support Vector Machines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-3-2-gp.html">3.2. Gaussian Processes</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="../lecture/cc-4-0-dl.html">4. <strong>Deep Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-1-gradients.html">4.1. Gradients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-2-mlp.html">4.2. Multilayer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-3-cnn.html">4.3. Convolutional Neural Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-4-rnn.html">4.4. Recurrent Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../lecture/cc-4-5-ae.html">4.5. Encoder-Decoder Models</a></li>
-</ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercise
+ </span>
+</p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="1_linReg_logReg.html">1. Linear Regression and Logistic Regression</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Bayesian Linear and Logistic Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="3_optimization.html">3. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="4_SVM.html">4. Support Vector Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="5_GPs.html">5. Gaussian Processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="6_CNNs.html">6. CNNs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="7_RNNs.html">7. RNNs</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="1_linReg_logReg.html">
+   1. Linear Regression and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   2. Bayesian Linear and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="3_optimization.html">
+   3. Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="4_SVM.html">
+   4. Support Vector Machines
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="5_GPs.html">
+   5. Gaussian Processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="6_CNNs.html">
+   6. CNNs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="7_RNNs.html">
+   7. RNNs
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../admin.html">
+   Admin
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../books.html">
+   Books
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../references.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../preliminary_knowledge.html">
+   Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../software.html">
+   Software Infrastructure
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../practical_exam.html">
+   Practical Exam WS22/23
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../faq.html">
+   Frequently Asked Questions
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+    <div id="rtd-footer-container"></div>
+</div>
 
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
+          
 
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
-
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
-  
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
-    </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
 
 
 
-
-
-<div class="dropdown dropdown-launch-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
-    <i class="fas fa-rocket"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://colab.research.google.com/github/tumaer/SciML/blob/master/exercise/2_BayesianInference.ipynb" target="_blank"
-   class="btn btn-sm dropdown-item"
-   title="Launch onColab"
-   data-bs-placement="left" data-bs-toggle="tooltip"
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
+    </div>
+    <div class="header-article__right">
+<div class="menu-dropdown menu-dropdown-launch-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Launch interactive content">
+      <i class="fas fa-rocket"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://colab.research.google.com/github/tumaer/SciML/blob/master/exercise/2_BayesianInference.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Launch on Colab"
+>
+  
+
+<span class="headerbtn__icon-container">
   
     <img src="../_static/images/logo_colab.png">
   </span>
-<span class="btn__text-container">Colab</span>
+<span class="headerbtn__text-container">Colab</span>
 </a>
-</li>
+
+      </li>
       
-  </ul>
+    </ul>
+  </div>
 </div>
-
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/tumaer/SciML" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Fexercise/2_BayesianInference.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="../_sources/exercise/2_BayesianInference.ipynb" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.ipynb</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
   </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tumaer/SciML"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
   
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>2. Bayesian Linear and Logistic Regression</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-linear-regression">2.1 Bayesian Linear Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setting">Problem setting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#artificial-dataset">2.1.1 Artificial Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-bayesian-classical-linear-regression-revised">2.1.2 Non-Bayesian (Classical) Linear Regression (revised)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-linear-regression-model">2.1.3 Bayesian Linear Regression Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc-sampling-and-inference">2.1.4 MCMC: Sampling and Inference</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svi-training-sampling-and-inference">2.1.5 SVI: Training, Sampling and Inference</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">2.1.6 Exercise</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-logistic-regression">2.2 Bayesian Logistic Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iris-dataset-revised">2.2.1 Iris Dataset (revised)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-logistic-regression-model">2.2.2 Bayesian Logistic Regression Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-svi">2.2.3 Using SVI</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-mcmc">2.2.4 Using MCMC</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2.5 Exercise</a></li>
-</ul>
-</li>
-</ul>
-            </nav>
-        </div>
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Fexercise/2_BayesianInference.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="../_sources/exercise/2_BayesianInference.ipynb"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.ipynb</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-              
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-linear-regression">
+   2.1 Bayesian Linear Regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-setting">
+     Problem setting
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#artificial-dataset">
+     2.1.1 Artificial Dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-bayesian-classical-linear-regression-revised">
+     2.1.2 Non-Bayesian (Classical) Linear Regression (revised)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-linear-regression-model">
+     2.1.3 Bayesian Linear Regression Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mcmc-sampling-and-inference">
+     2.1.4 MCMC: Sampling and Inference
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#svi-training-sampling-and-inference">
+     2.1.5 SVI: Training, Sampling and Inference
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     2.1.6 Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-logistic-regression">
+   2.2 Bayesian Logistic Regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iris-dataset-revised">
+     2.2.1 Iris Dataset (revised)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-logistic-regression-model">
+     2.2.2 Bayesian Logistic Regression Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-svi">
+     2.2.3 Using SVI
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-mcmc">
+     2.2.4 Using MCMC
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     2.2.5 Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>2. Bayesian Linear and Logistic Regression</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-linear-regression">
+   2.1 Bayesian Linear Regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#problem-setting">
+     Problem setting
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#artificial-dataset">
+     2.1.1 Artificial Dataset
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#non-bayesian-classical-linear-regression-revised">
+     2.1.2 Non-Bayesian (Classical) Linear Regression (revised)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-linear-regression-model">
+     2.1.3 Bayesian Linear Regression Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#mcmc-sampling-and-inference">
+     2.1.4 MCMC: Sampling and Inference
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#svi-training-sampling-and-inference">
+     2.1.5 SVI: Training, Sampling and Inference
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise">
+     2.1.6 Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-logistic-regression">
+   2.2 Bayesian Logistic Regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#iris-dataset-revised">
+     2.2.1 Iris Dataset (revised)
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#bayesian-logistic-regression-model">
+     2.2.2 Bayesian Logistic Regression Model
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-svi">
+     2.2.3 Using SVI
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#using-mcmc">
+     2.2.4 Using MCMC
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#id1">
+     2.2.5 Exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+              <div>
+                
   <section class="tex2jax_ignore mathjax_ignore" id="bayesian-linear-and-logistic-regression">
-<h1>2. Bayesian Linear and Logistic Regression<a class="headerlink" href="#bayesian-linear-and-logistic-regression" title="Permalink to this heading">#</a></h1>
+<h1>2. Bayesian Linear and Logistic Regression<a class="headerlink" href="#bayesian-linear-and-logistic-regression" title="Permalink to this headline">#</a></h1>
 <p><strong>Software</strong></p>
 <p>Similar to the <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code> module in PyTorch containing the most frequently used neural network building blocks, there are also tools for Bayesian inference tasks. In this class we will use the universal probabilistic programming language (PPL) <a class="reference external" href="https://pyro.ai/">Pyro</a> which is supported by PyTorch on the backend (The correspondint tool in TensorFlow is <a class="reference external" href="https://www.tensorflow.org/probability">TensorFlow Probability</a>). At its core these probabilistic programming systems construct a domain-specific language to express express probabilistic models, sample from probability distributions and utilize their integrated inference engines such as <code class="docutils literal notranslate"><span class="pre">Hamiltonian</span> <span class="pre">Monte-Carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">Sequential</span> <span class="pre">Monte-Carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">Variational</span> <span class="pre">Inference</span></code>, etc. hence making it much easier for us to express probabilistic control-flows, as well as representing uncertainties in our algorithms.</p>
 <div class="cell docutils container">
@@ -528,9 +773,9 @@ document.write(`
 </div>
 </div>
 <section id="bayesian-linear-regression">
-<h2>2.1 Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this heading">#</a></h2>
+<h2>2.1 Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this headline">#</a></h2>
 <section id="problem-setting">
-<h3>Problem setting<a class="headerlink" href="#problem-setting" title="Permalink to this heading">#</a></h3>
+<h3>Problem setting<a class="headerlink" href="#problem-setting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
 <li><p>Given: given is a set of measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span> and <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p></li>
 <li><p>Question:  if a give you a novel <span class="math notranslate nohighlight">\(x\)</span>, what would be your best guess about its corresponding <span class="math notranslate nohighlight">\(y\)</span> <strong>and how certain are you about it</strong>?</p></li>
@@ -544,7 +789,7 @@ document.write(`
 <p>This part is mainly based on <a class="reference external" href="https://pyro.ai/examples/bayesian_regression.html">this</a> Pyro tutorial and <a class="reference external" href="https://github.com/csiro-mlai/hackfest-ppl/blob/c5bb342cdae3cf325ae39a226ce89e43a530b04a/primitives/05-regression_with_data.ipynb">this</a> further code.</p>
 </section>
 <section id="artificial-dataset">
-<h3>2.1.1 Artificial Dataset<a class="headerlink" href="#artificial-dataset" title="Permalink to this heading">#</a></h3>
+<h3>2.1.1 Artificial Dataset<a class="headerlink" href="#artificial-dataset" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># See Exercise 1 for more details on this dataset</span>
@@ -567,12 +812,12 @@ document.write(`
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1eefd69636ac9bf42f19fc3277f22c47e38fec42f879edacaf5ae575deae607a.png" src="../_images/1eefd69636ac9bf42f19fc3277f22c47e38fec42f879edacaf5ae575deae607a.png" />
+<img alt="../_images/2_BayesianInference_6_0.png" src="../_images/2_BayesianInference_6_0.png" />
 </div>
 </div>
 </section>
 <section id="non-bayesian-classical-linear-regression-revised">
-<h3>2.1.2 Non-Bayesian (Classical) Linear Regression (revised)<a class="headerlink" href="#non-bayesian-classical-linear-regression-revised" title="Permalink to this heading">#</a></h3>
+<h3>2.1.2 Non-Bayesian (Classical) Linear Regression (revised)<a class="headerlink" href="#non-bayesian-classical-linear-regression-revised" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Regression model</span>
@@ -620,7 +865,7 @@ weight [[2.0752199]]
 bias [2.9260273]
 </pre></div>
 </div>
-<img alt="../_images/e07ca049033f7e15db7ef83788411675313925204ea1f161dcc520b02f2ceb13.png" src="../_images/e07ca049033f7e15db7ef83788411675313925204ea1f161dcc520b02f2ceb13.png" />
+<img alt="../_images/2_BayesianInference_8_1.png" src="../_images/2_BayesianInference_8_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -638,21 +883,21 @@ bias [2.9260273]
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/cf3d00255ebf8866cb94c7e022d309c1ca3516bb44e89a7753fb96e6f76865ca.png" src="../_images/cf3d00255ebf8866cb94c7e022d309c1ca3516bb44e89a7753fb96e6f76865ca.png" />
+<img alt="../_images/2_BayesianInference_9_0.png" src="../_images/2_BayesianInference_9_0.png" />
 </div>
 </div>
 </section>
 <section id="bayesian-linear-regression-model">
-<h3>2.1.3 Bayesian Linear Regression Model<a class="headerlink" href="#bayesian-linear-regression-model" title="Permalink to this heading">#</a></h3>
+<h3>2.1.3 Bayesian Linear Regression Model<a class="headerlink" href="#bayesian-linear-regression-model" title="Permalink to this headline">#</a></h3>
 <p>And now we seek to express our Bayesian linear regression model. For a detailed explanation of the terms of this model, see <a class="reference external" href="https://pyro.ai/examples/bayesian_regression.html#Model">this</a> example. What you should know is that there are three different pieces of <code class="docutils literal notranslate"><span class="pre">model()</span></code> which are encoded via the mapping:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p>Observations <span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">pyro.sample</span></code> with the <code class="docutils literal notranslate"><span class="pre">obs</span></code> argument.</p></li>
 <li><p>Latent random variables <span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">pyro.sample</span></code>.</p></li>
 <li><p>Parameters <span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">pyro.param</span></code>.</p></li>
 </ol>
 <p>The model below essentially makes the following prior assumptions:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-b1ae5a04-4c9a-44cb-83b7-5d6ae5640e87">
-<span class="eqno">(21)<a class="headerlink" href="#equation-b1ae5a04-4c9a-44cb-83b7-5d6ae5640e87" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-2820a1a4-a3b9-44f7-b150-552712e46762">
+<span class="eqno">(21)<a class="headerlink" href="#equation-2820a1a4-a3b9-44f7-b150-552712e46762" title="Permalink to this equation">#</a></span>\[\begin{align}
 y_i &amp;\sim \mathcal{N}(\mu, \sigma)\\
 \mu &amp;= w \cdot x_i + b\\
 w &amp;\sim \mathcal{N}(0,1)\\
@@ -686,7 +931,7 @@ b &amp;\sim \mathcal{N}(0,10)\\
 </div>
 </section>
 <section id="mcmc-sampling-and-inference">
-<h3>2.1.4 MCMC: Sampling and Inference<a class="headerlink" href="#mcmc-sampling-and-inference" title="Permalink to this heading">#</a></h3>
+<h3>2.1.4 MCMC: Sampling and Inference<a class="headerlink" href="#mcmc-sampling-and-inference" title="Permalink to this headline">#</a></h3>
 <p>In the lecture we saw different Monte Carlo sampling strategies, e.g. Acceptance-Rejection Sampling and Adaptive Rejection Sampling, but the default sampler in Pyro are different. There are multiple reasons for that, some of which include:</p>
 <ul class="simple">
 <li><p>in the Acceptance-Rejection approaches, we need to know the constant <span class="math notranslate nohighlight">\(M\)</span>, which we often don’t a-priori know</p></li>
@@ -802,12 +1047,12 @@ sigma torch.Size([300])
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c41bdec9f8697f186439dd1ccc5cdbda742b617bfc1a72483f71103b3eee2f09.png" src="../_images/c41bdec9f8697f186439dd1ccc5cdbda742b617bfc1a72483f71103b3eee2f09.png" />
+<img alt="../_images/2_BayesianInference_17_0.png" src="../_images/2_BayesianInference_17_0.png" />
 </div>
 </div>
 </section>
 <section id="svi-training-sampling-and-inference">
-<h3>2.1.5 SVI: Training, Sampling and Inference<a class="headerlink" href="#svi-training-sampling-and-inference" title="Permalink to this heading">#</a></h3>
+<h3>2.1.5 SVI: Training, Sampling and Inference<a class="headerlink" href="#svi-training-sampling-and-inference" title="Permalink to this headline">#</a></h3>
 <p>An alternative to MCMC (and the default method in Pyro) is Variational Inference (VI). At this point in time you are not expected to know how variational inference works. Just remember that MCMC directly gives us samples from the posterior distribution, whereas VI first fits a surrogate posterior pdf and later samples from it as much as we want.</p>
 <p>This is how you would construct a training loop with Stochastic VI (yes, VI first trains a posterior pdf surrogate and then samples from it).</p>
 <div class="cell docutils container">
@@ -843,7 +1088,7 @@ tensor([-3.6259,  2.0735,  2.9365])
 AutoDiagonalNormal.scale tensor([0.0486, 0.0259, 0.0138])
 </pre></div>
 </div>
-<img alt="../_images/9488570e7ab20852975ca7ee5a1a9ca93e7ddfbfc754dbd5bfbfe343b553ecb9.png" src="../_images/9488570e7ab20852975ca7ee5a1a9ca93e7ddfbfc754dbd5bfbfe343b553ecb9.png" />
+<img alt="../_images/2_BayesianInference_19_1.png" src="../_images/2_BayesianInference_19_1.png" />
 </div>
 </div>
 <p>Given a trained model, how to make predictions using it?</p>
@@ -905,13 +1150,13 @@ AutoDiagonalNormal.scale tensor([0.0486, 0.0259, 0.0138])
  Text(0.5, 1.0, &#39;Bayesian Linear Regression&#39;)]
 </pre></div>
 </div>
-<img alt="../_images/0d985254f35f70f69c2fa7c1fd36784177b77770e0305f365f5b9852b23c2b0d.png" src="../_images/0d985254f35f70f69c2fa7c1fd36784177b77770e0305f365f5b9852b23c2b0d.png" />
+<img alt="../_images/2_BayesianInference_22_1.png" src="../_images/2_BayesianInference_22_1.png" />
 </div>
 </div>
 <p>We now need to (automatically) find the best distribution for our model and perform inference over our regression algorithm to learn the posterior distribution over our unobserved parameters.</p>
 </section>
 <section id="exercise">
-<h3>2.1.6 Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h3>
+<h3>2.1.6 Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">#</a></h3>
 <p>Apply Bayesian Linear Regression with the Terrain Ruggedness vs GDP dataset from <a class="reference external" href="https://pyro.ai/examples/bayesian_regression.html">this</a> Pyro tutorial.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -927,9 +1172,9 @@ AutoDiagonalNormal.scale tensor([0.0486, 0.0259, 0.0138])
 </section>
 </section>
 <section id="bayesian-logistic-regression">
-<h2>2.2 Bayesian Logistic Regression<a class="headerlink" href="#bayesian-logistic-regression" title="Permalink to this heading">#</a></h2>
+<h2>2.2 Bayesian Logistic Regression<a class="headerlink" href="#bayesian-logistic-regression" title="Permalink to this headline">#</a></h2>
 <section id="iris-dataset-revised">
-<h3>2.2.1 Iris Dataset (revised)<a class="headerlink" href="#iris-dataset-revised" title="Permalink to this heading">#</a></h3>
+<h3>2.2.1 Iris Dataset (revised)<a class="headerlink" href="#iris-dataset-revised" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
@@ -1066,12 +1311,12 @@ memory usage: 7.2 KB
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/fe5dc2524505272ed542ff94454d01b0221a5d10206c1c84a47fec9a15ed389f.png" src="../_images/fe5dc2524505272ed542ff94454d01b0221a5d10206c1c84a47fec9a15ed389f.png" />
+<img alt="../_images/2_BayesianInference_30_0.png" src="../_images/2_BayesianInference_30_0.png" />
 </div>
 </div>
 </section>
 <section id="bayesian-logistic-regression-model">
-<h3>2.2.2 Bayesian Logistic Regression Model<a class="headerlink" href="#bayesian-logistic-regression-model" title="Permalink to this heading">#</a></h3>
+<h3>2.2.2 Bayesian Logistic Regression Model<a class="headerlink" href="#bayesian-logistic-regression-model" title="Permalink to this headline">#</a></h3>
 <p>Taks:</p>
 <ul class="simple">
 <li><p>Given “petal_width”, determine whether the class is “setosa”.</p></li>
@@ -1102,7 +1347,7 @@ memory usage: 7.2 KB
 </div>
 </section>
 <section id="using-svi">
-<h3>2.2.3 Using SVI<a class="headerlink" href="#using-svi" title="Permalink to this heading">#</a></h3>
+<h3>2.2.3 Using SVI<a class="headerlink" href="#using-svi" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">BayesianLogisticRegression</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
@@ -1212,12 +1457,12 @@ linear.bias -16.362192
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7feed4a9d430&gt;
 </pre></div>
 </div>
-<img alt="../_images/4f56a144f3f2699bcd7cd169f8527b1fa040d346ab4238e83b9705d088aba6cf.png" src="../_images/4f56a144f3f2699bcd7cd169f8527b1fa040d346ab4238e83b9705d088aba6cf.png" />
+<img alt="../_images/2_BayesianInference_40_1.png" src="../_images/2_BayesianInference_40_1.png" />
 </div>
 </div>
 </section>
 <section id="using-mcmc">
-<h3>2.2.4 Using MCMC<a class="headerlink" href="#using-mcmc" title="Permalink to this heading">#</a></h3>
+<h3>2.2.4 Using MCMC<a class="headerlink" href="#using-mcmc" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nuts_kernel</span> <span class="o">=</span> <span class="n">NUTS</span><span class="p">(</span><span class="n">model</span><span class="p">)</span>
@@ -1277,7 +1522,7 @@ linear.weight -34.984016
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7feefe8265b0&gt;
 </pre></div>
 </div>
-<img alt="../_images/43cbb1ba17f2605076803966e7146004c757b702d55caf534c234f27a70e5104.png" src="../_images/43cbb1ba17f2605076803966e7146004c757b702d55caf534c234f27a70e5104.png" />
+<img alt="../_images/2_BayesianInference_46_1.png" src="../_images/2_BayesianInference_46_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1290,12 +1535,12 @@ linear.weight -34.984016
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/dfa8ec919e6fc791636fd65f7867d26a51fd22247e0e38ef7c50d3d59dabd34b.png" src="../_images/dfa8ec919e6fc791636fd65f7867d26a51fd22247e0e38ef7c50d3d59dabd34b.png" />
+<img alt="../_images/2_BayesianInference_47_1.png" src="../_images/2_BayesianInference_47_1.png" />
 </div>
 </div>
 </section>
 <section id="id1">
-<h3>2.2.5 Exercise<a class="headerlink" href="#id1" title="Permalink to this heading">#</a></h3>
+<h3>2.2.5 Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h3>
 <p>Apply Bayesian logistic regression using all existing inputs:</p>
 <p><code class="docutils literal notranslate"><span class="pre">iris_type</span> <span class="pre">~</span> <span class="pre">sepal_length</span> <span class="pre">+</span> <span class="pre">sepal_width</span> <span class="pre">+</span> <span class="pre">petal_length</span> <span class="pre">+</span> <span class="pre">petal_w</span></code></p>
 <blockquote>
@@ -1328,7 +1573,7 @@ linear.weight -34.984016
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./exercise"
         },
         predefinedOutput: true
@@ -1336,118 +1581,50 @@ linear.weight -34.984016
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="1_linReg_logReg.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">1. Linear Regression and Logistic Regression</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="1_linReg_logReg.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">1. Linear Regression and Logistic Regression</p>
+        </div>
     </a>
-    <a class="right-next"
-       href="3_optimization.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="3_optimization.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title">3. Optimization</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-linear-regression">2.1 Bayesian Linear Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-setting">Problem setting</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#artificial-dataset">2.1.1 Artificial Dataset</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#non-bayesian-classical-linear-regression-revised">2.1.2 Non-Bayesian (Classical) Linear Regression (revised)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-linear-regression-model">2.1.3 Bayesian Linear Regression Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#mcmc-sampling-and-inference">2.1.4 MCMC: Sampling and Inference</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#svi-training-sampling-and-inference">2.1.5 SVI: Training, Sampling and Inference</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">2.1.6 Exercise</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-logistic-regression">2.2 Bayesian Logistic Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#iris-dataset-revised">2.2.1 Iris Dataset (revised)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-logistic-regression-model">2.2.2 Bayesian Logistic Regression Model</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-svi">2.2.3 Using SVI</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-mcmc">2.2.4 Using MCMC</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2.5 Exercise</a></li>
-</ul>
-</li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By N. Adams, L. Paehler, A. Toshev
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2022,2023.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
+            </footer>
+        </div>
     </div>
-  </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By N. Adams, L. Paehler, A. Toshev<br/>
+  
+      &copy; Copyright 2022,2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>

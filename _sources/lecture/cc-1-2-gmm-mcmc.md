@@ -1,4 +1,4 @@
-# GMM and MCMC
+# GMM and Sampling
 
 This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) and some popular sampling methods like Markov Chain Monte Carlo (MCMC).
 
@@ -217,7 +217,7 @@ width: 600px
 align: center
 name: em_algorithm
 ---
-EM algorithm for a GMM with $k=2$ (Source: [Bishop, 2006](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf), Section 9.2).
+EM algorithm for a GMM with $k=2$ (Source: {cite}`bishop2006`, Section 9.2).
 ```
 
 There is an iterative algorithms that can solve the maximum likelihood problem by alternating between two steps. The algorithm goes as follows:
@@ -249,7 +249,7 @@ The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating 
 
 **Exercise: derive the M-step update equations following the maximum likelihood approach.**
 
-> Hint: look at [Bishop, 2006](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf), Section 9.2. 
+> Hint: look at {cite}`bishop2006`, Section 9.2. 
 
 ### Applications and Limitations
 
@@ -288,7 +288,7 @@ width: 450px
 align: center
 name: acceptance_rejection
 ---
-Acceptance-rejection candidate and target distributions (Source: Bolstad, 2009).
+Acceptance-rejection candidate and target distributions (Source: {cite}`bolstad2009`).
 ```
 
 To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:
@@ -340,7 +340,7 @@ width: 450px
 align: center
 name: adaptive_rejection_sapling
 ---
-(Not) log-concave function (Source: Bolstad, 2009).
+(Not) log-concave function (Source: {cite}`bolstad2009`).
 ```
 
 Using the tangent method, our algorithm then takes the following form:
@@ -391,17 +391,16 @@ Metropolis-Hastings trajectory (Source: [relguzman.blogpost.com](https://relguzm
 
 **Probability Theory**
 
-- [CS229 Lecture notes](https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf), Andrew Ng, Parts III, "The exponential family"
-
+- {cite}`cs229notes`, Section 3.1 - the exponential family
 
 **Gaussian Mixture Models**
 
-- [CS229 Lecture notes](https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf), Andrew Ng, Parts VIII, "Mixtures of Gaussians and the EM algorithm"
-- [Pattern Recognition and Machine Learning](https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf), Bishop, 2006,
-Section 9.2
+- {cite}`cs229notes`, Chapter 11 - main GMM reference
+- {cite}`bishop2006`, Section 9.2 - detailed derivations
 
-**Markov Chain Monte Carlo**
+**Sampling**
 
+- {cite}`bolstad2009`, Chapters 2, 5, and 6 - all presented sampling methods
+- {cite}`robert2004` - deeper dive into MCMC
 - [Interactive MCMC visualizations](https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana)
-- [Monte Carlo Statistical Methods](https://link.springer.com/book/10.1007/978-1-4757-4145-2), Rober & Casella, 2004
 

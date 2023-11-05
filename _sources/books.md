@@ -20,4 +20,4 @@
 8. [*Dive into Deep Learning*](https://www.amazon.de/-/en/Aston-Zhang/dp/1009389432), by Aston Zhang, Zachary C Lipton, Mu Li, and Alexander J Smola, 2023
     - Available [here](https://d2l.ai/).
 9. [*Understanding Computational Bayesian Statistics*](https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371), by William M Bolstad, 2009
-    - Available in the university library and [here](https://cds.cern.ch/record/1437903/files/9780470046098_TOC.pdf).
+    - Available in the university library.

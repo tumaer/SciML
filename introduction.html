@@ -1,60 +1,48 @@
 
-
 <!DOCTYPE html>
 
-
-<html lang="en" >
-
+<html>
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>Introduction &#8212; Introduction to Scientific Machine Learning for Engineers</title>
-  
-  
-  
-  <script data-cfasync="false">
-    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
-  </script>
-  
+    
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=ac02cc09edc035673794" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+<link href="_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
 
-  
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=ac02cc09edc035673794" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
 
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
     <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
     <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+    <link rel="stylesheet" type="text/css" href="_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
+    
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794" />
-  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=ac02cc09edc035673794"></script>
+  <link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
 
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="_static/doctools.js"></script>
     <script src="_static/clipboard.min.js"></script>
     <script src="_static/copybutton.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -64,103 +52,62 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'introduction';</script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="1. Basics" href="lecture/cc-1-0-basics.html" />
     <link rel="prev" title="About this Lecture" href="about.html" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <meta name="docsearch:language" content="en"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay overlay-navbar" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<!-- Checkboxes to toggle the in-page toc -->
+<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
+<label class="overlay overlay-pagetoc" for="__page-toc">
+    <div class="visually-hidden">Toggle in-page Table of Contents</div>
+</label>
+<!-- Headers at the top -->
+<div class="announcement header-item noprint"></div>
+<div class="header header-item noprint"></div>
 
-  
-  
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-  
-  <div id="pst-scroll-pixel-helper"></div>
+    
+    <div class="container-fluid" id="banner"></div>
 
-  
-  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    
 
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
-<form class="bd-search d-flex align-items-center"
-      action="search.html"
-      method="get">
-  <i class="fa-solid fa-magnifying-glass"></i>
-  <input type="search"
-         class="form-control"
-         name="q"
-         id="search-input"
-         placeholder="Search this book..."
-         aria-label="Search this book..."
-         autocomplete="off"
-         autocorrect="off"
-         autocapitalize="off"
-         spellcheck="false"/>
-  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
-  
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
-  
-  <div class="bd-container">
-    <div class="bd-container__inner bd-page-width">
+    <div class="container-xl">
+      <div class="row">
+          
+<!-- Sidebar -->
+<div class="bd-sidebar noprint" id="site-navigation">
+    <div class="bd-sidebar__content">
+        <div class="bd-sidebar__top"><div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="index.html">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
         
-
-  
-  <div class="sidebar-header-items sidebar-primary__section">
-    
-    
-    
-    
-  </div>
-  
-    <div class="sidebar-primary-items__start sidebar-primary__section">
-        <div class="sidebar-primary-item">
-  
-
-<a class="navbar-brand logo" href="about.html">
-  
-  
-  
-  
-    
-    
       
-    
-    
-    <img src="_static/logo.png" class="logo__image only-light" alt="Logo image"/>
-    <script>document.write(`<img src="_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
-  
-  
-</a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item navbar-nav active">
+      
+      <img src="_static/logo.png" class="logo" alt="logo">
+      
+      
+      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -170,300 +117,696 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">Introduction</a></li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Introduction
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Lecture
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="lecture/cc-1-0-basics.html">1. <strong>Basics</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-1-1-linear.html">1.1. Linear Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-1-2-gmm-mcmc.html">1.2. GMM and MCMC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-1-3-bayes.html">1.3. Bayesian methods</a></li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="lecture/cc-1-0-basics.html">
+   1.
+   <strong>
+    Basics
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-1-1-linear.html">
+     1.1. Linear Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-1-2-gmm-mcmc.html">
+     1.2. GMM and Sampling
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-1-3-bayes.html">
+     1.3. Bayesian methods
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="lecture/cc-2-0-optim.html">
+   2.
+   <strong>
+    Optimization
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+  <label for="toctree-checkbox-2">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-2-1-algorithms.html">
+     2.1. Algorithms
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-2-2-tricks.html">
+     2.2. Tricks of Optimization
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="lecture/cc-3-0-ml.html">
+   3.
+   <strong>
+    Machine Learning
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+  <label for="toctree-checkbox-3">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-3-1-svm.html">
+     3.1. Support Vector Machines
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-3-2-gp.html">
+     3.2. Gaussian Processes
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="lecture/cc-4-0-dl.html">
+   4.
+   <strong>
+    Deep Learning
+   </strong>
+  </a>
+  <input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+  <label for="toctree-checkbox-4">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-4-1-gradients.html">
+     4.1. Gradients
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-4-2-mlp.html">
+     4.2. Multilayer Perceptron
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-4-3-cnn.html">
+     4.3. Convolutional Neural Network
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-4-4-rnn.html">
+     4.4. Recurrent Models
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="lecture/cc-4-5-ae.html">
+     4.5. Encoder-Decoder Models
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="lecture/cc-2-0-optim.html">2. <strong>Optimization</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-2-1-algorithms.html">2.1. Algorithms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-2-2-tricks.html">2.2. Tricks of Optimization</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="lecture/cc-3-0-ml.html">3. <strong>Machine Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-3-1-svm.html">3.1. Support Vector Machines</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-3-2-gp.html">3.2. Gaussian Processes</a></li>
-</ul>
-</li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="lecture/cc-4-0-dl.html">4. <strong>Deep Learning</strong></a><input checked class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-4-1-gradients.html">4.1. Gradients</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-4-2-mlp.html">4.2. Multilayer Perceptron</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-4-3-cnn.html">4.3. Convolutional Neural Network</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-4-4-rnn.html">4.4. Recurrent Models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lecture/cc-4-5-ae.html">4.5. Encoder-Decoder Models</a></li>
-</ul>
-</li>
-</ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Exercise
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="exercise/1_linReg_logReg.html">1. Linear Regression and Logistic Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercise/2_BayesianInference.html">2. Bayesian Linear and Logistic Regression</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercise/3_optimization.html">3. Optimization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercise/4_SVM.html">4. Support Vector Machines</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercise/5_GPs.html">5. Gaussian Processes</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercise/6_CNNs.html">6. CNNs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="exercise/7_RNNs.html">7. RNNs</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exercise/1_linReg_logReg.html">
+   1. Linear Regression and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exercise/2_BayesianInference.html">
+   2. Bayesian Linear and Logistic Regression
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exercise/3_optimization.html">
+   3. Optimization
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exercise/4_SVM.html">
+   4. Support Vector Machines
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exercise/5_GPs.html">
+   5. Gaussian Processes
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exercise/6_CNNs.html">
+   6. CNNs
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exercise/7_RNNs.html">
+   7. RNNs
+  </a>
+ </li>
 </ul>
-<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Miscellaneous
+ </span>
+</p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="admin.html">Admin</a></li>
-<li class="toctree-l1"><a class="reference internal" href="books.html">Books</a></li>
-<li class="toctree-l1"><a class="reference internal" href="references.html">References</a></li>
-<li class="toctree-l1"><a class="reference internal" href="preliminary_knowledge.html">Preliminary Knowledge</a></li>
-<li class="toctree-l1"><a class="reference internal" href="software.html">Software Infrastructure</a></li>
-<li class="toctree-l1"><a class="reference internal" href="practical_exam.html">Practical Exam WS22/23</a></li>
-<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="admin.html">
+   Admin
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="books.html">
+   Books
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="references.html">
+   References
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="preliminary_knowledge.html">
+   Preliminary Knowledge
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="software.html">
+   Software Infrastructure
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="practical_exam.html">
+   Practical Exam WS22/23
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="faq.html">
+   Frequently Asked Questions
+  </a>
+ </li>
 </ul>
 
     </div>
 </nav></div>
+        <div class="bd-sidebar__bottom">
+             <!-- To handle the deprecated key -->
+            
+            <div class="navbar_extra_footer">
+            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+            </div>
+            
+        </div>
     </div>
-  
-  
-  <div class="sidebar-primary-items__end sidebar-primary__section">
-  </div>
-  
-  <div id="rtd-footer-container"></div>
+    <div id="rtd-footer-container"></div>
+</div>
 
 
-      </div>
-      
-      <main id="main-content" class="bd-main">
-        
-        
+          
 
+
+          
+<!-- A tiny helper pixel to detect if we've scrolled -->
 <div class="sbt-scroll-pixel-helper"></div>
+<!-- Main content -->
+<div class="col py-0 content-container">
+    
+    <div class="header-article row sticky-top noprint">
+        
 
-          <div class="bd-content">
-            <div class="bd-article-container">
-              
-              <div class="bd-header-article">
-<div class="header-article-items header-article__inner">
+
+
+<div class="col py-1 d-flex header-article-main">
+    <div class="header-article__left">
+        
+        <label for="__navigation"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="right"
+title="Toggle navigation"
+>
   
-    <div class="header-article-items__start">
-      
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <span class="fa-solid fa-bars"></span>
-</label></div>
-      
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-bars"></i>
+  </span>
+
+</label>
+
+        
     </div>
-  
-  
-    <div class="header-article-items__end">
-      
-        <div class="header-article-item">
-
-<div class="article-header-buttons">
-
-
-
-
-
-<div class="dropdown dropdown-source-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
-    <i class="fab fa-github"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="https://github.com/tumaer/SciML" target="_blank"
-   class="btn btn-sm btn-source-repository-button dropdown-item"
-   title="Source repository"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="btn__text-container">Repository</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li><a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here." target="_blank"
-   class="btn btn-sm btn-source-issues-button dropdown-item"
-   title="Open an issue"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="btn__text-container">Open issue</span>
-</a>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
-
-
-<div class="dropdown dropdown-download-buttons">
-  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
-    <i class="fas fa-download"></i>
-  </button>
-  <ul class="dropdown-menu">
-      
-      
-      
-      <li><a href="_sources/introduction.md" target="_blank"
-   class="btn btn-sm btn-download-source-button dropdown-item"
-   title="Download source file"
-   data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="btn__text-container">.md</span>
-</a>
-</li>
-      
-      
-      
-      
-      <li>
-<button onclick="window.print()"
-  class="btn btn-sm btn-download-pdf-button dropdown-item"
-  title="Print to PDF"
-  data-bs-placement="left" data-bs-toggle="tooltip"
->
-  
-
-<span class="btn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="btn__text-container">.pdf</span>
-</button>
-</li>
-      
-  </ul>
-</div>
-
-
-
-
+    <div class="header-article__right">
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
-  title="Fullscreen mode"
-  data-bs-placement="bottom" data-bs-toggle="tooltip"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="bottom"
+title="Fullscreen mode"
 >
   
 
-<span class="btn__icon-container">
+<span class="headerbtn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+<div class="menu-dropdown menu-dropdown-repository-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Source repositories">
+      <i class="fab fa-github"></i>
   </button>
-`);
-</script>
-
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
-</div></div>
-      
-    </div>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="https://github.com/tumaer/SciML"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Source repository"
+>
   
-</div>
-</div>
-              
-              
 
-<div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction</h1>
-    <!-- Table of contents -->
-    <div id="print-main-content">
-        <div id="jb-print-toc">
-            
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#famous-recent-examples-of-scientific-machine-learning">Famous Recent Examples of Scientific Machine Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphafold-predicts-3d-protein-structure-given-its-sequence">AlphaFold - predicts 3D protein structure given its sequence:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gns-capable-of-simulating-the-motion-of-water-particles">GNS - capable of simulating the motion of water particles:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#codex-translating-natural-language-to-code">Codex - translating natural language to code:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-deep-learning">Geometric Deep Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">SFCNN - steerable rotation equivariant CNN, e.g. for image segmentation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#segnn-molecular-property-prediction-model">SEGNN - molecular property prediction model</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-diffusion-generating-images-from-natural-text-description">Stable Diffusion - generating images from natural text description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-diffusion-reconstructing-visual-experiences-from-human-brain-activity">Stable Diffusion reconstructing visual experiences from human brain activity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imagebind-holistic-ai-learning-across-six-modalities">ImageBind - Holistic AI learning across six modalities</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised">Supervised vs Unsupervised</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-of-principal-components">Clustering of Principal Components</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">Supervised vs Unsupervised, the tl;dr in Probabilistic Terms</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-curve-fitting">Polynomial Curve Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-curve-fitting">Bayesian Curve Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">Maximum Likelihood &amp; Log-Likelihood</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
-</ul>
-            </nav>
-        </div>
+<span class="headerbtn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="headerbtn__text-container">repository</span>
+</a>
+
+      </li>
+      
+      <li>
+        <a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Fintroduction.html&body=Your%20issue%20content%20here."
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Open an issue"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="headerbtn__text-container">open issue</span>
+</a>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+
+<div class="menu-dropdown menu-dropdown-download-buttons">
+  <button class="headerbtn menu-dropdown__trigger"
+      aria-label="Download this page">
+      <i class="fas fa-download"></i>
+  </button>
+  <div class="menu-dropdown__content">
+    <ul>
+      <li>
+        <a href="_sources/introduction.md"
+   class="headerbtn"
+   data-toggle="tooltip"
+data-placement="left"
+title="Download source file"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="headerbtn__text-container">.md</span>
+</a>
+
+      </li>
+      
+      <li>
+        
+<button onclick="printPdf(this)"
+  class="headerbtn"
+  data-toggle="tooltip"
+data-placement="left"
+title="Print to PDF"
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="headerbtn__text-container">.pdf</span>
+</button>
+
+      </li>
+      
+    </ul>
+  </div>
+</div>
+<label for="__page-toc"
+  class="headerbtn headerbtn-page-toc"
+  
+>
+  
+
+<span class="headerbtn__icon-container">
+  <i class="fas fa-list"></i>
+  </span>
+
+</label>
+
     </div>
 </div>
 
-              
+<!-- Table of contents -->
+<div class="col-md-3 bd-toc show noprint">
+    <div class="tocsection onthispage pt-5 pb-3">
+        <i class="fas fa-list"></i> Contents
+    </div>
+    <nav id="bd-toc-nav" aria-label="Page">
+        <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#famous-recent-examples-of-scientific-machine-learning">
+   Famous Recent Examples of Scientific Machine Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#alphafold-predicts-3d-protein-structure-given-its-sequence">
+     AlphaFold - predicts 3D protein structure given its sequence:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gns-capable-of-simulating-the-motion-of-water-particles">
+     GNS - capable of simulating the motion of water particles:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#codex-translating-natural-language-to-code">
+     Codex - translating natural language to code:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-deep-learning">
+     Geometric Deep Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">
+       SFCNN - steerable rotation equivariant CNN, e.g. for image segmentation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#segnn-molecular-property-prediction-model">
+       SEGNN - molecular property prediction model
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stable-diffusion-generating-images-from-natural-text-description">
+     Stable Diffusion - generating images from natural text description
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stable-diffusion-reconstructing-visual-experiences-from-human-brain-activity">
+     Stable Diffusion reconstructing visual experiences from human brain activity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imagebind-holistic-ai-learning-across-six-modalities">
+     ImageBind - Holistic AI learning across six modalities
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#definition">
+   Definition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supervised-vs-unsupervised">
+   Supervised vs Unsupervised
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-learning">
+     Supervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#regression">
+       Regression
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#classification">
+       Classification
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unsupervised-learning">
+     Unsupervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#clustering-of-principal-components">
+       Clustering of Principal Components
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">
+     Supervised vs Unsupervised, the tl;dr in Probabilistic Terms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforcement-learning">
+     Reinforcement Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#polynomial-curve-fitting">
+   Polynomial Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-curve-fitting">
+   Bayesian Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">
+   Maximum Likelihood &amp; Log-Likelihood
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recap">
+   Recap
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   Further References
+  </a>
+ </li>
+</ul>
+
+    </nav>
+</div>
+    </div>
+    <div class="article row">
+        <div class="col pl-md-3 pl-lg-5 content-container">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Introduction</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#famous-recent-examples-of-scientific-machine-learning">
+   Famous Recent Examples of Scientific Machine Learning
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#alphafold-predicts-3d-protein-structure-given-its-sequence">
+     AlphaFold - predicts 3D protein structure given its sequence:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#gns-capable-of-simulating-the-motion-of-water-particles">
+     GNS - capable of simulating the motion of water particles:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#codex-translating-natural-language-to-code">
+     Codex - translating natural language to code:
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-deep-learning">
+     Geometric Deep Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">
+       SFCNN - steerable rotation equivariant CNN, e.g. for image segmentation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#segnn-molecular-property-prediction-model">
+       SEGNN - molecular property prediction model
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stable-diffusion-generating-images-from-natural-text-description">
+     Stable Diffusion - generating images from natural text description
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#stable-diffusion-reconstructing-visual-experiences-from-human-brain-activity">
+     Stable Diffusion reconstructing visual experiences from human brain activity
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#imagebind-holistic-ai-learning-across-six-modalities">
+     ImageBind - Holistic AI learning across six modalities
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#definition">
+   Definition
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#supervised-vs-unsupervised">
+   Supervised vs Unsupervised
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-learning">
+     Supervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#regression">
+       Regression
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#classification">
+       Classification
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#unsupervised-learning">
+     Unsupervised Learning
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#clustering-of-principal-components">
+       Clustering of Principal Components
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">
+     Supervised vs Unsupervised, the tl;dr in Probabilistic Terms
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reinforcement-learning">
+     Reinforcement Learning
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#polynomial-curve-fitting">
+   Polynomial Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#bayesian-curve-fitting">
+   Bayesian Curve Fitting
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">
+   Maximum Likelihood &amp; Log-Likelihood
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#recap">
+   Recap
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#further-references">
+   Further References
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <main id="main-content" role="main">
                 
-<div id="searchbox"></div>
-                <article class="bd-article" role="main">
-                  
+              <div>
+                
   <section class="tex2jax_ignore mathjax_ignore" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">#</a></h1>
 <section id="famous-recent-examples-of-scientific-machine-learning">
-<h2>Famous Recent Examples of Scientific Machine Learning<a class="headerlink" href="#famous-recent-examples-of-scientific-machine-learning" title="Permalink to this heading">#</a></h2>
+<h2>Famous Recent Examples of Scientific Machine Learning<a class="headerlink" href="#famous-recent-examples-of-scientific-machine-learning" title="Permalink to this headline">#</a></h2>
 <p>With scientific machine learning becoming an ever larger mainstay at machine learning conferences, and ever more venues and research centres at the intersection of machine learning and the natural sciences / engineering appearing there exist ever more impressive examples of algorithms which connect the very best of machine learning with deep scientific insight into the respective underlying problem to advance the field.</p>
 <p>Below are a few prime examples of recent flagship algorithms in scientific machine learning, of which every single one of them personifies the very best algorithmic approaches we have available to us today.</p>
 <section id="alphafold-predicts-3d-protein-structure-given-its-sequence">
-<h3><a class="reference external" href="https://www.nature.com/articles/s41586-021-03819-2">AlphaFold</a> - predicts 3D protein structure given its sequence:<a class="headerlink" href="#alphafold-predicts-3d-protein-structure-given-its-sequence" title="Permalink to this heading">#</a></h3>
+<h3><a class="reference external" href="https://www.nature.com/articles/s41586-021-03819-2">AlphaFold</a> - predicts 3D protein structure given its sequence:<a class="headerlink" href="#alphafold-predicts-3d-protein-structure-given-its-sequence" title="Permalink to this headline">#</a></h3>
 <figure class="align-center" id="alphafold">
 <a class="reference internal image-reference" href="_images/alphafold.png"><img alt="_images/alphafold.png" src="_images/alphafold.png" style="width: 500px;" /></a>
 <figcaption>
@@ -472,7 +815,7 @@ document.write(`
 </figure>
 </section>
 <section id="gns-capable-of-simulating-the-motion-of-water-particles">
-<h3><a class="reference external" href="https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html">GNS</a> - capable of simulating the motion of water particles:<a class="headerlink" href="#gns-capable-of-simulating-the-motion-of-water-particles" title="Permalink to this heading">#</a></h3>
+<h3><a class="reference external" href="https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html">GNS</a> - capable of simulating the motion of water particles:<a class="headerlink" href="#gns-capable-of-simulating-the-motion-of-water-particles" title="Permalink to this headline">#</a></h3>
 <figure class="align-center" id="gns">
 <a class="reference internal image-reference" href="_images/gns.png"><img alt="_images/gns.png" src="_images/gns.png" style="width: 500px;" /></a>
 <figcaption>
@@ -481,7 +824,7 @@ document.write(`
 </figure>
 </section>
 <section id="codex-translating-natural-language-to-code">
-<h3><a class="reference external" href="https://arxiv.org/abs/2107.03374">Codex</a> - translating natural language to code:<a class="headerlink" href="#codex-translating-natural-language-to-code" title="Permalink to this heading">#</a></h3>
+<h3><a class="reference external" href="https://arxiv.org/abs/2107.03374">Codex</a> - translating natural language to code:<a class="headerlink" href="#codex-translating-natural-language-to-code" title="Permalink to this headline">#</a></h3>
 <figure class="align-center" id="codex">
 <a class="reference internal image-reference" href="_images/codex.gif"><img alt="_images/codex.gif" src="_images/codex.gif" style="width: 500px;" /></a>
 <figcaption>
@@ -490,10 +833,10 @@ document.write(`
 </figure>
 </section>
 <section id="geometric-deep-learning">
-<h3><a class="reference external" href="https://geometricdeeplearning.com/">Geometric Deep Learning</a><a class="headerlink" href="#geometric-deep-learning" title="Permalink to this heading">#</a></h3>
+<h3><a class="reference external" href="https://geometricdeeplearning.com/">Geometric Deep Learning</a><a class="headerlink" href="#geometric-deep-learning" title="Permalink to this headline">#</a></h3>
 <p>Geometric deep learning aims to generalize neural network models to non-Euclidean domains such as graphs and manifolds. Good examples of this line of research include:</p>
 <section id="sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">
-<h4><a class="reference external" href="https://arxiv.org/abs/1711.07289">SFCNN</a> - steerable rotation equivariant CNN, e.g. for image segmentation<a class="headerlink" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation" title="Permalink to this heading">#</a></h4>
+<h4><a class="reference external" href="https://arxiv.org/abs/1711.07289">SFCNN</a> - steerable rotation equivariant CNN, e.g. for image segmentation<a class="headerlink" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation" title="Permalink to this headline">#</a></h4>
 <figure class="align-center" id="sfcnn">
 <a class="reference internal image-reference" href="_images/sfcnn.png"><img alt="_images/sfcnn.png" src="_images/sfcnn.png" style="width: 500px;" /></a>
 <figcaption>
@@ -502,7 +845,7 @@ document.write(`
 </figure>
 </section>
 <section id="segnn-molecular-property-prediction-model">
-<h4><a class="reference external" href="https://arxiv.org/abs/2110.02905">SEGNN</a> - molecular property prediction model<a class="headerlink" href="#segnn-molecular-property-prediction-model" title="Permalink to this heading">#</a></h4>
+<h4><a class="reference external" href="https://arxiv.org/abs/2110.02905">SEGNN</a> - molecular property prediction model<a class="headerlink" href="#segnn-molecular-property-prediction-model" title="Permalink to this headline">#</a></h4>
 <figure class="align-center" id="segnn">
 <a class="reference internal image-reference" href="_images/segnn.png"><img alt="_images/segnn.png" src="_images/segnn.png" style="width: 500px;" /></a>
 <figcaption>
@@ -512,7 +855,7 @@ document.write(`
 </section>
 </section>
 <section id="stable-diffusion-generating-images-from-natural-text-description">
-<h3><a class="reference external" href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a> - generating images from natural text description<a class="headerlink" href="#stable-diffusion-generating-images-from-natural-text-description" title="Permalink to this heading">#</a></h3>
+<h3><a class="reference external" href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a> - generating images from natural text description<a class="headerlink" href="#stable-diffusion-generating-images-from-natural-text-description" title="Permalink to this headline">#</a></h3>
 <figure class="align-center" id="stablediffusion">
 <a class="reference internal image-reference" href="_images/stable_diffusion_art.jpg"><img alt="_images/stable_diffusion_art.jpg" src="_images/stable_diffusion_art.jpg" style="width: 500px;" /></a>
 <figcaption>
@@ -521,7 +864,7 @@ document.write(`
 </figure>
 </section>
 <section id="stable-diffusion-reconstructing-visual-experiences-from-human-brain-activity">
-<h3><a class="reference external" href="https://www.biorxiv.org/content/10.1101/2022.11.18.517004v3">Stable Diffusion reconstructing visual experiences from human brain activity</a><a class="headerlink" href="#stable-diffusion-reconstructing-visual-experiences-from-human-brain-activity" title="Permalink to this heading">#</a></h3>
+<h3><a class="reference external" href="https://www.biorxiv.org/content/10.1101/2022.11.18.517004v3">Stable Diffusion reconstructing visual experiences from human brain activity</a><a class="headerlink" href="#stable-diffusion-reconstructing-visual-experiences-from-human-brain-activity" title="Permalink to this headline">#</a></h3>
 <figure class="align-center" id="stablediffusion-brain">
 <a class="reference internal image-reference" href="_images/stable_diffusion_brain.jpg"><img alt="_images/stable_diffusion_brain.jpg" src="_images/stable_diffusion_brain.jpg" style="width: 700px;" /></a>
 <figcaption>
@@ -530,7 +873,7 @@ document.write(`
 </figure>
 </section>
 <section id="imagebind-holistic-ai-learning-across-six-modalities">
-<h3><a class="reference external" href="https://arxiv.org/abs/2305.05665">ImageBind</a> - Holistic AI learning across six modalities<a class="headerlink" href="#imagebind-holistic-ai-learning-across-six-modalities" title="Permalink to this heading">#</a></h3>
+<h3><a class="reference external" href="https://arxiv.org/abs/2305.05665">ImageBind</a> - Holistic AI learning across six modalities<a class="headerlink" href="#imagebind-holistic-ai-learning-across-six-modalities" title="Permalink to this headline">#</a></h3>
 <figure class="align-center" id="imagebind">
 <a class="reference internal image-reference" href="_images/imagebind.gif"><img alt="_images/imagebind.gif" src="_images/imagebind.gif" style="width: 600px;" /></a>
 <figcaption>
@@ -540,7 +883,7 @@ document.write(`
 </section>
 </section>
 <section id="definition">
-<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">#</a></h2>
+<h2>Definition<a class="headerlink" href="#definition" title="Permalink to this headline">#</a></h2>
 <p>Machine learning at the intersection of engineering, physics, chemistry, computational biology etc. and core machine learning to improve existing scientific workflows, derive new scientific insight, or bridge the gap between scientific data and our current state of knowledge.</p>
 <p>Important here to recall is the difference in approaches between engineering &amp; physics, and machine learning on the other side:</p>
 <p><strong>Engineering &amp; Physics</strong></p>
@@ -549,15 +892,15 @@ document.write(`
 <p>Models are derived from data with imprinted priors on the model space either through the data itself, or through the design of the machine learning algorithm.</p>
 </section>
 <section id="supervised-vs-unsupervised">
-<h2>Supervised vs Unsupervised<a class="headerlink" href="#supervised-vs-unsupervised" title="Permalink to this heading">#</a></h2>
+<h2>Supervised vs Unsupervised<a class="headerlink" href="#supervised-vs-unsupervised" title="Permalink to this headline">#</a></h2>
 <p>There exist 3 main types of modern day machine learning:</p>
-<ol class="arabic simple">
+<ol class="simple">
 <li><p>Supervised Learning</p></li>
 <li><p>Unsupervised Learning</p></li>
 <li><p>Reinforcement Learning</p></li>
 </ol>
 <section id="supervised-learning">
-<h3>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Permalink to this heading">#</a></h3>
+<h3>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Permalink to this headline">#</a></h3>
 <p>In supervised learning we have a mapping <span class="math notranslate nohighlight">\(f: X \rightarrow Y\)</span>, where the inputs <span class="math notranslate nohighlight">\(x \in X\)</span> are also called <strong>features</strong>, <strong>covariates</strong>, or <strong>predictors</strong>. The outputs <span class="math notranslate nohighlight">\(y \in Y\)</span> are often also called the <strong>labels</strong>, <strong>targets</strong>, or <strong>responses</strong>. The correct mapping is then learned from a <strong>labeled</strong> training set</p>
 <div class="math notranslate nohighlight" id="equation-supervised-data">
 <span class="eqno">(1)<a class="headerlink" href="#equation-supervised-data" title="Permalink to this equation">#</a></span>\[\mathcal{D}_{N} = \left\{ \left( x_{n}, y_{n} \right) \right\}_{n=1:N}\]</div>
@@ -566,30 +909,30 @@ document.write(`
 <div><p>Some also call it “glorified curve-fitting”</p>
 </div></blockquote>
 <section id="regression">
-<h4>Regression<a class="headerlink" href="#regression" title="Permalink to this heading">#</a></h4>
+<h4>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">#</a></h4>
 <p>In regression, the target <span class="math notranslate nohighlight">\(y\)</span> is real-valued, i.e. <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p>
 <figure class="align-center" id="d-regression-ex">
 <a class="reference internal image-reference" href="_images/2d_regression_ex.jpg"><img alt="_images/2d_regression_ex.jpg" src="_images/2d_regression_ex.jpg" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">2D regression example. (Source: <a class="reference external" href="https://probml.github.io/pml-book/book0.html">Murphy, 2012</a>)</span><a class="headerlink" href="#d-regression-ex" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">2D regression example. (Source: <span id="id1">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#d-regression-ex" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Example of a response surface being fitted to a number of data points in 3 dimensions, where in this instance the x- and y-axes are a two-dimensional space, and the z-axis is the temperature in the two-dimensional space.</p>
 </section>
 <section id="classification">
-<h4>Classification<a class="headerlink" href="#classification" title="Permalink to this heading">#</a></h4>
+<h4>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">#</a></h4>
 <p>In classification the labels <span class="math notranslate nohighlight">\(y\)</span> are categorical i.e. <span class="math notranslate nohighlight">\(y \in \mathcal{C}\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> defines a set of classes.</p>
 <figure class="align-center" id="iris-classification">
 <a class="reference internal image-reference" href="_images/iris_classification.png"><img alt="_images/iris_classification.png" src="_images/iris_classification.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Classification example. (Source: <a class="reference external" href="https://probml.github.io/pml-book/book0.html">Murphy, 2012</a>)</span><a class="headerlink" href="#iris-classification" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Classification example. (Source: <span id="id2">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#iris-classification" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Example of flower classification, where we aim to find the decision boundaries which will sort each individual node into the respective class.</p>
 </section>
 </section>
 <section id="unsupervised-learning">
-<h3>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this heading">#</a></h3>
+<h3>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this headline">#</a></h3>
 <p>In unsupervised learning, we only receive a dataset of inputs</p>
 <div class="math notranslate nohighlight" id="equation-unsupervised-data">
 <span class="eqno">(2)<a class="headerlink" href="#equation-unsupervised-data" title="Permalink to this equation">#</a></span>\[\mathcal{D}_{N} = \left\{ x_{n} \right\}_{n=1:N}\]</div>
@@ -599,22 +942,22 @@ document.write(`
 </div></blockquote>
 <p>Two famous examples of unsupervised learning are <strong>clustering</strong> (e.g. k-means) and especially <strong>dimensionality reduction</strong> (e.g. principal component analysis) which is commonly used in engineering and scientific applications.</p>
 <section id="clustering-of-principal-components">
-<h4>Clustering of Principal Components<a class="headerlink" href="#clustering-of-principal-components" title="Permalink to this heading">#</a></h4>
+<h4>Clustering of Principal Components<a class="headerlink" href="#clustering-of-principal-components" title="Permalink to this headline">#</a></h4>
 <figure class="align-center" id="pca-clustering">
 <a class="reference internal image-reference" href="_images/pca_clustering.png"><img alt="_images/pca_clustering.png" src="_images/pca_clustering.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Clustering based on principal components. (Source: <a class="reference external" href="http://databookuw.com">Brunton &amp; Kutz, 2019</a>)</span><a class="headerlink" href="#pca-clustering" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Clustering based on principal components. (Source: <span id="id3">[<a class="reference internal" href="references.html#id6" title="Steven L. Brunton and J. Nathan Kutz. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press, 2019. URL: http://databookuw.com, doi:10.1017/9781108380690.">Brunton and Kutz, 2019</a>]</span>, Section 1.5)</span><a class="headerlink" href="#pca-clustering" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Combining clustering with principal component analysis to show the samples which have cancer in the first three principal component coordinates.</p>
 </section>
 </section>
 <section id="supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">
-<h3>Supervised vs Unsupervised, the tl;dr in Probabilistic Terms<a class="headerlink" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms" title="Permalink to this heading">#</a></h3>
+<h3>Supervised vs Unsupervised, the tl;dr in Probabilistic Terms<a class="headerlink" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms" title="Permalink to this headline">#</a></h3>
 <p>The difference can furthermore be expressed in probabilistic terms, i.e., in supervised learning we are fitting a model over the outputs conditioned on the inputs <span class="math notranslate nohighlight">\(p(y|x)\)</span>, whereas in unsupervised learning we are fitting an unconditional model <span class="math notranslate nohighlight">\(p(x)\)</span>.</p>
 </section>
 <section id="reinforcement-learning">
-<h3>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this heading">#</a></h3>
+<h3>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this headline">#</a></h3>
 <p>In reinforcement learning, an agent sequentially interact with an unknown environment to obtain an interaction trajectory <span class="math notranslate nohighlight">\(T\)</span>, or a batch thereof. Reinforcement learning then seeks to optimize the way the agent interacts with the environment through its actions <span class="math notranslate nohighlight">\(a_{t}\)</span> to maximize for a (cumulative) reward function to obtain an optimal strategy.</p>
 <figure class="align-center" id="rl">
 <a class="reference internal image-reference" href="_images/rl.png"><img alt="_images/rl.png" src="_images/rl.png" style="width: 500px;" /></a>
@@ -625,12 +968,12 @@ document.write(`
 </section>
 </section>
 <section id="polynomial-curve-fitting">
-<h2>Polynomial Curve Fitting<a class="headerlink" href="#polynomial-curve-fitting" title="Permalink to this heading">#</a></h2>
+<h2>Polynomial Curve Fitting<a class="headerlink" href="#polynomial-curve-fitting" title="Permalink to this headline">#</a></h2>
 <p>Let’s presume we have a simple regression problem, e.g.</p>
 <figure class="align-center" id="lin-reg-1d">
 <a class="reference internal image-reference" href="_images/lin_reg_1d.png"><img alt="_images/lin_reg_1d.png" src="_images/lin_reg_1d.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Linear regression example. (Source: <a class="reference external" href="https://probml.github.io/pml-book/book0.html">Murphy, 2012</a>)</span><a class="headerlink" href="#lin-reg-1d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Linear regression example. (Source: <span id="id4">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#lin-reg-1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Then we have a number of scalar observations <span class="math notranslate nohighlight">\({\bf{x}} = (x_{1}, \ldots, x_{N})\)</span> and targets <span class="math notranslate nohighlight">\({\bf{y}} = (y_{1}, \ldots, y_{N})\)</span>. Then the tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function</p>
@@ -647,7 +990,7 @@ document.write(`
 <figure class="align-center" id="lin-reg-1d-distances">
 <a class="reference internal image-reference" href="_images/lin_reg_1d_distances.png"><img alt="_images/lin_reg_1d_distances.png" src="_images/lin_reg_1d_distances.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Linear regression error computation. (Source: <a class="reference external" href="https://probml.github.io/pml-book/book0.html">Murphy, 2012</a>)</span><a class="headerlink" href="#lin-reg-1d-distances" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Linear regression error computation. (Source: <span id="id5">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#lin-reg-1d-distances" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>To minimize this we then have to take the derivative with respect to the coefficients <span class="math notranslate nohighlight">\(\omega_{i}\)</span>, i.e.</p>
@@ -662,7 +1005,7 @@ document.write(`
 </div></blockquote>
 </section>
 <section id="bayesian-curve-fitting">
-<h2>Bayesian Curve Fitting<a class="headerlink" href="#bayesian-curve-fitting" title="Permalink to this heading">#</a></h2>
+<h2>Bayesian Curve Fitting<a class="headerlink" href="#bayesian-curve-fitting" title="Permalink to this headline">#</a></h2>
 <p><strong>Recap: Bayes Theorem</strong></p>
 <div class="math notranslate nohighlight" id="equation-bayes-theorem">
 <span class="eqno">(7)<a class="headerlink" href="#equation-bayes-theorem" title="Permalink to this equation">#</a></span>\[\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\]</div>
@@ -675,7 +1018,7 @@ document.write(`
 <figure class="align-center" id="bayesian-reg-1d">
 <a class="reference internal image-reference" href="_images/bayesian_reg_1d.png"><img alt="_images/bayesian_reg_1d.png" src="_images/bayesian_reg_1d.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Bayesian regression example. (Source: <a class="reference external" href="https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Bishop, 2006</a>)</span><a class="headerlink" href="#bayesian-reg-1d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Bayesian regression example. (Source: <span id="id6">[<a class="reference internal" href="references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 1.2)</span><a class="headerlink" href="#bayesian-reg-1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Taking the log likelihood we are then able to find the definitions of the optimal parameters</p>
@@ -716,7 +1059,7 @@ document.write(`
 </ul>
 </section>
 <section id="maximum-likelihood-log-likelihood">
-<h2>Maximum Likelihood &amp; Log-Likelihood<a class="headerlink" href="#maximum-likelihood-log-likelihood" title="Permalink to this heading">#</a></h2>
+<h2>Maximum Likelihood &amp; Log-Likelihood<a class="headerlink" href="#maximum-likelihood-log-likelihood" title="Permalink to this headline">#</a></h2>
 <p>Formalizing the principle of maximum likelihood estimation, we seek to act in a similar fashion to function extrema calculation in high school in that we seek to differentiate our likelihood function, and then find the maximum value of it by setting the derivative equal to zero.</p>
 <div class="math notranslate nohighlight" id="equation-maximum-likelihood-objective">
 <span class="eqno">(19)<a class="headerlink" href="#equation-maximum-likelihood-objective" title="Permalink to this equation">#</a></span>\[\hat{\theta} = \underset{\theta \in \Theta}{\arg \max} \mathcal{L}_{n}(\theta; y),\]</div>
@@ -725,7 +1068,7 @@ document.write(`
 <span class="eqno">(20)<a class="headerlink" href="#equation-log-likelihood" title="Permalink to this equation">#</a></span>\[l(\theta;y) = \ln \mathcal{L}_{n}(\theta;y).\]</div>
 </section>
 <section id="recap">
-<h2>Recap<a class="headerlink" href="#recap" title="Permalink to this heading">#</a></h2>
+<h2>Recap<a class="headerlink" href="#recap" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Supervised Learning: Mapping from inputs <span class="math notranslate nohighlight">\(x\)</span> to outputs <span class="math notranslate nohighlight">\(y\)</span></p></li>
 <li><p>Unsupervised Learning: Only receives the datapoints <span class="math notranslate nohighlight">\(x\)</span> with <strong>no</strong> access to the true labels <span class="math notranslate nohighlight">\(y\)</span></p></li>
@@ -739,7 +1082,7 @@ document.write(`
 </ul>
 </section>
 <section id="further-references">
-<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
+<h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://youtu.be/AU6HuhrC65k">Using AI to Accelerate Scientific Discovery</a> - inspirational video by Demis Hassabis</p></li>
 </ul>
@@ -758,7 +1101,7 @@ document.write(`
             mode: "python"
         },
         kernelOptions: {
-            name: "python3",
+            kernelName: "python3",
             path: "./."
         },
         predefinedOutput: true
@@ -766,134 +1109,50 @@ document.write(`
     </script>
     <script>kernelName = 'python3'</script>
 
-                </article>
+              </div>
               
-
-              
-              
-              
-              
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
-<div class="prev-next-area">
-    <a class="left-prev"
-       href="about.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">About this Lecture</p>
-      </div>
+            </main>
+            <footer class="footer-article noprint">
+                
+    <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="about.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">About this Lecture</p>
+        </div>
     </a>
-    <a class="right-next"
-       href="lecture/cc-1-0-basics.html"
-       title="next page">
-      <div class="prev-next-info">
+    <a class='right-next' id="next-link" href="lecture/cc-1-0-basics.html" title="next page">
+    <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><span class="section-number">1. </span><strong>Basics</strong></p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
+    </div>
+    <i class="fas fa-angle-right"></i>
     </a>
 </div>
-                </footer>
-              
-            </div>
-            
-            
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#famous-recent-examples-of-scientific-machine-learning">Famous Recent Examples of Scientific Machine Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#alphafold-predicts-3d-protein-structure-given-its-sequence">AlphaFold - predicts 3D protein structure given its sequence:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#gns-capable-of-simulating-the-motion-of-water-particles">GNS - capable of simulating the motion of water particles:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#codex-translating-natural-language-to-code">Codex - translating natural language to code:</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#geometric-deep-learning">Geometric Deep Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sfcnn-steerable-rotation-equivariant-cnn-e-g-for-image-segmentation">SFCNN - steerable rotation equivariant CNN, e.g. for image segmentation</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#segnn-molecular-property-prediction-model">SEGNN - molecular property prediction model</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-diffusion-generating-images-from-natural-text-description">Stable Diffusion - generating images from natural text description</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#stable-diffusion-reconstructing-visual-experiences-from-human-brain-activity">Stable Diffusion reconstructing visual experiences from human brain activity</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imagebind-holistic-ai-learning-across-six-modalities">ImageBind - Holistic AI learning across six modalities</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised">Supervised vs Unsupervised</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#classification">Classification</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#unsupervised-learning">Unsupervised Learning</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#clustering-of-principal-components">Clustering of Principal Components</a></li>
-</ul>
-</li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">Supervised vs Unsupervised, the tl;dr in Probabilistic Terms</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reinforcement-learning">Reinforcement Learning</a></li>
-</ul>
-</li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-curve-fitting">Polynomial Curve Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-curve-fitting">Bayesian Curve Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">Maximum Likelihood &amp; Log-Likelihood</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
-              
-            
-          </div>
-          <footer class="bd-footer-content">
-            
-<div class="bd-footer-content__inner container">
-  
-  <div class="footer-item">
-    
-<p class="component-author">
-By N. Adams, L. Paehler, A. Toshev
-</p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  <p class="copyright">
-    
-      © Copyright 2022,2023.
-      <br/>
-    
-  </p>
-
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-  <div class="footer-item">
-    
-  </div>
-  
-</div>
-          </footer>
-        
-
-      </main>
+            </footer>
+        </div>
     </div>
-  </div>
+    <div class="footer-content row">
+        <footer class="col footer"><p>
+  
+    By N. Adams, L. Paehler, A. Toshev<br/>
+  
+      &copy; Copyright 2022,2023.<br/>
+</p>
+        </footer>
+    </div>
+    
+</div>
+
+
+      </div>
+    </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=ac02cc09edc035673794"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=ac02cc09edc035673794"></script>
+  <script src="_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
 
-  <footer class="bd-footer">
-  </footer>
+
   </body>
 </html>

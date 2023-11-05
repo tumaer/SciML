@@ -20,7 +20,6 @@ After selecting a model $h_{\vartheta}$, points 2 and 3 are critical to the succ
 First, we define the general (unconstrained) minimization problem
 
 $$\text{argmin}_{\vartheta} \; J(\vartheta),$$
-<!-- $$\text{argmin}_{\vartheta} \; J(\vartheta),$$ (min_objective) -->
 
 where $J:\mathbb{R}^n \rightarrow \mathbb{R}$ is a real-valued function. We call the optimal solution of this problem the *minimizer* of $J$ and denote it as $\vartheta_{\star}$. The minimizer is defined as $J(\vartheta_{\star}) \le J(\vartheta)$ for all $\vartheta$. If the relation $J(\vartheta_{\star}) \le J(\vartheta)$ holds in a local neighborhood $||\vartheta - \vartheta_{\star}|| \le \epsilon$, for some $\epsilon>0$, then we call $\vartheta_{\star}$ a local optimizer.
 
@@ -70,7 +69,6 @@ To better understand the regression losses, we will look at the general $l_p$ no
 
 
 $$||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.$$
-<!-- $$||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.$$ (p_norm) -->
 
 In the special case $p=1$ we recover the L1 loss, and the squared version of $p=2$ corresponds to the MSE loss. Other special case is $p \to \infty$ leading to $||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{m}| \right\}$. We see that with increasing $p$ the larger terms dominate
 

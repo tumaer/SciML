@@ -2,7 +2,7 @@
 
 ## Linear Regression
 
-Linear regression belongs to the family of **supervised learning** approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be "Given measurement pairs $\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}$, how to fit a line $h(x)$ to best approximate $y$?"
+Linear regression belongs to the family of **supervised learning** approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be "Given measurement pairs $\left\{(x^{(i)}, y^{(i)})\right\}_{i=1,...m}$, how to fit a line $h(x)$ to best approximate $y$?"
 
 
 ``````{admonition} Do you remember this from last lecture?
@@ -33,7 +33,7 @@ Linear regression belongs to the family of **supervised learning** approaches, a
 
     where $\vartheta \in \mathbb{R}^{n}$ are the parameters of our hypothesis. To add an offset to this linear model, we could assume that the actual dimension of $x$ is $n-1$, and we add a dummy dimension of ones to $x$ (see Exercise 1 for more details).
 
-2. Then we need a strategy to fit our hypothesis parameters $\vartheta$ to the data points we have $\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}$.
+2. Then we need a strategy to fit our hypothesis parameters $\vartheta$ to the data points we have $\left\{(x^{(i)}, y^{\text {(i)}})\right\}_{i=1,...m}$.
 
     1. Define a suitable cost function $J$, which emphasizes the importance of certain traits to the model. I.e. if a certain data area is of special importance to our model we should penalize modeling failures for those points much more heavily than others. A typical choice is the *Least Mean Square* (LMS) i.e.
     
@@ -190,7 +190,7 @@ width: 500px
 align: center
 name: iris_classification_linear
 ---
-Linear classification example. (Source: {cite}`pml1Book`, [iris_logreg.ipynb](https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb))
+Linear classification example. (Source: {cite}`murphy2022`, [iris_logreg.ipynb](https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb))
 ```
 
 To achieve such classification ability we have to introduce a new hypothesis function $h(x)$. A reasonable choice would be to model the probability that $y=1$ given $x$ with a function $h:\mathbb{R}\rightarrow [0,1]$. In the logistic regression approach
@@ -274,6 +274,6 @@ derive the update functions for the gradient methods, as well as the Maximum Lik
 
 **Linear & Logistic Regression**
 
-- [CS229 Lecture notes](https://sgfin.github.io/files/notes/CS229_Lecture_Notes.pdf), Andrew Ng, Parts I and II - main reference
+- {cite}`cs229notes`, Chapters 1 and 2 - main reference
 - Machine Learning Basics [video](https://www.youtube.com/watch?v=73RL3WPPFE0&list=PLQ8Y4kIIbzy_OaXv86lfbQwPHSomk2o2e&index=2) and [slides](https://niessner.github.io/I2DL/slides/2.Linear.pdf) from I2DL by Matthias Niessner (TUM).
 - [What happens if a linear regression is underdetermined i.e. we have fewer observations than parameters?](https://betanalpha.github.io/assets/case_studies/underdetermined_linear_regression.html)
