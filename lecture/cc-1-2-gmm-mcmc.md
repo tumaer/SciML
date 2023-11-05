@@ -6,7 +6,6 @@ On a high level, GMMs and MCMC are two complementary approaches:
 - GMMs estimate the density of a given set of samples
 - MCMC generates samples from a given density
 
-
 ```{figure} ../imgs/cc1/density_estimation_vs_sampling.png
 ---
 width: 500px
@@ -39,7 +38,7 @@ But first, we revise Probability Theory.
 
 - Sum rule of probabilities: 
 
-$$\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)$$ (sum_rule)
+    $$\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)$$ (sum_rule)
 
 - Bayes rule: solving the general case of the product rule for $\mathbb{P}(A)$ results in:
 
@@ -62,7 +61,6 @@ $$\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)$$ (sum_rule)
     $$p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1$$ (pdf)
 
 
-
 ```{figure} ../imgs/cc1/pdf_cdf.png
 ---
 width: 400px
@@ -72,36 +70,41 @@ name: pdf_cdf
 PDF and CDF functions.
 ```
 
-
 - discrete r.v.:
     - *Probability mass function* (PMF) - same as the pdf but for a discrete r.v. $X$. Integrals become sums.
 - $\mu = E[X]$ - *mean value* or *expected value*
 
-$$E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx$$ (mean)
+    $$E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx$$ (mean)
 
 - $\sigma^2 = Var[X]$ - *variance*
 
-$$Var[X] = \int_{-\infty}^{+\infty}x^2 \, p_X(x) \, dx = E[(X-\mu)^2]$$ (variance)
+    $$Var[X] = \int_{-\infty}^{+\infty}x^2 \, p_X(x) \, dx = E[(X-\mu)^2]$$ (variance)
 
 - $Cov[X,Y]=E[(X-\mu_X)(Y-\mu_Y)]$ - *covariance*
 - *Change of variables* - if $X \sim p_X$ and $Y=h(X)$, then the distribution of $Y$ becomes:
 
-$$p_Y(y)=\frac{p_X(h^{-1}(y))}{\left|\frac{dh}{dx}\right|}$$  (change_of_vars)
+    $$p_Y(y)=p_X(x)\left|\frac{\text{d}x}{\text{d}y}\right| = p_X(h^{-1}(y)) \left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|$$  (change_of_vars)
+
+**Exercise**
+
+Given the r.v. $X$ with pdf $f_X(x)=3x^2$ and the function $Y=X^2$, find the pdf of $Y$. 
+Hint: use $X=h^{-1}(Y)$ as shown [here](https://online.stat.psu.edu/stat414/lesson/22/22.2).
+
 
 ### Catalogue of Important Distributions
 
 - *Binomial*, $X\in\{0,1,...,n\}$. Describes how often we get $k$ positive outcomes out of $n$ independent experiments. Parameter $\lambda$ is the success probability of each trial.
 
-$$\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).$$ (binomial)
+    $$\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).$$ (binomial)
 
 - *Bernoulli* - special case of Binomial with $n=1$.
 - *Normal* (aka *Gaussian*), $X \in \mathbb{R}$.
 
-$$p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$ (gaussian)
+    $$p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$ (gaussian)
 
 - *Multivariate Gaussian* $\mathcal{N}(\mathbf{\mu}, \mathbf{\Sigma})$ of $\mathbf{X}\in \mathbb{R}^n$ with mean $\mathbf{\mu}\in \mathbb{R}^n $ and covariance $\mathbb{\Sigma} \in \mathbb{R}_{+}^{n\times n}$.
 
-$$p_X(x)= \frac{1}{(2\pi)^{n/2}\sqrt{\det (\mathbf{\Sigma})}} \exp \left(-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{\top}\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right).$$ (multivariate_gaussian)
+    $$p_X(x)= \frac{1}{(2\pi)^{n/2}\sqrt{\det (\mathbf{\Sigma})}} \exp \left(-\frac{1}{2}(\mathbf{x}-\mathbf{\mu})^{\top}\mathbf{\Sigma}^{-1}(\mathbf{x}-\mathbf{\mu})\right).$$ (multivariate_gaussian)
 
 ### Exponential Family
 
@@ -175,9 +178,9 @@ $$p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k),$$ (gmm_model)
 
 with 
 
-- $\pi = (\pi_1,...,\pi_k)$ called mixing coefficients, or cluster probabilities,
-- $\mu = (\mu_1,...,\mu_k)$ the cluster means, and
-- $\Sigma = (\Sigma_1,...,\Sigma_k)$ the cluster covariance matrices.
+- $\pi = (\pi_1,...,\pi_K)$ called mixing coefficients, or cluster probabilities,
+- $\mu = (\mu_1,...,\mu_K)$ the cluster means, and
+- $\Sigma = (\Sigma_1,...,\Sigma_K)$ the cluster covariance matrices.
 
 We define a K-dimensional r.v. $z$ which satisfies $z\in \{0,1\}$ and $\sum_k z_k=1$ (i.e. with only one of its dimensions being 1, while all others are 0), such that $z_k~\sim \text{Multinomial}(\pi_k)$ and $p(z_k=1) = \pi_k$ . For Eq. {eq}`gmm_model` to be a valid probability density, the parameters $\{\pi_k\}$ must satisfy $0\le\pi_k\le 1$ and $\sum_k \pi_k=1$.
 
@@ -195,7 +198,7 @@ $$
 \begin{aligned}
 p(x) &= \sum_z p(x,z) \\
 & = \sum_z p(x|z) p(z) \\
-& = \sum_{k=1}^K \pi_k\mathcal{N}(x| \mu_k, \Sigma_k)
+& = \sum_{k=1}^K \pi_k\mathcal{N}(x| \mu_k, \Sigma_k).
 \end{aligned}
 $$ (gmm_marginalization)
 
@@ -204,7 +207,7 @@ Thus, the unknown parameters are $\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}$. We can wr
 $$
 \begin{aligned}
 l(x | \pi,\mu,\Sigma) &= \sum_{i=1}^{m}\log p(x^{(i)}|\pi,\mu,\Sigma) \\
-&= \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}
+&= \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}.
 \end{aligned}$$ (gmm_mle)
 
 However, if we try to analytically solve this problem, we will see that there is no closed form solution. The problem is that we do not know which $z_k$ each of the measurements comes from.
@@ -225,16 +228,22 @@ There is an iterative algorithms that can solve the maximum likelihood problem b
 0. Guess the number of modes $K$
 1. Randomly initialize the means $\mu_k$, covariances $\Sigma_k$, and mixing coefficients $\pi_k$, and evaluate the likelihood
 2. **(E-step)**. Evaluate $\omega_k^{(i)}$ assuming constant $\pi, \mu, \Sigma$ (see expression after the algorithm)
+
     $$w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma).$$ (gmm_e_step)
+
 3. **(M-step)**. Update the parameters by solving the maximum likelihood probelms for fixed $z_k$ values.
+
     $$\begin{aligned}
     \pi_k &:= \frac{1}{m}\sum_{i=1}^m w_k^{(i)} \\
     \mu_k &:= \frac{\sum_{i=1}^{m} w_k^{(i)}x^{(i)}}{\sum_{i=1}^{m} w_k^{(i)}} \\
     \Sigma_k &:= \frac{\sum_{i=1}^{m} w_k^{(i)}(x^{(i)}-\mu_k)(x^{(i)}-\mu_k)^{\top}}{\sum_{i=1}^{m} w_k^{(i)}}
     \end{aligned}
     $$ (gmm_m_step)
+
 4. Evaluate the log likelihood 
+
     $$l(x | \pi,\mu,\Sigma) = \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}$$ (gmm_lig_likelihood)
+
     and check for convergence. If not converged, return to step 2.
 
 In the E-step, we compute the posterior probability of $z^{(i)}_k$ given the data point $x^{(i)}$ and the current $\pi$, $\mu$, $\Sigma$ values as 
@@ -255,8 +264,9 @@ The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating 
 
 Once we have fitted a GMM on $p(x)$, we can use it for:
 
-1. Density estimation: by evaluate the probability $p(\tilde{x})$ of any new point $\tilde{x}$, we can say how probable it is that this point comes from the same distribution as the training data.
-2. Clustering: so far we have talked about density estimation, but GMMs are typically used for clustering. Given a new query point $\tilde{x}$, we can evaluate each of the $K$ Gaussians and scale their probability by the respective $\pi_k$. These will be the probabilities of $\tilde{x}$ to be part of cluster $k$.
+1. Sampling: there are efficient ways to draw sample from the Gaussian distribution.
+2. Density estimation: by evaluating the probability $p(\tilde{x})$ of a new point $\tilde{x}$, we can compute how probable it is that this point comes from the same distribution as the training data.
+3. Clustering: so far we have talked about density estimation, but GMMs are typically used for clustering. Given a new query point $\tilde{x}$, we can evaluate each of the $K$ Gaussians and scale their probability by the respective $\pi_k$. These will be the probabilities of $\tilde{x}$ to be part of cluster $k$.
 
 Most limitations of this approach arive from the assumption that the indivudual clusters follow the Gaussian distribution:
 
@@ -362,8 +372,10 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
 
 0. Start at an initial point $\theta_{current} = \theta^0$.
 1. Sample $\theta' \sim q(\theta_{next}|\theta_{current})$
-2. Compute the ecceptance probability
-    $$\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}$$
+2. Compute the acceptance probability
+
+    $$\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}$$ (mcmc_acceptance_prob)
+
 3. Sample $u\sim \text{Uniform}(0,1)$
 4. If $\alpha > u$, then $\theta_{current} = \theta'$, else $\theta_{current} = \theta_{current}$
 5. Repeat $N$ times from step 1.
@@ -391,12 +403,15 @@ Metropolis-Hastings trajectory (Source: [relguzman.blogpost.com](https://relguzm
 
 **Probability Theory**
 
+- {cite}`bishop2006`, Chapters 1 and 2
+- {cite}`murphy2022`, Chapters 2 and 3
 - {cite}`cs229notes`, Section 3.1 - the exponential family
 
 **Gaussian Mixture Models**
 
 - {cite}`cs229notes`, Chapter 11 - main GMM reference
 - {cite}`bishop2006`, Section 9.2 - detailed derivations
+- [Video](https://www.youtube.com/watch?v=q71Niz856KE&ab_channel=Serrano.Academy) with more visual intuition
 
 **Sampling**
 

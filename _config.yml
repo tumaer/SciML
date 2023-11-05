@@ -37,6 +37,7 @@ html:
   use_issues_button: true
   use_repository_button: true
 
+# all extensions: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-extensions
 parse:
   myst_enable_extensions:
     - amsmath # enable direct parsing of amsmath LaTeX equations

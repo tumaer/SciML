@@ -112,6 +112,7 @@ $$ (lms_sol_matrix)
 How do we know that we are at a minumum and not a miximum? In the case of scalar intput $x\in\mathbb{R}$, the second derivative of the error function $\Delta_{\vartheta}J(\vartheta)$ becomes $X^2\ge0$, which guarantees that the extremum is a minimum.
 
 **Exercise: Linear Regression Implementations**
+
 Implement the three approaches (batch gradient descent, stochastic gradient descent, and the matrix approach) to linear regression and compare their performance.
 1. Batch Gradient Descent
 2. Stochastic Gradient Descent
