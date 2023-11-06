@@ -20,6 +20,8 @@ The course breaks down into an introduction to the topic, followed by 4 core con
 <br>
 <br>
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/o5xkcru.png" alt="drawing" width="200"/>
-</div><br/>
+```{image} imgs/tum_logo.png
+:alt: tum-logo
+:width: 200px
+:align: center
+```
