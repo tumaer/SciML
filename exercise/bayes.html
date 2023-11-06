@@ -495,8 +495,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#non-bayesian-classical-linear-regression-revised">
-     2.1.3. Non-Bayesian (Classical) Linear Regression (revised)
+    <a class="reference internal nav-link" href="#non-bayesian-classic-linear-regression-revised">
+     2.1.3. Non-Bayesian (Classic) Linear Regression (revised)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -588,8 +588,8 @@ title="Print to PDF"
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#non-bayesian-classical-linear-regression-revised">
-     2.1.3. Non-Bayesian (Classical) Linear Regression (revised)
+    <a class="reference internal nav-link" href="#non-bayesian-classic-linear-regression-revised">
+     2.1.3. Non-Bayesian (Classic) Linear Regression (revised)
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -659,11 +659,29 @@ title="Print to PDF"
   <section class="tex2jax_ignore mathjax_ignore" id="bayesian-linear-and-logistic-regression">
 <h1><span class="section-number">2. </span>Bayesian Linear and Logistic Regression<a class="headerlink" href="#bayesian-linear-and-logistic-regression" title="Permalink to this headline">#</a></h1>
 <p><strong>Software</strong></p>
-<p>Similar to the <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code> module in PyTorch containing the most frequently used neural network building blocks, there are also tools for Bayesian inference tasks. In this class we will use the universal probabilistic programming language (PPL) <a class="reference external" href="https://pyro.ai/">Pyro</a> which is supported by PyTorch on the backend (The correspondint tool in TensorFlow is <a class="reference external" href="https://www.tensorflow.org/probability">TensorFlow Probability</a>). At its core these probabilistic programming systems construct a domain-specific language to express express probabilistic models, sample from probability distributions and utilize their integrated inference engines such as <code class="docutils literal notranslate"><span class="pre">Hamiltonian</span> <span class="pre">Monte-Carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">Sequential</span> <span class="pre">Monte-Carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">Variational</span> <span class="pre">Inference</span></code>, etc. hence making it much easier for us to express probabilistic control-flows, as well as representing uncertainties in our algorithms.</p>
+<p>Similar to the <code class="docutils literal notranslate"><span class="pre">torch.nn</span></code> module in PyTorch containing the most frequently used neural network building blocks, there are also tools for Bayesian inference tasks. In this class we will use the universal probabilistic programming language (PPL) <a class="reference external" href="https://pyro.ai/">Pyro</a> which is supported by PyTorch on the backend (The corresponding tool in TensorFlow is <a class="reference external" href="https://www.tensorflow.org/probability">TensorFlow Probability</a>). At there core, these probabilistic programming systems construct a domain-specific language to express probabilistic models, sample from probability distributions, and utilize their integrated inference engines such as <code class="docutils literal notranslate"><span class="pre">Hamiltonian</span> <span class="pre">Monte-Carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">Sequential</span> <span class="pre">Monte-Carlo</span></code>, <code class="docutils literal notranslate"><span class="pre">Variational</span> <span class="pre">Inference</span></code>, etc. hence making it much easier for us to express probabilistic control flows, as well as representing uncertainties in our algorithms.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># If using Colab: uncomment the following line</span>
-<span class="c1"># !pip3 install pyro-ppl</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># install pyro if now yet installed</span>
+<span class="o">!</span>pip3<span class="w"> </span>install<span class="w"> </span>pyro-ppl
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pyro-ppl in /home/artur/.venvs/sciml/lib/python3.10/site-packages (1.8.6)
+Requirement already satisfied: opt-einsum&gt;=2.3.2 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (3.3.0)
+Requirement already satisfied: numpy&gt;=1.7 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (1.26.1)
+Requirement already satisfied: torch&gt;=1.11.0 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (2.1.0+cpu)
+Requirement already satisfied: tqdm&gt;=4.36 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (4.66.1)
+Requirement already satisfied: pyro-api&gt;=0.1.1 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (0.1.2)
+Requirement already satisfied: sympy in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (1.12)
+Requirement already satisfied: networkx in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (3.2.1)
+Requirement already satisfied: typing-extensions in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (4.8.0)
+Requirement already satisfied: filelock in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (3.13.1)
+Requirement already satisfied: fsspec in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (2023.10.0)
+Requirement already satisfied: jinja2 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (3.1.2)
+Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from jinja2-&gt;torch&gt;=1.11.0-&gt;pyro-ppl) (2.1.3)
+Requirement already satisfied: mpmath&gt;=0.19 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from sympy-&gt;torch&gt;=1.11.0-&gt;pyro-ppl) (1.3.0)
 </pre></div>
 </div>
 </div>
@@ -676,11 +694,9 @@ title="Print to PDF"
 <span class="c1"># visualization libraries</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
-<span class="kn">import</span> <span class="nn">arviz</span> <span class="k">as</span> <span class="nn">az</span>
 
 <span class="c1"># PyTorch</span>
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
 
 <span class="c1"># Pyro</span>
 <span class="kn">import</span> <span class="nn">pyro</span>
@@ -717,13 +733,13 @@ title="Print to PDF"
 <section id="problem-setting">
 <h3><span class="section-number">2.1.1. </span>Problem setting<a class="headerlink" href="#problem-setting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>Given: given is a set of measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span> and <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p></li>
-<li><p>Question:  if a give you a novel <span class="math notranslate nohighlight">\(x\)</span>, what would be your best guess about its corresponding <span class="math notranslate nohighlight">\(y\)</span> <strong>and how certain are you about it</strong>?</p></li>
+<li><p>Given: A set of measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span> and <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p></li>
+<li><p>Question:  If I give you a novel <span class="math notranslate nohighlight">\(x\)</span>, what would be the distribution of the corresponding <span class="math notranslate nohighlight">\(y\)</span>?</p></li>
 <li><p>Linear regression assumption:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
 \[y \approx h(x) = wx + b + \epsilon\]</div>
-<p>Where we have moved to the more common weights <span class="math notranslate nohighlight">\(w = [\vartheta_1, ..., \vartheta_n]\)</span> and bias <span class="math notranslate nohighlight">\(b=\vartheta_0\)</span> notation. Other than the change of notation, the only difference up until now is the random noise term <span class="math notranslate nohighlight">\(\epsilon\)</span>, which can, in general, originate from any probability distribution. The difference to the maximul likelihood interpretation on the normal linear regression we discussed in <a class="reference external" href="https://github.com/arturtoshev/SciML_22-23/blob/master/1_linReg_logReg.ipynb">Exercise 1</a>, is that here we allow for any distribution in contrast to restricting ourselves to the Gaussian.</p>
+<p>Where we have moved to the more common weights <span class="math notranslate nohighlight">\(w = [\vartheta_1, ..., \vartheta_n]\)</span> and bias <span class="math notranslate nohighlight">\(b=\vartheta_0\)</span> notation. Other than the change of notation, the only difference up until now is the random noise term <span class="math notranslate nohighlight">\(\epsilon\)</span>, which can, in general, originate from any probability distribution. The difference to the maximul likelihood interpretation on the normal linear regression we discussed in <a class="reference external" href="https://github.com/arturtoshev/SciML_22-23/blob/master/1_linReg_logReg.ipynb">Exercise 1</a> is that here we allow for any distribution in contrast to restricting ourselves to the Gaussian.</p>
 <p>The other novel part is that in the Bayesian setting the parameters of the model (<span class="math notranslate nohighlight">\(w, b\)</span>) are random variables with some prior distribution.</p>
 <p><strong>References</strong></p>
 <p>This part is mainly based on <a class="reference external" href="https://pyro.ai/examples/bayesian_regression.html">this</a> Pyro tutorial and <a class="reference external" href="https://github.com/csiro-mlai/hackfest-ppl/blob/c5bb342cdae3cf325ae39a226ce89e43a530b04a/primitives/05-regression_with_data.ipynb">this</a> further code.</p>
@@ -746,8 +762,8 @@ title="Print to PDF"
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
 <span class="c1"># Reshape the input variables for training</span>
-<span class="n">x_train</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)))</span>
-<span class="n">y_train</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)))</span>
+<span class="n">x_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">))</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -756,8 +772,8 @@ title="Print to PDF"
 </div>
 </div>
 </section>
-<section id="non-bayesian-classical-linear-regression-revised">
-<h3><span class="section-number">2.1.3. </span>Non-Bayesian (Classical) Linear Regression (revised)<a class="headerlink" href="#non-bayesian-classical-linear-regression-revised" title="Permalink to this headline">#</a></h3>
+<section id="non-bayesian-classic-linear-regression-revised">
+<h3><span class="section-number">2.1.3. </span>Non-Bayesian (Classic) Linear Regression (revised)<a class="headerlink" href="#non-bayesian-classic-linear-regression-revised" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Regression model</span>
@@ -798,11 +814,11 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter initialization:
-weight :  tensor([[0.4083]])
-bias :  tensor([-0.4561])
+weight :  tensor([[0.6641]])
+bias :  tensor([0.8615])
 Learned parameters:
-weight [[2.0752199]]
-bias [2.9260273]
+weight [[2.0704808]]
+bias [2.9511638]
 </pre></div>
 </div>
 <img alt="../_images/bayes_8_1.png" src="../_images/bayes_8_1.png" />
@@ -815,7 +831,7 @@ bias [2.9260273]
 
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
@@ -836,8 +852,8 @@ bias [2.9260273]
 <li><p>Parameters <span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">pyro.param</span></code>.</p></li>
 </ol>
 <p>The model below essentially makes the following prior assumptions:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-ddf41ecf-54e0-4079-8b6e-3da77d210a38">
-<span class="eqno">(2.28)<a class="headerlink" href="#equation-ddf41ecf-54e0-4079-8b6e-3da77d210a38" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-15c4b6e8-9c3f-4cfc-bcd3-62c8717df35c">
+<span class="eqno">(2.28)<a class="headerlink" href="#equation-15c4b6e8-9c3f-4cfc-bcd3-62c8717df35c" title="Permalink to this equation">#</a></span>\[\begin{align}
 y_i &amp;\sim \mathcal{N}(\mu, \sigma)\\
 \mu &amp;= w \cdot x_i + b\\
 w &amp;\sim \mathcal{N}(0,1)\\
@@ -872,7 +888,7 @@ b &amp;\sim \mathcal{N}(0,10)\\
 </section>
 <section id="mcmc-sampling-and-inference">
 <h3><span class="section-number">2.1.5. </span>MCMC: Sampling and Inference<a class="headerlink" href="#mcmc-sampling-and-inference" title="Permalink to this headline">#</a></h3>
-<p>In the lecture we saw different Monte Carlo sampling strategies, e.g. Acceptance-Rejection Sampling and Adaptive Rejection Sampling, but the default sampler in Pyro are different. There are multiple reasons for that, some of which include:</p>
+<p>In the lecture we saw different Monte Carlo sampling strategies, e.g. Acceptance-Rejection Sampling and Adaptive Rejection Sampling, but the default sampler in Pyro is different. There are multiple reasons for that, some of which include:</p>
 <ul class="simple">
 <li><p>in the Acceptance-Rejection approaches, we need to know the constant <span class="math notranslate nohighlight">\(M\)</span>, which we often don’t a-priori know</p></li>
 <li><p>we could use the gradient information of the likelihood surface to find regions with higher probability faster</p></li>
@@ -891,7 +907,10 @@ b &amp;\sim \mathcal{N}(0,10)\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:08, 48.39it/s, step size=3.99e-02, acc. prob=0.966]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warmup:   0%|          | 0/400 [00:00, ?it/s]
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:05, 69.70it/s, step size=4.90e-01, acc. prob=0.935]
 </pre></div>
 </div>
 </div>
@@ -907,9 +926,9 @@ b &amp;\sim \mathcal{N}(0,10)\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.bias = 2.931 +/- 0.032
-linear.weight = 2.065 +/- 0.054
-sigma = 0.253 +/- 0.011
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.bias = 2.957 +/- 0.030
+linear.weight = 2.063 +/- 0.053
+sigma = 0.254 +/- 0.012
 </pre></div>
 </div>
 </div>
@@ -971,7 +990,7 @@ sigma torch.Size([300])
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_mean&quot;</span><span class="p">],</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_mean&quot;</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span>
                  <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_perc_5&quot;</span><span class="p">],</span>
                  <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_perc_95&quot;</span><span class="p">],</span>
@@ -993,8 +1012,8 @@ sigma torch.Size([300])
 </section>
 <section id="svi-training-sampling-and-inference">
 <h3><span class="section-number">2.1.6. </span>SVI: Training, Sampling and Inference<a class="headerlink" href="#svi-training-sampling-and-inference" title="Permalink to this headline">#</a></h3>
-<p>An alternative to MCMC (and the default method in Pyro) is Variational Inference (VI). At this point in time you are not expected to know how variational inference works. Just remember that MCMC directly gives us samples from the posterior distribution, whereas VI first fits a surrogate posterior pdf and later samples from it as much as we want.</p>
-<p>This is how you would construct a training loop with Stochastic VI (yes, VI first trains a posterior pdf surrogate and then samples from it).</p>
+<p>An alternative to MCMC (and the default method in Pyro) is Variational Inference (VI). At this point, you are not expected to know how variational inference works. Just remember that MCMC directly gives us samples from the posterior distribution, whereas VI first fits a surrogate posterior pdf and later samples from it as much as we want.</p>
+<p>This is how you would construct a training loop with Stochastic VI.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training</span>
@@ -1024,8 +1043,8 @@ sigma torch.Size([300])
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AutoDiagonalNormal.loc Parameter containing:
-tensor([-3.6259,  2.0735,  2.9365])
-AutoDiagonalNormal.scale tensor([0.0486, 0.0259, 0.0138])
+tensor([-3.6716,  2.0611,  2.9435])
+AutoDiagonalNormal.scale tensor([0.0409, 0.0302, 0.0170])
 </pre></div>
 </div>
 <img alt="../_images/bayes_19_1.png" src="../_images/bayes_19_1.png" />
@@ -1065,8 +1084,8 @@ AutoDiagonalNormal.scale tensor([0.0486, 0.0259, 0.0138])
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">nrows</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">ncols</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">sharey</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span>
-        <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_mean&quot;</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True data&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span> <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_mean&quot;</span><span class="p">],</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">fill_between</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span>
                 <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_perc_5&quot;</span><span class="p">],</span>
                 <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;mu_perc_95&quot;</span><span class="p">],</span>
@@ -1075,22 +1094,16 @@ AutoDiagonalNormal.scale tensor([0.0486, 0.0259, 0.0138])
                 <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;y_perc_5&quot;</span><span class="p">],</span>
                 <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;y_perc_95&quot;</span><span class="p">],</span>
                 <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;x&quot;</span><span class="p">],</span>
-        <span class="n">predictions</span><span class="p">[</span><span class="s2">&quot;y_true&quot;</span><span class="p">],</span>
-        <span class="s2">&quot;o&quot;</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">,</span>
        <span class="n">ylabel</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">,</span>
        <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Bayesian Linear Regression&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 0, &#39;x&#39;),
- Text(0, 0.5, &#39;y&#39;),
- Text(0.5, 1.0, &#39;Bayesian Linear Regression&#39;)]
-</pre></div>
-</div>
-<img alt="../_images/bayes_22_1.png" src="../_images/bayes_22_1.png" />
+<img alt="../_images/bayes_22_0.png" src="../_images/bayes_22_0.png" />
 </div>
 </div>
 <p>We now need to (automatically) find the best distribution for our model and perform inference over our regression algorithm to learn the posterior distribution over our unobserved parameters.</p>
@@ -1117,16 +1130,14 @@ AutoDiagonalNormal.scale tensor([0.0486, 0.0259, 0.0138])
 <h3><span class="section-number">2.2.1. </span>Iris Dataset (revised)<a class="headerlink" href="#iris-dataset-revised" title="Permalink to this headline">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="kn">import</span> <span class="n">datasets</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.datasets</span> <span class="kn">import</span> <span class="n">load_iris</span>
-
-<span class="n">X_df</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">X_df</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">load_iris</span><span class="p">(</span><span class="n">as_frame</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">return_X_y</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
 <span class="n">target_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;setosa&#39;</span><span class="p">,</span> <span class="s1">&#39;versicolor&#39;</span><span class="p">,</span> <span class="s1">&#39;virginica&#39;</span><span class="p">]</span>
 <span class="c1"># standardize X</span>
@@ -1323,8 +1334,8 @@ memory usage: 7.2 KB
 Elbo loss: 2.805009201169014
 Elbo loss: 1.4718698005599435
 Elbo loss: 1.9484067456796765
-CPU times: user 41.5 s, sys: 18.9 ms, total: 41.5 s
-Wall time: 5.19 s
+CPU times: user 44 s, sys: 0 ns, total: 44 s
+Wall time: 5.51 s
 </pre></div>
 </div>
 </div>
@@ -1367,9 +1378,9 @@ linear.bias -16.362192
          [[-34.3472]],
  
          [[-31.5306]]]),
- &#39;linear.bias&#39;: tensor([[-20.3906],
+ &#39;linear.bias&#39;: tensor([[-20.4056],
          [-16.5955],
-         [-11.3549]])}
+         [-11.3262]])}
 </pre></div>
 </div>
 </div>
@@ -1394,7 +1405,7 @@ linear.bias -16.362192
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7feed4a9d430&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f0eddb43010&gt;
 </pre></div>
 </div>
 <img alt="../_images/bayes_40_1.png" src="../_images/bayes_40_1.png" />
@@ -1419,11 +1430,14 @@ linear.bias -16.362192
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:03, 105.97it/s, step size=2.22e-01, acc. prob=0.859]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warmup:   0%|          | 0/400 [00:00, ?it/s]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 3.79 s, sys: 4.94 ms, total: 3.79 s
-Wall time: 3.78 s
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:03, 103.87it/s, step size=2.22e-01, acc. prob=0.859]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 3.85 s, sys: 7.61 ms, total: 3.86 s
+Wall time: 3.85 s
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1459,7 +1473,7 @@ linear.weight -34.984016
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7feefe8265b0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f0edd190640&gt;
 </pre></div>
 </div>
 <img alt="../_images/bayes_46_1.png" src="../_images/bayes_46_1.png" />
@@ -1472,7 +1486,7 @@ linear.weight -34.984016
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot: ylabel=&#39;Density&#39;&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Axes: ylabel=&#39;Density&#39;&gt;
 </pre></div>
 </div>
 <img alt="../_images/bayes_47_1.png" src="../_images/bayes_47_1.png" />

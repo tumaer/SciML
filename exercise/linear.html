@@ -661,8 +661,6 @@ title="Print to PDF"
 
 <span class="c1"># pytorch dependencies</span>
 <span class="kn">import</span> <span class="nn">torch</span>
-<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
-<span class="c1"># import torch.nn.functional as F</span>
 <span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">from</span> <span class="nn">torch.utils.data</span> <span class="kn">import</span> <span class="n">DataLoader</span><span class="p">,</span> <span class="n">TensorDataset</span>
 </pre></div>
@@ -674,8 +672,8 @@ title="Print to PDF"
 <section id="problem-setting">
 <h3><span class="section-number">1.1.1. </span>Problem setting<a class="headerlink" href="#problem-setting" title="Permalink to this headline">#</a></h3>
 <ul class="simple">
-<li><p>Given: given is a set of measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span> and <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p></li>
-<li><p>Question:  if I give you a novel <span class="math notranslate nohighlight">\(x\)</span>, what would be your best guess about its corresponding <span class="math notranslate nohighlight">\(y\)</span>?</p></li>
+<li><p>Given: A set of measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> with <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span> and <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span></p></li>
+<li><p>Question:  If I give you a novel <span class="math notranslate nohighlight">\(x\)</span>, what would be your best guess about its corresponding <span class="math notranslate nohighlight">\(y\)</span>?</p></li>
 <li><p>Linear regression assumption:</p></li>
 </ul>
 <div class="math notranslate nohighlight">
@@ -768,11 +766,12 @@ title="Print to PDF"
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Test the performance of the model ** before ** we do any optimization: &quot;</span><span class="p">)</span>
 
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">)))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
@@ -796,8 +795,8 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[-0.5554]])
-linear.bias :  tensor([0.9009])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[-0.8471]])
+linear.bias :  tensor([-0.5895])
 </pre></div>
 </div>
 </div>
@@ -806,8 +805,8 @@ linear.bias :  tensor([0.9009])
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
 
-    <span class="n">inputs</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span>
-    <span class="n">y_train_var</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_train</span><span class="p">))</span>
+    <span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">)</span>
+    <span class="n">y_train_var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_train</span><span class="p">)</span>
 
     <span class="c1"># Clear gradient buffer</span>
     <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
@@ -827,106 +826,106 @@ linear.bias :  tensor([0.9009])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, loss 12.534360885620117
-epoch 1, loss 11.89834213256836
-epoch 2, loss 11.294977188110352
-epoch 3, loss 10.722587585449219
-epoch 4, loss 10.179581642150879
-epoch 5, loss 9.664450645446777
-epoch 6, loss 9.175765037536621
-epoch 7, loss 8.712163925170898
-epoch 8, loss 8.272361755371094
-epoch 9, loss 7.855134010314941
-epoch 10, loss 7.459324359893799
-epoch 11, loss 7.083829879760742
-epoch 12, loss 6.727608680725098
-epoch 13, loss 6.389671325683594
-epoch 14, loss 6.069077968597412
-epoch 15, loss 5.764939308166504
-epoch 16, loss 5.476409435272217
-epoch 17, loss 5.202686786651611
-epoch 18, loss 4.943011283874512
-epoch 19, loss 4.696661949157715
-epoch 20, loss 4.462953567504883
-epoch 21, loss 4.241237163543701
-epoch 22, loss 4.03089714050293
-epoch 23, loss 3.8313491344451904
-epoch 24, loss 3.6420397758483887
-epoch 25, loss 3.46244215965271
-epoch 26, loss 3.292058229446411
-epoch 27, loss 3.1304149627685547
-epoch 28, loss 2.9770634174346924
-epoch 29, loss 2.8315775394439697
-epoch 30, loss 2.6935527324676514
-epoch 31, loss 2.562607526779175
-epoch 32, loss 2.4383771419525146
-epoch 33, loss 2.320517063140869
-epoch 34, loss 2.208699941635132
-epoch 35, loss 2.102616310119629
-epoch 36, loss 2.0019712448120117
-epoch 37, loss 1.9064854383468628
-epoch 38, loss 1.8158937692642212
-epoch 39, loss 1.7299456596374512
-epoch 40, loss 1.6484016180038452
-epoch 41, loss 1.5710362195968628
-epoch 42, loss 1.4976346492767334
-epoch 43, loss 1.4279932975769043
-epoch 44, loss 1.3619197607040405
-epoch 45, loss 1.2992297410964966
-epoch 46, loss 1.2397502660751343
-epoch 47, loss 1.1833164691925049
-epoch 48, loss 1.1297717094421387
-epoch 49, loss 1.078967809677124
-epoch 50, loss 1.0307633876800537
-epoch 51, loss 0.9850258231163025
-epoch 52, loss 0.9416282176971436
-epoch 53, loss 0.9004501104354858
-epoch 54, loss 0.8613781929016113
-epoch 55, loss 0.8243037462234497
-epoch 56, loss 0.7891244888305664
-epoch 57, loss 0.7557430267333984
-epoch 58, loss 0.7240670323371887
-epoch 59, loss 0.6940088272094727
-epoch 60, loss 0.6654855608940125
-epoch 61, loss 0.6384184956550598
-epoch 62, loss 0.6127325296401978
-epoch 63, loss 0.5883572101593018
-epoch 64, loss 0.5652250051498413
-epoch 65, loss 0.5432720184326172
-epoch 66, loss 0.5224376320838928
-epoch 67, loss 0.5026646852493286
-epoch 68, loss 0.4838985204696655
-epoch 69, loss 0.4660876989364624
-epoch 70, loss 0.4491829574108124
-epoch 71, loss 0.4331376850605011
-epoch 72, loss 0.4179081916809082
-epoch 73, loss 0.4034520983695984
-epoch 74, loss 0.3897300660610199
-epoch 75, loss 0.3767041563987732
-epoch 76, loss 0.3643389046192169
-epoch 77, loss 0.3526001572608948
-epoch 78, loss 0.3414560854434967
-epoch 79, loss 0.33087581396102905
-epoch 80, loss 0.3208305835723877
-epoch 81, loss 0.31129294633865356
-epoch 82, loss 0.3022368252277374
-epoch 83, loss 0.2936374247074127
-epoch 84, loss 0.28547149896621704
-epoch 85, loss 0.27771657705307007
-epoch 86, loss 0.270351767539978
-epoch 87, loss 0.2633569836616516
-epoch 88, loss 0.25671327114105225
-epoch 89, loss 0.2504025399684906
-epoch 90, loss 0.2444077581167221
-epoch 91, loss 0.23871275782585144
-epoch 92, loss 0.23330220580101013
-epoch 93, loss 0.22816134989261627
-epoch 94, loss 0.22327642142772675
-epoch 95, loss 0.21863438189029694
-epoch 96, loss 0.21422265470027924
-epoch 97, loss 0.2100294977426529
-epoch 98, loss 0.20604370534420013
-epoch 99, loss 0.20225465297698975
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, loss 26.55284309387207
+epoch 1, loss 25.201623916625977
+epoch 2, loss 23.919395446777344
+epoch 3, loss 22.70265007019043
+epoch 4, loss 21.548030853271484
+epoch 5, loss 20.452369689941406
+epoch 6, loss 19.41265869140625
+epoch 7, loss 18.42603302001953
+epoch 8, loss 17.489789962768555
+epoch 9, loss 16.601354598999023
+epoch 10, loss 15.758282661437988
+epoch 11, loss 14.958258628845215
+epoch 12, loss 14.19908618927002
+epoch 13, loss 13.478677749633789
+epoch 14, loss 12.795053482055664
+epoch 15, loss 12.14633560180664
+epoch 16, loss 11.530740737915039
+epoch 17, loss 10.946579933166504
+epoch 18, loss 10.392244338989258
+epoch 19, loss 9.866212844848633
+epoch 20, loss 9.367040634155273
+epoch 21, loss 8.893355369567871
+epoch 22, loss 8.443855285644531
+epoch 23, loss 8.017306327819824
+epoch 24, loss 7.612534999847412
+epoch 25, loss 7.22843074798584
+epoch 26, loss 6.8639373779296875
+epoch 27, loss 6.51805305480957
+epoch 28, loss 6.1898274421691895
+epoch 29, loss 5.878359794616699
+epoch 30, loss 5.582794666290283
+epoch 31, loss 5.302318572998047
+epoch 32, loss 5.036160945892334
+epoch 33, loss 4.7835917472839355
+epoch 34, loss 4.54391622543335
+epoch 35, loss 4.316476821899414
+epoch 36, loss 4.100647449493408
+epoch 37, loss 3.895836353302002
+epoch 38, loss 3.7014806270599365
+epoch 39, loss 3.5170464515686035
+epoch 40, loss 3.342026710510254
+epoch 41, loss 3.175940752029419
+epoch 42, loss 3.0183327198028564
+epoch 43, loss 2.8687691688537598
+epoch 44, loss 2.726839780807495
+epoch 45, loss 2.592154026031494
+epoch 46, loss 2.4643428325653076
+epoch 47, loss 2.343055248260498
+epoch 48, loss 2.2279574871063232
+epoch 49, loss 2.1187338829040527
+epoch 50, loss 2.0150840282440186
+epoch 51, loss 1.9167237281799316
+epoch 52, loss 1.8233823776245117
+epoch 53, loss 1.7348039150238037
+epoch 54, loss 1.6507456302642822
+epoch 55, loss 1.5709757804870605
+epoch 56, loss 1.4952760934829712
+epoch 57, loss 1.4234389066696167
+epoch 58, loss 1.3552664518356323
+epoch 59, loss 1.2905715703964233
+epoch 60, loss 1.2291768789291382
+epoch 61, loss 1.1709140539169312
+epoch 62, loss 1.1156229972839355
+epoch 63, loss 1.0631520748138428
+epoch 64, loss 1.013357162475586
+epoch 65, loss 0.9661014676094055
+epoch 66, loss 0.921255350112915
+epoch 67, loss 0.8786958456039429
+epoch 68, loss 0.8383062481880188
+epoch 69, loss 0.7999756932258606
+epoch 70, loss 0.7635990381240845
+epoch 71, loss 0.7290766835212708
+epoch 72, loss 0.6963138580322266
+epoch 73, loss 0.6652204990386963
+epoch 74, loss 0.635711669921875
+epoch 75, loss 0.6077063679695129
+epoch 76, loss 0.5811278223991394
+epoch 77, loss 0.5559030175209045
+epoch 78, loss 0.5319631099700928
+epoch 79, loss 0.5092422962188721
+epoch 80, loss 0.48767825961112976
+epoch 81, loss 0.46721208095550537
+epoch 82, loss 0.44778764247894287
+epoch 83, loss 0.4293518662452698
+epoch 84, loss 0.4118541181087494
+epoch 85, loss 0.39524656534194946
+epoch 86, loss 0.37948372960090637
+epoch 87, loss 0.3645226061344147
+epoch 88, loss 0.3503219187259674
+epoch 89, loss 0.33684325218200684
+epoch 90, loss 0.32404956221580505
+epoch 91, loss 0.3119059205055237
+epoch 92, loss 0.3003791272640228
+epoch 93, loss 0.2894377112388611
+epoch 94, loss 0.27905166149139404
+epoch 95, loss 0.2691928446292877
+epoch 96, loss 0.2598342299461365
+epoch 97, loss 0.25095024704933167
+epoch 98, loss 0.2425166666507721
+epoch 99, loss 0.23451057076454163
 </pre></div>
 </div>
 </div>
@@ -934,11 +933,12 @@ epoch 99, loss 0.20225465297698975
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">)))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -949,8 +949,8 @@ epoch 99, loss 0.20225465297698975
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/linear_13_0.png" src="../_images/linear_13_0.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[0.9721]])
-linear.bias :  tensor([3.3274])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[1.2722]])
+linear.bias :  tensor([3.0305])
 </pre></div>
 </div>
 </div>
@@ -973,8 +973,8 @@ linear.bias :  tensor([3.3274])
         <span class="n">x_batch</span> <span class="o">=</span> <span class="n">x_train</span><span class="p">[</span><span class="n">batch_size</span><span class="o">*</span><span class="n">i</span><span class="p">:</span><span class="n">batch_size</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
         <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">[</span><span class="n">batch_size</span><span class="o">*</span><span class="n">i</span><span class="p">:</span><span class="n">batch_size</span><span class="o">*</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span>
 
-        <span class="n">inputs</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_batch</span><span class="p">))</span>
-        <span class="n">y_train_var</span> <span class="o">=</span> <span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_batch</span><span class="p">))</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_batch</span><span class="p">)</span>
+        <span class="n">y_train_var</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">y_batch</span><span class="p">)</span>
 
         <span class="c1"># Clear gradient buffer</span>
         <span class="n">optimizer</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
@@ -994,106 +994,108 @@ linear.bias :  tensor([3.3274])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, loss 0.24362248182296753
-epoch 1, loss 0.14591069519519806
-epoch 2, loss 0.13684681057929993
-epoch 3, loss 0.13316473364830017
-epoch 4, loss 0.1839783638715744
-epoch 5, loss 0.17501355707645416
-epoch 6, loss 0.09760620445013046
-epoch 7, loss 0.16902786493301392
-epoch 8, loss 0.12351018935441971
-epoch 9, loss 0.17205482721328735
-epoch 10, loss 0.1712622344493866
-epoch 11, loss 0.085511714220047
-epoch 12, loss 0.1379004567861557
-epoch 13, loss 0.136119544506073
-epoch 14, loss 0.1133987084031105
-epoch 15, loss 0.08040167391300201
-epoch 16, loss 0.1317214071750641
-epoch 17, loss 0.11957771331071854
-epoch 18, loss 0.07753628492355347
-epoch 19, loss 0.14753416180610657
-epoch 20, loss 0.10848265886306763
-epoch 21, loss 0.10766678303480148
-epoch 22, loss 0.11518580466508865
-epoch 23, loss 0.14333446323871613
-epoch 24, loss 0.07293468713760376
-epoch 25, loss 0.10457058995962143
-epoch 26, loss 0.07159407436847687
-epoch 27, loss 0.09635239839553833
-epoch 28, loss 0.15139631927013397
-epoch 29, loss 0.09506873786449432
-epoch 30, loss 0.09446071833372116
-epoch 31, loss 0.06848911941051483
-epoch 32, loss 0.09956025332212448
-epoch 33, loss 0.13433127105236053
-epoch 34, loss 0.10499932616949081
-epoch 35, loss 0.10415593534708023
-epoch 36, loss 0.1320260763168335
-epoch 37, loss 0.10252057760953903
-epoch 38, loss 0.10170429199934006
-epoch 39, loss 0.08951760083436966
-epoch 40, loss 0.12909850478172302
-epoch 41, loss 0.1384679228067398
-epoch 42, loss 0.1277271807193756
-epoch 43, loss 0.06229912489652634
-epoch 44, loss 0.05772702395915985
-epoch 45, loss 0.09686117619276047
-epoch 46, loss 0.13414916396141052
-epoch 47, loss 0.09076423943042755
-epoch 48, loss 0.11043938249349594
-epoch 49, loss 0.08981761336326599
-epoch 50, loss 0.12266367673873901
-epoch 51, loss 0.08882025629281998
-epoch 52, loss 0.12950442731380463
-epoch 53, loss 0.08790730684995651
-epoch 54, loss 0.12035263329744339
-epoch 55, loss 0.05742686614394188
-epoch 56, loss 0.11923133581876755
-epoch 57, loss 0.10666357725858688
-epoch 58, loss 0.05410885065793991
-epoch 59, loss 0.11763648688793182
-epoch 60, loss 0.12402268499135971
-epoch 61, loss 0.12332040071487427
-epoch 62, loss 0.08047144114971161
-epoch 63, loss 0.05479639396071434
-epoch 64, loss 0.0798923596739769
-epoch 65, loss 0.11490611732006073
-epoch 66, loss 0.12017640471458435
-epoch 67, loss 0.0790862888097763
-epoch 68, loss 0.05335848405957222
-epoch 69, loss 0.11845696717500687
-epoch 70, loss 0.05282732844352722
-epoch 71, loss 0.08105462789535522
-epoch 72, loss 0.11195197701454163
-epoch 73, loss 0.051411449909210205
-epoch 74, loss 0.08012275397777557
-epoch 75, loss 0.05112326890230179
-epoch 76, loss 0.051364537328481674
-epoch 77, loss 0.07917136698961258
-epoch 78, loss 0.07649713009595871
-epoch 79, loss 0.07863365113735199
-epoch 80, loss 0.07835225015878677
-epoch 81, loss 0.07807270437479019
-epoch 82, loss 0.07569421827793121
-epoch 83, loss 0.049868594855070114
-epoch 84, loss 0.07730147987604141
-epoch 85, loss 0.07703375071287155
-epoch 86, loss 0.049824729561805725
-epoch 87, loss 0.0768214613199234
-epoch 88, loss 0.07468421757221222
-epoch 89, loss 0.09865272790193558
-epoch 90, loss 0.04858874902129173
-epoch 91, loss 0.0755695253610611
-epoch 92, loss 0.10541074723005295
-epoch 93, loss 0.10709434747695923
-epoch 94, loss 0.09778198599815369
-epoch 95, loss 0.09758378565311432
-epoch 96, loss 0.049010831862688065
-epoch 97, loss 0.07395705580711365
-epoch 98, loss 0.04725116118788719
-epoch 99, loss 0.07401441037654877
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, loss 0.15132689476013184
+epoch 1, loss 0.15757179260253906
+epoch 2, loss 0.12175792455673218
+epoch 3, loss 0.09626052528619766
+epoch 4, loss 0.09974482655525208
+epoch 5, loss 0.096749447286129
+epoch 6, loss 0.0932689905166626
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 7, loss 0.10538350045681
+epoch 8, loss 0.08690407872200012
+epoch 9, loss 0.09966102987527847
+epoch 10, loss 0.08320625126361847
+epoch 11, loss 0.08237418532371521
+epoch 12, loss 0.10202844440937042
+epoch 13, loss 0.10169750452041626
+epoch 14, loss 0.10134657472372055
+epoch 15, loss 0.06312520802021027
+epoch 16, loss 0.054866619408130646
+epoch 17, loss 0.09381613880395889
+epoch 18, loss 0.05409059673547745
+epoch 19, loss 0.09274499118328094
+epoch 20, loss 0.09222377091646194
+epoch 21, loss 0.0768422931432724
+epoch 22, loss 0.07648130506277084
+epoch 23, loss 0.05282335728406906
+epoch 24, loss 0.07568173855543137
+epoch 25, loss 0.0841827243566513
+epoch 26, loss 0.08922847360372543
+epoch 27, loss 0.07485192269086838
+epoch 28, loss 0.09587374329566956
+epoch 29, loss 0.08275765180587769
+epoch 30, loss 0.05768406391143799
+epoch 31, loss 0.07379080355167389
+epoch 32, loss 0.05148899182677269
+epoch 33, loss 0.08604416996240616
+epoch 34, loss 0.0728679969906807
+epoch 35, loss 0.051112979650497437
+epoch 36, loss 0.08479645103216171
+epoch 37, loss 0.07233914732933044
+epoch 38, loss 0.07987968623638153
+epoch 39, loss 0.056118834763765335
+epoch 40, loss 0.0715007558465004
+epoch 41, loss 0.05050215870141983
+epoch 42, loss 0.055717140436172485
+epoch 43, loss 0.09043440967798233
+epoch 44, loss 0.07816328853368759
+epoch 45, loss 0.07027234137058258
+epoch 46, loss 0.07037530094385147
+epoch 47, loss 0.06972038000822067
+epoch 48, loss 0.0770694836974144
+epoch 49, loss 0.08001921325922012
+epoch 50, loss 0.05482156202197075
+epoch 51, loss 0.049791522324085236
+epoch 52, loss 0.08772119879722595
+epoch 53, loss 0.08743599057197571
+epoch 54, loss 0.06886529922485352
+epoch 55, loss 0.06867704540491104
+epoch 56, loss 0.06820297986268997
+epoch 57, loss 0.06803512573242188
+epoch 58, loss 0.08613117784261703
+epoch 59, loss 0.06770454347133636
+epoch 60, loss 0.07428763061761856
+epoch 61, loss 0.08538898080587387
+epoch 62, loss 0.06752943247556686
+epoch 63, loss 0.06710097193717957
+epoch 64, loss 0.07347144186496735
+epoch 65, loss 0.07538165897130966
+epoch 66, loss 0.07309751212596893
+epoch 67, loss 0.04916081950068474
+epoch 68, loss 0.0666542649269104
+epoch 69, loss 0.04912230744957924
+epoch 70, loss 0.07234420627355576
+epoch 71, loss 0.07392998039722443
+epoch 72, loss 0.06491353362798691
+epoch 73, loss 0.08275939524173737
+epoch 74, loss 0.06584985554218292
+epoch 75, loss 0.08240757137537003
+epoch 76, loss 0.06432017683982849
+epoch 77, loss 0.06548000127077103
+epoch 78, loss 0.0652213916182518
+epoch 79, loss 0.07084168493747711
+epoch 80, loss 0.06511659175157547
+epoch 81, loss 0.08132227510213852
+epoch 82, loss 0.05235873907804489
+epoch 83, loss 0.06338775157928467
+epoch 84, loss 0.07012397795915604
+epoch 85, loss 0.06313913315534592
+epoch 86, loss 0.06984704732894897
+epoch 87, loss 0.06433412432670593
+epoch 88, loss 0.06424663215875626
+epoch 89, loss 0.06948049366474152
+epoch 90, loss 0.069351926445961
+epoch 91, loss 0.048958670347929
+epoch 92, loss 0.06389067322015762
+epoch 93, loss 0.06965489685535431
+epoch 94, loss 0.06375724077224731
+epoch 95, loss 0.05171549692749977
+epoch 96, loss 0.06861113011837006
+epoch 97, loss 0.048993583768606186
+epoch 98, loss 0.05160181224346161
+epoch 99, loss 0.06826980412006378
 </pre></div>
 </div>
 </div>
@@ -1102,11 +1104,12 @@ epoch 99, loss 0.07401441037654877
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">)))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">x_train</span><span class="p">))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
 <span class="n">plt</span><span class="o">.</span><span class="n">clf</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;True data&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;--&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span> <span class="n">predicted</span><span class="p">,</span> <span class="s1">&#39;.&#39;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Predictions&#39;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">()</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
@@ -1117,8 +1120,8 @@ epoch 99, loss 0.07401441037654877
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/linear_17_0.png" src="../_images/linear_17_0.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[1.6509]])
-linear.bias :  tensor([3.1976])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.weight :  tensor([[1.8016]])
+linear.bias :  tensor([3.1119])
 </pre></div>
 </div>
 </div>
@@ -1135,7 +1138,7 @@ linear.bias :  tensor([3.1976])
 <div><p>Caution: To get the so called bias term <span class="math notranslate nohighlight">\(\vartheta_0\)</span>, we need to extend <span class="math notranslate nohighlight">\(X\)</span> to</p>
 </div></blockquote>
 <div class="math notranslate nohighlight">
-\[\begin{split}X_{m \times n}=\left[\begin{array}{c}x^{(1) \top }\\ \vdots \\ x^{(m) \top} \\ \mathbf{1}^{\top}\end{array}\right],\end{split}\]</div>
+\[\begin{split}X_{m \times n}=\left[\begin{array}{c}x^{(1) \top }\\ \vdots \\ x^{(m) \top}\end{array} \mathbf{1} \right],\end{split}\]</div>
 <p>otherwise we assume that the line we are fitting crosses <span class="math notranslate nohighlight">\(y\)</span> at <span class="math notranslate nohighlight">\(x=0\)</span>. The PyTorch model we saw before automatically defines a bias term and optimizes it to the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1153,7 +1156,7 @@ linear.bias :  tensor([3.1976])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>theta = [2.00647914 2.99636588]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>theta = [2.04017376 2.97868312]
 </pre></div>
 </div>
 </div>
@@ -1245,10 +1248,11 @@ $<span class="math notranslate nohighlight">\(h(x) = \varphi \left( \vartheta^{\
 3          0  
 4          0  
 Count occurence of each class:
+class
 Iris-versicolor    50
 Iris-virginica     50
 Iris-setosa        49
-Name: class, dtype: int64
+Name: count, dtype: int64
 </pre></div>
 </div>
 </div>
@@ -1266,9 +1270,10 @@ Name: class, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0    50
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class_idx
+0    50
 1    50
-Name: class_idx, dtype: int64
+Name: count, dtype: int64
      petal_length  petal_width  class_idx
 49            4.7          1.4          0
 50            4.5          1.5          0
@@ -1345,53 +1350,53 @@ Output columns:  torch.Size([100, 1]) torch.float32
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor([[4.5000, 1.5000],
-        [4.5000, 1.6000],
-        [5.4000, 2.3000],
-        [6.3000, 1.8000],
-        [3.0000, 1.1000],
-        [4.0000, 1.2000],
-        [4.7000, 1.6000],
-        [4.5000, 1.5000],
-        [4.9000, 1.8000],
-        [4.8000, 1.8000],
-        [4.5000, 1.3000],
-        [5.1000, 1.9000],
-        [6.1000, 2.3000],
-        [5.5000, 2.1000],
-        [4.4000, 1.2000],
-        [6.7000, 2.0000],
-        [3.9000, 1.1000],
-        [4.2000, 1.2000],
-        [5.9000, 2.1000],
-        [5.8000, 2.2000],
-        [5.6000, 1.8000],
-        [4.3000, 1.3000],
-        [4.0000, 1.3000],
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[tensor([[4.9000, 1.8000],
         [4.9000, 1.5000],
-        [4.9000, 2.0000]]), tensor([[0.],
+        [4.0000, 1.3000],
+        [6.9000, 2.3000],
+        [4.2000, 1.3000],
+        [4.6000, 1.5000],
+        [5.7000, 2.3000],
+        [3.6000, 1.3000],
+        [3.9000, 1.4000],
+        [3.0000, 1.1000],
+        [5.7000, 2.5000],
+        [6.0000, 2.5000],
+        [5.1000, 2.3000],
+        [4.8000, 1.8000],
+        [4.7000, 1.2000],
+        [4.8000, 1.8000],
+        [4.1000, 1.0000],
+        [5.5000, 1.8000],
+        [6.3000, 1.8000],
+        [5.2000, 2.3000],
+        [4.3000, 1.3000],
+        [5.1000, 1.8000],
+        [4.8000, 1.8000],
+        [4.7000, 1.5000],
+        [5.1000, 1.5000]]), tensor([[1.],
+        [0.],
+        [0.],
+        [1.],
+        [0.],
+        [0.],
+        [1.],
+        [0.],
+        [0.],
         [0.],
         [1.],
         [1.],
-        [0.],
-        [0.],
+        [1.],
         [0.],
         [0.],
         [1.],
-        [1.],
-        [0.],
-        [1.],
-        [1.],
-        [1.],
-        [0.],
-        [1.],
-        [0.],
         [0.],
         [1.],
         [1.],
         [1.],
         [0.],
-        [0.],
+        [1.],
+        [1.],
         [0.],
         [1.]])] torch.Size([25, 2]) torch.float32
 </pre></div>
@@ -1453,506 +1458,506 @@ Output columns:  torch.Size([100, 1]) torch.float32
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 1. Loss: 1.150997281074524.
-Epoch: 2. Loss: 1.385910987854004.
-Epoch: 3. Loss: 1.4735668897628784.
-Epoch: 4. Loss: 4.336208343505859.
-Epoch: 5. Loss: 3.120725154876709.
-Epoch: 6. Loss: 1.035387396812439.
-Epoch: 7. Loss: 1.8818854093551636.
-Epoch: 8. Loss: 3.112588405609131.
-Epoch: 9. Loss: 5.0494866371154785.
-Epoch: 10. Loss: 3.743957757949829.
-Epoch: 11. Loss: 4.106730937957764.
-Epoch: 12. Loss: 3.9786674976348877.
-Epoch: 13. Loss: 1.8222899436950684.
-Epoch: 14. Loss: 2.072605848312378.
-Epoch: 15. Loss: 6.539145469665527.
-Epoch: 16. Loss: 6.2265214920043945.
-Epoch: 17. Loss: 3.0322659015655518.
-Epoch: 18. Loss: 5.5355305671691895.
-Epoch: 19. Loss: 2.9194400310516357.
-Epoch: 20. Loss: 4.631555557250977.
-Epoch: 21. Loss: 0.8201667666435242.
-Epoch: 22. Loss: 1.1318951845169067.
-Epoch: 23. Loss: 0.6846733093261719.
-Epoch: 24. Loss: 3.4803314208984375.
-Epoch: 25. Loss: 1.513106107711792.
-Epoch: 26. Loss: 2.07596492767334.
-Epoch: 27. Loss: 0.7559216022491455.
-Epoch: 28. Loss: 3.42897891998291.
-Epoch: 29. Loss: 0.9161238670349121.
-Epoch: 30. Loss: 0.3077808618545532.
-Epoch: 31. Loss: 0.9330335855484009.
-Epoch: 32. Loss: 0.2278391271829605.
-Epoch: 33. Loss: 4.278599262237549.
-Epoch: 34. Loss: 0.3643483817577362.
-Epoch: 35. Loss: 0.2637794315814972.
-Epoch: 36. Loss: 2.272778034210205.
-Epoch: 37. Loss: 0.34633687138557434.
-Epoch: 38. Loss: 3.704141616821289.
-Epoch: 39. Loss: 2.2620723247528076.
-Epoch: 40. Loss: 1.044610619544983.
-Epoch: 41. Loss: 3.0841448307037354.
-Epoch: 42. Loss: 0.978791356086731.
-Epoch: 43. Loss: 1.4805631637573242.
-Epoch: 44. Loss: 3.131525993347168.
-Epoch: 45. Loss: 2.132110357284546.
-Epoch: 46. Loss: 2.7972359657287598.
-Epoch: 47. Loss: 1.1934492588043213.
-Epoch: 48. Loss: 1.1928510665893555.
-Epoch: 49. Loss: 0.6236140727996826.
-Epoch: 50. Loss: 2.624018669128418.
-Epoch: 51. Loss: 0.17588737607002258.
-Epoch: 52. Loss: 0.2467980980873108.
-Epoch: 53. Loss: 1.7692997455596924.
-Epoch: 54. Loss: 2.877972364425659.
-Epoch: 55. Loss: 0.2626754641532898.
-Epoch: 56. Loss: 0.6807554364204407.
-Epoch: 57. Loss: 0.21083232760429382.
-Epoch: 58. Loss: 0.31674888730049133.
-Epoch: 59. Loss: 0.868975818157196.
-Epoch: 60. Loss: 0.9031488299369812.
-Epoch: 61. Loss: 0.6139633655548096.
-Epoch: 62. Loss: 1.7661155462265015.
-Epoch: 63. Loss: 0.4343530535697937.
-Epoch: 64. Loss: 0.7798075675964355.
-Epoch: 65. Loss: 0.5217298865318298.
-Epoch: 66. Loss: 2.1688129901885986.
-Epoch: 67. Loss: 0.22521556913852692.
-Epoch: 68. Loss: 1.6296381950378418.
-Epoch: 69. Loss: 0.8730502128601074.
-Epoch: 70. Loss: 0.16363410651683807.
-Epoch: 71. Loss: 0.611400842666626.
-Epoch: 72. Loss: 0.19402526319026947.
-Epoch: 73. Loss: 0.36977097392082214.
-Epoch: 74. Loss: 0.3893622159957886.
-Epoch: 75. Loss: 0.25457948446273804.
-Epoch: 76. Loss: 0.1904628723859787.
-Epoch: 77. Loss: 0.11974754184484482.
-Epoch: 78. Loss: 1.1183143854141235.
-Epoch: 79. Loss: 0.8283073306083679.
-Epoch: 80. Loss: 0.5465997457504272.
-Epoch: 81. Loss: 0.1760798841714859.
-Epoch: 82. Loss: 0.3935830593109131.
-Epoch: 83. Loss: 0.12319846451282501.
-Epoch: 84. Loss: 0.23260308802127838.
-Epoch: 85. Loss: 1.425697922706604.
-Epoch: 86. Loss: 2.0986273288726807.
-Epoch: 87. Loss: 0.19868269562721252.
-Epoch: 88. Loss: 0.24192000925540924.
-Epoch: 89. Loss: 0.25213414430618286.
-Epoch: 90. Loss: 0.1865302473306656.
-Epoch: 91. Loss: 0.31363219022750854.
-Epoch: 92. Loss: 0.10670343041419983.
-Epoch: 93. Loss: 0.4959720969200134.
-Epoch: 94. Loss: 0.23971770703792572.
-Epoch: 95. Loss: 0.39691397547721863.
-Epoch: 96. Loss: 0.8481330275535583.
-Epoch: 97. Loss: 0.6506059169769287.
-Epoch: 98. Loss: 0.6921983361244202.
-Epoch: 99. Loss: 0.08228135854005814.
-Epoch: 100. Loss: 0.2817448377609253.
-Epoch: 101. Loss: 0.3844635784626007.
-Epoch: 102. Loss: 0.37491580843925476.
-Epoch: 103. Loss: 0.52066969871521.
-Epoch: 104. Loss: 0.3094133138656616.
-Epoch: 105. Loss: 0.20788893103599548.
-Epoch: 106. Loss: 0.2546840012073517.
-Epoch: 107. Loss: 0.09203486144542694.
-Epoch: 108. Loss: 0.23026855289936066.
-Epoch: 109. Loss: 0.21823333203792572.
-Epoch: 110. Loss: 0.5226043462753296.
-Epoch: 111. Loss: 0.15904943645000458.
-Epoch: 112. Loss: 0.1683739721775055.
-Epoch: 113. Loss: 0.12491162121295929.
-Epoch: 114. Loss: 0.4951423704624176.
-Epoch: 115. Loss: 0.319563090801239.
-Epoch: 116. Loss: 0.16928130388259888.
-Epoch: 117. Loss: 0.42206406593322754.
-Epoch: 118. Loss: 0.15621250867843628.
-Epoch: 119. Loss: 0.1322387307882309.
-Epoch: 120. Loss: 0.5772131681442261.
-Epoch: 121. Loss: 0.33740875124931335.
-Epoch: 122. Loss: 0.7250452637672424.
-Epoch: 123. Loss: 0.6649072170257568.
-Epoch: 124. Loss: 0.06830863654613495.
-Epoch: 125. Loss: 0.10945131629705429.
-Epoch: 126. Loss: 0.2302984744310379.
-Epoch: 127. Loss: 0.2682044506072998.
-Epoch: 128. Loss: 0.8909367322921753.
-Epoch: 129. Loss: 0.14850552380084991.
-Epoch: 130. Loss: 0.12701250612735748.
-Epoch: 131. Loss: 0.08499880880117416.
-Epoch: 132. Loss: 0.13335523009300232.
-Epoch: 133. Loss: 0.15741674602031708.
-Epoch: 134. Loss: 0.09820470958948135.
-Epoch: 135. Loss: 0.09056493639945984.
-Epoch: 136. Loss: 0.2557567059993744.
-Epoch: 137. Loss: 0.06015206500887871.
-Epoch: 138. Loss: 0.2950436472892761.
-Epoch: 139. Loss: 0.3215859532356262.
-Epoch: 140. Loss: 0.2568015456199646.
-Epoch: 141. Loss: 0.1108265370130539.
-Epoch: 142. Loss: 0.22389522194862366.
-Epoch: 143. Loss: 0.1851266473531723.
-Epoch: 144. Loss: 0.1962047964334488.
-Epoch: 145. Loss: 0.1066468134522438.
-Epoch: 146. Loss: 0.5094516277313232.
-Epoch: 147. Loss: 0.10188832879066467.
-Epoch: 148. Loss: 0.33996838331222534.
-Epoch: 149. Loss: 0.11021583527326584.
-Epoch: 150. Loss: 2.0259644985198975.
-Epoch: 151. Loss: 0.14164207875728607.
-Epoch: 152. Loss: 0.05453873053193092.
-Epoch: 153. Loss: 0.29538965225219727.
-Epoch: 154. Loss: 0.12823516130447388.
-Epoch: 155. Loss: 0.09750907868146896.
-Epoch: 156. Loss: 0.18584178388118744.
-Epoch: 157. Loss: 0.10915091633796692.
-Epoch: 158. Loss: 0.31029438972473145.
-Epoch: 159. Loss: 0.3151721954345703.
-Epoch: 160. Loss: 0.09620741009712219.
-Epoch: 161. Loss: 0.12148656696081161.
-Epoch: 162. Loss: 0.3564176559448242.
-Epoch: 163. Loss: 0.3326980471611023.
-Epoch: 164. Loss: 0.25560519099235535.
-Epoch: 165. Loss: 0.2685062289237976.
-Epoch: 166. Loss: 0.23320716619491577.
-Epoch: 167. Loss: 0.37016376852989197.
-Epoch: 168. Loss: 0.05700599029660225.
-Epoch: 169. Loss: 0.1332738697528839.
-Epoch: 170. Loss: 0.2454470843076706.
-Epoch: 171. Loss: 0.43777981400489807.
-Epoch: 172. Loss: 0.3404454290866852.
-Epoch: 173. Loss: 0.20990951359272003.
-Epoch: 174. Loss: 0.6128281354904175.
-Epoch: 175. Loss: 0.2207747846841812.
-Epoch: 176. Loss: 0.43679168820381165.
-Epoch: 177. Loss: 0.16477398574352264.
-Epoch: 178. Loss: 0.10320980101823807.
-Epoch: 179. Loss: 0.11131671816110611.
-Epoch: 180. Loss: 0.37623292207717896.
-Epoch: 181. Loss: 0.10806068778038025.
-Epoch: 182. Loss: 0.12298706918954849.
-Epoch: 183. Loss: 0.08893758058547974.
-Epoch: 184. Loss: 0.14582881331443787.
-Epoch: 185. Loss: 0.22798828780651093.
-Epoch: 186. Loss: 0.20070496201515198.
-Epoch: 187. Loss: 0.11492695659399033.
-Epoch: 188. Loss: 0.07775630801916122.
-Epoch: 189. Loss: 0.07862791419029236.
-Epoch: 190. Loss: 0.1323145031929016.
-Epoch: 191. Loss: 0.08477167785167694.
-Epoch: 192. Loss: 0.20464985072612762.
-Epoch: 193. Loss: 0.0917743369936943.
-Epoch: 194. Loss: 0.1604824662208557.
-Epoch: 195. Loss: 0.13361504673957825.
-Epoch: 196. Loss: 0.11901748925447464.
-Epoch: 197. Loss: 0.07654471695423126.
-Epoch: 198. Loss: 0.2342482954263687.
-Epoch: 199. Loss: 0.2630533277988434.
-Epoch: 200. Loss: 0.20742206275463104.
-Epoch: 201. Loss: 0.4061627686023712.
-Epoch: 202. Loss: 0.22973188757896423.
-Epoch: 203. Loss: 0.3035658001899719.
-Epoch: 204. Loss: 0.30542343854904175.
-Epoch: 205. Loss: 0.7028954029083252.
-Epoch: 206. Loss: 0.23301132023334503.
-Epoch: 207. Loss: 0.10325316339731216.
-Epoch: 208. Loss: 0.17400133609771729.
-Epoch: 209. Loss: 0.09020179510116577.
-Epoch: 210. Loss: 0.32505834102630615.
-Epoch: 211. Loss: 0.1655401587486267.
-Epoch: 212. Loss: 0.11462759226560593.
-Epoch: 213. Loss: 0.15059179067611694.
-Epoch: 214. Loss: 0.9175392985343933.
-Epoch: 215. Loss: 0.05478726327419281.
-Epoch: 216. Loss: 0.37863048911094666.
-Epoch: 217. Loss: 0.4412097930908203.
-Epoch: 218. Loss: 0.06455832719802856.
-Epoch: 219. Loss: 0.07400336116552353.
-Epoch: 220. Loss: 0.3590564727783203.
-Epoch: 221. Loss: 0.2126767933368683.
-Epoch: 222. Loss: 0.18518733978271484.
-Epoch: 223. Loss: 0.162140890955925.
-Epoch: 224. Loss: 0.3748857080936432.
-Epoch: 225. Loss: 0.3138168156147003.
-Epoch: 226. Loss: 0.16526032984256744.
-Epoch: 227. Loss: 0.13059960305690765.
-Epoch: 228. Loss: 0.07091173529624939.
-Epoch: 229. Loss: 0.3051062822341919.
-Epoch: 230. Loss: 0.2163180112838745.
-Epoch: 231. Loss: 0.20067378878593445.
-Epoch: 232. Loss: 0.28656235337257385.
-Epoch: 233. Loss: 0.34517550468444824.
-Epoch: 234. Loss: 0.22681932151317596.
-Epoch: 235. Loss: 0.23231418430805206.
-Epoch: 236. Loss: 0.20803505182266235.
-Epoch: 237. Loss: 0.08296370506286621.
-Epoch: 238. Loss: 0.09503408521413803.
-Epoch: 239. Loss: 0.15027901530265808.
-Epoch: 240. Loss: 0.1286163181066513.
-Epoch: 241. Loss: 0.09650043398141861.
-Epoch: 242. Loss: 0.23625989258289337.
-Epoch: 243. Loss: 0.1219661682844162.
-Epoch: 244. Loss: 0.18755653500556946.
-Epoch: 245. Loss: 0.3828451633453369.
-Epoch: 246. Loss: 0.3391555845737457.
-Epoch: 247. Loss: 0.39423659443855286.
-Epoch: 248. Loss: 0.2160816788673401.
-Epoch: 249. Loss: 0.1677437275648117.
-Epoch: 250. Loss: 0.28988924622535706.
-Epoch: 251. Loss: 0.23409318923950195.
-Epoch: 252. Loss: 0.20542998611927032.
-Epoch: 253. Loss: 0.46001285314559937.
-Epoch: 254. Loss: 0.35179904103279114.
-Epoch: 255. Loss: 0.4907052516937256.
-Epoch: 256. Loss: 0.1145794615149498.
-Epoch: 257. Loss: 0.10710376501083374.
-Epoch: 258. Loss: 0.17241020500659943.
-Epoch: 259. Loss: 1.9425303936004639.
-Epoch: 260. Loss: 0.13997434079647064.
-Epoch: 261. Loss: 0.2206699401140213.
-Epoch: 262. Loss: 0.06896121799945831.
-Epoch: 263. Loss: 0.25971290469169617.
-Epoch: 264. Loss: 0.09748012572526932.
-Epoch: 265. Loss: 0.16977444291114807.
-Epoch: 266. Loss: 0.22247417271137238.
-Epoch: 267. Loss: 0.11017173528671265.
-Epoch: 268. Loss: 0.2283109873533249.
-Epoch: 269. Loss: 0.13355295360088348.
-Epoch: 270. Loss: 0.06385229527950287.
-Epoch: 271. Loss: 0.08967813849449158.
-Epoch: 272. Loss: 0.31408530473709106.
-Epoch: 273. Loss: 0.09543834626674652.
-Epoch: 274. Loss: 0.12473583221435547.
-Epoch: 275. Loss: 0.21698524057865143.
-Epoch: 276. Loss: 0.1392245888710022.
-Epoch: 277. Loss: 0.14256055653095245.
-Epoch: 278. Loss: 0.14844034612178802.
-Epoch: 279. Loss: 0.07494302093982697.
-Epoch: 280. Loss: 0.020893555134534836.
-Epoch: 281. Loss: 0.11914518475532532.
-Epoch: 282. Loss: 0.1561785638332367.
-Epoch: 283. Loss: 0.11617348343133926.
-Epoch: 284. Loss: 0.10534340888261795.
-Epoch: 285. Loss: 0.22317823767662048.
-Epoch: 286. Loss: 0.2605859339237213.
-Epoch: 287. Loss: 0.20226867496967316.
-Epoch: 288. Loss: 0.7526053786277771.
-Epoch: 289. Loss: 0.26470696926116943.
-Epoch: 290. Loss: 0.17728252708911896.
-Epoch: 291. Loss: 0.1795700043439865.
-Epoch: 292. Loss: 0.12107856571674347.
-Epoch: 293. Loss: 0.13217678666114807.
-Epoch: 294. Loss: 0.052663687616586685.
-Epoch: 295. Loss: 0.2587626278400421.
-Epoch: 296. Loss: 0.1654384434223175.
-Epoch: 297. Loss: 0.22224751114845276.
-Epoch: 298. Loss: 0.27290603518486023.
-Epoch: 299. Loss: 0.283827543258667.
-Epoch: 300. Loss: 0.18219143152236938.
-Epoch: 301. Loss: 0.05420473963022232.
-Epoch: 302. Loss: 0.20094355940818787.
-Epoch: 303. Loss: 0.2583479881286621.
-Epoch: 304. Loss: 0.12586136162281036.
-Epoch: 305. Loss: 0.04250055178999901.
-Epoch: 306. Loss: 0.03538873419165611.
-Epoch: 307. Loss: 0.20172351598739624.
-Epoch: 308. Loss: 0.07835637032985687.
-Epoch: 309. Loss: 0.17999610304832458.
-Epoch: 310. Loss: 0.05110570788383484.
-Epoch: 311. Loss: 0.5475814938545227.
-Epoch: 312. Loss: 0.0454808846116066.
-Epoch: 313. Loss: 0.059439849108457565.
-Epoch: 314. Loss: 0.21763640642166138.
-Epoch: 315. Loss: 0.10981986671686172.
-Epoch: 316. Loss: 0.08546796441078186.
-Epoch: 317. Loss: 0.19717605412006378.
-Epoch: 318. Loss: 0.12233477830886841.
-Epoch: 319. Loss: 0.14626331627368927.
-Epoch: 320. Loss: 0.0954262912273407.
-Epoch: 321. Loss: 0.17282648384571075.
-Epoch: 322. Loss: 0.09693977981805801.
-Epoch: 323. Loss: 0.06621190905570984.
-Epoch: 324. Loss: 0.12420331686735153.
-Epoch: 325. Loss: 0.49042099714279175.
-Epoch: 326. Loss: 0.2066398411989212.
-Epoch: 327. Loss: 0.19654884934425354.
-Epoch: 328. Loss: 0.15174086391925812.
-Epoch: 329. Loss: 0.13377346098423004.
-Epoch: 330. Loss: 0.15412674844264984.
-Epoch: 331. Loss: 0.08706100285053253.
-Epoch: 332. Loss: 0.28883862495422363.
-Epoch: 333. Loss: 0.2552138864994049.
-Epoch: 334. Loss: 0.22173485159873962.
-Epoch: 335. Loss: 0.049143191426992416.
-Epoch: 336. Loss: 0.0943836197257042.
-Epoch: 337. Loss: 0.11014441400766373.
-Epoch: 338. Loss: 0.07421495020389557.
-Epoch: 339. Loss: 0.17958185076713562.
-Epoch: 340. Loss: 0.18575851619243622.
-Epoch: 341. Loss: 0.26915398240089417.
-Epoch: 342. Loss: 0.199921652674675.
-Epoch: 343. Loss: 0.176970437169075.
-Epoch: 344. Loss: 0.32353538274765015.
-Epoch: 345. Loss: 0.059795789420604706.
-Epoch: 346. Loss: 0.13824568688869476.
-Epoch: 347. Loss: 0.3014523386955261.
-Epoch: 348. Loss: 0.1403135508298874.
-Epoch: 349. Loss: 0.14345164597034454.
-Epoch: 350. Loss: 0.281046599149704.
-Epoch: 351. Loss: 0.061720848083496094.
-Epoch: 352. Loss: 0.05094645544886589.
-Epoch: 353. Loss: 0.18409068882465363.
-Epoch: 354. Loss: 0.038921162486076355.
-Epoch: 355. Loss: 0.34628212451934814.
-Epoch: 356. Loss: 0.12637484073638916.
-Epoch: 357. Loss: 0.24933680891990662.
-Epoch: 358. Loss: 0.21911264955997467.
-Epoch: 359. Loss: 0.08308680355548859.
-Epoch: 360. Loss: 0.4139997363090515.
-Epoch: 361. Loss: 0.15833288431167603.
-Epoch: 362. Loss: 0.2198910266160965.
-Epoch: 363. Loss: 0.13118067383766174.
-Epoch: 364. Loss: 0.1266264021396637.
-Epoch: 365. Loss: 0.2797512114048004.
-Epoch: 366. Loss: 0.4665806293487549.
-Epoch: 367. Loss: 0.12980234622955322.
-Epoch: 368. Loss: 0.11744935065507889.
-Epoch: 369. Loss: 0.2551446557044983.
-Epoch: 370. Loss: 0.20740783214569092.
-Epoch: 371. Loss: 0.16473382711410522.
-Epoch: 372. Loss: 0.1686256378889084.
-Epoch: 373. Loss: 0.20697404444217682.
-Epoch: 374. Loss: 0.13801930844783783.
-Epoch: 375. Loss: 0.18999576568603516.
-Epoch: 376. Loss: 0.15316596627235413.
-Epoch: 377. Loss: 0.14856284856796265.
-Epoch: 378. Loss: 0.0922422856092453.
-Epoch: 379. Loss: 0.1672498881816864.
-Epoch: 380. Loss: 0.13555797934532166.
-Epoch: 381. Loss: 0.1670839935541153.
-Epoch: 382. Loss: 0.08460695296525955.
-Epoch: 383. Loss: 0.25476568937301636.
-Epoch: 384. Loss: 0.07314543426036835.
-Epoch: 385. Loss: 0.10445042699575424.
-Epoch: 386. Loss: 0.2596588730812073.
-Epoch: 387. Loss: 0.1497839093208313.
-Epoch: 388. Loss: 0.10199093073606491.
-Epoch: 389. Loss: 0.2177749127149582.
-Epoch: 390. Loss: 0.16602544486522675.
-Epoch: 391. Loss: 0.196538046002388.
-Epoch: 392. Loss: 0.10305453091859818.
-Epoch: 393. Loss: 0.3025897443294525.
-Epoch: 394. Loss: 0.0872841328382492.
-Epoch: 395. Loss: 0.07768267393112183.
-Epoch: 396. Loss: 0.3597448468208313.
-Epoch: 397. Loss: 0.17679229378700256.
-Epoch: 398. Loss: 0.20070427656173706.
-Epoch: 399. Loss: 0.1687600463628769.
-Epoch: 400. Loss: 0.06876733154058456.
-Epoch: 401. Loss: 0.09528054296970367.
-Epoch: 402. Loss: 0.07056453078985214.
-Epoch: 403. Loss: 0.2053605318069458.
-Epoch: 404. Loss: 0.1656348556280136.
-Epoch: 405. Loss: 0.046664923429489136.
-Epoch: 406. Loss: 0.06455583870410919.
-Epoch: 407. Loss: 0.15793822705745697.
-Epoch: 408. Loss: 0.06556381285190582.
-Epoch: 409. Loss: 0.295960009098053.
-Epoch: 410. Loss: 0.09421569854021072.
-Epoch: 411. Loss: 0.15709663927555084.
-Epoch: 412. Loss: 0.05524168908596039.
-Epoch: 413. Loss: 0.09877265244722366.
-Epoch: 414. Loss: 0.25186485052108765.
-Epoch: 415. Loss: 0.17568518221378326.
-Epoch: 416. Loss: 0.1544865369796753.
-Epoch: 417. Loss: 0.1543107032775879.
-Epoch: 418. Loss: 0.13263005018234253.
-Epoch: 419. Loss: 0.15663255751132965.
-Epoch: 420. Loss: 0.19887050986289978.
-Epoch: 421. Loss: 0.24291840195655823.
-Epoch: 422. Loss: 0.5125886797904968.
-Epoch: 423. Loss: 0.1566731035709381.
-Epoch: 424. Loss: 0.11766226589679718.
-Epoch: 425. Loss: 0.12016671895980835.
-Epoch: 426. Loss: 0.7199966311454773.
-Epoch: 427. Loss: 0.24645711481571198.
-Epoch: 428. Loss: 0.07754690945148468.
-Epoch: 429. Loss: 0.21135039627552032.
-Epoch: 430. Loss: 0.2806967496871948.
-Epoch: 431. Loss: 0.16539452970027924.
-Epoch: 432. Loss: 0.19778025150299072.
-Epoch: 433. Loss: 0.1593754142522812.
-Epoch: 434. Loss: 0.24613814055919647.
-Epoch: 435. Loss: 0.23769575357437134.
-Epoch: 436. Loss: 0.14604546129703522.
-Epoch: 437. Loss: 0.2063254565000534.
-Epoch: 438. Loss: 0.2057334929704666.
-Epoch: 439. Loss: 0.019456112757325172.
-Epoch: 440. Loss: 0.13976681232452393.
-Epoch: 441. Loss: 0.14947621524333954.
-Epoch: 442. Loss: 0.08863664418458939.
-Epoch: 443. Loss: 0.04295199364423752.
-Epoch: 444. Loss: 0.2122429460287094.
-Epoch: 445. Loss: 0.2100687175989151.
-Epoch: 446. Loss: 0.06616637855768204.
-Epoch: 447. Loss: 0.20443230867385864.
-Epoch: 448. Loss: 0.12438620626926422.
-Epoch: 449. Loss: 0.1885196715593338.
-Epoch: 450. Loss: 0.1260393261909485.
-Epoch: 451. Loss: 0.12893395125865936.
-Epoch: 452. Loss: 0.08228442072868347.
-Epoch: 453. Loss: 0.07671266794204712.
-Epoch: 454. Loss: 0.15531305968761444.
-Epoch: 455. Loss: 0.12506721913814545.
-Epoch: 456. Loss: 0.26037681102752686.
-Epoch: 457. Loss: 0.11193355917930603.
-Epoch: 458. Loss: 0.12250351160764694.
-Epoch: 459. Loss: 0.08633042126893997.
-Epoch: 460. Loss: 0.2580593526363373.
-Epoch: 461. Loss: 0.18133817613124847.
-Epoch: 462. Loss: 0.32244405150413513.
-Epoch: 463. Loss: 0.09929019957780838.
-Epoch: 464. Loss: 0.027155248448252678.
-Epoch: 465. Loss: 0.1581612378358841.
-Epoch: 466. Loss: 0.12372353672981262.
-Epoch: 467. Loss: 0.3136092722415924.
-Epoch: 468. Loss: 0.23852305114269257.
-Epoch: 469. Loss: 0.08792246878147125.
-Epoch: 470. Loss: 0.22293621301651.
-Epoch: 471. Loss: 0.17793208360671997.
-Epoch: 472. Loss: 0.13556551933288574.
-Epoch: 473. Loss: 0.20135512948036194.
-Epoch: 474. Loss: 0.22743961215019226.
-Epoch: 475. Loss: 0.24751240015029907.
-Epoch: 476. Loss: 0.13826876878738403.
-Epoch: 477. Loss: 0.22009490430355072.
-Epoch: 478. Loss: 0.15248100459575653.
-Epoch: 479. Loss: 0.3530711829662323.
-Epoch: 480. Loss: 0.10908065736293793.
-Epoch: 481. Loss: 0.17048025131225586.
-Epoch: 482. Loss: 0.10965561121702194.
-Epoch: 483. Loss: 0.18513837456703186.
-Epoch: 484. Loss: 0.10839646309614182.
-Epoch: 485. Loss: 0.18928518891334534.
-Epoch: 486. Loss: 0.19693222641944885.
-Epoch: 487. Loss: 0.11442957073450089.
-Epoch: 488. Loss: 0.10182813555002213.
-Epoch: 489. Loss: 0.1467110961675644.
-Epoch: 490. Loss: 0.07279086858034134.
-Epoch: 491. Loss: 0.15854845941066742.
-Epoch: 492. Loss: 0.3001616597175598.
-Epoch: 493. Loss: 0.10164516419172287.
-Epoch: 494. Loss: 0.15160280466079712.
-Epoch: 495. Loss: 0.2693929970264435.
-Epoch: 496. Loss: 0.1892545372247696.
-Epoch: 497. Loss: 0.1607348769903183.
-Epoch: 498. Loss: 0.05766347423195839.
-Epoch: 499. Loss: 0.37708768248558044.
-Epoch: 500. Loss: 0.09579722583293915.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch: 1. Loss: 3.7627408504486084.
+Epoch: 2. Loss: 3.8542280197143555.
+Epoch: 3. Loss: 2.6949706077575684.
+Epoch: 4. Loss: 8.1231050491333.
+Epoch: 5. Loss: 3.583245038986206.
+Epoch: 6. Loss: 3.732949733734131.
+Epoch: 7. Loss: 4.069502353668213.
+Epoch: 8. Loss: 0.6965585947036743.
+Epoch: 9. Loss: 1.9594788551330566.
+Epoch: 10. Loss: 1.0510541200637817.
+Epoch: 11. Loss: 2.980556011199951.
+Epoch: 12. Loss: 3.93424916267395.
+Epoch: 13. Loss: 2.8647773265838623.
+Epoch: 14. Loss: 1.8929553031921387.
+Epoch: 15. Loss: 5.847078323364258.
+Epoch: 16. Loss: 0.5377179980278015.
+Epoch: 17. Loss: 8.671006202697754.
+Epoch: 18. Loss: 4.262671947479248.
+Epoch: 19. Loss: 5.475005626678467.
+Epoch: 20. Loss: 0.3305045962333679.
+Epoch: 21. Loss: 3.906980514526367.
+Epoch: 22. Loss: 3.858604669570923.
+Epoch: 23. Loss: 6.744014263153076.
+Epoch: 24. Loss: 0.9078060984611511.
+Epoch: 25. Loss: 1.9459271430969238.
+Epoch: 26. Loss: 1.0113184452056885.
+Epoch: 27. Loss: 0.5891411900520325.
+Epoch: 28. Loss: 1.1742936372756958.
+Epoch: 29. Loss: 0.5662131309509277.
+Epoch: 30. Loss: 0.2855275869369507.
+Epoch: 31. Loss: 4.35783576965332.
+Epoch: 32. Loss: 1.975974440574646.
+Epoch: 33. Loss: 0.4330093264579773.
+Epoch: 34. Loss: 0.48858270049095154.
+Epoch: 35. Loss: 2.090350389480591.
+Epoch: 36. Loss: 2.4277312755584717.
+Epoch: 37. Loss: 3.3770389556884766.
+Epoch: 38. Loss: 2.906691789627075.
+Epoch: 39. Loss: 0.3580903708934784.
+Epoch: 40. Loss: 1.3845940828323364.
+Epoch: 41. Loss: 3.1034364700317383.
+Epoch: 42. Loss: 0.6180238127708435.
+Epoch: 43. Loss: 1.5651309490203857.
+Epoch: 44. Loss: 0.5433673858642578.
+Epoch: 45. Loss: 1.104077935218811.
+Epoch: 46. Loss: 0.2584732174873352.
+Epoch: 47. Loss: 0.33497676253318787.
+Epoch: 48. Loss: 0.936159074306488.
+Epoch: 49. Loss: 4.383077621459961.
+Epoch: 50. Loss: 2.0555739402770996.
+Epoch: 51. Loss: 0.20954157412052155.
+Epoch: 52. Loss: 0.9594236016273499.
+Epoch: 53. Loss: 0.4241853952407837.
+Epoch: 54. Loss: 0.5633811950683594.
+Epoch: 55. Loss: 0.5446844696998596.
+Epoch: 56. Loss: 0.8122733235359192.
+Epoch: 57. Loss: 2.5835628509521484.
+Epoch: 58. Loss: 1.0829051733016968.
+Epoch: 59. Loss: 2.5356318950653076.
+Epoch: 60. Loss: 1.2720370292663574.
+Epoch: 61. Loss: 0.48374325037002563.
+Epoch: 62. Loss: 0.535912811756134.
+Epoch: 63. Loss: 0.7364561557769775.
+Epoch: 64. Loss: 1.2396310567855835.
+Epoch: 65. Loss: 0.30337849259376526.
+Epoch: 66. Loss: 0.5147194862365723.
+Epoch: 67. Loss: 0.816652774810791.
+Epoch: 68. Loss: 0.26882392168045044.
+Epoch: 69. Loss: 0.23775644600391388.
+Epoch: 70. Loss: 0.13107718527317047.
+Epoch: 71. Loss: 0.3698573708534241.
+Epoch: 72. Loss: 0.6808709502220154.
+Epoch: 73. Loss: 0.44349944591522217.
+Epoch: 74. Loss: 0.14446552097797394.
+Epoch: 75. Loss: 0.23070082068443298.
+Epoch: 76. Loss: 0.6504319906234741.
+Epoch: 77. Loss: 0.4169935882091522.
+Epoch: 78. Loss: 0.18134312331676483.
+Epoch: 79. Loss: 0.22258883714675903.
+Epoch: 80. Loss: 0.36729973554611206.
+Epoch: 81. Loss: 0.8107978701591492.
+Epoch: 82. Loss: 0.4569200575351715.
+Epoch: 83. Loss: 0.18886442482471466.
+Epoch: 84. Loss: 3.290224313735962.
+Epoch: 85. Loss: 0.5581620335578918.
+Epoch: 86. Loss: 0.3700585961341858.
+Epoch: 87. Loss: 0.35219818353652954.
+Epoch: 88. Loss: 1.6059226989746094.
+Epoch: 89. Loss: 0.20242159068584442.
+Epoch: 90. Loss: 2.0528299808502197.
+Epoch: 91. Loss: 2.365645408630371.
+Epoch: 92. Loss: 1.3711177110671997.
+Epoch: 93. Loss: 0.5599638819694519.
+Epoch: 94. Loss: 0.29392796754837036.
+Epoch: 95. Loss: 0.1225147545337677.
+Epoch: 96. Loss: 0.40621936321258545.
+Epoch: 97. Loss: 0.91819167137146.
+Epoch: 98. Loss: 2.138803482055664.
+Epoch: 99. Loss: 0.33416691422462463.
+Epoch: 100. Loss: 0.20578211545944214.
+Epoch: 101. Loss: 0.5153934955596924.
+Epoch: 102. Loss: 0.10741550475358963.
+Epoch: 103. Loss: 0.4751027822494507.
+Epoch: 104. Loss: 1.366522192955017.
+Epoch: 105. Loss: 0.24443262815475464.
+Epoch: 106. Loss: 0.3798985779285431.
+Epoch: 107. Loss: 0.2876528203487396.
+Epoch: 108. Loss: 0.49070680141448975.
+Epoch: 109. Loss: 1.2545077800750732.
+Epoch: 110. Loss: 0.8078477382659912.
+Epoch: 111. Loss: 0.09937632828950882.
+Epoch: 112. Loss: 0.20113199949264526.
+Epoch: 113. Loss: 0.15349774062633514.
+Epoch: 114. Loss: 0.3075786530971527.
+Epoch: 115. Loss: 0.2155229151248932.
+Epoch: 116. Loss: 0.10302942246198654.
+Epoch: 117. Loss: 0.10130677372217178.
+Epoch: 118. Loss: 0.19886308908462524.
+Epoch: 119. Loss: 0.3436202108860016.
+Epoch: 120. Loss: 0.5447229146957397.
+Epoch: 121. Loss: 0.2153213918209076.
+Epoch: 122. Loss: 0.10381202399730682.
+Epoch: 123. Loss: 0.07022023946046829.
+Epoch: 124. Loss: 0.20255175232887268.
+Epoch: 125. Loss: 0.07909589260816574.
+Epoch: 126. Loss: 0.15371572971343994.
+Epoch: 127. Loss: 0.1899891495704651.
+Epoch: 128. Loss: 0.18763625621795654.
+Epoch: 129. Loss: 0.13862361013889313.
+Epoch: 130. Loss: 0.13948161900043488.
+Epoch: 131. Loss: 0.11427964270114899.
+Epoch: 132. Loss: 0.19699864089488983.
+Epoch: 133. Loss: 0.14846853911876678.
+Epoch: 134. Loss: 0.3894476294517517.
+Epoch: 135. Loss: 1.8745546340942383.
+Epoch: 136. Loss: 0.4521435797214508.
+Epoch: 137. Loss: 0.2770370841026306.
+Epoch: 138. Loss: 0.1706695407629013.
+Epoch: 139. Loss: 0.6430865526199341.
+Epoch: 140. Loss: 0.8520200252532959.
+Epoch: 141. Loss: 0.6013851761817932.
+Epoch: 142. Loss: 0.4260537326335907.
+Epoch: 143. Loss: 0.07912250608205795.
+Epoch: 144. Loss: 0.33515235781669617.
+Epoch: 145. Loss: 0.16839376091957092.
+Epoch: 146. Loss: 0.1270175576210022.
+Epoch: 147. Loss: 0.24437066912651062.
+Epoch: 148. Loss: 0.25899991393089294.
+Epoch: 149. Loss: 0.28545287251472473.
+Epoch: 150. Loss: 0.1813001185655594.
+Epoch: 151. Loss: 0.14972692728042603.
+Epoch: 152. Loss: 0.11868344992399216.
+Epoch: 153. Loss: 0.2360442578792572.
+Epoch: 154. Loss: 0.1330283135175705.
+Epoch: 155. Loss: 0.3972914218902588.
+Epoch: 156. Loss: 1.0658422708511353.
+Epoch: 157. Loss: 0.3446771204471588.
+Epoch: 158. Loss: 0.9993520379066467.
+Epoch: 159. Loss: 0.8740237355232239.
+Epoch: 160. Loss: 1.246942400932312.
+Epoch: 161. Loss: 0.6797727346420288.
+Epoch: 162. Loss: 0.12691743671894073.
+Epoch: 163. Loss: 0.22770771384239197.
+Epoch: 164. Loss: 0.1999567449092865.
+Epoch: 165. Loss: 0.18970000743865967.
+Epoch: 166. Loss: 0.5040897130966187.
+Epoch: 167. Loss: 0.14001622796058655.
+Epoch: 168. Loss: 0.10466977953910828.
+Epoch: 169. Loss: 0.22854875028133392.
+Epoch: 170. Loss: 0.27898654341697693.
+Epoch: 171. Loss: 0.13964423537254333.
+Epoch: 172. Loss: 0.7412422299385071.
+Epoch: 173. Loss: 0.3123554289340973.
+Epoch: 174. Loss: 0.44417160749435425.
+Epoch: 175. Loss: 0.5504786968231201.
+Epoch: 176. Loss: 0.31456872820854187.
+Epoch: 177. Loss: 0.3607586622238159.
+Epoch: 178. Loss: 0.7394295334815979.
+Epoch: 179. Loss: 0.30807265639305115.
+Epoch: 180. Loss: 0.19747154414653778.
+Epoch: 181. Loss: 0.20718227326869965.
+Epoch: 182. Loss: 0.14167656004428864.
+Epoch: 183. Loss: 0.238653302192688.
+Epoch: 184. Loss: 0.17307238280773163.
+Epoch: 185. Loss: 0.22098495066165924.
+Epoch: 186. Loss: 0.23051434755325317.
+Epoch: 187. Loss: 0.26954948902130127.
+Epoch: 188. Loss: 0.10288310796022415.
+Epoch: 189. Loss: 0.04908125847578049.
+Epoch: 190. Loss: 0.32968461513519287.
+Epoch: 191. Loss: 0.3201558589935303.
+Epoch: 192. Loss: 0.27758023142814636.
+Epoch: 193. Loss: 0.31535351276397705.
+Epoch: 194. Loss: 0.06764908134937286.
+Epoch: 195. Loss: 0.0771714523434639.
+Epoch: 196. Loss: 0.1657245010137558.
+Epoch: 197. Loss: 0.25187721848487854.
+Epoch: 198. Loss: 0.09129207581281662.
+Epoch: 199. Loss: 0.1280074268579483.
+Epoch: 200. Loss: 0.10571141541004181.
+Epoch: 201. Loss: 0.1849435567855835.
+Epoch: 202. Loss: 0.23951661586761475.
+Epoch: 203. Loss: 0.18318510055541992.
+Epoch: 204. Loss: 0.06862536817789078.
+Epoch: 205. Loss: 0.21230992674827576.
+Epoch: 206. Loss: 0.30598247051239014.
+Epoch: 207. Loss: 0.05611103028059006.
+Epoch: 208. Loss: 0.36917173862457275.
+Epoch: 209. Loss: 0.1710907518863678.
+Epoch: 210. Loss: 0.3333257734775543.
+Epoch: 211. Loss: 0.1613423377275467.
+Epoch: 212. Loss: 0.13900351524353027.
+Epoch: 213. Loss: 0.3953742980957031.
+Epoch: 214. Loss: 0.16565288603305817.
+Epoch: 215. Loss: 0.09714675694704056.
+Epoch: 216. Loss: 0.1311458945274353.
+Epoch: 217. Loss: 0.12129447609186172.
+Epoch: 218. Loss: 0.5439049601554871.
+Epoch: 219. Loss: 0.2612568140029907.
+Epoch: 220. Loss: 0.585618257522583.
+Epoch: 221. Loss: 0.6579433679580688.
+Epoch: 222. Loss: 0.6218432784080505.
+Epoch: 223. Loss: 0.15292789041996002.
+Epoch: 224. Loss: 0.4573242962360382.
+Epoch: 225. Loss: 0.22231972217559814.
+Epoch: 226. Loss: 0.20747822523117065.
+Epoch: 227. Loss: 0.22554896771907806.
+Epoch: 228. Loss: 0.21338848769664764.
+Epoch: 229. Loss: 0.9397063255310059.
+Epoch: 230. Loss: 0.2645930349826813.
+Epoch: 231. Loss: 0.07754285633563995.
+Epoch: 232. Loss: 0.04754773527383804.
+Epoch: 233. Loss: 0.26372069120407104.
+Epoch: 234. Loss: 0.15019933879375458.
+Epoch: 235. Loss: 0.2344370037317276.
+Epoch: 236. Loss: 0.2662588357925415.
+Epoch: 237. Loss: 0.10683818906545639.
+Epoch: 238. Loss: 0.6548510193824768.
+Epoch: 239. Loss: 0.3127548396587372.
+Epoch: 240. Loss: 0.1952386498451233.
+Epoch: 241. Loss: 0.1389436572790146.
+Epoch: 242. Loss: 0.2893967628479004.
+Epoch: 243. Loss: 0.2714313268661499.
+Epoch: 244. Loss: 0.3466980457305908.
+Epoch: 245. Loss: 0.2212037593126297.
+Epoch: 246. Loss: 0.11697708815336227.
+Epoch: 247. Loss: 0.1527465134859085.
+Epoch: 248. Loss: 0.2709728479385376.
+Epoch: 249. Loss: 0.15831732749938965.
+Epoch: 250. Loss: 0.2223861664533615.
+Epoch: 251. Loss: 0.2065892219543457.
+Epoch: 252. Loss: 0.508756697177887.
+Epoch: 253. Loss: 0.21141691505908966.
+Epoch: 254. Loss: 0.12251588702201843.
+Epoch: 255. Loss: 0.11185552924871445.
+Epoch: 256. Loss: 0.2569913864135742.
+Epoch: 257. Loss: 0.34633609652519226.
+Epoch: 258. Loss: 0.2715227007865906.
+Epoch: 259. Loss: 0.17389293015003204.
+Epoch: 260. Loss: 0.11943972855806351.
+Epoch: 261. Loss: 0.3116445243358612.
+Epoch: 262. Loss: 0.25906071066856384.
+Epoch: 263. Loss: 0.15291331708431244.
+Epoch: 264. Loss: 0.22922033071517944.
+Epoch: 265. Loss: 0.06733589619398117.
+Epoch: 266. Loss: 0.10854081809520721.
+Epoch: 267. Loss: 0.07932312041521072.
+Epoch: 268. Loss: 0.19716329872608185.
+Epoch: 269. Loss: 0.13675090670585632.
+Epoch: 270. Loss: 0.0641201063990593.
+Epoch: 271. Loss: 0.13451699912548065.
+Epoch: 272. Loss: 0.05020463839173317.
+Epoch: 273. Loss: 0.06177259609103203.
+Epoch: 274. Loss: 0.07256985455751419.
+Epoch: 275. Loss: 0.08938191086053848.
+Epoch: 276. Loss: 0.23652498424053192.
+Epoch: 277. Loss: 0.14089667797088623.
+Epoch: 278. Loss: 0.1492047756910324.
+Epoch: 279. Loss: 0.13994695246219635.
+Epoch: 280. Loss: 0.1837344765663147.
+Epoch: 281. Loss: 0.2665524482727051.
+Epoch: 282. Loss: 0.2559693455696106.
+Epoch: 283. Loss: 0.24547027051448822.
+Epoch: 284. Loss: 0.15372778475284576.
+Epoch: 285. Loss: 0.18069715797901154.
+Epoch: 286. Loss: 0.1601310670375824.
+Epoch: 287. Loss: 0.10171203315258026.
+Epoch: 288. Loss: 0.2710087299346924.
+Epoch: 289. Loss: 0.10129452496767044.
+Epoch: 290. Loss: 0.20965787768363953.
+Epoch: 291. Loss: 0.12586309015750885.
+Epoch: 292. Loss: 0.4541059136390686.
+Epoch: 293. Loss: 0.12281443923711777.
+Epoch: 294. Loss: 0.14351096749305725.
+Epoch: 295. Loss: 0.24350981414318085.
+Epoch: 296. Loss: 0.09975092858076096.
+Epoch: 297. Loss: 0.1110764592885971.
+Epoch: 298. Loss: 0.19276325404644012.
+Epoch: 299. Loss: 0.1307971328496933.
+Epoch: 300. Loss: 0.17743118107318878.
+Epoch: 301. Loss: 0.11034460365772247.
+Epoch: 302. Loss: 0.1748710572719574.
+Epoch: 303. Loss: 0.1719467043876648.
+Epoch: 304. Loss: 0.12448788434267044.
+Epoch: 305. Loss: 0.26585260033607483.
+Epoch: 306. Loss: 0.2634234130382538.
+Epoch: 307. Loss: 0.12045110017061234.
+Epoch: 308. Loss: 0.1697687953710556.
+Epoch: 309. Loss: 0.20016229152679443.
+Epoch: 310. Loss: 0.14051207900047302.
+Epoch: 311. Loss: 0.09726133197546005.
+Epoch: 312. Loss: 0.11990151554346085.
+Epoch: 313. Loss: 0.10033728927373886.
+Epoch: 314. Loss: 0.2470121830701828.
+Epoch: 315. Loss: 0.31721559166908264.
+Epoch: 316. Loss: 0.3581487238407135.
+Epoch: 317. Loss: 0.20331266522407532.
+Epoch: 318. Loss: 0.15960761904716492.
+Epoch: 319. Loss: 0.16746003925800323.
+Epoch: 320. Loss: 0.1318725347518921.
+Epoch: 321. Loss: 0.26891592144966125.
+Epoch: 322. Loss: 0.0638699159026146.
+Epoch: 323. Loss: 0.36458462476730347.
+Epoch: 324. Loss: 0.3603992760181427.
+Epoch: 325. Loss: 0.7561165690422058.
+Epoch: 326. Loss: 0.19434566795825958.
+Epoch: 327. Loss: 0.19110558927059174.
+Epoch: 328. Loss: 0.32280486822128296.
+Epoch: 329. Loss: 0.10958881676197052.
+Epoch: 330. Loss: 0.12789537012577057.
+Epoch: 331. Loss: 0.14855512976646423.
+Epoch: 332. Loss: 0.1312602460384369.
+Epoch: 333. Loss: 0.23536470532417297.
+Epoch: 334. Loss: 0.10528445988893509.
+Epoch: 335. Loss: 0.13980011641979218.
+Epoch: 336. Loss: 0.06544208526611328.
+Epoch: 337. Loss: 0.18831826746463776.
+Epoch: 338. Loss: 0.24939411878585815.
+Epoch: 339. Loss: 0.18788856267929077.
+Epoch: 340. Loss: 0.1568489372730255.
+Epoch: 341. Loss: 0.10017314553260803.
+Epoch: 342. Loss: 0.20653373003005981.
+Epoch: 343. Loss: 0.1427389681339264.
+Epoch: 344. Loss: 0.0916055366396904.
+Epoch: 345. Loss: 0.15160708129405975.
+Epoch: 346. Loss: 0.1345621794462204.
+Epoch: 347. Loss: 0.13858185708522797.
+Epoch: 348. Loss: 0.1767992526292801.
+Epoch: 349. Loss: 0.14616325497627258.
+Epoch: 350. Loss: 0.13161692023277283.
+Epoch: 351. Loss: 0.20384138822555542.
+Epoch: 352. Loss: 0.4956323206424713.
+Epoch: 353. Loss: 0.18888473510742188.
+Epoch: 354. Loss: 0.11524703353643417.
+Epoch: 355. Loss: 0.0480843223631382.
+Epoch: 356. Loss: 0.28324389457702637.
+Epoch: 357. Loss: 0.04778691381216049.
+Epoch: 358. Loss: 0.17135891318321228.
+Epoch: 359. Loss: 0.2510794699192047.
+Epoch: 360. Loss: 0.07608583569526672.
+Epoch: 361. Loss: 0.10376545041799545.
+Epoch: 362. Loss: 0.18284544348716736.
+Epoch: 363. Loss: 0.10648760199546814.
+Epoch: 364. Loss: 0.0878293588757515.
+Epoch: 365. Loss: 0.09376441687345505.
+Epoch: 366. Loss: 0.18326988816261292.
+Epoch: 367. Loss: 0.11506713181734085.
+Epoch: 368. Loss: 0.13349571824073792.
+Epoch: 369. Loss: 0.07512111961841583.
+Epoch: 370. Loss: 0.28530165553092957.
+Epoch: 371. Loss: 0.10291983932256699.
+Epoch: 372. Loss: 0.15858674049377441.
+Epoch: 373. Loss: 0.10607699304819107.
+Epoch: 374. Loss: 0.10975949466228485.
+Epoch: 375. Loss: 0.12233569473028183.
+Epoch: 376. Loss: 0.2711542546749115.
+Epoch: 377. Loss: 0.18217355012893677.
+Epoch: 378. Loss: 0.1262475997209549.
+Epoch: 379. Loss: 0.06446733325719833.
+Epoch: 380. Loss: 0.15895608067512512.
+Epoch: 381. Loss: 0.11219919472932816.
+Epoch: 382. Loss: 0.2199920415878296.
+Epoch: 383. Loss: 0.061199549585580826.
+Epoch: 384. Loss: 0.0967867448925972.
+Epoch: 385. Loss: 0.27098655700683594.
+Epoch: 386. Loss: 0.15658175945281982.
+Epoch: 387. Loss: 0.09196043759584427.
+Epoch: 388. Loss: 0.10570617020130157.
+Epoch: 389. Loss: 0.41173994541168213.
+Epoch: 390. Loss: 0.1384175717830658.
+Epoch: 391. Loss: 0.06344415992498398.
+Epoch: 392. Loss: 0.15987388789653778.
+Epoch: 393. Loss: 0.1508321911096573.
+Epoch: 394. Loss: 0.32696831226348877.
+Epoch: 395. Loss: 0.08989566564559937.
+Epoch: 396. Loss: 0.09860123693943024.
+Epoch: 397. Loss: 0.05720863863825798.
+Epoch: 398. Loss: 0.31362220644950867.
+Epoch: 399. Loss: 0.10589691251516342.
+Epoch: 400. Loss: 0.22865641117095947.
+Epoch: 401. Loss: 0.0690491646528244.
+Epoch: 402. Loss: 0.16965904831886292.
+Epoch: 403. Loss: 0.060516830533742905.
+Epoch: 404. Loss: 0.07338408380746841.
+Epoch: 405. Loss: 0.32198596000671387.
+Epoch: 406. Loss: 0.08987627178430557.
+Epoch: 407. Loss: 0.3607073128223419.
+Epoch: 408. Loss: 0.21332193911075592.
+Epoch: 409. Loss: 0.06707480549812317.
+Epoch: 410. Loss: 0.19396963715553284.
+Epoch: 411. Loss: 0.15421198308467865.
+Epoch: 412. Loss: 0.18477223813533783.
+Epoch: 413. Loss: 0.0915694311261177.
+Epoch: 414. Loss: 0.24594822525978088.
+Epoch: 415. Loss: 0.10846155136823654.
+Epoch: 416. Loss: 0.14441049098968506.
+Epoch: 417. Loss: 0.24067804217338562.
+Epoch: 418. Loss: 0.20620392262935638.
+Epoch: 419. Loss: 0.11360910534858704.
+Epoch: 420. Loss: 0.22865581512451172.
+Epoch: 421. Loss: 0.45300063490867615.
+Epoch: 422. Loss: 0.38209015130996704.
+Epoch: 423. Loss: 0.17973437905311584.
+Epoch: 424. Loss: 0.1554017812013626.
+Epoch: 425. Loss: 0.07620509713888168.
+Epoch: 426. Loss: 0.26193228363990784.
+Epoch: 427. Loss: 0.15956124663352966.
+Epoch: 428. Loss: 0.13435669243335724.
+Epoch: 429. Loss: 0.22188644111156464.
+Epoch: 430. Loss: 0.09599737077951431.
+Epoch: 431. Loss: 0.02657048963010311.
+Epoch: 432. Loss: 0.12376344949007034.
+Epoch: 433. Loss: 0.19105859100818634.
+Epoch: 434. Loss: 0.12635435163974762.
+Epoch: 435. Loss: 0.296863317489624.
+Epoch: 436. Loss: 0.4021824300289154.
+Epoch: 437. Loss: 0.19842411577701569.
+Epoch: 438. Loss: 0.22747594118118286.
+Epoch: 439. Loss: 0.2806667685508728.
+Epoch: 440. Loss: 0.2572818994522095.
+Epoch: 441. Loss: 0.24806982278823853.
+Epoch: 442. Loss: 0.17973484098911285.
+Epoch: 443. Loss: 0.08271142840385437.
+Epoch: 444. Loss: 0.07734628766775131.
+Epoch: 445. Loss: 0.2300398200750351.
+Epoch: 446. Loss: 0.30631065368652344.
+Epoch: 447. Loss: 0.0891607403755188.
+Epoch: 448. Loss: 0.20881031453609467.
+Epoch: 449. Loss: 0.1779317706823349.
+Epoch: 450. Loss: 0.2785026431083679.
+Epoch: 451. Loss: 0.18024326860904694.
+Epoch: 452. Loss: 0.18381038308143616.
+Epoch: 453. Loss: 0.23872336745262146.
+Epoch: 454. Loss: 0.15693220496177673.
+Epoch: 455. Loss: 0.4083346426486969.
+Epoch: 456. Loss: 0.14022569358348846.
+Epoch: 457. Loss: 0.16338102519512177.
+Epoch: 458. Loss: 0.14360027015209198.
+Epoch: 459. Loss: 0.26437878608703613.
+Epoch: 460. Loss: 0.06526355445384979.
+Epoch: 461. Loss: 0.14614368975162506.
+Epoch: 462. Loss: 0.14234091341495514.
+Epoch: 463. Loss: 0.19047105312347412.
+Epoch: 464. Loss: 0.29255998134613037.
+Epoch: 465. Loss: 0.14797832071781158.
+Epoch: 466. Loss: 0.1974174678325653.
+Epoch: 467. Loss: 0.16114825010299683.
+Epoch: 468. Loss: 0.16711005568504333.
+Epoch: 469. Loss: 0.03187298774719238.
+Epoch: 470. Loss: 0.24525290727615356.
+Epoch: 471. Loss: 0.24338418245315552.
+Epoch: 472. Loss: 0.07824257761240005.
+Epoch: 473. Loss: 0.1180843859910965.
+Epoch: 474. Loss: 0.17255717515945435.
+Epoch: 475. Loss: 0.1716974675655365.
+Epoch: 476. Loss: 0.10526850074529648.
+Epoch: 477. Loss: 0.21053510904312134.
+Epoch: 478. Loss: 0.239199697971344.
+Epoch: 479. Loss: 0.05583902820944786.
+Epoch: 480. Loss: 0.20926149189472198.
+Epoch: 481. Loss: 0.2328605055809021.
+Epoch: 482. Loss: 0.06940369307994843.
+Epoch: 483. Loss: 0.15140081942081451.
+Epoch: 484. Loss: 0.06784144043922424.
+Epoch: 485. Loss: 0.05776438117027283.
+Epoch: 486. Loss: 0.13888214528560638.
+Epoch: 487. Loss: 0.09648612886667252.
+Epoch: 488. Loss: 0.10839260369539261.
+Epoch: 489. Loss: 0.14974454045295715.
+Epoch: 490. Loss: 0.060485027730464935.
+Epoch: 491. Loss: 0.11400376260280609.
+Epoch: 492. Loss: 0.04561455547809601.
+Epoch: 493. Loss: 0.24055945873260498.
+Epoch: 494. Loss: 0.03702301159501076.
+Epoch: 495. Loss: 0.19121696054935455.
+Epoch: 496. Loss: 0.1060003936290741.
+Epoch: 497. Loss: 0.22275644540786743.
+Epoch: 498. Loss: 0.07407441735267639.
+Epoch: 499. Loss: 0.17416444420814514.
+Epoch: 500. Loss: 0.3355337381362915.
 </pre></div>
 </div>
 </div>
@@ -1973,8 +1978,8 @@ Epoch: 500. Loss: 0.09579722583293915.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear1.weight :  tensor([[2.2820, 8.6936]])
-linear1.bias :  tensor([-26.3593])
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear1.weight :  tensor([[2.9980, 8.9529]])
+linear1.bias :  tensor([-26.7381])
 </pre></div>
 </div>
 </div>
@@ -1988,7 +1993,7 @@ linear1.bias :  tensor([-26.3593])
 <span class="n">XY</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">X</span><span class="p">,</span><span class="n">Y</span><span class="p">])</span><span class="o">.</span><span class="n">T</span>
 
 <span class="k">with</span> <span class="n">torch</span><span class="o">.</span><span class="n">no_grad</span><span class="p">():</span>
-    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">Variable</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">XY</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">)))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+    <span class="n">predicted</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">XY</span><span class="p">)</span><span class="o">.</span><span class="n">type</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
 
 <span class="n">predicted</span> <span class="o">=</span> <span class="n">predicted</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
 <span class="n">predicted</span> <span class="o">=</span> <span class="n">predicted</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span>
