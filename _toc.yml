@@ -4,7 +4,7 @@
 format: jb-book
 root: about.md
 parts:
-- caption: 
+- caption:
   chapters:
   - file: introduction.md
 - caption: Lecture
@@ -13,7 +13,7 @@ parts:
   - file: lecture/cc-1-0-basics.md
     sections:
     - file: lecture/cc-1-1-linear.md
-    - file: lecture/cc-1-2-gmm-mcmc.md
+    - file: lecture/cc-1-2-gmm.md
     - file: lecture/cc-1-3-bayes.md
   - file: lecture/cc-2-0-optim.md
     sections:

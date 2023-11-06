@@ -1,10 +1,10 @@
-# GMM and Sampling
+# Gaussian Mixture Models
 
-This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) and some popular sampling methods like Markov Chain Monte Carlo (MCMC).
+This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) for density estimation and clustering.
 
-On a high level, GMMs and MCMC are two complementary approaches:
-- GMMs estimate the density of a given set of samples
-- MCMC generates samples from a given density
+With regard to the next lecture introducing sampling, GMMs and sampling methods (e.g. MCMC) are two complementary approaches:
+- GMMs estimate the probability density of a given set of samples
+- MCMC generates samples from a given probability density
 
 ```{figure} ../imgs/cc1/density_estimation_vs_sampling.png
 ---
@@ -276,129 +276,6 @@ Most limitations of this approach arive from the assumption that the indivudual 
 - GMMs do now scale well to high dimensions.
 
 
-## Sampling Methods
-
-The opposite process to density estimation is sampling. Here, we will look at the general case of an unnormalized ($\int_{\Omega}p(\cdot)\ne 1$) *target distribution*
-
-$$p(y,\theta) = g(\theta)f(y|\theta).$$ (target_density)
-
-The task we will be trying to solve here is how to generate samples from this distribution. How these samples are useful and why we choose this particular form of a target distribution will be the topic of next week's lecture.
-
-### Acceptance-Rejection Sampling
-
-Acceptance-rejection sampling draws its random samples directly from the target posterior distribution, as we only have access to the unscaled target distribution initially we will have to draw from the unscaled target. _The acceptance-rejection algorithm is specially made for this scenario._ The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then successively reshapes its distribution by only selectively accepting candidate values into the final sample. For this approach to work the *candidate distribution* $g_{0}(\theta)$ has to dominate the posterior distribution, i.e. there must exist an $M$ s.t.
-
-$$M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta$$ (acceptance_rejection)
-
-Taking an example candidate density for an unscaled target as an example to show the "dominance" of the candidate distribution over the posterior distribution.
-
-```{figure} ../imgs/cc1/acceptance_rejection.png
----
-width: 450px
-align: center
-name: acceptance_rejection
----
-Acceptance-rejection candidate and target distributions (Source: {cite}`bolstad2009`).
-```
-
-To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:
-
-1. Draw a random sample of size $N$ from the candidate distribution $g_{0}(\theta)$.
-2. Calculate the value of the unscaled target density at each random sample.
-3. Calculate the candidate density at each random sample, and multiply by $M$.
-4. Compute the weights for each random sample
-
-$$ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}$$ (acceptance_rejection_weights)
-
-5. Draw $N$ samples from the $U(0, 1)$ uniform distribution.
-6. If $u_{i} < w_{i}$ accept $\theta_{i}$
-
-
-### Sampling-Importance-Resampling / Bayesian Bootstrap
-
-The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling which has an improved weight-calculation, but most importantly employs a _resampling_ step. This resampling step resamples from the space of parameters. The weight is then calculated as
-
-$$w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)} $$ (sampling_importance_resampling_weights)
-
-The algorithm to sample from the posterior distribution is then:
-
-1. Draw $N$ random samples $\theta_{i}$ from the starting density $g_{0}(\theta)$
-2. Calculate the value of the unscaled target density at each random sample.
-3. Calculate the starting density at each random sample, and multiply by $M$.
-4. Calculate the ratio of the unscaled posterior to the starting distribution
-
-$$r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}$$ (sampling_importance_resampling_weights_r)
-
-5. Calculate the importance weights
-
-$$w_{i} = \frac{r_{i}}{\sum r_{i}}$$ (sampling_importance_resampling_weights_w)
-
-6. Draw $n \leq 0.1 \times N$ random samples with the sampling probabilities given by the importance weights. 
-
-
-### Adaptive Rejection Sampling
-
-If we are unable to find a candidate/starting distribution, which dominates the unscaled posterior distribution immediately, then we have to rely on _adaptive rejection sampling_.
-
-> This approach only works for a log-concave posterior!
-
-See below for an example of a log-concave distribution.
-
-```{figure} ../imgs/cc1/adaptive_rejection_sampling.png
----
-width: 450px
-align: center
-name: adaptive_rejection_sapling
----
-(Not) log-concave function (Source: {cite}`bolstad2009`).
-```
-
-Using the tangent method, our algorithm then takes the following form:
-
-1. Construct an upper bound from piecewise exponential functions, which dominate the log-concave unscaled posterior
-2. With the envelope giving us the initial candidate density we draw $N$ random samples
-3. Rejection sampling, see the preceding two subsections for details.
-4. If rejected, add another exponential piece which is tangent to the target density.
-
-> As all three presented sampling approaches have their limitations, practitioners often rely more on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.
-
-### Markov Chain Monte Carlo
-
-The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples $\{\theta^0, \theta^1, ...,\theta^N\}$ distributed according to the posterior distribution $g(\theta|y) \propto g(\theta)f(y|\theta)$. This chain evolves according to a transition kernel given by $q(x_{next}|x_{current})$. Let's look at one of the most popular MCMC algorithms: Metropolis Hastings
-
-**Metropolis-Hastings**
-
-The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution $g(\theta|y)$. This is done by following the algorithm:
-
-0. Start at an initial point $\theta_{current} = \theta^0$.
-1. Sample $\theta' \sim q(\theta_{next}|\theta_{current})$
-2. Compute the acceptance probability
-
-    $$\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}$$ (mcmc_acceptance_prob)
-
-3. Sample $u\sim \text{Uniform}(0,1)$
-4. If $\alpha > u$, then $\theta_{current} = \theta'$, else $\theta_{current} = \theta_{current}$
-5. Repeat $N$ times from step 1.
-
-A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
-
-```{figure} ../imgs/cc1/metropolis_hastings.png
----
-width: 450px
-align: center
-name: metropolis_hastings
----
-Metropolis-Hastings trajectory (Source: [relguzman.blogpost.com](https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html)).
-```
-
---- 
-
- In summary:
-
-- The unscaled posterior $g(\theta|y) \propto g(\theta)f(y|\theta)$ contains the *shape information* of the posterior
-- For the true posterior, the unscaled posterior needs to be divided by an integral over the whole parameter space.
-- Integral has to be evaluated numerically for which we rely on the just presented Monte Carlo sampling techniques.
-
 ## Further References
 
 **Probability Theory**
@@ -412,10 +289,3 @@ Metropolis-Hastings trajectory (Source: [relguzman.blogpost.com](https://relguzm
 - {cite}`cs229notes`, Chapter 11 - main GMM reference
 - {cite}`bishop2006`, Section 9.2 - detailed derivations
 - [Video](https://www.youtube.com/watch?v=q71Niz856KE&ab_channel=Serrano.Academy) with more visual intuition
-
-**Sampling**
-
-- {cite}`bolstad2009`, Chapters 2, 5, and 6 - all presented sampling methods
-- {cite}`robert2004` - deeper dive into MCMC
-- [Interactive MCMC visualizations](https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana)
-
