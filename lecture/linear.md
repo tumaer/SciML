@@ -9,14 +9,14 @@ Linear regression belongs to the family of **supervised learning** approaches, a
 `````{grid}
 :gutter: 2
 ````{grid-item}
-```{image} ../imgs/cc1/lin_reg_1d.png
+```{image} ../imgs/lin_reg_1d.png
 :alt: 2013_FordFusion_CFDTopandSide.png
 :width: 80%
 :align: center
 ```
 ````
 ````{grid-item}
-```{image} ../imgs/cc1/lin_reg_1d_distances.png
+```{image} ../imgs/lin_reg_1d_distances.png
 :alt:
 :width: 80%
 :align: center
@@ -185,7 +185,7 @@ Summarizing the differences between regression and classification:
 | $y \in \mathbb{R}$  | $y \in\{0,1\}$ |
 
 
-```{figure} ../imgs/cc1/iris_classification_linear.png
+```{figure} ../imgs/iris_classification_linear.png
 ---
 width: 500px
 align: center
@@ -206,7 +206,7 @@ $$\varphi(x)=\frac{1}{1+e^{-x}}=\frac{1}{2}\left(1+\tanh\frac{x}{2}\right)$$ (si
 
 is the logistic function, also called the sigmoid function. 
 
-```{figure} ../imgs/cc1/sigmoid.svg
+```{figure} ../imgs/sigmoid.svg
 ---
 width: 400px
 align: center

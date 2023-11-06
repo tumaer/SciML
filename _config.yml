@@ -36,6 +36,7 @@ repository:
 html:
   use_issues_button: true
   use_repository_button: true
+  use_multitoc_numbering: false # restart chapter numbering between parts
 
 # all extensions: https://myst-parser.readthedocs.io/en/latest/syntax/optional.html#syntax-extensions
 parse:

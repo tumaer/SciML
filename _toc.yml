@@ -10,35 +10,28 @@ parts:
 - caption: Lecture
   numbered: true
   chapters:
-  - file: lecture/cc-1-0-basics.md
-    sections:
-    - file: lecture/cc-1-1-linear.md
-    - file: lecture/cc-1-2-gmm.md
-    - file: lecture/cc-1-3-bayes.md
-  - file: lecture/cc-2-0-optim.md
-    sections:
-    - file: lecture/cc-2-1-algorithms.md
-    - file: lecture/cc-2-2-tricks.md
-  - file: lecture/cc-3-0-ml.md
-    sections:
-    - file: lecture/cc-3-1-svm.md
-    - file: lecture/cc-3-2-gp.md
-  - file: lecture/cc-4-0-dl.md
-    sections:
-    - file: lecture/cc-4-1-gradients.md
-    - file: lecture/cc-4-2-mlp.md
-    - file: lecture/cc-4-3-cnn.md
-    - file: lecture/cc-4-4-rnn.md
-    - file: lecture/cc-4-5-ae.md
+  - file: lecture/linear.md
+  - file: lecture/gmm.md
+  - file: lecture/bayes.md
+  - file: lecture/optimization.md
+  - file: lecture/tricks.md
+  - file: lecture/svm.md
+  - file: lecture/gp.md
+  - file: lecture/gradients.md
+  - file: lecture/mlp.md
+  - file: lecture/cnn.md
+  - file: lecture/rnn.md
+  - file: lecture/ae.md
 - caption: Exercise
+  numbered: true
   chapters:
-  - file: exercise/1_linReg_logReg.ipynb
-  - file: exercise/2_BayesianInference.ipynb
-  - file: exercise/3_optimization.ipynb
-  - file: exercise/4_SVM.ipynb
-  - file: exercise/5_GPs.ipynb
-  - file: exercise/6_CNNs.ipynb
-  - file: exercise/7_RNNs.ipynb
+  - file: exercise/linear.ipynb
+  - file: exercise/bayes.ipynb
+  - file: exercise/optimization.ipynb
+  - file: exercise/svm.ipynb
+  - file: exercise/gp.ipynb
+  - file: exercise/cnn.ipynb
+  - file: exercise/rnn.ipynb
 - caption: Miscellaneous
   chapters:
   - file: admin.md

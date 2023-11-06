@@ -67,7 +67,7 @@ $$M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta.$$ (ac
 
 {numref}`acceptance_rejection` shows a candidate density for an unscaled target. It would take $M\approx 5$ to reach a "dominance" of the candidate distribution over the target distribution.
 
-```{figure} ../imgs/cc1/acceptance_rejection.png
+```{figure} ../imgs/acceptance_rejection.png
 ---
 width: 450px
 align: center
@@ -119,7 +119,7 @@ If we are unable to find a candidate/starting distribution, which dominates the 
 
 See below for an example of a log-concave distribution.
 
-```{figure} ../imgs/cc1/adaptive_rejection_sampling.png
+```{figure} ../imgs/adaptive_rejection_sampling.png
 ---
 width: 450px
 align: center
@@ -157,7 +157,7 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
 
 A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
 
-```{figure} ../imgs/cc1/metropolis_hastings.png
+```{figure} ../imgs/metropolis_hastings.png
 ---
 width: 450px
 align: center
@@ -187,7 +187,7 @@ $$PMS(\hat{\theta}) = \int (\theta - \hat{\theta})^{2} g(\theta | y_{1}, \ldots,
 
 $$\hat{\theta} = \int_{-\infty}^{\infty} \theta g(\theta | y_{1}, \ldots, y_{n})d \theta \qquad \text{(posterior mean)}.$$ (posterior_mean)
 
-```{figure} ../imgs/cc1/posterior_mean.png
+```{figure} ../imgs/posterior_mean.png
 ---
 width: 450px
 align: center
@@ -203,7 +203,7 @@ $$PMAD(\hat{\theta}) = \int |\theta - \hat{\theta}| g(\theta| y_{1}, \ldots, y_{
 $$.5 = \int_{-\infty}^{\tilde{\theta}} g(\theta | y_{1}, \ldots, y_{n}) d\theta \qquad \text{(posterior median)}.$$ (posterior_median)
 
 
-```{figure} ../imgs/cc1/posterior_median.png
+```{figure} ../imgs/posterior_median.png
 ---
 width: 450px
 align: center
@@ -218,7 +218,7 @@ $$\theta_{MLE} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta)
 
 $$\theta_{MAP} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta) g(\theta).$$ (map_estimate)
 
-If the prior $g(\theta)$ is uniform (aka *uninformative prior*), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in lecture [](./cc-2-2-tricks.md).
+If the prior $g(\theta)$ is uniform (aka *uninformative prior*), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in lecture [](./tricks.md).
 
 ### Bayesian Interval Estimation
 
@@ -233,7 +233,7 @@ $$ (confidence_intervals)
 
 which we then only need to solve. A visual example of such a scenario is in the following picture:
 
-```{figure} ../imgs/cc1/credible_interval.png
+```{figure} ../imgs/credible_interval.png
 ---
 width: 450px
 align: center
@@ -279,7 +279,7 @@ $$p(\omega | \mathcal{D}) \approx \mathcal{N}({\bf{\omega}}| {\bf{\hat{\omega}}}
 where $\omega$ corresponds to the learned parameters $\theta$, $\hat{\omega}$ is the MAP estimate of $\theta$, and $H^{-1}$ is the inverse of the Hessian computed at $\hat{\omega}$. There exist many different modes representing viable solutions for this problem when we seek to optimize it.
 
 
-```{figure} ../imgs/cc1/bayesian_log_reg_data.png
+```{figure} ../imgs/bayesian_log_reg_data.png
 ---
 width: 450px
 align: center
@@ -298,7 +298,7 @@ $$p(y=1 | x, \mathcal{D}) = \frac{1}{S} \sum_{s=1}^{S} \text{sigmoid} \left( \om
 
 Looking at a larger visual example of Bayesian Logistic Regression applied.
 
-```{figure} ../imgs/cc1/bayesian_log_reg.jpg
+```{figure} ../imgs/bayesian_log_reg.jpg
 ---
 width: 600px
 align: center
@@ -333,7 +333,7 @@ $$ (blr_posterior)
 
 where $\hat{\omega}$ is the posterior mean, and $\hat{\Sigma}$ is the posterior covariance. A good visual example of this is the sequential Bayesian inference on a linear regression model shown below.
 
-```{figure} ../imgs/cc1/bayesian_lin_reg.png
+```{figure} ../imgs/bayesian_lin_reg.png
 ---
 width: 550px
 align: center
@@ -349,7 +349,7 @@ Applying the previously discussed Bayesian approaches to these problems, and the
 
 While we lose computational efficiency at first glance, as we have to perform a sampling-based inference procedure, what we gain is a principled approach to discuss uncertainties within our model. This can help us most especially when we move in the *small-data limit*, where we can not realistically expect our model to converge. See e.g. below a Bayesian logistic regression example in which the posterior distribution is visualized.
 
-```{figure} ../imgs/cc1/bayesian_nn.png
+```{figure} ../imgs/bayesian_nn.png
 ---
 width: 550px
 align: center

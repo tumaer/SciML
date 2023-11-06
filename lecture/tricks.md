@@ -9,7 +9,7 @@ This is a collection of practical tools for designing and optimizing machine lea
 
 **Linear Regression (revised)**
 
-Looking back to [Chapter 1](cc-1-0-basics.md), the simplest linear model for $x \in \mathbb{R}$ is
+Looking back to [Chapter 1](linear.md), the simplest linear model for $x \in \mathbb{R}$ is
 
 $$h(x) = \vartheta_0 + \vartheta_1 \cdot x.$$
 

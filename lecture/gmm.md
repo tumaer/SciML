@@ -6,7 +6,7 @@ With regard to the next lecture introducing sampling, GMMs and sampling methods 
 - GMMs estimate the probability density of a given set of samples
 - MCMC generates samples from a given probability density
 
-```{figure} ../imgs/cc1/density_estimation_vs_sampling.png
+```{figure} ../imgs/density_estimation_vs_sampling.png
 ---
 width: 500px
 align: center
@@ -61,7 +61,7 @@ But first, we revise Probability Theory.
     $$p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1$$ (pdf)
 
 
-```{figure} ../imgs/cc1/pdf_cdf.png
+```{figure} ../imgs/pdf_cdf.png
 ---
 width: 400px
 align: center
@@ -214,7 +214,7 @@ However, if we try to analytically solve this problem, we will see that there is
 
 ### Expectation-Maximization
 
-```{figure} ../imgs/cc1/em_algorithm.png
+```{figure} ../imgs/em_algorithm.png
 ---
 width: 600px
 align: center

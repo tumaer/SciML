@@ -1,4 +1,4 @@
-# Algorithms
+# Optimization
 
 <!-- 
 [link](https://mlstory.org/optimization.html) 
