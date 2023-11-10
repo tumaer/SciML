@@ -728,7 +728,7 @@ h(x) = \varphi ( \vartheta^{\top} x ) = \frac{1}{1+e^{-\vartheta^{\top} x}},
 </figure>
 <p>The advantage of this function lies in its many nice properties, such as its derivative:</p>
 <div class="math notranslate nohighlight" id="equation-sigmoid-derivative">
-<span class="eqno">(1.23)<a class="headerlink" href="#equation-sigmoid-derivative" title="Permalink to this equation">#</a></span>\[\varphi^{\prime} (x)=\frac{1}{1+e^{-x}} e^{-x}=\frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right)=\varphi(x)(1-\varphi(x)).\]</div>
+<span class="eqno">(1.23)<a class="headerlink" href="#equation-sigmoid-derivative" title="Permalink to this equation">#</a></span>\[\varphi^{\prime} (x)=\frac{-1}{(1+e^{-x})^2} e^{-x}\cdot(-1)=\frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right)=\varphi(x)(1-\varphi(x)).\]</div>
 <p>If we now want to apply the <em>Maximum Likelihood Estimation</em> approach, then we need to use our hypothesis to assign probabilities to the discrete events</p>
 <div class="math notranslate nohighlight" id="equation-logistic-regression-hypothesis">
 <span class="eqno">(1.24)<a class="headerlink" href="#equation-logistic-regression-hypothesis" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{cases}p(y=1 \mid x ; \vartheta)=h(x), &amp; \\ p(y=0 \mid x ; \vartheta)=1-h(x). &amp;

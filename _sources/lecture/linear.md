@@ -217,7 +217,7 @@ Sigmoid function. (Source: [Wikipedia](https://en.wikipedia.org/wiki/Sigmoid_fun
 
 The advantage of this function lies in its many nice properties, such as its derivative:
 
-$$\varphi^{\prime} (x)=\frac{1}{1+e^{-x}} e^{-x}=\frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right)=\varphi(x)(1-\varphi(x)).$$ (sigmoid_derivative)
+$$\varphi^{\prime} (x)=\frac{-1}{(1+e^{-x})^2} e^{-x}\cdot(-1)=\frac{1}{1+e^{-x}}\left(1-\frac{1}{1+e^{-x}}\right)=\varphi(x)(1-\varphi(x)).$$ (sigmoid_derivative)
 
 If we now want to apply the *Maximum Likelihood Estimation* approach, then we need to use our hypothesis to assign probabilities to the discrete events
 

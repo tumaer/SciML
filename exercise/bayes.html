@@ -669,17 +669,17 @@ title="Print to PDF"
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pyro-ppl in /home/artur/.venvs/sciml/lib/python3.10/site-packages (1.8.6)
-Requirement already satisfied: opt-einsum&gt;=2.3.2 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (3.3.0)
-Requirement already satisfied: numpy&gt;=1.7 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (1.26.1)
 Requirement already satisfied: torch&gt;=1.11.0 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (2.1.0+cpu)
 Requirement already satisfied: tqdm&gt;=4.36 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (4.66.1)
+Requirement already satisfied: opt-einsum&gt;=2.3.2 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (3.3.0)
 Requirement already satisfied: pyro-api&gt;=0.1.1 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (0.1.2)
-Requirement already satisfied: sympy in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (1.12)
+Requirement already satisfied: numpy&gt;=1.7 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from pyro-ppl) (1.26.1)
 Requirement already satisfied: networkx in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (3.2.1)
+Requirement already satisfied: jinja2 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (3.1.2)
+Requirement already satisfied: fsspec in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (2023.10.0)
+Requirement already satisfied: sympy in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (1.12)
 Requirement already satisfied: typing-extensions in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (4.8.0)
 Requirement already satisfied: filelock in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (3.13.1)
-Requirement already satisfied: fsspec in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (2023.10.0)
-Requirement already satisfied: jinja2 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from torch&gt;=1.11.0-&gt;pyro-ppl) (3.1.2)
 Requirement already satisfied: MarkupSafe&gt;=2.0 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from jinja2-&gt;torch&gt;=1.11.0-&gt;pyro-ppl) (2.1.3)
 Requirement already satisfied: mpmath&gt;=0.19 in /home/artur/.venvs/sciml/lib/python3.10/site-packages (from sympy-&gt;torch&gt;=1.11.0-&gt;pyro-ppl) (1.3.0)
 </pre></div>
@@ -690,6 +690,7 @@ Requirement already satisfied: mpmath&gt;=0.19 in /home/artur/.venvs/sciml/lib/p
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
 <span class="c1"># visualization libraries</span>
 <span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
@@ -751,6 +752,8 @@ Requirement already satisfied: mpmath&gt;=0.19 in /home/artur/.venvs/sciml/lib/p
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># See Exercise 1 for more details on this dataset</span>
 <span class="n">a</span> <span class="o">=</span> <span class="mi">3</span>  <span class="c1"># bias</span>
 <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># weight</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span>
 
 <span class="n">noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">256</span><span class="p">)</span> <span class="o">/</span> <span class="mi">4</span>
@@ -814,11 +817,11 @@ Requirement already satisfied: mpmath&gt;=0.19 in /home/artur/.venvs/sciml/lib/p
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Parameter initialization:
-weight :  tensor([[0.6641]])
-bias :  tensor([0.8615])
+weight :  tensor([[0.0612]])
+bias :  tensor([-0.0087])
 Learned parameters:
-weight [[2.0704808]]
-bias [2.9511638]
+weight [[2.0283482]]
+bias [2.999293]
 </pre></div>
 </div>
 <img alt="../_images/bayes_8_1.png" src="../_images/bayes_8_1.png" />
@@ -852,30 +855,45 @@ bias [2.9511638]
 <li><p>Parameters <span class="math notranslate nohighlight">\(\Longleftrightarrow\)</span> <code class="docutils literal notranslate"><span class="pre">pyro.param</span></code>.</p></li>
 </ol>
 <p>The model below essentially makes the following prior assumptions:</p>
-<div class="amsmath math notranslate nohighlight" id="equation-15c4b6e8-9c3f-4cfc-bcd3-62c8717df35c">
-<span class="eqno">(2.28)<a class="headerlink" href="#equation-15c4b6e8-9c3f-4cfc-bcd3-62c8717df35c" title="Permalink to this equation">#</a></span>\[\begin{align}
-y_i &amp;\sim \mathcal{N}(\mu, \sigma)\\
+<div class="math notranslate nohighlight">
+\[y \approx h(x) = wx + b + \epsilon, \quad \text{with:}\]</div>
+<div class="amsmath math notranslate nohighlight" id="equation-f98c2217-fd4e-4d64-8065-53e7fa643c81">
+<span class="eqno">(2.28)<a class="headerlink" href="#equation-f98c2217-fd4e-4d64-8065-53e7fa643c81" title="Permalink to this equation">#</a></span>\[\begin{align}
+y_i &amp;\sim \mathcal{N}(\mu, \sigma^2)\\
 \mu &amp;= w \cdot x_i + b\\
-w &amp;\sim \mathcal{N}(0,1)\\
-b &amp;\sim \mathcal{N}(0,10)\\
-\sigma &amp;\sim U(0,1)\\
+w &amp;\sim \mathcal{N}(0,1^2)\\
+b &amp;\sim \mathcal{N}(0,10^2)\\
+\sigma &amp;\sim U(0,10)\\
 \end{align}\]</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BayesianLinearRegression</span><span class="p">(</span><span class="n">PyroModule</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bayesian linear regression model.</span>
+<span class="sd">    </span>
+<span class="sd">    See the Pyro documentation for more details on distributions and shapes:</span>
+<span class="sd">    - https://docs.pyro.ai/en/stable/distributions.html</span>
+<span class="sd">    - https://pyro.ai/examples/tensor_shapes.html</span>
+
+<span class="sd">    This model implementation is adapted from the Pyro example:</span>
+<span class="sd">    - https://pyro.ai/examples/bayesian_regression.html#</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">PyroModule</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">](</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">output_dim</span><span class="p">)</span>
+        <span class="c1"># Use expand() to draw a batch of samples.</span>
+        <span class="c1"># Use .to_event(n) to treat a univariate distribution as multivariate, where n </span>
+        <span class="c1"># is the number of batch dimensions (from the right) to declare as dependent.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">weight</span> <span class="o">=</span> <span class="n">PyroSample</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span>
-            <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">([</span><span class="n">output_dim</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">])</span><span class="o">.</span><span class="n">to_event</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+            <span class="mf">0.</span><span class="p">,</span> <span class="mf">1.</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">([</span><span class="n">output_dim</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">])</span><span class="o">.</span><span class="n">to_event</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="c1"># prior</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="o">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">PyroSample</span><span class="p">(</span><span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span>
-            <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">([</span><span class="n">output_dim</span><span class="p">])</span><span class="o">.</span><span class="n">to_event</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+            <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">)</span><span class="o">.</span><span class="n">expand</span><span class="p">([</span><span class="n">output_dim</span><span class="p">])</span><span class="o">.</span><span class="n">to_event</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># prior</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="n">sigma</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">))</span>
+        <span class="n">sigma</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;sigma&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Uniform</span><span class="p">(</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">))</span> <span class="c1"># prior</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">squeeze</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
         <span class="k">with</span> <span class="n">pyro</span><span class="o">.</span><span class="n">plate</span><span class="p">(</span><span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1"># within this context, batch dimension -1 (`x.shape[0]`) is independent</span>
             <span class="n">obs</span> <span class="o">=</span> <span class="n">pyro</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="s2">&quot;obs&quot;</span><span class="p">,</span> <span class="n">dist</span><span class="o">.</span><span class="n">Normal</span><span class="p">(</span><span class="n">mean</span><span class="p">,</span> <span class="n">sigma</span><span class="p">),</span> <span class="n">obs</span><span class="o">=</span><span class="n">y</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">mean</span>
 
@@ -910,7 +928,7 @@ b &amp;\sim \mathcal{N}(0,10)\\
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warmup:   0%|          | 0/400 [00:00, ?it/s]
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:05, 69.70it/s, step size=4.90e-01, acc. prob=0.935]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:05, 76.44it/s, step size=2.88e-01, acc. prob=0.914]
 </pre></div>
 </div>
 </div>
@@ -926,9 +944,9 @@ b &amp;\sim \mathcal{N}(0,10)\\
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.bias = 2.957 +/- 0.030
-linear.weight = 2.063 +/- 0.053
-sigma = 0.254 +/- 0.012
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>linear.bias = 3.001 +/- 0.028
+linear.weight = 2.022 +/- 0.050
+sigma = 0.250 +/- 0.011
 </pre></div>
 </div>
 </div>
@@ -1043,8 +1061,8 @@ sigma torch.Size([300])
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AutoDiagonalNormal.loc Parameter containing:
-tensor([-3.6716,  2.0611,  2.9435])
-AutoDiagonalNormal.scale tensor([0.0409, 0.0302, 0.0170])
+tensor([-3.6379,  2.0213,  3.0067])
+AutoDiagonalNormal.scale tensor([0.0420, 0.0280, 0.0153])
 </pre></div>
 </div>
 <img alt="../_images/bayes_19_1.png" src="../_images/bayes_19_1.png" />
@@ -1334,8 +1352,8 @@ memory usage: 7.2 KB
 Elbo loss: 2.805009201169014
 Elbo loss: 1.4718698005599435
 Elbo loss: 1.9484067456796765
-CPU times: user 44 s, sys: 0 ns, total: 44 s
-Wall time: 5.51 s
+CPU times: user 52.9 s, sys: 7.86 ms, total: 52.9 s
+Wall time: 6.62 s
 </pre></div>
 </div>
 </div>
@@ -1405,7 +1423,7 @@ linear.bias -16.362192
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f0eddb43010&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.PairGrid at 0x7f7c6473fbe0&gt;
 </pre></div>
 </div>
 <img alt="../_images/bayes_40_1.png" src="../_images/bayes_40_1.png" />
@@ -1430,14 +1448,11 @@ linear.bias -16.362192
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warmup:   0%|          | 0/400 [00:00, ?it/s]
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:04, 82.29it/s, step size=2.22e-01, acc. prob=0.859] 
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Sample: 100%|██████████| 400/400 [00:03, 103.87it/s, step size=2.22e-01, acc. prob=0.859]
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 3.85 s, sys: 7.61 ms, total: 3.86 s
-Wall time: 3.85 s
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CPU times: user 4.87 s, sys: 600 µs, total: 4.87 s
+Wall time: 4.86 s
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>
@@ -1473,7 +1488,7 @@ linear.weight -34.984016
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f0edd190640&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x7f7c6421c8e0&gt;
 </pre></div>
 </div>
 <img alt="../_images/bayes_46_1.png" src="../_images/bayes_46_1.png" />
