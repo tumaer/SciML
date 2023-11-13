@@ -123,7 +123,23 @@ One possibility to counteract overfitting and still have an expressive model is 
 
     $$J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2$$
 
-    For a visual interpretation, look back to the $l_p$ norms.
+#### $l_p$ norm
+To better understand the regression losses, we will look at the general $l_p$ norm of vector $w\in \mathbb{R}^m$:
+
+
+$$||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.$$
+
+In the special case $p=1$ we recover the L1 loss, and the squared version of $p=2$ corresponds to the MSE loss. Other special case is $p \to \infty$ leading to $||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{m}| \right\}$. We see that with increasing $p$ the larger terms dominate
+
+
+<div style="text-align:center">
+    <img src="https://i.imgur.com/Z05qdjO.png" alt="drawing" width="600"/>
+</div>
+
+*Figure*: The blue line represents the solution set of an under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms $p=0,...,1$, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For $p \ge 2$ the minimum-norm solution is not sparse, but all coordinates are active.
+
+(Source: [Brunton and Kutz 2019](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E), Fig. 3.9)
+
 
 - **Dropout**: randomly set some of the parameters to zero, e.g. 5% of all $\vartheta_i$. This way the model learns to be more redundant and at the same time improved generalization. Dropout reduces co-adaptation between terms of the model. Also, this technique is very easy to apply.
 - **Eary stopping**: Stop training as soon as the validation loss starts increasing. This is also a very common and easy technique.
