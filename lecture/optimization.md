@@ -294,9 +294,14 @@ $$x_{t+1} = x_{t} - \frac{f(x_{t})}{f'(x_{t})}$$ (newton_method)
 
 Graphically speaking this amounts to the case of the tangent line of the function intersecting with the x-axis.
 
-<div style="text-align:center">
-    <img src="../imgs/newtons_method.png" alt="drawing" width="350"/>
-</div>
+```{figure} ../imgs/newtons_method.png
+---
+width: 350px
+align: center
+name: newtons_method
+---
+ (Source: ).
+```
 
 The fallacies of this method are the cases where $f'(x_{t}) = 0$, and it will diverge when $|f'(x_{t})|$ is very small. Going beyond the first-order update we can then utilize the second-order gradient if our (objective) function $f$ is twice differentiable. Hence turning the update step into
 
@@ -354,9 +359,15 @@ $$x_{t+1} = x_{t} - f(x_{t})\frac{x_{t} - x_{t-1}}{f(x_{t}) - f(x_{t-1})}, \quad
 
 to approximate the Newton step at the detriment of having to choose two starting values $x_{0}$, and $x_{1}$ here. Figuratively speaking the approach looks like this:
 
-<div style="text-align:center">
-    <img src="../imgs/secant_method.png" alt="drawing" width="350"/>
-</div>
+
+```{figure} ../imgs/secant_method.png
+---
+width: 350px
+align: center
+name: secant_method
+---
+ (Source: ).
+```
 
 What this approach then does is to construct the line through the two points $(x_{t-1}, f(x_{t-1}))$, and $(x_{t}, f(x_{t}))$ on the graph of f, the next iteration is then given by the point where the line intersects the x-axis.
 
@@ -414,10 +425,14 @@ $$x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1$$
 
 where $\alpha$ can be chosen such that a line search is performed, and where $H_{t}^{-1}$ is the BFGS approximation. In a pseudo-algorithmic form this then looks the following way:
 
-<div style="text-align:center">
-    <img src="../imgs/bfgs_alg.png" alt="drawing" width="280"/>
-</div>
-
+```{figure} ../imgs/bfgs_alg.png
+---
+width: 280px
+align: center
+name: bfgs_alg
+---
+ (Source: ).
+```
 
 #### L-BFGS
 (Limited-memory BFGS) 
@@ -439,9 +454,14 @@ $$\begin{align}
 
 The L-BFGS algorithm is then given by 
 
-<div style="text-align:center">
-    <img src="../imgs/lbfgs_alg.png" alt="drawing" width="300"/>
-</div>
+```{figure} ../imgs/lbfgs_alg.png
+---
+width: 300px
+align: center
+name: lbfgs_alg
+---
+ (Source: ).
+```
 
 where in the case of the recursion bottoming out prematurely at a point $k=t-m$, then we pretend that we just started the computation at that point and use $H_{0}$.
 
@@ -468,9 +488,14 @@ where $nbr$ is the neighborhood of the point $x_{t}$. This approach is also coll
 
 An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see [J. Bergstra & Y. Bengio, 20212](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)), is the grid search, which chooses hyperparameters equidistantly in the same range used for grid search.
 
-<div style="text-align:center">
-    <img src="../imgs/grid_vs_random_search.png" alt="drawing" width="600"/>
-</div>
+```{figure} ../imgs/grid_vs_random_search.png
+---
+width: 600px
+align: center
+name: grid_vs_random_search
+---
+ (Source: ).
+``´
 
 (Source: [Random Search for Hyper-Parameter Optimization](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf))
 
