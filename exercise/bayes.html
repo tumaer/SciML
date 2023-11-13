@@ -740,7 +740,7 @@ Requirement already satisfied: mpmath&gt;=0.19 in /home/artur/.venvs/sciml/lib/p
 </ul>
 <div class="math notranslate nohighlight">
 \[y \approx h(x) = wx + b + \epsilon\]</div>
-<p>Where we have moved to the more common weights <span class="math notranslate nohighlight">\(w = [\vartheta_1, ..., \vartheta_n]\)</span> and bias <span class="math notranslate nohighlight">\(b=\vartheta_0\)</span> notation. Other than the change of notation, the only difference up until now is the random noise term <span class="math notranslate nohighlight">\(\epsilon\)</span>, which can, in general, originate from any probability distribution. The difference to the maximul likelihood interpretation on the normal linear regression we discussed in <a class="reference external" href="https://github.com/arturtoshev/SciML_22-23/blob/master/1_linReg_logReg.ipynb">Exercise 1</a> is that here we allow for any distribution in contrast to restricting ourselves to the Gaussian.</p>
+<p>Where we have moved to the more common weights <span class="math notranslate nohighlight">\(w = [\vartheta_1, ..., \vartheta_n]\)</span> and bias <span class="math notranslate nohighlight">\(b=\vartheta_0\)</span> notation. Other than the change of notation, the only difference up until now is the random noise term <span class="math notranslate nohighlight">\(\epsilon\)</span>, which can, in general, originate from any probability distribution. The difference to the maximul likelihood interpretation on the normal linear regression we discussed in the lecture on <a class="reference internal" href="../lecture/linear.html"><span class="doc std std-doc">Linear Models</span></a> is that here we allow for any distribution in contrast to restricting ourselves to the Gaussian.</p>
 <p>The other novel part is that in the Bayesian setting the parameters of the model (<span class="math notranslate nohighlight">\(w, b\)</span>) are random variables with some prior distribution.</p>
 <p><strong>References</strong></p>
 <p>This part is mainly based on <a class="reference external" href="https://pyro.ai/examples/bayesian_regression.html">this</a> Pyro tutorial and <a class="reference external" href="https://github.com/csiro-mlai/hackfest-ppl/blob/c5bb342cdae3cf325ae39a226ce89e43a530b04a/primitives/05-regression_with_data.ipynb">this</a> further code.</p>
@@ -857,8 +857,8 @@ bias [2.999293]
 <p>The model below essentially makes the following prior assumptions:</p>
 <div class="math notranslate nohighlight">
 \[y \approx h(x) = wx + b + \epsilon, \quad \text{with:}\]</div>
-<div class="amsmath math notranslate nohighlight" id="equation-f98c2217-fd4e-4d64-8065-53e7fa643c81">
-<span class="eqno">(2.28)<a class="headerlink" href="#equation-f98c2217-fd4e-4d64-8065-53e7fa643c81" title="Permalink to this equation">#</a></span>\[\begin{align}
+<div class="amsmath math notranslate nohighlight" id="equation-5cafb3a9-a025-4fb0-8095-544b54d07229">
+<span class="eqno">(2.28)<a class="headerlink" href="#equation-5cafb3a9-a025-4fb0-8095-544b54d07229" title="Permalink to this equation">#</a></span>\[\begin{align}
 y_i &amp;\sim \mathcal{N}(\mu, \sigma^2)\\
 \mu &amp;= w \cdot x_i + b\\
 w &amp;\sim \mathcal{N}(0,1^2)\\

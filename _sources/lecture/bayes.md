@@ -218,7 +218,7 @@ $$\theta_{MLE} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta)
 
 $$\theta_{MAP} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta) g(\theta).$$ (map_estimate)
 
-If the prior $g(\theta)$ is uniform (aka *uninformative prior*), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in lecture [](./tricks.md).
+If the prior $g(\theta)$ is uniform (aka *uninformative prior*), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in lecture on [Tricks of Optimization](./tricks.md).
 
 ### Bayesian Interval Estimation
 

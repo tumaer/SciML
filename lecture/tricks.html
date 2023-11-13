@@ -488,6 +488,17 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#regularization">
      5.1.3. Regularization
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l-p-norm">
+       5.1.3.1.
+       <span class="math notranslate nohighlight">
+        \(l_p\)
+       </span>
+       norm
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#input-normalization-and-parameter-initialization">
@@ -573,6 +584,17 @@ title="Print to PDF"
     <a class="reference internal nav-link" href="#regularization">
      5.1.3. Regularization
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#l-p-norm">
+       5.1.3.1.
+       <span class="math notranslate nohighlight">
+        \(l_p\)
+       </span>
+       norm
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#input-normalization-and-parameter-initialization">
@@ -715,12 +737,25 @@ double descent) demonstrates that contrary to the theory behind the bias-varianc
 </ul>
 <div class="math notranslate nohighlight">
 \[J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2\]</div>
-<p>For a visual interpretation, look back to the <span class="math notranslate nohighlight">\(l_p\)</span> norms.</p>
 </li>
+</ul>
+<section id="l-p-norm">
+<h4><span class="section-number">5.1.3.1. </span><span class="math notranslate nohighlight">\(l_p\)</span> norm<a class="headerlink" href="#l-p-norm" title="Permalink to this headline">#</a></h4>
+<p>To better understand the regression losses, we will look at the general <span class="math notranslate nohighlight">\(l_p\)</span> norm of vector <span class="math notranslate nohighlight">\(w\in \mathbb{R}^m\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.\]</div>
+<p>In the special case <span class="math notranslate nohighlight">\(p=1\)</span> we recover the L1 loss, and the squared version of <span class="math notranslate nohighlight">\(p=2\)</span> corresponds to the MSE loss. Other special case is <span class="math notranslate nohighlight">\(p \to \infty\)</span> leading to <span class="math notranslate nohighlight">\(||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{m}| \right\}\)</span>. We see that with increasing <span class="math notranslate nohighlight">\(p\)</span> the larger terms dominate</p>
+<div style="text-align:center">
+    <img src="https://i.imgur.com/Z05qdjO.png" alt="drawing" width="600"/>
+</div>
+<p><em>Figure</em>: The blue line represents the solution set of an under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms <span class="math notranslate nohighlight">\(p=0,...,1\)</span>, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For <span class="math notranslate nohighlight">\(p \ge 2\)</span> the minimum-norm solution is not sparse, but all coordinates are active.</p>
+<p>(Source: <a class="reference external" href="https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E">Brunton and Kutz 2019</a>, Fig. 3.9)</p>
+<ul class="simple">
 <li><p><strong>Dropout</strong>: randomly set some of the parameters to zero, e.g. 5% of all <span class="math notranslate nohighlight">\(\vartheta_i\)</span>. This way the model learns to be more redundant and at the same time improved generalization. Dropout reduces co-adaptation between terms of the model. Also, this technique is very easy to apply.</p></li>
 <li><p><strong>Eary stopping</strong>: Stop training as soon as the validation loss starts increasing. This is also a very common and easy technique.</p></li>
 <li><p>etc.</p></li>
 </ul>
+</section>
 </section>
 <section id="input-normalization-and-parameter-initialization">
 <h3><span class="section-number">5.1.4. </span>Input Normalization and Parameter Initialization<a class="headerlink" href="#input-normalization-and-parameter-initialization" title="Permalink to this headline">#</a></h3>
