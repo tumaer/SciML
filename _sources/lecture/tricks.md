@@ -217,7 +217,7 @@ Corrected for the time-dependent learning rate, and using the exponential decay 
     <img src="https://i.imgur.com/UJ3J86r.png" alt="drawing" width="400"/>
 </div>
 
-(Source: [classic.d2l.ai](https://classic.d2l.ai/chapter_optimization/gd.html))
+(Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html))
 
 
 Which is much much nicer behaved!

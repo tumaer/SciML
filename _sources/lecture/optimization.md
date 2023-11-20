@@ -1,11 +1,5 @@
 # Optimization
 
-<!-- 
-[link](https://mlstory.org/optimization.html) 
-[link](https://www.d2l.ai/chapter_optimization/index.html)
-vis.ensmallen.org
--->
-
 In the lecture on [Linear Models](./linear.md), we already saw the main building blocks of a supervised learning algorithm: 
 1. **Model** $h$ of the relationship between inputs $x$ and outputs $y$,
 2. **Loss** (aka **Cost**, **Error**) function $J(\vartheta)$ quantifying the discrepancy between $h_{\vartheta}(x^{(i)})$ and $y^{(i)}$ for each of the measurement pairs $\left\{(x^{(i)}, y^{\text {(i)}})\right\}_{i=1,...m}$, and 
@@ -117,7 +111,7 @@ width: 400px
 align: center
 name: gd_1d
 ---
-Optimizing $f(x) = x \cdot \cos(cx)$ (Source: [classic.d2l.ai](https://classic.d2l.ai/chapter_optimization/gd.html)).
+Optimizing $f(x) = x \cdot \cos(cx)$ (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html)).
 ```
 
 **$x$ as vector**
@@ -146,7 +140,7 @@ width: 400px
 align: center
 name: gd_2d
 ---
-Optimizing $f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}$ (Source: [classic.d2l.ai](https://classic.d2l.ai/chapter_optimization/gd.html)).
+Optimizing $f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}$ (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html)).
 ```
 
 Having up until now relied on a fixed learning rate $\eta$, we now want to expand upon the previous algorithm by _adaptively_ choosing $\eta$. For this, we have to go back to **Newton's method**.
@@ -194,7 +188,7 @@ width: 400px
 align: center
 name: gd_with_momentum
 ---
-Momentum parameter (Source: [classic.d2l.ai](https://classic.d2l.ai/chapter_optimization/momentum.html)).
+Momentum parameter (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/momentum.html)).
 ```
 
 ### Adam
@@ -261,7 +255,7 @@ width: 400px
 align: center
 name: sgd_2d
 ---
-SGD trajectory (Source: [classic.d2l.ai](https://classic.d2l.ai/chapter_optimization/gd.html)).
+SGD trajectory (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html)).
 ```
 
 #### Minibatching
@@ -283,14 +277,16 @@ As both $\bf{g}_t$ and $i$ are drawn uniformly at random from the training set, 
 
 With first-order methods only taking the gradient itself into account there is much information we are leaving untapped in attempting to solve our optimization problem, such as gradient curvature for which we'd need 2nd order gradients.
 
-The reason for that is in part historic, automatic differentiation (to be explained in-depth in a later lecture) suffers from an exponential compute-graph blow-up when computing higher-order gradients. The automatic differentiation engines the first popularized machine learning engines from AlexNet, LeNet etc. were built on were unable to handle higher-order gradients for the above reason, and only modern automatic differentiation engines have been able to circumvent that problem. As such 2nd-order gradient methods have seen a recent resurgence with methods like [Shampoo](https://research.google/pubs/pub47079/), [RePAST](https://arxiv.org/pdf/2210.15255.pdf), and [Fishy](https://openreview.net/forum?id=cScb-RrBQC).
+The reason for that is in part historic, automatic differentiation (to be explained in-depth in a later lecture) suffers from an exponential compute-graph blow-up when computing higher-order gradients. The automatic differentiation engines, the first popularized machine learning engines from AlexNet, LeNet etc. were built on, were unable to handle higher-order gradients for the above reason, and only modern automatic differentiation engines have been able to circumvent that problem. As such 2nd-order gradient methods have seen a recent resurgence with methods like [Shampoo](https://research.google/pubs/pub47079/), [RePAST](https://arxiv.org/pdf/2210.15255.pdf), and [Fishy](https://openreview.net/forum?id=cScb-RrBQC).
 
 
-### Newton's method (aka Newton-Raphson method)
+### Newton's method 
+
+(also *Newton-Raphson method*)
 
 A first example of the step toward second-order methods is the Newton method. It is an iterative method to find a zero of a differentiable function defined as $f: \mathbb{R} \rightarrow \mathbb{R}$. The Newton-method begins with an initial guess $x_{0}$ to then iteratively update with 
 
-$$x_{t+1} = x_{t} - \frac{f(x_{t})}{f'(x_{t})}$$ (newton_method)
+$$x_{t+1} = x_{t} - \frac{f(x_{t})}{f'(x_{t})}$$ (newtons_method)
 
 Graphically speaking this amounts to the case of the tangent line of the function intersecting with the x-axis.
 
@@ -300,16 +296,16 @@ width: 350px
 align: center
 name: newtons_method
 ---
- (Source: ).
+Newton's method (Source: {cite}`gaertner2023`, Chapter 7).
 ```
 
-The fallacies of this method are the cases where $f'(x_{t}) = 0$, and it will diverge when $|f'(x_{t})|$ is very small. Going beyond the first-order update we can then utilize the second-order gradient if our (objective) function $f$ is twice differentiable. Hence turning the update step into
+The fallacies of this method are the cases where $f'(x_{t}) = 0$, and it will diverge when $|f'(x_{t})|$ is very small. Going beyond the first-order update, we can then utilize the second-order gradient if our (objective) function $f$ is twice differentiable. Hence turning the update step into
 
-$$x_{t+1} = x_{t} - \frac{f'(x_{t})}{f''(x_{t})}, \quad t>0$$ 
+$$x_{t+1} = x_{t} - \frac{f'(x_{t})}{f''(x_{t})}, \quad t>0$$ (newtons_method_optim)
 
 Generalizing this update scheme in notation, we can use vector calculus to obtain
 
-$$x_{t+1} = x_{t} - \nabla^{2} f(x_{t})^{-1} \nabla f(x_{t}), \quad t\geq 0$$
+$$x_{t+1} = x_{t} - \nabla^{2} f(x_{t})^{-1} \nabla f(x_{t}), \quad t\geq 0$$ (newtons_method_vec)
 
 $\nabla^{2} f(x_{t})^{-1}$ constitutes the Hessian at $x_{t}$. As alluded to earlier the failure modes can then be formalized in the following fashion:
 
@@ -318,7 +314,7 @@ $\nabla^{2} f(x_{t})^{-1}$ constitutes the Hessian at $x_{t}$. As alluded to ear
 
 If we further generalize the notation to a general update scheme
 
-$$x_{t+1} = x_{t} - H(x_{t}) \nabla f(x_{t})$$
+$$x_{t+1} = x_{t} - H(x_{t}) \nabla f(x_{t})$$ (newtons_method_simplified)
 
 then we can simplify this update scheme to the gradient descent we already encountered in the last lecture by setting $H(x_{t}) = \gamma I$, where $I$ is the identity matrix. Newton's method hence constitutes an adaptive gradient descent approach, where the adaptation happens with respect to the local geometry of the objective function at $x_{t}$.
 
@@ -326,11 +322,9 @@ then we can simplify this update scheme to the gradient descent we already encou
 
 To expand upon this, assume we have a linear system of equations
 
-$$M {\bf{x}} = {\bf{q}}$$
+$$M {\bf{x}} = {\bf{q}},$$ (linear_system)
 
-then Newton's method can solve this system in **one** step whereas gradient descent requires multiple steps with the right step size chosen. The downside to this is the expensive step of inverting matrix $M$. In our general case, this means we need to invert the expensive matrix
-
-$$\nabla^{2} f(x_{0}).$$
+then Newton's method can solve this system in **one** step whereas gradient descent requires multiple steps with the right step size chosen. The downside to this is the expensive step of inverting matrix $M$. In our general case, this means we need to invert the expensive matrix $\nabla^{2} f(x_{0})$.
 
 Another advantage of Newton's method is that it does not suffer from individual coordinates being at completely different scales, e.g. the $y$-direction changes very fast, whereas the $z$-direction only changes very slowly. Gradient descent only handles these cases suboptimally, whereas Newton's method does not suffer from this shortcoming.
 
@@ -345,19 +339,15 @@ With the main computational bottleneck of Newton's approach being that the inver
 
 #### The Secant Method
 
-The secant method is an alternative to Newton's method, which consciously does not use derivatives and has hence much less stringent requirements on our objective function such as it not needing to be differentiable. Essentially taking a finite difference approximation
+The secant method is an alternative to Newton's method, which consciously does not use derivatives and has hence much less stringent requirements on our objective function such as it not needing to be differentiable. We can replace the derivative in Newton's method with the finite difference approximation, i.e.
 
-$$\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}}$$
-
-then we can replace the derivative in Newton's method with the finite difference approximation, i.e.
-
-$$\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}} \approx f'(x_{t})$$
+$$\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}} \approx f'(x_{t})$$ (fd_approx)
 
 for a small region around $x_{t}$. The secant update step then takes the following form
 
-$$x_{t+1} = x_{t} - f(x_{t})\frac{x_{t} - x_{t-1}}{f(x_{t}) - f(x_{t-1})}, \quad t\geq 1$$
+$$x_{t+1} = x_{t} - f(x_{t})\frac{x_{t} - x_{t-1}}{f(x_{t}) - f(x_{t-1})}, \quad t\geq 1$$ (secant_update)
 
-to approximate the Newton step at the detriment of having to choose two starting values $x_{0}$, and $x_{1}$ here. Figuratively speaking the approach looks like this:
+to approximate the Newton step at the detriment of having to choose two starting values $x_{0}$, and $x_{1}$ here. Figuratively speaking, the approach looks like this:
 
 
 ```{figure} ../imgs/secant_method.png
@@ -366,46 +356,46 @@ width: 350px
 align: center
 name: secant_method
 ---
- (Source: ).
+Secant method (Source: {cite}`gaertner2023`, Chapter 8).
 ```
 
 What this approach then does is to construct the line through the two points $(x_{t-1}, f(x_{t-1}))$, and $(x_{t}, f(x_{t}))$ on the graph of f, the next iteration is then given by the point where the line intersects the x-axis.
 
 When our function is first-order differentiable, we can also use the secant method to derive a second-derivative-free version of Newton's method for optimization.
 
-$$x_{t+1}=x_{t} - f'(x_{t})\frac{x_{t} - x_{t-1}}{f'(x_{t}) - f'(x_{t-1})}, \quad t \geq 1$$
+$$x_{t+1}=x_{t} - f'(x_{t})\frac{x_{t} - x_{t-1}}{f'(x_{t}) - f'(x_{t-1})}, \quad t \geq 1.$$ (secant_newton)
 
 
 #### Quasi-Newton Methods
 
 If we consider the so-called secant condition, then we have the following approximation
 
-$$H_{t} = \frac{f'(x_{t}) - f'(x_{t-1})}{x_{t} - x_{t-1}} \approx f''(x_{t})$$
+$$H_{t} = \frac{f'(x_{t}) - f'(x_{t-1})}{x_{t} - x_{t-1}} \approx f''(x_{t}),$$ (secant_approx)
 
 then the secant method works with the following update step using the above approximation
 
-$$x_{t+1} = x_{t} - H_{t}^{-1}f'(x_{t}), \quad t \geq 1.$$
+$$x_{t+1} = x_{t} - H_{t}^{-1}f'(x_{t}), \quad t \geq 1.$$ (secant_update2)
 
 For this approximation to hold we need to satisfy the secant condition 
 
-$$f'(x_{t}) - f'(x_{t-1}) = H_{t}(x_{t} - x_{t-1})$$
+$$f'(x_{t}) - f'(x_{t-1}) = H_{t}(x_{t} - x_{t-1}).$$ (secant_conditions)
 
 Or generalized to higher dimensions
 
-$$\nabla f({\bf{x_{t}}}) - \nabla f({\bf{x_{t-1}}}) = H_{t}({\bf{x_{t}}} - {\bf{x_{t-1}}})$$
+$$\nabla f({\bf{x_{t}}}) - \nabla f({\bf{x_{t-1}}}) = H_{t}({\bf{x_{t}}} - {\bf{x_{t-1}}}).$$ (secant_condition_vec)
 
 
 Whenever this condition is now fulfilled in conjunction with a _symmetric matrix_, then we have a **Quasi-Newton method**. As our matrix $H_{t} \approx \nabla^{2}f(x_{t})$ only fluctuates very little during periods of very fast convergence, and Newton's method is optimal with one step, then we can presume
 
-$$H_{t} \approx H_{t-1}$$
+$$H_{t} \approx H_{t-1}$$ (quasi_newton_assumption1)
 
 and equally as much 
 
-$$H_{t}^{-1} \approx H_{t-1}^{-1}$$
+$$H_{t}^{-1} \approx H_{t-1}^{-1},$$ (quasi_newton_assumption2)
 
-then we can following Greenstadt's approach model $H_{t}$ in the following fashion
+then we can (following Greenstadt's approach) model $H_{t}$ in the following fashion
 
-$$H_{t}^{-1} = H^{-1}_{t-1} + E_{t}.$$
+$$H_{t}^{-1} = H^{-1}_{t-1} + E_{t}.$$ (quasi_newton_h_decompositions)
 
 I.e. our matrix $H_{t}$, the Hessian, only changes by a minor error matrix. These errors should also be as small as possible.
 
@@ -415,13 +405,13 @@ I.e. our matrix $H_{t}$, the Hessian, only changes by a minor error matrix. Thes
 
 For the BFGS algorithm, this update matrix then assumes the form
 
-$$E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right)$$
+$$E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right),$$ (bfgs_approx)
 
 where $H=H_{t-1}^{-1}$, ${\bf{\sigma}} = x_{t} - x_{t-1}$, and $y = \nabla f(x_{t}) - \nabla f(x_{t-1})$.
 
 One of the core advantages of BFGS is that if $H'$ is positive definite, then the update $E$ maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$ to $\mathcal{O}(d^{2})$ for the BFGS approach. Scaling the update step, the individual iteration then becomes
 
-$$x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1$$
+$$x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1$$ (bfgs_update)
 
 where $\alpha$ can be chosen such that a line search is performed, and where $H_{t}^{-1}$ is the BFGS approximation. In a pseudo-algorithmic form this then looks the following way:
 
@@ -431,7 +421,7 @@ width: 280px
 align: center
 name: bfgs_alg
 ---
- (Source: ).
+BFGS algorithm (Source: {cite}`gaertner2023`, Chapter 8).
 ```
 
 #### L-BFGS
@@ -439,18 +429,18 @@ name: bfgs_alg
 
 Especially in high dimensions a cost of $\mathcal{O}(d^{2})$ may still be too prohibitive. Only using information from the past $m$ iterations for $m$ being a small value, L-BFGS then approximates the entire $H'\nabla f(x_{t})$ term. L-BFGS then builds on modeling $H'$ as
 
-$$H' = \left( I - \frac{\sigma y^{\top}}{y^{\top}\sigma} \right) H \left( I - \frac{y \sigma^{\top}}{y^{\top}\sigma} \right) + \frac{\sigma \sigma^{\top}}{y^{\top} \sigma}$$
+$$H' = \left( I - \frac{\sigma y^{\top}}{y^{\top}\sigma} \right) H \left( I - \frac{y \sigma^{\top}}{y^{\top}\sigma} \right) + \frac{\sigma \sigma^{\top}}{y^{\top} \sigma}.$$ (lbfgs_approx)
 
-then we are able to utilize an oracle to compute 
+Then, we are able to utilize an oracle to compute 
 
-$$ s= H g$$
+$$s= H g$$ (lbfgs_s)
 
 for any vector $g$. Then $s' = H'g'$ can be computed with one oracle call and $\mathcal{O}(d)$ additional arithmetic operations, assuming that $\sigma$, and $y$ are known. We then define $\sigma$, and $y$ in the following fashion
 
 $$\begin{align}
     \sigma_{k} &= x_{k} - x_{k-1} \\
     y_{k} &= \nabla f(x_{k}) - \nabla f(x_{k-1})
-\end{align}$$
+\end{align}$$ (lbfsg_approx2)
 
 The L-BFGS algorithm is then given by 
 
@@ -460,7 +450,7 @@ width: 300px
 align: center
 name: lbfgs_alg
 ---
- (Source: ).
+L-BFGS algorithm (Source: {cite}`gaertner2023`, Chapter 8).
 ```
 
 where in the case of the recursion bottoming out prematurely at a point $k=t-m$, then we pretend that we just started the computation at that point and use $H_{0}$.
@@ -480,13 +470,13 @@ There exist a number of approaches for such problems, which all depend on the co
     - Stochastic local search
     - Evolutionary search
     
-In local search for example we replace the entire gradient update with 
+In local search, for example, we replace the entire gradient update with 
 
-$$x_{t+1} = \underset{x \in nbr(x_{t})}{\text{argmax}}$$
+$$x_{t+1} = \underset{x \in nbr(x_{t})}{\text{argmax}}$$ (local_search)
 
 where $nbr$ is the neighborhood of the point $x_{t}$. This approach is also colloquially known as hill climbing, steepest ascent, or greedy search. In stochastic local search, we would then define a probability distribution over the uphill neighbors proportional to how much they improve our function and then sample at random. A second stochastic option is to start again from a different random starting point whenever we reach a local maximum. This approach is known as random restart hill climbing.
 
-An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see [J. Bergstra & Y. Bengio, 20212](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)), is the grid search, which chooses hyperparameters equidistantly in the same range used for grid search.
+An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see [J. Bergstra & Y. Bengio, 20212](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)), is the grid search, which chooses hyperparameters equidistantly in the same range used for random search.
 
 ```{figure} ../imgs/grid_vs_random_search.png
 ---
@@ -494,19 +484,27 @@ width: 600px
 align: center
 name: grid_vs_random_search
 ---
- (Source: ).
-``´
-
-(Source: [Random Search for Hyper-Parameter Optimization](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf))
+ (Source: [Random Search for Hyper-Parameter Optimization](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)).
+```
 
 If instead of throwing away our "old" good candidates keep them in a _population_ of good candidates, then we arrive at _evolutionary algorithms_. Here we maintain a population of $K$ good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.
 
 
 ## Further References
 
-**Gradient-Based Optimization**
+**Basics of Optimization**
 
-- [Patterns, Predictions, and Actions](https://mlstory.org/optimization.html), Chapter 5. Optimization; M. Hardt and B. Recht; 2022
-- [Dive into Deep Learning](https://d2l.ai/chapter_optimization/index.html), Chapter 12. Optimization Algorithms
+- {cite}`hardt2022`, Chapter 5
+- {cite}`boyd2004`, Chapter 1
+
+**First-Order Optimization**
+
+- {cite}`hardt2022`, Chapter 5
+- {cite}`zhang2021`, Chapter Optimization Algorithms
+- {cite}`boyd2004`, Chapter 9
 - [An overview of gradient descent optimization algorithms](https://ruder.io/optimizing-gradient-descent/), S. Ruder; 2016
 
+**Second-Order Optimization**
+
+- {cite}`nocedal2006`, Chapters 3 and 6
+- {cite}`gaertner2023`, Chapters 7 and 8

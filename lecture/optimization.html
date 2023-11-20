@@ -509,8 +509,8 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#newton-s-method-aka-newton-raphson-method">
-     4.3.1. Newton’s method (aka Newton-Raphson method)
+    <a class="reference internal nav-link" href="#newton-s-method">
+     4.3.1. Newton’s method
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -630,8 +630,8 @@ title="Print to PDF"
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#newton-s-method-aka-newton-raphson-method">
-     4.3.1. Newton’s method (aka Newton-Raphson method)
+    <a class="reference internal nav-link" href="#newton-s-method">
+     4.3.1. Newton’s method
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -685,11 +685,6 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="optimization">
 <h1><span class="section-number">4. </span>Optimization<a class="headerlink" href="#optimization" title="Permalink to this headline">#</a></h1>
-<!-- 
-[link](https://mlstory.org/optimization.html) 
-[link](https://www.d2l.ai/chapter_optimization/index.html)
-vis.ensmallen.org
--->
 <p>In the lecture on <a class="reference internal" href="linear.html"><span class="doc std std-doc">Linear Models</span></a>, we already saw the main building blocks of a supervised learning algorithm:</p>
 <ol class="simple">
 <li><p><strong>Model</strong> <span class="math notranslate nohighlight">\(h\)</span> of the relationship between inputs <span class="math notranslate nohighlight">\(x\)</span> and outputs <span class="math notranslate nohighlight">\(y\)</span>,</p></li>
@@ -784,7 +779,7 @@ vis.ensmallen.org
 <figure class="align-center" id="gd-1d">
 <a class="reference internal image-reference" href="../_images/gd_1d.svg"><img alt="../_images/gd_1d.svg" src="../_images/gd_1d.svg" width="400px" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Optimizing <span class="math notranslate nohighlight">\(f(x) = x \cdot \cos(cx)\)</span> (Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>).</span><a class="headerlink" href="#gd-1d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.3 </span><span class="caption-text">Optimizing <span class="math notranslate nohighlight">\(f(x) = x \cdot \cos(cx)\)</span> (Source: <span id="id4">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://classic.d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">here</a>).</span><a class="headerlink" href="#gd-1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p><strong><span class="math notranslate nohighlight">\(x\)</span> as vector</strong></p>
@@ -804,7 +799,7 @@ vis.ensmallen.org
 <figure class="align-center" id="gd-2d">
 <a class="reference internal image-reference" href="../_images/gd_2d.svg"><img alt="../_images/gd_2d.svg" src="../_images/gd_2d.svg" width="400px" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text">Optimizing <span class="math notranslate nohighlight">\(f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}\)</span> (Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>).</span><a class="headerlink" href="#gd-2d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.4 </span><span class="caption-text">Optimizing <span class="math notranslate nohighlight">\(f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}\)</span> (Source: <span id="id5">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://classic.d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">here</a>).</span><a class="headerlink" href="#gd-2d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Having up until now relied on a fixed learning rate <span class="math notranslate nohighlight">\(\eta\)</span>, we now want to expand upon the previous algorithm by <em>adaptively</em> choosing <span class="math notranslate nohighlight">\(\eta\)</span>. For this, we have to go back to <strong>Newton’s method</strong>.</p>
@@ -839,7 +834,7 @@ vis.ensmallen.org
 <figure class="align-center" id="gd-with-momentum">
 <a class="reference internal image-reference" href="../_images/gd_with_momentum.svg"><img alt="../_images/gd_with_momentum.svg" src="../_images/gd_with_momentum.svg" width="400px" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text">Momentum parameter (Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/momentum.html">classic.d2l.ai</a>).</span><a class="headerlink" href="#gd-with-momentum" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.5 </span><span class="caption-text">Momentum parameter (Source: <span id="id6">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://classic.d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/momentum.html">here</a>).</span><a class="headerlink" href="#gd-with-momentum" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -893,7 +888,7 @@ vis.ensmallen.org
 <figure class="align-center" id="sgd-2d">
 <a class="reference internal image-reference" href="../_images/sgd_2d.svg"><img alt="../_images/sgd_2d.svg" src="../_images/sgd_2d.svg" width="400px" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.7 </span><span class="caption-text">SGD trajectory (Source: <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">classic.d2l.ai</a>).</span><a class="headerlink" href="#sgd-2d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.7 </span><span class="caption-text">SGD trajectory (Source: <span id="id7">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://classic.d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">here</a>).</span><a class="headerlink" href="#sgd-2d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="minibatching">
@@ -914,43 +909,42 @@ vis.ensmallen.org
 <section id="second-order-methods">
 <h2><span class="section-number">4.3. </span>Second-Order Methods<a class="headerlink" href="#second-order-methods" title="Permalink to this headline">#</a></h2>
 <p>With first-order methods only taking the gradient itself into account there is much information we are leaving untapped in attempting to solve our optimization problem, such as gradient curvature for which we’d need 2nd order gradients.</p>
-<p>The reason for that is in part historic, automatic differentiation (to be explained in-depth in a later lecture) suffers from an exponential compute-graph blow-up when computing higher-order gradients. The automatic differentiation engines the first popularized machine learning engines from AlexNet, LeNet etc. were built on were unable to handle higher-order gradients for the above reason, and only modern automatic differentiation engines have been able to circumvent that problem. As such 2nd-order gradient methods have seen a recent resurgence with methods like <a class="reference external" href="https://research.google/pubs/pub47079/">Shampoo</a>, <a class="reference external" href="https://arxiv.org/pdf/2210.15255.pdf">RePAST</a>, and <a class="reference external" href="https://openreview.net/forum?id=cScb-RrBQC">Fishy</a>.</p>
-<section id="newton-s-method-aka-newton-raphson-method">
-<h3><span class="section-number">4.3.1. </span>Newton’s method (aka Newton-Raphson method)<a class="headerlink" href="#newton-s-method-aka-newton-raphson-method" title="Permalink to this headline">#</a></h3>
+<p>The reason for that is in part historic, automatic differentiation (to be explained in-depth in a later lecture) suffers from an exponential compute-graph blow-up when computing higher-order gradients. The automatic differentiation engines, the first popularized machine learning engines from AlexNet, LeNet etc. were built on, were unable to handle higher-order gradients for the above reason, and only modern automatic differentiation engines have been able to circumvent that problem. As such 2nd-order gradient methods have seen a recent resurgence with methods like <a class="reference external" href="https://research.google/pubs/pub47079/">Shampoo</a>, <a class="reference external" href="https://arxiv.org/pdf/2210.15255.pdf">RePAST</a>, and <a class="reference external" href="https://openreview.net/forum?id=cScb-RrBQC">Fishy</a>.</p>
+<section id="newton-s-method">
+<h3><span class="section-number">4.3.1. </span>Newton’s method<a class="headerlink" href="#newton-s-method" title="Permalink to this headline">#</a></h3>
+<p>(also <em>Newton-Raphson method</em>)</p>
 <p>A first example of the step toward second-order methods is the Newton method. It is an iterative method to find a zero of a differentiable function defined as <span class="math notranslate nohighlight">\(f: \mathbb{R} \rightarrow \mathbb{R}\)</span>. The Newton-method begins with an initial guess <span class="math notranslate nohighlight">\(x_{0}\)</span> to then iteratively update with</p>
-<div class="math notranslate nohighlight" id="equation-newton-method">
-<span class="eqno">(4.29)<a class="headerlink" href="#equation-newton-method" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \frac{f(x_{t})}{f'(x_{t})}\]</div>
+<div class="math notranslate nohighlight" id="equation-newtons-method">
+<span class="eqno">(4.29)<a class="headerlink" href="#equation-newtons-method" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \frac{f(x_{t})}{f'(x_{t})}\]</div>
 <p>Graphically speaking this amounts to the case of the tangent line of the function intersecting with the x-axis.</p>
 <figure class="align-center" id="newtons-method">
 <a class="reference internal image-reference" href="../_images/newtons_method.png"><img alt="../_images/newtons_method.png" src="../_images/newtons_method.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.8 </span><span class="caption-text">(Source: ).</span><a class="headerlink" href="#newtons-method" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.8 </span><span class="caption-text">Newton’s method (Source: <span id="id8">[<a class="reference internal" href="../references.html#id14" title="Bernd Gärtner and Martin Jaggi. Optimization for machine learning. 2023. URL: https://github.com/epfml/OptML_course/blob/master/lecture_notes/lecture-notes.pdf.">Gärtner and Jaggi, 2023</a>]</span>, Chapter 7).</span><a class="headerlink" href="#newtons-method" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The fallacies of this method are the cases where <span class="math notranslate nohighlight">\(f'(x_{t}) = 0\)</span>, and it will diverge when <span class="math notranslate nohighlight">\(|f'(x_{t})|\)</span> is very small. Going beyond the first-order update we can then utilize the second-order gradient if our (objective) function <span class="math notranslate nohighlight">\(f\)</span> is twice differentiable. Hence turning the update step into</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1} = x_{t} - \frac{f'(x_{t})}{f''(x_{t})}, \quad t&gt;0\]</div>
+<p>The fallacies of this method are the cases where <span class="math notranslate nohighlight">\(f'(x_{t}) = 0\)</span>, and it will diverge when <span class="math notranslate nohighlight">\(|f'(x_{t})|\)</span> is very small. Going beyond the first-order update, we can then utilize the second-order gradient if our (objective) function <span class="math notranslate nohighlight">\(f\)</span> is twice differentiable. Hence turning the update step into</p>
+<div class="math notranslate nohighlight" id="equation-newtons-method-optim">
+<span class="eqno">(4.30)<a class="headerlink" href="#equation-newtons-method-optim" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \frac{f'(x_{t})}{f''(x_{t})}, \quad t&gt;0\]</div>
 <p>Generalizing this update scheme in notation, we can use vector calculus to obtain</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1} = x_{t} - \nabla^{2} f(x_{t})^{-1} \nabla f(x_{t}), \quad t\geq 0\]</div>
+<div class="math notranslate nohighlight" id="equation-newtons-method-vec">
+<span class="eqno">(4.31)<a class="headerlink" href="#equation-newtons-method-vec" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \nabla^{2} f(x_{t})^{-1} \nabla f(x_{t}), \quad t\geq 0\]</div>
 <p><span class="math notranslate nohighlight">\(\nabla^{2} f(x_{t})^{-1}\)</span> constitutes the Hessian at <span class="math notranslate nohighlight">\(x_{t}\)</span>. As alluded to earlier the failure modes can then be formalized in the following fashion:</p>
 <ul class="simple">
 <li><p>The Hessian is not invertible.</p></li>
 <li><p>Gets out of control if the Hessian has a small norm.</p></li>
 </ul>
 <p>If we further generalize the notation to a general update scheme</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1} = x_{t} - H(x_{t}) \nabla f(x_{t})\]</div>
+<div class="math notranslate nohighlight" id="equation-newtons-method-simplified">
+<span class="eqno">(4.32)<a class="headerlink" href="#equation-newtons-method-simplified" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - H(x_{t}) \nabla f(x_{t})\]</div>
 <p>then we can simplify this update scheme to the gradient descent we already encountered in the last lecture by setting <span class="math notranslate nohighlight">\(H(x_{t}) = \gamma I\)</span>, where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. Newton’s method hence constitutes an adaptive gradient descent approach, where the adaptation happens with respect to the local geometry of the objective function at <span class="math notranslate nohighlight">\(x_{t}\)</span>.</p>
 <blockquote>
 <div><p>Where gradient descent requires the right step-size, Newton’s method converges naturally to the local minimum without the requirement of step-size tuning.</p>
 </div></blockquote>
 <p>To expand upon this, assume we have a linear system of equations</p>
-<div class="math notranslate nohighlight">
-\[M {\bf{x}} = {\bf{q}}\]</div>
-<p>then Newton’s method can solve this system in <strong>one</strong> step whereas gradient descent requires multiple steps with the right step size chosen. The downside to this is the expensive step of inverting matrix <span class="math notranslate nohighlight">\(M\)</span>. In our general case, this means we need to invert the expensive matrix</p>
-<div class="math notranslate nohighlight">
-\[\nabla^{2} f(x_{0}).\]</div>
+<div class="math notranslate nohighlight" id="equation-linear-system">
+<span class="eqno">(4.33)<a class="headerlink" href="#equation-linear-system" title="Permalink to this equation">#</a></span>\[M {\bf{x}} = {\bf{q}},\]</div>
+<p>then Newton’s method can solve this system in <strong>one</strong> step whereas gradient descent requires multiple steps with the right step size chosen. The downside to this is the expensive step of inverting matrix <span class="math notranslate nohighlight">\(M\)</span>. In our general case, this means we need to invert the expensive matrix <span class="math notranslate nohighlight">\(\nabla^{2} f(x_{0})\)</span>.</p>
 <p>Another advantage of Newton’s method is that it does not suffer from individual coordinates being at completely different scales, e.g. the <span class="math notranslate nohighlight">\(y\)</span>-direction changes very fast, whereas the <span class="math notranslate nohighlight">\(z\)</span>-direction only changes very slowly. Gradient descent only handles these cases suboptimally, whereas Newton’s method does not suffer from this shortcoming.</p>
 <blockquote>
 <div><p>Note: The Hessian has to be positive definite, otherwise we would end up in a local maximum.</p>
@@ -962,67 +956,64 @@ vis.ensmallen.org
 <p>With the main computational bottleneck of Newton’s approach being that the inversion of the Hessian matrix costs <span class="math notranslate nohighlight">\(\mathcal{O}(d^{3})\)</span> for a matrix of size <span class="math notranslate nohighlight">\(d \times d\)</span>, there exist multiple approaches which try to circumvent this costly operation.</p>
 <section id="the-secant-method">
 <h4><span class="section-number">4.3.2.1. </span>The Secant Method<a class="headerlink" href="#the-secant-method" title="Permalink to this headline">#</a></h4>
-<p>The secant method is an alternative to Newton’s method, which consciously does not use derivatives and has hence much less stringent requirements on our objective function such as it not needing to be differentiable. Essentially taking a finite difference approximation</p>
-<div class="math notranslate nohighlight">
-\[\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}}\]</div>
-<p>then we can replace the derivative in Newton’s method with the finite difference approximation, i.e.</p>
-<div class="math notranslate nohighlight">
-\[\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}} \approx f'(x_{t})\]</div>
+<p>The secant method is an alternative to Newton’s method, which consciously does not use derivatives and has hence much less stringent requirements on our objective function such as it not needing to be differentiable. We can replace the derivative in Newton’s method with the finite difference approximation, i.e.</p>
+<div class="math notranslate nohighlight" id="equation-fd-approx">
+<span class="eqno">(4.34)<a class="headerlink" href="#equation-fd-approx" title="Permalink to this equation">#</a></span>\[\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}} \approx f'(x_{t})\]</div>
 <p>for a small region around <span class="math notranslate nohighlight">\(x_{t}\)</span>. The secant update step then takes the following form</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1} = x_{t} - f(x_{t})\frac{x_{t} - x_{t-1}}{f(x_{t}) - f(x_{t-1})}, \quad t\geq 1\]</div>
-<p>to approximate the Newton step at the detriment of having to choose two starting values <span class="math notranslate nohighlight">\(x_{0}\)</span>, and <span class="math notranslate nohighlight">\(x_{1}\)</span> here. Figuratively speaking the approach looks like this:</p>
+<div class="math notranslate nohighlight" id="equation-secant-update">
+<span class="eqno">(4.35)<a class="headerlink" href="#equation-secant-update" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - f(x_{t})\frac{x_{t} - x_{t-1}}{f(x_{t}) - f(x_{t-1})}, \quad t\geq 1\]</div>
+<p>to approximate the Newton step at the detriment of having to choose two starting values <span class="math notranslate nohighlight">\(x_{0}\)</span>, and <span class="math notranslate nohighlight">\(x_{1}\)</span> here. Figuratively speaking, the approach looks like this:</p>
 <figure class="align-center" id="secant-method">
 <a class="reference internal image-reference" href="../_images/secant_method.png"><img alt="../_images/secant_method.png" src="../_images/secant_method.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.9 </span><span class="caption-text">(Source: ).</span><a class="headerlink" href="#secant-method" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.9 </span><span class="caption-text">Secant method (Source: <span id="id9">[<a class="reference internal" href="../references.html#id14" title="Bernd Gärtner and Martin Jaggi. Optimization for machine learning. 2023. URL: https://github.com/epfml/OptML_course/blob/master/lecture_notes/lecture-notes.pdf.">Gärtner and Jaggi, 2023</a>]</span>, Chapter 8).</span><a class="headerlink" href="#secant-method" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>What this approach then does is to construct the line through the two points <span class="math notranslate nohighlight">\((x_{t-1}, f(x_{t-1}))\)</span>, and <span class="math notranslate nohighlight">\((x_{t}, f(x_{t}))\)</span> on the graph of f, the next iteration is then given by the point where the line intersects the x-axis.</p>
 <p>When our function is first-order differentiable, we can also use the secant method to derive a second-derivative-free version of Newton’s method for optimization.</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1}=x_{t} - f'(x_{t})\frac{x_{t} - x_{t-1}}{f'(x_{t}) - f'(x_{t-1})}, \quad t \geq 1\]</div>
+<div class="math notranslate nohighlight" id="equation-secant-newton">
+<span class="eqno">(4.36)<a class="headerlink" href="#equation-secant-newton" title="Permalink to this equation">#</a></span>\[x_{t+1}=x_{t} - f'(x_{t})\frac{x_{t} - x_{t-1}}{f'(x_{t}) - f'(x_{t-1})}, \quad t \geq 1.\]</div>
 </section>
 <section id="quasi-newton-methods">
 <h4><span class="section-number">4.3.2.2. </span>Quasi-Newton Methods<a class="headerlink" href="#quasi-newton-methods" title="Permalink to this headline">#</a></h4>
 <p>If we consider the so-called secant condition, then we have the following approximation</p>
-<div class="math notranslate nohighlight">
-\[H_{t} = \frac{f'(x_{t}) - f'(x_{t-1})}{x_{t} - x_{t-1}} \approx f''(x_{t})\]</div>
+<div class="math notranslate nohighlight" id="equation-secant-approx">
+<span class="eqno">(4.37)<a class="headerlink" href="#equation-secant-approx" title="Permalink to this equation">#</a></span>\[H_{t} = \frac{f'(x_{t}) - f'(x_{t-1})}{x_{t} - x_{t-1}} \approx f''(x_{t}),\]</div>
 <p>then the secant method works with the following update step using the above approximation</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1} = x_{t} - H_{t}^{-1}f'(x_{t}), \quad t \geq 1.\]</div>
+<div class="math notranslate nohighlight" id="equation-secant-update2">
+<span class="eqno">(4.38)<a class="headerlink" href="#equation-secant-update2" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - H_{t}^{-1}f'(x_{t}), \quad t \geq 1.\]</div>
 <p>For this approximation to hold we need to satisfy the secant condition</p>
-<div class="math notranslate nohighlight">
-\[f'(x_{t}) - f'(x_{t-1}) = H_{t}(x_{t} - x_{t-1})\]</div>
+<div class="math notranslate nohighlight" id="equation-secant-conditions">
+<span class="eqno">(4.39)<a class="headerlink" href="#equation-secant-conditions" title="Permalink to this equation">#</a></span>\[f'(x_{t}) - f'(x_{t-1}) = H_{t}(x_{t} - x_{t-1}).\]</div>
 <p>Or generalized to higher dimensions</p>
-<div class="math notranslate nohighlight">
-\[\nabla f({\bf{x_{t}}}) - \nabla f({\bf{x_{t-1}}}) = H_{t}({\bf{x_{t}}} - {\bf{x_{t-1}}})\]</div>
+<div class="math notranslate nohighlight" id="equation-secant-condition-vec">
+<span class="eqno">(4.40)<a class="headerlink" href="#equation-secant-condition-vec" title="Permalink to this equation">#</a></span>\[\nabla f({\bf{x_{t}}}) - \nabla f({\bf{x_{t-1}}}) = H_{t}({\bf{x_{t}}} - {\bf{x_{t-1}}}).\]</div>
 <p>Whenever this condition is now fulfilled in conjunction with a <em>symmetric matrix</em>, then we have a <strong>Quasi-Newton method</strong>. As our matrix <span class="math notranslate nohighlight">\(H_{t} \approx \nabla^{2}f(x_{t})\)</span> only fluctuates very little during periods of very fast convergence, and Newton’s method is optimal with one step, then we can presume</p>
-<div class="math notranslate nohighlight">
-\[H_{t} \approx H_{t-1}\]</div>
+<div class="math notranslate nohighlight" id="equation-quasi-newton-assumption1">
+<span class="eqno">(4.41)<a class="headerlink" href="#equation-quasi-newton-assumption1" title="Permalink to this equation">#</a></span>\[H_{t} \approx H_{t-1}\]</div>
 <p>and equally as much</p>
-<div class="math notranslate nohighlight">
-\[H_{t}^{-1} \approx H_{t-1}^{-1}\]</div>
-<p>then we can following Greenstadt’s approach model <span class="math notranslate nohighlight">\(H_{t}\)</span> in the following fashion</p>
-<div class="math notranslate nohighlight">
-\[H_{t}^{-1} = H^{-1}_{t-1} + E_{t}.\]</div>
+<div class="math notranslate nohighlight" id="equation-quasi-newton-assumption2">
+<span class="eqno">(4.42)<a class="headerlink" href="#equation-quasi-newton-assumption2" title="Permalink to this equation">#</a></span>\[H_{t}^{-1} \approx H_{t-1}^{-1},\]</div>
+<p>then we can (following Greenstadt’s approach) model <span class="math notranslate nohighlight">\(H_{t}\)</span> in the following fashion</p>
+<div class="math notranslate nohighlight" id="equation-quasi-newton-h-decompositions">
+<span class="eqno">(4.43)<a class="headerlink" href="#equation-quasi-newton-h-decompositions" title="Permalink to this equation">#</a></span>\[H_{t}^{-1} = H^{-1}_{t-1} + E_{t}.\]</div>
 <p>I.e. our matrix <span class="math notranslate nohighlight">\(H_{t}\)</span>, the Hessian, only changes by a minor error matrix. These errors should also be as small as possible.</p>
 </section>
 <section id="bfgs">
 <h4><span class="section-number">4.3.2.3. </span>BFGS<a class="headerlink" href="#bfgs" title="Permalink to this headline">#</a></h4>
 <p>(Broyden–Fletcher–Goldfarb–Shanno)</p>
 <p>For the BFGS algorithm, this update matrix then assumes the form</p>
-<div class="math notranslate nohighlight">
-\[E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right)\]</div>
+<div class="math notranslate nohighlight" id="equation-bfgs-approx">
+<span class="eqno">(4.44)<a class="headerlink" href="#equation-bfgs-approx" title="Permalink to this equation">#</a></span>\[E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right),\]</div>
 <p>where <span class="math notranslate nohighlight">\(H=H_{t-1}^{-1}\)</span>, <span class="math notranslate nohighlight">\({\bf{\sigma}} = x_{t} - x_{t-1}\)</span>, and <span class="math notranslate nohighlight">\(y = \nabla f(x_{t}) - \nabla f(x_{t-1})\)</span>.</p>
 <p>One of the core advantages of BFGS is that if <span class="math notranslate nohighlight">\(H'\)</span> is positive definite, then the update <span class="math notranslate nohighlight">\(E\)</span> maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original <span class="math notranslate nohighlight">\(\mathcal{O}(d^{3})\)</span> for a matrix of size <span class="math notranslate nohighlight">\(d \times d\)</span> to <span class="math notranslate nohighlight">\(\mathcal{O}(d^{2})\)</span> for the BFGS approach. Scaling the update step, the individual iteration then becomes</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1\]</div>
+<div class="math notranslate nohighlight" id="equation-bfgs-update">
+<span class="eqno">(4.45)<a class="headerlink" href="#equation-bfgs-update" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1\]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha\)</span> can be chosen such that a line search is performed, and where <span class="math notranslate nohighlight">\(H_{t}^{-1}\)</span> is the BFGS approximation. In a pseudo-algorithmic form this then looks the following way:</p>
 <figure class="align-center" id="bfgs-alg">
 <a class="reference internal image-reference" href="../_images/bfgs_alg.png"><img alt="../_images/bfgs_alg.png" src="../_images/bfgs_alg.png" style="width: 280px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.10 </span><span class="caption-text">(Source: ).</span><a class="headerlink" href="#bfgs-alg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.10 </span><span class="caption-text">BFGS algorithm (Source: <span id="id10">[<a class="reference internal" href="../references.html#id14" title="Bernd Gärtner and Martin Jaggi. Optimization for machine learning. 2023. URL: https://github.com/epfml/OptML_course/blob/master/lecture_notes/lecture-notes.pdf.">Gärtner and Jaggi, 2023</a>]</span>, Chapter 8).</span><a class="headerlink" href="#bfgs-alg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -1030,14 +1021,14 @@ vis.ensmallen.org
 <h4><span class="section-number">4.3.2.4. </span>L-BFGS<a class="headerlink" href="#l-bfgs" title="Permalink to this headline">#</a></h4>
 <p>(Limited-memory BFGS)</p>
 <p>Especially in high dimensions a cost of <span class="math notranslate nohighlight">\(\mathcal{O}(d^{2})\)</span> may still be too prohibitive. Only using information from the past <span class="math notranslate nohighlight">\(m\)</span> iterations for <span class="math notranslate nohighlight">\(m\)</span> being a small value, L-BFGS then approximates the entire <span class="math notranslate nohighlight">\(H'\nabla f(x_{t})\)</span> term. L-BFGS then builds on modeling <span class="math notranslate nohighlight">\(H'\)</span> as</p>
-<div class="math notranslate nohighlight">
-\[H' = \left( I - \frac{\sigma y^{\top}}{y^{\top}\sigma} \right) H \left( I - \frac{y \sigma^{\top}}{y^{\top}\sigma} \right) + \frac{\sigma \sigma^{\top}}{y^{\top} \sigma}\]</div>
-<p>then we are able to utilize an oracle to compute</p>
-<div class="math notranslate nohighlight">
-\[ s= H g\]</div>
+<div class="math notranslate nohighlight" id="equation-lbfgs-approx">
+<span class="eqno">(4.46)<a class="headerlink" href="#equation-lbfgs-approx" title="Permalink to this equation">#</a></span>\[H' = \left( I - \frac{\sigma y^{\top}}{y^{\top}\sigma} \right) H \left( I - \frac{y \sigma^{\top}}{y^{\top}\sigma} \right) + \frac{\sigma \sigma^{\top}}{y^{\top} \sigma}.\]</div>
+<p>Then, we are able to utilize an oracle to compute</p>
+<div class="math notranslate nohighlight" id="equation-lbfgs-s">
+<span class="eqno">(4.47)<a class="headerlink" href="#equation-lbfgs-s" title="Permalink to this equation">#</a></span>\[s= H g\]</div>
 <p>for any vector <span class="math notranslate nohighlight">\(g\)</span>. Then <span class="math notranslate nohighlight">\(s' = H'g'\)</span> can be computed with one oracle call and <span class="math notranslate nohighlight">\(\mathcal{O}(d)\)</span> additional arithmetic operations, assuming that <span class="math notranslate nohighlight">\(\sigma\)</span>, and <span class="math notranslate nohighlight">\(y\)</span> are known. We then define <span class="math notranslate nohighlight">\(\sigma\)</span>, and <span class="math notranslate nohighlight">\(y\)</span> in the following fashion</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
+<div class="math notranslate nohighlight" id="equation-lbfsg-approx2">
+<span class="eqno">(4.48)<a class="headerlink" href="#equation-lbfsg-approx2" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
     \sigma_{k} &amp;= x_{k} - x_{k-1} \\
     y_{k} &amp;= \nabla f(x_{k}) - \nabla f(x_{k-1})
 \end{align}\end{split}\]</div>
@@ -1045,7 +1036,7 @@ vis.ensmallen.org
 <figure class="align-center" id="lbfgs-alg">
 <a class="reference internal image-reference" href="../_images/lbfgs_alg.png"><img alt="../_images/lbfgs_alg.png" src="../_images/lbfgs_alg.png" style="width: 300px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.11 </span><span class="caption-text">(Source: ).</span><a class="headerlink" href="#lbfgs-alg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4.11 </span><span class="caption-text">L-BFGS algorithm (Source: <span id="id11">[<a class="reference internal" href="../references.html#id14" title="Bernd Gärtner and Martin Jaggi. Optimization for machine learning. 2023. URL: https://github.com/epfml/OptML_course/blob/master/lecture_notes/lecture-notes.pdf.">Gärtner and Jaggi, 2023</a>]</span>, Chapter 8).</span><a class="headerlink" href="#lbfgs-alg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>where in the case of the recursion bottoming out prematurely at a point <span class="math notranslate nohighlight">\(k=t-m\)</span>, then we pretend that we just started the computation at that point and use <span class="math notranslate nohighlight">\(H_{0}\)</span>.</p>
@@ -1072,30 +1063,37 @@ vis.ensmallen.org
 </ul>
 </li>
 </ul>
-<p>In local search for example we replace the entire gradient update with</p>
-<div class="math notranslate nohighlight">
-\[x_{t+1} = \underset{x \in nbr(x_{t})}{\text{argmax}}\]</div>
+<p>In local search, for example, we replace the entire gradient update with</p>
+<div class="math notranslate nohighlight" id="equation-local-search">
+<span class="eqno">(4.49)<a class="headerlink" href="#equation-local-search" title="Permalink to this equation">#</a></span>\[x_{t+1} = \underset{x \in nbr(x_{t})}{\text{argmax}}\]</div>
 <p>where <span class="math notranslate nohighlight">\(nbr\)</span> is the neighborhood of the point <span class="math notranslate nohighlight">\(x_{t}\)</span>. This approach is also colloquially known as hill climbing, steepest ascent, or greedy search. In stochastic local search, we would then define a probability distribution over the uphill neighbors proportional to how much they improve our function and then sample at random. A second stochastic option is to start again from a different random starting point whenever we reach a local maximum. This approach is known as random restart hill climbing.</p>
-<p>An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate <span class="math notranslate nohighlight">\(x_{t+1}\)</span> is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">J. Bergstra &amp; Y. Bengio, 20212</a>), is the grid search, which chooses hyperparameters equidistantly in the same range used for grid search.</p>
+<p>An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate <span class="math notranslate nohighlight">\(x_{t+1}\)</span> is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">J. Bergstra &amp; Y. Bengio, 20212</a>), is the grid search, which chooses hyperparameters equidistantly in the same range used for random search.</p>
 <figure class="align-center" id="grid-vs-random-search">
 <a class="reference internal image-reference" href="../_images/grid_vs_random_search.png"><img alt="../_images/grid_vs_random_search.png" src="../_images/grid_vs_random_search.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4.12 </span><span class="caption-text">(Source: ).
-``´</span><a class="headerlink" href="#grid-vs-random-search" title="Permalink to this image">#</a></p>
-<div class="legend">
-<p>(Source: <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">Random Search for Hyper-Parameter Optimization</a>)</p>
-<p>If instead of throwing away our “old” good candidates keep them in a <em>population</em> of good candidates, then we arrive at <em>evolutionary algorithms</em>. Here we maintain a population of <span class="math notranslate nohighlight">\(K\)</span> good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.</p>
-</div>
+<p><span class="caption-number">Fig. 4.12 </span><span class="caption-text">(Source: <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">Random Search for Hyper-Parameter Optimization</a>).</span><a class="headerlink" href="#grid-vs-random-search" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<p>If instead of throwing away our “old” good candidates keep them in a <em>population</em> of good candidates, then we arrive at <em>evolutionary algorithms</em>. Here we maintain a population of <span class="math notranslate nohighlight">\(K\)</span> good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.</p>
 </section>
 <section id="further-references">
 <h2><span class="section-number">4.5. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
-<p><strong>Gradient-Based Optimization</strong></p>
+<p><strong>Basics of Optimization</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://mlstory.org/optimization.html">Patterns, Predictions, and Actions</a>, Chapter 5. Optimization; M. Hardt and B. Recht; 2022</p></li>
-<li><p><a class="reference external" href="https://d2l.ai/chapter_optimization/index.html">Dive into Deep Learning</a>, Chapter 12. Optimization Algorithms</p></li>
+<li><p><span id="id12">[<a class="reference internal" href="../references.html#id10" title="Moritz Hardt and Benjamin Recht. Patterns, predictions, and actions: Foundations of machine learning. Princeton University Press, 2022. URL: https://mlstory.org/.">Hardt and Recht, 2022</a>]</span>, Chapter 5</p></li>
+<li><p><span id="id13">[<a class="reference internal" href="../references.html#id11" title="Stephen P. Boyd and Lieven Vandenberghe. Convex optimization. Cambridge University Press, 2004. ISBN 978-0-521-83378-3. URL: https://web.stanford.edu/~boyd/cvxbook/.">Boyd and Vandenberghe, 2004</a>]</span>, Chapter 1</p></li>
+</ul>
+<p><strong>First-Order Optimization</strong></p>
+<ul class="simple">
+<li><p><span id="id14">[<a class="reference internal" href="../references.html#id10" title="Moritz Hardt and Benjamin Recht. Patterns, predictions, and actions: Foundations of machine learning. Princeton University Press, 2022. URL: https://mlstory.org/.">Hardt and Recht, 2022</a>]</span>, Chapter 5</p></li>
+<li><p><span id="id15">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://classic.d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, Chapter Optimization Algorithms</p></li>
+<li><p><span id="id16">[<a class="reference internal" href="../references.html#id11" title="Stephen P. Boyd and Lieven Vandenberghe. Convex optimization. Cambridge University Press, 2004. ISBN 978-0-521-83378-3. URL: https://web.stanford.edu/~boyd/cvxbook/.">Boyd and Vandenberghe, 2004</a>]</span>, Chapter 9</p></li>
 <li><p><a class="reference external" href="https://ruder.io/optimizing-gradient-descent/">An overview of gradient descent optimization algorithms</a>, S. Ruder; 2016</p></li>
+</ul>
+<p><strong>Second-Order Optimization</strong></p>
+<ul class="simple">
+<li><p><span id="id17">[<a class="reference internal" href="../references.html#id13" title="Jorge Nocedal and Stephen J. Wright. Numerical optimization. Springer, 2006. ISBN 978-0-387-30303-1. URL: https://link.springer.com/book/10.1007/978-0-387-40065-5.">Nocedal and Wright, 2006</a>]</span>, Chapters 3 and 6</p></li>
+<li><p><span id="id18">[<a class="reference internal" href="../references.html#id14" title="Bernd Gärtner and Martin Jaggi. Optimization for machine learning. 2023. URL: https://github.com/epfml/OptML_course/blob/master/lecture_notes/lecture-notes.pdf.">Gärtner and Jaggi, 2023</a>]</span>, Chapters 7 and 8</p></li>
 </ul>
 </section>
 </section>
