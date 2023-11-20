@@ -266,7 +266,7 @@ The generated sample only constitute an approximation, but given the sampling bu
     - To get an approximation of the scaling factor for the posterior we have to utilize sampling-based Monte Carlo techniques to approximate the requisite integral.
 
 
-## Bayesian Approaches to Regression
+## Bayesian Linear Models
 
 If we are faced with the scenario of having very little data, then we ideally seek to quantify the uncertainty of our model and preserve the predictive utility of our machine learning model. The right approach to this is to extend Linear Regression, and Logistic Regression with the just presented Bayesian Approach utilizing Bayesian Inference.
 
