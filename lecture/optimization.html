@@ -543,8 +543,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#blackbox-or-derivative-free-optimization-dfo">
-   4.4. Blackbox or Derivative Free Optimization (DFO)
+  <a class="reference internal nav-link" href="#derivative-free-optimization-dfo">
+   4.4. Derivative-Free Optimization (DFO)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -664,8 +664,8 @@ title="Print to PDF"
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#blackbox-or-derivative-free-optimization-dfo">
-   4.4. Blackbox or Derivative Free Optimization (DFO)
+  <a class="reference internal nav-link" href="#derivative-free-optimization-dfo">
+   4.4. Derivative-Free Optimization (DFO)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -929,15 +929,15 @@ title="Print to PDF"
 <p>Generalizing this update scheme in notation, we can use vector calculus to obtain</p>
 <div class="math notranslate nohighlight" id="equation-newtons-method-vec">
 <span class="eqno">(4.31)<a class="headerlink" href="#equation-newtons-method-vec" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \nabla^{2} f(x_{t})^{-1} \nabla f(x_{t}), \quad t\geq 0\]</div>
-<p><span class="math notranslate nohighlight">\(\nabla^{2} f(x_{t})^{-1}\)</span> constitutes the Hessian at <span class="math notranslate nohighlight">\(x_{t}\)</span>. As alluded to earlier the failure modes can then be formalized in the following fashion:</p>
+<p><span class="math notranslate nohighlight">\(\nabla^{2} f(x_{t})^{-1}\)</span> constitutes the inverse of the Hessian at <span class="math notranslate nohighlight">\(x_{t}\)</span>. As alluded to earlier the failure modes can then be formalized in the following fashion:</p>
 <ul class="simple">
 <li><p>The Hessian is not invertible.</p></li>
 <li><p>Gets out of control if the Hessian has a small norm.</p></li>
 </ul>
 <p>If we further generalize the notation to a general update scheme</p>
 <div class="math notranslate nohighlight" id="equation-newtons-method-simplified">
-<span class="eqno">(4.32)<a class="headerlink" href="#equation-newtons-method-simplified" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - H(x_{t}) \nabla f(x_{t})\]</div>
-<p>then we can simplify this update scheme to the gradient descent we already encountered in the last lecture by setting <span class="math notranslate nohighlight">\(H(x_{t}) = \gamma I\)</span>, where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. Newton’s method hence constitutes an adaptive gradient descent approach, where the adaptation happens with respect to the local geometry of the objective function at <span class="math notranslate nohighlight">\(x_{t}\)</span>.</p>
+<span class="eqno">(4.32)<a class="headerlink" href="#equation-newtons-method-simplified" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \tilde{H}(x_{t}) \nabla f(x_{t})\]</div>
+<p>then we can simplify this update scheme to the gradient descent we already encountered in the last lecture by setting <span class="math notranslate nohighlight">\(\tilde{H}(x_{t}) = \gamma I\)</span>, where <span class="math notranslate nohighlight">\(I\)</span> is the identity matrix. With <span class="math notranslate nohighlight">\(\tilde{H}=\nabla^2f(x)^{-1}\)</span> we recover Newton’s method. Newton’s method hence constitutes an adaptive gradient descent approach, where the adaptation happens with respect to the local geometry of the objective function at <span class="math notranslate nohighlight">\(x_{t}\)</span>.</p>
 <blockquote>
 <div><p>Where gradient descent requires the right step-size, Newton’s method converges naturally to the local minimum without the requirement of step-size tuning.</p>
 </div></blockquote>
@@ -982,7 +982,7 @@ title="Print to PDF"
 <p>then the secant method works with the following update step using the above approximation</p>
 <div class="math notranslate nohighlight" id="equation-secant-update2">
 <span class="eqno">(4.38)<a class="headerlink" href="#equation-secant-update2" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - H_{t}^{-1}f'(x_{t}), \quad t \geq 1.\]</div>
-<p>For this approximation to hold we need to satisfy the secant condition</p>
+<p>For this approximation to hold we need to satisfy the <em>secant condition</em></p>
 <div class="math notranslate nohighlight" id="equation-secant-conditions">
 <span class="eqno">(4.39)<a class="headerlink" href="#equation-secant-conditions" title="Permalink to this equation">#</a></span>\[f'(x_{t}) - f'(x_{t-1}) = H_{t}(x_{t} - x_{t-1}).\]</div>
 <p>Or generalized to higher dimensions</p>
@@ -997,7 +997,7 @@ title="Print to PDF"
 <p>then we can (following Greenstadt’s approach) model <span class="math notranslate nohighlight">\(H_{t}\)</span> in the following fashion</p>
 <div class="math notranslate nohighlight" id="equation-quasi-newton-h-decompositions">
 <span class="eqno">(4.43)<a class="headerlink" href="#equation-quasi-newton-h-decompositions" title="Permalink to this equation">#</a></span>\[H_{t}^{-1} = H^{-1}_{t-1} + E_{t}.\]</div>
-<p>I.e. our matrix <span class="math notranslate nohighlight">\(H_{t}\)</span>, the Hessian, only changes by a minor error matrix. These errors should also be as small as possible.</p>
+<p>I.e. our matrix <span class="math notranslate nohighlight">\(H_{t}\)</span>, the Hessian, only changes by a minor error matrix <span class="math notranslate nohighlight">\(E_t\)</span>. These errors should also be as small as possible.</p>
 </section>
 <section id="bfgs">
 <h4><span class="section-number">4.3.2.3. </span>BFGS<a class="headerlink" href="#bfgs" title="Permalink to this headline">#</a></h4>
@@ -1005,8 +1005,8 @@ title="Print to PDF"
 <p>For the BFGS algorithm, this update matrix then assumes the form</p>
 <div class="math notranslate nohighlight" id="equation-bfgs-approx">
 <span class="eqno">(4.44)<a class="headerlink" href="#equation-bfgs-approx" title="Permalink to this equation">#</a></span>\[E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right),\]</div>
-<p>where <span class="math notranslate nohighlight">\(H=H_{t-1}^{-1}\)</span>, <span class="math notranslate nohighlight">\({\bf{\sigma}} = x_{t} - x_{t-1}\)</span>, and <span class="math notranslate nohighlight">\(y = \nabla f(x_{t}) - \nabla f(x_{t-1})\)</span>.</p>
-<p>One of the core advantages of BFGS is that if <span class="math notranslate nohighlight">\(H'\)</span> is positive definite, then the update <span class="math notranslate nohighlight">\(E\)</span> maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original <span class="math notranslate nohighlight">\(\mathcal{O}(d^{3})\)</span> for a matrix of size <span class="math notranslate nohighlight">\(d \times d\)</span> to <span class="math notranslate nohighlight">\(\mathcal{O}(d^{2})\)</span> for the BFGS approach. Scaling the update step, the individual iteration then becomes</p>
+<p>where we simplified notation to <span class="math notranslate nohighlight">\(H=H_{t-1}^{-1}\)</span>, <span class="math notranslate nohighlight">\({\bf{\sigma}} = x_{t} - x_{t-1}\)</span>, and <span class="math notranslate nohighlight">\(y = \nabla f(x_{t}) - \nabla f(x_{t-1})\)</span>.</p>
+<p>One of the core advantages of BFGS is that if <span class="math notranslate nohighlight">\(H':=H_{t}^{-1}\)</span> is positive definite, then the update <span class="math notranslate nohighlight">\(E\)</span> maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original <span class="math notranslate nohighlight">\(\mathcal{O}(d^{3})\)</span> for a matrix of size <span class="math notranslate nohighlight">\(d \times d\)</span> to <span class="math notranslate nohighlight">\(\mathcal{O}(d^{2})\)</span> for the BFGS approach. Scaling the update step, the individual iteration then becomes</p>
 <div class="math notranslate nohighlight" id="equation-bfgs-update">
 <span class="eqno">(4.45)<a class="headerlink" href="#equation-bfgs-update" title="Permalink to this equation">#</a></span>\[x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1\]</div>
 <p>where <span class="math notranslate nohighlight">\(\alpha\)</span> can be chosen such that a line search is performed, and where <span class="math notranslate nohighlight">\(H_{t}^{-1}\)</span> is the BFGS approximation. In a pseudo-algorithmic form this then looks the following way:</p>
@@ -1043,8 +1043,9 @@ title="Print to PDF"
 </section>
 </section>
 </section>
-<section id="blackbox-or-derivative-free-optimization-dfo">
-<h2><span class="section-number">4.4. </span>Blackbox or Derivative Free Optimization (DFO)<a class="headerlink" href="#blackbox-or-derivative-free-optimization-dfo" title="Permalink to this headline">#</a></h2>
+<section id="derivative-free-optimization-dfo">
+<h2><span class="section-number">4.4. </span>Derivative-Free Optimization (DFO)<a class="headerlink" href="#derivative-free-optimization-dfo" title="Permalink to this headline">#</a></h2>
+<p>(also <em>Blackbox optimizations</em>)</p>
 <p>If we are unable to compute gradients for any reason, then we need to rely on derivative-free optimization (DFO). This is most commonly used in blackbox function optimization, or discrete optimization.</p>
 <blockquote>
 <div><p>If you as an engineer would have to optimize the design of some model given to you, but where you are not allowed to touch the code or even look at the code of the model, but only query it for outputs, then this would constitute a case of blackbox function optimization.</p>
@@ -1067,7 +1068,7 @@ title="Print to PDF"
 <div class="math notranslate nohighlight" id="equation-local-search">
 <span class="eqno">(4.49)<a class="headerlink" href="#equation-local-search" title="Permalink to this equation">#</a></span>\[x_{t+1} = \underset{x \in nbr(x_{t})}{\text{argmax}}\]</div>
 <p>where <span class="math notranslate nohighlight">\(nbr\)</span> is the neighborhood of the point <span class="math notranslate nohighlight">\(x_{t}\)</span>. This approach is also colloquially known as hill climbing, steepest ascent, or greedy search. In stochastic local search, we would then define a probability distribution over the uphill neighbors proportional to how much they improve our function and then sample at random. A second stochastic option is to start again from a different random starting point whenever we reach a local maximum. This approach is known as random restart hill climbing.</p>
-<p>An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate <span class="math notranslate nohighlight">\(x_{t+1}\)</span> is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">J. Bergstra &amp; Y. Bengio, 20212</a>), is the grid search, which chooses hyperparameters equidistantly in the same range used for random search.</p>
+<p>An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate <span class="math notranslate nohighlight">\(x_{t+1}\)</span> is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see <a class="reference external" href="https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf">Random Search for Hyper-Parameter Optimization</a> by Bergstra and Bengio, 2012), is the grid search, which chooses hyperparameters equidistantly in the same range used for random search.</p>
 <figure class="align-center" id="grid-vs-random-search">
 <a class="reference internal image-reference" href="../_images/grid_vs_random_search.png"><img alt="../_images/grid_vs_random_search.png" src="../_images/grid_vs_random_search.png" style="width: 600px;" /></a>
 <figcaption>
@@ -1092,8 +1093,8 @@ title="Print to PDF"
 </ul>
 <p><strong>Second-Order Optimization</strong></p>
 <ul class="simple">
-<li><p><span id="id17">[<a class="reference internal" href="../references.html#id13" title="Jorge Nocedal and Stephen J. Wright. Numerical optimization. Springer, 2006. ISBN 978-0-387-30303-1. URL: https://link.springer.com/book/10.1007/978-0-387-40065-5.">Nocedal and Wright, 2006</a>]</span>, Chapters 3 and 6</p></li>
-<li><p><span id="id18">[<a class="reference internal" href="../references.html#id14" title="Bernd Gärtner and Martin Jaggi. Optimization for machine learning. 2023. URL: https://github.com/epfml/OptML_course/blob/master/lecture_notes/lecture-notes.pdf.">Gärtner and Jaggi, 2023</a>]</span>, Chapters 7 and 8</p></li>
+<li><p><span id="id17">[<a class="reference internal" href="../references.html#id14" title="Bernd Gärtner and Martin Jaggi. Optimization for machine learning. 2023. URL: https://github.com/epfml/OptML_course/blob/master/lecture_notes/lecture-notes.pdf.">Gärtner and Jaggi, 2023</a>]</span>, Chapters 7 and 8</p></li>
+<li><p><span id="id18">[<a class="reference internal" href="../references.html#id13" title="Jorge Nocedal and Stephen J. Wright. Numerical optimization. Springer, 2006. ISBN 978-0-387-30303-1. URL: https://link.springer.com/book/10.1007/978-0-387-40065-5.">Nocedal and Wright, 2006</a>]</span>, Chapters 3 and 6</p></li>
 </ul>
 </section>
 </section>

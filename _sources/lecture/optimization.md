@@ -307,16 +307,16 @@ Generalizing this update scheme in notation, we can use vector calculus to obtai
 
 $$x_{t+1} = x_{t} - \nabla^{2} f(x_{t})^{-1} \nabla f(x_{t}), \quad t\geq 0$$ (newtons_method_vec)
 
-$\nabla^{2} f(x_{t})^{-1}$ constitutes the Hessian at $x_{t}$. As alluded to earlier the failure modes can then be formalized in the following fashion:
+$\nabla^{2} f(x_{t})^{-1}$ constitutes the inverse of the Hessian at $x_{t}$. As alluded to earlier the failure modes can then be formalized in the following fashion:
 
 - The Hessian is not invertible.
 - Gets out of control if the Hessian has a small norm.
 
 If we further generalize the notation to a general update scheme
 
-$$x_{t+1} = x_{t} - H(x_{t}) \nabla f(x_{t})$$ (newtons_method_simplified)
+$$x_{t+1} = x_{t} - \tilde{H}(x_{t}) \nabla f(x_{t})$$ (newtons_method_simplified)
 
-then we can simplify this update scheme to the gradient descent we already encountered in the last lecture by setting $H(x_{t}) = \gamma I$, where $I$ is the identity matrix. Newton's method hence constitutes an adaptive gradient descent approach, where the adaptation happens with respect to the local geometry of the objective function at $x_{t}$.
+then we can simplify this update scheme to the gradient descent we already encountered in the last lecture by setting $\tilde{H}(x_{t}) = \gamma I$, where $I$ is the identity matrix. With $\tilde{H}=\nabla^2f(x)^{-1}$ we recover Newton's method. Newton's method hence constitutes an adaptive gradient descent approach, where the adaptation happens with respect to the local geometry of the objective function at $x_{t}$.
 
 > Where gradient descent requires the right step-size, Newton's method converges naturally to the local minimum without the requirement of step-size tuning.
 
@@ -376,7 +376,7 @@ then the secant method works with the following update step using the above appr
 
 $$x_{t+1} = x_{t} - H_{t}^{-1}f'(x_{t}), \quad t \geq 1.$$ (secant_update2)
 
-For this approximation to hold we need to satisfy the secant condition 
+For this approximation to hold we need to satisfy the _secant condition_ 
 
 $$f'(x_{t}) - f'(x_{t-1}) = H_{t}(x_{t} - x_{t-1}).$$ (secant_conditions)
 
@@ -397,7 +397,7 @@ then we can (following Greenstadt's approach) model $H_{t}$ in the following fas
 
 $$H_{t}^{-1} = H^{-1}_{t-1} + E_{t}.$$ (quasi_newton_h_decompositions)
 
-I.e. our matrix $H_{t}$, the Hessian, only changes by a minor error matrix. These errors should also be as small as possible.
+I.e. our matrix $H_{t}$, the Hessian, only changes by a minor error matrix $E_t$. These errors should also be as small as possible.
 
 
 #### BFGS
@@ -407,9 +407,9 @@ For the BFGS algorithm, this update matrix then assumes the form
 
 $$E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right),$$ (bfgs_approx)
 
-where $H=H_{t-1}^{-1}$, ${\bf{\sigma}} = x_{t} - x_{t-1}$, and $y = \nabla f(x_{t}) - \nabla f(x_{t-1})$.
+where we simplified notation to $H=H_{t-1}^{-1}$, ${\bf{\sigma}} = x_{t} - x_{t-1}$, and $y = \nabla f(x_{t}) - \nabla f(x_{t-1})$.
 
-One of the core advantages of BFGS is that if $H'$ is positive definite, then the update $E$ maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$ to $\mathcal{O}(d^{2})$ for the BFGS approach. Scaling the update step, the individual iteration then becomes
+One of the core advantages of BFGS is that if $H':=H_{t}^{-1}$ is positive definite, then the update $E$ maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$ to $\mathcal{O}(d^{2})$ for the BFGS approach. Scaling the update step, the individual iteration then becomes
 
 $$x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1$$ (bfgs_update)
 
@@ -456,7 +456,9 @@ L-BFGS algorithm (Source: {cite}`gaertner2023`, Chapter 8).
 where in the case of the recursion bottoming out prematurely at a point $k=t-m$, then we pretend that we just started the computation at that point and use $H_{0}$.
 
 
-## Blackbox or Derivative Free Optimization (DFO)
+## Derivative-Free Optimization (DFO)
+
+(also *Blackbox optimizations*)
 
 If we are unable to compute gradients for any reason, then we need to rely on derivative-free optimization (DFO). This is most commonly used in blackbox function optimization, or discrete optimization.
 
@@ -476,7 +478,7 @@ $$x_{t+1} = \underset{x \in nbr(x_{t})}{\text{argmax}}$$ (local_search)
 
 where $nbr$ is the neighborhood of the point $x_{t}$. This approach is also colloquially known as hill climbing, steepest ascent, or greedy search. In stochastic local search, we would then define a probability distribution over the uphill neighbors proportional to how much they improve our function and then sample at random. A second stochastic option is to start again from a different random starting point whenever we reach a local maximum. This approach is known as random restart hill climbing.
 
-An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see [J. Bergstra & Y. Bengio, 20212](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)), is the grid search, which chooses hyperparameters equidistantly in the same range used for random search.
+An effective strategy here is also random search, which should be the go-to baseline one attempts first when approaching a new problem. Here an iterate $x_{t+1}$ is chosen uniformly at random from the set of iterates. An alternative, which has been proven to be less efficient (see [Random Search for Hyper-Parameter Optimization](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf) by Bergstra and Bengio, 2012), is the grid search, which chooses hyperparameters equidistantly in the same range used for random search.
 
 ```{figure} ../imgs/grid_vs_random_search.png
 ---
@@ -506,5 +508,5 @@ If instead of throwing away our "old" good candidates keep them in a _population
 
 **Second-Order Optimization**
 
-- {cite}`nocedal2006`, Chapters 3 and 6
 - {cite}`gaertner2023`, Chapters 7 and 8
+- {cite}`nocedal2006`, Chapters 3 and 6
