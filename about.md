@@ -1,6 +1,6 @@
 # About this Lecture
 
-Welcome to the 3rd edition of the *Introduction to Scientific Machine Learnign for Engineers* in the winter semester 2023/2024! We are looking forward to a hopefully great semester, and to excite as many of you as possible for Scientific Machine Learning.
+Welcome to the 3rd edition of the *Introduction to Scientific Machine Learning for Engineers* in the winter semester 2023/2024! We are looking forward to a hopefully great semester, and to excite as many of you as possible for Scientific Machine Learning.
 
 The course breaks down into an introduction to the topic, followed by 4 core content blocks which are interspersed with practice problems while being supported by JuPyter notebook-based tutorials for the practical application of the learned concepts.
 
@@ -11,12 +11,24 @@ The course breaks down into an introduction to the topic, followed by 4 core con
 
 > Questions should preferably be posted in the Moodle, or else be sent to Artur Toshev.
 
+## Citation
+
+Please cite this work as:
+
+```bibtex
+@article{paehler2023sciml,
+  title={Introduction to Scientific Machine Learning for Engineers},
+  author={Ludger Paehler and Artur P Toshev and Nikolaus A Adams},
+  url={https://tumaer.github.io/SciML/about.html},
+  year={2023},
+}
+```
+
 ## Outline
 
 ```{tableofcontents}
 ```
 
-<br>
 <br>
 <br>
 
