@@ -176,7 +176,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="cnn.html">
-   10. Convolutional Neural Network
+   10. Convolutional Neural Networks
   </a>
  </li>
  <li class="toctree-l1">
@@ -203,7 +203,7 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../exercise/bayes.html">
-   2. Bayesian Linear and Logistic Regression
+   2. Bayesian Linear Models
   </a>
  </li>
  <li class="toctree-l1">
@@ -223,12 +223,12 @@ const thebe_selector_output = ".output, .cell_output"
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../exercise/cnn.html">
-   6. CNNs
+   6. Convolutional Neural Networks
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../exercise/rnn.html">
-   7. RNNs
+   7. Recurrent Neural Networks
   </a>
  </li>
 </ul>
@@ -451,80 +451,68 @@ title="Print to PDF"
     <nav id="bd-toc-nav" aria-label="Page">
         <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   5.1. Tricks of Optimization
+  <a class="reference internal nav-link" href="#under-and-overfitting">
+   5.1. Under- and Overfitting
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overfitting-vs-underfitting">
-     5.1.1. Overfitting vs Underfitting
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#bias-variance-tradeoff">
-       5.1.1.1. Bias-Variance Tradeoff
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#advanced-topics-double-descent">
-       5.1.1.2. Advanced Topics: Double Descent
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-splitting">
-     5.1.2. Data Splitting
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#cross-validation">
-       5.1.2.1. Cross Validation
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#regularization">
-     5.1.3. Regularization
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#l-p-norm">
-       5.1.3.1.
-       <span class="math notranslate nohighlight">
-        \(l_p\)
-       </span>
-       norm
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#input-normalization-and-parameter-initialization">
-     5.1.4. Input Normalization and Parameter Initialization
+    <a class="reference internal nav-link" href="#bias-variance-tradeoff">
+     5.1.1. Bias-Variance Tradeoff
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hyperparameter-search">
-     5.1.5. Hyperparameter Search
+    <a class="reference internal nav-link" href="#advanced-topics-double-descent">
+     5.1.2. Advanced Topics: Double Descent
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-splitting">
+   5.2. Data Splitting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#k-fold-cross-validation">
+     5.2.1.
+     <span class="math notranslate nohighlight">
+      \(k\)
+     </span>
+     -fold Cross Validation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regularization">
+   5.3. Regularization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#input-output-normalization-and-parameter-initialization">
+   5.4. Input/Output Normalization and Parameter Initialization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hyperparameter-search">
+   5.5. Hyperparameter Search
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#learning-rate-scheduling">
-     5.1.6. Learning Rate Scheduling
+     5.5.1. Learning Rate Scheduling
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#recipe-for-machine-learning">
-     5.1.7. Recipe for Machine Learning
+     5.5.2. Recipe for Machine Learning
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-references">
-   5.2. Further References
+   5.6. Further References
   </a>
  </li>
 </ul>
@@ -547,80 +535,68 @@ title="Print to PDF"
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#id1">
-   5.1. Tricks of Optimization
+  <a class="reference internal nav-link" href="#under-and-overfitting">
+   5.1. Under- and Overfitting
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#overfitting-vs-underfitting">
-     5.1.1. Overfitting vs Underfitting
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#bias-variance-tradeoff">
-       5.1.1.1. Bias-Variance Tradeoff
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#advanced-topics-double-descent">
-       5.1.1.2. Advanced Topics: Double Descent
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#data-splitting">
-     5.1.2. Data Splitting
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#cross-validation">
-       5.1.2.1. Cross Validation
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#regularization">
-     5.1.3. Regularization
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#l-p-norm">
-       5.1.3.1.
-       <span class="math notranslate nohighlight">
-        \(l_p\)
-       </span>
-       norm
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#input-normalization-and-parameter-initialization">
-     5.1.4. Input Normalization and Parameter Initialization
+    <a class="reference internal nav-link" href="#bias-variance-tradeoff">
+     5.1.1. Bias-Variance Tradeoff
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#hyperparameter-search">
-     5.1.5. Hyperparameter Search
+    <a class="reference internal nav-link" href="#advanced-topics-double-descent">
+     5.1.2. Advanced Topics: Double Descent
     </a>
    </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-splitting">
+   5.2. Data Splitting
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#k-fold-cross-validation">
+     5.2.1.
+     <span class="math notranslate nohighlight">
+      \(k\)
+     </span>
+     -fold Cross Validation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regularization">
+   5.3. Regularization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#input-output-normalization-and-parameter-initialization">
+   5.4. Input/Output Normalization and Parameter Initialization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#hyperparameter-search">
+   5.5. Hyperparameter Search
+  </a>
+  <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#learning-rate-scheduling">
-     5.1.6. Learning Rate Scheduling
+     5.5.1. Learning Rate Scheduling
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#recipe-for-machine-learning">
-     5.1.7. Recipe for Machine Learning
+     5.5.2. Recipe for Machine Learning
     </a>
    </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#further-references">
-   5.2. Further References
+   5.6. Further References
   </a>
  </li>
 </ul>
@@ -635,206 +611,236 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="tricks-of-optimization">
 <h1><span class="section-number">5. </span>Tricks of Optimization<a class="headerlink" href="#tricks-of-optimization" title="Permalink to this headline">#</a></h1>
-<section id="id1">
-<h2><span class="section-number">5.1. </span>Tricks of Optimization<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h2>
 <p>This is a collection of practical tools for designing and optimizing machine learning models.</p>
-<blockquote>
-<div><p>Notation alert: In this sebsection, we switch back to the notation used in Chapter 1, i.e. <span class="math notranslate nohighlight">\(x\)</span> is the x-axis, <span class="math notranslate nohighlight">\(y\)</span> are measurements on the y-axis, <span class="math notranslate nohighlight">\(h(x)\)</span> is the model evaluated at <span class="math notranslate nohighlight">\(x\)</span>, and <span class="math notranslate nohighlight">\(J\)</span> the loss.</p>
-</div></blockquote>
 <p><strong>Linear Regression (revised)</strong></p>
-<p>Looking back to <a class="reference internal" href="linear.html"><span class="doc std std-doc">Chapter 1</span></a>, the simplest linear model for <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> is</p>
-<div class="math notranslate nohighlight">
-\[h(x) = \vartheta_0 + \vartheta_1 \cdot x.\]</div>
+<p>Looking back to <a class="reference internal" href="linear.html"><span class="doc std std-doc">Lecture 1</span></a>, the simplest linear model for input <span class="math notranslate nohighlight">\(x \in \mathbb{R}\)</span> and target <span class="math notranslate nohighlight">\(y \in \mathbb{R}\)</span> is</p>
+<div class="math notranslate nohighlight" id="equation-simple-linear-model">
+<span class="eqno">(5.1)<a class="headerlink" href="#equation-simple-linear-model" title="Permalink to this equation">#</a></span>\[h(x) = \vartheta_0 + \vartheta_1 \cdot x.\]</div>
 <p>We remind the reader that the polynomial linear regression</p>
-<div class="math notranslate nohighlight">
-\[h(x) = \vartheta_0 + \vartheta_1 \cdot x + ... + \vartheta_n \cdot x^n\]</div>
-<p>also represents a linear model in terms of its parameters <span class="math notranslate nohighlight">\(\vartheta_i\)</span> (not to be confused with the first order model for <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span>). And the general linear regression could be any linear combination of x-values lifted in a predefined basis space, e.g. exponent, sine, cosine, etc.:</p>
-<div class="math notranslate nohighlight">
-\[h(x)=\vartheta_0 + \vartheta_1 \cdot x + \vartheta_3 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + \vartheta_6 \cdot \sqrt{x} + ...\]</div>
+<div class="math notranslate nohighlight" id="equation-polynomial-linear-model">
+<span class="eqno">(5.2)<a class="headerlink" href="#equation-polynomial-linear-model" title="Permalink to this equation">#</a></span>\[h(x) = \vartheta_0 + \vartheta_1 \cdot x + ... + \vartheta_n \cdot x^n\]</div>
+<p>also represents a linear model in terms of its parameters <span class="math notranslate nohighlight">\(\vartheta_i\)</span> (not to be confused with the first order model for <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span>). And the general linear regression could be any linear combination of x-values lifted to a predefined basis space, e.g. exponent, sine, cosine, etc.:</p>
+<div class="math notranslate nohighlight" id="equation-general-linear-model">
+<span class="eqno">(5.3)<a class="headerlink" href="#equation-general-linear-model" title="Permalink to this equation">#</a></span>\[h(x)=\vartheta_0 + \vartheta_1 \cdot x + \vartheta_2 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + \vartheta_6 \cdot \sqrt{x} + ...\]</div>
 <p><strong>Nonlinear Regression</strong></p>
-<p>Any function that is more complicated than linear, e.g.</p>
-<div class="math notranslate nohighlight">
-\[
-h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...
-\]</div>
-<section id="overfitting-vs-underfitting">
-<h3><span class="section-number">5.1.1. </span>Overfitting vs Underfitting<a class="headerlink" href="#overfitting-vs-underfitting" title="Permalink to this headline">#</a></h3>
-<p>Dealing with real-world data containing measurement noise, we run either in over- or underfitting, depending on the choice of such basis functions. Looking at the figure below, the left regression example corresponds to <span class="math notranslate nohighlight">\(h(x) = \vartheta_0 + \vartheta_1 \cdot x\)</span> and the left classification example corresponds to logistic regression.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</p>
+<p>Any function that is more complicated than linear regarding its parameters <span class="math notranslate nohighlight">\(\vartheta\)</span>, e.g.</p>
+<div class="math notranslate nohighlight" id="equation-nonlinear-model">
+<span class="eqno">(5.4)<a class="headerlink" href="#equation-nonlinear-model" title="Permalink to this equation">#</a></span>\[h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...\]</div>
+<section id="under-and-overfitting">
+<h2><span class="section-number">5.1. </span>Under- and Overfitting<a class="headerlink" href="#under-and-overfitting" title="Permalink to this headline">#</a></h2>
+<p>Dealing with real-world data containing measurement noise, we often run either in under- or overfitting, depending on the expressivity of the model. Looking at the figure below, the left regression example corresponds to <span class="math notranslate nohighlight">\(h(x) = \vartheta_0 + \vartheta_1 \cdot x\)</span> and the left classification example corresponds to logistic regression.</p>
+<figure class="align-center" id="under-overfitting">
+<a class="reference internal image-reference" href="../_images/under_overfitting.png"><img alt="../_images/under_overfitting.png" src="../_images/under_overfitting.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.1 </span><span class="caption-text">Under- and overfitting (Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</span><a class="headerlink" href="#under-overfitting" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="bias-variance-tradeoff">
-<h4><span class="section-number">5.1.1.1. </span>Bias-Variance Tradeoff<a class="headerlink" href="#bias-variance-tradeoff" title="Permalink to this headline">#</a></h4>
-<p>Typically, over- and underfitting are analyzed through the lens of the bias-variance decomposition.</p>
+<h3><span class="section-number">5.1.1. </span>Bias-Variance Tradeoff<a class="headerlink" href="#bias-variance-tradeoff" title="Permalink to this headline">#</a></h3>
+<p>Typically, under- and overfitting are analyzed through the lens of the bias-variance decomposition. We define the <em>average model</em> <span class="math notranslate nohighlight">\(h_{ave}(x)\)</span> as the model obtained by drawing an infinite number of datasets of size <span class="math notranslate nohighlight">\(m\)</span>, training on them, and then averaging their predictions at a given <span class="math notranslate nohighlight">\(x\)</span>.</p>
 <ul class="simple">
-<li><p><strong>Bais Error</strong>: Difference between the average (over infinitely many same-sized datasets coming from the same distribution) model prediction and the correct values which we are trying to predict.</p></li>
-<li><p><strong>Variance Error</strong>: Variability of the model predictions at each position <span class="math notranslate nohighlight">\(x\)</span> (averaged over infinitely many models trained on same-sized datasets coming from the same distribution).</p></li>
+<li><p><strong>Bais Error</strong>: Difference between <span class="math notranslate nohighlight">\(h_{ave}(x^{(i)})\)</span> and the correct target value <span class="math notranslate nohighlight">\(y^{(i)}\)</span>.</p></li>
+<li><p><strong>Variance Error</strong>: Variability of the model predictions at a given <span class="math notranslate nohighlight">\(x\)</span>.</p></li>
 <li><p><strong>Irreducible Error</strong>: Originates from the noise in the measurements. Given a corupted dataset, this error cannot be reduced with ML.</p></li>
 </ul>
 <p>In the figure below, each point corresponds to the prediction of a model trained on a different dataset.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Y2IscaH.png" alt="drawing" width="400"/>
-</div>
-<p>(Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</p>
-<p>Mathematically, the Bias-Variance decomposition relies on a decomposition of the expected loss. The assumption is that there is a true underlying relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> given by <span class="math notranslate nohighlight">\(y=\tilde{h}(x)+\epsilon\)</span> where the noise <span class="math notranslate nohighlight">\(\epsilon\)</span> is normally distributed, i.e. <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0,\sigma_{\epsilon})\)</span>. We try to approximate <span class="math notranslate nohighlight">\(\tilde{h}\)</span> by our model <span class="math notranslate nohighlight">\(h\)</span> which results in the error</p>
-<div class="math notranslate nohighlight">
-\[J_{\vartheta}(x) = E\left[ (y-h_{\vartheta}(x))^2\right].\]</div>
-<p>The error can be decomposed into its bias and variance components as</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{align}
-J_{\vartheta}(x) &amp;= \left(E[h(x)]-\tilde{h}(x)\right)^2 + E\left[(h(x)-E[h(x)])^2\right] + \sigma_{\epsilon}^2 \\
+<figure class="align-center" id="bias-variance">
+<a class="reference internal image-reference" href="../_images/bias_variance.png"><img alt="../_images/bias_variance.png" src="../_images/bias_variance.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.2 </span><span class="caption-text">Bias vs variance tradeoff (Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</span><a class="headerlink" href="#bias-variance" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Mathematically, the bias-variance decomposition relies on a decomposition of the expected loss over tha dataset <span class="math notranslate nohighlight">\(S=\left\{(x^{(i)}, y^{(i)})\right\}_{i=1,...m}\)</span>. The assumption is that there is a true underlying relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> given by <span class="math notranslate nohighlight">\(y=\tilde{h}(x)+\epsilon\)</span> where the noise <span class="math notranslate nohighlight">\(\epsilon\)</span> is normally distributed, i.e. <span class="math notranslate nohighlight">\(\epsilon \sim \mathcal{N}(0,\sigma_{\epsilon})\)</span>. We try to approximate <span class="math notranslate nohighlight">\(\tilde{h}\)</span> by our model <span class="math notranslate nohighlight">\(h_{\vartheta}\)</span> which results in the error</p>
+<div class="math notranslate nohighlight" id="equation-bias-variance-loss">
+<span class="eqno">(5.5)<a class="headerlink" href="#equation-bias-variance-loss" title="Permalink to this equation">#</a></span>\[J_{\vartheta}(x) = E_{S,\epsilon}\left[ (y-h_{\vartheta}(x))^2\right].\]</div>
+<p>Using <span class="math notranslate nohighlight">\(y=\tilde{h}(x)+\epsilon\)</span> and the average model <span class="math notranslate nohighlight">\(h_{ave}(x)=\mathbb{E}_S[h_{\vartheta}(x)]\)</span>, the error can be decomposed into its bias and variance components as</p>
+<div class="math notranslate nohighlight" id="equation-bias-variance-loss-decomposed">
+<span class="eqno">(5.6)<a class="headerlink" href="#equation-bias-variance-loss-decomposed" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
+J_{\vartheta}(x) &amp;= \left(\tilde{h}(x)-h_{ave}(x)\right)^2 + E\left[(h_{\vartheta}(x)-h_{ave}(x))^2\right] + \sigma_{\epsilon}^2 \\
 &amp;= \text{Bias}^2 + \text{Variance} + \text{Irreducible Error} \\
 \end{align}
 \end{split}\]</div>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Pm1otyT.png" alt="drawing" width="400"/>
-</div>
-<p>(Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</p>
+<figure class="align-center" id="error-complexity">
+<a class="reference internal image-reference" href="../_images/error_complexity.png"><img alt="../_images/error_complexity.png" src="../_images/error_complexity.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.3 </span><span class="caption-text">Error vs model complexity (Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</span><a class="headerlink" href="#error-complexity" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Given the true model and enough data to calibrate it, we should be able to reduce both the bias and variance terms to zero. However, working with imperfect models and limited data, we strive for an optimum in terms of model choice.</p>
 </section>
 <section id="advanced-topics-double-descent">
-<h4><span class="section-number">5.1.1.2. </span>Advanced Topics: Double Descent<a class="headerlink" href="#advanced-topics-double-descent" title="Permalink to this headline">#</a></h4>
-<p>In recent years, machine learning models have been growing extremely large, e.g. GPT-3 175B parameters. An empirical observation that has been studied by [M. Belkin et al. 2019](More data can hurt for linear regression: Sample-wise
-double descent) demonstrates that contrary to the theory behind the bias-variance tradeoff if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications, this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with <a class="reference external" href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a> of R. Sutton.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/CFdVvIq.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>)</p>
+<h3><span class="section-number">5.1.2. </span>Advanced Topics: Double Descent<a class="headerlink" href="#advanced-topics-double-descent" title="Permalink to this headline">#</a></h3>
+<p>In recent years, machine learning models have been growing extremely large, e.g. GPT-3 with 175B parameters. Empirical observations demonstrate that contrary to the theory behind the bias-variance tradeoff, if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications, this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with <a class="reference external" href="http://www.incompleteideas.net/IncIdeas/BitterLesson.html">The Bitter Lesson</a> by R. Sutton.</p>
+<figure class="align-center" id="double-descent">
+<a class="reference internal image-reference" href="../_images/double_descent.png"><img alt="../_images/double_descent.png" src="../_images/double_descent.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.4 </span><span class="caption-text">Double descent phenomenon (Source: <span id="id1">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>)</span><a class="headerlink" href="#double-descent" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>In contrast to linear models, almost all such functions result in a non-convex loss surface w.r.t. the parameters <span class="math notranslate nohighlight">\(\vartheta\)</span>.</p>
 </section>
 </section>
 <section id="data-splitting">
-<h3><span class="section-number">5.1.2. </span>Data Splitting<a class="headerlink" href="#data-splitting" title="Permalink to this headline">#</a></h3>
+<h2><span class="section-number">5.2. </span>Data Splitting<a class="headerlink" href="#data-splitting" title="Permalink to this headline">#</a></h2>
 <p>To train a machine learning model, we typically split the given data <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span> into three subsets.</p>
 <ul class="simple">
-<li><p><strong>Training</strong>: Data of which we optimize the parameters of a model.</p></li>
-<li><p><strong>Validation</strong>: Data of which we evaluate performance during hyperparameters optimization.</p></li>
-<li><p><strong>Testing</strong>: Data on which we evaluate the performance at the very end of tuning the model and its parameters.</p></li>
+<li><p><strong>Training</strong>: Used for optimizing the parameters of a model.</p></li>
+<li><p><strong>Validation</strong>: Used for evaluating performance during hyperparameter tuning and/or model selection.</p></li>
+<li><p><strong>Testing</strong>: Used for evaluating the performance in the very end of tuning the model and its parameters.</p></li>
 </ul>
-<p>Given that the dataset is large enough, typical splits for training/validation/testing data are 80/10/10 up to 60/20/20. If data is very limited, we have a very different problem and we might not want to sacrifice separate data for validation. Then we would use Cross Validation, which is explained later in this chapter.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/9xHVNt9.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6">Train/Test Split and Cross Validation in Python</a>)</p>
-<section id="cross-validation">
-<h4><span class="section-number">5.1.2.1. </span>Cross Validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">#</a></h4>
-<p>If we split a dataset into <span class="math notranslate nohighlight">\(K\)</span> pieces, we could train the model <span class="math notranslate nohighlight">\(K\)</span> times each time excluding a different subset. We could then evaluate the model performance on the test set for each of the <span class="math notranslate nohighlight">\(K\)</span> models and by that get a good estimate of the variance of the error. If we select the model with the least error and train it further on the whole training set, then we talk about K-fold cross-validation.</p>
+<p>Given that the dataset is large enough, typical splits of the training/validation/testing data range from 80/10/10 to 60/20/20. If data is very limited, we might not want to sacrifice separate data for validation. Then, we could use Cross Validation.</p>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/data_splitting.png"><img alt="../_images/data_splitting.png" src="../_images/data_splitting.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.5 </span><span class="caption-text">Data splitting (Source: <a class="reference external" href="https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6">Train/Test Split and Cross Validation in Python</a>)</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="k-fold-cross-validation">
+<h3><span class="section-number">5.2.1. </span><span class="math notranslate nohighlight">\(k\)</span>-fold Cross Validation<a class="headerlink" href="#k-fold-cross-validation" title="Permalink to this headline">#</a></h3>
+<p><span class="math notranslate nohighlight">\(k\)</span>-fold cross validation is a method for model selection, which does not require a separate validation data split. Model selection can mean choosing the highest polynomial degree in polynomial linear regression, or deciding on the learning algorithms altogether, e.g. linear regression vs using a neural network. Cross validation is particularly relevant if we have a very small dataset, say 20 measurements, and we cannot afford a validation split. Note that without validation data we are not able to do any model selection or hyperparameter tuning.</p>
+<p>If we split a dataset into <span class="math notranslate nohighlight">\(k\)</span> disjoint subsets, we could train a model <span class="math notranslate nohighlight">\(k\)</span> times each time excluding a different subset. We could then evaluate the model performance on the respective left out subset for each of the <span class="math notranslate nohighlight">\(k\)</span> trained models, and by averaging the results we get a good estimate of the model performance given the particular model choice. If we apply this procedure to <span class="math notranslate nohighlight">\(N\)</span> different models, we can choose the most suitable model based on its average performance. Once we have chosen the model, we can then train it further on the whole training set.</p>
+<p>If we can afford a validation split, we would train each of the <span class="math notranslate nohighlight">\(N\)</span> models only once, instead of <span class="math notranslate nohighlight">\(k\)</span> times, and we would pick the best one by evaluating the performance on the validation split.</p>
 </section>
 </section>
 <section id="regularization">
-<h3><span class="section-number">5.1.3. </span>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h3>
+<h2><span class="section-number">5.3. </span>Regularization<a class="headerlink" href="#regularization" title="Permalink to this headline">#</a></h2>
 <p>One possibility to counteract overfitting and still have an expressive model is regularization. There are many approaches belonging to the class of regularization techniques.</p>
 <ul>
-<li><p>Adding a regularization term to the loss - add an additional term penalizing large weight values:</p>
+<li><p>Adding a regularization term to the loss - an additional term penalizing large weight values:</p>
 <ul class="simple">
 <li><p><strong>L1 regularization</strong> - promotes sparsity:</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[J_{L1}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot \sum_{i=1}^{\#params} |\vartheta_i|\]</div>
+<div class="math notranslate nohighlight" id="equation-l1-reg">
+<span class="eqno">(5.7)<a class="headerlink" href="#equation-l1-reg" title="Permalink to this equation">#</a></span>\[J_{L1}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot \sum_{i=1}^{\#params} |\vartheta_i|\]</div>
 <ul class="simple">
-<li><p><strong>(squared) L2 regularization</strong> - takes information from all features; typical choice:</p></li>
+<li><p><strong>(squared) L2 regularization</strong> - takes information from all features:</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2\]</div>
+<div class="math notranslate nohighlight" id="equation-l2-reg">
+<span class="eqno">(5.8)<a class="headerlink" href="#equation-l2-reg" title="Permalink to this equation">#</a></span>\[J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2\]</div>
 </li>
-</ul>
-<section id="l-p-norm">
-<h4><span class="section-number">5.1.3.1. </span><span class="math notranslate nohighlight">\(l_p\)</span> norm<a class="headerlink" href="#l-p-norm" title="Permalink to this headline">#</a></h4>
-<p>To better understand the regression losses, we will look at the general <span class="math notranslate nohighlight">\(l_p\)</span> norm of vector <span class="math notranslate nohighlight">\(w\in \mathbb{R}^m\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.\]</div>
-<p>In the special case <span class="math notranslate nohighlight">\(p=1\)</span> we recover the L1 loss, and the squared version of <span class="math notranslate nohighlight">\(p=2\)</span> corresponds to the MSE loss. Other special case is <span class="math notranslate nohighlight">\(p \to \infty\)</span> leading to <span class="math notranslate nohighlight">\(||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{m}| \right\}\)</span>. We see that with increasing <span class="math notranslate nohighlight">\(p\)</span> the larger terms dominate</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Z05qdjO.png" alt="drawing" width="600"/>
-</div>
-<p><em>Figure</em>: The blue line represents the solution set of an under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms <span class="math notranslate nohighlight">\(p=0,...,1\)</span>, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For <span class="math notranslate nohighlight">\(p \ge 2\)</span> the minimum-norm solution is not sparse, but all coordinates are active.</p>
-<p>(Source: <a class="reference external" href="https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E">Brunton and Kutz 2019</a>, Fig. 3.9)</p>
-<ul class="simple">
-<li><p><strong>Dropout</strong>: randomly set some of the parameters to zero, e.g. 5% of all <span class="math notranslate nohighlight">\(\vartheta_i\)</span>. This way the model learns to be more redundant and at the same time improved generalization. Dropout reduces co-adaptation between terms of the model. Also, this technique is very easy to apply.</p></li>
-<li><p><strong>Eary stopping</strong>: Stop training as soon as the validation loss starts increasing. This is also a very common and easy technique.</p></li>
+<li><p><strong>Dropout</strong>: randomly set some of the parameters to zero, e.g. 20% of all <span class="math notranslate nohighlight">\(\vartheta_i\)</span>. This way the model learns to be more redundant and at the same time improves generalization. Dropout reduces co-adaptation between terms of the model. Also, this technique is very easy to apply.</p></li>
+<li><p><strong>Eary stopping</strong>: Stop training as soon as the validation loss starts increasing, i.e. overfitting begins. This is also a very common and easy technique.</p></li>
 <li><p>etc.</p></li>
 </ul>
+<p><strong><span class="math notranslate nohighlight">\(l_p\)</span> norm</strong></p>
+<p>To better understand the additional regularization loss terms, we look at the general <span class="math notranslate nohighlight">\(l_p\)</span> norm of the weight vector <span class="math notranslate nohighlight">\(w\in \mathbb{R}^m\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-lp-norm">
+<span class="eqno">(5.9)<a class="headerlink" href="#equation-lp-norm" title="Permalink to this equation">#</a></span>\[||w||_p=\left(\sum_{i=1}^n |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.\]</div>
+<p>In the special case <span class="math notranslate nohighlight">\(p=1\)</span> we recover the L1 regularization term, and the squared version of <span class="math notranslate nohighlight">\(p=2\)</span> corresponds to the L2 regularization term. Other special case is <span class="math notranslate nohighlight">\(p \to \infty\)</span> leading to <span class="math notranslate nohighlight">\(||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{n}| \right\}\)</span>. We see that with increasing <span class="math notranslate nohighlight">\(p\)</span> the larger terms dominate.</p>
+<figure class="align-center" id="lp-norm">
+<a class="reference internal image-reference" href="../_images/lp_norm.png"><img alt="../_images/lp_norm.png" src="../_images/lp_norm.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.6 </span><span class="caption-text">The blue line represents the solution set of an under-determined system of equations. The red curve represents the minimum-norm level sets that intersects the blue line for each norm. For norms <span class="math notranslate nohighlight">\(p=0,...,1\)</span> the minimum-norm solution corresponds to the sparsest solution with only one coordinate being active. For <span class="math notranslate nohighlight">\(p \ge 2\)</span> the minimum-norm solution is not sparse and both coordinates are active. (Source: <span id="id3">[<a class="reference internal" href="../references.html#id6" title="Steven L. Brunton and J. Nathan Kutz. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press, 2019. URL: http://databookuw.com, doi:10.1017/9781108380690.">Brunton and Kutz, 2019</a>]</span>, Fig. 3.9)</span><a class="headerlink" href="#lp-norm" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
-</section>
-<section id="input-normalization-and-parameter-initialization">
-<h3><span class="section-number">5.1.4. </span>Input Normalization and Parameter Initialization<a class="headerlink" href="#input-normalization-and-parameter-initialization" title="Permalink to this headline">#</a></h3>
-<p>These two topics will be discussed in much more detail in Core Content 4 in the context of more modern deep-learning methods. For the time being, the idea behind input normalization and parameter initialization is simply to speed up the learning process, i.e. reduce the number of gradient descent iterations.</p>
+<section id="input-output-normalization-and-parameter-initialization">
+<h2><span class="section-number">5.4. </span>Input/Output Normalization and Parameter Initialization<a class="headerlink" href="#input-output-normalization-and-parameter-initialization" title="Permalink to this headline">#</a></h2>
+<p>The idea behind input/output normalization and parameter initialization is simply to speed up the learning process, i.e. reduce the number of gradient descent iterations, by bringing all values to the same order of magnitude. Normalization and initialization will be further discussed in the Deep Learning lectures towards the end of this course.</p>
 <p><strong>Case Study 1 - Input Normalization</strong></p>
-<p>Imagine that the input is <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span> and its mean and standard deviation over the whole dataset are <span class="math notranslate nohighlight">\(1\)</span> and <span class="math notranslate nohighlight">\(0.001\)</span>. Further, imagine that we by chance choose the true underlying linear model of the form</p>
-<div class="math notranslate nohighlight">
-\[h(x) = \vartheta_0 + \vartheta_1 \cdot x_1,\]</div>
-<p>and the true <span class="math notranslate nohighlight">\(\vartheta^{true} = [2, 1000]\)</span>. If we start a GD optimization from an initial <span class="math notranslate nohighlight">\(\vartheta^0 = [1, 1]\)</span>, we would run into a problem. To make training work, we would need a rather small learning rate to move from the initial <span class="math notranslate nohighlight">\(\vartheta^0_0=1\)</span> to  <span class="math notranslate nohighlight">\(\vartheta_0=2\)</span>, which would then require ~3 orders of magnitude more updates to move from <span class="math notranslate nohighlight">\(\vartheta^0_1=1\)</span> to  <span class="math notranslate nohighlight">\(\vartheta_1=1000\)</span>. That is why it makes to normalize the inputs to a standard Gaussian distribution, e.g. <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span>.</p>
-<p>This can be achieved by precomputing the mean <span class="math notranslate nohighlight">\(\mu=1/m \sum_{i=1}^m x^{(i)}\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2=1/m \sum_{i=1}^m \left(x^{(i)}-\mu \right)^2\)</span> of the inputs, and then transforming each input to</p>
-<div class="math notranslate nohighlight">
-\[\hat{x} = \frac{x-\mu}{\sigma}\]</div>
+<p>We choose a linear model</p>
+<div class="math notranslate nohighlight" id="equation-simple-linear-model2">
+<span class="eqno">(5.10)<a class="headerlink" href="#equation-simple-linear-model2" title="Permalink to this equation">#</a></span>\[h(x) = \vartheta_0 + \vartheta_1 \cdot x\]</div>
+<p>between the inputs <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span> and outputs <span class="math notranslate nohighlight">\(y\in \mathbb{R}\)</span>. In the case of the MSE loss, the gradient w.r.t. the parameters becomes</p>
+<div class="math notranslate nohighlight" id="equation-simple-linear-model2-grad">
+<span class="eqno">(5.11)<a class="headerlink" href="#equation-simple-linear-model2-grad" title="Permalink to this equation">#</a></span>\[\begin{split}\nabla_{\vartheta} MSE(y,h_{\vartheta}(x)) = \sum_{i=1}^m \left(y^{(i)}-\vartheta_0-\vartheta_1 x^{(i)}\right)\left[\begin{array}{c}1 \\ x^{(i)}\end{array}\right].\end{split}\]</div>
+<p>Assume that this linear model coincides with the true underlying model having <span class="math notranslate nohighlight">\(\vartheta^{true} = [\vartheta^{true}_0, \vartheta^{true}_1] = [1, 1]\)</span>. We are also given that the input <span class="math notranslate nohighlight">\(x\)</span> has a mean and standard deviation over the dataset equal to <span class="math notranslate nohighlight">\(0\)</span> and <span class="math notranslate nohighlight">\(0.001\)</span>.</p>
+<p>If we start a GD optimization from an initial <span class="math notranslate nohighlight">\(\vartheta^0 = [0, 0]\)</span>, we immediately see that the average gradient w.r.t <span class="math notranslate nohighlight">\(\vartheta_1\)</span> will be 1000 times smaller than the one for <span class="math notranslate nohighlight">\(\vartheta_0\)</span> because of the multiplication with <span class="math notranslate nohighlight">\(x\)</span>. Thus, we would need a learning rate small enough for <span class="math notranslate nohighlight">\(\vartheta_0\)</span> and in the same time enough iterations for the convergence of <span class="math notranslate nohighlight">\(\vartheta_1\)</span>.</p>
+<p>To alleviate this problem, we can normalize the inputs to zero mean and variance of one. This can be achieved by precomputing the mean <span class="math notranslate nohighlight">\(\mu=1/m \sum_{i=1}^m x^{(i)}\)</span> and variance <span class="math notranslate nohighlight">\(\sigma^2=1/m \sum_{i=1}^m \left(x^{(i)}-\mu \right)^2\)</span> of the inputs, and then transforming each input to</p>
+<div class="math notranslate nohighlight" id="equation-input-normalization">
+<span class="eqno">(5.12)<a class="headerlink" href="#equation-input-normalization" title="Permalink to this equation">#</a></span>\[\hat{x} = \frac{x-\mu}{\sigma}.\]</div>
 <p>If <span class="math notranslate nohighlight">\(x \in \mathbb{R}^n\)</span> with <span class="math notranslate nohighlight">\(n &gt; 1\)</span>, we would do that to each of the dimensions individually.</p>
-<p>In signal processing, a similar transformation is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Whitening_transformation">whitening transformation</a> - the only difference in whitening is that it also considers correlations between each of the inputs.</p>
+<p>In signal processing, a similar transformation is called the <a class="reference external" href="https://en.wikipedia.org/wiki/Whitening_transformation">whitening transformation</a> - the difference is that whitening considers correlations between the dimensions.</p>
 <blockquote>
-<div><p>Note: The same should be done with the outputs <span class="math notranslate nohighlight">\(y\)</span>.</p>
+<div><p>Note: Normalization should also be applied to the outputs <span class="math notranslate nohighlight">\(y\)</span> as a similar problem of unfavorable magnitudes can be observed for them as well.</p>
 </div></blockquote>
 <p><strong>Case Study 2 - Parameter Initialization</strong></p>
-<p>Imagine that the input is <span class="math notranslate nohighlight">\(x\in \mathbb{R}^n\)</span> with <span class="math notranslate nohighlight">\(n&gt;&gt;1\)</span> and its mean and standard deviation over the whole dataset in each of the two dimensions are <span class="math notranslate nohighlight">\([1, ..., 1]\)</span> and <span class="math notranslate nohighlight">\([1, ..., 1]\)</span> respectively. Further, imagine that we by chance choose the true underlying linear model of the form</p>
-<div class="math notranslate nohighlight">
-\[h(x) = \vartheta_0 + \vartheta_1 \cdot x_1 + ... + \vartheta_n \cdot x_n,\]</div>
-<p>and the true <span class="math notranslate nohighlight">\(\vartheta^{true} = [0.1, ..., 0.1]\)</span>. If we start a GD optimization from an initial <span class="math notranslate nohighlight">\(\vartheta^0 = [1,2, ..., n+1]\)</span>, we would run into a problem. To make training work, we would again need a very small learning rate to move from the initial <span class="math notranslate nohighlight">\(\vartheta^0_0=0\)</span> to  <span class="math notranslate nohighlight">\(\vartheta_0=0.1\)</span>, which would then require ~<span class="math notranslate nohighlight">\(n\)</span> more updates to move <span class="math notranslate nohighlight">\(\vartheta^0_n=n+1\)</span> to  <span class="math notranslate nohighlight">\(\vartheta_1=0.1\)</span>.</p>
-<p>Xavier initialization has been proposed to alleviate this type of issue. It essentially starts with initial values drawn from <span class="math notranslate nohighlight">\(\mathcal{N}(0,1/n)\)</span>, i.e. a zero-centered normal distribution with variance <span class="math notranslate nohighlight">\(1/n\)</span>. This way we</p>
+<p>Given is the already normalized input <span class="math notranslate nohighlight">\(x\in \mathbb{R}^n\)</span> with <span class="math notranslate nohighlight">\(n&gt;&gt;1\)</span> and the true underlying linear model of the form</p>
+<div class="math notranslate nohighlight" id="equation-simple-linear-model-rn">
+<span class="eqno">(5.13)<a class="headerlink" href="#equation-simple-linear-model-rn" title="Permalink to this equation">#</a></span>\[h(x) = \vartheta_0 + \vartheta_1 \cdot x_1 + ... + \vartheta_n \cdot x_n,\]</div>
+<p>with <span class="math notranslate nohighlight">\(\vartheta^{true} = [0.1, ..., 0.1]\)</span>. If we start a GD optimization from an initial <span class="math notranslate nohighlight">\(\vartheta^0 = [0,1,2, ..., n]\)</span>, we would run into a problem. To make training work, we would again need a small learning rate to move from the initial <span class="math notranslate nohighlight">\(\vartheta^0_0=0\)</span> to  <span class="math notranslate nohighlight">\(\vartheta^{true}_0=0.1\)</span>, which would then require <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span> more updates to move <span class="math notranslate nohighlight">\(\vartheta^0_n=n\)</span> to  <span class="math notranslate nohighlight">\(\vartheta^{true}_1=0.1\)</span>.</p>
+<p>Xavier initialization has been proposed to alleviate this type of issue. It essentially initializes the parameters by drawing them from <span class="math notranslate nohighlight">\(\mathcal{N}(0,1/n)\)</span>, i.e. a zero-centered normal distribution with variance <span class="math notranslate nohighlight">\(1/n\)</span>. This way we:</p>
 <ol class="simple">
-<li><p>Choose <span class="math notranslate nohighlight">\(\vartheta^0\)</span> in the same order of magnitude, resulting in a similar weighting of each term in the model (given that the inputs are normalized beforehand)</p></li>
-<li><p>End up with an output <span class="math notranslate nohighlight">\(h(x^{(i)})\)</span> also more or less from a standard normal distribution (up to correlation impact). And if we normalized <span class="math notranslate nohighlight">\(y\)</span> beforehand, a <span class="math notranslate nohighlight">\(\mathcal{N}(0,1)\)</span>-distributed <span class="math notranslate nohighlight">\(h(x^{(i)})\)</span> is what we want.</p></li>
+<li><p>Choose the terms of <span class="math notranslate nohighlight">\(\vartheta^0\)</span> in the same order of magnitude, resulting in a similar weighting of each term in the model (given that the inputs <span class="math notranslate nohighlight">\(x\)</span> are normalized beforehand)</p></li>
+<li><p>End up with outputs <span class="math notranslate nohighlight">\(h(x)\)</span> distributed close to a standard normal distribution. And if we normalize the target <span class="math notranslate nohighlight">\(y\)</span> beforehand, it would be in the same order of magnitude as <span class="math notranslate nohighlight">\(h(x)\)</span>.</p></li>
 </ol>
 </section>
 <section id="hyperparameter-search">
-<h3><span class="section-number">5.1.5. </span>Hyperparameter Search<a class="headerlink" href="#hyperparameter-search" title="Permalink to this headline">#</a></h3>
-<p>A hyperparameter is a parameter that controls other parameters. We typically cannot afford to train hyperparameters with gradient-based methods and resort to DFO methods (see above).</p>
-<p>One of the most important hyperparameters in 1st order gradient-based optimization is the learning rate <span class="math notranslate nohighlight">\(\eta\)</span>. We typically tune the learning rate by looking at the so-called training curves. To see the impact of different values of the learning rate on the <strong>validation</strong> loss, look at the following figure.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/2NVKmG8.png" alt="drawing" width="400"/>
-</div>
-<p>(Source: <a class="reference external" href="https://cs231n.github.io/neural-networks-3/">CS231n CNNs for Visual Recognition</a>)</p>
-<p>Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD, etc. You will see many of them related to each model later in the lecture.</p>
-</section>
+<h2><span class="section-number">5.5. </span>Hyperparameter Search<a class="headerlink" href="#hyperparameter-search" title="Permalink to this headline">#</a></h2>
+<p>A hyperparameter is a parameter that controls other parameters. Typically, we cannot afford to optimize hyperparameters with gradient-based methods and resort to derivative-free optimization methods - see lecture <a class="reference internal" href="optimization.html"><span class="doc std std-doc">Optimization</span></a>.</p>
+<p>One of the most important hyperparameters in 1st order gradient-based optimization is the learning rate <span class="math notranslate nohighlight">\(\eta\)</span>. We typically tune the learning rate by looking at the so-called <em>training curves</em>. To see the impact of different values of the learning rate on the <strong>validation</strong> loss, look at the following figure.</p>
+<figure class="align-center" id="learning-curve">
+<a class="reference internal image-reference" href="../_images/learning_curve.png"><img alt="../_images/learning_curve.png" src="../_images/learning_curve.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.7 </span><span class="caption-text">Effect of learning rate on training curves (Source: <a class="reference external" href="https://cs231n.github.io/neural-networks-3/">CS231n CNNs for Visual Recognition</a>)</span><a class="headerlink" href="#learning-curve" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD. You will see many of them related to each model later in the lecture.</p>
 <section id="learning-rate-scheduling">
-<h3><span class="section-number">5.1.6. </span>Learning Rate Scheduling<a class="headerlink" href="#learning-rate-scheduling" title="Permalink to this headline">#</a></h3>
-<p>We want to be able to dynamically adjust the learning rate <span class="math notranslate nohighlight">\(\eta\)</span> for a time-dependent learning rate <span class="math notranslate nohighlight">\(\eta(t)\)</span> to then control the rate of decay of <span class="math notranslate nohighlight">\(\eta\)</span>. The most common strategies are</p>
-<div class="math notranslate nohighlight">
-\[\eta(t) = \eta_{i} \text{ if } t_{i} \leq t \leq t_{i+1}, \quad \text{piecewise constant}\]</div>
-<div class="math notranslate nohighlight">
-\[\eta(t) = \eta_{0} \cdot e^{-\lambda t}, \quad \text{ exponential decay}\]</div>
-<div class="math notranslate nohighlight">
-\[\eta(t) = \eta_{0} \cdot \left( \beta t + 1 \right)^{- \alpha}, \quad \text{ polynomial decay}\]</div>
+<h3><span class="section-number">5.5.1. </span>Learning Rate Scheduling<a class="headerlink" href="#learning-rate-scheduling" title="Permalink to this headline">#</a></h3>
+<p>We want to be able to dynamically adjust the learning rate <span class="math notranslate nohighlight">\(\eta\)</span> towards a time-dependent learning rate <span class="math notranslate nohighlight">\(\eta(t)\)</span>. Some common scheduler for progressively decreasing the learning rate include</p>
+<div class="math notranslate nohighlight" id="equation-lr-scheduler">
+<span class="eqno">(5.14)<a class="headerlink" href="#equation-lr-scheduler" title="Permalink to this equation">#</a></span>\[\begin{split}
+\begin{aligned}
+\eta(t) &amp;= \eta_{i} \text{ if } t_{i} \leq t \leq t_{i+1}, \quad &amp; \text{(piecewise constant)} \\
+\eta(t) &amp;= \eta_{0} \cdot e^{-\lambda t}, \quad &amp; \text{(exponential decay)} \\
+\eta(t) &amp;= \eta_{0} \cdot \left( \beta t + 1 \right)^{- \alpha}. \quad &amp; \text{(polynomial decay)}
+\end{aligned}
+\end{split}\]</div>
 <p>Going through the different proposed options in order:</p>
 <ul class="simple">
 <li><p><strong>Piecewise constant</strong>: Decrease whenever optimization progress begins to stall.</p></li>
-<li><p><strong>Exponential decay</strong>: Much more aggressive; can lead to premature stopping.</p></li>
+<li><p><strong>Exponential decay</strong>: More aggressive; can lead to premature stopping.</p></li>
 <li><p><strong>Polynomial decay</strong>: Well-behaved when <span class="math notranslate nohighlight">\(\alpha = 0.5\)</span>.</p></li>
 </ul>
-<p>Corrected for the time-dependent learning rate, and using the exponential decay our optimization then takes the following shape:</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/UJ3J86r.png" alt="drawing" width="400"/>
-</div>
-<p>(Source: <span id="id2">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://classic.d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/gd.html">here</a>)</p>
-<p>Which is much much nicer behaved!</p>
+<p>Using a time-dependent learning rate, the optimization is more stable than the corresponding SGD alternative <a class="reference internal" href="optimization.html#sgd-2d"><span class="std std-numref">Fig. 4.7</span></a>.</p>
+<figure class="align-center" id="lr-schedule">
+<a class="reference internal image-reference" href="../_images/lr_schedule.png"><img alt="../_images/lr_schedule.png" src="../_images/lr_schedule.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.8 </span><span class="caption-text">Training with learning rate scheduling (Source: <span id="id4">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://classic.d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://classic.d2l.ai/chapter_optimization/sgd.html">here</a>)</span><a class="headerlink" href="#lr-schedule" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="recipe-for-machine-learning">
-<h3><span class="section-number">5.1.7. </span>Recipe for Machine Learning<a class="headerlink" href="#recipe-for-machine-learning" title="Permalink to this headline">#</a></h3>
-<p>If you are wondering how all of that fits together, Andrew Ng suggests this general workflow:</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="600"/>
-</div> 
-<p>(Source: <a class="reference external" href="https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf">Nuts and Bolts of Building Applications using Deep Learning</a>)</p>
-<p>And a practical advice from <a class="reference external" href="http://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Niessner</a> at TUM is to:</p>
+<h3><span class="section-number">5.5.2. </span>Recipe for Machine Learning<a class="headerlink" href="#recipe-for-machine-learning" title="Permalink to this headline">#</a></h3>
+<p>If you are wondering how all of that fits together, Andrew Ng suggests the following general workflow (dev=validation split)</p>
+<figure class="align-center" id="ml-recipe">
+<a class="reference internal image-reference" href="../_images/ml_recipe.png"><img alt="../_images/ml_recipe.png" src="../_images/ml_recipe.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 5.9 </span><span class="caption-text">Recipe for ML (Source: <a class="reference external" href="https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf">Nuts and Bolts of Building Applications using Deep Learning</a>)</span><a class="headerlink" href="#ml-recipe" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>And a practical advice from <a class="reference external" href="http://niessnerlab.org/members/matthias_niessner/profile.html">Prof. Matthias Niessner</a> (TUM):</p>
 <ol class="simple">
-<li><p>Train the model on 1 data point to essentially learn it by heart. This way you prove that the model and output work correctly.</p></li>
-<li><p>Train the model on a few samples. Proves that multiple inputs are handled correctly.</p></li>
+<li><p>Train the model on a single data point to essentially learn it by heart. This way you validate that the model and training pipeline work correctly.</p></li>
+<li><p>Train the model on a few samples. Validates that multiple inputs are handled correctly.</p></li>
 <li><p>Move from the overfitting regime to full training.</p></li>
 </ol>
 </section>
 </section>
 <section id="further-references">
-<h2><span class="section-number">5.2. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">5.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
+<p><strong>Under- and Overfitting</strong></p>
 <ul class="simple">
-<li><p><a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>; S. Fortmann-Roe; 2012</p></li>
+<li><p><span id="id5">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Chapter 8</p></li>
+<li><p><span id="id6">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Chapter 5</p></li>
+<li><p><a class="reference external" href="http://scott.fortmann-roe.com/docs/BiasVariance.html">Understanding the Bias-Variance Tradeoff</a>, S. Fortmann-Roe, 2012</p></li>
+</ul>
+<p><strong>Data Splitting and Regularization</strong></p>
+<ul class="simple">
+<li><p><span id="id7">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Chapter 9</p></li>
+<li><p><span id="id8">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Sections 4.5 and 13.5</p></li>
+<li><p><span id="id9">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Chapters 5 and 7</p></li>
+</ul>
+<p><strong>Normalization and Initialization</strong></p>
+<ul class="simple">
+<li><p><span id="id10">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Section 13.4</p></li>
+<li><p><span id="id11">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Section 8.4</p></li>
+</ul>
+<p><strong>Hyperparameters</strong></p>
+<ul class="simple">
+<li><p><span id="id12">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Section 13.4</p></li>
+<li><p><span id="id13">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Section 11.4</p></li>
 </ul>
 </section>
 </section>

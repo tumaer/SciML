@@ -1,4 +1,4 @@
-# Convolutional Neural Network
+# Convolutional Neural Networks
 
 ## Limitations of MLP
 
