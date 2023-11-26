@@ -1,243 +1,290 @@
 # Tricks of Optimization
 
-
-## Tricks of Optimization
-
 This is a collection of practical tools for designing and optimizing machine learning models.
-
-> Notation alert: In this sebsection, we switch back to the notation used in Chapter 1, i.e. $x$ is the x-axis, $y$ are measurements on the y-axis, $h(x)$ is the model evaluated at $x$, and $J$ the loss.
 
 **Linear Regression (revised)**
 
-Looking back to [Chapter 1](linear.md), the simplest linear model for $x \in \mathbb{R}$ is
+Looking back to [Lecture 1](linear.md), the simplest linear model for input $x \in \mathbb{R}$ and target $y \in \mathbb{R}$ is
 
-$$h(x) = \vartheta_0 + \vartheta_1 \cdot x.$$
+$$h(x) = \vartheta_0 + \vartheta_1 \cdot x.$$ (simple_linear_model)
 
 We remind the reader that the polynomial linear regression
 
-$$h(x) = \vartheta_0 + \vartheta_1 \cdot x + ... + \vartheta_n \cdot x^n$$
+$$h(x) = \vartheta_0 + \vartheta_1 \cdot x + ... + \vartheta_n \cdot x^n$$ (polynomial_linear_model)
 
-also represents a linear model in terms of its parameters $\vartheta_i$ (not to be confused with the first order model for $x \in \mathbb{R}^n$). And the general linear regression could be any linear combination of x-values lifted in a predefined basis space, e.g. exponent, sine, cosine, etc.:
+also represents a linear model in terms of its parameters $\vartheta_i$ (not to be confused with the first order model for $x \in \mathbb{R}^n$). And the general linear regression could be any linear combination of x-values lifted to a predefined basis space, e.g. exponent, sine, cosine, etc.:
 
-$$h(x)=\vartheta_0 + \vartheta_1 \cdot x + \vartheta_3 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + \vartheta_6 \cdot \sqrt{x} + ...$$
+$$h(x)=\vartheta_0 + \vartheta_1 \cdot x + \vartheta_2 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + \vartheta_6 \cdot \sqrt{x} + ...$$ (general_linear_model)
 
 **Nonlinear Regression** 
 
-Any function that is more complicated than linear, e.g.
+Any function that is more complicated than linear regarding its parameters $\vartheta$, e.g.
 
-$$
-h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...
-$$
+$$h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...$$ (nonlinear_model)
 
-### Overfitting vs Underfitting
 
-Dealing with real-world data containing measurement noise, we run either in over- or underfitting, depending on the choice of such basis functions. Looking at the figure below, the left regression example corresponds to $h(x) = \vartheta_0 + \vartheta_1 \cdot x$ and the left classification example corresponds to logistic regression.
+## Under- and Overfitting
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
-</div>
+Dealing with real-world data containing measurement noise, we often run either in under- or overfitting, depending on the expressivity of the model. Looking at the figure below, the left regression example corresponds to $h(x) = \vartheta_0 + \vartheta_1 \cdot x$ and the left classification example corresponds to logistic regression.
 
-(Source: [Techniques for handling underfitting and overfitting in Machine Learning](https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9))
+```{figure} ../imgs/under_overfitting.png
+---
+width: 600px
+align: center
+name: under_overfitting
+---
+Under- and overfitting (Source: [Techniques for handling underfitting and overfitting in Machine Learning](https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9))
+```
 
-#### Bias-Variance Tradeoff
+### Bias-Variance Tradeoff
 
-Typically, over- and underfitting are analyzed through the lens of the bias-variance decomposition.
+Typically, under- and overfitting are analyzed through the lens of the bias-variance decomposition. We define the *average model* $h_{ave}(x)$ as the model obtained by drawing an infinite number of datasets of size $m$, training on them, and then averaging their predictions at a given $x$.
 
-- **Bais Error**: Difference between the average (over infinitely many same-sized datasets coming from the same distribution) model prediction and the correct values which we are trying to predict.
-
-- **Variance Error**: Variability of the model predictions at each position $x$ (averaged over infinitely many models trained on same-sized datasets coming from the same distribution). 
-
+- **Bais Error**: Difference between $h_{ave}(x^{(i)})$ and the correct target value $y^{(i)}$.
+- **Variance Error**: Variability of the model predictions at a given $x$. 
 - **Irreducible Error**: Originates from the noise in the measurements. Given a corupted dataset, this error cannot be reduced with ML.
 
 In the figure below, each point corresponds to the prediction of a model trained on a different dataset.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Y2IscaH.png" alt="drawing" width="400"/>
-</div>
+```{figure} ../imgs/bias_variance.png
+---
+width: 400px
+align: center
+name: bias_variance
+---
+Bias vs variance tradeoff (Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
+```
 
-(Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
+Mathematically, the bias-variance decomposition relies on a decomposition of the expected loss over tha dataset $S=\left\{(x^{(i)}, y^{(i)})\right\}_{i=1,...m}$. The assumption is that there is a true underlying relationship between $x$ and $y$ given by $y=\tilde{h}(x)+\epsilon$ where the noise $\epsilon$ is normally distributed, i.e. $\epsilon \sim \mathcal{N}(0,\sigma_{\epsilon})$. We try to approximate $\tilde{h}$ by our model $h_{\vartheta}$ which results in the error
 
-Mathematically, the Bias-Variance decomposition relies on a decomposition of the expected loss. The assumption is that there is a true underlying relationship between $x$ and $y$ given by $y=\tilde{h}(x)+\epsilon$ where the noise $\epsilon$ is normally distributed, i.e. $\epsilon \sim \mathcal{N}(0,\sigma_{\epsilon})$. We try to approximate $\tilde{h}$ by our model $h$ which results in the error
+$$J_{\vartheta}(x) = E_{S,\epsilon}\left[ (y-h_{\vartheta}(x))^2\right].$$ (bias_variance_loss)
 
-$$J_{\vartheta}(x) = E\left[ (y-h_{\vartheta}(x))^2\right].$$
-
-The error can be decomposed into its bias and variance components as
+Using $y=\tilde{h}(x)+\epsilon$ and the average model $h_{ave}(x)=\mathbb{E}_S[h_{\vartheta}(x)]$, the error can be decomposed into its bias and variance components as
 
 $$\begin{align}
-J_{\vartheta}(x) &= \left(E[h(x)]-\tilde{h}(x)\right)^2 + E\left[(h(x)-E[h(x)])^2\right] + \sigma_{\epsilon}^2 \\
+J_{\vartheta}(x) &= \left(\tilde{h}(x)-h_{ave}(x)\right)^2 + E\left[(h_{\vartheta}(x)-h_{ave}(x))^2\right] + \sigma_{\epsilon}^2 \\
 &= \text{Bias}^2 + \text{Variance} + \text{Irreducible Error} \\
 \end{align}
-$$
+$$ (bias_variance_loss_decomposed)
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Pm1otyT.png" alt="drawing" width="400"/>
-</div>
-
-(Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
+```{figure} ../imgs/error_complexity.png
+---
+width: 400px
+align: center
+name: error_complexity
+---
+Error vs model complexity (Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
+```
 
 Given the true model and enough data to calibrate it, we should be able to reduce both the bias and variance terms to zero. However, working with imperfect models and limited data, we strive for an optimum in terms of model choice.
 
-#### Advanced Topics: Double Descent
+### Advanced Topics: Double Descent
 
-In recent years, machine learning models have been growing extremely large, e.g. GPT-3 175B parameters. An empirical observation that has been studied by [M. Belkin et al. 2019](More data can hurt for linear regression: Sample-wise
-double descent) demonstrates that contrary to the theory behind the bias-variance tradeoff if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications, this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) of R. Sutton.
+In recent years, machine learning models have been growing extremely large, e.g. GPT-3 with 175B parameters. Empirical observations demonstrate that contrary to the theory behind the bias-variance tradeoff, if the number of parameters is too overparametrized, model performance starts improving again. Indeed, for many practical applications, this regime has not been fully explored and making ML models larger seems to improve performance further, consistently with [The Bitter Lesson](http://www.incompleteideas.net/IncIdeas/BitterLesson.html) by R. Sutton.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/CFdVvIq.png" alt="drawing" width="500"/>
-</div>
-
-(Source: [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html))
-
+```{figure} ../imgs/double_descent.png
+---
+width: 500px
+align: center
+name: double_descent
+---
+Double descent phenomenon (Source: {cite}`cs229notes`)
+```
 
 In contrast to linear models, almost all such functions result in a non-convex loss surface w.r.t. the parameters $\vartheta$.
 
-### Data Splitting
+
+## Data Splitting
 To train a machine learning model, we typically split the given data $\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}$ into three subsets.
 
-- **Training**: Data of which we optimize the parameters of a model.
-- **Validation**: Data of which we evaluate performance during hyperparameters optimization.
-- **Testing**: Data on which we evaluate the performance at the very end of tuning the model and its parameters.
+- **Training**: Used for optimizing the parameters of a model.
+- **Validation**: Used for evaluating performance during hyperparameter tuning and/or model selection.
+- **Testing**: Used for evaluating the performance in the very end of tuning the model and its parameters.
 
-Given that the dataset is large enough, typical splits for training/validation/testing data are 80/10/10 up to 60/20/20. If data is very limited, we have a very different problem and we might not want to sacrifice separate data for validation. Then we would use Cross Validation, which is explained later in this chapter.
+Given that the dataset is large enough, typical splits of the training/validation/testing data range from 80/10/10 to 60/20/20. If data is very limited, we might not want to sacrifice separate data for validation. Then, we could use Cross Validation.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/9xHVNt9.png" alt="drawing" width="600"/>
-</div>
+```{figure} ../imgs/data_splitting.png
+---
+width: 600px
+align: center
+name: data_splitting
+---
+Data splitting (Source: [Train/Test Split and Cross Validation in Python](https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6))
+```
 
-(Source: [Train/Test Split and Cross Validation in Python](https://towardsdatascience.com/train-test-split-and-cross-validation-in-python-80b61beca4b6))
+### $k$-fold Cross Validation
 
-#### Cross Validation
+$k$-fold cross validation is a method for model selection, which does not require a separate validation data split. Model selection can mean choosing the highest polynomial degree in polynomial linear regression, or deciding on the learning algorithms altogether, e.g. linear regression vs using a neural network. Cross validation is particularly relevant if we have a very small dataset, say 20 measurements, and we cannot afford a validation split. Note that without validation data we are not able to do any model selection or hyperparameter tuning. 
 
-If we split a dataset into $K$ pieces, we could train the model $K$ times each time excluding a different subset. We could then evaluate the model performance on the test set for each of the $K$ models and by that get a good estimate of the variance of the error. If we select the model with the least error and train it further on the whole training set, then we talk about K-fold cross-validation.
+If we split a dataset into $k$ disjoint subsets, we could train a model $k$ times each time excluding a different subset. We could then evaluate the model performance on the respective left out subset for each of the $k$ trained models, and by averaging the results we get a good estimate of the model performance given the particular model choice. If we apply this procedure to $N$ different models, we can choose the most suitable model based on its average performance. Once we have chosen the model, we can then train it further on the whole training set.
 
-### Regularization
+If we can afford a validation split, we would train each of the $N$ models only once, instead of $k$ times, and we would pick the best one by evaluating the performance on the validation split.
+
+
+## Regularization
 
 One possibility to counteract overfitting and still have an expressive model is regularization. There are many approaches belonging to the class of regularization techniques. 
 
-- Adding a regularization term to the loss - add an additional term penalizing large weight values:
+- Adding a regularization term to the loss - an additional term penalizing large weight values:
     - **L1 regularization** - promotes sparsity: 
 
-    $$J_{L1}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot \sum_{i=1}^{\#params} |\vartheta_i|$$
+    $$J_{L1}(\vartheta) = J(\vartheta) + \alpha_{L1} \cdot \sum_{i=1}^{\#params} |\vartheta_i|$$ (l1_reg)
 
-    - **(squared) L2 regularization** - takes information from all features; typical choice: 
+    - **(squared) L2 regularization** - takes information from all features: 
 
-    $$J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2$$
+    $$J_{L2}(\vartheta) = J(\vartheta) + \alpha_{L2} \cdot \sum_{i=1}^{\#params} \vartheta_i^2$$ (l2_reg)
 
-#### $l_p$ norm
-To better understand the regression losses, we will look at the general $l_p$ norm of vector $w\in \mathbb{R}^m$:
-
-
-$$||w||_p=\left(\sum_{i=1}^m |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.$$
-
-In the special case $p=1$ we recover the L1 loss, and the squared version of $p=2$ corresponds to the MSE loss. Other special case is $p \to \infty$ leading to $||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{m}| \right\}$. We see that with increasing $p$ the larger terms dominate
-
-
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Z05qdjO.png" alt="drawing" width="600"/>
-</div>
-
-*Figure*: The blue line represents the solution set of an under-determined system of equations. The red line represents the minimum-norm level sets that intersect the blue line for each norm. For norms $p=0,...,1$, the minimum-norm solution corresponds to the sparsest solution with only one coordinate active. For $p \ge 2$ the minimum-norm solution is not sparse, but all coordinates are active.
-
-(Source: [Brunton and Kutz 2019](https://www.cambridge.org/core/books/datadriven-science-and-engineering/77D52B171B60A496EAFE4DB662ADC36E), Fig. 3.9)
-
-
-- **Dropout**: randomly set some of the parameters to zero, e.g. 5% of all $\vartheta_i$. This way the model learns to be more redundant and at the same time improved generalization. Dropout reduces co-adaptation between terms of the model. Also, this technique is very easy to apply.
-- **Eary stopping**: Stop training as soon as the validation loss starts increasing. This is also a very common and easy technique.
+- **Dropout**: randomly set some of the parameters to zero, e.g. 20% of all $\vartheta_i$. This way the model learns to be more redundant and at the same time improves generalization. Dropout reduces co-adaptation between terms of the model. Also, this technique is very easy to apply.
+- **Eary stopping**: Stop training as soon as the validation loss starts increasing, i.e. overfitting begins. This is also a very common and easy technique.
 - etc.
     
-### Input Normalization and Parameter Initialization
+**$l_p$ norm**
 
-These two topics will be discussed in much more detail in Core Content 4 in the context of more modern deep-learning methods. For the time being, the idea behind input normalization and parameter initialization is simply to speed up the learning process, i.e. reduce the number of gradient descent iterations. 
+To better understand the additional regularization loss terms, we look at the general $l_p$ norm of the weight vector $w\in \mathbb{R}^m$:
+
+$$||w||_p=\left(\sum_{i=1}^n |w_i|^p\right)^{1/p} \quad \text{for } p \ge 1.$$ (lp_norm)
+
+In the special case $p=1$ we recover the L1 regularization term, and the squared version of $p=2$ corresponds to the L2 regularization term. Other special case is $p \to \infty$ leading to $||w||_{\infty}= \max \left\{ |w_1|,|w_2|,...,|w_{n}| \right\}$. We see that with increasing $p$ the larger terms dominate.
+
+```{figure} ../imgs/lp_norm.png
+---
+width: 600px
+align: center
+name: lp_norm
+---
+The blue line represents the solution set of an under-determined system of equations. The red curve represents the minimum-norm level sets that intersects the blue line for each norm. For norms $p=0,...,1$ the minimum-norm solution corresponds to the sparsest solution with only one coordinate being active. For $p \ge 2$ the minimum-norm solution is not sparse and both coordinates are active. (Source: {cite}`brunton2019`, Fig. 3.9)
+```
+
+
+## Input/Output Normalization and Parameter Initialization
+
+The idea behind input/output normalization and parameter initialization is simply to speed up the learning process, i.e. reduce the number of gradient descent iterations, by bringing all values to the same order of magnitude. Normalization and initialization will be further discussed in the Deep Learning lectures towards the end of this course.
 
 **Case Study 1 - Input Normalization**
 
-Imagine that the input is $x\in \mathbb{R}$ and its mean and standard deviation over the whole dataset are $1$ and $0.001$. Further, imagine that we by chance choose the true underlying linear model of the form 
+We choose a linear model
 
-$$h(x) = \vartheta_0 + \vartheta_1 \cdot x_1,$$
+$$h(x) = \vartheta_0 + \vartheta_1 \cdot x$$ (simple_linear_model2)
 
-and the true $\vartheta^{true} = [2, 1000]$. If we start a GD optimization from an initial $\vartheta^0 = [1, 1]$, we would run into a problem. To make training work, we would need a rather small learning rate to move from the initial $\vartheta^0_0=1$ to  $\vartheta_0=2$, which would then require ~3 orders of magnitude more updates to move from $\vartheta^0_1=1$ to  $\vartheta_1=1000$. That is why it makes to normalize the inputs to a standard Gaussian distribution, e.g. $\mathcal{N}(0,1)$. 
+between the inputs $x\in \mathbb{R}$ and outputs $y\in \mathbb{R}$. In the case of the MSE loss, the gradient w.r.t. the parameters becomes 
 
-This can be achieved by precomputing the mean $\mu=1/m \sum_{i=1}^m x^{(i)}$ and variance $\sigma^2=1/m \sum_{i=1}^m \left(x^{(i)}-\mu \right)^2$ of the inputs, and then transforming each input to 
+$$\nabla_{\vartheta} MSE(y,h_{\vartheta}(x)) = \sum_{i=1}^m \left(y^{(i)}-\vartheta_0-\vartheta_1 x^{(i)}\right)\left[\begin{array}{c}1 \\ x^{(i)}\end{array}\right].$$ (simple_linear_model2_grad)
 
-$$\hat{x} = \frac{x-\mu}{\sigma}$$
+Assume that this linear model coincides with the true underlying model having $\vartheta^{true} = [\vartheta^{true}_0, \vartheta^{true}_1] = [1, 1]$. We are also given that the input $x$ has a mean and standard deviation over the dataset equal to $0$ and $0.001$. 
+
+If we start a GD optimization from an initial $\vartheta^0 = [0, 0]$, we immediately see that the average gradient w.r.t $\vartheta_1$ will be 1000 times smaller than the one for $\vartheta_0$ because of the multiplication with $x$. Thus, we would need a learning rate small enough for $\vartheta_0$ and in the same time enough iterations for the convergence of $\vartheta_1$. 
+
+To alleviate this problem, we can normalize the inputs to zero mean and variance of one. This can be achieved by precomputing the mean $\mu=1/m \sum_{i=1}^m x^{(i)}$ and variance $\sigma^2=1/m \sum_{i=1}^m \left(x^{(i)}-\mu \right)^2$ of the inputs, and then transforming each input to 
+
+$$\hat{x} = \frac{x-\mu}{\sigma}.$$ (input_normalization)
 
 If $x \in \mathbb{R}^n$ with $n > 1$, we would do that to each of the dimensions individually. 
 
-In signal processing, a similar transformation is called the [whitening transformation](https://en.wikipedia.org/wiki/Whitening_transformation) - the only difference in whitening is that it also considers correlations between each of the inputs. 
+In signal processing, a similar transformation is called the [whitening transformation](https://en.wikipedia.org/wiki/Whitening_transformation) - the difference is that whitening considers correlations between the dimensions. 
 
-> Note: The same should be done with the outputs $y$.
+> Note: Normalization should also be applied to the outputs $y$ as a similar problem of unfavorable magnitudes can be observed for them as well.
 
 
 **Case Study 2 - Parameter Initialization**
 
-Imagine that the input is $x\in \mathbb{R}^n$ with $n>>1$ and its mean and standard deviation over the whole dataset in each of the two dimensions are $[1, ..., 1]$ and $[1, ..., 1]$ respectively. Further, imagine that we by chance choose the true underlying linear model of the form 
+Given is the already normalized input $x\in \mathbb{R}^n$ with $n>>1$ and the true underlying linear model of the form 
 
-$$h(x) = \vartheta_0 + \vartheta_1 \cdot x_1 + ... + \vartheta_n \cdot x_n,$$
+$$h(x) = \vartheta_0 + \vartheta_1 \cdot x_1 + ... + \vartheta_n \cdot x_n,$$ (simple_linear_model_rn)
 
-and the true $\vartheta^{true} = [0.1, ..., 0.1]$. If we start a GD optimization from an initial $\vartheta^0 = [1,2, ..., n+1]$, we would run into a problem. To make training work, we would again need a very small learning rate to move from the initial $\vartheta^0_0=0$ to  $\vartheta_0=0.1$, which would then require ~$n$ more updates to move $\vartheta^0_n=n+1$ to  $\vartheta_1=0.1$. 
+with $\vartheta^{true} = [0.1, ..., 0.1]$. If we start a GD optimization from an initial $\vartheta^0 = [0,1,2, ..., n]$, we would run into a problem. To make training work, we would again need a small learning rate to move from the initial $\vartheta^0_0=0$ to  $\vartheta^{true}_0=0.1$, which would then require $\mathcal{O}(n)$ more updates to move $\vartheta^0_n=n$ to  $\vartheta^{true}_1=0.1$. 
 
-Xavier initialization has been proposed to alleviate this type of issue. It essentially starts with initial values drawn from $\mathcal{N}(0,1/n)$, i.e. a zero-centered normal distribution with variance $1/n$. This way we 
+Xavier initialization has been proposed to alleviate this type of issue. It essentially initializes the parameters by drawing them from $\mathcal{N}(0,1/n)$, i.e. a zero-centered normal distribution with variance $1/n$. This way we:
 
-1. Choose $\vartheta^0$ in the same order of magnitude, resulting in a similar weighting of each term in the model (given that the inputs are normalized beforehand)
-2. End up with an output $h(x^{(i)})$ also more or less from a standard normal distribution (up to correlation impact). And if we normalized $y$ beforehand, a $\mathcal{N}(0,1)$-distributed $h(x^{(i)})$ is what we want.
+1. Choose the terms of $\vartheta^0$ in the same order of magnitude, resulting in a similar weighting of each term in the model (given that the inputs $x$ are normalized beforehand)
+2. End up with outputs $h(x)$ distributed close to a standard normal distribution. And if we normalize the target $y$ beforehand, it would be in the same order of magnitude as $h(x)$.
 
 
+## Hyperparameter Search
 
-### Hyperparameter Search
+A hyperparameter is a parameter that controls other parameters. Typically, we cannot afford to optimize hyperparameters with gradient-based methods and resort to derivative-free optimization methods - see lecture [Optimization](optimization.md). 
 
-A hyperparameter is a parameter that controls other parameters. We typically cannot afford to train hyperparameters with gradient-based methods and resort to DFO methods (see above). 
+One of the most important hyperparameters in 1st order gradient-based optimization is the learning rate $\eta$. We typically tune the learning rate by looking at the so-called *training curves*. To see the impact of different values of the learning rate on the **validation** loss, look at the following figure.
 
-One of the most important hyperparameters in 1st order gradient-based optimization is the learning rate $\eta$. We typically tune the learning rate by looking at the so-called training curves. To see the impact of different values of the learning rate on the **validation** loss, look at the following figure.
+```{figure} ../imgs/learning_curve.png
+---
+width: 400px
+align: center
+name: learning_curve
+---
+Effect of learning rate on training curves (Source: [CS231n CNNs for Visual Recognition](https://cs231n.github.io/neural-networks-3/))
+```
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/2NVKmG8.png" alt="drawing" width="400"/>
-</div>
-
-(Source: [CS231n CNNs for Visual Recognition](https://cs231n.github.io/neural-networks-3/))
-
-Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD, etc. You will see many of them related to each model later in the lecture.
+Further hyperparameters are e.g. the choice of model, the optimizer itself, batch size in SGD. You will see many of them related to each model later in the lecture.
 
 ### Learning Rate Scheduling
 
-We want to be able to dynamically adjust the learning rate $\eta$ for a time-dependent learning rate $\eta(t)$ to then control the rate of decay of $\eta$. The most common strategies are
+We want to be able to dynamically adjust the learning rate $\eta$ towards a time-dependent learning rate $\eta(t)$. Some common scheduler for progressively decreasing the learning rate include
 
-$$\eta(t) = \eta_{i} \text{ if } t_{i} \leq t \leq t_{i+1}, \quad \text{piecewise constant}$$
-$$\eta(t) = \eta_{0} \cdot e^{-\lambda t}, \quad \text{ exponential decay}$$
-$$\eta(t) = \eta_{0} \cdot \left( \beta t + 1 \right)^{- \alpha}, \quad \text{ polynomial decay}$$
+$$
+\begin{aligned}
+\eta(t) &= \eta_{i} \text{ if } t_{i} \leq t \leq t_{i+1}, \quad & \text{(piecewise constant)} \\
+\eta(t) &= \eta_{0} \cdot e^{-\lambda t}, \quad & \text{(exponential decay)} \\
+\eta(t) &= \eta_{0} \cdot \left( \beta t + 1 \right)^{- \alpha}. \quad & \text{(polynomial decay)}
+\end{aligned}
+$$ (lr_scheduler)
 
 Going through the different proposed options in order:
 
 - **Piecewise constant**: Decrease whenever optimization progress begins to stall.
-- **Exponential decay**: Much more aggressive; can lead to premature stopping.
+- **Exponential decay**: More aggressive; can lead to premature stopping.
 - **Polynomial decay**: Well-behaved when $\alpha = 0.5$.
 
-Corrected for the time-dependent learning rate, and using the exponential decay our optimization then takes the following shape:
+Using a time-dependent learning rate, the optimization is more stable than the corresponding SGD alternative {numref}`sgd_2d`.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/UJ3J86r.png" alt="drawing" width="400"/>
-</div>
-
-(Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html))
-
-
-Which is much much nicer behaved!
+```{figure} ../imgs/lr_schedule.png
+---
+width: 400px
+align: center
+name: lr_schedule
+---
+Training with learning rate scheduling (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/sgd.html))
+```
 
 ### Recipe for Machine Learning
 
-If you are wondering how all of that fits together, Andrew Ng suggests this general workflow:
+If you are wondering how all of that fits together, Andrew Ng suggests the following general workflow (dev=validation split)
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/ir6Mdmm.png" alt="drawing" width="600"/>
-</div> 
+```{figure} ../imgs/ml_recipe.png
+---
+width: 600px
+align: center
+name: ml_recipe
+---
+Recipe for ML (Source: [Nuts and Bolts of Building Applications using Deep Learning](https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf))
+```
 
-(Source: [Nuts and Bolts of Building Applications using Deep Learning](https://media.nips.cc/Conferences/2016/Slides/6203-Slides.pdf))
+And a practical advice from [Prof. Matthias Niessner](http://niessnerlab.org/members/matthias_niessner/profile.html) (TUM):
 
-And a practical advice from [Prof. Matthias Niessner](http://niessnerlab.org/members/matthias_niessner/profile.html) at TUM is to:
-
-1. Train the model on 1 data point to essentially learn it by heart. This way you prove that the model and output work correctly.
-2. Train the model on a few samples. Proves that multiple inputs are handled correctly.
+1. Train the model on a single data point to essentially learn it by heart. This way you validate that the model and training pipeline work correctly.
+2. Train the model on a few samples. Validates that multiple inputs are handled correctly.
 3. Move from the overfitting regime to full training.
+
 
 ## Further References
 
-- [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html); S. Fortmann-Roe; 2012
+**Under- and Overfitting**
+
+- {cite}`cs229notes`, Chapter 8
+- {cite}`goodfellow2016`, Chapter 5
+- [Understanding the Bias-Variance Tradeoff](http://scott.fortmann-roe.com/docs/BiasVariance.html), S. Fortmann-Roe, 2012
+
+**Data Splitting and Regularization**
+
+- {cite}`cs229notes`, Chapter 9
+- {cite}`murphy2022`, Sections 4.5 and 13.5
+- {cite}`goodfellow2016`, Chapters 5 and 7
+
+**Normalization and Initialization**
+
+- {cite}`murphy2022`, Section 13.4
+- {cite}`goodfellow2016`, Section 8.4
+
+**Hyperparameters**
+
+- {cite}`murphy2022`, Section 13.4
+- {cite}`goodfellow2016`, Section 11.4

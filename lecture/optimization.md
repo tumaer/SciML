@@ -504,7 +504,7 @@ If instead of throwing away our "old" good candidates keep them in a _population
 - {cite}`hardt2022`, Chapter 5
 - {cite}`zhang2021`, Chapter Optimization Algorithms
 - {cite}`boyd2004`, Chapter 9
-- [An overview of gradient descent optimization algorithms](https://ruder.io/optimizing-gradient-descent/), S. Ruder; 2016
+- [An overview of gradient descent optimization algorithms](https://ruder.io/optimizing-gradient-descent/), S. Ruder, 2016
 
 **Second-Order Optimization**
 

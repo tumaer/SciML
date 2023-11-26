@@ -21,3 +21,5 @@
     - Available [here](https://d2l.ai/).
 9. [*Understanding Computational Bayesian Statistics*](https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371), by William M Bolstad, 2009
     - Available in the university library.
+10. [*Deep Learning*](https://mitpress.mit.edu/9780262035613/deep-learning/), by Ian Goodfellow, Yoshua Bengio and Aaron Courville, 2016
+    - Available [here](https://www.deeplearningbook.org/).
