@@ -776,13 +776,13 @@ title="Print to PDF"
 <h2><span class="section-number">3.1. </span>With Analytical Derivatives<a class="headerlink" href="#with-analytical-derivatives" title="Permalink to this headline">#</a></h2>
 <section id="case-study-convex-vs-non-convex-optimization">
 <h3><span class="section-number">3.1.1. </span>Case Study: Convex vs Non-Convex Optimization<a class="headerlink" href="#case-study-convex-vs-non-convex-optimization" title="Permalink to this headline">#</a></h3>
-<p>For the convex optimization case, we look at the Rosenbrock function</p>
+<p>In the convex optimization case, we look at the Rosenbrock function</p>
 <p><span class="math notranslate nohighlight">\(f_1(x) = (x_2-x_1^2)^2 + 0.01 \cdot (1-x_1)^2\)</span></p>
-<p>The non-convex case emerges if we add a sinosoidal signal in <span class="math notranslate nohighlight">\(x\)</span>, i.e.</p>
+<p>The non-convex case emerges if we add a sinusoidal signal in <span class="math notranslate nohighlight">\(x\)</span>, i.e.</p>
 <p><span class="math notranslate nohighlight">\(f_2(x) = (x_2-x_1^2)^2 + 0.01 \cdot (1-x_1)^2 + 0.1 \cdot (1 + \cos(x_1))\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">f1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">use_torch</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Rosenbrock function</span>
 <span class="sd">    Has one local and global minimum at f(1,1)=0&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.01</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
@@ -886,7 +886,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_101182/3655037485.py:53: UserWarning: Matplotlib is currently using module://matplotlib_inline.backend_inline, which is a non-GUI backend, so cannot show the figure.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nw/b67_wh8513j3k3d33q2qtbw00000gn/T/ipykernel_1605/3655037485.py:53: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   fig.show()
 </pre></div>
 </div>
@@ -925,7 +925,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_84499/3655037485.py:53: UserWarning: Matplotlib is currently using module://matplotlib_inline.backend_inline, which is a non-GUI backend, so cannot show the figure.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nw/b67_wh8513j3k3d33q2qtbw00000gn/T/ipykernel_1605/3655037485.py:53: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   fig.show()
 </pre></div>
 </div>
@@ -969,7 +969,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_84499/3655037485.py:53: UserWarning: Matplotlib is currently using module://matplotlib_inline.backend_inline, which is a non-GUI backend, so cannot show the figure.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nw/b67_wh8513j3k3d33q2qtbw00000gn/T/ipykernel_1605/3655037485.py:53: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   fig.show()
 </pre></div>
 </div>
@@ -1010,7 +1010,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_84499/3655037485.py:53: UserWarning: Matplotlib is currently using module://matplotlib_inline.backend_inline, which is a non-GUI backend, so cannot show the figure.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nw/b67_wh8513j3k3d33q2qtbw00000gn/T/ipykernel_1605/3655037485.py:53: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   fig.show()
 </pre></div>
 </div>
@@ -1020,7 +1020,7 @@ title="Print to PDF"
 </section>
 <section id="derivative-free-optimization">
 <h3><span class="section-number">3.1.6. </span>Derivative-Free Optimization<a class="headerlink" href="#derivative-free-optimization" title="Permalink to this headline">#</a></h3>
-<p>Here, we compare two very similar algorithms: Grid Search and Random Search.</p>
+<p>Here, we compare two seemingly very similar algorithms: Grid Search and Random Search.</p>
 <p>We assume that we know the range of the parameters, in which the minimum is contained. We then just explore the region either in a structered way (grid search) or by random sampling (random search).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1112,9 +1112,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/artur/Dropbox/ARTUR_Archiv/PhD/Lehre/SciML22-23/jupyter_book/SciML22-23/venv/lib/python3.9/site-packages/torch/autograd/__init__.py:197: UserWarning: CUDA initialization: CUDA unknown error - this may be due to an incorrectly set up environment, e.g. changing env variable CUDA_VISIBLE_DEVICES after program start. Setting the available devices to be zero. (Triggered internally at ../c10/cuda/CUDAFunctions.cpp:109.)
-  Variable._execution_engine.run_backward(  # Calls into the C++ engine to run the backward pass
-/tmp/ipykernel_84499/3655037485.py:53: UserWarning: Matplotlib is currently using module://matplotlib_inline.backend_inline, which is a non-GUI backend, so cannot show the figure.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nw/b67_wh8513j3k3d33q2qtbw00000gn/T/ipykernel_1605/3655037485.py:53: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   fig.show()
 </pre></div>
 </div>
@@ -1149,7 +1147,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_84499/3655037485.py:53: UserWarning: Matplotlib is currently using module://matplotlib_inline.backend_inline, which is a non-GUI backend, so cannot show the figure.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nw/b67_wh8513j3k3d33q2qtbw00000gn/T/ipykernel_1605/3655037485.py:53: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   fig.show()
 </pre></div>
 </div>
@@ -1199,7 +1197,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_84499/3655037485.py:53: UserWarning: Matplotlib is currently using module://matplotlib_inline.backend_inline, which is a non-GUI backend, so cannot show the figure.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/nw/b67_wh8513j3k3d33q2qtbw00000gn/T/ipykernel_1605/3655037485.py:53: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
   fig.show()
 </pre></div>
 </div>
@@ -1278,14 +1276,14 @@ title="Print to PDF"
 <section id="case-study-polynomial-linear-regression">
 <h3><span class="section-number">3.3.1. </span>Case Study: Polynomial Linear Regression<a class="headerlink" href="#case-study-polynomial-linear-regression" title="Permalink to this headline">#</a></h3>
 <blockquote>
-<div><p>Note: we move back to the typical ML notation with measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>, model <span class="math notranslate nohighlight">\(h(x)\)</span> which should approximate <span class="math notranslate nohighlight">\(y\)</span>, and loss <span class="math notranslate nohighlight">\(\mathcal{L}\)</span></p>
+<div><p>Note: we move back to the typical ML notation with measurement pairs <span class="math notranslate nohighlight">\(\left\{x^{(i)}, y^{\text {(i)}}\right\}_{i=1,...m}\)</span>, model <span class="math notranslate nohighlight">\(h(x)\)</span> which approximates <span class="math notranslate nohighlight">\(y\)</span>, and loss <span class="math notranslate nohighlight">\(\mathcal{L}\)</span></p>
 </div></blockquote>
 <p>In this specific case we look at polynomial linear regression, i.e.</p>
 <div class="math notranslate nohighlight">
 \[
 h(x) = \vartheta_0 + \vartheta_1 \cdot x^1 + ... + \vartheta_p \cdot x^p
 \]</div>
-<p>We work with a very simple artificial dataset consisting on 5 measurement pairs given below.</p>
+<p>We work with a very simple artificial dataset consisting of 5 measurement pairs given below.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.8</span><span class="p">,</span> <span class="mf">2.3</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]],</span> <span class="n">requires_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">T</span>
@@ -1385,8 +1383,8 @@ h(x) = \vartheta_0 + \vartheta_1 \cdot x^1 + ... + \vartheta_p \cdot x^p
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>## Parameters before training
-linear.weight :  tensor([[-0.1626, -0.4394, -0.2269]])
-linear.bias :  tensor([-0.0979])
+linear.weight :  tensor([[ 0.2295, -0.4585,  0.3999]])
+linear.bias :  tensor([0.4043])
 ## Parameters after training:
 linear.weight :  tensor([[ 2.7232, -1.1227, -2.3079]])
 linear.bias :  tensor([0.5678])
@@ -1469,7 +1467,6 @@ linear.bias :  tensor([0.5678])
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">lb</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">ub</span><span class="p">),</span> <span class="n">n</span><span class="p">,))</span>
 
-
 <span class="n">polynomial_degree</span> <span class="o">=</span> <span class="mi">3</span>
 <span class="n">num_iters</span> <span class="o">=</span> <span class="mi">400</span>
 
@@ -1533,7 +1530,7 @@ linear.bias :  tensor([0.5678])
 </div>
 <div class="cell_output docutils container">
 <img alt="../_images/optimization_37_0.png" src="../_images/optimization_37_0.png" />
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Our best guess is lr=[0.08477446 0.04933959], beta2=[0.9986837 0.993747 ], and loss = [0.17758176 0.17758176]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Our best guess is lr=[0.2409047], beta2=[0.99246394], and loss = [0.17758173]
 </pre></div>
 </div>
 <img alt="../_images/optimization_37_2.png" src="../_images/optimization_37_2.png" />
@@ -1571,7 +1568,7 @@ linear.bias :  tensor([0.5678])
     <span class="n">model</span> <span class="o">=</span> <span class="n">PolynomialModel</span><span class="p">(</span><span class="n">polynomial_degree</span><span class="p">)</span>
     <span class="c1"># This learning rate `lr` given to the optimizer is the initial one</span>
     <span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">lr</span><span class="p">)</span>
-    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">MultiStepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">milestones</span><span class="o">=</span><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+    <span class="n">scheduler</span> <span class="o">=</span> <span class="n">MultiStepLR</span><span class="p">(</span><span class="n">optimizer</span><span class="p">,</span> <span class="n">milestones</span><span class="o">=</span><span class="p">[</span><span class="mi">50</span><span class="p">,</span> <span class="mi">150</span><span class="p">],</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 
     <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MSELoss</span><span class="p">()</span>
 
