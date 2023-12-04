@@ -629,7 +629,7 @@ title="Print to PDF"
 </section>
 <section id="sequential-minimal-optimization-smo">
 <h2><span class="section-number">4.2. </span>Sequential Minimal Optimization (SMO)<a class="headerlink" href="#sequential-minimal-optimization-smo" title="Permalink to this headline">#</a></h2>
-<p>This algorithm was originally developed by <a class="reference external" href="http://research.microsoft.com/pubs/69644/tr-98-14.pdf">John Platt in 1998</a> and is optimized for SVM optimization. This algorithm solves the dual problem in a gradient-free manner. It selects two multiplier <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\alpha_j\)</span> and optimizes them while keeping all other <span class="math notranslate nohighlight">\(\alpha\)</span>s constant. And then itertively repeats the procedure over all <span class="math notranslate nohighlight">\(\alpha\)</span>s. The efficiency lies in the heuristic used for selecting two <span class="math notranslate nohighlight">\(\alpha\)</span> values, which is based on information from previous iterations. In the end we obtain a vector of <span class="math notranslate nohighlight">\(M\)</span> values for <span class="math notranslate nohighlight">\(\alpha\)</span> corresponding to each training data point, for which most of the <span class="math notranslate nohighlight">\(\alpha\)</span> values are <span class="math notranslate nohighlight">\(0\)</span> and only the non-zero values contribute to the predictions made by the model.</p>
+<p>This algorithm was originally developed by <a class="reference external" href="http://research.microsoft.com/pubs/69644/tr-98-14.pdf">John Platt in 1998</a> and is optimized for SVM optimization. This algorithm solves the dual problem in a gradient-free manner. It selects two multiplier <span class="math notranslate nohighlight">\(\alpha_i\)</span> and <span class="math notranslate nohighlight">\(\alpha_j\)</span> and optimizes them while keeping all other <span class="math notranslate nohighlight">\(\alpha\)</span>’s constant. And then itertively repeats the procedure over all <span class="math notranslate nohighlight">\(\alpha\)</span>’s. The efficiency lies in the heuristic used for selecting two <span class="math notranslate nohighlight">\(\alpha\)</span> values, which is based on information from previous iterations. In the end we obtain a vector of <span class="math notranslate nohighlight">\(M\)</span> values for <span class="math notranslate nohighlight">\(\alpha\)</span> corresponding to each training data point, for which most of the <span class="math notranslate nohighlight">\(\alpha\)</span> values are <span class="math notranslate nohighlight">\(0\)</span> and only the non-zero values contribute to the predictions made by the model.</p>
 <p>We adapt the implementation of the SMO algorithm from <a class="reference external" href="https://jonchar.net/notebooks/SVM/">this</a> reference code by Jon Charest.</p>
 <p><strong>Visualization Utils</strong></p>
 <div class="cell docutils container">
@@ -693,7 +693,7 @@ title="Print to PDF"
 <p>The implementation of the radial basis function</p>
 <div class="math notranslate nohighlight">
 \[K(x,x') = \exp \left\{ - \gamma ||x-x'||_2^2 \right\} \]</div>
-<p>we leave as an exercise for you.</p>
+<p>is also provided for comparison.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">linear_kernel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
@@ -723,7 +723,7 @@ title="Print to PDF"
 </div>
 </div>
 <p>Now, using the dual problem formulation and a <code class="docutils literal notranslate"><span class="pre">kernel</span></code>, we define the objective and decision functions.
-The decision function simple imlements <span class="math notranslate nohighlight">\((\omega x + b)\)</span> by using the kernel trick and the relation <span class="math notranslate nohighlight">\(w=\sum_{i=1}^{m} \alpha_{i} y^{(i)} x^{(i)}\)</span></p>
+The decision function simply imlements <span class="math notranslate nohighlight">\((\omega x + b)\)</span> by using the kernel trick and the relation <span class="math notranslate nohighlight">\(w=\sum_{i=1}^{m} \alpha_{i} y^{(i)} x^{(i)}\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Objective function to optimize, i.e. loss function</span>
@@ -1013,7 +1013,7 @@ The decision function simple imlements <span class="math notranslate nohighlight
 <section id="multiclass-classification-with-svm-and-smo">
 <h2><span class="section-number">4.3. </span>Multiclass Classification with SVM and SMO<a class="headerlink" href="#multiclass-classification-with-svm-and-smo" title="Permalink to this headline">#</a></h2>
 <p>We look at a problem we have seen before: the classification of the iris dataset. The task is to use two of the measured input features (“sepal_length” and “sepal_width”) and to build a classifier capable of distinguishing among the three possible flowers, which we index by [0, 1, 2].</p>
-<p>Getting the data is equivalent to the process we saw in <a class="reference internal" href="linear.html"><span class="doc std std-doc">Linear and Logistic Regression</span></a> in the Logistic Regression section.</p>
+<p>Getting the data is equivalent to the process we saw in exercise on <a class="reference internal" href="linear.html"><span class="doc std std-doc">Linear and Logistic Regression</span></a> in the Logistic Regression section.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># get iris dataset</span>
@@ -1070,7 +1070,7 @@ Training data:
 </div>
 </div>
 <p><strong>Exercise</strong></p>
-<p>Now, your task is to implement a SVM-based multi-class classifier, which can be trained using the SMO algorithm. A solution will be presented during the next exercise session.</p>
+<p>Now, implement a SVM-based multi-class classifier, which can be trained using the SMO algorithm. Compare with the solution presented below.</p>
 <p>Hint: <a class="reference external" href="https://github.com/itsikad/svm-smo">this</a> repository and the one-vs-all classifier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1195,15 +1195,16 @@ Training data:
 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Hinge_loss_vs_zero_one_loss.svg/1280px-Hinge_loss_vs_zero_one_loss.svg.png" alt="drawing" width="500"/>
 <p>What we would give as an input to the hinge loss is the “raw” output of the classifier, e.g. for linear SVMs <span class="math notranslate nohighlight">\(out= \omega x + b\)</span>, multiplied with the correct output <span class="math notranslate nohighlight">\(y\)</span>. Thus, the hinge loss of a single sample <span class="math notranslate nohighlight">\(i\)</span> for a linear SVM becomes</p>
 <div class="math notranslate nohighlight">
-\[\mathcal{L}_i = \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} x^{(i)} + b) \right)\]</div>
+\[\mathcal{L}_i = \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} x^{(i)} + b) \right).\]</div>
 <p>To fully recover the Soft Margin Classifier, we simply add the squared L2 regularization to this loss, thus the total loss becomes</p>
 <div class="math notranslate nohighlight">
-\[\mathcal{L} = \frac{1}{M}\sum_{i=1}^M \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} x^{(i)} + b) \right) + \lambda ||w||_2^2\]</div>
+\[\mathcal{L} = \frac{1}{M}\sum_{i=1}^M \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} x^{(i)} + b) \right) + \lambda ||w||_2^2.\]</div>
 <p>Here, the parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is inversely proportional to the <span class="math notranslate nohighlight">\(C\)</span> from the Soft Margin Classifier formalism.</p>
 <p>If we want to do something like kernels (although there is no dot product here), the best we can do is directly applying the input feature transformation <span class="math notranslate nohighlight">\(x \to \varphi(x)\)</span> which leads to the loss</p>
 <div class="math notranslate nohighlight">
-\[\mathcal{L} = \frac{1}{M}\sum_{i=1}^M \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} \varphi(x^{(i)}) + b) \right) + \lambda ||w||_2^2\]</div>
+\[\mathcal{L} = \frac{1}{M}\sum_{i=1}^M \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} \varphi(x^{(i)}) + b) \right) + \lambda ||w||_2^2.\]</div>
 <p>However, as you might remember, there is no practically useful <span class="math notranslate nohighlight">\(\varphi\)</span> corresponding to the RBF kernel - there is one, but it is <a class="reference external" href="https://stats.stackexchange.com/questions/123413/using-a-gaussian-kernel-in-svm-how-exactly-is-this-then-written-as-a-dot-produc">an infinitely long sum</a>. Thus, the hinge loss approach is somewhat restrictive.</p>
+<p>Note: there is a similar loss function corresponding to the logistic regression. See <a class="reference external" href="https://en.wikipedia.org/wiki/Support_vector_machine#SVM_and_the_hinge_loss">this</a> for more details.</p>
 <p><strong>Visualization Utils</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

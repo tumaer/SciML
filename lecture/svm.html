@@ -456,18 +456,35 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">
-   6.2. Linearly Separable Sets - Maximum Margin Classifier (MMC)
+  <a class="reference internal nav-link" href="#maximum-margin-classifier-mmc">
+   6.2. Maximum Margin Classifier (MMC)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functional-margin">
+     6.2.1. Functional Margin
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-margin">
+     6.2.2. Geometric Margin
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-margin-classifier">
+     6.2.3. Maximum Margin Classifier
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advanced-topics-soft-margin-classifier-smc">
+   6.3. Advanced Topics: Soft Margin Classifier (SMC)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">
-   6.3. Non-Separable Sets - Soft Margin Classifier (SMC)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">
-   6.4. Sequential Minimal Optimization (SMO)
+  <a class="reference internal nav-link" href="#advanced-topics-sequential-minimal-optimization-smo">
+   6.4. Advanced Topics: Sequential Minimal Optimization (SMO)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -534,18 +551,35 @@ title="Print to PDF"
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#linearly-separable-sets-maximum-margin-classifier-mmc">
-   6.2. Linearly Separable Sets - Maximum Margin Classifier (MMC)
+  <a class="reference internal nav-link" href="#maximum-margin-classifier-mmc">
+   6.2. Maximum Margin Classifier (MMC)
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functional-margin">
+     6.2.1. Functional Margin
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#geometric-margin">
+     6.2.2. Geometric Margin
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maximum-margin-classifier">
+     6.2.3. Maximum Margin Classifier
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advanced-topics-soft-margin-classifier-smc">
+   6.3. Advanced Topics: Soft Margin Classifier (SMC)
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#non-separable-sets-soft-margin-classifier-smc">
-   6.3. Non-Separable Sets - Soft Margin Classifier (SMC)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sequential-minimal-optimization-smo">
-   6.4. Sequential Minimal Optimization (SMO)
+  <a class="reference internal nav-link" href="#advanced-topics-sequential-minimal-optimization-smo">
+   6.4. Advanced Topics: Sequential Minimal Optimization (SMO)
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -599,39 +633,39 @@ title="Print to PDF"
                 
   <section class="tex2jax_ignore mathjax_ignore" id="support-vector-machines">
 <h1><span class="section-number">6. </span>Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this headline">#</a></h1>
-<p>First, we need some mathematical formalism to solve constrained optimization problems.</p>
+<p>Support Vector Machines are one of the most popular classic supervised learning algorithms. In this lecture, we will first discuss the mathematical formalism of solving constrained optimization problems by means of Lagrange multipliers, then we will look at linear binary classification using the maximum margin and soft margin classifiers, and in the end we will present the kernel trick and how it extends the previous two approaches to non-linear boundaries within the more general Support Vector Machine.</p>
 <section id="the-constrained-optimization-problem">
 <h2><span class="section-number">6.1. </span>The Constrained Optimization Problem<a class="headerlink" href="#the-constrained-optimization-problem" title="Permalink to this headline">#</a></h2>
-<p>If we define our optimization problem as:</p>
-<div class="math notranslate nohighlight">
-\[\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{2pt} h_{i}(\omega)=0, \hspace{2pt} i=1, \ldots, l\]</div>
-<p>Where the <span class="math notranslate nohighlight">\(\underset{\omega}{\min}\)</span> seeks to find the minimum subject to the constraint(s) <span class="math notranslate nohighlight">\(h_{i}(\omega)\)</span>. To solve this we have to define a Lagrangian to take into account the constraints.</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{L}(\omega, \beta) = f(\omega) + \sum_{i=1}^{l} \beta_{i} h_{i}(\omega)\]</div>
-<p>The <span class="math notranslate nohighlight">\(\beta_{i}\)</span> are the <em>Lagrangian multipliers</em>, which need to be identified to find the constraint-satisfying <span class="math notranslate nohighlight">\(\omega\)</span>. The necessary condition to solve this problem for the optimum is to solve</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-    \frac{\partial \mathcal{L}}{\partial \omega_{i}} &amp;= 0 \\
-    \frac{\partial \mathcal{L}}{\partial \beta_{i}} &amp;= 0
-\end{aligned}\end{split}\]</div>
-<p>for <span class="math notranslate nohighlight">\(\omega\)</span>, and <span class="math notranslate nohighlight">\(\beta\)</span>. In classification problems, we do not only have <em>equality constraints</em> as above but can also encounter <em>inequality constraints</em>. We formulate the primal optimization problem as:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\underset{\omega}{\min} f(\omega) \text{ s.t.} \begin{cases} &amp;g_{i}(\omega) \leq 0, \quad i=1, \ldots, k \\
-                    &amp;h_{j}(\omega) = 0, \quad j=1, \ldots, l
-       \end{cases}\end{split}\]</div>
-<p>To then define the generalized Lagrangian</p>
-<div class="math notranslate nohighlight">
-\[\mathcal{L}(\omega, \alpha, \beta) = f(\omega) + \sum_{i=1}^{k} \alpha_{i} g_{i}(\omega) + \sum_{j=1}^{l} \beta_{i} h_{j}(\omega)\]</div>
-<p>and its corresponding optimization problem</p>
-<div class="math notranslate nohighlight">
-\[
-\theta_{p}(\omega) = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta).
+<p>We define a constraint optimization problem as</p>
+<div class="math notranslate nohighlight" id="equation-constr-opt">
+<span class="eqno">(6.1)<a class="headerlink" href="#equation-constr-opt" title="Permalink to this equation">#</a></span>\[\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{5pt} h_{i}(\omega)=0, \hspace{5pt} i=1, \ldots, l\]</div>
+<p>Here, the <span class="math notranslate nohighlight">\(\underset{\omega}{\min}\)</span> seeks to find the minimum subject to the constraint(s) <span class="math notranslate nohighlight">\(h_{i}(\omega)\)</span>. One possible way to solve this is by using Lagrange multipliers, for which we define the Lagrangian <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> which takes the constraints into account.</p>
+<div class="math notranslate nohighlight" id="equation-constr-opt-lagr">
+<span class="eqno">(6.2)<a class="headerlink" href="#equation-constr-opt-lagr" title="Permalink to this equation">#</a></span>\[\mathcal{L}(\omega, \beta) = f(\omega) + \sum_{i=1}^{l} \beta_{i} h_{i}(\omega).\]</div>
+<p>The <span class="math notranslate nohighlight">\(\beta_{i}\)</span> are the <em>Lagrangian multipliers</em>, which need to be identified to find the constraint-satisfying <span class="math notranslate nohighlight">\(\omega\)</span>. The necessary conditions to solve this problem for the optimum are to solve</p>
+<div class="math notranslate nohighlight" id="equation-constr-opt-lagr-optimim">
+<span class="eqno">(6.3)<a class="headerlink" href="#equation-constr-opt-lagr-optimim" title="Permalink to this equation">#</a></span>\[\frac{\partial \mathcal{L}}{\partial \omega_{i}} = 0; \quad \frac{\partial \mathcal{L}}{\partial \beta_{i}} = 0,
 \]</div>
+<p>for <span class="math notranslate nohighlight">\(\omega\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. In classification problems, we do not only have <em>equality constraints</em> as above but can also encounter <em>inequality constraints</em>. We formulate the general <strong>primal optimization problem</strong> as:</p>
+<div class="math notranslate nohighlight" id="equation-primal-problem">
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-primal-problem" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\omega}{\min} f(\omega) \text{ s.t.} 
+\begin{cases} 
+&amp;g_{i}(\omega) \leq 0, \quad i=1, \ldots, k, \\
+&amp;h_{j}(\omega) = 0, \quad j=1, \ldots, l.
+\end{cases}\end{split}\]</div>
+<p>To solve it we define the <strong>generalized Lagrangian</strong></p>
+<div class="math notranslate nohighlight" id="equation-primal-lagr">
+<span class="eqno">(6.5)<a class="headerlink" href="#equation-primal-lagr" title="Permalink to this equation">#</a></span>\[\mathcal{L}(\omega, \alpha, \beta) = f(\omega) + \sum_{i=1}^{k} \alpha_{i} g_{i}(\omega) + \sum_{j=1}^{l} \beta_{i} h_{j}(\omega),\]</div>
+<p>with the further Lagrange multipliers <span class="math notranslate nohighlight">\(\alpha_i\)</span> and the corresponding optimization problem becomes</p>
+<div class="math notranslate nohighlight" id="equation-theta-primal">
+<span class="eqno">(6.6)<a class="headerlink" href="#equation-theta-primal" title="Permalink to this equation">#</a></span>\[\theta_{p}(\omega) = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta).\]</div>
 <p>Now we can verify that this optimization problem satisfies</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\theta_{p}(\omega) = \begin{cases} &amp;f(\omega), \quad \text{if } \omega \text{ satisfies the primal constraints} \\
-&amp;\infty, \quad \text{otherwise}
+<div class="math notranslate nohighlight" id="equation-theta-primal-cases">
+<span class="eqno">(6.7)<a class="headerlink" href="#equation-theta-primal-cases" title="Permalink to this equation">#</a></span>\[\begin{split}
+\theta_{p}(\omega) = 
+\begin{cases} 
+&amp;f(\omega) \quad \text{if } \omega \text{ satisfies the primal constraints,} \\
+&amp;\infty \qquad \text{otherwise}.
 \end{cases}
 \end{split}\]</div>
 <p>Where does this case-by-case breakdown come from?</p>
@@ -639,238 +673,190 @@ title="Print to PDF"
 <li><p>In the first case, the constraints are inactive and contribute nil to the sum.</p></li>
 <li><p>In the second case, the sums increase linearly with <span class="math notranslate nohighlight">\(\alpha_{i}\)</span>, <span class="math notranslate nohighlight">\(\beta_{i}\)</span> beyond all bounds.</p></li>
 </ol>
-<div class="math notranslate nohighlight">
-\[
-\Longrightarrow p^{\star} = \underset{\omega}{\min} \hspace{2pt} \theta_{p}(\omega) = \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta)
-\]</div>
-<p>i.e. we recover the original primal problem with <span class="math notranslate nohighlight">\(p^{\star}\)</span> being the <em>value of the primal problem</em>. With this we can now formulate the <em>dual optimization problem</em>:</p>
-<div class="math notranslate nohighlight">
-\[
-d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \theta_{D}(\alpha, \beta) = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta)
-\]</div>
-<p>with <span class="math notranslate nohighlight">\(\theta_{D}(\alpha, \beta) = \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta)\)</span> and <span class="math notranslate nohighlight">\(d^{\star}\)</span> the value of the dual problem. Please note that the primal and dual problems correspond to each other, but exchange the order of minimization and maximization. To show this relation between min-max, and max-min we let <span class="math notranslate nohighlight">\(\mu(y) = \underset{x}{\inf} \hspace{2pt} \kappa(x, y)\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-primal-solution">
+<span class="eqno">(6.8)<a class="headerlink" href="#equation-primal-solution" title="Permalink to this equation">#</a></span>\[\Longrightarrow p^{\star} = \underset{\omega}{\min} \hspace{2pt} \theta_{p}(\omega) = \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta).\]</div>
+<p>I.e. we recover the original primal problem with <span class="math notranslate nohighlight">\(p^{\star}\)</span> being the <em>optimal value of the primal problem</em>. With this we can now formulate the <em>dual optimization problem</em>:</p>
+<div class="math notranslate nohighlight" id="equation-dual-solution">
+<span class="eqno">(6.9)<a class="headerlink" href="#equation-dual-solution" title="Permalink to this equation">#</a></span>\[d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \theta_{D}(\alpha, \beta) = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta),\]</div>
+<p>with <span class="math notranslate nohighlight">\(\theta_{D}(\alpha, \beta) = \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta)\)</span> and <span class="math notranslate nohighlight">\(d^{\star}\)</span> the optimal value of the dual problem. Please note that the primal and dual problems are equivalent up to exchanging the order of minimization and maximization. To show how these problems are related, we first derive a relation between min-max and max-min using <span class="math notranslate nohighlight">\(\mu(y) = \underset{x}{\inf} \hspace{2pt} \kappa(x, y)\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-min-max-and-max-min">
+<span class="eqno">(6.10)<a class="headerlink" href="#equation-min-max-and-max-min" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
     &amp;\Longrightarrow \mu(y) \leq \kappa(x, y) \\
     &amp;\Longrightarrow \underset{y}{\sup} \hspace{2pt} \mu(y) \leq \underset{y}{\sup} \hspace{2pt} \kappa(x, y) \\
     &amp;\Longrightarrow \underset{y}{\sup} \hspace{2pt} \mu(y) \leq \underset{x}{\inf} \hspace{2pt} \underset{y}{\sup} \hspace{2pt} \kappa(x, y) \\
     &amp;\Longrightarrow \underset{y}{\sup} \hspace{2pt} \underset{x}{\inf} \hspace{2pt} \kappa(x, y) \leq \underset{x}{\inf} \hspace{2pt} \underset{y}{\sup} \hspace{2pt} \kappa(x, y) \\
-\end{aligned}
-\end{split}\]</div>
-<p>From the last line we can immediately imply the relation between the primal, and the dual problems:</p>
-<div class="math notranslate nohighlight">
-\[
-d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) \leq \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) = p^{\star}
-\]</div>
+\end{aligned}\end{split}\]</div>
+<p>From the last line we can immediately imply the relation between the primal and the dual problems</p>
+<div class="math notranslate nohighlight" id="equation-dual-smaller-primal">
+<span class="eqno">(6.11)<a class="headerlink" href="#equation-dual-smaller-primal" title="Permalink to this equation">#</a></span>\[d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) \leq \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) = p^{\star},\]</div>
 <p>where the inequality can, under certain conditions, turn into equality. The conditions for this to turn into equality are the following (going back to the Lagrangian form from above):</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(f\)</span>, and <span class="math notranslate nohighlight">\(g_{i}\)</span> are convex, i.e. their Hessians are positive semi-definite. The exact definitions of the Hessians will be presented in 3 lectures.</p></li>
+<li><p><span class="math notranslate nohighlight">\(f\)</span> and <span class="math notranslate nohighlight">\(g_{i}\)</span> are convex, i.e. their Hessians are positive semi-definite.</p></li>
 <li><p>The <span class="math notranslate nohighlight">\(h_{i}\)</span> are affine, i.e. they can be expressed as linear functions of their arguments.</p></li>
 </ul>
-<p>We hence have three conditions fulfilled</p>
+<p>Under the above conditions, the following holds:</p>
 <ol class="simple">
-<li><p>The optimum solution <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> to the primal optimization problem exists</p></li>
-<li><p>The optimum solution <span class="math notranslate nohighlight">\(\alpha^{\star}\)</span>, <span class="math notranslate nohighlight">\(\beta^{\star}\)</span> to the dual optimization problem exists</p></li>
+<li><p>The optimal solution <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> to the primal optimization problem exists,</p></li>
+<li><p>The optimal solution <span class="math notranslate nohighlight">\(\alpha^{\star}\)</span>, <span class="math notranslate nohighlight">\(\beta^{\star}\)</span> to the dual optimization problem exists,</p></li>
+<li><p><span class="math notranslate nohighlight">\(p^{\star}=d^{\star}\)</span>,</p></li>
 <li><p><span class="math notranslate nohighlight">\(\omega^{\star}\)</span>, <span class="math notranslate nohighlight">\(\alpha^{\star}\)</span>, and <span class="math notranslate nohighlight">\(\beta^{\star}\)</span> satisfy the Karush-Kuhn-Tucker (KKT) conditions.</p></li>
 </ol>
-<p>The KKT conditions are expressed as the following conditions</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-    \left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \omega_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &amp;= 0, \quad i=1, \ldots, n \qquad \text{(KKT1)}\\
-    \left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \beta_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &amp;= 0, \quad i=1, \ldots, l \qquad \text{(KKT2)}
-\end{aligned}
-\end{split}\]</div>
-<p>The KKT complementarity condition then amounts to</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-    \alpha_{i}^{\star} g_{i}(\omega^{\star}) &amp;= 0, \quad i=1, \ldots, k \qquad \text{(KKT3)}\\
-    g_{i}(\omega^{\star}) &amp;\leq 0, \quad i=1, \ldots, k \qquad \text{(KKT4)}\\
-    \alpha_{i}^{\star} &amp;\geq 0, \quad i=1, \ldots, k \qquad \text{(KKT5)}
-\end{aligned}
-\end{split}\]</div>
-<p>Moreover, if a set <span class="math notranslate nohighlight">\(\omega^{\star}\)</span>, <span class="math notranslate nohighlight">\(\alpha^{\star}\)</span>, and <span class="math notranslate nohighlight">\(\beta^{\star}\)</span> satisfies the KKT conditions it is a solution to the primal/dual problem. The KKT conditions are sufficient and necessary here. The dual complementarity condition indicates whether the <span class="math notranslate nohighlight">\(g_{i}(\omega) \leq 0\)</span> constraint is active.</p>
-<div class="math notranslate nohighlight">
-\[
-\alpha_{i}^{\star} &gt; 0 \Longrightarrow g_{i}(\omega^{\star}) = 0
-\]</div>
-<p>i.e. <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> is “on the constraint boundary”.</p>
+<p>The KKT conditions are expressed as the following conditions:</p>
+<div class="math notranslate nohighlight" id="equation-kkt">
+<span class="eqno">(6.12)<a class="headerlink" href="#equation-kkt" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \omega_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &amp;= 0, \quad i=1, \ldots, n \qquad \text{(KKT1)}\\
+\left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \beta_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &amp;= 0, \quad i=1, \ldots, l \qquad \text{(KKT2)} \\
+% The KKT complementarity condition then amounts to: (next three)
+\alpha_{i}^{\star} g_{i}(\omega^{\star}) &amp;= 0, \quad i=1, \ldots, k \qquad \text{(KKT3)}\\
+g_{i}(\omega^{\star}) &amp;\leq 0, \quad i=1, \ldots, k \qquad \text{(KKT4)}\\
+\alpha_{i}^{\star} &amp;\geq 0, \quad i=1, \ldots, k \qquad \text{(KKT5)}
+\end{aligned}\end{split}\]</div>
+<p>Moreover, if a set <span class="math notranslate nohighlight">\(\omega^{\star}\)</span>, <span class="math notranslate nohighlight">\(\alpha^{\star}\)</span>, and <span class="math notranslate nohighlight">\(\beta^{\star}\)</span> satisfies the KKT conditions, then it is a solution to the primal/dual problem. The KKT conditions are sufficient and necessary here. The <strong>dual complementarity condition</strong> (KKT3) indicates whether the <span class="math notranslate nohighlight">\(g_{i}(\omega) \leq 0\)</span> constraint is active:</p>
+<div class="math notranslate nohighlight" id="equation-kkt-dual-complementarity">
+<span class="eqno">(6.13)<a class="headerlink" href="#equation-kkt-dual-complementarity" title="Permalink to this equation">#</a></span>\[\alpha_{i}^{\star} &gt; 0 \Longrightarrow g_{i}(\omega^{\star}) = 0,\]</div>
+<p>i.e. if <span class="math notranslate nohighlight">\(\alpha_{i}^{\star} &gt; 0\)</span>, then <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> is “on the constraint boundary”.</p>
 </section>
-<section id="linearly-separable-sets-maximum-margin-classifier-mmc">
-<h2><span class="section-number">6.2. </span>Linearly Separable Sets - Maximum Margin Classifier (MMC)<a class="headerlink" href="#linearly-separable-sets-maximum-margin-classifier-mmc" title="Permalink to this headline">#</a></h2>
-<p>Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier.</p>
-<p>Now, we can (re-)introduce the <em>linear discriminator</em>. Logistic regression <span class="math notranslate nohighlight">\(p(y=1| x; \theta)\)</span> is then modeled by <span class="math notranslate nohighlight">\(h(x) = g(\theta^{\top} x) = \text{sigm}(\theta^{\top} x)\)</span>:</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/7VgPzdM.png" alt="drawing" width="400"/>
-</div>
-<p>If <span class="math notranslate nohighlight">\(g(\theta^{\top} x)\)</span> is then close to one, then we have large confidence that <span class="math notranslate nohighlight">\(x\)</span> belongs to class <span class="math notranslate nohighlight">\(\mathcal{C}_{1}\)</span> with <span class="math notranslate nohighlight">\(y=1\)</span>, whereas if it is close to <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>, we have much less confidence:</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/4uZ08Td.png" alt="drawing" width="500"/>
-</div>
+<section id="maximum-margin-classifier-mmc">
+<h2><span class="section-number">6.2. </span>Maximum Margin Classifier (MMC)<a class="headerlink" href="#maximum-margin-classifier-mmc" title="Permalink to this headline">#</a></h2>
+<p>Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier. This classifier assumes that the classes are linearly separable.</p>
+<p>Now, we can (re-)introduce the <em>linear discriminator</em>. Logistic regression <span class="math notranslate nohighlight">\(p(y=1| x; \vartheta)\)</span> is then modeled by <span class="math notranslate nohighlight">\(h(x) = g(\vartheta^{\top} x) = \text{sigmoid}(\vartheta^{\top} x)\)</span>:</p>
+<figure class="align-center" id="sigmoid-svm">
+<a class="reference internal image-reference" href="../_images/sigmoid_svm.png"><img alt="../_images/sigmoid_svm.png" src="../_images/sigmoid_svm.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.1 </span><span class="caption-text">Sigmoid function.</span><a class="headerlink" href="#sigmoid-svm" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>If <span class="math notranslate nohighlight">\(g(\vartheta^{\top} x)\)</span> is then close to one, then we have large confidence that <span class="math notranslate nohighlight">\(x\)</span> belongs to class <span class="math notranslate nohighlight">\(\mathcal{C}_{1}\)</span> with <span class="math notranslate nohighlight">\(y=1\)</span>, whereas if it is close to <span class="math notranslate nohighlight">\(\frac{1}{2}\)</span>, we have much less confidence:</p>
+<figure class="align-center" id="log-reg-confidence">
+<a class="reference internal image-reference" href="../_images/log_reg_confidence.png"><img alt="../_images/log_reg_confidence.png" src="../_images/log_reg_confidence.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.2 </span><span class="caption-text">Confidence of logistic regression classifier.</span><a class="headerlink" href="#log-reg-confidence" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <blockquote>
-<div><p>The intuition here is that we seek to find the model parameters <span class="math notranslate nohighlight">\(\theta\)</span> such that <span class="math notranslate nohighlight">\(g(\theta^{\top}x)\)</span> maximizes the distance from the decision boundary <span class="math notranslate nohighlight">\(g(\theta^{\top}x) = \frac{1}{2}\)</span> for all data points.</p>
+<div><p>The intuition here is that we seek to find the model parameters <span class="math notranslate nohighlight">\(\vartheta\)</span> such that <span class="math notranslate nohighlight">\(g(\vartheta^{\top}x)\)</span> maximizes the distance from the decision boundary <span class="math notranslate nohighlight">\(g(\vartheta^{\top}x) = \frac{1}{2}\)</span> for all data points.</p>
 </div></blockquote>
 <p>For consistency with the standard notation we slightly reformulate this problem setting:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{align*}
-    y &amp;\in \{ -1, 1 \} \text{ as binary class labels} \\
-    h(x) &amp;= g(\omega^{\top}x + b) \text{ as classifier with} \\
-    g(z) &amp;= \begin{cases}
-        1, \quad z \geq 0 \\
-        -1, \quad \ &lt; 0
-    \end{cases}
-\end{align*}
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\omega^{\top} x + b\)</span> defines a hyperplane for our linear classifier. With <span class="math notranslate nohighlight">\(b\)</span> we now make the bias explicit, where it was previously implicit in our expressions.</p>
-<p><strong>Functional Margin</strong></p>
-<p>The <em>functional margin</em> of <span class="math notranslate nohighlight">\((\omega, b)\)</span> w.r.t.  a single training sample then is:</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{\gamma}^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b)
-\]</div>
-<p>For a confident prediction we would then like to have a maximum gap between the classes for a good classifier:</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/eTkx5uU.png" alt="drawing" width="400"/>
-</div>
+<div class="math notranslate nohighlight" id="equation-svm-notation">
+<span class="eqno">(6.14)<a class="headerlink" href="#equation-svm-notation" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+y &amp;\in \{ -1, 1 \} \text{ as binary class labels} \\
+h(x) &amp;= g(\omega^{\top}x + b) \text{ as classifier with} \\
+g(z) &amp;= \begin{cases}
+    1, \quad z \geq 0 \\
+    -1, \quad z\ &lt; 0,
+\end{cases}
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\omega^{\top} x + b\)</span> defines a hyperplane for our linear classifier. With <span class="math notranslate nohighlight">\(b\)</span> we now make the bias explicit, as it was previously implicit in our expressions.</p>
+<section id="functional-margin">
+<h3><span class="section-number">6.2.1. </span>Functional Margin<a class="headerlink" href="#functional-margin" title="Permalink to this headline">#</a></h3>
+<p>The <em>functional margin</em> of <span class="math notranslate nohighlight">\((\omega, b)\)</span> w.r.t. a single training sample is defined as</p>
+<div class="math notranslate nohighlight" id="equation-funct-margin">
+<span class="eqno">(6.15)<a class="headerlink" href="#equation-funct-margin" title="Permalink to this equation">#</a></span>\[\hat{\gamma}^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b).\]</div>
+<p>For a confident prediction we would then like to have a maximum gap between the classes for a good classifier.</p>
+<figure class="align-center" id="good-vs-bad-classifier-svm">
+<a class="reference internal image-reference" href="../_images/good_vs_bad_classifier_svm.png"><img alt="../_images/good_vs_bad_classifier_svm.png" src="../_images/good_vs_bad_classifier_svm.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.3 </span><span class="caption-text">Good vs bad linear decision boundry.</span><a class="headerlink" href="#good-vs-bad-classifier-svm" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>For correctly classified samples we always have</p>
-<div class="math notranslate nohighlight">
-\[
-y^{(i)}(\omega^{\top} x^{(i)} + b) &gt; 0
-\]</div>
-<p>as <span class="math notranslate nohighlight">\(g(\omega^{\top}x + b) = y = \pm 1 \leftarrow \omega^{\top}x^{(i)} + b \geq 0\)</span>. Note that the induced functional margin is invariant to scaling:</p>
-<div class="math notranslate nohighlight">
-\[
-g(\omega^{\top}x + b) = g(2\omega^{\top}x + 2b) = \ldots
-\]</div>
-<p>at times this may not be desirable as the classifier does not reflect that the margin itself is <strong>not</strong> invariant. For the entire set of training samples, we can also define the functional margin as</p>
-<div class="math notranslate nohighlight">
-\[
-\hat{\gamma} = \underset{i}{\min} \hspace{2pt} \hat{\gamma}^{(i)}
-\]</div>
-<p><strong>Geometric Margin</strong></p>
+<div class="math notranslate nohighlight" id="equation-funct-margin-inequality">
+<span class="eqno">(6.16)<a class="headerlink" href="#equation-funct-margin-inequality" title="Permalink to this equation">#</a></span>\[y^{(i)}(\omega^{\top} x^{(i)} + b) &gt; 0\]</div>
+<p>as <span class="math notranslate nohighlight">\(g(\omega^{\top}x + b) = y = \pm 1 \)</span>. Note that the induced functional margin is invariant to scaling:</p>
+<div class="math notranslate nohighlight" id="equation-funct-margin-scalability">
+<span class="eqno">(6.17)<a class="headerlink" href="#equation-funct-margin-scalability" title="Permalink to this equation">#</a></span>\[g(\omega^{\top}x + b) = g(2\omega^{\top}x + 2b) = \ldots\]</div>
+<p>At times this may not be desirable as the classifier does not reflect that the margin itself is <strong>not</strong> invariant. For the entire set of training samples, we can also define the functional margin as</p>
+<div class="math notranslate nohighlight" id="equation-funct-margin-set">
+<span class="eqno">(6.18)<a class="headerlink" href="#equation-funct-margin-set" title="Permalink to this equation">#</a></span>\[\hat{\gamma} = \underset{i}{\min} \hspace{2pt} \hat{\gamma}^{(i)}.\]</div>
+</section>
+<section id="geometric-margin">
+<h3><span class="section-number">6.2.2. </span>Geometric Margin<a class="headerlink" href="#geometric-margin" title="Permalink to this headline">#</a></h3>
 <p>Now we can define the <em>geometric margin</em> with respect to a single sample <span class="math notranslate nohighlight">\(\gamma^{(i)}\)</span> as follows.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/UrEUiGA.png" alt="drawing" width="300"/>
-</div>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/geometric_margin.png"><img alt="../_images/geometric_margin.png" src="../_images/geometric_margin.png" style="width: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.4 </span><span class="caption-text">The geometric margin.</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The distance <span class="math notranslate nohighlight">\(\gamma^{(i)}\)</span> of <span class="math notranslate nohighlight">\(x^{(i)}\)</span> from the decision boundary, i.e. from point P, is given by</p>
-<div class="math notranslate nohighlight">
-\[
-\omega^{\top}\left(x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}\right) + b = 0
-\]</div>
-<p>where <span class="math notranslate nohighlight">\(x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}\)</span> gives the location of the point P, and <span class="math notranslate nohighlight">\(\frac{\omega}{||\omega||}\)</span> is the unit normal. As P is a member of the decision boundary, no matter where it is placed on the boundary, the equality always has to be <span class="math notranslate nohighlight">\(0\)</span> by definition.</p>
-<div class="math notranslate nohighlight">
-\[
-\Longrightarrow \gamma^{(i)} = \left( \frac{\omega}{|| \omega ||} \right)^{\top} x^{(i)} + \frac{b}{||\omega||}.
-\]</div>
-<p>As this was for an example on the <span class="math notranslate nohighlight">\(+\)</span> side we can generalize said expression to obtain:</p>
-<div class="math notranslate nohighlight">
-\[
-\gamma^{(i)} = y^{(i)} \left( \left(\frac{\omega}{|| \omega ||}\right)^{\top} x^{(i)} + \frac{b}{|| \omega ||} \right)
-\]</div>
-<p>Please note that the geometric margin indeed is <strong>scale invariant</strong>. For the entire set of samples, we can then define the geometric margin as:</p>
-<div class="math notranslate nohighlight">
-\[
-\gamma = \underset{i}{\min} \gamma^{(i)}
-\]</div>
-<p><strong>Maximum Margin Classifier</strong></p>
-<p>With these mathematical tools we are now ready to derive the <strong>Support Vector Machine (SVM)</strong> for linearly separable sets by maximizing the previously derived geometric margin:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\underset{\omega, b}{\max} \hspace{2pt} \gamma \quad \text{ s.t. } \begin{cases}
+<div class="math notranslate nohighlight" id="equation-point-to-line-distance">
+<span class="eqno">(6.19)<a class="headerlink" href="#equation-point-to-line-distance" title="Permalink to this equation">#</a></span>\[\omega^{\top}\left(x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}\right) + b = 0,\]</div>
+<p>where <span class="math notranslate nohighlight">\(x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}\)</span> gives the location of the point P, and <span class="math notranslate nohighlight">\(\frac{\omega}{||\omega||}\)</span> is the unit normal. As P is a member of the decision boundary, no matter where it is placed on the boundary, the equality always has to be zero by definition.</p>
+<div class="math notranslate nohighlight" id="equation-geom-margin-positive">
+<span class="eqno">(6.20)<a class="headerlink" href="#equation-geom-margin-positive" title="Permalink to this equation">#</a></span>\[\Longrightarrow \gamma^{(i)} = \left( \frac{\omega}{|| \omega ||} \right)^{\top} x^{(i)} + \frac{b}{||\omega||}.\]</div>
+<p>As this was for an example on the <span class="math notranslate nohighlight">\(+\)</span> side we can generalize said expression to obtain</p>
+<div class="math notranslate nohighlight" id="equation-geom-margin">
+<span class="eqno">(6.21)<a class="headerlink" href="#equation-geom-margin" title="Permalink to this equation">#</a></span>\[\gamma^{(i)} = y^{(i)} \left( \left(\frac{\omega}{|| \omega ||}\right)^{\top} x^{(i)} + \frac{b}{|| \omega ||} \right).\]</div>
+<p>Please note that the geometric margin indeed is <strong>scale invariant</strong>. Also, note that for <span class="math notranslate nohighlight">\(|| \omega ||=1\)</span> the functional and geometric margin are the same. For the entire set of samples, we can then define the geometric margin as:</p>
+<div class="math notranslate nohighlight" id="equation-geom-margin-set">
+<span class="eqno">(6.22)<a class="headerlink" href="#equation-geom-margin-set" title="Permalink to this equation">#</a></span>\[\gamma = \underset{i}{\min} \gamma^{(i)}.\]</div>
+</section>
+<section id="maximum-margin-classifier">
+<h3><span class="section-number">6.2.3. </span>Maximum Margin Classifier<a class="headerlink" href="#maximum-margin-classifier" title="Permalink to this headline">#</a></h3>
+<p>With these mathematical tools we are now ready to derive the <strong>Support Vector Machine (SVM)</strong> for linearly separable sets (a.k.a. Maximum Margin Classifier) by maximizing the previously derived geometric margin:</p>
+<div class="math notranslate nohighlight" id="equation-mmc-primal-geom-margin">
+<span class="eqno">(6.23)<a class="headerlink" href="#equation-mmc-primal-geom-margin" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\omega, b}{\max} \hspace{2pt} \gamma \quad \text{ s.t. } 
+\begin{cases}
     &amp;y^{(i)} (\omega^{\top} x^{(i)} + b) \geq \gamma, \quad i=1, \ldots, m \\
-    &amp;||\omega|| = 1 \Longrightarrow \hat{\gamma} = \gamma
+    &amp;||\omega|| = 1 \Longrightarrow \hat{\gamma} = \gamma.
 \end{cases}
 \end{split}\]</div>
 <p>We then seek to reformulate to get rid of the non-convex <span class="math notranslate nohighlight">\(||\omega|| = 1\)</span> constraints:</p>
-<div class="math notranslate nohighlight">
-\[
-\underset{\omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} \quad \text{s.t. } y^{(i)}(\omega^{\top} x^{(i)} + b) \geq \gamma = \frac{\hat{\gamma}}{||\omega||}, \quad i=1, \ldots, m
-\]</div>
+<div class="math notranslate nohighlight" id="equation-mmc-primal-func-margin">
+<span class="eqno">(6.24)<a class="headerlink" href="#equation-mmc-primal-func-margin" title="Permalink to this equation">#</a></span>\[\underset{\omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} \quad \text{s.t. } y^{(i)}(\omega^{\top} x^{(i)} + b) \geq \gamma = \frac{\hat{\gamma}}{||\omega||}, \quad i=1, \ldots, m,\]</div>
 <p>where we applied the definition of <span class="math notranslate nohighlight">\(\gamma = \frac{\hat{\gamma}}{||\omega||}\)</span>, but in the process suffered a setback as we now have a non-convex objective function. As the geometric margin <span class="math notranslate nohighlight">\(\gamma\)</span> is scale-invariant we can now simply scale <span class="math notranslate nohighlight">\(||\omega||\)</span> such that <span class="math notranslate nohighlight">\(\hat{\gamma} = \gamma ||\omega|| = 1\)</span>. Given <span class="math notranslate nohighlight">\(\hat{\gamma} = 1\)</span> it is clear that</p>
-<div class="math notranslate nohighlight">
-\[
-\underset{\omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} = \underset{\omega, b}{\max} \frac{1}{||\omega||},
-\]</div>
-<p>s.t. the constraints are satisfied, is the same as</p>
-<div class="math notranslate nohighlight">
-\[
-\underset{\omega, b}{\min} ||\omega||^{2} 
-\]</div>
+<div class="math notranslate nohighlight" id="equation-mmc-primal-objective">
+<span class="eqno">(6.25)<a class="headerlink" href="#equation-mmc-primal-objective" title="Permalink to this equation">#</a></span>\[\underset{\omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} = \underset{\omega, b}{\max} \frac{1}{||\omega||} = \underset{\omega, b}{\min} ||\omega||^{2},\]</div>
 <p>s.t. the constraints are satisfied. Which is now a convex objective.</p>
 <blockquote>
 <div><p>The Support Vector Machine is generated by the primal optimization problem.</p>
 </div></blockquote>
-<div class="math notranslate nohighlight">
-\[
-\underset{\omega, b}{\min} \frac{1}{2} ||\omega||^{2} \quad \text{s.t. } y^{(i)}\left( \omega^{\top} x^{(i)} + b \right) \geq 1, \quad i=1, \ldots, m
-\]</div>
+<div class="math notranslate nohighlight" id="equation-mmc-primal-final">
+<span class="eqno">(6.26)<a class="headerlink" href="#equation-mmc-primal-final" title="Permalink to this equation">#</a></span>\[\underset{\omega, b}{\min} \frac{1}{2} ||\omega||^{2} \quad \text{s.t. } y^{(i)}\left( \omega^{\top} x^{(i)} + b \right) \geq 1, \quad i=1, \ldots, m,\]</div>
 <p>or alternatively</p>
-<div class="math notranslate nohighlight">
-\[
-\underset{\omega, b}{\min} \frac{1}{2} ||\omega||^{2} \quad \text{s.t. } g_{i}(\omega) = 1 - y^{(i)}\left( \omega^{\top} x^{(i)} + b \right) \leq 0, \quad i=1, \ldots, m
-\]</div>
+<div class="math notranslate nohighlight" id="equation-mmc-primal-final-with-g">
+<span class="eqno">(6.27)<a class="headerlink" href="#equation-mmc-primal-final-with-g" title="Permalink to this equation">#</a></span>\[\underset{\omega, b}{\min} \frac{1}{2} ||\omega||^{2} \quad \text{s.t. } g_{i}(\omega) = 1 - y^{(i)}\left( \omega^{\top} x^{(i)} + b \right) \leq 0, \quad i=1, \ldots, m.\]</div>
 <p>Upon checking with the KKT dual complementarity condition, we see that <span class="math notranslate nohighlight">\(\alpha_{i} &gt; 0\)</span> only for samples with <span class="math notranslate nohighlight">\(\gamma_{i}=1\)</span>, i.e.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/T7dwj4d.png" alt="drawing" width="400"/>
-</div>
+<figure class="align-center" id="id2">
+<a class="reference internal image-reference" href="../_images/maximum_margin_classifier.png"><img alt="../_images/maximum_margin_classifier.png" src="../_images/maximum_margin_classifier.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.5 </span><span class="caption-text">Maximum Margin Classifier.</span><a class="headerlink" href="#id2" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The 3 samples “-”, “-”, and “+” in the sketch are the only ones for which the KKT constraint is active.</p>
 <blockquote>
 <div><p>These are called the <strong>support vectors</strong>.</p>
 </div></blockquote>
 <p>From the sketch, we can already ascertain that the number of support vectors may be significantly smaller than the number of samples, i.e. also the number of active constraints that we have to take into account. Next, we construct the Lagrangian of the optimization problem:</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{L}(\omega, b, \alpha) = \frac{1}{2} ||\omega||^{2} - \sum_{i=1}^{m} \alpha_{i} \left[ y^{(i)} \left( \omega^{\top} x^{(i)} + b \right) -1 \right]
-\]</div>
+<div class="math notranslate nohighlight" id="equation-mmc-lagrangian">
+<span class="eqno">(6.28)<a class="headerlink" href="#equation-mmc-lagrangian" title="Permalink to this equation">#</a></span>\[\mathcal{L}(\omega, b, \alpha) = \frac{1}{2} ||\omega||^{2} - \sum_{i=1}^{m} \alpha_{i} \left[ y^{(i)} \left( \omega^{\top} x^{(i)} + b \right) -1 \right]\]</div>
 <blockquote>
 <div><p>Note that in this case, our Lagrangian only has inequality constraints!</p>
 </div></blockquote>
-<p>We can then formulate the dual problem:</p>
-<ol class="simple">
-<li><p><span class="math notranslate nohighlight">\(\theta_{D}(\alpha) = \underset{\omega, b}{\min} \hspace{2pt} \mathcal{L}(\omega, b, \alpha)\)</span></p></li>
-</ol>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
+<p>We can then formulate the dual problem <span class="math notranslate nohighlight">\(\theta_{D}(\alpha) = \underset{\omega, b}{\min} \hspace{2pt} \mathcal{L}(\omega, b, \alpha)\)</span> and solve for <span class="math notranslate nohighlight">\(\omega\)</span> and <span class="math notranslate nohighlight">\(b\)</span> by setting the derivatives to zero.</p>
+<div class="math notranslate nohighlight" id="equation-mmc-derivative-lagrangian">
+<span class="eqno">(6.29)<a class="headerlink" href="#equation-mmc-derivative-lagrangian" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
     \nabla_{\omega} \mathcal{L}(\omega, b, \alpha) &amp;= \omega - \sum_{i=1}^{m} \alpha_{i} y^{(i)} x^{(i)} = 0 \\
     \Longrightarrow \omega &amp;= \sum_{i=1}^{m} \alpha_{i} y^{(i)} x^{(i)} \\
-    \Longrightarrow \frac{\partial \mathcal{L}}{\partial b} &amp;= \sum_{i=1}^{m} \alpha_{i} y^{(i)} = 0
-\end{aligned}
-\end{split}\]</div>
-<p>Which we can then resubstitute into the original Lagrangian</p>
-<div class="math notranslate nohighlight">
-\[
-\mathcal{L}(\omega, \alpha, \beta) = \frac{1}{2} ||\omega||^{2} - \sum_{i=1}^{m} \alpha_{i} \left[ y^{(i)} \left( \omega^{\top} x^{(i)} + b \right) - 1 \right]
-\]</div>
-<p>we now use</p>
-<div class="math notranslate nohighlight">
-\[
-\sum_{i=1}^{m} \alpha_{i} y^{(i)} \omega^{\top} x^{(i)} = \omega^{\top} \sum_{i=1}^{m} \alpha_{i} y^{(i)}x^{(i)} = \omega^{\top} \omega = ||\omega||^{2}
-\]</div>
-<p>in the Lagrangian to arrive at</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-    &amp;= - \frac{1}{2} ||\omega||^{2} + \sum_{i=1}^{m} \alpha_{i} - b \sum_{i=1}^{m} \alpha_{i} y^{(i)} \\
-    &amp;= \sum_{i=1}^{m} \alpha_{i} - \frac{1}{2} \sum_{i, j=1}^{m} y^{(i)}y^{(j)} \alpha_{i} \alpha_{j} x^{(i)^{\top}} x^{(j)} - b \sum_{i=1}^{m}\alpha_{i} y^{(i)}
-\end{aligned}
-\end{split}\]</div>
-<p>The dual is then</p>
-<div class="math notranslate nohighlight">
-\[
-\Longrightarrow \theta_{D}(\alpha) = \sum_{i=1}^{m} \alpha_{i} - \frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j} x^{(i)^{\top}} x^{(j)}
-\]</div>
+    \Longrightarrow \frac{\partial \mathcal{L}}{\partial b} &amp;= \sum_{i=1}^{m} \alpha_{i} y^{(i)} = 0.
+\end{aligned}\end{split}\]</div>
+<p>The <span class="math notranslate nohighlight">\(\omega\)</span> we can then resubstitute into the original Lagrangian (Eq. <a class="reference internal" href="#equation-mmc-lagrangian">(6.28)</a>) to get the term</p>
+<div class="math notranslate nohighlight" id="equation-mmc-lagrangian-omega-term">
+<span class="eqno">(6.30)<a class="headerlink" href="#equation-mmc-lagrangian-omega-term" title="Permalink to this equation">#</a></span>\[\sum_{i=1}^{m} \alpha_{i} y^{(i)} \omega^{\top} x^{(i)} = \omega^{\top} \sum_{i=1}^{m} \alpha_{i} y^{(i)}x^{(i)} = \omega^{\top} \omega = ||\omega||^{2}.\]</div>
+<p>If we plug that into the Lagrangian (Eq. <a class="reference internal" href="#equation-mmc-lagrangian">(6.28)</a>), we get the dual</p>
+<div class="math notranslate nohighlight" id="equation-mmc-dual">
+<span class="eqno">(6.31)<a class="headerlink" href="#equation-mmc-dual" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+   \theta_{D}(\alpha)&amp;= - \frac{1}{2} ||\omega||^{2} + \sum_{i=1}^{m} \alpha_{i} - b \sum_{i=1}^{m} \alpha_{i} y^{(i)} \\
+    &amp;= - \frac{1}{2} ||\omega||^{2} + \sum_{i=1}^{m} \alpha_{i} \quad \text{(by the derivative w.r.t. $b$)}\\
+    &amp;= \sum_{i=1}^{m} \alpha_{i} - \frac{1}{2} \sum_{i, j=1}^{m} y^{(i)}y^{(j)} \alpha_{i} \alpha_{j} x^{(i)^{\top}} x^{(j)},
+\end{aligned}\end{split}\]</div>
 <p>which we can then optimize as an optimization problem</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\underset{\alpha}{\max} \hspace{2pt} \theta_{D}(\alpha) \quad \text{s.t. } \begin{cases}
+<div class="math notranslate nohighlight" id="equation-mmc-dual-optimization">
+<span class="eqno">(6.32)<a class="headerlink" href="#equation-mmc-dual-optimization" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\alpha}{\max} \hspace{2pt} \theta_{D}(\alpha) \quad \text{s.t. } 
+\begin{cases}
     &amp;\alpha_{i} \geq 0, \quad i=1, \ldots, m \\
-    &amp;\sum_{i=1}^{m} \alpha_{i} y^{(i)} = 0
-\end{cases}
-\end{split}\]</div>
+    &amp;\sum_{i=1}^{m} \alpha_{i} y^{(i)} = 0.
+\end{cases}\end{split}\]</div>
 <p>The first constraint in this optimization problem singles out the support vectors, whereas the second constraint derives itself from our derivation of the dual of the Lagrangian (see above). The KKT conditions are then also satisfied</p>
 <ul class="simple">
 <li><p>The first KKT condition is satisfied as of our first step in the conversion to the Lagrangian dual.</p></li>
@@ -880,66 +866,64 @@ g(\omega^{\top}x + b) = g(2\omega^{\top}x + 2b) = \ldots
 <li><p>The fifth KKT condition <span class="math notranslate nohighlight">\(\alpha_{i} \geq 0\)</span> is satisfied as of our dual optimization problem formulation.</p></li>
 </ul>
 <div class="math notranslate nohighlight">
-\[
-\Longrightarrow d^{\star} = p^{\star}, \text{ i.e. the dual problem solves the primal problem.}
-\]</div>
+\[\Longrightarrow d^{\star} = p^{\star}, \text{ i.e. the dual problem solves the primal problem.}\]</div>
 <p>The two then play together in the following fashion:</p>
 <ul class="simple">
 <li><p>The dual problem gives <span class="math notranslate nohighlight">\(\alpha^{\star}\)</span></p></li>
 <li><p>The primal problem gives <span class="math notranslate nohighlight">\(\omega^{\star}\)</span>, <span class="math notranslate nohighlight">\(b^{\star}\)</span>, with <span class="math notranslate nohighlight">\(b^{\star}\)</span> given by</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[
-b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{\star^{\top}}x^{(i)} + \underset{j \in \mathcal{C}_{1}}{\min} \hspace{2pt} \omega^{\star^{\top}} x^{(j)}}{2}
-\]</div>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/hvW7yvx.png" alt="drawing" width="500"/>
-</div>
+<div class="math notranslate nohighlight" id="equation-mmc-bstar">
+<span class="eqno">(6.33)<a class="headerlink" href="#equation-mmc-bstar" title="Permalink to this equation">#</a></span>\[b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{\star^{\top}}x^{(i)} + \underset{j \in \mathcal{C}_{1}}{\min} \hspace{2pt} \omega^{\star^{\top}} x^{(j)}}{2}\]</div>
+<figure class="align-center" id="maximum-margin-classifier-solution">
+<a class="reference internal image-reference" href="../_images/maximum_margin_classifier_solution.png"><img alt="../_images/maximum_margin_classifier_solution.png" src="../_images/maximum_margin_classifier_solution.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.6 </span><span class="caption-text">Maximum Margin Classifier solution.</span><a class="headerlink" href="#maximum-margin-classifier-solution" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p><strong>Derivation of <span class="math notranslate nohighlight">\(b^{\star}\)</span></strong></p>
 <p>From the <span class="math notranslate nohighlight">\(x^{(i)}\)</span> on the negative margin one then gets to the decision boundary by <span class="math notranslate nohighlight">\(x^{(i)} + \omega^{\star}\)</span>, and from <span class="math notranslate nohighlight">\(x^{(j)}\)</span> on the positive margin by <span class="math notranslate nohighlight">\(x^{(j)} - \omega^{\star}\)</span>, i.e.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-    \Longrightarrow \underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{\star^{\top}} x^{(i)} + \omega^{\star^{\top}} \omega^{\star} + b^{\star} &amp;= 0 \\
-    \underset{j \in \mathcal{C}_{1}}{\min} \hspace{2pt} \omega^{\star^\top} x^{(j)} - \omega^{\star^\top} \omega^{\star} + b^{\star} &amp;= 0
-\end{aligned}
-\end{split}\]</div>
-<p>As <span class="math notranslate nohighlight">\(\omega^{\star^\top} \omega^{\star} = 1\)</span>, we can then solve for <span class="math notranslate nohighlight">\(b^{\star}\)</span></p>
-<div class="math notranslate nohighlight">
-\[
-\Longrightarrow b^{\star} = - \frac{1}{2} \left( \underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{\star^{\top}} x^{(i)} + \underset{j \in \mathcal{C}_{1}}{\min} \hspace{2pt} \omega^{\star^\top} x^{(j)} \right)
-\]</div>
+<div class="math notranslate nohighlight" id="equation-mmc-bstar-derivation">
+<span class="eqno">(6.34)<a class="headerlink" href="#equation-mmc-bstar-derivation" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\Longrightarrow \underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{\star^{\top}} x^{(i)} + \omega^{\star^{\top}} \omega^{\star} + b^{\star} &amp;= 0 \\
+\underset{j \in \mathcal{C}_{1}}{\min} \hspace{2pt} \omega^{\star^\top} x^{(j)} - \omega^{\star^\top} \omega^{\star} + b^{\star} &amp;= 0
+\end{aligned}\end{split}\]</div>
+<p>As <span class="math notranslate nohighlight">\(\omega^{\star^\top} \omega^{\star} = 1\)</span>, we can then solve for <span class="math notranslate nohighlight">\(b^{\star}\)</span> and obtain the result in Eq. <a class="reference internal" href="#equation-mmc-bstar">(6.33)</a>.</p>
+<br>
 <p>Now we can check how the SVM predicts <span class="math notranslate nohighlight">\(y\)</span> given <span class="math notranslate nohighlight">\(x\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-    \omega^{\star^{\top}}x + b^{\star} &amp;= \left( \sum_{i=1}^{m} \alpha_{i}^{\star} y^{(i)} x^{(i)} \right)^{\top} x + b \\
-    &amp;= \sum_{i=1}^{m} \alpha_{i}^{\star} y^{(i)} \langle x^{(i)}, x \rangle + b
-\end{aligned}
-\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(\alpha_{i}\)</span> is only non-zero for support vectors and calls the inner product <span class="math notranslate nohighlight">\(\langle x^{(i)}, x \rangle\)</span> which is hence a highly efficient computation. As such we have derived the support vector machine for the linear classification of sets. The formulation of the optimum set-boundary/decision boundary was formulated as the search for a margin optimization, then transformed into a convex constrained optimization problem, before restricting the contributions of the computation to contributions coming from the <em>support vectors</em>, i.e., vectors on the actual decision boundary estimate hence leading to a strong reduction of the problem dimensionality.</p>
+<div class="math notranslate nohighlight" id="equation-mmc-model">
+<span class="eqno">(6.35)<a class="headerlink" href="#equation-mmc-model" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\omega^{\star^{\top}}x + b^{\star} &amp;= \left( \sum_{i=1}^{m} \alpha_{i}^{\star} y^{(i)} x^{(i)} \right)^{\top} x + b^{\star} \\
+&amp;= \sum_{i=1}^{m} \alpha_{i}^{\star} y^{(i)} \langle x^{(i)}, x \rangle + b^{\star},
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha_{i}\)</span> is only non-zero for support vectors and calls the inner product <span class="math notranslate nohighlight">\(\langle x^{(i)}, x \rangle\)</span> which is hence a highly efficient computation. As such we have derived the support vector machine for the linear classification of sets. The formulation of the optimal set-boundary/decision boundary was formulated as the search for a margin optimization, then transformed into a convex constrained optimization problem, before restricting the contributions of the computation to contributions coming from the <em>support vectors</em>, i.e., vectors on the actual decision boundary estimate hence leading to a strong reduction of the problem dimensionality.</p>
 </section>
-<section id="non-separable-sets-soft-margin-classifier-smc">
-<h2><span class="section-number">6.3. </span>Non-Separable Sets - Soft Margin Classifier (SMC)<a class="headerlink" href="#non-separable-sets-soft-margin-classifier-smc" title="Permalink to this headline">#</a></h2>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/PMZV7it.png" alt="drawing" width="500"/>
-</div>
+</section>
+<section id="advanced-topics-soft-margin-classifier-smc">
+<h2><span class="section-number">6.3. </span>Advanced Topics: Soft Margin Classifier (SMC)<a class="headerlink" href="#advanced-topics-soft-margin-classifier-smc" title="Permalink to this headline">#</a></h2>
+<p>What if the data is not linearly separable?</p>
+<figure class="align-center" id="svm-nonlinearly-separable">
+<a class="reference internal image-reference" href="../_images/svm_nonlinearly_separable.png"><img alt="../_images/svm_nonlinearly_separable.png" src="../_images/svm_nonlinearly_separable.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.7 </span><span class="caption-text">Non-linearly separable sets.</span><a class="headerlink" href="#svm-nonlinearly-separable" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><em>Data may not be exactly linealy seperable or some data outliers may undesirably deform the exact decision boundary.</em></p>
 <p><strong>Outlier problem</strong></p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/8s61hRD.png" alt="drawing" width="500"/>
-</div>
+<figure class="align-center" id="svm-sets-with-outlier">
+<a class="reference internal image-reference" href="../_images/svm_sets_with_outlier.png"><img alt="../_images/svm_sets_with_outlier.png" src="../_images/svm_sets_with_outlier.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.8 </span><span class="caption-text">Sensitivity of MMC to outlier.</span><a class="headerlink" href="#svm-sets-with-outlier" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><strong>Original SVM optimization problem</strong></p>
-<div class="math notranslate nohighlight">
-\[
-\min _{\omega, b} \frac{1}{2}\|\omega\|^{2}  \quad \text {s.t. } y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1, i=1, \ldots, m
-\]</div>
+<div class="math notranslate nohighlight" id="equation-mmc-primal-problem">
+<span class="eqno">(6.36)<a class="headerlink" href="#equation-mmc-primal-problem" title="Permalink to this equation">#</a></span>\[\min _{\omega, b} \frac{1}{2}\|\omega\|^{2}  \quad \text {s.t. } y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1, i=1, \ldots, m\]</div>
 <p>To make the algorithm work for non-linearly separable data, we introduce <span class="math notranslate nohighlight">\(l_1\)</span>-regularization, i.e. a penalty term proportional to the magnitude of a certain quantity</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow l_1\)</span>-regularised primal optimization problem</p>
 <div class="math notranslate nohighlight">
-\[
-\min _{\omega, b} \frac{1}{2}\|\omega\|^{2}+C \sum_{i=1}^{m} \xi_{i}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}\text{s.t.}\left\{\begin{array}{l}y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \geq 1-\xi_{i}, \quad i=1, \ldots, m \\ \xi_{i} \ge 0, \quad i=1, \ldots, \mathrm{m}\end{array}\right.\end{split}\]</div>
+\[\min _{\omega, b} \frac{1}{2}\|\omega\|^{2}+C \sum_{i=1}^{m} \xi_{i}\]</div>
+<div class="math notranslate nohighlight" id="equation-smc-primal-problem">
+<span class="eqno">(6.37)<a class="headerlink" href="#equation-smc-primal-problem" title="Permalink to this equation">#</a></span>\[\begin{split}\text{s.t.}\left\{\begin{array}{l}y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \geq 1-\xi_{i}, \quad i=1, \ldots, m \\ \xi_{i} \ge 0, \quad i=1, \ldots, \mathrm{m}\end{array}\right.\end{split}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(\xi_i\)</span> is called a “slack” variable. We relax the previous requirement of a unit functional margin <span class="math notranslate nohighlight">\(\hat{\gamma}=1\)</span> by allowing some violation, which is penalized in the objective function.</p>
 <ul class="simple">
 <li><p>margin <span class="math notranslate nohighlight">\(\hat{\gamma}^{(i)}=1 - \xi_{i}, \quad \xi_{i}&gt;0\)</span></p></li>
@@ -947,52 +931,44 @@ b^{\star} = - \frac{\underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{
 <li><p>parameter <span class="math notranslate nohighlight">\(C\)</span> controls the weight of the penalization</p></li>
 </ul>
 <p>Then, the Lagrangian of the penalized optimization problem becomes</p>
-<p><span class="math notranslate nohighlight">\(\mathcal{L}(\omega, b, \xi, \alpha, \mu)=\frac{1}{2} \omega^{T} \omega+C \sum_{i=1}^{m} \xi_{i} -\sum_{i=1}^{m} \alpha_{i}\left[y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)-1+\xi_{i}\right]-\sum_{i=1}^{m} \mu_{i} \xi_{i}.\)</span></p>
+<div class="math notranslate nohighlight" id="equation-smc-lagrangina">
+<span class="eqno">(6.38)<a class="headerlink" href="#equation-smc-lagrangina" title="Permalink to this equation">#</a></span>\[\mathcal{L}(\omega, b, \xi, \alpha, \mu)=\frac{1}{2} \omega^{T} \omega+C \sum_{i=1}^{m} \xi_{i} -\sum_{i=1}^{m} \alpha_{i}\left[y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)-1+\xi_{i}\right]-\sum_{i=1}^{m} \mu_{i} \xi_{i}.\]</div>
 <p>In the above equation, the second term (<span class="math notranslate nohighlight">\(C \sum_{i=1}^{m} \xi_{i}\)</span>) represents the soft penalization of strict margin violation, whereas the third and fourth terms are the inequality constraints with Lagrangian multipliers <span class="math notranslate nohighlight">\(\alpha_{i}\)</span> and <span class="math notranslate nohighlight">\(\mu_{i}\)</span>. The derivation of the dual problem follows from the analogous steps of the non-regularised SVM problem.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-smc-derivative-lagrangian">
+<span class="eqno">(6.39)<a class="headerlink" href="#equation-smc-derivative-lagrangian" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 &amp;\frac{\partial \mathcal{L}}{\partial \omega} \stackrel{!}{=} 0  \quad \Rightarrow \quad w=\sum_{i=1}^{m} \alpha_{i} y^{(i)} x^{(i)}\\
 &amp;\frac{\partial \mathcal{L}}{\partial b} \stackrel{!}{=} 0  \quad \Rightarrow \quad \sum_{i=1}^{m} \alpha_{i} y^{(i)}=0\\
 &amp;\frac{\partial \mathcal{L}}{\partial \xi} \stackrel{!}{=} 0 \quad \Rightarrow \quad \alpha_{i}=C-\mu_i, \quad i=1, \ldots,m \qquad (\star)
-\end{aligned}
-\end{split}\]</div>
+\end{aligned}\end{split}\]</div>
 <p>The last equation arises from the additional condition due to slack variables. Upon inserting these conditions into <span class="math notranslate nohighlight">\(\mathcal{L}(\omega,b,\xi,\alpha,\mu)\)</span> we obtain the dual-problem Lagrangian:</p>
-<div class="math notranslate nohighlight">
-\[
-\max_{\alpha} \theta_{D}(\alpha)=\max_{\alpha} \left( \sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle \right)
-\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\text { s.t. }\left\{\begin{array}{l}
+<div class="math notranslate nohighlight" id="equation-smc-dual-problem">
+<span class="eqno">(6.40)<a class="headerlink" href="#equation-smc-dual-problem" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\max_{\alpha} \theta_{D}(\alpha)&amp;=\max_{\alpha} \left( \sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle \right) \\
+\text { s.t. }&amp;\left\{\begin{array}{l}
 0 \leq \alpha_{i} \leq C, \quad i=1, \ldots, m \\
 \sum_{i=1}^{m} \alpha_{i} y^{(i)}=0
 \end{array}\right.
-\end{split}\]</div>
+\end{aligned}\end{split}\]</div>
 <p>The “box constraints” (<span class="math notranslate nohighlight">\(0 \leq \alpha_{i} \leq C\)</span>) follow from the positivity requirement on Lagrange multipliers: <span class="math notranslate nohighlight">\(\alpha_{i}\ge 0,\mu_{i}\ge 0\)</span>.</p>
 <p>Evaluating the KKT3-complementarity condition leads to</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-smc-kkt3">
+<span class="eqno">(6.41)<a class="headerlink" href="#equation-smc-kkt3" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 &amp;\alpha_{i}^{*} \left[y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)-1+\xi_{i}\right]=0 \Leftrightarrow \begin{cases}\alpha_{i}^{*}&gt;0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1-\xi_{i} \\ 
 \alpha_{i}^{*}=0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1-\xi_{i} \end{cases}\\
 &amp;\mu_{i}^{*} \xi_{i}=0 \Leftrightarrow \begin{cases}\mu_{i}^{*}&gt;0, &amp; \xi_{i}=0 \\ 
 \mu_{i}^{*}=0, &amp; \xi_{i}&gt;0\end{cases}
-\end{aligned}
-\end{split}\]</div>
+\end{aligned}\end{split}\]</div>
 <p>The resulting dual complementarity conditions for determining the support vectors become:</p>
 <ul class="simple">
 <li><p>Support vectors on slack margin (<span class="math notranslate nohighlight">\(\alpha_i=0\)</span>, i.e. data point is ignored)</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[
-\alpha_{i}^{*}=0 \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1
-\]</div>
+<div class="math notranslate nohighlight" id="equation-smc-kkt3-alpha-0">
+<span class="eqno">(6.42)<a class="headerlink" href="#equation-smc-kkt3-alpha-0" title="Permalink to this equation">#</a></span>\[\alpha_{i}^{*}=0 \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1\]</div>
 <ul class="simple">
 <li><p>Support vectors inside or outside margin (<span class="math notranslate nohighlight">\(\alpha^*=C\)</span>, i.e. data point violates the MMC)</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-smc-kkt3-alpha-c">
+<span class="eqno">(6.43)<a class="headerlink" href="#equation-smc-kkt3-alpha-c" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{array}{rr}
 0 &lt; \xi_{i} \leq 1 &amp; \text{(correctly classified)} \\ 
  \xi_{i}&gt;1 &amp; \text{(misclassified)}\end{array}\right.\\
@@ -1001,33 +977,36 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 <ul class="simple">
 <li><p>Support vectors on margin (<span class="math notranslate nohighlight">\(\alpha_i^*&gt;0\)</span> &amp; <span class="math notranslate nohighlight">\(\xi_i&gt;0\)</span>, i.e. data point on the margin)</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-smc-kkt3-alpha-else">
+<span class="eqno">(6.44)<a class="headerlink" href="#equation-smc-kkt3-alpha-else" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 0 &lt; \alpha_{i}^{*}&lt;C \quad &amp; (\star) \Rightarrow \mu_{i}^{*}&gt;0 \quad \Rightarrow \xi_{i}=0 \\
 &amp;\Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1
 \end{aligned}\end{split}\]</div>
-<p>The optimum <span class="math notranslate nohighlight">\(b^*\)</span> is obtained from averaging over all support vectors: condition to be satisfied by <span class="math notranslate nohighlight">\(b^*\)</span> is given by SVs on the margin:</p>
-<div class="math notranslate nohighlight">
-\[0&lt;\alpha_{i}^{*}&lt;C \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1\]</div>
-<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> for <span class="math notranslate nohighlight">\(b^*\)</span> we obtain the same result as for the linearly separable problem</p>
-<div class="math notranslate nohighlight">
-\[\omega^*=\sum_{i=1}^{m_{s}} \alpha_{i}^* y^{(i)} x^{(i)}, \quad m_{s} \text{ support vectors.}\]</div>
-<div class="math notranslate nohighlight">
-\[\Rightarrow y^{(i)}(\omega^* x^{(i)} + b^*) = 1.\]</div>
+<p>The optimal <span class="math notranslate nohighlight">\(b^*\)</span> is obtained from averaging over all support vectors: condition to be satisfied by <span class="math notranslate nohighlight">\(b^*\)</span> is given by SVs on the margin:</p>
+<div class="math notranslate nohighlight" id="equation-smc-bstar-condition">
+<span class="eqno">(6.45)<a class="headerlink" href="#equation-smc-bstar-condition" title="Permalink to this equation">#</a></span>\[0&lt;\alpha_{i}^{*}&lt;C \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1\]</div>
+<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> for <span class="math notranslate nohighlight">\(\omega^*\)</span> we obtain the same result as for the linearly separable problem</p>
+<div class="math notranslate nohighlight" id="equation-smc-omegastar">
+<span class="eqno">(6.46)<a class="headerlink" href="#equation-smc-omegastar" title="Permalink to this equation">#</a></span>\[\omega^*=\sum_{i=1}^{m_{s}} \alpha_{i}^* y^{(i)} x^{(i)}, \quad m_{s} \text{ support vectors.}\]</div>
+<p>For <span class="math notranslate nohighlight">\(b^{\star}\)</span> we then get the condition</p>
+<div class="math notranslate nohighlight" id="equation-smc-bstar-condition2">
+<span class="eqno">(6.47)<a class="headerlink" href="#equation-smc-bstar-condition2" title="Permalink to this equation">#</a></span>\[\Rightarrow y^{(i)}(\omega^* x^{(i)} + b^*) = 1.\]</div>
 <p>A numerically stable option is to average over <span class="math notranslate nohighlight">\(m_{\Sigma}\)</span>, i.e. all SV on the margin satisfying <span class="math notranslate nohighlight">\(0&lt;\alpha_{i}^{*}&lt;C\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{\Sigma}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)
-\]</div>
+<div class="math notranslate nohighlight" id="equation-smc-bstar">
+<span class="eqno">(6.48)<a class="headerlink" href="#equation-smc-bstar" title="Permalink to this equation">#</a></span>\[b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{\Sigma}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)\]</div>
 <blockquote>
-<div><p>Recall: only data with <span class="math notranslate nohighlight">\(\alpha_{i}^*\ne 0\)</span>, i.e. support vectors, will contribute to the SVM prediction (last eq. of Linearly Separable Sets).</p>
+<div><p>Recall: only data with <span class="math notranslate nohighlight">\(\alpha_{i}^*\ne 0\)</span>, i.e. support vectors, will contribute to the SVM prediction (last eq. of Maximum Margin Classifier).</p>
 </div></blockquote>
 <p>In conclusion, we illustrate the functionality of the slack variables.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/luacvXq.png" alt="drawing" width="500"/>
-</div>
+<figure class="align-center" id="soft-margin-classifier">
+<a class="reference internal image-reference" href="../_images/soft_margin_classifier.png"><img alt="../_images/soft_margin_classifier.png" src="../_images/soft_margin_classifier.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.9 </span><span class="caption-text">Soft Margin Classifier.</span><a class="headerlink" href="#soft-margin-classifier" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
-<section id="sequential-minimal-optimization-smo">
-<h2><span class="section-number">6.4. </span>Sequential Minimal Optimization (SMO)<a class="headerlink" href="#sequential-minimal-optimization-smo" title="Permalink to this headline">#</a></h2>
+<section id="advanced-topics-sequential-minimal-optimization-smo">
+<h2><span class="section-number">6.4. </span>Advanced Topics: Sequential Minimal Optimization (SMO)<a class="headerlink" href="#advanced-topics-sequential-minimal-optimization-smo" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
 <li><p>Efficient algorithm for solving the SVM dual problem</p></li>
 <li><p>Based on <em>Coordinate Ascent</em> algorithm.</p></li>
@@ -1045,25 +1024,25 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
  <strong>end for</strong> <br>
 <strong>end do</strong></p>
 <p><em>Sketch of algorithm</em></p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/2mNIzO1.png" alt="drawing" width="500"/>
-</div>
+<figure class="align-center" id="sequential-minimal-optimization">
+<a class="reference internal image-reference" href="../_images/sequential_minimal_optimization.png"><img alt="../_images/sequential_minimal_optimization.png" src="../_images/sequential_minimal_optimization.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.10 </span><span class="caption-text">Sequential Minimal Optimization.</span><a class="headerlink" href="#sequential-minimal-optimization" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Coordinate ascent converges for convex continuous functions but may not converge to the dual optimum!</p>
 </section>
 <section id="outline-of-smo-for-svm">
 <h3><span class="section-number">6.4.2. </span>Outline of SMO for SVM<a class="headerlink" href="#outline-of-smo-for-svm" title="Permalink to this headline">#</a></h3>
 <p>Task: solve SVM dual optimization problem</p>
-<div class="math notranslate nohighlight">
-\[
-\max_{\alpha} \theta_{D}(\alpha)=\sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle
-\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\text { s.t. }\left\{\begin{array}{l}
+<div class="math notranslate nohighlight" id="equation-smc-dual-problem-duplicate">
+<span class="eqno">(6.49)<a class="headerlink" href="#equation-smc-dual-problem-duplicate" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\max_{\alpha} \theta_{D}(\alpha)&amp;=\max_{\alpha} \left( \sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle \right) \\
+\text { s.t. }&amp;\left\{\begin{array}{l}
 0 \leq \alpha_{i} \leq C, \quad i=1, \ldots, m \\
 \sum_{i=1}^{m} \alpha_{i} y^{(i)}=0
 \end{array}\right.
-\end{split}\]</div>
+\end{aligned}\end{split}\]</div>
 <p>Consider now an iterative update for finding the optimum:</p>
 <ul class="simple">
 <li><p>Iteration step delivers a constraint satisfying set of <span class="math notranslate nohighlight">\(\alpha_{i}\)</span>.</p></li>
@@ -1090,37 +1069,33 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 <li><p>assume <span class="math notranslate nohighlight">\(\alpha^{(k)}\)</span> given with <span class="math notranslate nohighlight">\(\sum_{i=1}^{m} y^{(i)}  \alpha^{(k)}_{i}=0\)</span></p></li>
 <li><p>pick <span class="math notranslate nohighlight">\(\alpha_{1}=\alpha^{(k)}_1\)</span> and  <span class="math notranslate nohighlight">\(\alpha_2=\alpha^{(k)}_2\)</span> for optimization</p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[
-\Rightarrow \alpha_{1} y^{(1)}+\alpha_{2} y^{(2)}=-\sum_{i=3}^{m} \alpha_{i} y^{(i)}=\rho \quad
-\]</div>
+<div class="math notranslate nohighlight" id="equation-smo-algorithm-example1">
+<span class="eqno">(6.50)<a class="headerlink" href="#equation-smo-algorithm-example1" title="Permalink to this equation">#</a></span>\[\Rightarrow \alpha_{1} y^{(1)}+\alpha_{2} y^{(2)}=-\sum_{i=3}^{m} \alpha_{i} y^{(i)}=\rho \quad\]</div>
 <p>Note that the r.h.s. is constant during the current iteration step.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Pk0o5BN.png" alt="drawing" width="500"/>
-</div>
+<figure class="align-center" id="sequential-minimal-optimization-truncation">
+<a class="reference internal image-reference" href="../_images/sequential_minimal_optimization_truncation.png"><img alt="../_images/sequential_minimal_optimization_truncation.png" src="../_images/sequential_minimal_optimization_truncation.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.11 </span><span class="caption-text">Truncation during Sequential Minimal Optimization.</span><a class="headerlink" href="#sequential-minimal-optimization-truncation" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The box constraints imply <span class="math notranslate nohighlight">\(L \le \alpha_{2} \le H\)</span>. Note that depending on the slope of the line, L or H may be clipped by the box constraint.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
-\begin{aligned}
-&amp;\alpha_{1} y^{(1)}+\alpha_{2} y^{(2)}=\rho \\
-&amp;\Rightarrow \alpha_{1}=\left(\rho-\alpha_{2} y^{(2)}\right) y^{(1)}
-\end{aligned}
-\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(\alpha_{1} y^{(1)}+\alpha_{2} y^{(2)}=\rho\)</span></p>
+<p><span class="math notranslate nohighlight">\(\Rightarrow \alpha_{1}=\left(\rho-\alpha_{2} y^{(2)}\right) y^{(1)}\)</span></p>
 <p><span class="math notranslate nohighlight">\(\rightarrow\)</span> Do you see what happened here?</p>
 <p>Answer:</p>
 <p><span class="math notranslate nohighlight">\(\alpha_{1} y^{(1)}+\alpha_{2} y^{(2)}=\rho \quad / \cdot y^{(1)}\)</span></p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow \alpha_{1} y^{(1)^2}=\left(\rho-\alpha_{2} y^{(2)}\right) y^{(1)}\)</span></p>
 <p><span class="math notranslate nohighlight">\(y^{(1)^2}=1,\)</span> as <span class="math notranslate nohighlight">\(y \in\{-1,1\}\)</span></p>
-<div class="math notranslate nohighlight">
-\[\Rightarrow \theta_{D}(\alpha)=\sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle\]</div>
+<div class="math notranslate nohighlight" id="equation-smo-algorithm-example2">
+<span class="eqno">(6.51)<a class="headerlink" href="#equation-smo-algorithm-example2" title="Permalink to this equation">#</a></span>\[\Rightarrow \theta_{D}(\alpha)=\sum_{i=1}^{m} \alpha_{i}-\frac{1}{2} \sum_{i,j=1}^{m} y^{(i)} y^{(j)} \alpha_{i} \alpha_{j}\left\langle x^{(i)}, x^{(j)}\right\rangle\]</div>
 <p><em>with <span class="math notranslate nohighlight">\(\alpha_{1}=\left(\rho-\alpha_{2} y^{(2)}\right) y^{(1)}\)</span> thus becomes a quadratic function of <span class="math notranslate nohighlight">\(\alpha_2\)</span> , as all other <span class="math notranslate nohighlight">\(\alpha_{j\ne 1,2}\)</span> are fixed.</em></p>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\theta_D(\alpha_2)=A\alpha^2_2+B\alpha_2+const.\)</span>
 can be solved for <span class="math notranslate nohighlight">\(arg\max_{\alpha_2}\theta_{D}(\alpha_2)=\alpha_2^{'}\)</span></p></li>
 <li><p><span class="math notranslate nohighlight">\(\alpha_2^{'}\rightarrow\)</span> box constraints <span class="math notranslate nohighlight">\(\rightarrow \alpha_2^{''}\)</span></p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[\begin{split}\alpha_2^{''} = \left\{\begin{array}{l}
+<div class="math notranslate nohighlight" id="equation-smo-algorithm-example3">
+<span class="eqno">(6.52)<a class="headerlink" href="#equation-smo-algorithm-example3" title="Permalink to this equation">#</a></span>\[\begin{split}\alpha_2^{''} = \left\{\begin{array}{l}
 H , \quad \alpha_{2}^{'}&gt;H \\
 \alpha_{2}^{'} , \quad L \leq \alpha_{2}^{'} \leq H\\
 L, \quad \alpha_{2}^{'}&lt;L
@@ -1128,10 +1103,8 @@ L, \quad \alpha_{2}^{'}&lt;L
 <ul class="simple">
 <li><p>set <span class="math notranslate nohighlight">\(\alpha_2^{(k+1)} = \alpha_2^{''}\)</span></p></li>
 </ul>
-<div class="math notranslate nohighlight">
-\[
-\alpha_{1}^{(k+1)}=\left(\rho-\alpha_{2}^{(k+1)} y^{(2)}\right) y^{(1)}
-\]</div>
+<div class="math notranslate nohighlight" id="equation-smo-algorithm-example4">
+<span class="eqno">(6.53)<a class="headerlink" href="#equation-smo-algorithm-example4" title="Permalink to this equation">#</a></span>\[\alpha_{1}^{(k+1)}=\left(\rho-\alpha_{2}^{(k+1)} y^{(2)}\right) y^{(1)}\]</div>
 <ul class="simple">
 <li><p>next iteration update</p></li>
 </ul>
@@ -1139,148 +1112,153 @@ L, \quad \alpha_{2}^{'}&lt;L
 </section>
 <section id="kernel-methods">
 <h2><span class="section-number">6.5. </span>Kernel Methods<a class="headerlink" href="#kernel-methods" title="Permalink to this headline">#</a></h2>
-<p>Consider binary classification in the non-linearly-separable case:</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/uWMk3qq.png" alt="drawing" width="600"/>
-</div>
-<br>
-<p><em>Kernel trick</em> or kernel substitution :</p>
-<div class="math notranslate nohighlight">
-\[x\rightarrow\varphi(x)\]</div>
-<ul class="simple">
-<li><p><em>in general <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\varphi\)</span> are vectors where <span class="math notranslate nohighlight">\(\varphi\)</span> has the entire <span class="math notranslate nohighlight">\(x\)</span> as argument</em></p></li>
-</ul>
-<p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> modified classifyer</p>
-<div class="math notranslate nohighlight">
-\[h(x)= g(\omega^T \varphi(x)+b)\]</div>
-<p><em>e.g. such that the above problem becomes linearly separable</em></p>
+<p>Consider binary classification in the non-linearly-separable case, assuming that there is a feature map <span class="math notranslate nohighlight">\(\varphi(x) \in\mathbb{R}^n\)</span> transforming the input <span class="math notranslate nohighlight">\(x \in\mathbb{R}^d\)</span> to a space which is linearly separable.</p>
+<figure class="align-center" id="kernel-feature-map">
+<a class="reference internal image-reference" href="../_images/kernel_feature_map.png"><img alt="../_images/kernel_feature_map.png" src="../_images/kernel_feature_map.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.12 </span><span class="caption-text">Feature map transformation.</span><a class="headerlink" href="#kernel-feature-map" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The feature map is essentially a change of basis as:</p>
+<div class="math notranslate nohighlight" id="equation-feature-map">
+<span class="eqno">(6.54)<a class="headerlink" href="#equation-feature-map" title="Permalink to this equation">#</a></span>\[x\rightarrow\varphi(x)\]</div>
+<p>In general, <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\varphi\)</span> are vectors where <span class="math notranslate nohighlight">\(\varphi\)</span> has the entire <span class="math notranslate nohighlight">\(x\)</span> as argument. The resulting modified classifier becomes</p>
+<div class="math notranslate nohighlight" id="equation-classifier-with-feature-map">
+<span class="eqno">(6.55)<a class="headerlink" href="#equation-classifier-with-feature-map" title="Permalink to this equation">#</a></span>\[h(x)= g(\omega^T \varphi(x)+b).\]</div>
 <p><strong>Example</strong></p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/qo0P4Yz.png" alt="drawing" width="300"/>
-</div>
-<p>This classification problem is non-linear as there is no linear decision boundary.</p>
-<p>Define feature map <span class="math notranslate nohighlight">\(\varphi (x_1,x_2) = x_1 x_2\)</span>  (<em>maps 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 1D</em>)</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/y55rIlC.png" alt="drawing" width="600"/>
-</div>
-<p>But of course, this is constructed, as then we could immediately guess <span class="math notranslate nohighlight">\(\varphi(x_1,x_2)\)</span>. In general, this is not possible.</p>
+<p>The following classification problem is non-linear as there is no linear decision boundary.</p>
+<figure class="align-center" id="xnor-example">
+<a class="reference internal image-reference" href="../_images/xnor_example.png"><img alt="../_images/xnor_example.png" src="../_images/xnor_example.png" style="width: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.13 </span><span class="caption-text">XNOR example.</span><a class="headerlink" href="#xnor-example" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Upon defining a feature map <span class="math notranslate nohighlight">\(\varphi (x_1,x_2) = x_1 x_2\)</span> (<em>maps 2D <span class="math notranslate nohighlight">\(\rightarrow\)</span> 1D</em>), we get</p>
+<figure class="align-center" id="xnor-example-embedded">
+<a class="reference internal image-reference" href="../_images/xnor_example_embedded.png"><img alt="../_images/xnor_example_embedded.png" src="../_images/xnor_example_embedded.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.14 </span><span class="caption-text">XNOR after feature mapping.</span><a class="headerlink" href="#xnor-example-embedded" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>But of course, this is constructed, as here we could immediately guess <span class="math notranslate nohighlight">\(\varphi(x_1,x_2)\)</span>. In general, this is not possible.</p>
 <blockquote>
-<div><p>Recall : the dual problem of SVM involves a scalar product <span class="math notranslate nohighlight">\(x^{(i)T}x^{(j)}\)</span> of feature vectors.
+<div><p>Recall : the dual problem of SVM involves a scalar product <span class="math notranslate nohighlight">\(x^{(i)\top}x^{(j)}\)</span> of feature vectors.
 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> motivates the general notation of a dual problem with feature maps.</p>
 </div></blockquote>
 <section id="dual-representations">
 <h3><span class="section-number">6.5.1. </span>Dual representations<a class="headerlink" href="#dual-representations" title="Permalink to this headline">#</a></h3>
 <p>Motivated by Least Mean Squares (LMS) regression, we consider the following <strong>regularized</strong> cost function:</p>
-<div class="math notranslate nohighlight">
-\[
-J(\omega)=\sum_{i=1}^{m}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right)^{2}+\frac{\lambda}{2} \omega^{T} \omega
-\]</div>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-loss">
+<span class="eqno">(6.56)<a class="headerlink" href="#equation-ridge-reg-loss" title="Permalink to this equation">#</a></span>\[J(\omega)=\sum_{i=1}^{m}\left(w^{T} \varphi(x^{(i)})-y^{(i)}\right)^{2}+\frac{\lambda}{2} \omega^{T} \omega,\]</div>
 <p>with penalty parameter <span class="math notranslate nohighlight">\(\lambda \geqslant 0\)</span>.</p>
-<blockquote>
-<div><p>Notation alert: in Core Content 1 we used <span class="math notranslate nohighlight">\(\vartheta\)</span> for the parameters instead of the <span class="math notranslate nohighlight">\(\omega\)</span> used here.</p>
-</div></blockquote>
-<p>Regularization helps to suppress the overfitting problem (see Core Content 2). The squared L2 regularization above is also called <strong>Tikhonov regularization</strong>.  In machine learning, linear regression in combination with Tikhonov regularization is often dubbed <strong>ridge regression</strong>.</p>
-<div class="math notranslate nohighlight">
-\[\nabla_{\omega}J=0\]</div>
-<div class="math notranslate nohighlight">
-\[\Rightarrow \omega = -\frac{1}{\lambda} \sum_{i=1}^{m}\left(w^{T} \varphi\left(x^{(i)}\right)-y^{(i)}\right)\varphi(x^{(j)})=\Phi^Ta\]</div>
-<p>with design matrix <span class="math notranslate nohighlight">\(\Phi\)</span> with feature map <span class="math notranslate nohighlight">\(\varphi\)</span> defined as</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\Phi=\left[\begin{array}{c}\vdots \\ \varphi\left(x^{(j)}\right) \\ \vdots\end{array}\right] \in \mathbb{R}^{m \times n}\end{split}\]</div>
+<p>Regularization helps to suppress the overfitting problem (see <a class="reference internal" href="tricks.html"><span class="doc std std-doc">Tricks of Optimization</span></a>). The squared L2 regularization above is also called <strong>Tikhonov regularization</strong>.  In machine learning, linear regression in combination with Tikhonov regularization is often dubbed <strong>ridge regression</strong>.</p>
+<p>Setting the gradient of that loss to zero <span class="math notranslate nohighlight">\(\nabla_{\omega}J=0\)</span> we obtain the solution</p>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-solution">
+<span class="eqno">(6.57)<a class="headerlink" href="#equation-ridge-reg-solution" title="Permalink to this equation">#</a></span>\[\omega = -\frac{1}{\lambda} \sum_{i=1}^{m}\left(w^{T} \varphi(x^{(i)})-y^{(i)}\right)\varphi(x^{(i)})=\Phi^Ta,\]</div>
+<p>with <em>design matrix</em> <span class="math notranslate nohighlight">\(\Phi\)</span> using the feature map <span class="math notranslate nohighlight">\(\varphi\)</span> defined as</p>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-design-matrix">
+<span class="eqno">(6.58)<a class="headerlink" href="#equation-ridge-reg-design-matrix" title="Permalink to this equation">#</a></span>\[\begin{split}\Phi=\left[\begin{array}{c}\vdots \\ \varphi\left(x^{(i)}\right) \\ \vdots\end{array}\right] \in \mathbb{R}^{m \times n}\end{split}\]</div>
 <p>and</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}a = -\frac{1}{\lambda} \left[\begin{array}{c}\vdots \\ w^{T} \varphi\left(x^{(i)}\right)-y^{(i)} \\ \vdots\end{array}\right] \in \mathbb{R}^m\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-a">
+<span class="eqno">(6.59)<a class="headerlink" href="#equation-ridge-reg-a" title="Permalink to this equation">#</a></span>\[\begin{split}a = -\frac{1}{\lambda} \left[\begin{array}{c}\vdots \\ w^{T} \varphi\left(x^{(i)}\right)-y^{(i)} \\ \vdots\end{array}\right] \in \mathbb{R}^m.\end{split}\]</div>
 <p>Substituting the necessary condition  <span class="math notranslate nohighlight">\(\omega = \Phi^Ta\)</span> into <span class="math notranslate nohighlight">\(J(\omega)\)</span> we obtain the dual problem:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned} J_{D}(a)=&amp; \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^Ta -a^T \Phi \Phi^T y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T \Phi \Phi^Ta \\=&amp; \frac{1}{2} a^T K K a-a^T K y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T Ka \end{aligned}\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-dual">
+<span class="eqno">(6.60)<a class="headerlink" href="#equation-ridge-reg-dual" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned} 
+J_{D}(a)=&amp; \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^Ta -a^T \Phi \Phi^T y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T \Phi \Phi^Ta \\=&amp; \frac{1}{2} a^T K K a-a^T K y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T Ka 
+\end{aligned}\end{split}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(K=\Phi\Phi^T\)</span> is a <strong>Grammatrix</strong> generated by a vector <span class="math notranslate nohighlight">\(\varphi\)</span> according to <span class="math notranslate nohighlight">\(K_{ij} = \langle \varphi_i , \varphi_j \rangle\)</span> where <span class="math notranslate nohighlight">\(\langle \cdot , \cdot \rangle\)</span> is an inner product - here <span class="math notranslate nohighlight">\(\langle \varphi(x^{(i)}),\varphi(x^{(j)}) \rangle\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) =: K(x^{(i)},x^{(j)})\]</div>
+<div class="math notranslate nohighlight" id="equation-kernel-def">
+<span class="eqno">(6.61)<a class="headerlink" href="#equation-kernel-def" title="Permalink to this equation">#</a></span>\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) =: K(x^{(i)},x^{(j)}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(K(x^{(i)},x^{(j)})\)</span> is the <strong>kernel function</strong>.</p>
 <p>Now we find that we can express the LMS prediction in terms of the kernel function:</p>
-<div class="math notranslate nohighlight">
-\[J_{D}(a)=\frac{1}{2} a^{T} K K a-a^T K y-\frac{1}{2} y^{T} y+\frac{\lambda}{2} a^T K a\]</div>
-<p>In order to find <span class="math notranslate nohighlight">\(\max_{a} J_D (a)\)</span> we set <span class="math notranslate nohighlight">\(\nabla_a J_D (a) = 0\)</span></p>
-<div class="math notranslate nohighlight">
-\[\Rightarrow Ka - y + \lambda Ia = 0\]</div>
-<div class="math notranslate nohighlight">
-\[\Rightarrow a = (K+\lambda I)^{-1} y\]</div>
-<p>Upon inserting this result into a linear regression model with feature mapping</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
-h(x) &amp;= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x) a \\
-&amp;=K^T (K+\lambda I)^{-1} y
+<div class="math notranslate nohighlight" id="equation-ridge-reg-dual-with-kernel">
+<span class="eqno">(6.62)<a class="headerlink" href="#equation-ridge-reg-dual-with-kernel" title="Permalink to this equation">#</a></span>\[J_{D}(a)=\frac{1}{2} a^{T} K K a-a^T K y+\frac{1}{2} y^{T} y+\frac{\lambda}{2} a^T Ka.\]</div>
+<p>In order to find <span class="math notranslate nohighlight">\(\max_{a} J_D (a)\)</span> we set <span class="math notranslate nohighlight">\(\nabla_a J_D (a) = 0\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-dual-sol-a">
+<span class="eqno">(6.63)<a class="headerlink" href="#equation-ridge-reg-dual-sol-a" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+&amp;\Rightarrow Ka - y + \lambda Ia = 0 \\
+&amp;\Rightarrow a = (K+\lambda I)^{-1} y
 \end{aligned}\end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(K_i = K(x^{(i)},x)\)</span> are the components of K.</p>
-<p>Now, let’s do some bookkeeping</p>
-<div class="math notranslate nohighlight">
-\[\underbrace{a}_{M}=\underbrace{(K-\lambda I )^{-1}}_{M \times M} \underbrace{y}_{M}, \quad M = \text{number of data points}\]</div>
+<p>Upon inserting this result into a linear regression model with feature mapping</p>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-dual-sol">
+<span class="eqno">(6.64)<a class="headerlink" href="#equation-ridge-reg-dual-sol" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+h(x) &amp;= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x) a \\
+&amp;=k^T (K+\lambda I)^{-1} y,
+\end{aligned}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(k_i = K(x^{(i)},x)\)</span> are the components of K.</p>
 <blockquote>
-<div><p>Recall from Class 2 <span class="math notranslate nohighlight">\(\underbrace{\vartheta}_{N}=\underbrace{(X^{T}X)^{-1}}_{N \times N} \underbrace{X^T}_{N \times M} \underbrace{y}_{M}, \quad N = \text{dim of input data vector}\)</span></p>
+<div><p>The <em>kernel trick</em> refers to this formulation of the learning problem, which relies on computing the kernel similarities between pairs of input points <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(x'\)</span>, instead of computing <span class="math notranslate nohighlight">\(\varphi(x)\)</span> explicitly.</p>
 </div></blockquote>
-<p>As typically <span class="math notranslate nohighlight">\(M&gt;&gt;N\)</span> we see that solving the dual problem for LMS requires us to invest a <span class="math notranslate nohighlight">\(MxM\)</span> matrix, whereas the primal problem tends only to a <span class="math notranslate nohighlight">\(NxN\)</span> matrix.</p>
+<blockquote>
+<div><p>The term <em>Support Vector Machine</em> typically refers to a margin classifier using the kernel formulation.</p>
+</div></blockquote>
+<p>Now, let’s do some bookkeeping using the number of data points <span class="math notranslate nohighlight">\(M\)</span> and dimension of the input data <span class="math notranslate nohighlight">\(N\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-ridge-reg-dual-sol-a-dimensions">
+<span class="eqno">(6.65)<a class="headerlink" href="#equation-ridge-reg-dual-sol-a-dimensions" title="Permalink to this equation">#</a></span>\[\underbrace{a}_{M}=\underbrace{(K-\lambda I )^{-1}}_{M \times M} \underbrace{y}_{M}.\]</div>
+<blockquote>
+<div><p>Recall from the lecture on linear models that <span class="math notranslate nohighlight">\(\underbrace{\vartheta}_{N}=\underbrace{(X^{T}X)^{-1}}_{N \times N} \underbrace{X^T}_{N \times M} \underbrace{y}_{M}\)</span></p>
+</div></blockquote>
+<p>As typically <span class="math notranslate nohighlight">\(M&gt;&gt;N\)</span> we see that solving the dual problem for LMS requires us to invert a <span class="math notranslate nohighlight">\(M\times M\)</span> matrix, whereas the primal problem tends only to a <span class="math notranslate nohighlight">\(N\times N\)</span> matrix.</p>
 <p>The benefit of the dual problem with the kernel <span class="math notranslate nohighlight">\(K(x,x')\)</span> is that now we can work with the kernel directly
 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> dimensionality of <span class="math notranslate nohighlight">\(\varphi(x)\)</span> matters no longer.
 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> we can consider even an infinite-dimensional feature vector <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span>, i.e. a continuous <span class="math notranslate nohighlight">\(\varphi (x)\)</span></p>
 </section>
 <section id="construction-of-suitable-kernels">
 <h3><span class="section-number">6.5.2. </span>Construction of suitable kernels<a class="headerlink" href="#construction-of-suitable-kernels" title="Permalink to this headline">#</a></h3>
-<ul class="simple">
-<li><p>construction from feature map</p></li>
-</ul>
-<div class="math notranslate nohighlight">
-\[ K(x,x') = \varphi^T (x) \varphi (x') = \sum_{i=1}^{N} \varphi_i (x) \varphi_i (x')\]</div>
-<ul class="simple">
-<li><p>direct construction with constraint that a <em>valid kernel</em> is obtained, i.e. it needs actually to correspond to a possible feature-map scalar product.</p></li>
+<ul>
+<li><p>construction from feature map</p>
+<div class="math notranslate nohighlight" id="equation-kernel-from-feature-map">
+<span class="eqno">(6.66)<a class="headerlink" href="#equation-kernel-from-feature-map" title="Permalink to this equation">#</a></span>\[ K(x,x') = \varphi^T (x) \varphi (x') = \sum_{i=1}^{N} \varphi_i (x) \varphi_i (x')\]</div>
+</li>
+<li><p>direct construction with constraint that a <em>valid kernel</em> is obtained, i.e. it needs actually to correspond to a possible feature map scalar product.</p></li>
 </ul>
 <p>A <strong>necessary and sufficient condition</strong> for a valid kernel is that <strong><span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite for all <span class="math notranslate nohighlight">\(x\)</span></strong>.</p>
-<p><strong>Examples (1)</strong></p>
+<p><strong>Example 1</strong></p>
 <p>Given is <span class="math notranslate nohighlight">\(x, x' \in \mathbb{R}^N\)</span> and a scalar kernel</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned}
+<div class="math notranslate nohighlight" id="equation-kernel-polynomial-2">
+<span class="eqno">(6.67)<a class="headerlink" href="#equation-kernel-polynomial-2" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 K(x,x') &amp; = (x^Tx')^2 \\
 &amp; = \sum_{i=1}^N x_i x_i' \sum_{j=1}^N x_jx_j' \\
 &amp; = \sum_i \sum_j x_ix_jx_i'x_j'.
 \end{aligned}\end{split}\]</div>
-<p>The corresponding feature map for</p>
-<div class="math notranslate nohighlight">
-\[K(x,x') = \varphi^T(x)\varphi(x')\]</div>
-<p>for <span class="math notranslate nohighlight">\(N=3\)</span> is</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\varphi (x) = \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ x_1 x_3 \\ x_2 x_1 \\ \ldots \\ x_3x_3 \end{array}\right] \end{split}\]</div>
-<p><strong>Examples (2)</strong></p>
+<p>The corresponding feature map for <span class="math notranslate nohighlight">\(K(x,x') = \varphi^T(x)\varphi(x')\)</span> and with <span class="math notranslate nohighlight">\(N=3\)</span> is</p>
+<div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-n-3-feature-map">
+<span class="eqno">(6.68)<a class="headerlink" href="#equation-kernel-polynomial-2-n-3-feature-map" title="Permalink to this equation">#</a></span>\[\begin{split}\varphi (x) = \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ x_1 x_3 \\ x_2 x_1 \\ \ldots \\ x_3x_3 \end{array}\right]\end{split}\]</div>
+<p><strong>Example 2</strong></p>
 <p>Alternative kernel with parameter <span class="math notranslate nohighlight">\(c\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[K(x,x') = (x^Tx'+c)^2 = \sum_{i,j} x_ix_jx_i'x_j' + \sum_i \sqrt{2c} x_i \sqrt{2c} x_j + c^2\]</div>
+<div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-with-bias">
+<span class="eqno">(6.69)<a class="headerlink" href="#equation-kernel-polynomial-2-with-bias" title="Permalink to this equation">#</a></span>\[K(x,x') = (x^Tx'+c)^2 = \sum_{i,j} x_ix_jx_i'x_j' + \sum_i \sqrt{2c} x_i \sqrt{2c} x_j + c^2\]</div>
 <p>belongs to</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}\varphi(x)= \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ \ldots \\ x_3x_3 \\ \sqrt{2c}x_1 \\ \sqrt{2c}x_2 \\ \sqrt{2c}x_3 \\ c  \end{array}\right]\end{split}\]</div>
+<div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-with-bias-n-3-feature-map">
+<span class="eqno">(6.70)<a class="headerlink" href="#equation-kernel-polynomial-2-with-bias-n-3-feature-map" title="Permalink to this equation">#</a></span>\[\begin{split}\varphi(x)= \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ \ldots \\ x_3x_3 \\ \sqrt{2c}x_1 \\ \sqrt{2c}x_2 \\ \sqrt{2c}x_3 \\ c  \end{array}\right]\end{split}\]</div>
 <br>
 <p>Considering that <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are vectors, the scalar product <span class="math notranslate nohighlight">\(K(x,x')=\varphi^T(x)\varphi(x')\)</span> expresses the projection of <span class="math notranslate nohighlight">\(\varphi(x')\)</span> onto <span class="math notranslate nohighlight">\(\varphi(x)\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> the larger the kernel value, the more parallel the vectors are. Conversely, the smaller, the more orthogonal they are.</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> intuitively <span class="math notranslate nohighlight">\(K(x,x')\)</span> is a measure of “how close” <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are.</p>
-<p><strong>Example: Gaussian kernel</strong></p>
-<div class="math notranslate nohighlight">
-\[\begin{split}K(x,x')= \exp \left\{- \frac{(x-x')^T (x-x')}{2 \sigma^2} \right\} \\
+<p><strong>Example 3: Gaussian kernel</strong></p>
+<div class="math notranslate nohighlight" id="equation-gaussian-kernel">
+<span class="eqno">(6.71)<a class="headerlink" href="#equation-gaussian-kernel" title="Permalink to this equation">#</a></span>\[\begin{split}K(x,x')= \exp \left\{- \frac{(x-x')^T (x-x')}{2 \sigma^2} \right\} \\
 \left\{\begin{array}{l} \approx 1 , \quad x \text{ and } x' \text{ close}  \\ \approx 0 , \quad x \text{ and } x' \text{ far apart} \end{array}\right.\end{split}\]</div>
-<p>Now we show for illustration that a valid kernel is positive semidefinite, this is the above-mentioned necessary condition.</p>
+<p>Now we show for illustration that a valid kernel is positive semidefinite, which is the above-mentioned necessary condition.</p>
 <p><strong>Proof:</strong></p>
-<div class="math notranslate nohighlight">
-\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) = \varphi^T(x^{(j)})\varphi(x^{(i)}) = K_{ji}\]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}\begin{aligned} \Rightarrow (x')^TKx' &amp;= x'_i K_{ij}x'_j \\ 
+<div class="math notranslate nohighlight" id="equation-kernel-symmetry">
+<span class="eqno">(6.72)<a class="headerlink" href="#equation-kernel-symmetry" title="Permalink to this equation">#</a></span>\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) = \varphi^T(x^{(j)})\varphi(x^{(i)}) = K_{ji}\]</div>
+<div class="math notranslate nohighlight" id="equation-kernel-positivity">
+<span class="eqno">(6.73)<a class="headerlink" href="#equation-kernel-positivity" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned} 
+\Rightarrow (x')^TKx' &amp;= x'_i K_{ij}x'_j \\ 
 &amp; = x'_i \varphi^T(x^{(i)}) \varphi(x^{(j)}) x'_j \\
 &amp; = x'_i \varphi_k^{(i)} \varphi_k^{(j)} x'_j \\
-&amp; = \sum_k (x_i^{(i)} \varphi_k^{(i)})^2 \geqslant 0 \end{aligned}\end{split}\]</div>
+&amp; = \sum_k (x_i^{(i)} \varphi_k^{(i)})^2 \geqslant 0 
+\end{aligned}\end{split}\]</div>
 <p>The necessary and sufficient condition is due to <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">Mercer’s theorem</a></strong>:</p>
 <p>A given <span class="math notranslate nohighlight">\(K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}\)</span> is a valid kernel if for any {<span class="math notranslate nohighlight">\(x^{(1)},...,x^{(m)}\)</span>}, <span class="math notranslate nohighlight">\(m&lt;\infty\)</span> the resulting <span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite (which implies that it also must be symmetric).</p>
 <br>
 <p>For non-separable sets we still can apply MMC or slack-variable SMC: We simply replace the feature-scalar product within the SVM prediction.</p>
-<div class="math notranslate nohighlight">
-\[h(x) = \omega^{*T}x+b^* = \sum_{i=1}^m \alpha_i^* y^{(i)} \langle x^{(i)} , x \rangle + b^*\]</div>
-<p>We replace <span class="math notranslate nohighlight">\(\langle x^{(i)} , x \rangle\)</span> by <span class="math notranslate nohighlight">\(K(x^{(i)},x)\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[h(x) = \sum_{i=1}^m \alpha_i^* y^{(i)} K(x^{(i)},x)+ b^*\]</div>
+<div class="math notranslate nohighlight" id="equation-smc-with-dot-product">
+<span class="eqno">(6.74)<a class="headerlink" href="#equation-smc-with-dot-product" title="Permalink to this equation">#</a></span>\[h(x) = \omega^{*T}x+b^* = \sum_{i=1}^m \alpha_i^* y^{(i)} \langle x^{(i)} , x \rangle + b^*\]</div>
+<p>We replace <span class="math notranslate nohighlight">\(\langle x^{(i)} , x \rangle\)</span> by <span class="math notranslate nohighlight">\(k(x^{(i)},x)\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-smc-with-kernel">
+<span class="eqno">(6.75)<a class="headerlink" href="#equation-smc-with-kernel" title="Permalink to this equation">#</a></span>\[h(x) = \sum_{i=1}^m \alpha_i^* y^{(i)} k(x^{(i)},x)+ b^*\]</div>
 <p>This pulls through into the dual problem for determining <span class="math notranslate nohighlight">\(\alpha_i^*\)</span> and <span class="math notranslate nohighlight">\(b^*\)</span> such that by picking a suitable kernel function we may get close to a linearly separable transformation function without actually performing the feature mapping.</p>
 </section>
 </section>
@@ -1311,8 +1289,8 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 <section id="further-references">
 <h2><span class="section-number">6.7. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://cs229.stanford.edu/lectures-spring2022/main_notes.pdf">CS229 Lecture Notes</a>, Chapters 5 and 6; Andrew Ng; 2022</p></li>
-<li><p><a class="reference external" href="https://probml.github.io/pml-book/book1.html">Probabilistic Machine Learning: An Introduction</a>, Section 17.3; Kevin Murphy; 2022</p></li>
+<li><p><span id="id3">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Chapters 5 und 6</p></li>
+<li><p><span id="id4">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Section 17.3</p></li>
 </ul>
 </section>
 </section>
