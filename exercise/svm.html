@@ -620,7 +620,7 @@ title="Print to PDF"
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f847ea27af0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x7f486917ab00&gt;
 </pre></div>
 </div>
 <img alt="../_images/svm_4_1.png" src="../_images/svm_4_1.png" />
@@ -948,7 +948,7 @@ The decision function simply imlements <span class="math notranslate nohighlight
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set model parameters and initial values</span>
-<span class="n">C</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">C</span> <span class="o">=</span> <span class="mi">10</span>
 <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
 <span class="n">initial_alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
 <span class="n">initial_b</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -1003,7 +1003,7 @@ The decision function simply imlements <span class="math notranslate nohighlight
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f8476f45970&gt;]
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[&lt;matplotlib.lines.Line2D at 0x7f486572df00&gt;]
 </pre></div>
 </div>
 <img alt="../_images/svm_22_1.png" src="../_images/svm_22_1.png" />
@@ -1046,10 +1046,11 @@ The decision function simply imlements <span class="math notranslate nohighlight
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Count occurence of each class:
+class
 Iris-versicolor    50
 Iris-virginica     50
 Iris-setosa        49
-Name: class, dtype: int64
+Name: count, dtype: int64
 Training data:
      petal_length  petal_width  class_idx
 0             1.4          0.2          0
@@ -1109,7 +1110,7 @@ Training data:
 
 <span class="k">def</span> <span class="nf">create_binary_clf</span><span class="p">(</span><span class="n">class_idx</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
     <span class="c1"># Set model parameters and initial values</span>
-    <span class="n">C</span> <span class="o">=</span> <span class="mf">1.</span>
+    <span class="n">C</span> <span class="o">=</span> <span class="mf">10.</span>
     <span class="n">m</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">initial_alphas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
     <span class="n">initial_b</span> <span class="o">=</span> <span class="mf">0.0</span>
@@ -1199,7 +1200,7 @@ Training data:
 <p>To fully recover the Soft Margin Classifier, we simply add the squared L2 regularization to this loss, thus the total loss becomes</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = \frac{1}{M}\sum_{i=1}^M \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} x^{(i)} + b) \right) + \lambda ||w||_2^2.\]</div>
-<p>Here, the parameter <span class="math notranslate nohighlight">\(\lambda\)</span> is inversely proportional to the <span class="math notranslate nohighlight">\(C\)</span> from the Soft Margin Classifier formalism.</p>
+<p>Here, the parameter <span class="math notranslate nohighlight">\(\lambda\)</span> controls the amount of shrinkage applied to the coefficients to mitigate overfitting. This is fundamentally different from the <span class="math notranslate nohighlight">\(C\)</span> in the Soft Margin Classifier formalism, which is also a regularization parameter, but it influences the trade off between the margin size and the training error.</p>
 <p>If we want to do something like kernels (although there is no dot product here), the best we can do is directly applying the input feature transformation <span class="math notranslate nohighlight">\(x \to \varphi(x)\)</span> which leads to the loss</p>
 <div class="math notranslate nohighlight">
 \[\mathcal{L} = \frac{1}{M}\sum_{i=1}^M \max \left( 0, \; 1 - y^{(i)}(\omega^{\top} \varphi(x^{(i)}) + b) \right) + \lambda ||w||_2^2.\]</div>
@@ -1274,15 +1275,15 @@ Training data:
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SupportVectorMachine</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">kernel</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_size</span><span class="p">,</span> <span class="n">phi</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
         <span class="c1"># X_train.shape should be (num_samples, dim x)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_size</span> <span class="o">=</span> <span class="n">input_size</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span> <span class="o">=</span> <span class="n">kernel</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">phi</span> <span class="o">=</span> <span class="n">phi</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">linear</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
-        <span class="n">phi_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kernel</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="n">phi_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">phi</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">linear</span><span class="p">(</span><span class="n">phi_x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">out</span>
 
@@ -1356,17 +1357,17 @@ Training data:
 <span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span>
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">100</span>
 <span class="n">reg_lambda</span> <span class="o">=</span> <span class="mf">0.001</span>
-<span class="n">kernel_type</span> <span class="o">=</span> <span class="s1">&#39;rbf&#39;</span>  <span class="c1"># TODO: try both &quot;lin&quot; and &quot;rbf&quot;</span>
+<span class="n">phi_type</span> <span class="o">=</span> <span class="s1">&#39;rbf&#39;</span>  <span class="c1"># TODO: try both &quot;lin&quot; and &quot;rbf&quot;</span>
 
-<span class="k">if</span> <span class="n">kernel_type</span> <span class="o">==</span> <span class="s1">&#39;lin&#39;</span><span class="p">:</span>
-  <span class="n">kernel</span> <span class="o">=</span> <span class="n">PhiLinear</span><span class="p">()</span> 
+<span class="k">if</span> <span class="n">phi_type</span> <span class="o">==</span> <span class="s1">&#39;lin&#39;</span><span class="p">:</span>
+  <span class="n">phi</span> <span class="o">=</span> <span class="n">PhiLinear</span><span class="p">()</span> 
   <span class="n">input_size</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="k">elif</span> <span class="n">kernel_type</span> <span class="o">==</span> <span class="s1">&#39;rbf&#39;</span><span class="p">:</span>
-  <span class="n">kernel</span> <span class="o">=</span> <span class="n">PhiRBF</span><span class="p">(</span><span class="n">X_train</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> 
+<span class="k">elif</span> <span class="n">phi_type</span> <span class="o">==</span> <span class="s1">&#39;rbf&#39;</span><span class="p">:</span>
+  <span class="n">phi</span> <span class="o">=</span> <span class="n">PhiRBF</span><span class="p">(</span><span class="n">X_train</span><span class="o">=</span><span class="n">X</span><span class="p">,</span> <span class="n">gamma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span> 
   <span class="n">input_size</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
   
 <span class="c1"># initialize model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">SupportVectorMachine</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">kernel</span><span class="p">)</span> 
+<span class="n">model</span> <span class="o">=</span> <span class="n">SupportVectorMachine</span><span class="p">(</span><span class="n">input_size</span><span class="p">,</span> <span class="n">phi</span><span class="p">)</span> 
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="n">learning_rate</span><span class="p">)</span>
 
 <span class="n">model</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
@@ -1474,1010 +1475,6 @@ linear.bias :  tensor([-0.0108])
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>epoch 0, loss 0.05415971204638481
-epoch 1, loss 0.08875705301761627
-epoch 2, loss 0.1126236617565155
-epoch 3, loss 0.13219766318798065
-epoch 4, loss 0.14138911664485931
-epoch 5, loss 0.1433056890964508
-epoch 6, loss 0.14052040874958038
-epoch 7, loss 0.1448531150817871
-epoch 8, loss 0.12890547513961792
-epoch 9, loss 0.12236513197422028
-epoch 10, loss 0.11469624191522598
-epoch 11, loss 0.106291264295578
-epoch 12, loss 0.09812000393867493
-epoch 13, loss 0.09035123884677887
-epoch 14, loss 0.0829516127705574
-epoch 15, loss 0.07602420449256897
-epoch 16, loss 0.07078631967306137
-epoch 17, loss 0.06397834420204163
-epoch 18, loss 0.058583278208971024
-epoch 19, loss 0.052927661687135696
-epoch 20, loss 0.04738983139395714
-epoch 21, loss 0.042254768311977386
-epoch 22, loss 0.03802109509706497
-epoch 23, loss 0.034848302602767944
-epoch 24, loss 0.03150230273604393
-epoch 25, loss 0.02812996506690979
-epoch 26, loss 0.02496222034096718
-epoch 27, loss 0.022303862497210503
-epoch 28, loss 0.020066168159246445
-epoch 29, loss 0.017848048359155655
-epoch 30, loss 0.01584838330745697
-epoch 31, loss 0.014373302459716797
-epoch 32, loss 0.012867775745689869
-epoch 33, loss 0.011364003643393517
-epoch 34, loss 0.009949270635843277
-epoch 35, loss 0.008899270556867123
-epoch 36, loss 0.008043870329856873
-epoch 37, loss 0.0072169071063399315
-epoch 38, loss 0.0063956985250115395
-epoch 39, loss 0.005880264099687338
-epoch 40, loss 0.005400832276791334
-epoch 41, loss 0.004710076842457056
-epoch 42, loss 0.004057060461491346
-epoch 43, loss 0.003996427170932293
-epoch 44, loss 0.004805156961083412
-epoch 45, loss 0.013885999098420143
-epoch 46, loss 0.00432458845898509
-epoch 47, loss 0.004056410398334265
-epoch 48, loss 0.004148656036704779
-epoch 49, loss 0.013044895604252815
-epoch 50, loss 0.011855831369757652
-epoch 51, loss 0.004851495381444693
-epoch 52, loss 0.0053099109791219234
-epoch 53, loss 0.004917889833450317
-epoch 54, loss 0.0043554482981562614
-epoch 55, loss 0.003712121397256851
-epoch 56, loss 0.003309423103928566
-epoch 57, loss 0.002882568631321192
-epoch 58, loss 0.008506173267960548
-epoch 59, loss 0.005900952965021133
-epoch 60, loss 0.007477398030459881
-epoch 61, loss 0.004249017219990492
-epoch 62, loss 0.005088319070637226
-epoch 63, loss 0.005071698222309351
-epoch 64, loss 0.004510215483605862
-epoch 65, loss 0.003907344304025173
-epoch 66, loss 0.00342568545602262
-epoch 67, loss 0.004069694317877293
-epoch 68, loss 0.003282055491581559
-epoch 69, loss 0.010641190223395824
-epoch 70, loss 0.01600613072514534
-epoch 71, loss 0.0032594420481473207
-epoch 72, loss 0.017606129869818687
-epoch 73, loss 0.025161584839224815
-epoch 74, loss 0.006000804249197245
-epoch 75, loss 0.006126889493316412
-epoch 76, loss 0.006311774719506502
-epoch 77, loss 0.005662098061293364
-epoch 78, loss 0.0048826225101947784
-epoch 79, loss 0.00418464420363307
-epoch 80, loss 0.003608378116041422
-epoch 81, loss 0.011905599385499954
-epoch 82, loss 0.00473553454503417
-epoch 83, loss 0.004329765681177378
-epoch 84, loss 0.003587295999750495
-epoch 85, loss 0.01240506675094366
-epoch 86, loss 0.0025662784464657307
-epoch 87, loss 0.003784271888434887
-epoch 88, loss 0.0032284725457429886
-epoch 89, loss 0.006317158229649067
-epoch 90, loss 0.003414803883060813
-epoch 91, loss 0.00331181101500988
-epoch 92, loss 0.0037104329094290733
-epoch 93, loss 0.005531912203878164
-epoch 94, loss 0.01368728093802929
-epoch 95, loss 0.005813860334455967
-epoch 96, loss 0.006151061505079269
-epoch 97, loss 0.008078338578343391
-epoch 98, loss 0.008208931423723698
-epoch 99, loss 0.007173060905188322
-epoch 100, loss 0.00561945466324687
-epoch 101, loss 0.00937388464808464
-epoch 102, loss 0.0032532145269215107
-epoch 103, loss 0.0049604917876422405
-epoch 104, loss 0.006896927021443844
-epoch 105, loss 0.0052629150450229645
-epoch 106, loss 0.007397735491394997
-epoch 107, loss 0.005149292293936014
-epoch 108, loss 0.00612332159653306
-epoch 109, loss 0.005896161310374737
-epoch 110, loss 0.005114298779517412
-epoch 111, loss 0.004301111213862896
-epoch 112, loss 0.003764063585549593
-epoch 113, loss 0.006216623820364475
-epoch 114, loss 0.003225889289751649
-epoch 115, loss 0.004104942549020052
-epoch 116, loss 0.00991000421345234
-epoch 117, loss 0.0061779017560184
-epoch 118, loss 0.0056005516089499
-epoch 119, loss 0.0047055864706635475
-epoch 120, loss 0.003976325038820505
-epoch 121, loss 0.004297405481338501
-epoch 122, loss 0.0025613459292799234
-epoch 123, loss 0.002466461854055524
-epoch 124, loss 0.0024955079425126314
-epoch 125, loss 0.0026622649747878313
-epoch 126, loss 0.003137133317068219
-epoch 127, loss 0.004980923142284155
-epoch 128, loss 0.005081053823232651
-epoch 129, loss 0.005332843866199255
-epoch 130, loss 0.004696915857493877
-epoch 131, loss 0.0036783197429031134
-epoch 132, loss 0.002669460140168667
-epoch 133, loss 0.004531405866146088
-epoch 134, loss 0.006377999670803547
-epoch 135, loss 0.0033579207956790924
-epoch 136, loss 0.00451698387041688
-epoch 137, loss 0.0058397529646754265
-epoch 138, loss 0.022355569526553154
-epoch 139, loss 0.008871170692145824
-epoch 140, loss 0.011588789522647858
-epoch 141, loss 0.007792602758854628
-epoch 142, loss 0.011243870481848717
-epoch 143, loss 0.007032301276922226
-epoch 144, loss 0.006971883121877909
-epoch 145, loss 0.00573373818770051
-epoch 146, loss 0.004517002496868372
-epoch 147, loss 0.0037776611279696226
-epoch 148, loss 0.003175431862473488
-epoch 149, loss 0.0024718979839235544
-epoch 150, loss 0.016900233924388885
-epoch 151, loss 0.019907420501112938
-epoch 152, loss 0.00695432722568512
-epoch 153, loss 0.0188466664403677
-epoch 154, loss 0.02594698779284954
-epoch 155, loss 0.007484631147235632
-epoch 156, loss 0.006976043339818716
-epoch 157, loss 0.03697647899389267
-epoch 158, loss 0.005826330743730068
-epoch 159, loss 0.004735896829515696
-epoch 160, loss 0.009253201074898243
-epoch 161, loss 0.004606031812727451
-epoch 162, loss 0.01492708083242178
-epoch 163, loss 0.0038773149717599154
-epoch 164, loss 0.013574575074017048
-epoch 165, loss 0.0033574129920452833
-epoch 166, loss 0.006845803000032902
-epoch 167, loss 0.0053221858106553555
-epoch 168, loss 0.005877820774912834
-epoch 169, loss 0.0089229391887784
-epoch 170, loss 0.005957988556474447
-epoch 171, loss 0.005800919607281685
-epoch 172, loss 0.004848082084208727
-epoch 173, loss 0.020616278052330017
-epoch 174, loss 0.004416092298924923
-epoch 175, loss 0.004749130457639694
-epoch 176, loss 0.004407023545354605
-epoch 177, loss 0.00378055009059608
-epoch 178, loss 0.003011750988662243
-epoch 179, loss 0.0021394011564552784
-epoch 180, loss 0.024940621107816696
-epoch 181, loss 0.0038922596722841263
-epoch 182, loss 0.00594549672678113
-epoch 183, loss 0.020991526544094086
-epoch 184, loss 0.02204880863428116
-epoch 185, loss 0.014903571456670761
-epoch 186, loss 0.030539056286215782
-epoch 187, loss 0.015723541378974915
-epoch 188, loss 0.013078338466584682
-epoch 189, loss 0.010941260494291782
-epoch 190, loss 0.009803036227822304
-epoch 191, loss 0.008592799305915833
-epoch 192, loss 0.015661418437957764
-epoch 193, loss 0.0064293378964066505
-epoch 194, loss 0.005487862974405289
-epoch 195, loss 0.027330059558153152
-epoch 196, loss 0.02143961563706398
-epoch 197, loss 0.010604110546410084
-epoch 198, loss 0.07423557341098785
-epoch 199, loss 0.010484580881893635
-epoch 200, loss 0.012499330565333366
-epoch 201, loss 0.013805459253489971
-epoch 202, loss 0.012651843950152397
-epoch 203, loss 0.009917331859469414
-epoch 204, loss 0.00756493303924799
-epoch 205, loss 0.0061864363960921764
-epoch 206, loss 0.005440902430564165
-epoch 207, loss 0.004369636066257954
-epoch 208, loss 0.00344272144138813
-epoch 209, loss 0.005343682132661343
-epoch 210, loss 0.0035651116631925106
-epoch 211, loss 0.010621583089232445
-epoch 212, loss 0.012989994138479233
-epoch 213, loss 0.0017937791999429464
-epoch 214, loss 0.0018070624209940434
-epoch 215, loss 0.0026890586595982313
-epoch 216, loss 0.0038579516112804413
-epoch 217, loss 0.020123112946748734
-epoch 218, loss 0.0040177879855036736
-epoch 219, loss 0.00330486916936934
-epoch 220, loss 0.005367794074118137
-epoch 221, loss 0.023846793919801712
-epoch 222, loss 0.0042882454581558704
-epoch 223, loss 0.004916752222925425
-epoch 224, loss 0.012850597500801086
-epoch 225, loss 0.004462102428078651
-epoch 226, loss 0.004093927796930075
-epoch 227, loss 0.003874824848026037
-epoch 228, loss 0.006610059179365635
-epoch 229, loss 0.003912767861038446
-epoch 230, loss 0.0053192139603197575
-epoch 231, loss 0.007368464022874832
-epoch 232, loss 0.0074350591748952866
-epoch 233, loss 0.011795477010309696
-epoch 234, loss 0.00836212933063507
-epoch 235, loss 0.008261000737547874
-epoch 236, loss 0.0076533216051757336
-epoch 237, loss 0.006299566477537155
-epoch 238, loss 0.014610830694437027
-epoch 239, loss 0.019269835203886032
-epoch 240, loss 0.004386672284454107
-epoch 241, loss 0.0052340044640004635
-epoch 242, loss 0.006514270324259996
-epoch 243, loss 0.00748200761154294
-epoch 244, loss 0.0068216328509151936
-epoch 245, loss 0.0066338470205664635
-epoch 246, loss 0.008637834340333939
-epoch 247, loss 0.005251921713352203
-epoch 248, loss 0.016850033774971962
-epoch 249, loss 0.0046746921725571156
-epoch 250, loss 0.031959984451532364
-epoch 251, loss 0.06566871702671051
-epoch 252, loss 0.019664442166686058
-epoch 253, loss 0.019518211483955383
-epoch 254, loss 0.016177531331777573
-epoch 255, loss 0.01313022244721651
-epoch 256, loss 0.010745222680270672
-epoch 257, loss 0.00762099027633667
-epoch 258, loss 0.005466696806252003
-epoch 259, loss 0.004974849056452513
-epoch 260, loss 0.004499075468629599
-epoch 261, loss 0.03673580288887024
-epoch 262, loss 0.05703691393136978
-epoch 263, loss 0.019375905394554138
-epoch 264, loss 0.025183947756886482
-epoch 265, loss 0.028498856350779533
-epoch 266, loss 0.02577020786702633
-epoch 267, loss 0.019715411588549614
-epoch 268, loss 0.0139712393283844
-epoch 269, loss 0.009598005563020706
-epoch 270, loss 0.007214172277599573
-epoch 271, loss 0.005485358648002148
-epoch 272, loss 0.004702379927039146
-epoch 273, loss 0.004852518904954195
-epoch 274, loss 0.030736638233065605
-epoch 275, loss 0.005574408452957869
-epoch 276, loss 0.00647409912198782
-epoch 277, loss 0.0061776721850037575
-epoch 278, loss 0.005932479631155729
-epoch 279, loss 0.013546410016715527
-epoch 280, loss 0.005884531419724226
-epoch 281, loss 0.020281143486499786
-epoch 282, loss 0.03533952683210373
-epoch 283, loss 0.042395126074552536
-epoch 284, loss 0.015671314671635628
-epoch 285, loss 0.04478507861495018
-epoch 286, loss 0.01497228629887104
-epoch 287, loss 0.028339650481939316
-epoch 288, loss 0.03526763990521431
-epoch 289, loss 0.012707943096756935
-epoch 290, loss 0.010042952373623848
-epoch 291, loss 0.009998263791203499
-epoch 292, loss 0.00890736747533083
-epoch 293, loss 0.010326412506401539
-epoch 294, loss 0.015256933867931366
-epoch 295, loss 0.01648404635488987
-epoch 296, loss 0.017790909856557846
-epoch 297, loss 0.010292204096913338
-epoch 298, loss 0.007859306409955025
-epoch 299, loss 0.005711264908313751
-epoch 300, loss 0.005097352433949709
-epoch 301, loss 0.005353521090000868
-epoch 302, loss 0.006119459867477417
-epoch 303, loss 0.013285793364048004
-epoch 304, loss 0.006344382185488939
-epoch 305, loss 0.005926938261836767
-epoch 306, loss 0.005616486072540283
-epoch 307, loss 0.004735135473310947
-epoch 308, loss 0.0043733688071370125
-epoch 309, loss 0.005349306855350733
-epoch 310, loss 0.0037055579014122486
-epoch 311, loss 0.004258520435541868
-epoch 312, loss 0.01378003228455782
-epoch 313, loss 0.016204608604311943
-epoch 314, loss 0.00517955282703042
-epoch 315, loss 0.015224460512399673
-epoch 316, loss 0.0045760395005345345
-epoch 317, loss 0.004303738009184599
-epoch 318, loss 0.018805650994181633
-epoch 319, loss 0.004878450650721788
-epoch 320, loss 0.005379114765673876
-epoch 321, loss 0.005247726570814848
-epoch 322, loss 0.006013454869389534
-epoch 323, loss 0.007728966884315014
-epoch 324, loss 0.008648413233458996
-epoch 325, loss 0.008057630620896816
-epoch 326, loss 0.0066008116118609905
-epoch 327, loss 0.0074350484646856785
-epoch 328, loss 0.005269917193800211
-epoch 329, loss 0.013302911072969437
-epoch 330, loss 0.0040214089676737785
-epoch 331, loss 0.003640280570834875
-epoch 332, loss 0.011867107823491096
-epoch 333, loss 0.005665271542966366
-epoch 334, loss 0.018378544598817825
-epoch 335, loss 0.03675803542137146
-epoch 336, loss 0.014370149932801723
-epoch 337, loss 0.011651748791337013
-epoch 338, loss 0.008175668306648731
-epoch 339, loss 0.007918511517345905
-epoch 340, loss 0.003870527260005474
-epoch 341, loss 0.004393043927848339
-epoch 342, loss 0.006112305913120508
-epoch 343, loss 0.0071122907102108
-epoch 344, loss 0.00632244860753417
-epoch 345, loss 0.00899002980440855
-epoch 346, loss 0.01808249205350876
-epoch 347, loss 0.006502140779048204
-epoch 348, loss 0.007572186179459095
-epoch 349, loss 0.009206761606037617
-epoch 350, loss 0.00809461809694767
-epoch 351, loss 0.021346110850572586
-epoch 352, loss 0.008599111810326576
-epoch 353, loss 0.005877796560525894
-epoch 354, loss 0.003710032906383276
-epoch 355, loss 0.007414966821670532
-epoch 356, loss 0.0026837128680199385
-epoch 357, loss 0.006490842439234257
-epoch 358, loss 0.004463088233023882
-epoch 359, loss 0.00702831894159317
-epoch 360, loss 0.009233908727765083
-epoch 361, loss 0.03602401167154312
-epoch 362, loss 0.007290523964911699
-epoch 363, loss 0.006817083805799484
-epoch 364, loss 0.007201642729341984
-epoch 365, loss 0.006116476375609636
-epoch 366, loss 0.006371400319039822
-epoch 367, loss 0.010623310692608356
-epoch 368, loss 0.020257096737623215
-epoch 369, loss 0.026632867753505707
-epoch 370, loss 0.026461035013198853
-epoch 371, loss 0.020755887031555176
-epoch 372, loss 0.013447273522615433
-epoch 373, loss 0.008195647038519382
-epoch 374, loss 0.0322684571146965
-epoch 375, loss 0.11181202530860901
-epoch 376, loss 0.04048766940832138
-epoch 377, loss 0.013175664469599724
-epoch 378, loss 0.0764947384595871
-epoch 379, loss 0.015530582517385483
-epoch 380, loss 0.01322854682803154
-epoch 381, loss 0.012092593125998974
-epoch 382, loss 0.027623958885669708
-epoch 383, loss 0.020033005625009537
-epoch 384, loss 0.02209165133535862
-epoch 385, loss 0.02157418243587017
-epoch 386, loss 0.01736043021082878
-epoch 387, loss 0.011425057426095009
-epoch 388, loss 0.021948857232928276
-epoch 389, loss 0.006873559672385454
-epoch 390, loss 0.005920307710766792
-epoch 391, loss 0.0052154515869915485
-epoch 392, loss 0.005563836079090834
-epoch 393, loss 0.005379042588174343
-epoch 394, loss 0.006763825658708811
-epoch 395, loss 0.019605521112680435
-epoch 396, loss 0.009276164695620537
-epoch 397, loss 0.004953228402882814
-epoch 398, loss 0.015161196701228619
-epoch 399, loss 0.030796196311712265
-epoch 400, loss 0.01263749785721302
-epoch 401, loss 0.042872704565525055
-epoch 402, loss 0.02564178593456745
-epoch 403, loss 0.022402232512831688
-epoch 404, loss 0.01644125021994114
-epoch 405, loss 0.03800664842128754
-epoch 406, loss 0.009189814329147339
-epoch 407, loss 0.01412130892276764
-epoch 408, loss 0.006560218520462513
-epoch 409, loss 0.005037759896367788
-epoch 410, loss 0.0040908316150307655
-epoch 411, loss 0.08531695604324341
-epoch 412, loss 0.020795810967683792
-epoch 413, loss 0.007031773217022419
-epoch 414, loss 0.008523572236299515
-epoch 415, loss 0.009712881408631802
-epoch 416, loss 0.008819016627967358
-epoch 417, loss 0.006795593537390232
-epoch 418, loss 0.005035454872995615
-epoch 419, loss 0.031018530949950218
-epoch 420, loss 0.005228052847087383
-epoch 421, loss 0.00798235647380352
-epoch 422, loss 0.01152915321290493
-epoch 423, loss 0.011704321019351482
-epoch 424, loss 0.010531838983297348
-epoch 425, loss 0.008795537985861301
-epoch 426, loss 0.00629134988412261
-epoch 427, loss 0.0045960890129208565
-epoch 428, loss 0.016991019248962402
-epoch 429, loss 0.00592399388551712
-epoch 430, loss 0.021516859531402588
-epoch 431, loss 0.010312345810234547
-epoch 432, loss 0.010331726633012295
-epoch 433, loss 0.009181329980492592
-epoch 434, loss 0.006806895602494478
-epoch 435, loss 0.0044844914227724075
-epoch 436, loss 0.006018470041453838
-epoch 437, loss 0.0028842089232057333
-epoch 438, loss 0.016033560037612915
-epoch 439, loss 0.023250015452504158
-epoch 440, loss 0.013835811987519264
-epoch 441, loss 0.01217798050493002
-epoch 442, loss 0.009323671460151672
-epoch 443, loss 0.006147615611553192
-epoch 444, loss 0.006945853121578693
-epoch 445, loss 0.008678480982780457
-epoch 446, loss 0.010503510944545269
-epoch 447, loss 0.024862054735422134
-epoch 448, loss 0.032646454870700836
-epoch 449, loss 0.02992093190550804
-epoch 450, loss 0.021548930555582047
-epoch 451, loss 0.012801186181604862
-epoch 452, loss 0.00640531163662672
-epoch 453, loss 0.009273332543671131
-epoch 454, loss 0.004061049781739712
-epoch 455, loss 0.024976685643196106
-epoch 456, loss 0.014626028947532177
-epoch 457, loss 0.023144304752349854
-epoch 458, loss 0.028669003397226334
-epoch 459, loss 0.025266868993639946
-epoch 460, loss 0.018535427749156952
-epoch 461, loss 0.027833793312311172
-epoch 462, loss 0.010312588885426521
-epoch 463, loss 0.00940840132534504
-epoch 464, loss 0.018184978514909744
-epoch 465, loss 0.018331702798604965
-epoch 466, loss 0.03574468940496445
-epoch 467, loss 0.009912907145917416
-epoch 468, loss 0.009244970977306366
-epoch 469, loss 0.009211717173457146
-epoch 470, loss 0.007769790478050709
-epoch 471, loss 0.005448370240628719
-epoch 472, loss 0.0037485382054001093
-epoch 473, loss 0.005289551801979542
-epoch 474, loss 0.011709270998835564
-epoch 475, loss 0.009747467003762722
-epoch 476, loss 0.02282632701098919
-epoch 477, loss 0.019991276785731316
-epoch 478, loss 0.010812602005898952
-epoch 479, loss 0.010113672353327274
-epoch 480, loss 0.004824785981327295
-epoch 481, loss 0.049110397696495056
-epoch 482, loss 0.01747506856918335
-epoch 483, loss 0.023480471223592758
-epoch 484, loss 0.03142399340867996
-epoch 485, loss 0.03349684551358223
-epoch 486, loss 0.026970263570547104
-epoch 487, loss 0.018092045560479164
-epoch 488, loss 0.02809753641486168
-epoch 489, loss 0.010636191815137863
-epoch 490, loss 0.02836153656244278
-epoch 491, loss 0.018214086070656776
-epoch 492, loss 0.02131662890315056
-epoch 493, loss 0.022632358595728874
-epoch 494, loss 0.013078291900455952
-epoch 495, loss 0.01124949287623167
-epoch 496, loss 0.009406124241650105
-epoch 497, loss 0.009188555181026459
-epoch 498, loss 0.008176974020898342
-epoch 499, loss 0.007277435157448053
-epoch 500, loss 0.008309261873364449
-epoch 501, loss 0.009537190198898315
-epoch 502, loss 0.010283573530614376
-epoch 503, loss 0.011027362197637558
-epoch 504, loss 0.009545057080686092
-epoch 505, loss 0.007849412970244884
-epoch 506, loss 0.00786284077912569
-epoch 507, loss 0.03972645476460457
-epoch 508, loss 0.018039993941783905
-epoch 509, loss 0.044714756309986115
-epoch 510, loss 0.011739556677639484
-epoch 511, loss 0.01565725728869438
-epoch 512, loss 0.014895929023623466
-epoch 513, loss 0.029475640505552292
-epoch 514, loss 0.024059880524873734
-epoch 515, loss 0.01128652784973383
-epoch 516, loss 0.01154625415802002
-epoch 517, loss 0.014072222635149956
-epoch 518, loss 0.007232846226543188
-epoch 519, loss 0.0052558560855686665
-epoch 520, loss 0.042029641568660736
-epoch 521, loss 0.01643320918083191
-epoch 522, loss 0.07533290982246399
-epoch 523, loss 0.011748991906642914
-epoch 524, loss 0.015076090581715107
-epoch 525, loss 0.021032191812992096
-epoch 526, loss 0.019885268062353134
-epoch 527, loss 0.018719589337706566
-epoch 528, loss 0.017142167314887047
-epoch 529, loss 0.014233206398785114
-epoch 530, loss 0.01074108388274908
-epoch 531, loss 0.009322445839643478
-epoch 532, loss 0.09032591432332993
-epoch 533, loss 0.015197611413896084
-epoch 534, loss 0.02789340727031231
-epoch 535, loss 0.017235714942216873
-epoch 536, loss 0.012982374988496304
-epoch 537, loss 0.009037313051521778
-epoch 538, loss 0.007522535976022482
-epoch 539, loss 0.006285575684159994
-epoch 540, loss 0.006995645817369223
-epoch 541, loss 0.013196672312915325
-epoch 542, loss 0.02741047739982605
-epoch 543, loss 0.04185457527637482
-epoch 544, loss 0.04726846516132355
-epoch 545, loss 0.02872670814394951
-epoch 546, loss 0.01803220808506012
-epoch 547, loss 0.027774052694439888
-epoch 548, loss 0.006755888927727938
-epoch 549, loss 0.005869106389582157
-epoch 550, loss 0.006336907856166363
-epoch 551, loss 0.006653632968664169
-epoch 552, loss 0.005660803057253361
-epoch 553, loss 0.015895245596766472
-epoch 554, loss 0.006576801184564829
-epoch 555, loss 0.05033519119024277
-epoch 556, loss 0.011714024469256401
-epoch 557, loss 0.010771332308650017
-epoch 558, loss 0.01109823863953352
-epoch 559, loss 0.008527797646820545
-epoch 560, loss 0.008580239489674568
-epoch 561, loss 0.013440385460853577
-epoch 562, loss 0.05076991766691208
-epoch 563, loss 0.008607294410467148
-epoch 564, loss 0.009576387703418732
-epoch 565, loss 0.009604074992239475
-epoch 566, loss 0.007696349639445543
-epoch 567, loss 0.011963113211095333
-epoch 568, loss 0.01143381092697382
-epoch 569, loss 0.018808050081133842
-epoch 570, loss 0.012274281121790409
-epoch 571, loss 0.00794273056089878
-epoch 572, loss 0.012483088299632072
-epoch 573, loss 0.05450000613927841
-epoch 574, loss 0.12451989203691483
-epoch 575, loss 0.026851749047636986
-epoch 576, loss 0.0964832752943039
-epoch 577, loss 0.0306759811937809
-epoch 578, loss 0.022555558010935783
-epoch 579, loss 0.01688174344599247
-epoch 580, loss 0.05878019332885742
-epoch 581, loss 0.012888684868812561
-epoch 582, loss 0.02063829079270363
-epoch 583, loss 0.0076300897635519505
-epoch 584, loss 0.005571968853473663
-epoch 585, loss 0.014531487599015236
-epoch 586, loss 0.037899263203144073
-epoch 587, loss 0.028108254075050354
-epoch 588, loss 0.015758192166686058
-epoch 589, loss 0.015805983915925026
-epoch 590, loss 0.012413986958563328
-epoch 591, loss 0.00872410461306572
-epoch 592, loss 0.0064809443429112434
-epoch 593, loss 0.005348061211407185
-epoch 594, loss 0.053092263638973236
-epoch 595, loss 0.011150450445711613
-epoch 596, loss 0.078421950340271
-epoch 597, loss 0.032102320343256
-epoch 598, loss 0.027675412595272064
-epoch 599, loss 0.0185546875
-epoch 600, loss 0.012098333798348904
-epoch 601, loss 0.0068613579496741295
-epoch 602, loss 0.007170234341174364
-epoch 603, loss 0.011386990547180176
-epoch 604, loss 0.02269057184457779
-epoch 605, loss 0.027325397357344627
-epoch 606, loss 0.022759005427360535
-epoch 607, loss 0.018875937908887863
-epoch 608, loss 0.018587622791528702
-epoch 609, loss 0.011045030318200588
-epoch 610, loss 0.009859083220362663
-epoch 611, loss 0.007706989999860525
-epoch 612, loss 0.012045018374919891
-epoch 613, loss 0.024141496047377586
-epoch 614, loss 0.0040390342473983765
-epoch 615, loss 0.006405757740139961
-epoch 616, loss 0.037847016006708145
-epoch 617, loss 0.04935840144753456
-epoch 618, loss 0.0253400057554245
-epoch 619, loss 0.023907151073217392
-epoch 620, loss 0.051121510565280914
-epoch 621, loss 0.01923629827797413
-epoch 622, loss 0.01716466061770916
-epoch 623, loss 0.03898605704307556
-epoch 624, loss 0.012439507059752941
-epoch 625, loss 0.010575437918305397
-epoch 626, loss 0.0259799063205719
-epoch 627, loss 0.04913295805454254
-epoch 628, loss 0.06892511993646622
-epoch 629, loss 0.11727511882781982
-epoch 630, loss 0.031711190938949585
-epoch 631, loss 0.02944941073656082
-epoch 632, loss 0.020373428240418434
-epoch 633, loss 0.015326710417866707
-epoch 634, loss 0.11684740334749222
-epoch 635, loss 0.09319542348384857
-epoch 636, loss 0.024971654638648033
-epoch 637, loss 0.026865776628255844
-epoch 638, loss 0.039213988929986954
-epoch 639, loss 0.06997096538543701
-epoch 640, loss 0.09328126907348633
-epoch 641, loss 0.06237134337425232
-epoch 642, loss 0.04149165377020836
-epoch 643, loss 0.023836098611354828
-epoch 644, loss 0.013455403037369251
-epoch 645, loss 0.008120903745293617
-epoch 646, loss 0.01450873538851738
-epoch 647, loss 0.013168100267648697
-epoch 648, loss 0.021180396899580956
-epoch 649, loss 0.03234533220529556
-epoch 650, loss 0.03823735564947128
-epoch 651, loss 0.020366927608847618
-epoch 652, loss 0.015990741550922394
-epoch 653, loss 0.050561610609292984
-epoch 654, loss 0.04092543199658394
-epoch 655, loss 0.08537607640028
-epoch 656, loss 0.03614833950996399
-epoch 657, loss 0.03186114877462387
-epoch 658, loss 0.03257471323013306
-epoch 659, loss 0.02424544282257557
-epoch 660, loss 0.04507695510983467
-epoch 661, loss 0.05109775811433792
-epoch 662, loss 0.0463513545691967
-epoch 663, loss 0.11990156769752502
-epoch 664, loss 0.02193220518529415
-epoch 665, loss 0.01656980626285076
-epoch 666, loss 0.010481598787009716
-epoch 667, loss 0.007417099084705114
-epoch 668, loss 0.005720009095966816
-epoch 669, loss 0.0050032171420753
-epoch 670, loss 0.005348891951143742
-epoch 671, loss 0.015390308573842049
-epoch 672, loss 0.006867348216474056
-epoch 673, loss 0.0074475775472819805
-epoch 674, loss 0.006704410072416067
-epoch 675, loss 0.006964006461203098
-epoch 676, loss 0.008479285053908825
-epoch 677, loss 0.008345352485775948
-epoch 678, loss 0.01938161626458168
-epoch 679, loss 0.05792156979441643
-epoch 680, loss 0.017798159271478653
-epoch 681, loss 0.021097883582115173
-epoch 682, loss 0.019326044246554375
-epoch 683, loss 0.015798134729266167
-epoch 684, loss 0.016053490340709686
-epoch 685, loss 0.0184806976467371
-epoch 686, loss 0.01668686978518963
-epoch 687, loss 0.016501398757100105
-epoch 688, loss 0.00902624987065792
-epoch 689, loss 0.00868615135550499
-epoch 690, loss 0.0072876447811722755
-epoch 691, loss 0.018303755670785904
-epoch 692, loss 0.009719309397041798
-epoch 693, loss 0.010968669317662716
-epoch 694, loss 0.009729534387588501
-epoch 695, loss 0.009625100530683994
-epoch 696, loss 0.024733133614063263
-epoch 697, loss 0.04743211343884468
-epoch 698, loss 0.011577862314879894
-epoch 699, loss 0.08338403701782227
-epoch 700, loss 0.11609020829200745
-epoch 701, loss 0.024932213127613068
-epoch 702, loss 0.02841085009276867
-epoch 703, loss 0.026439519599080086
-epoch 704, loss 0.022606613114476204
-epoch 705, loss 0.017686663195490837
-epoch 706, loss 0.014082704670727253
-epoch 707, loss 0.0093351686373353
-epoch 708, loss 0.022570939734578133
-epoch 709, loss 0.03147512301802635
-epoch 710, loss 0.038523294031620026
-epoch 711, loss 0.02765813283622265
-epoch 712, loss 0.063156358897686
-epoch 713, loss 0.0185658298432827
-epoch 714, loss 0.01814880222082138
-epoch 715, loss 0.009537486359477043
-epoch 716, loss 0.007341401651501656
-epoch 717, loss 0.0836443230509758
-epoch 718, loss 0.017676884308457375
-epoch 719, loss 0.024914704263210297
-epoch 720, loss 0.024520516395568848
-epoch 721, loss 0.018320254981517792
-epoch 722, loss 0.01289795059710741
-epoch 723, loss 0.008763225749135017
-epoch 724, loss 0.005369337275624275
-epoch 725, loss 0.055689286440610886
-epoch 726, loss 0.006803527474403381
-epoch 727, loss 0.011084925383329391
-epoch 728, loss 0.014672650955617428
-epoch 729, loss 0.01767793670296669
-epoch 730, loss 0.014800602570176125
-epoch 731, loss 0.009302495047450066
-epoch 732, loss 0.005735816899687052
-epoch 733, loss 0.009932371787726879
-epoch 734, loss 0.011297538876533508
-epoch 735, loss 0.012612036429345608
-epoch 736, loss 0.009830538183450699
-epoch 737, loss 0.008160991594195366
-epoch 738, loss 0.00452406844124198
-epoch 739, loss 0.01618988998234272
-epoch 740, loss 0.009816497564315796
-epoch 741, loss 0.02133903279900551
-epoch 742, loss 0.03213471546769142
-epoch 743, loss 0.030082907527685165
-epoch 744, loss 0.02535073272883892
-epoch 745, loss 0.020006848499178886
-epoch 746, loss 0.016886109486222267
-epoch 747, loss 0.030224425718188286
-epoch 748, loss 0.014949003234505653
-epoch 749, loss 0.014594513922929764
-epoch 750, loss 0.011212527751922607
-epoch 751, loss 0.007213269360363483
-epoch 752, loss 0.008427247405052185
-epoch 753, loss 0.0041140965186059475
-epoch 754, loss 0.03182259202003479
-epoch 755, loss 0.017069416120648384
-epoch 756, loss 0.0533510223031044
-epoch 757, loss 0.04958805441856384
-epoch 758, loss 0.04587932303547859
-epoch 759, loss 0.03190859779715538
-epoch 760, loss 0.02220516838133335
-epoch 761, loss 0.009089550003409386
-epoch 762, loss 0.017037635669112206
-epoch 763, loss 0.0030483955051749945
-epoch 764, loss 0.0067750015296041965
-epoch 765, loss 0.045694947242736816
-epoch 766, loss 0.043025922030210495
-epoch 767, loss 0.09040586650371552
-epoch 768, loss 0.0402076430618763
-epoch 769, loss 0.044797442853450775
-epoch 770, loss 0.040140531957149506
-epoch 771, loss 0.027546046301722527
-epoch 772, loss 0.014579769223928452
-epoch 773, loss 0.023520493879914284
-epoch 774, loss 0.18853285908699036
-epoch 775, loss 0.21707122027873993
-epoch 776, loss 0.20928999781608582
-epoch 777, loss 0.1561470627784729
-epoch 778, loss 0.0863984003663063
-epoch 779, loss 0.04080962389707565
-epoch 780, loss 0.017801150679588318
-epoch 781, loss 0.007876351475715637
-epoch 782, loss 0.03730194643139839
-epoch 783, loss 0.012794640846550465
-epoch 784, loss 0.024375103414058685
-epoch 785, loss 0.02875000610947609
-epoch 786, loss 0.031203221529722214
-epoch 787, loss 0.026450229808688164
-epoch 788, loss 0.01745094731450081
-epoch 789, loss 0.010323785245418549
-epoch 790, loss 0.006718637887388468
-epoch 791, loss 0.01546496246010065
-epoch 792, loss 0.007986346259713173
-epoch 793, loss 0.008970607072114944
-epoch 794, loss 0.011263199150562286
-epoch 795, loss 0.0123897735029459
-epoch 796, loss 0.020010318607091904
-epoch 797, loss 0.0077502052299678326
-epoch 798, loss 0.004489860497415066
-epoch 799, loss 0.0029272146057337523
-epoch 800, loss 0.004601829219609499
-epoch 801, loss 0.03611057251691818
-epoch 802, loss 0.015652257949113846
-epoch 803, loss 0.016159599646925926
-epoch 804, loss 0.028207551687955856
-epoch 805, loss 0.01745123602449894
-epoch 806, loss 0.014529583044350147
-epoch 807, loss 0.039809443056583405
-epoch 808, loss 0.006920292973518372
-epoch 809, loss 0.0052278717048466206
-epoch 810, loss 0.16136512160301208
-epoch 811, loss 0.030023977160453796
-epoch 812, loss 0.09390269219875336
-epoch 813, loss 0.036406271159648895
-epoch 814, loss 0.02723952941596508
-epoch 815, loss 0.019200701266527176
-epoch 816, loss 0.014832459390163422
-epoch 817, loss 0.012402206659317017
-epoch 818, loss 0.010289872996509075
-epoch 819, loss 0.023720603436231613
-epoch 820, loss 0.006327605340629816
-epoch 821, loss 0.005574789829552174
-epoch 822, loss 0.00530204689130187
-epoch 823, loss 0.005372676532715559
-epoch 824, loss 0.035194527357816696
-epoch 825, loss 0.016222788020968437
-epoch 826, loss 0.02010958082973957
-epoch 827, loss 0.01692996546626091
-epoch 828, loss 0.010999036952853203
-epoch 829, loss 0.024678602814674377
-epoch 830, loss 0.0037669148296117783
-epoch 831, loss 0.005069973412901163
-epoch 832, loss 0.05619373172521591
-epoch 833, loss 0.05468013137578964
-epoch 834, loss 0.05833359807729721
-epoch 835, loss 0.043821338564157486
-epoch 836, loss 0.025808319449424744
-epoch 837, loss 0.013242409564554691
-epoch 838, loss 0.006684219930320978
-epoch 839, loss 0.053318530321121216
-epoch 840, loss 0.02586248703300953
-epoch 841, loss 0.012865147553384304
-epoch 842, loss 0.020061912015080452
-epoch 843, loss 0.03852515667676926
-epoch 844, loss 0.03373822942376137
-epoch 845, loss 0.032835762947797775
-epoch 846, loss 0.022021200507879257
-epoch 847, loss 0.014886678196489811
-epoch 848, loss 0.012575246393680573
-epoch 849, loss 0.04075959324836731
-epoch 850, loss 0.007426385302096605
-epoch 851, loss 0.013365745544433594
-epoch 852, loss 0.007521260529756546
-epoch 853, loss 0.007598962634801865
-epoch 854, loss 0.00858854316174984
-epoch 855, loss 0.018714167177677155
-epoch 856, loss 0.008503385819494724
-epoch 857, loss 0.007699847687035799
-epoch 858, loss 0.01386326178908348
-epoch 859, loss 0.006839994806796312
-epoch 860, loss 0.027126528322696686
-epoch 861, loss 0.008199015632271767
-epoch 862, loss 0.017708271741867065
-epoch 863, loss 0.016559241339564323
-epoch 864, loss 0.013525884598493576
-epoch 865, loss 0.00850001536309719
-epoch 866, loss 0.009567465633153915
-epoch 867, loss 0.009697549045085907
-epoch 868, loss 0.013454693369567394
-epoch 869, loss 0.016722356900572777
-epoch 870, loss 0.017618481069803238
-epoch 871, loss 0.010447060689330101
-epoch 872, loss 0.0060652559623122215
-epoch 873, loss 0.007891067303717136
-epoch 874, loss 0.01373247429728508
-epoch 875, loss 0.04525572806596756
-epoch 876, loss 0.014516589231789112
-epoch 877, loss 0.025623250752687454
-epoch 878, loss 0.05825524404644966
-epoch 879, loss 0.012140989303588867
-epoch 880, loss 0.012427102774381638
-epoch 881, loss 0.011613339185714722
-epoch 882, loss 0.00892416201531887
-epoch 883, loss 0.006601626519113779
-epoch 884, loss 0.005905956961214542
-epoch 885, loss 0.004598256666213274
-epoch 886, loss 0.0037785933818668127
-epoch 887, loss 0.027995819225907326
-epoch 888, loss 0.011152478866279125
-epoch 889, loss 0.013728969730436802
-epoch 890, loss 0.013777426443994045
-epoch 891, loss 0.014692237600684166
-epoch 892, loss 0.01586141623556614
-epoch 893, loss 0.014920540153980255
-epoch 894, loss 0.012322650291025639
-epoch 895, loss 0.01394074410200119
-epoch 896, loss 0.00922049768269062
-epoch 897, loss 0.00855423603206873
-epoch 898, loss 0.011014841496944427
-epoch 899, loss 0.01407554280012846
-epoch 900, loss 0.012121795676648617
-epoch 901, loss 0.011064495891332626
-epoch 902, loss 0.036779697984457016
-epoch 903, loss 0.014339946210384369
-epoch 904, loss 0.016508085653185844
-epoch 905, loss 0.020179392769932747
-epoch 906, loss 0.037015289068222046
-epoch 907, loss 0.06726064532995224
-epoch 908, loss 0.03398817777633667
-epoch 909, loss 0.028866492211818695
-epoch 910, loss 0.013327877968549728
-epoch 911, loss 0.011021370068192482
-epoch 912, loss 0.0052902367897331715
-epoch 913, loss 0.0048446012660861015
-epoch 914, loss 0.004716882016509771
-epoch 915, loss 0.004803754854947329
-epoch 916, loss 0.005288458429276943
-epoch 917, loss 0.009407108649611473
-epoch 918, loss 0.012822039425373077
-epoch 919, loss 0.00783598329871893
-epoch 920, loss 0.019308384507894516
-epoch 921, loss 0.006695288233458996
-epoch 922, loss 0.005416386760771275
-epoch 923, loss 0.0035379710607230663
-epoch 924, loss 0.019981445744633675
-epoch 925, loss 0.0296565443277359
-epoch 926, loss 0.014112867414951324
-epoch 927, loss 0.006847029086202383
-epoch 928, loss 0.0064747934229671955
-epoch 929, loss 0.035707294940948486
-epoch 930, loss 0.013030488044023514
-epoch 931, loss 0.007089999504387379
-epoch 932, loss 0.008883141912519932
-epoch 933, loss 0.011613971553742886
-epoch 934, loss 0.012109935283660889
-epoch 935, loss 0.009981564246118069
-epoch 936, loss 0.009744617156684399
-epoch 937, loss 0.03764773905277252
-epoch 938, loss 0.007836307398974895
-epoch 939, loss 0.022625956684350967
-epoch 940, loss 0.008859056979417801
-epoch 941, loss 0.042847078293561935
-epoch 942, loss 0.010432968847453594
-epoch 943, loss 0.01396897528320551
-epoch 944, loss 0.04350229352712631
-epoch 945, loss 0.06111105531454086
-epoch 946, loss 0.055348508059978485
-epoch 947, loss 0.04515278711915016
-epoch 948, loss 0.047250378876924515
-epoch 949, loss 0.04688470438122749
-epoch 950, loss 0.11360086500644684
-epoch 951, loss 0.02864571288228035
-epoch 952, loss 0.018526820465922356
-epoch 953, loss 0.0240542721003294
-epoch 954, loss 0.02154414914548397
-epoch 955, loss 0.018863007426261902
-epoch 956, loss 0.013064569793641567
-epoch 957, loss 0.013863662257790565
-epoch 958, loss 0.006182831712067127
-epoch 959, loss 0.005040056072175503
-epoch 960, loss 0.004458665382117033
-epoch 961, loss 0.014792042784392834
-epoch 962, loss 0.02565544657409191
-epoch 963, loss 0.022732453420758247
-epoch 964, loss 0.04701027274131775
-epoch 965, loss 0.0386020690202713
-epoch 966, loss 0.032519374042749405
-epoch 967, loss 0.022742314264178276
-epoch 968, loss 0.017459329217672348
-epoch 969, loss 0.012392483651638031
-epoch 970, loss 0.12477677315473557
-epoch 971, loss 0.02107316628098488
-epoch 972, loss 0.03564466908574104
-epoch 973, loss 0.03552565351128578
-epoch 974, loss 0.025822144001722336
-epoch 975, loss 0.016662245616316795
-epoch 976, loss 0.009378193877637386
-epoch 977, loss 0.020119110122323036
-epoch 978, loss 0.007425157353281975
-epoch 979, loss 0.022096475586295128
-epoch 980, loss 0.04672776162624359
-epoch 981, loss 0.026322485879063606
-epoch 982, loss 0.041237588971853256
-epoch 983, loss 0.035394541919231415
-epoch 984, loss 0.03469017148017883
-epoch 985, loss 0.02828221395611763
-epoch 986, loss 0.01866401545703411
-epoch 987, loss 0.010034582577645779
-epoch 988, loss 0.03568647801876068
-epoch 989, loss 0.013034946285188198
-epoch 990, loss 0.02696228213608265
-epoch 991, loss 0.05254793167114258
-epoch 992, loss 0.07959985733032227
-epoch 993, loss 0.0408656969666481
-epoch 994, loss 0.033036623150110245
-epoch 995, loss 0.026012888178229332
-epoch 996, loss 0.019107194617390633
-epoch 997, loss 0.012969298288226128
-epoch 998, loss 0.007987146265804768
-epoch 999, loss 0.018369479104876518
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2497,17 +1494,17 @@ epoch 999, loss 0.018369479104876518
           8.8835e-02, -2.8591e-02,  1.1857e-02, -2.7662e-02, -1.0790e-01,
          -5.4270e-02,  7.3896e-02,  1.1921e-02, -1.4514e-02,  1.0379e-01,
          -4.4070e-02, -4.4913e-02,  7.5571e-02, -1.0362e-01,  7.2744e-02,
-         -3.9318e-02,  4.8648e-02,  8.9887e-02, -1.8805e-01, -1.3462e-03,
+         -3.9317e-02,  4.8648e-02,  8.9887e-02, -1.8805e-01, -1.3462e-03,
          -2.0104e-03, -3.6487e-01, -5.4353e-02,  3.8214e-02, -1.5799e-02,
          -4.9141e-02, -1.4759e-02, -5.6240e-02, -4.1308e-02, -1.2092e-01,
-          5.7894e-02,  8.9047e-02, -3.6861e-02, -3.1655e-01,  5.3951e-02,
+          5.7895e-02,  8.9047e-02, -3.6861e-02, -3.1655e-01,  5.3951e-02,
           7.2144e-02, -1.1520e-01,  1.1261e-01, -4.0637e-02,  1.4511e-01,
          -7.5381e-02, -5.1708e-02,  1.1300e-01,  1.6554e-01,  2.9488e-02,
          -9.2482e-02,  6.8774e-02, -2.9853e-01,  1.2908e-01, -2.5613e-02,
          -5.4678e-02,  7.7007e-03, -2.5630e-01, -1.4662e-01,  1.2987e-01,
          -1.7840e-01,  2.3337e-01,  2.7036e-02, -1.9394e-02,  5.3320e-02,
          -3.8555e-02,  1.6212e-02,  1.3796e-01, -3.4649e-01,  1.1526e-01,
-          3.6072e-03, -2.9360e-01,  2.0812e-01, -4.3965e-02, -5.2448e-02,
+          3.6072e-03, -2.9360e-01,  2.0812e-01, -4.3965e-02, -5.2447e-02,
           1.0303e-01,  7.5507e-02,  1.2622e-01,  8.2226e-02,  1.1012e-01,
          -5.4091e-02, -3.1692e-01, -3.6698e-02,  1.0695e-01, -2.2638e-01,
           9.4052e-02,  1.7713e-01, -2.4419e-01, -3.1327e-01,  8.9345e-02,
@@ -2520,7 +1517,7 @@ epoch 999, loss 0.018369479104876518
           4.1413e-03, -4.7664e-02,  1.1573e-01,  2.0813e-02,  7.8718e-02,
           4.6320e-02, -3.8637e-02, -2.9391e-01,  2.2724e-02, -2.3529e-01,
           1.3415e-01,  4.7424e-02, -5.7352e-02, -5.2678e-02,  1.7793e-01,
-          2.2460e-03,  1.8626e-01,  1.8894e-01,  4.1398e-02,  1.8930e-01,
+          2.2461e-03,  1.8626e-01,  1.8894e-01,  4.1398e-02,  1.8930e-01,
          -5.3658e-02, -8.8961e-02,  1.5941e-01,  4.4156e-02,  2.4779e-02,
           4.8252e-02, -1.2180e-01,  1.0094e-01,  6.3193e-02,  2.4881e-02,
          -5.3403e-02,  1.9461e-01, -5.7637e-02, -1.5025e-01, -5.4754e-03,
@@ -2533,7 +1530,7 @@ epoch 999, loss 0.018369479104876518
           1.5317e-01, -8.6723e-02, -3.4239e-01, -4.3005e-02, -3.8103e-02,
           1.1201e-01,  5.0324e-02,  2.1222e-02, -1.0893e-01,  6.9251e-02,
           7.8891e-02, -5.4532e-03,  1.6121e-01,  1.9021e-01, -1.0281e-01,
-         -1.0264e-01,  1.8469e-01,  1.4738e-02, -2.0191e-02,  1.0040e-01,
+         -1.0264e-01,  1.8469e-01,  1.4738e-02, -2.0190e-02,  1.0040e-01,
          -3.2994e-01,  9.8982e-02,  8.0360e-03,  1.0761e-01,  3.0289e-01,
           8.1558e-02,  1.4355e-01,  1.1201e-01, -1.1064e-02,  3.1383e-02,
           3.7764e-02, -1.7266e-02, -1.0658e-02,  3.0246e-02, -3.7480e-01,
@@ -2545,13 +1542,13 @@ epoch 999, loss 0.018369479104876518
          -5.6106e-02, -3.3558e-01, -1.0317e-01,  9.8463e-02, -5.5807e-02,
           1.4955e-02,  3.6068e-02, -3.7595e-02, -3.5458e-01, -5.6479e-02,
          -5.2465e-02, -5.3361e-02,  1.0677e-01,  4.9788e-02, -6.1250e-02,
-          8.9735e-02,  3.4024e-02,  2.4850e-01, -8.5774e-03, -5.8058e-02,
+          8.9735e-02,  3.4024e-02,  2.4850e-01, -8.5773e-03, -5.8058e-02,
          -2.5688e-02, -4.8081e-02,  2.9960e-02, -2.0875e-01, -3.8518e-02,
           7.1406e-02,  1.4220e-01,  4.6614e-02, -2.0379e-01, -1.5046e-01,
          -2.0910e-02, -1.7877e-01,  1.0745e-01,  6.7212e-02,  7.4762e-02,
           1.3230e-01, -3.7537e-02, -4.8878e-02,  5.9741e-03,  9.1832e-02,
           7.7990e-02,  5.4479e-03, -3.0133e-02, -2.0697e-01,  1.5037e-01,
-          3.0259e-01, -2.3600e-01, -1.7355e-03, -5.7603e-02, -2.8642e-02,
+          3.0259e-01, -2.3600e-01, -1.7354e-03, -5.7603e-02, -2.8642e-02,
          -1.9974e-02, -3.5416e-01,  7.5613e-02,  2.8154e-02, -3.0459e-03,
           8.2929e-02,  6.1840e-02, -4.4045e-02, -5.5773e-02, -2.5357e-02,
           1.2704e-01, -4.3917e-02,  9.5720e-02, -1.1248e-01,  2.5141e-02,
@@ -2561,13 +1558,13 @@ epoch 999, loss 0.018369479104876518
          -5.0639e-02,  1.1634e-01,  1.2826e-01, -5.6380e-02,  6.9966e-02,
           1.7397e-01, -6.1729e-02, -5.6625e-02, -3.5030e-02, -1.1864e-01,
          -5.4816e-02,  5.0864e-02,  1.8117e-02,  8.7305e-02,  3.9139e-02,
-         -3.2584e-02, -1.7975e-02,  1.4027e-01,  1.5126e-01,  2.6297e-02,
+         -3.2584e-02, -1.7974e-02,  1.4027e-01,  1.5126e-01,  2.6297e-02,
           6.7570e-02,  5.6564e-02,  7.6002e-02,  7.7737e-02,  6.3479e-02,
           9.3687e-02,  1.2394e-01,  8.2663e-02, -5.6240e-02, -1.2089e-01,
          -5.3539e-02, -5.7788e-02,  1.9458e-01, -1.7447e-01,  1.4206e-02,
           1.9677e-02, -1.2964e-01, -4.9498e-02,  1.2762e-01,  1.4742e-01,
           2.8410e-02, -3.1652e-01,  4.8532e-02,  7.4229e-02, -3.5664e-02,
-         -1.2198e-01,  2.3752e-04,  1.3970e-01, -9.6228e-02,  7.3601e-03,
+         -1.2198e-01,  2.3746e-04,  1.3970e-01, -9.6228e-02,  7.3601e-03,
           8.6030e-02,  1.6295e-01,  9.8407e-02, -2.1554e-01,  1.8469e-02,
          -1.1367e-01, -1.1676e-01,  1.7324e-02,  1.2655e-02, -2.7465e-02,
          -2.2538e-01,  6.5080e-02,  2.0316e-01, -6.2827e-02,  2.9524e-02,
@@ -2583,11 +1580,11 @@ epoch 999, loss 0.018369479104876518
           5.6739e-02, -3.9823e-02, -5.0897e-02,  6.2925e-02,  1.6061e-01,
           7.1205e-02,  3.1982e-02,  1.3859e-01,  6.9275e-02, -1.9263e-02,
           1.4228e-01,  8.7136e-02,  1.0707e-02, -2.0420e-01,  5.5799e-02,
-          8.1763e-02, -1.4348e-01, -1.5002e-01,  6.0128e-02,  8.3922e-02,
-         -3.9288e-01, -6.6250e-03,  2.1520e-01, -7.3047e-02,  6.2121e-02,
+          8.1763e-02, -1.4348e-01, -1.5002e-01,  6.0127e-02,  8.3922e-02,
+         -3.9288e-01, -6.6251e-03,  2.1520e-01, -7.3047e-02,  6.2121e-02,
          -5.9529e-02, -5.4644e-02,  1.1095e-02,  1.5836e-01, -1.5995e-01,
-         -2.3951e-01,  1.6795e-02, -5.3125e-02,  4.9919e-02,  6.4854e-02,
-          3.3577e-04,  4.6418e-02, -5.5911e-02,  4.2853e-02, -5.6071e-02]])
+         -2.3951e-01,  1.6795e-02, -5.3126e-02,  4.9919e-02,  6.4854e-02,
+          3.3579e-04,  4.6418e-02, -5.5911e-02,  4.2853e-02, -5.6071e-02]])
 linear.bias :  tensor([-0.3326])
 </pre></div>
 </div>
@@ -2601,9 +1598,7 @@ linear.bias :  tensor([-0.3326])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_24178/3784346825.py:44: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at ../torch/csrc/utils/tensor_new.cpp:230.)
-  xy = torch.tensor(xy, dtype=torch.float32).T
-/tmp/ipykernel_24178/3784346825.py:49: UserWarning: The following kwargs were not used by contour: &#39;linewidth&#39;
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_10392/3784346825.py:49: UserWarning: The following kwargs were not used by contour: &#39;linewidth&#39;
   plt.contour(cs0, &#39;-&#39;, levels=[0], colors=&#39;r&#39;, linewidth=5)
 </pre></div>
 </div>
