@@ -44,8 +44,6 @@ $$U\Sigma U^{\top} = \lambda,$$ (sigma_eigendecomposition_matrix)
 
 where $\lambda$ denotes a diagonal matrix of eigenvalues. If we apply the variable transformation $y=U(x-\mu)$, we can transform the Gaussian PDF to the $y$ coordinates according to the change of variables rule (see beginning of [Guassian Mixture Models](gmm.md)).
 
-$$p_X(x) = p_Y(y) \underbrace{\left| \frac{\partial y}{\partial x} \right|}_{det|U_{ij}|},$$
-
 $$p_Y(y)=p_X(h^{-1}(y)) \underbrace{\left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|}_{(det|U_{ij}|)^{-1}=1}$$  (change_of_vars_duplicate)
 
 which leads to 
@@ -208,10 +206,7 @@ $$
 \end{align}
 $$ (gp_y_stats)
 
-<!-- TODO: middle expression in second line -> Theta missing? -->
-
 where $K$ is the Grammian matrix which we already encountered in the SVM lecture.
-
 
 A Gaussian Process is now defined as:
 
@@ -269,8 +264,6 @@ $$
     \text{Cov}[y] &= L^{-1} + A  \Lambda A^{\top},
 \end{align}
 $$ (gaussian_evidence_and_posterior_duplicate)
-
-<!-- TODO: is this correct? -->
 
 into which we now substitute
 
@@ -346,7 +339,7 @@ Cov[\tilde{y}] = \left[
 \right]= \left[
     \begin{matrix}
         \Sigma_{bb} &\Sigma_{ba} \\
-        \Sigma_{ab} &\Sigma_{bb} \\
+        \Sigma_{ab} &\Sigma_{aa} \\
     \end{matrix}
 \right],
 $$
@@ -372,7 +365,7 @@ $$ (gp_query_c)
  Using the same approach as before we can then calculate the mean and covariance of the predictive posterior for unseen data $p(y^{(n+1)}|y)$. Recalling from before (Eq. {eq}`cond_pdf_stats`):
 
 $$
-\mu(a | b) = \mu(a) + \Sigma_{ab} \Sigma^{-1}_{bb}(x_{b} - \mu_{b}),
+\mu_{a | b} = \mu_a + \Sigma_{ab} \Sigma^{-1}_{bb}(x_{b} - \mu_{b}),
 $$ (gp_predictive_mean)
 
 where we now adjust the entries for our present case with
@@ -446,7 +439,6 @@ name: gp_regression_examples1d_
 ---
 Probability distribution of a 1D Gaussian process (Source: {cite}`duvenaud2014`).
 ```
-
 
 > This immediately shows the utility of GP-regression for engineering applications where we often have few data points but yet need to be able to provide guarantees for our predictions which GPs offer at a reasonable computational cost.
 
@@ -550,9 +542,9 @@ for ever larger $l$'s the process can then just be repeated. The mean and covari
 
 $$
 \begin{align}
-    \mu(y'|y) &= K(x', x) \left( K(x, x) - \frac{1}{\beta} I \right)^{-1} y \\
-    \Sigma_{y'|y} &= K(x', x') + \frac{1}{\beta}I \\
-    &- K(x', x) \left( K(x, x) + \frac{1}{\beta} I \right)^{-1} K(x, x')
+    \mu_{y'|y} &= k(x', x) \left( k(x, x) + \frac{1}{\beta} I \right)^{-1} y \\
+    \Sigma_{y'|y} &= k(x', x') + \frac{1}{\beta}I \\
+    &- k(x', x) \left( k(x, x) + \frac{1}{\beta} I \right)^{-1} k(x, x')
 \end{align}
 $$ (gp_posterior_multiple_targets)
 
