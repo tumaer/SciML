@@ -176,7 +176,6 @@ align: center
 name: ad_forward_alg
 ---
 Forward-mode algorith. 
-<!-- (Source: {cite}`...`) -->
 ```
 
 Returning to the cost-advantage of forward-mode differentiation, in this specific case the cost of computation is $\mathcal{O}(n)$. If we now have the case where $n>m$, then it is more efficient to compute $J_{f}(x)$ for each row using the vector Jacobian product (VJP) in a left-to-right manner, i.e.
@@ -196,10 +195,10 @@ align: center
 name: ad_reverse_alg
 ---
 Reverse-mode algorith. 
-<!-- (Source: {cite}`...`) -->
 ```
 
 The cost of computation in this case is $\mathcal{O}(1)$.
+
 <!-- TODO: Is that true? -->
 
 ## A Practical Example
@@ -213,7 +212,6 @@ align: center
 name: ad_ff_example
 ---
 Compute graph of a 4-layer feed-forward network. 
-<!-- (Source: {cite}`...`) -->
 ```
 
 The MLP with one hidden layer is written down as
@@ -255,7 +253,6 @@ align: center
 name: ad_reverse_mlp
 ---
 Reverse-mode differentiation through an MLP. 
-<!-- (Source: {cite}`...`) -->
 ```
 
 What is missing from this pseudoalgorithm is the definition of the vector Jacobian product of each layer, which depends on the type and function of each layer. Or in a slightly more intricate case, please see the example below for what this computation looks like in the case of backpropagation.
@@ -267,7 +264,6 @@ align: center
 name: ad_ff_example2
 ---
 More detailed compute graph of a feed-forward network. 
-<!-- (Source: {cite}`...`). -->
 ```
 
 ## What are the Core-Levers of the Alternative Approaches

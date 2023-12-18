@@ -734,9 +734,6 @@ J_{f}(x) v = \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}
 <a class="reference internal image-reference" href="../_images/ad_forward_alg.png"><img alt="../_images/ad_forward_alg.png" src="../_images/ad_forward_alg.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 8.3 </span><span class="caption-text">Forward-mode algorith.</span><a class="headerlink" href="#ad-forward-alg" title="Permalink to this image">#</a></p>
-<div class="legend">
-<!-- (Source: {cite}`...`) -->
-</div>
 </figcaption>
 </figure>
 <p>Returning to the cost-advantage of forward-mode differentiation, in this specific case the cost of computation is <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>. If we now have the case where <span class="math notranslate nohighlight">\(n&gt;m\)</span>, then it is more efficient to compute <span class="math notranslate nohighlight">\(J_{f}(x)\)</span> for each row using the vector Jacobian product (VJP) in a left-to-right manner, i.e.</p>
@@ -750,9 +747,6 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 <a class="reference internal image-reference" href="../_images/ad_reverse_alg.png"><img alt="../_images/ad_reverse_alg.png" src="../_images/ad_reverse_alg.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 8.4 </span><span class="caption-text">Reverse-mode algorith.</span><a class="headerlink" href="#ad-reverse-alg" title="Permalink to this image">#</a></p>
-<div class="legend">
-<!-- (Source: {cite}`...`) -->
-</div>
 </figcaption>
 </figure>
 <p>The cost of computation in this case is <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span>.</p>
@@ -765,9 +759,6 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 <a class="reference internal image-reference" href="../_images/ad_ff_example.png"><img alt="../_images/ad_ff_example.png" src="../_images/ad_ff_example.png" style="width: 500px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 8.5 </span><span class="caption-text">Compute graph of a 4-layer feed-forward network.</span><a class="headerlink" href="#ad-ff-example" title="Permalink to this image">#</a></p>
-<div class="legend">
-<!-- (Source: {cite}`...`) -->
-</div>
 </figcaption>
 </figure>
 <p>The MLP with one hidden layer is written down as</p>
@@ -802,9 +793,6 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 <a class="reference internal image-reference" href="../_images/ad_reverse_mlp.png"><img alt="../_images/ad_reverse_mlp.png" src="../_images/ad_reverse_mlp.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 8.6 </span><span class="caption-text">Reverse-mode differentiation through an MLP.</span><a class="headerlink" href="#ad-reverse-mlp" title="Permalink to this image">#</a></p>
-<div class="legend">
-<!-- (Source: {cite}`...`) -->
-</div>
 </figcaption>
 </figure>
 <p>What is missing from this pseudoalgorithm is the definition of the vector Jacobian product of each layer, which depends on the type and function of each layer. Or in a slightly more intricate case, please see the example below for what this computation looks like in the case of backpropagation.</p>
@@ -812,9 +800,6 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 <a class="reference internal image-reference" href="../_images/ad_ff_example2.png"><img alt="../_images/ad_ff_example2.png" src="../_images/ad_ff_example2.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 8.7 </span><span class="caption-text">More detailed compute graph of a feed-forward network.</span><a class="headerlink" href="#ad-ff-example2" title="Permalink to this image">#</a></p>
-<div class="legend">
-<!-- (Source: {cite}`...`). -->
-</div>
 </figcaption>
 </figure>
 </section>
