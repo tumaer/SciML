@@ -676,8 +676,6 @@ title="Print to PDF"
 <div class="math notranslate nohighlight" id="equation-sigma-eigendecomposition-matrix">
 <span class="eqno">(7.5)<a class="headerlink" href="#equation-sigma-eigendecomposition-matrix" title="Permalink to this equation">#</a></span>\[U\Sigma U^{\top} = \lambda,\]</div>
 <p>where <span class="math notranslate nohighlight">\(\lambda\)</span> denotes a diagonal matrix of eigenvalues. If we apply the variable transformation <span class="math notranslate nohighlight">\(y=U(x-\mu)\)</span>, we can transform the Gaussian PDF to the <span class="math notranslate nohighlight">\(y\)</span> coordinates according to the change of variables rule (see beginning of <a class="reference internal" href="gmm.html"><span class="doc std std-doc">Guassian Mixture Models</span></a>).</p>
-<div class="math notranslate nohighlight">
-\[p_X(x) = p_Y(y) \underbrace{\left| \frac{\partial y}{\partial x} \right|}_{det|U_{ij}|},\]</div>
 <div class="math notranslate nohighlight" id="equation-change-of-vars-duplicate">
 <span class="eqno">(7.6)<a class="headerlink" href="#equation-change-of-vars-duplicate" title="Permalink to this equation">#</a></span>\[p_Y(y)=p_X(h^{-1}(y)) \underbrace{\left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|}_{(det|U_{ij}|)^{-1}=1}\]</div>
 <p>which leads to</p>
@@ -825,7 +823,6 @@ y = \Phi \hspace{2pt} \omega,
     \Longrightarrow p(y) &amp;= \mathcal{N}(y; 0,K)
 \end{align}
 \end{split}\]</div>
-<!-- TODO: middle expression in second line -> Theta missing? -->
 <p>where <span class="math notranslate nohighlight">\(K\)</span> is the Grammian matrix which we already encountered in the SVM lecture.</p>
 <p>A Gaussian Process is now defined as:</p>
 <ul class="simple">
@@ -875,7 +872,6 @@ z = \left[\begin{matrix}
     \text{Cov}[y] &amp;= L^{-1} + A  \Lambda A^{\top},
 \end{align}
 \end{split}\]</div>
-<!-- TODO: is this correct? -->
 <p>into which we now substitute</p>
 <div class="math notranslate nohighlight" id="equation-gp-assumptions">
 <span class="eqno">(7.34)<a class="headerlink" href="#equation-gp-assumptions" title="Permalink to this equation">#</a></span>\[\begin{split}
@@ -941,7 +937,7 @@ Cov[\tilde{y}] = \left[
 \right]= \left[
     \begin{matrix}
         \Sigma_{bb} &amp;\Sigma_{ba} \\
-        \Sigma_{ab} &amp;\Sigma_{bb} \\
+        \Sigma_{ab} &amp;\Sigma_{aa} \\
     \end{matrix}
 \right],
 \end{split}\]</div>
@@ -964,7 +960,7 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 <p>Using the same approach as before we can then calculate the mean and covariance of the predictive posterior for unseen data <span class="math notranslate nohighlight">\(p(y^{(n+1)}|y)\)</span>. Recalling from before (Eq. <a class="reference internal" href="#equation-cond-pdf-stats">(7.14)</a>):</p>
 <div class="math notranslate nohighlight" id="equation-gp-predictive-mean">
 <span class="eqno">(7.42)<a class="headerlink" href="#equation-gp-predictive-mean" title="Permalink to this equation">#</a></span>\[
-\mu(a | b) = \mu(a) + \Sigma_{ab} \Sigma^{-1}_{bb}(x_{b} - \mu_{b}),
+\mu_{a | b} = \mu_a + \Sigma_{ab} \Sigma^{-1}_{bb}(x_{b} - \mu_{b}),
 \]</div>
 <p>where we now adjust the entries for our present case with</p>
 <div class="math notranslate nohighlight" id="equation-gp-predictive-mean-values">
@@ -1107,9 +1103,9 @@ y = \left[
 <div class="math notranslate nohighlight" id="equation-gp-posterior-multiple-targets">
 <span class="eqno">(7.49)<a class="headerlink" href="#equation-gp-posterior-multiple-targets" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
-    \mu(y'|y) &amp;= K(x', x) \left( K(x, x) - \frac{1}{\beta} I \right)^{-1} y \\
-    \Sigma_{y'|y} &amp;= K(x', x') + \frac{1}{\beta}I \\
-    &amp;- K(x', x) \left( K(x, x) + \frac{1}{\beta} I \right)^{-1} K(x, x')
+    \mu_{y'|y} &amp;= k(x', x) \left( k(x, x) + \frac{1}{\beta} I \right)^{-1} y \\
+    \Sigma_{y'|y} &amp;= k(x', x') + \frac{1}{\beta}I \\
+    &amp;- k(x', x) \left( k(x, x) + \frac{1}{\beta} I \right)^{-1} k(x, x')
 \end{align}
 \end{split}\]</div>
 </section>
