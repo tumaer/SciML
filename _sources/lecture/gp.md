@@ -444,7 +444,7 @@ Probability distribution of a 1D Gaussian process (Source: {cite}`duvenaud2014`)
 
 ### Further Kernel Configurations
 
-There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple "basis" kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see Fig. {numref}`gp_kernels` for definitions):
+There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple "basis" kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see {numref}`gp_kernels` for definitions):
 
 * Squared Exponential (SE) kernel
 * Linear (Lin) kernel
