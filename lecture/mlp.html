@@ -427,10 +427,12 @@ document.write(`
 \[h(x)= \vartheta^{\top} \varphi(x) = \vartheta_0 + \vartheta_1 \cdot x + \vartheta_3 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + ...\]</div>
 <p>We also saw that through hyperparameter tuning one can find a basis that captures the underlying true relation between inputs and outputs quite well. In fact, for many practical problems, the approach of manually selecting meaningful basis functions and then training a linear model will be good enough, especially if we know something about the true relationship beforehand.</p>
 <p>The problem is that for many tasks we don’t have such a-priori information and exploring the space of all possible combinations of basis functions ends in an infeasible combinatoric problem. Especially if the datasets we have are large, e.g. ImageNet, it is unrealistic to think that we can manually transform the inputs to a linearly-separable space.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</p>
+<figure class="align-center" id="mlp">
+<a class="reference internal image-reference" href="../_images/mlp.png"><img alt="../_images/mlp.png" src="../_images/mlp.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.1 </span><span class="caption-text">Multilayer perceptron (Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</span><a class="headerlink" href="#mlp" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><em>Q: If linear models are not all, what else?</em></p>
 <p><strong>Deep Learning</strong> is the field that tries to systematically explore the space of possible non-linear relations <span class="math notranslate nohighlight">\(h\)</span> between inputs <span class="math notranslate nohighlight">\(x\)</span> and output <span class="math notranslate nohighlight">\(y\)</span>. As a reminder, a non-linear relation can be for example</p>
 <div class="math notranslate nohighlight">

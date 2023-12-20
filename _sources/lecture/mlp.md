@@ -11,11 +11,14 @@ We also saw that through hyperparameter tuning one can find a basis that capture
 
 The problem is that for many tasks we don't have such a-priori information and exploring the space of all possible combinations of basis functions ends in an infeasible combinatoric problem. Especially if the datasets we have are large, e.g. ImageNet, it is unrealistic to think that we can manually transform the inputs to a linearly-separable space.
 
-<div style="text-align:center">
-    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
-</div>
-
-(Source: [Techniques for handling underfitting and overfitting in Machine Learning](https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9))
+```{figure} ../imgs/mlp.png
+---
+width: 600px
+align: center
+name: mlp
+---
+Multilayer perceptron (Source: [Techniques for handling underfitting and overfitting in Machine Learning](https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9))
+```
 
 *Q: If linear models are not all, what else?*
 
