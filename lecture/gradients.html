@@ -589,7 +589,6 @@ J_{f}(x) v = \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}
 </figcaption>
 </figure>
 <p>Returning to the cost-advantage of forward-mode differentiation, in this specific case the cost of computation is <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>. If we now have the case where <span class="math notranslate nohighlight">\(n&gt;m\)</span>, then it is more efficient to compute <span class="math notranslate nohighlight">\(J_{f}(x)\)</span> for each row using the vector Jacobian product (VJP) in a left-to-right manner, i.e.</p>
-<!-- TODO: why $\mathcal{O}(n^{3})$ and not power 2? -->
 <div class="math notranslate nohighlight" id="equation-vjp-chain">
 <span class="eqno">(8.12)<a class="headerlink" href="#equation-vjp-chain" title="Permalink to this equation">#</a></span>\[
 u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}}(x_{3})}_{m_{3} \times m_{2}} \underbrace{J_{f_{2}}(x_{2})}_{m_{2} \times m_{1}} \underbrace{J_{f_{1}}(x_{1})}_{m_{1} \times n}
@@ -602,7 +601,6 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 </figcaption>
 </figure>
 <p>The cost of computation in this case is <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span>.</p>
-<!-- TODO: Is that true? -->
 </section>
 <section id="a-practical-example">
 <h2><span class="section-number">8.4. </span>A Practical Example<a class="headerlink" href="#a-practical-example" title="Permalink to this heading">#</a></h2>

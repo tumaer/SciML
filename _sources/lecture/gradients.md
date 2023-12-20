@@ -180,8 +180,6 @@ Forward-mode algorith.
 
 Returning to the cost-advantage of forward-mode differentiation, in this specific case the cost of computation is $\mathcal{O}(n)$. If we now have the case where $n>m$, then it is more efficient to compute $J_{f}(x)$ for each row using the vector Jacobian product (VJP) in a left-to-right manner, i.e.
 
-<!-- TODO: why $\mathcal{O}(n^{3})$ and not power 2? -->
-
 $$
 u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}}(x_{3})}_{m_{3} \times m_{2}} \underbrace{J_{f_{2}}(x_{2})}_{m_{2} \times m_{1}} \underbrace{J_{f_{1}}(x_{1})}_{m_{1} \times n}
 $$ (vjp_chain)
@@ -199,7 +197,6 @@ Reverse-mode algorith.
 
 The cost of computation in this case is $\mathcal{O}(1)$.
 
-<!-- TODO: Is that true? -->
 
 ## A Practical Example
 
