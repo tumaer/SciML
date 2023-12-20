@@ -1,48 +1,60 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" data-content_root="" >
+
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
     <title>7. Gaussian Processes &#8212; Introduction to Scientific Machine Learning for Engineers</title>
-    
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=5115cc725059bd94278eecd172e13a965bf8f5a9" type="text/css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.b7bb847fb20b106c3d81b95245e65545.min.css" />
-    
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf">
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=9c920249402e914e316237a7dbc6769907cce411"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
     <script src="../_static/togglebutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script src="../_static/design-tabs.js"></script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
 const thebe_selector = ".thebe,.cell"
@@ -52,62 +64,105 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'lecture/gp';</script>
     <link rel="author" title="About these documents" href="../about.html" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="8. Gradients" href="gradients.html" />
     <link rel="prev" title="6. Support Vector Machines" href="svm.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="None">
-    
-
-    <!-- Google Analytics -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="60">
-<!-- Checkboxes to toggle the left sidebar -->
-<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
-<label class="overlay overlay-navbar" for="__navigation">
-    <div class="visually-hidden">Toggle navigation sidebar</div>
-</label>
-<!-- Checkboxes to toggle the in-page toc -->
-<input type="checkbox" class="sidebar-toggle" name="__page-toc" id="__page-toc" aria-label="Toggle in-page Table of Contents">
-<label class="overlay overlay-pagetoc" for="__page-toc">
-    <div class="visually-hidden">Toggle in-page Table of Contents</div>
-</label>
-<!-- Headers at the top -->
-<div class="announcement header-item noprint"></div>
-<div class="header header-item noprint"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-    
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<!-- Sidebar -->
-<div class="bd-sidebar noprint" id="site-navigation">
-    <div class="bd-sidebar__content">
-        <div class="bd-sidebar__top"><div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
       
-        <!-- `logo` is deprecated in Sphinx 4.0, so remove this when we stop supporting 3 -->
+      <div class="bd-sidebar-primary bd-sidebar">
         
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../about.html">
+  
+  
+  
+  
+  
+    
+    
       
-      
-      <img src="../_static/logo.png" class="logo" alt="logo">
-      
-      
-      <h1 class="site-logo" id="site-title">Introduction to Scientific Machine Learning for Engineers</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
+    
+    
+    <img src="../_static/logo.png" class="logo__image only-light" alt="Introduction to Scientific Machine Learning for Engineers - Home"/>
+    <script>document.write(`<img src="../_static/logo.png" class="logo__image only-dark" alt="Introduction to Scientific Machine Learning for Engineers - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
@@ -117,531 +172,272 @@ const thebe_selector_output = ".output, .cell_output"
             </li>
         </ul>
         <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../introduction.html">
-   Introduction
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../introduction.html">Introduction</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Lecture
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Lecture</span></p>
 <ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="linear.html">
-   1. Linear Models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="gmm.html">
-   2. Gaussian Mixture Models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="bayes.html">
-   3. Bayesian methods
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="optimization.html">
-   4. Optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="tricks.html">
-   5. Tricks of Optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="svm.html">
-   6. Support Vector Machines
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   7. Gaussian Processes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="gradients.html">
-   8. Gradients
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="mlp.html">
-   9. Multilayer Perceptron
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="cnn.html">
-   10. Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="rnn.html">
-   11. Recurrent Models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="ae.html">
-   12. Encoder-Decoder Models
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="linear.html">1. Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gmm.html">2. Gaussian Mixture Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bayes.html">3. Bayesian methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="optimization.html">4. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tricks.html">5. Tricks of Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="svm.html">6. Support Vector Machines</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. Gaussian Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gradients.html">8. Gradients</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mlp.html">9. Multilayer Perceptron</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cnn.html">10. Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rnn.html">11. Recurrent Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ae.html">12. Encoder-Decoder Models</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Exercise
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Exercise</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise/linear.html">
-   1. Linear and Logistic Regression
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise/bayes.html">
-   2. Bayesian Linear Models
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise/optimization.html">
-   3. Optimization
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise/svm.html">
-   4. Support Vector Machines
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise/gp.html">
-   5. Gaussian Processes
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise/cnn.html">
-   6. Convolutional Neural Networks
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../exercise/rnn.html">
-   7. Recurrent Neural Networks
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/linear.html">1. Linear and Logistic Regression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/bayes.html">2. Bayesian Linear Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/optimization.html">3. Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/svm.html">4. Support Vector Machines</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/gp.html">5. Gaussian Processes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/cnn.html">6. Convolutional Neural Networks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../exercise/rnn.html">7. Recurrent Neural Networks</a></li>
 </ul>
-<p aria-level="2" class="caption" role="heading">
- <span class="caption-text">
-  Miscellaneous
- </span>
-</p>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Miscellaneous</span></p>
 <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../admin.html">
-   Admin
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../books.html">
-   Books
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../references.html">
-   References
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../preliminary_knowledge.html">
-   Preliminary Knowledge
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../software.html">
-   Software Infrastructure
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_exam.html">
-   Practical Exam WS22/23
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../faq.html">
-   Frequently Asked Questions
-  </a>
- </li>
+<li class="toctree-l1"><a class="reference internal" href="../admin.html">Admin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../books.html">Books</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../references.html">References</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../preliminary_knowledge.html">Preliminary Knowledge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software.html">Software Infrastructure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_exam.html">Practical Exam WS22/23</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">Frequently Asked Questions</a></li>
 </ul>
 
     </div>
 </nav></div>
-        <div class="bd-sidebar__bottom">
-             <!-- To handle the deprecated key -->
-            
-            <div class="navbar_extra_footer">
-            Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-            </div>
-            
-        </div>
     </div>
-    <div id="rtd-footer-container"></div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/tumaer/SciML" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Flecture/gp.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
 </div>
 
 
-          
-
-
-          
-<!-- A tiny helper pixel to detect if we've scrolled -->
-<div class="sbt-scroll-pixel-helper"></div>
-<!-- Main content -->
-<div class="col py-0 content-container">
-    
-    <div class="header-article row sticky-top noprint">
-        
 
 
 
-<div class="col py-1 d-flex header-article-main">
-    <div class="header-article__left">
-        
-        <label for="__navigation"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="right"
-title="Toggle navigation"
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/lecture/gp.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
-  <i class="fas fa-bars"></i>
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
   </span>
-
-</label>
-
-        
-    </div>
-    <div class="header-article__right">
-<button onclick="toggleFullScreen()"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="bottom"
-title="Fullscreen mode"
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
 >
   
 
-<span class="headerbtn__icon-container">
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
   <i class="fas fa-expand"></i>
   </span>
 
 </button>
 
-<div class="menu-dropdown menu-dropdown-repository-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Source repositories">
-      <i class="fab fa-github"></i>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="https://github.com/tumaer/SciML"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Source repository"
->
-  
+`);
+</script>
 
-<span class="headerbtn__icon-container">
-  <i class="fab fa-github"></i>
-  </span>
-<span class="headerbtn__text-container">repository</span>
-</a>
 
-      </li>
-      
-      <li>
-        <a href="https://github.com/tumaer/SciML/issues/new?title=Issue%20on%20page%20%2Flecture/gp.html&body=Your%20issue%20content%20here."
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Open an issue"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-lightbulb"></i>
-  </span>
-<span class="headerbtn__text-container">open issue</span>
-</a>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-
-<div class="menu-dropdown menu-dropdown-download-buttons">
-  <button class="headerbtn menu-dropdown__trigger"
-      aria-label="Download this page">
-      <i class="fas fa-download"></i>
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
-  <div class="menu-dropdown__content">
-    <ul>
-      <li>
-        <a href="../_sources/lecture/gp.md"
-   class="headerbtn"
-   data-toggle="tooltip"
-data-placement="left"
-title="Download source file"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file"></i>
-  </span>
-<span class="headerbtn__text-container">.md</span>
-</a>
-
-      </li>
-      
-      <li>
-        
-<button onclick="printPdf(this)"
-  class="headerbtn"
-  data-toggle="tooltip"
-data-placement="left"
-title="Print to PDF"
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-file-pdf"></i>
-  </span>
-<span class="headerbtn__text-container">.pdf</span>
-</button>
-
-      </li>
-      
-    </ul>
-  </div>
-</div>
-<label for="__page-toc"
-  class="headerbtn headerbtn-page-toc"
-  
->
-  
-
-<span class="headerbtn__icon-container">
-  <i class="fas fa-list"></i>
-  </span>
-
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
 </label>
-
+</div></div>
+      
     </div>
+  
 </div>
-
-<!-- Table of contents -->
-<div class="col-md-3 bd-toc show noprint">
-    <div class="tocsection onthispage pt-5 pb-3">
-        <i class="fas fa-list"></i> Contents
-    </div>
-    <nav id="bd-toc-nav" aria-label="Page">
-        <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multivariate-gaussian-distribution">
-   7.1. Multivariate Gaussian Distribution
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#st-and-2nd-moment">
-     7.1.1. 1st and 2nd Moment
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conditional-gaussian-pdf">
-     7.1.2. Conditional Gaussian PDF
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#marginal-gaussian-pdf">
-     7.1.3. Marginal Gaussian PDF
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">
-     7.1.4. Bayes Theorem for Gaussian Variables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">
-     7.1.5. Maximum Likelihood for Gaussians
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-gaussian-process-gp">
-   7.2. The Gaussian Process (GP)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gp-for-regression">
-   7.3. GP for Regression
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#further-kernel-configurations">
-     7.3.1. Further Kernel Configurations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#multivariate-prediction">
-     7.3.2. Multivariate Prediction
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">
-     7.3.3. Notes on Gaussian Process Regression
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#learning-the-hyperparameters">
-     7.3.4. Learning the Hyperparameters
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gp-for-classification">
-   7.4. GP for Classification
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#relation-of-gp-to-neural-networks">
-   7.5. Relation of GP to Neural Networks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#further-references">
-   7.6. Further References
-  </a>
- </li>
-</ul>
-
-    </nav>
 </div>
-    </div>
-    <div class="article row">
-        <div class="col pl-md-3 pl-lg-5 content-container">
-            <!-- Table of contents that is only displayed when printing the page -->
-            <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Gaussian Processes</h1>
-                <!-- Table of contents -->
-                <div id="print-main-content">
-                    <div id="jb-print-toc">
-                        
-                        <div>
-                            <h2> Contents </h2>
-                        </div>
-                        <nav aria-label="Page">
-                            <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#multivariate-gaussian-distribution">
-   7.1. Multivariate Gaussian Distribution
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#st-and-2nd-moment">
-     7.1.1. 1st and 2nd Moment
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#conditional-gaussian-pdf">
-     7.1.2. Conditional Gaussian PDF
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#marginal-gaussian-pdf">
-     7.1.3. Marginal Gaussian PDF
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">
-     7.1.4. Bayes Theorem for Gaussian Variables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">
-     7.1.5. Maximum Likelihood for Gaussians
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#the-gaussian-process-gp">
-   7.2. The Gaussian Process (GP)
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gp-for-regression">
-   7.3. GP for Regression
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#further-kernel-configurations">
-     7.3.1. Further Kernel Configurations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#multivariate-prediction">
-     7.3.2. Multivariate Prediction
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">
-     7.3.3. Notes on Gaussian Process Regression
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#learning-the-hyperparameters">
-     7.3.4. Learning the Hyperparameters
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#gp-for-classification">
-   7.4. GP for Classification
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#relation-of-gp-to-neural-networks">
-   7.5. Relation of GP to Neural Networks
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#further-references">
-   7.6. Further References
-  </a>
- </li>
-</ul>
+              
+              
 
-                        </nav>
-                    </div>
-                </div>
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Gaussian Processes</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
             </div>
-            <main id="main-content" role="main">
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-gaussian-distribution">7.1. Multivariate Gaussian Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#st-and-2nd-moment">7.1.1. 1st and 2nd Moment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gaussian-pdf">7.1.2. Conditional Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-gaussian-pdf">7.1.3. Marginal Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">7.1.4. Bayes Theorem for Gaussian Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">7.1.5. Maximum Likelihood for Gaussians</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gaussian-process-gp">7.2. The Gaussian Process (GP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gp-for-regression">7.3. GP for Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-kernel-configurations">7.3.1. Further Kernel Configurations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-prediction">7.3.2. Multivariate Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">7.3.3. Notes on Gaussian Process Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-hyperparameters">7.3.4. Learning the Hyperparameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gp-for-classification">7.4. GP for Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-of-gp-to-neural-networks">7.5. Relation of GP to Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">7.6. Further References</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
                 
-              <div>
-                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section class="tex2jax_ignore mathjax_ignore" id="gaussian-processes">
-<h1><span class="section-number">7. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this headline">#</a></h1>
+<h1><span class="section-number">7. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this heading">#</a></h1>
 <p>As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 2.3. In the rest of this lecture we define the Gaussian Process and how in can be applied to regression and classification.</p>
 <section id="multivariate-gaussian-distribution">
-<h2><span class="section-number">7.1. </span>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.1. </span>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this heading">#</a></h2>
 <p>The <strong>univariate</strong> (for a scalar random variable) Gaussian distribution has the form</p>
 <div class="math notranslate nohighlight" id="equation-univariate-gaussian">
 <span class="eqno">(7.1)<a class="headerlink" href="#equation-univariate-gaussian" title="Permalink to this equation">#</a></span>\[\mathcal{N}(x; \underbrace{\mu, \sigma^2}_{\text{parameters}}) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left\{ - \frac{(x-\mu)^2}{2 \sigma^2}\right\}.\]</div>
@@ -683,7 +479,7 @@ title="Print to PDF"
 \[p(y) = \Pi_{i=1}^d \frac{1}{\sqrt{2 \pi \lambda_i}} \exp \left\{ - \frac{y_i^2}{2\lambda_i} \right\}.\]</div>
 <p>Note that the diagonalization of <span class="math notranslate nohighlight">\(\Delta\)</span> leads to a factorization of the PDF into <span class="math notranslate nohighlight">\(d\)</span> 1D PDFs.</p>
 <section id="st-and-2nd-moment">
-<h3><span class="section-number">7.1.1. </span>1st and 2nd Moment<a class="headerlink" href="#st-and-2nd-moment" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.1. </span>1st and 2nd Moment<a class="headerlink" href="#st-and-2nd-moment" title="Permalink to this heading">#</a></h3>
 <div class="math notranslate nohighlight" id="equation-def-first-moment">
 <span class="eqno">(7.7)<a class="headerlink" href="#equation-def-first-moment" title="Permalink to this equation">#</a></span>\[E[x] = \mu\]</div>
 <div class="math notranslate nohighlight" id="equation-def-second-moment">
@@ -692,7 +488,7 @@ title="Print to PDF"
 <span class="eqno">(7.9)<a class="headerlink" href="#equation-def-cov" title="Permalink to this equation">#</a></span>\[Cov(x) = \Sigma\]</div>
 </section>
 <section id="conditional-gaussian-pdf">
-<h3><span class="section-number">7.1.2. </span>Conditional Gaussian PDF<a class="headerlink" href="#conditional-gaussian-pdf" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.2. </span>Conditional Gaussian PDF<a class="headerlink" href="#conditional-gaussian-pdf" title="Permalink to this heading">#</a></h3>
 <p>Consider the case <span class="math notranslate nohighlight">\(x \sim \mathcal{N}(x; \mu, \Sigma)\)</span> being a <span class="math notranslate nohighlight">\(d\)</span>-dimensional Gaussian random vector. We can partition <span class="math notranslate nohighlight">\(x\)</span> into two disjoint subsets <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-rv-partition">
 <span class="eqno">(7.10)<a class="headerlink" href="#equation-rv-partition" title="Permalink to this equation">#</a></span>\[\begin{split}
@@ -741,7 +537,7 @@ x_b
 <span class="eqno">(7.15)<a class="headerlink" href="#equation-gaussian-cond-pdf" title="Permalink to this equation">#</a></span>\[p(x_a| x_b) = \mathcal{N(x; \mu_{a|b}, \Sigma_{a|b})}\]</div>
 </section>
 <section id="marginal-gaussian-pdf">
-<h3><span class="section-number">7.1.3. </span>Marginal Gaussian PDF<a class="headerlink" href="#marginal-gaussian-pdf" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.3. </span>Marginal Gaussian PDF<a class="headerlink" href="#marginal-gaussian-pdf" title="Permalink to this heading">#</a></h3>
 <p>For the marginal PDF we integrate out the dependence on <span class="math notranslate nohighlight">\(x_b\)</span> of the joint PDF:</p>
 <div class="math notranslate nohighlight" id="equation-def-marginal-pdf">
 <span class="eqno">(7.16)<a class="headerlink" href="#equation-def-marginal-pdf" title="Permalink to this equation">#</a></span>\[p(x_a) = \int p(x_a, x_b) dx_b.\]</div>
@@ -750,7 +546,7 @@ x_b
 <span class="eqno">(7.17)<a class="headerlink" href="#equation-gaussian-marginal-pdf" title="Permalink to this equation">#</a></span>\[p(x_a) = \mathcal{N}(x_a; \mu_a, \Sigma_{a a}).\]</div>
 </section>
 <section id="bayes-theorem-for-gaussian-variables">
-<h3><span class="section-number">7.1.4. </span>Bayes Theorem for Gaussian Variables<a class="headerlink" href="#bayes-theorem-for-gaussian-variables" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.4. </span>Bayes Theorem for Gaussian Variables<a class="headerlink" href="#bayes-theorem-for-gaussian-variables" title="Permalink to this heading">#</a></h3>
 <p>Generative learning addresses the problem of finding a posterior PDF from a likelihood and prior. The basis is Bayes rule for conditional probabilities</p>
 <div class="math notranslate nohighlight" id="equation-def-bayes-rule">
 <span class="eqno">(7.18)<a class="headerlink" href="#equation-def-bayes-rule" title="Permalink to this equation">#</a></span>\[p(x|y) = \frac{p(y|x)p(x)}{p(y)}.\]</div>
@@ -782,7 +578,7 @@ p(x \mid y) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda 
 \]</div>
 </section>
 <section id="maximum-likelihood-for-gaussians">
-<h3><span class="section-number">7.1.5. </span>Maximum Likelihood for Gaussians<a class="headerlink" href="#maximum-likelihood-for-gaussians" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.1.5. </span>Maximum Likelihood for Gaussians<a class="headerlink" href="#maximum-likelihood-for-gaussians" title="Permalink to this heading">#</a></h3>
 <p>In generative learning, we need to infer PDFs from data. Given a dataset <span class="math notranslate nohighlight">\(X=(x_1, ..., x_N)\)</span>, where <span class="math notranslate nohighlight">\(x_i\)</span> are i.i.d. random variables drawn from a multivariate Gaussian, we can estimate <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> from the maximum likelihood (ML) (for more details see <a class="reference external" href="https://link.springer.com/book/9780387310732">Bishop, 2006</a>):</p>
 <div class="math notranslate nohighlight" id="equation-ml-mean">
 <span class="eqno">(7.22)<a class="headerlink" href="#equation-ml-mean" title="Permalink to this equation">#</a></span>\[\mu_{ML} = \frac{1}{N} \sum_{n=1}^N x_n\]</div>
@@ -794,7 +590,7 @@ p(x \mid y) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda 
 </section>
 </section>
 <section id="the-gaussian-process-gp">
-<h2><span class="section-number">7.2. </span>The Gaussian Process (GP)<a class="headerlink" href="#the-gaussian-process-gp" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.2. </span>The Gaussian Process (GP)<a class="headerlink" href="#the-gaussian-process-gp" title="Permalink to this heading">#</a></h2>
 <p>Gaussian Processes are a generalization of the generative learning concept based on Bayes rule and Gaussian distributions as models derived from <a class="reference external" href="https://eecs189.org/docs/notes/n18.pdf">Gaussian Discriminant Analysis</a>. We explain Gaussian Processes (GPs) on the example of regression and discuss an adaptation to discrimination in the spirit of Gaussian Discriminant Analysis (GDA), however not being identical to GDA at the same time. Consider linear regression:</p>
 <div class="math notranslate nohighlight" id="equation-lin-reg-with-phi">
 <span class="eqno">(7.25)<a class="headerlink" href="#equation-lin-reg-with-phi" title="Permalink to this equation">#</a></span>\[
@@ -830,7 +626,7 @@ y = \Phi \hspace{2pt} \omega,
 </ul>
 </section>
 <section id="gp-for-regression">
-<h2><span class="section-number">7.3. </span>GP for Regression<a class="headerlink" href="#gp-for-regression" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.3. </span>GP for Regression<a class="headerlink" href="#gp-for-regression" title="Permalink to this heading">#</a></h2>
 <p>Take into account Gaussian noise on sample data as a modeling assumption:</p>
 <div class="math notranslate nohighlight" id="equation-gp-model">
 <span class="eqno">(7.29)<a class="headerlink" href="#equation-gp-model" title="Permalink to this equation">#</a></span>\[\begin{split}
@@ -1023,7 +819,7 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 <div><p>This immediately shows the utility of GP-regression for engineering applications where we often have few data points but yet need to be able to provide guarantees for our predictions which GPs offer at a reasonable computational cost.</p>
 </div></blockquote>
 <section id="further-kernel-configurations">
-<h3><span class="section-number">7.3.1. </span>Further Kernel Configurations<a class="headerlink" href="#further-kernel-configurations" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.1. </span>Further Kernel Configurations<a class="headerlink" href="#further-kernel-configurations" title="Permalink to this heading">#</a></h3>
 <p>There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple “basis” kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see <a class="reference internal" href="#gp-kernels"><span class="std std-numref">Fig. 7.2</span></a> for definitions):</p>
 <ul class="simple">
 <li><p>Squared Exponential (SE) kernel</p></li>
@@ -1064,7 +860,7 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 </figure>
 </section>
 <section id="multivariate-prediction">
-<h3><span class="section-number">7.3.2. </span>Multivariate Prediction<a class="headerlink" href="#multivariate-prediction" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.2. </span>Multivariate Prediction<a class="headerlink" href="#multivariate-prediction" title="Permalink to this heading">#</a></h3>
 <p>The extension to multivariate prediction is then straightforward. For the unseen data</p>
 <div class="math notranslate nohighlight" id="equation-gp-multiple-targets">
 <span class="eqno">(7.47)<a class="headerlink" href="#equation-gp-multiple-targets" title="Permalink to this equation">#</a></span>\[\begin{split}
@@ -1110,7 +906,7 @@ y = \left[
 \end{split}\]</div>
 </section>
 <section id="notes-on-gaussian-process-regression">
-<h3><span class="section-number">7.3.3. </span>Notes on Gaussian Process Regression<a class="headerlink" href="#notes-on-gaussian-process-regression" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.3. </span>Notes on Gaussian Process Regression<a class="headerlink" href="#notes-on-gaussian-process-regression" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(K + \frac{1}{\beta}I\)</span> needs to be symmetric and positive definite, where positive definite implies that the matrix is symmetric. <span class="math notranslate nohighlight">\(K\)</span> can be constructed from valid kernel functions involving some hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span>.</p></li>
 <li><p>GP regression involves a <span class="math notranslate nohighlight">\(n \times n\)</span> matrix inversion, which requires <span class="math notranslate nohighlight">\(\mathcal{O}(n^{3})\)</span> operations for learning.</p></li>
@@ -1119,9 +915,9 @@ y = \left[
 </ul>
 </section>
 <section id="learning-the-hyperparameters">
-<h3><span class="section-number">7.3.4. </span>Learning the Hyperparameters<a class="headerlink" href="#learning-the-hyperparameters" title="Permalink to this headline">#</a></h3>
+<h3><span class="section-number">7.3.4. </span>Learning the Hyperparameters<a class="headerlink" href="#learning-the-hyperparameters" title="Permalink to this heading">#</a></h3>
 <p>To infer the kernel hyperparameters from data we need to:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Introduce an appropriate likelihood function <span class="math notranslate nohighlight">\(p(y | \theta)\)</span></p></li>
 <li><p>Determine the optimum <span class="math notranslate nohighlight">\(\theta\)</span> via maximum likelihood estimation (MLE) <span class="math notranslate nohighlight">\(\theta^{\star} = \arg \max \ln p(y | \theta)\)</span>, which corresponds to linear regression</p></li>
 <li><p><span class="math notranslate nohighlight">\(\ln p(y|\theta) = -\frac{1}{2} \ln |K + \frac{1}{\beta}I| - \frac{1}{2} y^{\top} \left( K + \frac{1}{\beta}I \right)^{-1} y - \frac{n}{2} \ln 2 \pi\)</span></p></li>
@@ -1137,7 +933,7 @@ y = \left[
 </section>
 </section>
 <section id="gp-for-classification">
-<h2><span class="section-number">7.4. </span>GP for Classification<a class="headerlink" href="#gp-for-classification" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.4. </span>GP for Classification<a class="headerlink" href="#gp-for-classification" title="Permalink to this heading">#</a></h2>
 <p>Without discussing all the details, we will now provide a brief sketch how Gaussian Processes can be adapted to the task of classification. Consider for simplicity the 2-class problem:</p>
 <div class="math notranslate nohighlight">
 \[
@@ -1196,11 +992,11 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
 <p><span class="math notranslate nohighlight">\(p(\varphi^{(n+1)}|y)\)</span> is the posterior PDF, which is computed from the conditional PDF <span class="math notranslate nohighlight">\(p(y| \varphi)\)</span> with a Gaussian prior <span class="math notranslate nohighlight">\(p(\varphi)\)</span>.</p>
 </section>
 <section id="relation-of-gp-to-neural-networks">
-<h2><span class="section-number">7.5. </span>Relation of GP to Neural Networks<a class="headerlink" href="#relation-of-gp-to-neural-networks" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.5. </span>Relation of GP to Neural Networks<a class="headerlink" href="#relation-of-gp-to-neural-networks" title="Permalink to this heading">#</a></h2>
 <p>We have not presented a definition a neural network yet, but we have already met the most primitive definition of a neural network, the perceptron, for classification. The perceptron can be thought of as a neural network with just one layer of “neurons”. On the other hand, the number of hidden units should be limited for perceptrons to limit overfitting. The essential power of neural networks  i.e. the outputs sharing the hidden units tends to get lost when the number of hidden units becomes very large. This is the core connection between neural networks and GPs, <strong>a neural network with infinite width recovers a Gaussian process</strong>.</p>
 </section>
 <section id="further-references">
-<h2><span class="section-number">7.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this headline">#</a></h2>
+<h2><span class="section-number">7.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
 <p><strong>The Guassian Distribution</strong></p>
 <ul class="simple">
 <li><p><span id="id11">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 2.3</p></li>
@@ -1226,7 +1022,7 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
             mode: "python"
         },
         kernelOptions: {
-            kernelName: "python3",
+            name: "python3",
             path: "./lecture"
         },
         predefinedOutput: true
@@ -1234,50 +1030,120 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
     </script>
     <script>kernelName = 'python3'</script>
 
-              </div>
+                </article>
               
-            </main>
-            <footer class="footer-article noprint">
-                
-    <!-- Previous / next buttons -->
-<div class='prev-next-area'>
-    <a class='left-prev' id="prev-link" href="svm.html" title="previous page">
-        <i class="fas fa-angle-left"></i>
-        <div class="prev-next-info">
-            <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title"><span class="section-number">6. </span>Support Vector Machines</p>
-        </div>
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="svm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Support Vector Machines</p>
+      </div>
     </a>
-    <a class='right-next' id="next-link" href="gradients.html" title="next page">
-    <div class="prev-next-info">
+    <a class="right-next"
+       href="gradients.html"
+       title="next page">
+      <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
         <p class="prev-next-title"><span class="section-number">8. </span>Gradients</p>
-    </div>
-    <i class="fas fa-angle-right"></i>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
-            </footer>
-        </div>
-    </div>
-    <div class="footer-content row">
-        <footer class="col footer"><p>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-gaussian-distribution">7.1. Multivariate Gaussian Distribution</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#st-and-2nd-moment">7.1.1. 1st and 2nd Moment</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#conditional-gaussian-pdf">7.1.2. Conditional Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#marginal-gaussian-pdf">7.1.3. Marginal Gaussian PDF</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#bayes-theorem-for-gaussian-variables">7.1.4. Bayes Theorem for Gaussian Variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-for-gaussians">7.1.5. Maximum Likelihood for Gaussians</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-gaussian-process-gp">7.2. The Gaussian Process (GP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gp-for-regression">7.3. GP for Regression</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#further-kernel-configurations">7.3.1. Further Kernel Configurations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#multivariate-prediction">7.3.2. Multivariate Prediction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#notes-on-gaussian-process-regression">7.3.3. Notes on Gaussian Process Regression</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#learning-the-hyperparameters">7.3.4. Learning the Hyperparameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gp-for-classification">7.4. GP for Classification</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#relation-of-gp-to-neural-networks">7.5. Relation of GP to Neural Networks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">7.6. Further References</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
-    By N. Adams, L. Paehler, A. Toshev<br/>
-  
-      &copy; Copyright 2022,2023.<br/>
-</p>
-        </footer>
-    </div>
+  <div class="footer-item">
     
+<p class="component-author">
+By N. Adams, L. Paehler, A. Toshev
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2022,2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
 </div>
+          </footer>
+        
 
-
-      </div>
+      </main>
     </div>
+  </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/pydata-sphinx-theme.js?digest=1999514e3f237ded88cf"></script>
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
 
-
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>
