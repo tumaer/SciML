@@ -65,3 +65,22 @@ name: ad_forward
 ---
 Forward-mode differentiation. (Source: {cite}`maclaurin2016`, Section 2)
 ```
+
+```{figure} ../imgs/mlp2.png
+---
+width: 500px
+align: center
+name: mlp2
+---
+Forward-mode differentiation. (Source: {cite}`maclaurin2016`, Section 2)
+```
+
+
+```{figure} ../imgs/mlp3.png
+---
+width: 500px
+align: center
+name: mlp3
+---
+Forward-mode differentiation. (Source: {cite}`maclaurin2016`, Section 2)
+```
