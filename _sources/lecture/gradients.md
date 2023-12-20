@@ -14,14 +14,6 @@ $$
 \Longrightarrow \text{ Automatic Differentiation}
 $$
 
-```{figure} ../imgs/mlp.png
----
-width: 600px
-align: center
-name: mlp_2
----
-Multilayer perceptron (Source: [Techniques for handling underfitting and overfitting in Machine Learning](https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9))
-```
 
 ## A Brief Incomplete History
 

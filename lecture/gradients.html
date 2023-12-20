@@ -441,12 +441,6 @@ document.write(`
 \[
 \Longrightarrow \text{ Automatic Differentiation}
 \]</div>
-<figure class="align-center" id="mlp-2">
-<a class="reference internal image-reference" href="../_images/mlp.png"><img alt="../_images/mlp.png" src="../_images/mlp.png" style="width: 600px;" /></a>
-<figcaption>
-<p><span class="caption-number">Fig. 8.1 </span><span class="caption-text">Multilayer perceptron (Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</span><a class="headerlink" href="#mlp-2" title="Permalink to this image">#</a></p>
-</figcaption>
-</figure>
 <section id="a-brief-incomplete-history">
 <h2><span class="section-number">8.1. </span>A Brief Incomplete History<a class="headerlink" href="#a-brief-incomplete-history" title="Permalink to this heading">#</a></h2>
 <ol class="arabic simple">
@@ -484,7 +478,7 @@ document.write(`
 <figure class="align-center" id="gradients-forward">
 <a class="reference internal image-reference" href="../_images/gradients_forward.png"><img alt="../_images/gradients_forward.png" src="../_images/gradients_forward.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8.2 </span><span class="caption-text">Forward-mode differentiation. (Source: <span id="id1">[<a class="reference internal" href="../references.html#id19" title="Dougal Maclaurin. Modeling, inference and optimization with composable differentiable procedures. 2016. URL: https://dougalmaclaurin.com/phd-thesis.pdf.">Maclaurin, 2016</a>]</span>, Section 2)</span><a class="headerlink" href="#gradients-forward" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.1 </span><span class="caption-text">Forward-mode differentiation. (Source: <span id="id1">[<a class="reference internal" href="../references.html#id19" title="Dougal Maclaurin. Modeling, inference and optimization with composable differentiable procedures. 2016. URL: https://dougalmaclaurin.com/phd-thesis.pdf.">Maclaurin, 2016</a>]</span>, Section 2)</span><a class="headerlink" href="#gradients-forward" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -504,7 +498,7 @@ document.write(`
 <figure class="align-center" id="gradients-reverse">
 <a class="reference internal image-reference" href="../_images/gradients_reverse.png"><img alt="../_images/gradients_reverse.png" src="../_images/gradients_reverse.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8.3 </span><span class="caption-text">Reverse-mode differentiation. (Source: <span id="id2">[<a class="reference internal" href="../references.html#id19" title="Dougal Maclaurin. Modeling, inference and optimization with composable differentiable procedures. 2016. URL: https://dougalmaclaurin.com/phd-thesis.pdf.">Maclaurin, 2016</a>]</span>, Section 2)</span><a class="headerlink" href="#gradients-reverse" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.2 </span><span class="caption-text">Reverse-mode differentiation. (Source: <span id="id2">[<a class="reference internal" href="../references.html#id19" title="Dougal Maclaurin. Modeling, inference and optimization with composable differentiable procedures. 2016. URL: https://dougalmaclaurin.com/phd-thesis.pdf.">Maclaurin, 2016</a>]</span>, Section 2)</span><a class="headerlink" href="#gradients-reverse" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -591,7 +585,7 @@ J_{f}(x) v = \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}
 <figure class="align-center" id="gradients-forward-alg">
 <a class="reference internal image-reference" href="../_images/gradients_forward_alg.png"><img alt="../_images/gradients_forward_alg.png" src="../_images/gradients_forward_alg.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8.4 </span><span class="caption-text">Forward-mode algorith.</span><a class="headerlink" href="#gradients-forward-alg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.3 </span><span class="caption-text">Forward-mode algorith.</span><a class="headerlink" href="#gradients-forward-alg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Returning to the cost-advantage of forward-mode differentiation, in this specific case the cost of computation is <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>. If we now have the case where <span class="math notranslate nohighlight">\(n&gt;m\)</span>, then it is more efficient to compute <span class="math notranslate nohighlight">\(J_{f}(x)\)</span> for each row using the vector Jacobian product (VJP) in a left-to-right manner, i.e.</p>
@@ -603,7 +597,7 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 <figure class="align-center" id="gradients-reverse-alg">
 <a class="reference internal image-reference" href="../_images/gradients_reverse_alg.png"><img alt="../_images/gradients_reverse_alg.png" src="../_images/gradients_reverse_alg.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8.5 </span><span class="caption-text">Reverse-mode algorith.</span><a class="headerlink" href="#gradients-reverse-alg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.4 </span><span class="caption-text">Reverse-mode algorith.</span><a class="headerlink" href="#gradients-reverse-alg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The cost of computation in this case is <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span>.</p>
@@ -614,7 +608,7 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 <figure class="align-center" id="gradients-ff-example">
 <a class="reference internal image-reference" href="../_images/gradients_ff_example.png"><img alt="../_images/gradients_ff_example.png" src="../_images/gradients_ff_example.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8.6 </span><span class="caption-text">Compute graph of a 4-layer feed-forward network.</span><a class="headerlink" href="#gradients-ff-example" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.5 </span><span class="caption-text">Compute graph of a 4-layer feed-forward network.</span><a class="headerlink" href="#gradients-ff-example" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The MLP with one hidden layer is written down as</p>
@@ -648,14 +642,14 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 <figure class="align-center" id="gradients-reverse-mlp">
 <a class="reference internal image-reference" href="../_images/gradients_reverse_mlp.png"><img alt="../_images/gradients_reverse_mlp.png" src="../_images/gradients_reverse_mlp.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8.7 </span><span class="caption-text">Reverse-mode differentiation through an MLP.</span><a class="headerlink" href="#gradients-reverse-mlp" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.6 </span><span class="caption-text">Reverse-mode differentiation through an MLP.</span><a class="headerlink" href="#gradients-reverse-mlp" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>What is missing from this pseudoalgorithm is the definition of the vector Jacobian product of each layer, which depends on the type and function of each layer. Or in a slightly more intricate case, please see the example below for what this computation looks like in the case of backpropagation.</p>
 <figure class="align-center" id="gradients-ff-example2">
 <a class="reference internal image-reference" href="../_images/gradients_ff_example2.png"><img alt="../_images/gradients_ff_example2.png" src="../_images/gradients_ff_example2.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8.8 </span><span class="caption-text">More detailed compute graph of a feed-forward network.</span><a class="headerlink" href="#gradients-ff-example2" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8.7 </span><span class="caption-text">More detailed compute graph of a feed-forward network.</span><a class="headerlink" href="#gradients-ff-example2" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
