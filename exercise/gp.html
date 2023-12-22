@@ -468,6 +468,7 @@ document.write(`
 <li><p>GP Regression</p></li>
 <li><p>GP Classification</p></li>
 </ul>
+<p>The main reference to this exercise is the <a class="reference external" href="https://pyro.ai/examples/gp.html">Pyro tutorial on Gaussian Processes</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
@@ -475,18 +476,13 @@ document.write(`
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
-<span class="c1"># Helper library to more efficiently handle Gaussian Processes in PyTorch</span>
-<span class="kn">import</span> <span class="nn">pyro</span>
-<span class="kn">import</span> <span class="nn">pyro.contrib.gp</span> <span class="k">as</span> <span class="nn">gp</span>
-<span class="kn">import</span> <span class="nn">pyro.distributions</span> <span class="k">as</span> <span class="nn">dist</span>
-
+<span class="c1"># visualization</span>
 <span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
-
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
 
-<span class="n">pyro</span><span class="o">.</span><span class="n">set_rng_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">torch</span><span class="o">.</span><span class="n">set_default_dtype</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -523,7 +519,6 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">torch.nn</span> <span class="k">as</span> <span class="nn">nn</span>
 <span class="kn">import</span> <span class="nn">torch.optim</span> <span class="k">as</span> <span class="nn">optim</span>
-<span class="kn">from</span> <span class="nn">torch.autograd</span> <span class="kn">import</span> <span class="n">Variable</span>
 </pre></div>
 </div>
 </div>
@@ -909,11 +904,28 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
 
 <span class="k">def</span> <span class="nf">real_data_distribution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">noise</span><span class="p">)</span> <span class="o">*</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
 <span class="n">Y_train</span> <span class="o">=</span> <span class="n">real_data_distribution</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.04</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">Y_train</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([200, 1]) torch.Size([200, 1])
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x2c205d430&gt;
+</pre></div>
+</div>
+<img alt="../_images/5fd6e09046e7ca62d7e1e4947cdb09b6c946468148e80e02b15499ad8f095ca1.png" src="../_images/5fd6e09046e7ca62d7e1e4947cdb09b6c946468148e80e02b15499ad8f095ca1.png" />
 </div>
 </div>
 <p>With which we can now train the handwritten Gaussian Process implementation</p>
@@ -932,19 +944,19 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/3w/7v1njqbd2h10vfhnbwb23hth0000gn/T/ipykernel_92190/3819234828.py:35: UserWarning: torch.cholesky is deprecated in favor of torch.linalg.cholesky and will be removed in a future PyTorch release.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/7g/3mxmtrb16h7gh3hsxzbkh_5w0000gn/T/ipykernel_34445/3819234828.py:35: UserWarning: torch.cholesky is deprecated in favor of torch.linalg.cholesky and will be removed in a future PyTorch release.
 L = torch.cholesky(A)
 should be replaced with
 L = torch.linalg.cholesky(A)
 and
 U = torch.cholesky(A, upper=True)
 should be replaced with
-U = torch.linalg.cholesky(A).mH().
-This transform will produce equivalent results for all valid (symmetric positive definite) inputs. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/native/BatchLinearAlgebra.cpp:1626.)
+U = torch.linalg.cholesky(A).mH
+This transform will produce equivalent results for all valid (symmetric positive definite) inputs. (Triggered internally at /Users/runner/work/pytorch/pytorch/pytorch/aten/src/ATen/native/BatchLinearAlgebra.cpp:1703.)
   self._L = torch.cholesky(self._K)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The GP took 2.7318599224090576 seconds to train.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The GP took 3.1619038581848145 seconds to train.
 </pre></div>
 </div>
 </div>
@@ -956,7 +968,7 @@ This transform will produce equivalent results for all valid (symmetric positive
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loss 76.73809
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loss 59.4517039861278
 </pre></div>
 </div>
 </div>
@@ -969,10 +981,10 @@ This transform will produce equivalent results for all valid (symmetric positive
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sigma_n [0.24849063]
-kernel.first.length_scale [0.226854]
-kernel.first.sigma_s [-0.9918118]
-kernel.second.sigma_n [0.00084626]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sigma_n [0.26365774]
+kernel.first.length_scale [0.52238516]
+kernel.first.sigma_s [-1.10635328]
+kernel.second.sigma_n [-0.00087938]
 </pre></div>
 </div>
 </div>
@@ -991,6 +1003,24 @@ kernel.second.sigma_n [0.00084626]
 </section>
 <section id="gaussian-processes-in-pyro">
 <h2><span class="section-number">5.3. </span>Gaussian Processes in Pyro<a class="headerlink" href="#gaussian-processes-in-pyro" title="Permalink to this heading">#</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Helper library to more efficiently handle Gaussian Processes in PyTorch</span>
+<span class="kn">import</span> <span class="nn">pyro</span>
+<span class="kn">import</span> <span class="nn">pyro.contrib.gp</span> <span class="k">as</span> <span class="nn">gp</span>
+<span class="kn">import</span> <span class="nn">pyro.distributions</span> <span class="k">as</span> <span class="nn">dist</span>
+
+<span class="n">pyro</span><span class="o">.</span><span class="n">set_rng_seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/Users/cielo/venvs/sciml/lib/python3.9/site-packages/tqdm/auto.py:21: TqdmWarning: IProgress not found. Please update jupyter and ipywidgets. See https://ipywidgets.readthedocs.io/en/stable/user_install.html
+  from .autonotebook import tqdm as notebook_tqdm
+</pre></div>
+</div>
+</div>
+</div>
 <section id="helper-function-for-plotting">
 <h3><span class="section-number">5.3.1. </span>Helper Function for Plotting<a class="headerlink" href="#helper-function-for-plotting" title="Permalink to this heading">#</a></h3>
 <p>We first define a helper function for the plotting which allow us to</p>
@@ -1069,7 +1099,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3c6e7cd5b9b55a0b31838b7f1da259f02a8dd9cebac15e173f5c5f673eb98268.png" src="../_images/3c6e7cd5b9b55a0b31838b7f1da259f02a8dd9cebac15e173f5c5f673eb98268.png" />
+<img alt="../_images/fcd16aca31ec016f098414e031afce5bee5f7acb0777a8ca23c64df52a7c3d05.png" src="../_images/fcd16aca31ec016f098414e031afce5bee5f7acb0777a8ca23c64df52a7c3d05.png" />
 </div>
 </div>
 </section>
@@ -1094,7 +1124,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6ed7f5fa61243afbf7ed82bb5ba1c3c34ee937a4b7a27239ce1bb0c0370fdc95.png" src="../_images/6ed7f5fa61243afbf7ed82bb5ba1c3c34ee937a4b7a27239ce1bb0c0370fdc95.png" />
+<img alt="../_images/7ffa2ea4c7d134efc3710608fbff952b280bcee09ba572ae30c20be4ee3dd3ee.png" src="../_images/7ffa2ea4c7d134efc3710608fbff952b280bcee09ba572ae30c20be4ee3dd3ee.png" />
 </div>
 </div>
 <ul class="simple">
@@ -1116,7 +1146,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/13c0669523512a4b6703cda098737804f69de4a87c238efb446f9c7bc91dcb05.png" src="../_images/13c0669523512a4b6703cda098737804f69de4a87c238efb446f9c7bc91dcb05.png" />
+<img alt="../_images/1f50f557496d0fb9c5b38a4bed0b874e67abff5fed7ae8b399d996d8f6c22494.png" src="../_images/1f50f557496d0fb9c5b38a4bed0b874e67abff5fed7ae8b399d996d8f6c22494.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1131,13 +1161,13 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/6aeb0d3cf866c843b2d62fe84333e37be7acb0f42ace53be96bc4f1e074d198c.png" src="../_images/6aeb0d3cf866c843b2d62fe84333e37be7acb0f42ace53be96bc4f1e074d198c.png" />
+<img alt="../_images/ac300ce31ab57fbbfac19ceca3be5eef7bde7e964026e40ddab6b2239cab6eae.png" src="../_images/ac300ce31ab57fbbfac19ceca3be5eef7bde7e964026e40ddab6b2239cab6eae.png" />
 </div>
 </div>
 </section>
 <section id="inference">
 <h3><span class="section-number">5.3.4. </span>Inference<a class="headerlink" href="#inference" title="Permalink to this heading">#</a></h3>
-<p>To now adjust the kernel hyperparameters to our synthetic data, we have to perform inference. For this we define ourselves the Evidence-Lower-Bound (ELBO), to the construct a scenario in which we essentially perform <strong>gradient ascent</strong> on the log marginal likelihood, i.e. we computationally solve the <strong>Marginal Likelihood Estimation (MLE)</strong> to infer the right</p>
+<p>To now adjust the kernel hyperparameters to our synthetic data, we have to perform inference. For this we define the Evidence-Lower-Bound (ELBO) and construct a scenario in which we essentially perform <strong>gradient ascent</strong> on the log marginal likelihood, i.e. we computationally solve the <strong>Marginal Likelihood Estimation (MLE)</strong> to infer the right model parameters.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="n">gpr</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.005</span><span class="p">)</span>
@@ -1174,7 +1204,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/aec8c084640cf9979060720777ae893e044475dc14ba37f2c11f02150d9b92be.png" src="../_images/aec8c084640cf9979060720777ae893e044475dc14ba37f2c11f02150d9b92be.png" />
+<img alt="../_images/07a7c992884177037ff6dd842aaef6791520298bcd5f76409e1aa3dd32012462.png" src="../_images/07a7c992884177037ff6dd842aaef6791520298bcd5f76409e1aa3dd32012462.png" />
 </div>
 </div>
 <p>With that the behaviour of our Gaussian Process should now be much more reasonable, let’s inspect it</p>
@@ -1185,7 +1215,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/36b6129665e56158dbc347e2b977abdeb14f7645e55fcbd64b1953383e02619e.png" src="../_images/36b6129665e56158dbc347e2b977abdeb14f7645e55fcbd64b1953383e02619e.png" />
+<img alt="../_images/c31a24620b88c171e382829122e57aa2c5d19103e3366237d721674700103d76.png" src="../_images/c31a24620b88c171e382829122e57aa2c5d19103e3366237d721674700103d76.png" />
 </div>
 </div>
 <p>In this plot we have the typical case of GP representation:</p>
@@ -1201,7 +1231,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.1970929503440857
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.2518723930349147
 </pre></div>
 </div>
 </div>
@@ -1213,7 +1243,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5308124423027039
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.5247952434371579
 </pre></div>
 </div>
 </div>
@@ -1225,7 +1255,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.0501394160091877
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.03603591991010098
 </pre></div>
 </div>
 </div>
@@ -1255,11 +1285,6 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 
 <span class="n">anim</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;../imgs/gpr-fit.gif&quot;</span><span class="p">,</span> <span class="n">fps</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MovieWriter ffmpeg unavailable; using Pillow instead.
 </pre></div>
 </div>
 </div>
@@ -1320,9 +1345,9 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>variance = 0.18086840212345123
-lengthscale = 0.5018946528434753
-noise = 0.05002214014530182
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>variance = 0.2518723930349147
+lengthscale = 0.5247952434371579
+noise = 0.03603591991010098
 </pre></div>
 </div>
 </div>
@@ -1463,7 +1488,7 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/99e863954fe03c825aae2265efb3af4e6d8fd335970d920aff29777b589c8659.png" src="../_images/99e863954fe03c825aae2265efb3af4e6d8fd335970d920aff29777b589c8659.png" />
+<img alt="../_images/a7fcdda8fee1745935618f02ce6c77319196e05dba893f26eb5e59db227d798f.png" src="../_images/a7fcdda8fee1745935618f02ce6c77319196e05dba893f26eb5e59db227d798f.png" />
 </div>
 </div>
 <p>Using the classical RBF-kernel</p>
@@ -1495,7 +1520,7 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/bc9800f697e0e43af53d4a2231fe805815754b457624d651a3b32772692ea3e9.png" src="../_images/bc9800f697e0e43af53d4a2231fe805815754b457624d651a3b32772692ea3e9.png" />
+<img alt="../_images/48827c34ab2df808d7ce6f6ecb0eabab135b199921bec97dd0265ed47beb9ab6.png" src="../_images/48827c34ab2df808d7ce6f6ecb0eabab135b199921bec97dd0265ed47beb9ab6.png" />
 </div>
 </div>
 <p>With which we can now inspect the accuracy of our classifier</p>
@@ -1509,7 +1534,7 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 95.33%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 94.00%
 </pre></div>
 </div>
 </div>
