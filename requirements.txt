@@ -1,6 +1,6 @@
-# all later jupyter-book versions break the references.md file
-# fix also all other versions for faster resolution of dependencies
-jupyter-book==0.13.1
+# docutils as recommended in https://jupyterbook.org/en/stable/content/citations.html
+jupyter-book==0.15.1
+docutils==0.17.1
 
 ipykernel==6.26.0
 pandas==2.1.2
