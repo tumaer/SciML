@@ -261,7 +261,7 @@ width: 600px
 align: center
 name: gradients_ff_example2
 ---
-More detailed compute graph of a feed-forward network. 
+More detailed compute graph of a feed-forward network (Source: {cite}`baydin2018`). 
 ```
 
 ## What are the Core-Levers of the Alternative Approaches
@@ -278,10 +278,11 @@ More detailed compute graph of a feed-forward network.
 
 ## Further References
 
-1. [Autograd: Effortless Gradients in Numpy](https://indico.ijclab.in2p3.fr/event/2914/contributions/6483/subcontributions/180/attachments/6060/7185/automl-short.pdf)
-2. [Automatic Differentiation in PyTorch](https://openreview.net/pdf?id=BJJsrmfCZ)
-3. [Tangent: Automatic Differentiation Using Source Code Transformation in Python](https://arxiv.org/pdf/1711.02712.pdf)
-4. [Automatic Differentiation in Machine Learning: A Survey](https://arxiv.org/pdf/1502.05767.pdf)
-5. {cite}`maclaurin2016` - Chapter 4 Dougal MacLaurin's PhD Thesis
-6. A Playful Introduction to Gradients: [Jax's Autodiff Cookbook](https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html)
-7. [I2DL lecture](https://niessner.github.io/I2DL/) by Matthias Niessner - Lecture on Backpropagation
+1. [I2DL lecture](https://niessner.github.io/I2DL/) by Matthias Niessner - Lecture on Backpropagation
+2. [Jax's Autodiff Cookbook](https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html) - a playful introduction to gradients
+3. {cite}`maclaurin2016` - Chapter 4 of Dougal MacLaurin's PhD Thesis
+4. {cite}`baydin2018`
+5. [Autograd: Effortless Gradients in Numpy](https://indico.ijclab.in2p3.fr/event/2914/contributions/6483/subcontributions/180/attachments/6060/7185/automl-short.pdf)
+6. [Automatic Differentiation in PyTorch](https://openreview.net/pdf?id=BJJsrmfCZ)
+7. [Tangent: Automatic Differentiation Using Source Code Transformation in Python](https://arxiv.org/pdf/1711.02712.pdf)
+

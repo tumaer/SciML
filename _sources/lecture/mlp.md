@@ -32,14 +32,11 @@ In the scope of this class, we will look at the most popular and successful non-
 
 Perceptron is a binary linear classifier and a single-layer neural network.
 
-```{figure} ../imgs/mlp.png
----
-width: 600px
-align: center
-name: mlp
----
-Multilayer perceptron (Source: [What the Hell is Perceptron?](https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53))
-```
+<div style="text-align:center">
+    <img src="https://i.imgur.com/qTRjRyX.png" alt="drawing" width="600"/>
+</div>
+
+(Source: [What the Hell is Perceptron?](https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53))
 
 The perceptron generalizes the linear hypothesis $\vartheta^{\top} x$ by subjecting it to a step function $f$ as
 
