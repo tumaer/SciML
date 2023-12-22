@@ -472,11 +472,11 @@ document.write(`
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">torch</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="c1"># visualization</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">from</span> <span class="nn">matplotlib.animation</span> <span class="kn">import</span> <span class="n">FuncAnimation</span>
 <span class="kn">from</span> <span class="nn">mpl_toolkits.axes_grid1</span> <span class="kn">import</span> <span class="n">make_axes_locatable</span>
 <span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
@@ -922,10 +922,10 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>torch.Size([200, 1]) torch.Size([200, 1])
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x2c205d430&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.collections.PathCollection at 0x28a1733a0&gt;
 </pre></div>
 </div>
-<img alt="../_images/5fd6e09046e7ca62d7e1e4947cdb09b6c946468148e80e02b15499ad8f095ca1.png" src="../_images/5fd6e09046e7ca62d7e1e4947cdb09b6c946468148e80e02b15499ad8f095ca1.png" />
+<img alt="../_images/eec83509f33a9c3089eec44771871814495de7d5dd6c9be29397493c80f65d7d.png" src="../_images/eec83509f33a9c3089eec44771871814495de7d5dd6c9be29397493c80f65d7d.png" />
 </div>
 </div>
 <p>With which we can now train the handwritten Gaussian Process implementation</p>
@@ -944,7 +944,7 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/7g/3mxmtrb16h7gh3hsxzbkh_5w0000gn/T/ipykernel_34445/3819234828.py:35: UserWarning: torch.cholesky is deprecated in favor of torch.linalg.cholesky and will be removed in a future PyTorch release.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/var/folders/7g/3mxmtrb16h7gh3hsxzbkh_5w0000gn/T/ipykernel_1323/3819234828.py:35: UserWarning: torch.cholesky is deprecated in favor of torch.linalg.cholesky and will be removed in a future PyTorch release.
 L = torch.cholesky(A)
 should be replaced with
 L = torch.linalg.cholesky(A)
@@ -956,7 +956,7 @@ This transform will produce equivalent results for all valid (symmetric positive
   self._L = torch.cholesky(self._K)
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The GP took 3.1619038581848145 seconds to train.
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The GP took 3.2928669452667236 seconds to train.
 </pre></div>
 </div>
 </div>
@@ -968,7 +968,7 @@ This transform will produce equivalent results for all valid (symmetric positive
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loss 59.4517039861278
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>loss 51.29122821403445
 </pre></div>
 </div>
 </div>
@@ -981,10 +981,10 @@ This transform will produce equivalent results for all valid (symmetric positive
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sigma_n [0.26365774]
-kernel.first.length_scale [0.52238516]
-kernel.first.sigma_s [-1.10635328]
-kernel.second.sigma_n [-0.00087938]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>sigma_n [-0.25454396]
+kernel.first.length_scale [0.56298454]
+kernel.first.sigma_s [-1.09556617]
+kernel.second.sigma_n [0.18041569]
 </pre></div>
 </div>
 </div>
@@ -1146,7 +1146,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/1f50f557496d0fb9c5b38a4bed0b874e67abff5fed7ae8b399d996d8f6c22494.png" src="../_images/1f50f557496d0fb9c5b38a4bed0b874e67abff5fed7ae8b399d996d8f6c22494.png" />
+<img alt="../_images/d39a5b5fe66b8005caf314d6257537d197956cc01a3d7f7493f94252f1f385a9.png" src="../_images/d39a5b5fe66b8005caf314d6257537d197956cc01a3d7f7493f94252f1f385a9.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1161,7 +1161,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/ac300ce31ab57fbbfac19ceca3be5eef7bde7e964026e40ddab6b2239cab6eae.png" src="../_images/ac300ce31ab57fbbfac19ceca3be5eef7bde7e964026e40ddab6b2239cab6eae.png" />
+<img alt="../_images/5c9d855660dc6eae4dc54a2e40f31a2ca3484f4c01c4cc628ad42810781d1a7d.png" src="../_images/5c9d855660dc6eae4dc54a2e40f31a2ca3484f4c01c4cc628ad42810781d1a7d.png" />
 </div>
 </div>
 </section>
@@ -1321,7 +1321,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/3b802f384ae9f052fbe4a843e08d9fe0ad2dc2b1cb03d9dd97365f54612def7c.png" src="../_images/3b802f384ae9f052fbe4a843e08d9fe0ad2dc2b1cb03d9dd97365f54612def7c.png" />
+<img alt="../_images/52e8153375c754a610eb2964889187a5ec5e6ab171b18470d0aa60f090553e5c.png" src="../_images/52e8153375c754a610eb2964889187a5ec5e6ab171b18470d0aa60f090553e5c.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1331,7 +1331,7 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/f7c9ecbdc17fe1b01c12a5dac7ce9641bdd4515098243db15312205509725e3d.png" src="../_images/f7c9ecbdc17fe1b01c12a5dac7ce9641bdd4515098243db15312205509725e3d.png" />
+<img alt="../_images/f51fedb798f80382d93c7c8125816024baf6a602c523765e70061f5239311cf7.png" src="../_images/f51fedb798f80382d93c7c8125816024baf6a602c523765e70061f5239311cf7.png" />
 </div>
 </div>
 <p>What we then realize is that due to the priors we have defined, we end up with different hyperparameters than under the Maximum Likelihood Estimation (MLE)</p>
@@ -1345,9 +1345,9 @@ y = 0.5 \sin(3x) + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, 0.2)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>variance = 0.2518723930349147
-lengthscale = 0.5247952434371579
-noise = 0.03603591991010098
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>variance = 0.24541736949806592
+lengthscale = 0.5144261063505667
+noise = 0.03598806466708507
 </pre></div>
 </div>
 </div>
@@ -1520,7 +1520,7 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/48827c34ab2df808d7ce6f6ecb0eabab135b199921bec97dd0265ed47beb9ab6.png" src="../_images/48827c34ab2df808d7ce6f6ecb0eabab135b199921bec97dd0265ed47beb9ab6.png" />
+<img alt="../_images/3fe9e36024586af07da99c14267a9e9f94e619515aad4ffbc454b01b9206df14.png" src="../_images/3fe9e36024586af07da99c14267a9e9f94e619515aad4ffbc454b01b9206df14.png" />
 </div>
 </div>
 <p>With which we can now inspect the accuracy of our classifier</p>
@@ -1534,7 +1534,7 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 94.00%
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy: 94.67%
 </pre></div>
 </div>
 </div>
@@ -1548,10 +1548,10 @@ y \sim \text{Categorical}\left( \text{Softmax}(f) \right)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x295548370&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;sklearn.metrics._plot.confusion_matrix.ConfusionMatrixDisplay at 0x28a4144c0&gt;
 </pre></div>
 </div>
-<img alt="../_images/8c3c54d33856bc157ecf2d3527c8cc8a9f98613112a623a6643b7e7d7ab09cf7.png" src="../_images/8c3c54d33856bc157ecf2d3527c8cc8a9f98613112a623a6643b7e7d7ab09cf7.png" />
+<img alt="../_images/80aa436491082478f4778cb05efd6cb9c64e135d2cfcafd3b0f6545e8f7b76b9.png" src="../_images/80aa436491082478f4778cb05efd6cb9c64e135d2cfcafd3b0f6545e8f7b76b9.png" />
 </div>
 </div>
 </section>
