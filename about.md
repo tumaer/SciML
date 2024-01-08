@@ -11,6 +11,22 @@ The course breaks down into an introduction to the topic, followed by 4 core con
 
 > Questions should preferably be posted in the Moodle, or else be sent to Artur Toshev.
 
+
+## Outline
+
+```{tableofcontents}
+```
+
+
+## Contributors
+
+Thanks to all contributors. Github names, if available.
+
+### Content fixes
+
+1. Andreas Steger (AndSte01)
+
+
 ## Citation
 
 Please cite this work as:
@@ -22,11 +38,6 @@ Please cite this work as:
   url={https://tumaer.github.io/SciML/about.html},
   year={2023},
 }
-```
-
-## Outline
-
-```{tableofcontents}
 ```
 
 <br>
