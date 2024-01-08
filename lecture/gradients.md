@@ -23,7 +23,7 @@ $$
     * ...
 2. 2000s: Rise of Python begins
 3. 2015: Autograd for the automatic differentiation of Python & NumPy is released
-4. 2016/2017: PyTorch & Tensorflow are introduced with automatic differentiation at their core
+4. 2016/2017: PyTorch & Tensorflow/JAX are introduced with automatic differentiation at their core. See [this Tweet](https://twitter.com/soumithchintala/status/1736555740448362890) for the history of PyTorch and its connection to JAX.
 5. 2018: JAX is introduced with its very thin Python layer on top of Tensorflow's compilation stack, where it performs automatic differentiation on the highest representation level
 6. 2020-2022: Forward-mode estimators to replace the costly and difficult-to-implement backpropagation are being introduced
 
