@@ -273,7 +273,7 @@ Most limitations of this approach arive from the assumption that the indivudual 
 - If the data does not follow a Gaussian distribution, e.g. heavy-tailed ditribution with outliers, then too much weight will be given to the outliers
 - If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.
 - The choice of $K$ is crucial and this parameters need to be optimized in a outer loop.
-- GMMs do now scale well to high dimensions.
+- GMMs do not scale well to high dimensions.
 
 
 ## Further References
