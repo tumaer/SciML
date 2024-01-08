@@ -422,19 +422,21 @@ document.write(`
 <h1><span class="section-number">9. </span>Multilayer Perceptron<a class="headerlink" href="#multilayer-perceptron" title="Permalink to this heading">#</a></h1>
 <section id="limitations-of-linear-regression">
 <h2><span class="section-number">9.1. </span>Limitations of Linear Regression<a class="headerlink" href="#limitations-of-linear-regression" title="Permalink to this heading">#</a></h2>
-<p>Looking back to <a class="reference internal" href="optimization.html"><span class="doc std std-doc">Chapter 2</span></a> and the Tricks of Optimization, we discussed that the most general linear model could be any linear combination of <span class="math notranslate nohighlight">\(x\)</span>-values lifted to a predefined basis space <span class="math notranslate nohighlight">\(\varphi(x)\)</span>, e.g. polynomial, exponent, sin, tanh, etc. basis:</p>
-<div class="math notranslate nohighlight">
-\[h(x)= \vartheta^{\top} \varphi(x) = \vartheta_0 + \vartheta_1 \cdot x + \vartheta_3 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + ...\]</div>
-<p>We also saw that through hyperparameter tuning one can find a basis that captures the underlying true relation between inputs and outputs quite well. In fact, for many practical problems, the approach of manually selecting meaningful basis functions and then training a linear model will be good enough, especially if we know something about the true relationship beforehand.</p>
+<p>Going back to lecture <a class="reference internal" href="tricks.html"><span class="doc std std-doc">Tricks of Optimization</span></a>, we discussed that the most general linear model could be any linear combination of <span class="math notranslate nohighlight">\(x\)</span>-values lifted to a predefined basis space <span class="math notranslate nohighlight">\(\varphi(x)\)</span>, e.g. polynomial, exponent, sin, tanh, etc. basis:</p>
+<div class="math notranslate nohighlight" id="equation-general-lin-reg">
+<span class="eqno">(9.1)<a class="headerlink" href="#equation-general-lin-reg" title="Permalink to this equation">#</a></span>\[h(x)= \vartheta^{\top} \varphi(x) = \vartheta_0 + \vartheta_1 \cdot x + \vartheta_3 \cdot x^2 + \vartheta_3 \cdot \exp(x) + \vartheta_4 \cdot \sin(x) + \vartheta_5 \cdot \tanh(x) + ...\]</div>
+<p>We also saw that through hyperparameter tuning one can find a basis that captures the underlying true relation between inputs and outputs quite well. In fact, for many practical problems, the approach of manually selecting meaningful basis functions and then training a linear model will be good enough, especially if we know something about the data beforehand.</p>
 <p>The problem is that for many tasks we don’t have such a-priori information and exploring the space of all possible combinations of basis functions ends in an infeasible combinatoric problem. Especially if the datasets we have are large, e.g. ImageNet, it is unrealistic to think that we can manually transform the inputs to a linearly-separable space.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/nPti5Rg.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</p>
+<figure class="align-center" id="under-overfitting-duplicate">
+<a class="reference internal image-reference" href="../_images/under_overfitting.png"><img alt="../_images/under_overfitting.png" src="../_images/under_overfitting.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.1 </span><span class="caption-text">Under- and overfitting (Source: <a class="reference external" href="https://towardsdatascience.com/techniques-for-handling-underfitting-and-overfitting-in-machine-learning-348daa2380b9">Techniques for handling underfitting and overfitting in Machine Learning</a>)</span><a class="headerlink" href="#under-overfitting-duplicate" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p><em>Q: If linear models are not all, what else?</em></p>
-<p><strong>Deep Learning</strong> is the field that tries to systematically explore the space of possible non-linear relations <span class="math notranslate nohighlight">\(h\)</span> between inputs <span class="math notranslate nohighlight">\(x\)</span> and output <span class="math notranslate nohighlight">\(y\)</span>. As a reminder, a non-linear relation can be for example</p>
-<div class="math notranslate nohighlight">
-\[
+<p><strong>Deep Learning</strong> is the field that tries to systematically explore the space of possible non-linear relations <span class="math notranslate nohighlight">\(h\)</span> between input <span class="math notranslate nohighlight">\(x\)</span> and output <span class="math notranslate nohighlight">\(y\)</span>. As a reminder, a non-linear relation can be for example</p>
+<div class="math notranslate nohighlight" id="equation-nonlinear-regression">
+<span class="eqno">(9.2)<a class="headerlink" href="#equation-nonlinear-regression" title="Permalink to this equation">#</a></span>\[
 h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...
 \]</div>
 <p>In the scope of this class, we will look at the most popular and successful non-linear building blocks. We will see the Multilayer Perceptron, Convolutional Layer, and Recurrent Neural Network.</p>
@@ -442,40 +444,54 @@ h(x) = x^{\vartheta_0} + \max\{0, \vartheta_1 \cdot x\} + ...
 <section id="perceptron">
 <h2><span class="section-number">9.2. </span>Perceptron<a class="headerlink" href="#perceptron" title="Permalink to this heading">#</a></h2>
 <p>Perceptron is a binary linear classifier and a single-layer neural network.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/qTRjRyX.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53">What the Hell is Perceptron?</a>)</p>
+<figure class="align-center" id="id1">
+<a class="reference internal image-reference" href="../_images/perceptron.png"><img alt="../_images/perceptron.png" src="../_images/perceptron.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.2 </span><span class="caption-text">The perceptron (Source: <a class="reference external" href="https://towardsdatascience.com/what-the-hell-is-perceptron-626217814f53">What the Hell is Perceptron?</a>)</span><a class="headerlink" href="#id1" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The perceptron generalizes the linear hypothesis <span class="math notranslate nohighlight">\(\vartheta^{\top} x\)</span> by subjecting it to a step function <span class="math notranslate nohighlight">\(f\)</span> as</p>
-<div class="math notranslate nohighlight">
-\[h(x) = f(\vartheta^{\top}x).\]</div>
+<div class="math notranslate nohighlight" id="equation-perceptron">
+<span class="eqno">(9.3)<a class="headerlink" href="#equation-perceptron" title="Permalink to this equation">#</a></span>\[h(x) = f(\vartheta^{\top}x).\]</div>
 <p>In the case of two class classification, we use the sign function</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}f(a)=  \left\{\begin{array}{l} +1 , \quad a\ge 0  \\ -1 , \quad a&lt;0 \end{array}\right.\end{split}\]</div>
-<p><span class="math notranslate nohighlight">\(f(a)\)</span> is called activation function as it represents a simple model of how neurons respond to input stimuli. Other common activation functions are the sigmoid, tanh, and ReLU (<span class="math notranslate nohighlight">\(=\max(0,x)\)</span>) activation functions</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/4opuLgP.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://medium.com/&#64;shrutijadon/survey-on-activation-functions-for-deep-learning-9689331ba092">Introduction to Different Activation Functions for Deep Learning</a>)</p>
+<div class="math notranslate nohighlight" id="equation-sign-fn">
+<span class="eqno">(9.4)<a class="headerlink" href="#equation-sign-fn" title="Permalink to this equation">#</a></span>\[\begin{split}f(a)=  \left\{\begin{array}{l} +1 , \quad a\ge 0  \\ -1 , \quad a&lt;0 \end{array}\right.\end{split}\]</div>
+<p><span class="math notranslate nohighlight">\(f(a)\)</span> is called <em>activation function</em> as it represents a simple model of how neurons respond to input stimuli. Other common activation functions are the sigmoid, tanh, and ReLU (<span class="math notranslate nohighlight">\(=\max(0,x)\)</span>).</p>
+<figure class="align-center" id="activation-functions">
+<a class="reference internal image-reference" href="../_images/activation_functions.png"><img alt="../_images/activation_functions.png" src="../_images/activation_functions.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.3 </span><span class="caption-text">Activation functions (Source: <a class="reference external" href="https://medium.com/&#64;shrutijadon/survey-on-activation-functions-for-deep-learning-9689331ba092">Introduction to Different Activation Functions for Deep Learning</a>)</span><a class="headerlink" href="#activation-functions" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="multilayer-perceptron-mlp">
 <h2><span class="section-number">9.3. </span>Multilayer Perceptron  (MLP)<a class="headerlink" href="#multilayer-perceptron-mlp" title="Permalink to this heading">#</a></h2>
-<p>If we stack multiple perceptrons after each other with a user-defined dimension of the intermediate (a.k.a. latent, hidden) space, we get a multilayer perceptron.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/JXtd2fy.png" alt="drawing" width="800"/>
-</div>
-<p>(Source: <a class="reference external" href="https://towardsdatascience.com/training-deep-neural-networks-9fdb1964b964">Training Deep Neural Networks</a>)</p>
+<p>If we stack multiple perceptrons after each other with a user-defined dimension of the intermediate (a.k.a. latent or hidden) space, we get a multilayer perceptron.</p>
+<figure class="align-center" id="mlp">
+<a class="reference internal image-reference" href="../_images/mlp.png"><img alt="../_images/mlp.png" src="../_images/mlp.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.4 </span><span class="caption-text">Multilayer Perceptron (Source: <a class="reference external" href="https://towardsdatascience.com/training-deep-neural-networks-9fdb1964b964">Training Deep Neural Networks</a>)</span><a class="headerlink" href="#mlp" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>We could write down the stack of such layer-to-layer transformations as</p>
-<div class="math notranslate nohighlight">
-\[h(x) = f_4 ( W_4 f_3 ( W_3 f_2(W_2 f_1(W_1 \mathbf{x})))).\]</div>
-<p>In the image above, the black line connecting entry <span class="math notranslate nohighlight">\(i\)</span> of the input with the corresponding entry <span class="math notranslate nohighlight">\(j\)</span> of hidden layer 1 corresponds to the row <span class="math notranslate nohighlight">\(i\)</span> and column <span class="math notranslate nohighlight">\(j\)</span> of the learnable weights matrix <span class="math notranslate nohighlight">\(W_{1}\)</span>. For regression, typically the last activation, here <span class="math notranslate nohighlight">\(f_4\)</span>, is the identity.</p>
-<p>It is crucial to have non-linear activation function. Why? Simply concatenating linear functions results in a new linear function! You immediately see it if you remove the activations <span class="math notranslate nohighlight">\(f_i\)</span> in the equation above.</p>
-<p>By the <strong>Universal Approximation Theorem</strong>, a single-layer perceptron with any “squashing” activation function, can approximate essentially any functional <span class="math notranslate nohighlight">\(h: x \to y\)</span>. More on that in the <a class="reference external" href="https://www.deeplearningbook.org/contents/mlp.html">deeplearningbook.org</a>. However, empirically we see improved performance when we stack multiple layers, adding the depth (number of hidden layers) and width (dimension of hidden layers) of a neural network to the hyperparameters of paramount importance.</p>
+<div class="math notranslate nohighlight" id="equation-mlp-stack">
+<span class="eqno">(9.5)<a class="headerlink" href="#equation-mlp-stack" title="Permalink to this equation">#</a></span>\[h(x) = f_4 ( W_4 f_3 ( W_3 f_2(W_2 f_1(W_1 \mathbf{x})))).\]</div>
+<p>In the image above, the black line connecting entry <span class="math notranslate nohighlight">\(i\)</span> of the input with the corresponding entry <span class="math notranslate nohighlight">\(j\)</span> of hidden layer 1 corresponds to the row <span class="math notranslate nohighlight">\(i\)</span> and column <span class="math notranslate nohighlight">\(j\)</span> of the learnable weights matrix <span class="math notranslate nohighlight">\(W_{1}\)</span>. For regression, typically, the last activation, here <span class="math notranslate nohighlight">\(f_4\)</span>, is the identity.</p>
+<p>It is crucial to have non-linear activation functions. Why? Simply concatenating linear functions results in a new linear function! You immediately see it if you remove the activations <span class="math notranslate nohighlight">\(f_i\)</span> in the equation above.</p>
+<p>By the <strong>Universal Approximation Theorem</strong>, a single-layer perceptron with any “squashing” activation function, can approximate essentially any functional <span class="math notranslate nohighlight">\(h: x \to y\)</span>. More on that in <span id="id2">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Section 6.4.1. However, empirically we see improved performance when we stack multiple layers, adding the depth (number of hidden layers) and width (dimension of hidden layers) of a neural network to the hyperparameters of paramount importance.</p>
+<p><strong>Exercise: Learning XOR</strong></p>
+<p>Find the simplest MLP capable of learning the XOR function, and fit its parameters.</p>
+<figure class="align-center" id="xor-function">
+<a class="reference internal image-reference" href="../_images/xor_function.png"><img alt="../_images/xor_function.png" src="../_images/xor_function.png" style="width: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 9.5 </span><span class="caption-text">XOR function (Source: <span id="id3">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Section 6.1)</span><a class="headerlink" href="#xor-function" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="further-references">
 <h2><span class="section-number">9.4. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.deeplearningbook.org/">Deep Learning</a>, Chapters 6; Goodgellow, Bengio, Courville; 2016</p></li>
+<li><p><span id="id4">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Chapter 6</p></li>
 </ul>
 </section>
 </section>

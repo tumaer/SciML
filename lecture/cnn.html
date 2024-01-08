@@ -404,7 +404,7 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-mlp">10.1. Limitations of MLP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutions">10.2. Convolutions</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolution">10.2. Convolution</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filters">10.2.1. Filters</a></li>
 </ul>
 </li>
@@ -423,7 +423,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vggnet-2014">10.5.2. VGGNet (2014)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resnet-2016">10.5.3. ResNet (2016)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#u-net-2015">10.5.4. U-Net (2015)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convnext-2022-and-convnextv2-2023">10.5.5. ConvNext (2022) and ConvNextv2 (2023)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-convnext-2022-and-convnextv2-2023">10.5.5. Advanced Topics: ConvNext (2022) and ConvNextv2 (2023)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">10.6. Further References</a></li>
@@ -442,22 +442,26 @@ document.write(`
 <h1><span class="section-number">10. </span>Convolutional Neural Networks<a class="headerlink" href="#convolutional-neural-networks" title="Permalink to this heading">#</a></h1>
 <section id="limitations-of-mlp">
 <h2><span class="section-number">10.1. </span>Limitations of MLP<a class="headerlink" href="#limitations-of-mlp" title="Permalink to this heading">#</a></h2>
-<p>In the previous subsection, we saw how the Multilayer Perceptron (a.k.a. Feedforward Neural Network, or Fully Connected Neural Network) generalizes linear models by stacking many linear models and placing nonlinear activation functions in between. Also, by the Universal Approximation Theorem, we saw that such a construction is enough to learn any function. But is an MLP always practical?</p>
-<p>In this subsection, we will concentrate on working with images. Imagine that we have an image with 1000x1000 pixels and 3 RGB channels. If we take an MLP with one hidden layer of size 1000, this means that the weight matrix from input to layer 1 would have 3 billion parameters to map all 3M inputs to each of the 1k neurons in layer 1. This number is too large for most modern consumer hardware and thus such a network could not be easily trained or deployed.</p>
-<p>MLPs are in a sense the most brute-force deep learning technique. By directly connecting all inputs to all next-layer neurons, we don’t introduce any bias and this is at least currently just too hard for image data.</p>
+<p>In the lecture <a class="reference internal" href="mlp.html"><span class="doc std std-doc">Multilayer Perceptron</span></a>, we saw how the Multilayer Perceptron (a.k.a. Feedforward Neural Network, or Fully Connected Neural Network) generalizes linear models by stacking many affine transformations and placing nonlinear activation functions in between. Also, by the Universal Approximation Theorem, we saw that such a construction is enough to learn any function. But is an MLP always practical?</p>
+<p>In this subsection, we will concentrate on working with images. Imagine that we have an image with 1000x1000 pixels and 3 RGB channels. If we take an MLP with one hidden layer of size 1000, this means that the weight matrix from input to layer 1 would have 3 billion parameters to map all 3M inputs to each of the 1k neurons in layer 1. This number is significantly large for most modern consumer hardware and thus such a network could not be easily trained or deployed.</p>
+<p>MLPs are in a sense the most brute-force deep learning technique. By directly connecting all input entries to all next-layer neurons, we don’t introduce any model bias, but this is (at least currently) just too hard for image data.</p>
 <p>The core idea of Convolutional Neural Networks is to introduce weight sharing, i.e. different regions of the image are treated with the same weights.</p>
 </section>
-<section id="convolutions">
-<h2><span class="section-number">10.2. </span>Convolutions<a class="headerlink" href="#convolutions" title="Permalink to this heading">#</a></h2>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/1AJ3d98.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://betterexplained.com/articles/intuitive-convolution/">Intuitive Guide to Convolution</a>)</p>
-<p>Applying a convolution filter (a.k.a. kernel) to a 2D image looks might look like this.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/ygH2Go6.png" alt="drawing" width="350"/>
-</div>
-<p>(Source: <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html">d2l.ai</a>)</p>
+<section id="convolution">
+<h2><span class="section-number">10.2. </span>Convolution<a class="headerlink" href="#convolution" title="Permalink to this heading">#</a></h2>
+<figure class="align-center" id="conv-eq">
+<a class="reference internal image-reference" href="../_images/conv_eq.png"><img alt="../_images/conv_eq.png" src="../_images/conv_eq.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.1 </span><span class="caption-text">Continuous convolution equation (Source: <a class="reference external" href="https://betterexplained.com/articles/intuitive-convolution/">Intuitive Guide to Convolution</a>)</span><a class="headerlink" href="#conv-eq" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Applying a convolution filter (a.k.a. kernel) to a 2D image might look like this.</p>
+<figure class="align-center" id="conv-image">
+<a class="reference internal image-reference" href="../_images/conv_image.png"><img alt="../_images/conv_image.png" src="../_images/conv_image.png" style="width: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.2 </span><span class="caption-text">Image convolution (Source: <span id="id1">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html">here</a>)</span><a class="headerlink" href="#conv-image" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="filters">
 <h3><span class="section-number">10.2.1. </span>Filters<a class="headerlink" href="#filters" title="Permalink to this heading">#</a></h3>
 <p>In image processing, specific (convolution) kernels have a well-understood meaning. Examples include:</p>
@@ -467,40 +471,54 @@ document.write(`
 <li><p>Mean blur</p></li>
 <li><p>Gaussian blur</p></li>
 </ul>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/PKCBAVh.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">Wikipedia</a></p>
+<figure class="align-center" id="cnn-filters">
+<a class="reference internal image-reference" href="../_images/cnn_filters.png"><img alt="../_images/cnn_filters.png" src="../_images/cnn_filters.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.3 </span><span class="caption-text">Examples of convolutional kernels (Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_(image_processing)">Wikipedia</a>)</span><a class="headerlink" href="#cnn-filters" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The kernels is modern deep learnig lead to features like these:</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/xvljdrQ.png" alt="drawing" width="600"/>
-</div>
-<p>(Image credit: Yann LeCun 2016, adapted from <a class="reference external" href="https://arxiv.org/pdf/1311.2901.pdf">Zeiler &amp; Fergus 2013</a></p>
+<figure class="align-center" id="cnn-features">
+<a class="reference internal image-reference" href="../_images/cnn_features.png"><img alt="../_images/cnn_features.png" src="../_images/cnn_features.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.4 </span><span class="caption-text">Intermediate feature maps (Image credit: Yann LeCun 2016, adapted from <a class="reference external" href="https://arxiv.org/pdf/1311.2901.pdf">Zeiler &amp; Fergus 2013</a>)</span><a class="headerlink" href="#cnn-features" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <section id="dimensions-of-a-convolution">
 <h2><span class="section-number">10.3. </span>Dimensions of a Convolution<a class="headerlink" href="#dimensions-of-a-convolution" title="Permalink to this heading">#</a></h2>
-<p>If you got excited about CNNs and open the documentation to one of the most popular ML libraries PyTorch, in the corresponding <code class="docutils literal notranslate"><span class="pre">torch.nn.Conv2d</span></code> section you will find the following equations.</p>
-<p>Input: <span class="math notranslate nohighlight">\((C_{in}, H_{in}, W_{in})\)</span>
-Output: <span class="math notranslate nohighlight">\((C_{out}, H_{out}, W_{out})\)</span></p>
-<p>Here, <span class="math notranslate nohighlight">\(C\)</span> is the number of channels, e.g. 3 for an RGB input image, <span class="math notranslate nohighlight">\(H\)</span> is the height, and <span class="math notranslate nohighlight">\(W\)</span> is the width of an image.</p>
-<div class="math notranslate nohighlight">
-\[H_{out}= \left\lfloor \frac{H_{in} + 2\cdot \text{padding}[0] - \text{dilation}[0] \cdot (\text{kernel_size}[0]-1) - 1}{\text{stride}[0]} + 1 \right\rfloor\]</div>
-<div class="math notranslate nohighlight">
-\[W_{out}=\left\lfloor \frac{W_{in} + 2\cdot \text{padding}[1] - \text{dilation}[1] \cdot (\text{kernel_size}[1]-1) - 1}{\text{stride}[1]} + 1 \right\rfloor\]</div>
-<p>With <span class="math notranslate nohighlight">\(\lfloor \cdot \rfloor\)</span> we denote the floor operator. Let’s look at what each of these new terms means.</p>
+<p>If you got excited about CNNs and open the PyTorch documentation of the corresponding <code class="docutils literal notranslate"><span class="pre">torch.nn.Conv2d</span></code> section, you will find the following notation:</p>
+<ul class="simple">
+<li><p>Input shape: <span class="math notranslate nohighlight">\((N, C_{in}, H_{in}, W_{in})\)</span></p></li>
+<li><p>Output shape: <span class="math notranslate nohighlight">\((N, C_{out}, H_{out}, W_{out})\)</span></p></li>
+</ul>
+<p>Here, <span class="math notranslate nohighlight">\(N\)</span> is the batch size, <span class="math notranslate nohighlight">\(C\)</span> the number of channels, e.g. 3 for an RGB input image, <span class="math notranslate nohighlight">\(H\)</span> is the height, and <span class="math notranslate nohighlight">\(W\)</span> the width of an image. Using this notation we can compute the output height <span class="math notranslate nohighlight">\(H_{out}\)</span> and output width <span class="math notranslate nohighlight">\(W_{out}\)</span> of a CNN layer:</p>
+<div class="math notranslate nohighlight" id="equation-cnn-height-out">
+<span class="eqno">(10.1)<a class="headerlink" href="#equation-cnn-height-out" title="Permalink to this equation">#</a></span>\[
+H_{out}= \left\lfloor \frac{H_{in} + 2\cdot \text{padding}[0] - \text{dilation}[0] \cdot (\text{kernel_size}[0] - 1) - 1}{\text{stride}[0]} + 1 \right\rfloor,
+\]</div>
+<div class="math notranslate nohighlight" id="equation-cnn-width-out">
+<span class="eqno">(10.2)<a class="headerlink" href="#equation-cnn-width-out" title="Permalink to this equation">#</a></span>\[
+W_{out}=\left\lfloor \frac{W_{in} + 2\cdot \text{padding}[1] - \text{dilation}[1] \cdot (\text{kernel_size}[1]-1) - 1}{\text{stride}[1]} + 1 \right\rfloor.
+\]</div>
+<p>Here, <span class="math notranslate nohighlight">\(\lfloor \cdot \rfloor\)</span> denotes the floor operator. Let’s look at what each of these new terms means.</p>
 <section id="padding">
 <h3><span class="section-number">10.3.1. </span>Padding<a class="headerlink" href="#padding" title="Permalink to this heading">#</a></h3>
-<p>Applying a convolution directly to an image would result in an image of a smaller height and width. To counteract that, we pad the image height and width for example with zeros. With proper padding, one can stack hundreds of convolution layers without changing the width and height. The padding can be different along the width and height dimensions; we denote width and height padding with <span class="math notranslate nohighlight">\(\text{padding}[0]\)</span> and <span class="math notranslate nohighlight">\(\text{padding}[1]\)</span>. <span class="math notranslate nohighlight">\(\text{padding}=0\)</span> is the original convolution.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/swEdDMq.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html">d2l.ai</a>)</p>
+<p>Applying a convolution directly to an image would result in an image of a smaller height and width. To counteract that, we pad the image height and width for example with zeros. With proper padding, one can stack hundreds of convolution layers without changing the width and height. The padding can be different along the width and height dimensions; we denote width and height padding with <span class="math notranslate nohighlight">\(\text{padding}[0]\)</span> and <span class="math notranslate nohighlight">\(\text{padding}[1]\)</span>. The original convolution corresponds to <span class="math notranslate nohighlight">\(\text{padding}=0\)</span>.</p>
+<figure class="align-center" id="cnn-padding">
+<a class="reference internal image-reference" href="../_images/cnn_padding.png"><img alt="../_images/cnn_padding.png" src="../_images/cnn_padding.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.5 </span><span class="caption-text">Convolution with zero padding (Source: <span id="id2">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html">here</a>)</span><a class="headerlink" href="#cnn-padding" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Another reason for padding is to use the corner pixels equally often as other pixels. The image below shows how often a pixel would be used by a convolutoin kernel of size 1x1, 2x2, and 3x3 without padding.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/T0NkS8w.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html">d2l.ai</a>)</p>
+<figure class="align-center" id="cnn-without-padding">
+<a class="reference internal image-reference" href="../_images/cnn_without_padding.png"><img alt="../_images/cnn_without_padding.png" src="../_images/cnn_without_padding.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.6 </span><span class="caption-text">Convolution without padding (Source: <span id="id3">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html">here</a>)</span><a class="headerlink" href="#cnn-without-padding" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>Two commonly used terms regarding padding are the following:</p>
 <ul class="simple">
 <li><p><em>valid</em> convolution: no padding</p></li>
@@ -510,48 +528,62 @@ Output: <span class="math notranslate nohighlight">\((C_{out}, H_{out}, W_{out})
 <section id="stride">
 <h3><span class="section-number">10.3.2. </span>Stride<a class="headerlink" href="#stride" title="Permalink to this heading">#</a></h3>
 <p>If we want to reduce the overlap between kernels and also reduce <span class="math notranslate nohighlight">\(W\)</span> and <span class="math notranslate nohighlight">\(H\)</span> of the outputs, we can introduce a <span class="math notranslate nohighlight">\(\text{stride}&gt;1\)</span> variable. <span class="math notranslate nohighlight">\(\text{stride}=1\)</span> results in the original convolution. In the image below we see <span class="math notranslate nohighlight">\(\text{stride}=\text{Array}([2, 3])\)</span>.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Ays8u2j.png" alt="drawing" width="400"/>
-</div>
-<p>(Source: <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html">d2l.ai</a>)</p>
+<figure class="align-center" id="cnn-stride">
+<a class="reference internal image-reference" href="../_images/cnn_stride.png"><img alt="../_images/cnn_stride.png" src="../_images/cnn_stride.png" style="width: 350px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.7 </span><span class="caption-text">Convolution with stride (Source: <span id="id4">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/padding-and-strides.html">here</a>)</span><a class="headerlink" href="#cnn-stride" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="dilation">
 <h3><span class="section-number">10.3.3. </span>Dilation<a class="headerlink" href="#dilation" title="Permalink to this heading">#</a></h3>
-<p>This is a more exotic operation, which works well for detecting large-scale features. <span class="math notranslate nohighlight">\(\text{dilation}=1\)</span> corresponds to the original convolution.</p>
-<p><img alt="Optimization" src="../_images/dilation.gif" /></p>
-<p>(Source: <a class="github reference external" href="https://github.com/vdumoulin/conv_arithmetic">vdumoulin/conv_arithmetic</a>)</p>
+<p>This is a more rare operation, which works well for detecting large-scale features. <span class="math notranslate nohighlight">\(\text{dilation}=1\)</span> corresponds to the original convolution.</p>
+<figure class="align-center" id="id5">
+<a class="reference internal image-reference" href="../_images/dilation.gif"><img alt="../_images/dilation.gif" src="../_images/dilation.gif" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.8 </span><span class="caption-text">Convolution with dilation (Source: <a class="github reference external" href="https://github.com/vdumoulin/conv_arithmetic">vdumoulin/conv_arithmetic</a>)</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <section id="pooling">
 <h2><span class="section-number">10.4. </span>Pooling<a class="headerlink" href="#pooling" title="Permalink to this heading">#</a></h2>
-<p>You can think of a convolution filter as a feature extraction transformation similar to the basis expansion with general linear models. Here, the basis itself is learned via CNN layers.</p>
-<p>If we are interested in image classification, we don’t just want to transform the input features, but also extract / select the relevant information. This is done by pooling layers in between convolution layers. Pooling layers don’t have learnable parameters and the inevitable reduce dimensionality. Typical examples are:</p>
+<p>You can think of a convolution filter as a <em>feature extraction</em> transformation similar to the basis expansion with general linear models. Here, the basis itself is learned via CNN layers.</p>
+<p>If we are interested in image classification, we don’t just want to transform the input features, but also <em>extract / select</em> the relevant information. This is done by pooling layers in between convolution layers. Pooling layers don’t have learnable parameters and they inevitably reduce dimensionality. Typical examples are:</p>
 <ul class="simple">
 <li><p>max / min pooling</p></li>
 <li><p>mean pooling (averaging)</p></li>
 </ul>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/c1s6T2F.png" alt="drawing" width="300"/>
-</div>
-<p>(Source: <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/pooling.html">d2l.ai</a>)</p>
+<figure class="align-center" id="cnn-pooling">
+<a class="reference internal image-reference" href="../_images/cnn_pooling.png"><img alt="../_images/cnn_pooling.png" src="../_images/cnn_pooling.png" style="width: 250px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.9 </span><span class="caption-text">Max pooling (Source: <span id="id6">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/pooling.html">here</a>)</span><a class="headerlink" href="#cnn-pooling" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="channels">
 <h3><span class="section-number">10.4.1. </span>Channels<a class="headerlink" href="#channels" title="Permalink to this heading">#</a></h3>
-<p>Each convolution kernel operates on all <span class="math notranslate nohighlight">\(C_{in}\)</span> input channels, resulting in a number of parameters per kernel <span class="math notranslate nohighlight">\(C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]\)</span>. Having <span class="math notranslate nohighlight">\(C_{out}\)</span> number of kernels results in a number of parameters per convolution layer of</p>
-<p><span class="math notranslate nohighlight">\(C_{in} \cdot C_{out} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]\)</span></p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/JMVifDx.png" alt="drawing" width="550"/>
-</div>
-<p>(Source: <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/channels.html">d2l.ai</a>)</p>
+<p>Each convolutional kernel operates on all <span class="math notranslate nohighlight">\(C_{in}\)</span> input channels, resulting in a number of parameters per kernel <span class="math notranslate nohighlight">\(C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]\)</span>. Having <span class="math notranslate nohighlight">\(C_{out}\)</span> number of kernels results in a number of parameters per convolutional layer given by</p>
+<div class="math notranslate nohighlight" id="equation-cnn-num-params">
+<span class="eqno">(10.3)<a class="headerlink" href="#equation-cnn-num-params" title="Permalink to this equation">#</a></span>\[\# \text{params} = C_{in} \cdot C_{out} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]\]</div>
+<p>The following is an example with two input channels, one output channel, and a 2x2 kernel size.</p>
+<figure class="align-center" id="cnn-multichannel">
+<a class="reference internal image-reference" href="../_images/cnn_multichannel.png"><img alt="../_images/cnn_multichannel.png" src="../_images/cnn_multichannel.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.10 </span><span class="caption-text">Convolution of a 2-channel input with two kernels (Source: <span id="id7">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, <a class="reference external" href="https://d2l.ai/chapter_convolutional-neural-networks/channels.html">here</a>)</span><a class="headerlink" href="#cnn-multichannel" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 </section>
 <section id="modern-cnns">
 <h2><span class="section-number">10.5. </span>Modern CNNs<a class="headerlink" href="#modern-cnns" title="Permalink to this heading">#</a></h2>
 <p>A typical CNN would look something like the following.</p>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/YQLkWG9.png" alt="drawing" width="550"/>
-</div>
-<p>(Source: <a class="reference external" href="http://cs231n.stanford.edu/slides/2021/lecture_5.pdf">cs231n, CNN lecture</a>)</p>
-<p>We now head to a historical overview of the recent trends since the beginning of the deep learning revolution with AlexNet in 2012.</p>
+<figure class="align-center" id="cnn-modern">
+<a class="reference internal image-reference" href="../_images/cnn_modern.png"><img alt="../_images/cnn_modern.png" src="../_images/cnn_modern.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.11 </span><span class="caption-text">Modern CNN (Source: <a class="reference external" href="http://cs231n.stanford.edu/slides/2021/lecture_5.pdf">cs231n, CNN lecture</a>)</span><a class="headerlink" href="#cnn-modern" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We now head to a historical overview of the trends since the beginning of the deep learning revolution with AlexNet in 2012.</p>
 <section id="alexnet-2012">
 <h3><span class="section-number">10.5.1. </span><a class="reference external" href="https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html">AlexNet</a> (2012)<a class="headerlink" href="#alexnet-2012" title="Permalink to this heading">#</a></h3>
 <p>Characteristics:</p>
@@ -560,10 +592,12 @@ Output: <span class="math notranslate nohighlight">\((C_{out}, H_{out}, W_{out})
 <li><p>first big successes of ReLU</p></li>
 <li><p>60M parameters</p></li>
 </ul>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/ylA5l5O.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</p>
+<figure class="align-center" id="cnn-alexnet">
+<a class="reference internal image-reference" href="../_images/cnn_alexnet.png"><img alt="../_images/cnn_alexnet.png" src="../_images/cnn_alexnet.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.12 </span><span class="caption-text">AlexNet architecture (Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</span><a class="headerlink" href="#cnn-alexnet" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="vggnet-2014">
 <h3><span class="section-number">10.5.2. </span><a class="reference external" href="https://arxiv.org/abs/1409.1556">VGGNet</a> (2014)<a class="headerlink" href="#vggnet-2014" title="Permalink to this heading">#</a></h3>
@@ -575,23 +609,27 @@ Output: <span class="math notranslate nohighlight">\((C_{out}, H_{out}, W_{out})
 <li><p>deeper</p></li>
 <li><p>138M parameters</p></li>
 </ul>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/Pxekgh6.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</p>
+<figure class="align-center" id="cnn-vggnet">
+<a class="reference internal image-reference" href="../_images/cnn_vggnet.png"><img alt="../_images/cnn_vggnet.png" src="../_images/cnn_vggnet.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.13 </span><span class="caption-text">VGGNet architecture (Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</span><a class="headerlink" href="#cnn-vggnet" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="resnet-2016">
 <h3><span class="section-number">10.5.3. </span><a class="reference external" href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf">ResNet</a> (2016)<a class="headerlink" href="#resnet-2016" title="Permalink to this heading">#</a></h3>
 <p>Charasteristics:</p>
 <ul class="simple">
 <li><p>allows for very deep networks by introducing skip connections</p></li>
-<li><p>this mitigates the vanishing and exploiding gradients problem</p></li>
+<li><p>this mitigates the vanishing and exploding gradients problem</p></li>
 <li><p>ResNet-152 (with 152 layers) has 60M parameters</p></li>
 </ul>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/6gwMcYz.png" alt="drawing" width="700"/>
-</div>
-<p>(Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</p>
+<figure class="align-center" id="cnn-resnet">
+<a class="reference internal image-reference" href="../_images/cnn_resnet.png"><img alt="../_images/cnn_resnet.png" src="../_images/cnn_resnet.png" style="width: 700px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.14 </span><span class="caption-text">ResNet architecture (Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</span><a class="headerlink" href="#cnn-resnet" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="u-net-2015">
 <h3><span class="section-number">10.5.4. </span><a class="reference external" href="https://arxiv.org/abs/1505.04597">U-Net</a> (2015)<a class="headerlink" href="#u-net-2015" title="Permalink to this heading">#</a></h3>
@@ -600,29 +638,33 @@ Output: <span class="math notranslate nohighlight">\((C_{out}, H_{out}, W_{out})
 <li><p>for image segmentation</p></li>
 <li><p>skip connections</p></li>
 </ul>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/kk2asgp.png" alt="drawing" width="600"/>
-</div>
-<p>(Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</p>
+<figure class="align-center" id="cnn-unet">
+<a class="reference internal image-reference" href="../_images/cnn_unet.png"><img alt="../_images/cnn_unet.png" src="../_images/cnn_unet.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.15 </span><span class="caption-text">U-Net architecture (Source: <a class="reference external" href="https://niessner.github.io/I2DL/slides/10.CNN-2.pdf">I2DL, TUM</a>)</span><a class="headerlink" href="#cnn-unet" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
-<section id="convnext-2022-and-convnextv2-2023">
-<h3><span class="section-number">10.5.5. </span><a class="reference external" href="https://arxiv.org/abs/2201.03545">ConvNext</a> (2022) and <a class="reference external" href="https://arxiv.org/pdf/2301.00808.pdf">ConvNextv2</a> (2023)<a class="headerlink" href="#convnext-2022-and-convnextv2-2023" title="Permalink to this heading">#</a></h3>
+<section id="advanced-topics-convnext-2022-and-convnextv2-2023">
+<h3><span class="section-number">10.5.5. </span>Advanced Topics: <a class="reference external" href="https://arxiv.org/abs/2201.03545">ConvNext</a> (2022) and <a class="reference external" href="https://arxiv.org/abs/2301.00808">ConvNextv2</a> (2023)<a class="headerlink" href="#advanced-topics-convnext-2022-and-convnextv2-2023" title="Permalink to this heading">#</a></h3>
 <p>Characteristics:</p>
 <ul class="simple">
 <li><p>since the <a class="reference external" href="https://arxiv.org/abs/2010.11929">Vision Transformer</a> many people started believing that the inductive bias of translational invariance encoded in a convolution is too restrictive for images classification. However, the release of the <a class="reference external" href="https://arxiv.org/abs/2201.03545">ConvNext</a> model (“A ConvNet for the 2020s”, Liu et al. 2022) points in the direction that many innovations have been made on improving transformers, e.g. the GELU activations, and if we simply apply some of them to CNNs, we also end up with state-of-the-art results.</p></li>
 </ul>
-<div style="text-align:center">
-    <img src="https://i.imgur.com/CQ0hNVZ.png" alt="drawing" width="500"/>
-</div>
-<p>(Source: <a class="reference external" href="https://arxiv.org/abs/2201.03545">ConvNext</a>)</p>
-<p>The successor paper of ConvNext -&gt; ConvNextv2 just came out one week ago!</p>
+<figure class="align-center" id="cnn-convnext">
+<a class="reference internal image-reference" href="../_images/cnn_convnext.png"><img alt="../_images/cnn_convnext.png" src="../_images/cnn_convnext.png" style="width: 450px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 10.16 </span><span class="caption-text">ConvNext ablations (Source: <a class="reference external" href="https://arxiv.org/abs/2201.03545">A ConvNet for the 2020s</a>)</span><a class="headerlink" href="#cnn-convnext" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The successor paper of ConvNext -&gt; ConvNextv2 came out one week before this lecture in WS22/23 :)</p>
 </section>
 </section>
 <section id="further-references">
 <h2><span class="section-number">10.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.deeplearningbook.org/">Deep Learning</a>, Chapters 6; Goodgellow, Bengio, Courville; 2016</p></li>
-<li><p><a class="reference external" href="https://d2l.ai/index.html">d2l</a>, Chapter 6 and 7; Zhang et al.; 2022</p></li>
+<li><p><span id="id8">[<a class="reference internal" href="../references.html#id15" title="Ian Goodfellow, Yoshua Bengio, and Aaron Courville. Deep Learning. MIT Press, 2016. URL: http://www.deeplearningbook.org.">Goodfellow <em>et al.</em>, 2016</a>]</span>, Chapter 9</p></li>
+<li><p><span id="id9">[<a class="reference internal" href="../references.html#id12" title="Aston Zhang, Zachary C. Lipton, Mu Li, and Alexander J. Smola. Dive into deep learning. arXiv preprint arXiv:2106.11342, 2021. URL: https://d2l.ai/.">Zhang <em>et al.</em>, 2021</a>]</span>, Chapters “Convolutional Neural Networks” and “Modern Convolutional Neural Networks”</p></li>
 </ul>
 </section>
 </section>
@@ -691,7 +733,7 @@ Output: <span class="math notranslate nohighlight">\((C_{out}, H_{out}, W_{out})
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations-of-mlp">10.1. Limitations of MLP</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolutions">10.2. Convolutions</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#convolution">10.2. Convolution</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#filters">10.2.1. Filters</a></li>
 </ul>
 </li>
@@ -710,7 +752,7 @@ Output: <span class="math notranslate nohighlight">\((C_{out}, H_{out}, W_{out})
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vggnet-2014">10.5.2. VGGNet (2014)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resnet-2016">10.5.3. ResNet (2016)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#u-net-2015">10.5.4. U-Net (2015)</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#convnext-2022-and-convnextv2-2023">10.5.5. ConvNext (2022) and ConvNextv2 (2023)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-convnext-2022-and-convnextv2-2023">10.5.5. Advanced Topics: ConvNext (2022) and ConvNextv2 (2023)</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">10.6. Further References</a></li>

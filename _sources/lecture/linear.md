@@ -266,7 +266,7 @@ Using the "vanilla" indicator function instead of the sigmoid:
 
 $$
 g(x)= \begin{cases}1, & x \geqslant 0 \\ 0, & x<0\end{cases}
-$$ (perceptron)
+$$ (heaviside)
 
 derive the update functions for the gradient methods, as well as the Maximum Likelihood Estimator approach.
 

@@ -111,7 +111,7 @@ width: 400px
 align: center
 name: gd_1d
 ---
-Optimizing $f(x) = x \cdot \cos(cx)$ (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html)).
+Optimizing $f(x) = x \cdot \cos(cx)$ (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_optimization/gd.html)).
 ```
 
 **$x$ as vector**
@@ -140,7 +140,7 @@ width: 400px
 align: center
 name: gd_2d
 ---
-Optimizing $f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}$ (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html)).
+Optimizing $f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}$ (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_optimization/gd.html)).
 ```
 
 Having up until now relied on a fixed learning rate $\eta$, we now want to expand upon the previous algorithm by _adaptively_ choosing $\eta$. For this, we have to go back to **Newton's method**.
@@ -188,7 +188,7 @@ width: 400px
 align: center
 name: gd_with_momentum
 ---
-Momentum parameter (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/momentum.html)).
+Momentum parameter (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_optimization/momentum.html)).
 ```
 
 ### Adam
@@ -255,7 +255,7 @@ width: 400px
 align: center
 name: sgd_2d
 ---
-SGD trajectory (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/gd.html)).
+SGD trajectory (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_optimization/gd.html)).
 ```
 
 #### Minibatching
