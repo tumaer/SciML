@@ -592,7 +592,7 @@ In general, $x$ and $\varphi$ are vectors where $\varphi$ has the entire $x$ as 
 
 $$h(x)= g(\omega^T \varphi(x)+b).$$ (classifier_with_feature_map)
 
-**Example**
+**Example XNOR**
 
 The following classification problem is non-linear as there is no linear decision boundary.
 
@@ -616,7 +616,22 @@ name: xnor_example_embedded
 XNOR after feature mapping.
 ```
 
-But of course, this is constructed, as here we could immediately guess $\varphi(x_1,x_2)$. In general, this is not possible.
+**Example Circular Region**
+
+Given is a set of points $x \in \mathbb{R}^{2}$ with two possible labels: purple ($-1$) and orange ($1$), as can be seen in the left figure below. The task is to find a feature map such that a linear classifier can perfectly separate the two sets.
+
+```{figure} ../imgs/kernel_trick_idea.svg
+---
+width: 600px
+align: center
+name: kernel_trick_idea
+---
+Binary classification of circular region (Source: [Wikipedia](https://en.wikipedia.org/wiki/Kernel_method)).
+```
+
+Here, it is again obvious that if we embed the inputs in a 3D space by adding their squares, i.e. $\varphi((x_1, x_2)) = (x_1, x_2, x_1^2+x_2^2)$, we will be able to draw a hyperplane separating the subsets.
+
+But of course, these examples are constructed, as here we could immediately guess $\varphi(x_1,x_2)$. In general, this is not possible.
 
 > Recall : the dual problem of SVM involves a scalar product $x^{(i)\top}x^{(j)}$ of feature vectors.
 $\Rightarrow$ motivates the general notation of a dual problem with feature maps.

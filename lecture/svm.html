@@ -928,7 +928,7 @@ L, \quad \alpha_{2}^{'}&lt;L
 <p>In general, <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\varphi\)</span> are vectors where <span class="math notranslate nohighlight">\(\varphi\)</span> has the entire <span class="math notranslate nohighlight">\(x\)</span> as argument. The resulting modified classifier becomes</p>
 <div class="math notranslate nohighlight" id="equation-classifier-with-feature-map">
 <span class="eqno">(6.55)<a class="headerlink" href="#equation-classifier-with-feature-map" title="Permalink to this equation">#</a></span>\[h(x)= g(\omega^T \varphi(x)+b).\]</div>
-<p><strong>Example</strong></p>
+<p><strong>Example XNOR</strong></p>
 <p>The following classification problem is non-linear as there is no linear decision boundary.</p>
 <figure class="align-center" id="xnor-example">
 <a class="reference internal image-reference" href="../_images/xnor_example.png"><img alt="../_images/xnor_example.png" src="../_images/xnor_example.png" style="width: 300px;" /></a>
@@ -943,7 +943,16 @@ L, \quad \alpha_{2}^{'}&lt;L
 <p><span class="caption-number">Fig. 6.14 </span><span class="caption-text">XNOR after feature mapping.</span><a class="headerlink" href="#xnor-example-embedded" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>But of course, this is constructed, as here we could immediately guess <span class="math notranslate nohighlight">\(\varphi(x_1,x_2)\)</span>. In general, this is not possible.</p>
+<p><strong>Example Circular Region</strong></p>
+<p>Given is a set of points <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{2}\)</span> with two possible labels: purple (<span class="math notranslate nohighlight">\(-1\)</span>) and orange (<span class="math notranslate nohighlight">\(1\)</span>), as can be seen in the left figure below. The task is to find a feature map such that a linear classifier can perfectly separate the two sets.</p>
+<figure class="align-center" id="kernel-trick-idea">
+<a class="reference internal image-reference" href="../_images/kernel_trick_idea.svg"><img alt="../_images/kernel_trick_idea.svg" src="../_images/kernel_trick_idea.svg" width="600px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 6.15 </span><span class="caption-text">Binary classification of circular region (Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_method">Wikipedia</a>).</span><a class="headerlink" href="#kernel-trick-idea" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Here, it is again obvious that if we embed the inputs in a 3D space by adding their squares, i.e. <span class="math notranslate nohighlight">\(\varphi((x_1, x_2)) = (x_1, x_2, x_1^2+x_2^2)\)</span>, we will be able to draw a hyperplane separating the subsets.</p>
+<p>But of course, these examples are constructed, as here we could immediately guess <span class="math notranslate nohighlight">\(\varphi(x_1,x_2)\)</span>. In general, this is not possible.</p>
 <blockquote>
 <div><p>Recall : the dual problem of SVM involves a scalar product <span class="math notranslate nohighlight">\(x^{(i)\top}x^{(j)}\)</span> of feature vectors.
 <span class="math notranslate nohighlight">\(\Rightarrow\)</span> motivates the general notation of a dual problem with feature maps.</p>
