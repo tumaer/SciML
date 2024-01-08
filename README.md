@@ -1,4 +1,4 @@
-# Course Materials to *Scientific Machine Learning for Engineers* WS22-23
+# *Scientific Machine Learning for Engineers*
 
 All lecture and exercise materials related to this course will be uploaded here.
 
@@ -6,7 +6,7 @@ All lecture and exercise materials related to this course will be uploaded here.
 
 The easiest way to run the exercise notebooks is through [Google Colab](https://colab.research.google.com/).
 
-If you want to run them locally, we provide this setup tested on Ubuntu 20.04 with CUDA 11.6:
+If you want to run them locally, we provide this setup tested on Ubuntu 22.04 and macOS 14:
 
 ```bash
 python3 -m venv venv
