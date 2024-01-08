@@ -242,7 +242,7 @@ width: 400px
 align: center
 name: lr_schedule
 ---
-Training with learning rate scheduling (Source: {cite}`zhang2021`, [here](https://classic.d2l.ai/chapter_optimization/sgd.html))
+Training with learning rate scheduling (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_optimization/sgd.html))
 ```
 
 ### Recipe for Machine Learning
