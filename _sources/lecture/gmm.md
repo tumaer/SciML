@@ -251,7 +251,7 @@ In the E-step, we compute the posterior probability of $z^{(i)}_k$ given the dat
 $$
 \begin{aligned}
 p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)p(z^{(i)}=k,\pi)}{\sum_{l=1}^K p(x^{(i)}|z^{(i)}=l, \mu, \Sigma)p(z^{(i)}=l,\pi)} \\
- &= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_K, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
+ &= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_k, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
 \end{aligned}$$ (gmm_responsibilities)
 
 The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating the $k$th Gaussian with parameters $\mu_k$ and $\Sigma_k$. And $p(z^{(i)}=k,\pi)$ is just $\pi_k$. 
@@ -273,7 +273,7 @@ Most limitations of this approach arive from the assumption that the indivudual 
 - If the data does not follow a Gaussian distribution, e.g. heavy-tailed ditribution with outliers, then too much weight will be given to the outliers
 - If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.
 - The choice of $K$ is crucial and this parameters need to be optimized in a outer loop.
-- GMMs do now scale well to high dimensions.
+- GMMs do not scale well to high dimensions.
 
 
 ## Further References

@@ -679,7 +679,7 @@ l(x | \pi,\mu,\Sigma) &amp;= \sum_{i=1}^{m}\log p(x^{(i)}|\pi,\mu,\Sigma) \\
 <span class="eqno">(2.27)<a class="headerlink" href="#equation-gmm-responsibilities" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
 p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)p(z^{(i)}=k,\pi)}{\sum_{l=1}^K p(x^{(i)}|z^{(i)}=l, \mu, \Sigma)p(z^{(i)}=l,\pi)} \\
- &amp;= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_K, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
+ &amp;= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_k, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
 \end{aligned}\end{split}\]</div>
 <p>The values of <span class="math notranslate nohighlight">\(p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)\)</span> can be computed by evaluating the <span class="math notranslate nohighlight">\(k\)</span>th Gaussian with parameters <span class="math notranslate nohighlight">\(\mu_k\)</span> and <span class="math notranslate nohighlight">\(\Sigma_k\)</span>. And <span class="math notranslate nohighlight">\(p(z^{(i)}=k,\pi)\)</span> is just <span class="math notranslate nohighlight">\(\pi_k\)</span>.</p>
 <p><strong>Exercise: derive the M-step update equations following the maximum likelihood approach.</strong></p>
@@ -700,7 +700,7 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 <li><p>If the data does not follow a Gaussian distribution, e.g. heavy-tailed ditribution with outliers, then too much weight will be given to the outliers</p></li>
 <li><p>If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.</p></li>
 <li><p>The choice of <span class="math notranslate nohighlight">\(K\)</span> is crucial and this parameters need to be optimized in a outer loop.</p></li>
-<li><p>GMMs do now scale well to high dimensions.</p></li>
+<li><p>GMMs do not scale well to high dimensions.</p></li>
 </ul>
 </section>
 </section>
