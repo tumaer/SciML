@@ -44,6 +44,7 @@ The approach consists of the following three steps:
 
 $$E[h_x(\theta|y)]\approx \frac{1}{N}\sum_{i=1}^{N}h_x^{(i)}.$$ (mc_sum)
 
+<!-- Might be very useful to describe exactly this expectation describes, why it's useful why we want to calculate it in the first place. It is explained briefly in the lecture, but not written down here. This gave me the feeling of being aimless doing the calculation -->
 Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:
 
 - Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)
@@ -57,7 +58,7 @@ Looking at the denominator of Eq. {eq}`posterior_density`, we notice that it is 
 
 $$g(\theta | y) \propto g(\theta)f(y|\theta).$$ (target_density)
 
-The problem we will be trying to solve here is how to generate samples from such unnormalized distributions. We use the term *target* distributin to describe the distribution we want to sample from.
+The problem we will be trying to solve here is how to generate samples from such unnormalized distributions. We use the term *target distribution* to describe the distribution we want to sample from.
 
 ### Acceptance-Rejection Sampling
 
@@ -78,6 +79,7 @@ Acceptance-rejection candidate and target distributions (Source: {cite}`bolstad2
 
 To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:
 
+<!-- The wording used in #sampling-importance-resampling--bayesian-bootstrap is way better (especially for the first step), might be best to use it here as well -->
 1. Draw a random sample of size $N$ from the candidate distribution $g_{0}(\theta)$.
 2. Calculate the value of the unscaled target density at each random sample.
 3. Calculate the candidate density at each random sample, and multiply by $M$.
@@ -152,7 +154,7 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
     $$\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}$$ (mcmc_acceptance_prob)
 
 3. Sample $u\sim \text{Uniform}(0,1)$
-4. If $\alpha > u$, then $\theta_{current} = \theta'$, else $\theta_{current} = \theta_{current}$
+4. Select  $\theta_{\text{current}} \begin{cases} \theta' & \alpha>0 \\ \theta_{\text{current}} & \text{else}\end{cases}$
 5. Repeat $N$ times from step 1.
 
 A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
@@ -224,6 +226,7 @@ If the prior $g(\theta)$ is uniform (aka *uninformative prior*), then the MLE an
 
 Another type of Bayesian inference is the one in which we seek to find an interval that, with a pre-determined probability, contains the true value. In Bayesian statistics, these are called credible intervals. Finding the interval with equal tail areas to both sides $(\theta_{l}, \theta_{u})$, and which has the probability to contain the true value of the parameter, i.e.
 
+<!-- Might be nice to write down exactly what $\alpha$ means/describes-->
 $$
 \begin{aligned}
 \int_{-\infty}^{\theta_{l}} g(\theta | y_{1}, \ldots, y_{n}) d\theta &= \frac{\alpha}{2}, \\
@@ -290,7 +293,7 @@ Bayesian logistic regression data (Source: {cite}`murphy2022`, Chapter 10).
 
 In practical applications, we are interested in predicting the output $y$ given an input $x$. Thus, we need to compute the **posterior predictive distribution**
 
-$$p(y|x, \mathcal{D}) = \int p(y | x, \omega) p(\omega | \mathcal{D})) d\omega.$$ (predictive_posterior)
+$$p(y|x, \mathcal{D}) = \int p(y | x, \omega) p(\omega | \mathcal{D}) d\omega.$$ (predictive_posterior)
 
 To now compute the uncertainty in our predictions we perform a _Monte Carlo Approximation_ of the integral using $S$ samples from the posterior $\omega_s \sim p(\omega|\mathcal{D})$ as
 
