@@ -11,7 +11,7 @@ If you do not have a CUDA GPU, you should consider using Google Colab with GPU r
 ### Why GPU?
 
 1. By moving the core computations to the GPU, the training of deep learning models can be accelerated by more than one order of magnitude.
-2. With PyTorch it is relatively straightforward to implement that. You will often see lines line `device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')` and `inputs, labels = data[0].to(device), data[1].to(device)`.
+2. With PyTorch it is relatively straightforward to implement that. You will often see lines like `device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')` and `inputs, labels = data[0].to(device), data[1].to(device)`.
 
 ## Windows vs Unix (Linux, MacOS)
 
@@ -24,21 +24,21 @@ When to use Colab?
 - For demonstration purposes
 - If you don't have a CUDA GPU
 
-Why not to use Colab?
+When not to use Colab?
 - Session expire after some time, see [Google Colab session timeout](https://stackoverflow.com/questions/54057011/google-colab-session-timeout). This means that any files other than the notebook itself will be deleted forever.
 - The hardware you get for free is not the best one. If you have better hardware, don't use Colab.
-- If you want to work on a long-term project, you would need to set up the environment every time for scratch. Locally you could use a virtual environment
+- If you want to work on a long-term project, you would need to set up the Colab environment every time for scratch. In contrast, when working locally you could use a virtual environment which you set up once in the beginning.
 
 **Local IDEs (opposed to the web IDE Google Colab)**
 
-Just pick any of the above mentioned: VS Code, PyCharm, Spyder, etc. They have more or less the same functionality and the choise is mainly based on a personal preference rather that software constraints.
+Just pick any of the above mentioned: VS Code, PyCharm, Spyder, etc. They have more or less the same functionality and the choise is mainly based on a personal preference rather than software constraints.
 
 ## Environments
 
 There are two very popular ways to manage Python environments:
 - Conda (Miniconda or Anaconda) - If you see a repository whose dependencies are described in a `environment.yml` file, then conda was used to create the environment
 ```bash
-conda env create --file environment.yml
+conda env create --file environment.yml # creates a venv from that .yml file
 conda activate <ENV_NAME> # this name is typically in the top-most line of the .yml file
 ```
 - Pip - If you see a repository whose dependencies are described in a `requirements.txt` file, then pip was used to create the environment
@@ -47,7 +47,7 @@ python3 -m venv <ENV_NAME>
 source activate <ENV_NAME>/bin/activate
 pip install -r requirements.txt
 ```
-There are many tutorial on the internet how to set up such an environment. Check them for yourself.
+There are many tutorials on the internet on how to set up such an environment. Check them for yourself.
 
 ### Why virtual environment? 
 
@@ -56,4 +56,22 @@ There are many tutorial on the internet how to set up such an environment. Check
 
 ## `.py` vs `.ipynb`
 
-Python files (`.py`) offer more flexibility, powerful debugging options, OOP, etc. They should be the preferred choice. Notebooks (`.ipynb`) are designed to be used as single projects on themselves or for demonstration purposes.
+Python files (`.py`) offer more flexibility, powerful debugging options, OOP, etc. They should be the preferred choice. Jupyter notebooks (`.ipynb`) are designed to be used as single projects on themselves or for demonstration purposes. In this course, all exercises are in separate notebooks, and also the practical part of the exam will be a notebook.
+
+### Using Notebooks
+If you work on a **Linux or MacOS** device, then you should be able to run notebooks in the same IDE you use for coding, e.g. VS Code.
+
+However, on **Windows** this might not work for multiple reasons, and as we said above we do not provide support for running code on Windows. 
+
+```{admonition} Notebooks on Windows (contributed by Armin Illerhaus)
+:class: hint
+
+I didn't find a way to work with Jupyter notebooks in Spyder on Windows. There is one hint on the how to pages that the add-on for Spyder doesn't work with standalone Windows versions. I managed to make it work with the jupyter notebook in the browser (see [that](https://www.geeksforgeeks.org/using-jupyter-notebook-in-virtual-environment/)):
+
+1. Open Anaconda Navigator.
+2. Go to environment and open `sciml` environment
+3. Right klick on the environment and open terminal
+4. `ipython kernel install --user --name=sciml` with user not changed
+5. Open Jupiter in any browser and select as Kernel the `sciml` environment
+```
+

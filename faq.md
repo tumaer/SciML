@@ -9,6 +9,7 @@ There exist a number of resources to run the tutorials online, and also work on 
 2. [**AWS SageMaker Studio Lab**](https://aws.amazon.com/sagemaker/studio-lab/) new-ish competitor to Google Colab. Pretty much the same as Google Colab, just running on Amazon Web-Services.
 3. [**PaperSpace Gradient**](https://www.paperspace.com/gradient) Hosted JuPyter runtime on the cloud with pre-installed machine learning packages.
 
+Look at [](software.md) for more details on the software setup.
 
 ## 2. I have a question which is not suitable for the Moodle, who should I contact?
 

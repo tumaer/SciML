@@ -20,7 +20,11 @@ The course breaks down into an introduction to the topic, followed by 4 core con
 
 ## Contributors
 
-Thanks to all contributors. Github names, if available.
+Thanks to all contributors! Github names, if available.
+
+### Contributed content
+
+1. Armin Illerhaus - Notebooks on Windows
 
 ### Content fixes
 
