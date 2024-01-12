@@ -483,12 +483,6 @@ document.write(`
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The tensorboard extension is already loaded. To reload it, use:
-  %reload_ext tensorboard
-</pre></div>
-</div>
-</div>
 </div>
 <section id="training-a-classifier">
 <h2><span class="section-number">6.1. </span>Training a Classifier<a class="headerlink" href="#training-a-classifier" title="Permalink to this heading">#</a></h2>
@@ -497,8 +491,8 @@ document.write(`
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># the transform is a preprocessing step over the data before feeding it to the model.</span>
 <span class="c1"># The `ToTensor` transform converts the PIL image to a tensor with values in the range</span>
-<span class="c1"># [0, 1]. The `Normalize` transform applies input normalization which you have seen in </span>
-<span class="c1"># the &quot;Tricks of Optimization&quot; lecture. </span>
+<span class="c1"># [0, 1]. The `Normalize` transform applies input normalization which you have seen in</span>
+<span class="c1"># the &quot;Tricks of Optimization&quot; lecture.</span>
 <span class="n">transform</span> <span class="o">=</span> <span class="n">transforms</span><span class="o">.</span><span class="n">Compose</span><span class="p">(</span>
     <span class="p">[</span><span class="n">transforms</span><span class="o">.</span><span class="n">ToTensor</span><span class="p">(),</span>
      <span class="n">transforms</span><span class="o">.</span><span class="n">Normalize</span><span class="p">((</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">))])</span>
@@ -519,11 +513,18 @@ document.write(`
 
 <span class="n">classes</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;plane&#39;</span><span class="p">,</span> <span class="s1">&#39;car&#39;</span><span class="p">,</span> <span class="s1">&#39;bird&#39;</span><span class="p">,</span> <span class="s1">&#39;cat&#39;</span><span class="p">,</span>
            <span class="s1">&#39;deer&#39;</span><span class="p">,</span> <span class="s1">&#39;dog&#39;</span><span class="p">,</span> <span class="s1">&#39;frog&#39;</span><span class="p">,</span> <span class="s1">&#39;horse&#39;</span><span class="p">,</span> <span class="s1">&#39;ship&#39;</span><span class="p">,</span> <span class="s1">&#39;truck&#39;</span><span class="p">)</span>
+<span class="c1"># print(&quot;Number of training batches: &quot;, len(trainloader))  # 1250</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Files already downloaded and verified
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to ./data/cifar-10-python.tar.gz
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|██████████| 170498071/170498071 [00:03&lt;00:00, 42983432.61it/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Extracting ./data/cifar-10-python.tar.gz to ./data
 Files already downloaded and verified
 </pre></div>
 </div>
@@ -566,19 +567,24 @@ Shapes of images: torch.Size([4, 3, 32, 32]) and labels: torch.Size([4])
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Net</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">))</span> <span class="c1"># (in_channels, out_channels, kernel_size) -&gt; 6x28x28</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pool</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># -&gt; 6x14x14</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conv2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Conv2d</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="c1"># -&gt; 16x10x10</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fc1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">16</span> <span class="o">*</span> <span class="mi">5</span> <span class="o">*</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>  <span class="c1"># (in_features, out_features)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">120</span><span class="p">,</span> <span class="mi">84</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="mi">84</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="c1"># print(f&quot;x.shape = {x.shape}&quot;)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pool</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conv2</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+        <span class="c1"># print(f&quot;x.shape = {x.shape}&quot;)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># flatten all dimensions except batch</span>
+        <span class="c1"># print(f&quot;x.shape = {x.shape}&quot;)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="c1"># print(f&quot;x.shape = {x.shape}&quot;)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fc2</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="c1"># print(f&quot;x.shape = {x.shape}&quot;)</span>
         <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fc3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">x</span>
 </pre></div>
@@ -591,6 +597,23 @@ Shapes of images: torch.Size([4, 3, 32, 32]) and labels: torch.Size([4])
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">net</span> <span class="o">=</span> <span class="n">Net</span><span class="p">()</span>
 <span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">CrossEntropyLoss</span><span class="p">()</span>
 <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">momentum</span><span class="o">=</span><span class="mf">0.9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if we use the commented out code in the model definition, we get these shapes</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>x.shape = torch.Size([4, 6, 14, 14])
+x.shape = torch.Size([4, 16, 5, 5])
+x.shape = torch.Size([4, 400])
+x.shape = torch.Size([4, 120])
+x.shape = torch.Size([4, 84])
 </pre></div>
 </div>
 </div>
@@ -629,26 +652,19 @@ Shapes of images: torch.Size([4, 3, 32, 32]) and labels: torch.Size([4])
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 1.486
-[1,  4000] loss: 1.424
-[1,  6000] loss: 1.403
-[1,  8000] loss: 1.362
-[1, 10000] loss: 1.342
-[1, 12000] loss: 1.316
-[2,  2000] loss: 1.225
-[2,  4000] loss: 1.237
-[2,  6000] loss: 1.219
-[2,  8000] loss: 1.201
-[2, 10000] loss: 1.192
-[2, 12000] loss: 1.203
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 2.160
+[1,  4000] loss: 1.799
+[1,  6000] loss: 1.644
+[1,  8000] loss: 1.558
+[1, 10000] loss: 1.496
+[1, 12000] loss: 1.448
+[2,  2000] loss: 1.392
+[2,  4000] loss: 1.368
+[2,  6000] loss: 1.349
+[2,  8000] loss: 1.290
+[2, 10000] loss: 1.307
+[2, 12000] loss: 1.264
 Finished Training
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">writer</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -660,24 +676,18 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reusing TensorBoard on port 6006 (pid 66592), started 0:00:02 ago. (Use &#39;!kill 66592&#39; to kill it.)
-</pre></div>
-</div>
-<div class="output text_html">
-      <iframe id="tensorboard-frame-a63026533c7e5b49" width="100%" height="800" frameborder="0">
-      </iframe>
-      <script>
-        (function() {
-          const frame = document.getElementById("tensorboard-frame-a63026533c7e5b49");
-          const url = new URL("http://localhost");
-          const port = 6006;
-          if (port) {
-            url.port = port;
-          }
-          frame.src = url;
+<script type="application/javascript">
+        (async () => {
+            const url = new URL(await google.colab.kernel.proxyPort(6006, {'cache': true}));
+            url.searchParams.set('tensorboardColab', 'true');
+            const iframe = document.createElement('iframe');
+            iframe.src = url;
+            iframe.setAttribute('width', '100%');
+            iframe.setAttribute('height', '800');
+            iframe.setAttribute('frameborder', 0);
+            document.body.appendChild(iframe);
         })();
-      </script>
-    </div></div>
+    </script></div>
 </div>
 <p>Get a prediction over one of the test batches</p>
 <div class="cell docutils container">
@@ -698,7 +708,7 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted:  cat   plane truck plane
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Predicted:  cat   ship  ship  ship 
 GroundTruth:  cat   ship  ship  plane
 </pre></div>
 </div>
@@ -759,16 +769,16 @@ GroundTruth:  cat   ship  ship  plane
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy for class: plane is 66.4 %
-Accuracy for class: car   is 44.2 %
-Accuracy for class: bird  is 28.2 %
-Accuracy for class: cat   is 24.7 %
-Accuracy for class: deer  is 45.6 %
-Accuracy for class: dog   is 66.4 %
-Accuracy for class: frog  is 77.0 %
-Accuracy for class: horse is 71.6 %
-Accuracy for class: ship  is 48.8 %
-Accuracy for class: truck is 78.9 %
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Accuracy for class: plane is 59.9 %
+Accuracy for class: car   is 74.4 %
+Accuracy for class: bird  is 38.6 %
+Accuracy for class: cat   is 39.7 %
+Accuracy for class: deer  is 51.2 %
+Accuracy for class: dog   is 41.8 %
+Accuracy for class: frog  is 58.4 %
+Accuracy for class: horse is 60.7 %
+Accuracy for class: ship  is 76.0 %
+Accuracy for class: truck is 56.8 %
 </pre></div>
 </div>
 </div>
@@ -794,29 +804,26 @@ Accuracy for class: truck is 78.9 %
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Wed Jan 18 17:22:06 2023       
-+-----------------------------------------------------------------------------+
-| NVIDIA-SMI 525.60.11    Driver Version: 525.60.11    CUDA Version: 12.0     |
-|-------------------------------+----------------------+----------------------+
-| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-|                               |                      |               MIG M. |
-|===============================+======================+======================|
-|   0  NVIDIA GeForce ...  Off  | 00000000:01:00.0 Off |                  N/A |
-| N/A   60C    P8     5W /  N/A |   1256MiB /  8192MiB |      0%      Default |
-|                               |                      |                  N/A |
-+-------------------------------+----------------------+----------------------+
-                                                                               
-+-----------------------------------------------------------------------------+
-| Processes:                                                                  |
-|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-|        ID   ID                                                   Usage      |
-|=============================================================================|
-|    0   N/A  N/A      1864      G   /usr/lib/xorg/Xorg                  4MiB |
-|    0   N/A  N/A      2964      G   /usr/lib/xorg/Xorg                124MiB |
-|    0   N/A  N/A     25178    C+G   ...969673609438195022,131072      496MiB |
-|    0   N/A  N/A     53180      C   ...ciML22-23/venv/bin/python      624MiB |
-+-----------------------------------------------------------------------------+
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Fri Jan 12 09:12:32 2024       
++---------------------------------------------------------------------------------------+
+| NVIDIA-SMI 535.104.05             Driver Version: 535.104.05   CUDA Version: 12.2     |
+|-----------------------------------------+----------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |         Memory-Usage | GPU-Util  Compute M. |
+|                                         |                      |               MIG M. |
+|=========================================+======================+======================|
+|   0  Tesla T4                       Off | 00000000:00:04.0 Off |                    0 |
+| N/A   39C    P8               9W /  70W |      3MiB / 15360MiB |      0%      Default |
+|                                         |                      |                  N/A |
++-----------------------------------------+----------------------+----------------------+
+                                                                                         
++---------------------------------------------------------------------------------------+
+| Processes:                                                                            |
+|  GPU   GI   CI        PID   Type   Process name                            GPU Memory |
+|        ID   ID                                                             Usage      |
+|=======================================================================================|
+|  No running processes found                                                           |
++---------------------------------------------------------------------------------------+
 </pre></div>
 </div>
 </div>
@@ -830,11 +837,11 @@ Accuracy for class: truck is 78.9 %
 
 <span class="n">writer</span> <span class="o">=</span> <span class="n">SummaryWriter</span><span class="p">(</span><span class="s1">&#39;runs/cifar10_experiment_1&#39;</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span> 
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">):</span>
 
     <span class="n">running_loss</span> <span class="o">=</span> <span class="mf">0.0</span>
     <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">data</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">trainloader</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
-        
+
         <span class="c1"># the only difference is that we move the data to the GPU here</span>
         <span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 
@@ -846,7 +853,7 @@ Accuracy for class: truck is 78.9 %
         <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
 
         <span class="n">running_loss</span> <span class="o">+=</span> <span class="n">loss</span><span class="o">.</span><span class="n">item</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2000</span> <span class="o">==</span> <span class="mi">1999</span><span class="p">:</span>    
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">2000</span> <span class="o">==</span> <span class="mi">1999</span><span class="p">:</span>
             <span class="n">writer</span><span class="o">.</span><span class="n">add_scalar</span><span class="p">(</span><span class="s1">&#39;train/loss&#39;</span><span class="p">,</span> <span class="n">running_loss</span> <span class="o">/</span>
                               <span class="mi">2000</span><span class="p">,</span> <span class="n">epoch</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">trainloader</span><span class="p">)</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;[</span><span class="si">{</span><span class="n">epoch</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="si">:</span><span class="s1">5d</span><span class="si">}</span><span class="s1">] loss: </span><span class="si">{</span><span class="n">running_loss</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2000</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
@@ -858,18 +865,18 @@ Accuracy for class: truck is 78.9 %
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 2.201
-[1,  4000] loss: 1.878
-[1,  6000] loss: 1.699
-[1,  8000] loss: 1.603
-[1, 10000] loss: 1.553
-[1, 12000] loss: 1.487
-[2,  2000] loss: 1.429
-[2,  4000] loss: 1.398
-[2,  6000] loss: 1.372
-[2,  8000] loss: 1.348
-[2, 10000] loss: 1.325
-[2, 12000] loss: 1.304
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1,  2000] loss: 2.171
+[1,  4000] loss: 1.857
+[1,  6000] loss: 1.667
+[1,  8000] loss: 1.567
+[1, 10000] loss: 1.495
+[1, 12000] loss: 1.455
+[2,  2000] loss: 1.372
+[2,  4000] loss: 1.348
+[2,  6000] loss: 1.337
+[2,  8000] loss: 1.282
+[2, 10000] loss: 1.288
+[2, 12000] loss: 1.236
 Finished Training
 </pre></div>
 </div>
@@ -878,6 +885,14 @@ Finished Training
 </section>
 <section id="pretraining">
 <h2><span class="section-number">6.2. </span>Pretraining<a class="headerlink" href="#pretraining" title="Permalink to this heading">#</a></h2>
+<p>The idea of pretraining is to utilize a large model pretraned on a large dataset, and then with limited amount of compute to fute this model to your own, small dataset. There are two commmon strategies to approach that:</p>
+<ul class="simple">
+<li><p>Freezing all but the last: leave the weights of the pretrained model as they are except for the last layer, and then only train this last layer on your data.</p></li>
+<li><p>Finetuning: train the whole pretrained network on your data for a few epochs, but make sure that you stop that process before overfitting kicks in.</p></li>
+</ul>
+<p>Both these approaches rely on the pretrained model being pretrained on data which is somewhat similar to your data, so that you can reuse the rich feature extraction capabilities of the pretrained model also for your tasks.</p>
+<p><img alt="" src="https://miguelgfierro.com/img/upload/2021/03/18/finetunning_vs_freezing.svg" /></p>
+<p>Image source <a class="reference external" href="https://miguelgfierro.com/blog/2017/a-gentle-introduction-to-transfer-learning-for-image-classification/">here</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">print_function</span><span class="p">,</span> <span class="n">division</span>
@@ -894,6 +909,7 @@ Finished Training
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">copy</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
 
 <span class="n">cudnn</span><span class="o">.</span><span class="n">benchmark</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">ion</span><span class="p">()</span>   <span class="c1"># interactive mode</span>
@@ -901,7 +917,22 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x7f8193a23d30&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;contextlib.ExitStack at 0x77ffbf7115a0&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># download the dataset provided here</span>
+<span class="c1"># https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html</span>
+<span class="c1"># and put it in the same directory as this notebook</span>
+
+<span class="c1"># if you want to clean the data directory, you can do so with</span>
+<span class="c1"># !rm -rf data/*</span>
+
+<span class="c1"># unzip the data into the data directory</span>
+<span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s2">&quot;hymenoptera_data.zip&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s2">&quot;data/&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -940,6 +971,12 @@ Finished Training
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py:557: UserWarning: This DataLoader will create 4 worker processes in total. Our suggested max number of worker in current system is 2, which is smaller than what this DataLoader is going to create. Please be aware that excessive worker creation might get DataLoader running slow or even freeze, lower the worker number to avoid potential slowness/freeze if necessary.
+  warnings.warn(_create_warning_msg(
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -955,7 +992,6 @@ Finished Training
         <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
     <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>  <span class="c1"># pause a bit so that plots are updated</span>
 
-
 <span class="c1"># Get a batch of training data</span>
 <span class="n">inputs</span><span class="p">,</span> <span class="n">classes</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="nb">iter</span><span class="p">(</span><span class="n">dataloaders</span><span class="p">[</span><span class="s1">&#39;train&#39;</span><span class="p">]))</span>
 
@@ -967,7 +1003,7 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8d160c1808eacae33f6e4266e5bca191cb5b320ba3b511c9b2c5a287a89ef777.png" src="../_images/8d160c1808eacae33f6e4266e5bca191cb5b320ba3b511c9b2c5a287a89ef777.png" />
+<img alt="../_images/e89858d51941ae95bc8deed5d2b48d6d5d38585b3422f65a1c3b11a74348ea49.png" src="../_images/e89858d51941ae95bc8deed5d2b48d6d5d38585b3422f65a1c3b11a74348ea49.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1073,7 +1109,7 @@ Finished Training
 </div>
 </div>
 </div>
-<p>Finetuning a CNN</p>
+<p><strong>Finetuning a CNN</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_ft</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1095,10 +1131,12 @@ Finished Training
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/home/artur/Dropbox/ARTUR_Archiv/PhD/Lehre/SciML22-23/jupyter_book/SciML22-23/venv/lib/python3.9/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter &#39;pretrained&#39; is deprecated since 0.13 and may be removed in the future, please use &#39;weights&#39; instead.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/usr/local/lib/python3.10/dist-packages/torchvision/models/_utils.py:208: UserWarning: The parameter &#39;pretrained&#39; is deprecated since 0.13 and may be removed in the future, please use &#39;weights&#39; instead.
   warnings.warn(
-/home/artur/Dropbox/ARTUR_Archiv/PhD/Lehre/SciML22-23/jupyter_book/SciML22-23/venv/lib/python3.9/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for &#39;weights&#39; are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
+/usr/local/lib/python3.10/dist-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for &#39;weights&#39; are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.
   warnings.warn(msg)
+Downloading: &quot;https://download.pytorch.org/models/resnet18-f37072fd.pth&quot; to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+100%|██████████| 44.7M/44.7M [00:00&lt;00:00, 95.4MB/s]
 </pre></div>
 </div>
 </div>
@@ -1113,16 +1151,16 @@ Finished Training
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0/1
 ----------
-train Loss: 0.5893 Acc: 0.7172
-val Loss: 0.2793 Acc: 0.9085
+train Loss: 0.5745 Acc: 0.7254
+val Loss: 0.2001 Acc: 0.9412
 
 Epoch 1/1
 ----------
-train Loss: 0.4084 Acc: 0.8402
-val Loss: 0.2895 Acc: 0.8954
+train Loss: 0.5069 Acc: 0.7869
+val Loss: 0.2088 Acc: 0.9346
 
-Training complete in 0m 27s
-Best val Acc: 0.908497
+Training complete in 1m 47s
+Best val Acc: 0.941176
 </pre></div>
 </div>
 </div>
@@ -1134,15 +1172,15 @@ Best val Acc: 0.908497
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8b671cbfc727745ea845d1eb859d83a3578872b51ed9b45992797da0087f0ef1.png" src="../_images/8b671cbfc727745ea845d1eb859d83a3578872b51ed9b45992797da0087f0ef1.png" />
-<img alt="../_images/1d8518d55c812fbd803442658f8233d9afba0677344e58c3f422aa1f4d3bed99.png" src="../_images/1d8518d55c812fbd803442658f8233d9afba0677344e58c3f422aa1f4d3bed99.png" />
-<img alt="../_images/050bc5b97514d3faa0ca32fc3b9338fc71c0f4186eb10c184840ef11e0b4211c.png" src="../_images/050bc5b97514d3faa0ca32fc3b9338fc71c0f4186eb10c184840ef11e0b4211c.png" />
-<img alt="../_images/4bcbeb6ab908eb0c8148b9f382e79b310e49b545dd5c3ee11dd3f867808328ff.png" src="../_images/4bcbeb6ab908eb0c8148b9f382e79b310e49b545dd5c3ee11dd3f867808328ff.png" />
-<img alt="../_images/729c0fae898c624013bd110be3f2c97b48da6c982d69df7fa32eb4163d0a91b5.png" src="../_images/729c0fae898c624013bd110be3f2c97b48da6c982d69df7fa32eb4163d0a91b5.png" />
-<img alt="../_images/0f3b5f3e6568877c11712a254227158c2e6f9475bda83d99655a1c48907b144e.png" src="../_images/0f3b5f3e6568877c11712a254227158c2e6f9475bda83d99655a1c48907b144e.png" />
+<img alt="../_images/cbf49dcd60989646b0ba56716a7858eef10729d443587b018c45b457b582dbd0.png" src="../_images/cbf49dcd60989646b0ba56716a7858eef10729d443587b018c45b457b582dbd0.png" />
+<img alt="../_images/d2b12ced0cf50e1b83ac3a73e66c7df42001cdcd9fe530ebc7d296ca31e10cf5.png" src="../_images/d2b12ced0cf50e1b83ac3a73e66c7df42001cdcd9fe530ebc7d296ca31e10cf5.png" />
+<img alt="../_images/78d7ba2d0664a82e83bc39d2e43212800555a1a9779645a24725ebdd7b28def4.png" src="../_images/78d7ba2d0664a82e83bc39d2e43212800555a1a9779645a24725ebdd7b28def4.png" />
+<img alt="../_images/7b6d8528c3fb8a38a718671605c190b1165688743005ba77564c68a38322ac87.png" src="../_images/7b6d8528c3fb8a38a718671605c190b1165688743005ba77564c68a38322ac87.png" />
+<img alt="../_images/e91ff5f72c6cc8d339e78ee81f71b1999e05eab4e89e20a3c3e3deaccdc47390.png" src="../_images/e91ff5f72c6cc8d339e78ee81f71b1999e05eab4e89e20a3c3e3deaccdc47390.png" />
+<img alt="../_images/0e1dc40a89d67a0bbfa4082a0f758385f933ef3ec47f280ea0b7b0d2b71c7daa.png" src="../_images/0e1dc40a89d67a0bbfa4082a0f758385f933ef3ec47f280ea0b7b0d2b71c7daa.png" />
 </div>
 </div>
-<p>Fixed feature extractor</p>
+<p><strong>Fixed feature extractor (Freezing all but the last layer)</strong></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_conv</span> <span class="o">=</span> <span class="n">torchvision</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">resnet18</span><span class="p">(</span><span class="n">pretrained</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1169,6 +1207,22 @@ Best val Acc: 0.908497
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># print the learnable (`requires_grad=True`) model parameters</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">model_conv</span><span class="o">.</span><span class="n">named_parameters</span><span class="p">():</span>
+    <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">requires_grad</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>fc.weight torch.Size([2, 512])
+fc.bias torch.Size([2])
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_conv</span> <span class="o">=</span> <span class="n">train_model</span><span class="p">(</span><span class="n">model_conv</span><span class="p">,</span> <span class="n">criterion</span><span class="p">,</span> <span class="n">optimizer_conv</span><span class="p">,</span>
                          <span class="n">exp_lr_scheduler</span><span class="p">,</span> <span class="n">num_epochs</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
@@ -1177,16 +1231,16 @@ Best val Acc: 0.908497
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epoch 0/1
 ----------
-train Loss: 0.6143 Acc: 0.7008
-val Loss: 0.2256 Acc: 0.9346
+train Loss: 0.5743 Acc: 0.6844
+val Loss: 0.2464 Acc: 0.9281
 
 Epoch 1/1
 ----------
-train Loss: 0.4605 Acc: 0.7828
-val Loss: 0.1802 Acc: 0.9477
+train Loss: 0.4083 Acc: 0.8115
+val Loss: 0.2295 Acc: 0.9216
 
-Training complete in 0m 12s
-Best val Acc: 0.947712
+Training complete in 0m 56s
+Best val Acc: 0.928105
 </pre></div>
 </div>
 </div>
@@ -1201,12 +1255,12 @@ Best val Acc: 0.947712
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/d5e0085e0384bd79bd6daaaca5bbb376946146c64cdfaedf3ae147677628ca4f.png" src="../_images/d5e0085e0384bd79bd6daaaca5bbb376946146c64cdfaedf3ae147677628ca4f.png" />
-<img alt="../_images/b79a0b3f33b6d0ae52d4731a0f631ad82fd191c0a38601d86dc82edeb985e8e6.png" src="../_images/b79a0b3f33b6d0ae52d4731a0f631ad82fd191c0a38601d86dc82edeb985e8e6.png" />
-<img alt="../_images/fb8fa3a63937ff858664561b63abbcda2641e0b02ec22e3cf35dedfb6b001cd2.png" src="../_images/fb8fa3a63937ff858664561b63abbcda2641e0b02ec22e3cf35dedfb6b001cd2.png" />
-<img alt="../_images/4ace9ac16cb052548f811ab8f084819bafe228a5da7104e1353b345db9c40386.png" src="../_images/4ace9ac16cb052548f811ab8f084819bafe228a5da7104e1353b345db9c40386.png" />
-<img alt="../_images/2ce8ae78a42ea7a61e793df000a94a9cba37fca76464d523be5d317a596cb278.png" src="../_images/2ce8ae78a42ea7a61e793df000a94a9cba37fca76464d523be5d317a596cb278.png" />
-<img alt="../_images/3641cb37942814a4c105db69b76db379ac10ecad9c5b9ca9d0b8504a085186e1.png" src="../_images/3641cb37942814a4c105db69b76db379ac10ecad9c5b9ca9d0b8504a085186e1.png" />
+<img alt="../_images/04664fa298683a5028ec907d0d5b624abbfe7d483dbc6f90cb0b188b807c1e66.png" src="../_images/04664fa298683a5028ec907d0d5b624abbfe7d483dbc6f90cb0b188b807c1e66.png" />
+<img alt="../_images/c72b7bf393c2d2582313b2a62066806e5b275b7281fcf4d7daa981f817e7b20a.png" src="../_images/c72b7bf393c2d2582313b2a62066806e5b275b7281fcf4d7daa981f817e7b20a.png" />
+<img alt="../_images/68f12b51014ea0f3b018b2d83495fe53ebb4a4ab4a642745d67bca342c271834.png" src="../_images/68f12b51014ea0f3b018b2d83495fe53ebb4a4ab4a642745d67bca342c271834.png" />
+<img alt="../_images/cb40e838df3d5874dd9c671140a9b175f41540c223ba0034402ad13312d04b5d.png" src="../_images/cb40e838df3d5874dd9c671140a9b175f41540c223ba0034402ad13312d04b5d.png" />
+<img alt="../_images/728794a8ab4190a8529b6334e09a663a3ab391029aeddb0abfcca63e64d25be8.png" src="../_images/728794a8ab4190a8529b6334e09a663a3ab391029aeddb0abfcca63e64d25be8.png" />
+<img alt="../_images/a7be5813c98ad3a459f982e76622ab8fd13c85201c1b58586286547e1ed526d9.png" src="../_images/a7be5813c98ad3a459f982e76622ab8fd13c85201c1b58586286547e1ed526d9.png" />
 </div>
 </div>
 </section>

@@ -80,9 +80,9 @@ Multilayer Perceptron (Source: [Training Deep Neural Networks](https://towardsda
 
 We could write down the stack of such layer-to-layer transformations as 
 
-$$h(x) = f_4 ( W_4 f_3 ( W_3 f_2(W_2 f_1(W_1 \mathbf{x})))).$$ (mlp_stack)
+$$h(x) = W_4 f_3 ( W_3 f_2(W_2 f_1(W_1 \mathbf{x}))).$$ (mlp_stack)
 
-In the image above, the black line connecting entry $i$ of the input with the corresponding entry $j$ of hidden layer 1 corresponds to the row $i$ and column $j$ of the learnable weights matrix $W_{1}$. For regression, typically, the last activation, here $f_4$, is the identity.
+In the image above, the black line connecting entry $i$ of the input with the corresponding entry $j$ of hidden layer 1 corresponds to the row $i$ and column $j$ of the learnable weights matrix $W_{1}$. Note that the output layer does not have an activation function - in the case of regression we typically stop with the linear transformation, and in the case of classification we typically apply the softmax function to the output vector.
 
 It is crucial to have non-linear activation functions. Why? Simply concatenating linear functions results in a new linear function! You immediately see it if you remove the activations $f_i$ in the equation above.
 
