@@ -450,14 +450,22 @@ document.write(`
 <h1><span class="section-number">7. </span>Recurrent Neural Networks<a class="headerlink" href="#recurrent-neural-networks" title="Permalink to this heading">#</a></h1>
 <p>At the end of this exercise you will know how to:</p>
 <ul class="simple">
-<li><p>Perform character-level classification with a Recurrent Neural Network</p></li>
+<li><p>Perform sequence classification with a character-level Recurrent Neural Network</p></li>
 </ul>
-<p>And most importantly, you should gain a much better feeling for typical sequence modeling pipelines. The trained model will be able to predict which language a name originates from.</p>
+<p>And most importantly, you should gain a much better feeling for typical sequence modeling pipelines. The trained model will be able to predict which language a name originates from. This tutorial is heavily based on <a class="reference external" href="https://pytorch.org/tutorials/intermediate/char_rnn_classification_tutorial.html">NLP From Scratch: Classifying Names with a Character-Level RNN</a>.</p>
 <p>We first have to begin by downloading the data</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>wget<span class="w"> </span>https://download.pytorch.org/tutorial/data.zip
 <span class="o">!</span>unzip<span class="w"> </span>data.zip
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># if you want to see the 10 top rows of one of these files, run:</span>
+<span class="c1"># !head -n 10 data/names/Arabic.txt</span>
 </pre></div>
 </div>
 </div>
@@ -667,6 +675,8 @@ category = Chinese / line = Miao
 <li><p>Back-propagate the loss</p></li>
 <li><p>Return the output and the loss</p></li>
 </ol>
+<p>For example, we would get the following compute graph if we pass the name “Ali” to the network:</p>
+<p><img alt="" src="../_images/rnn_exercise_nlp.jpeg" /></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">criterion</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">NLLLoss</span><span class="p">()</span>
