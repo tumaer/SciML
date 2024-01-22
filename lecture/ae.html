@@ -403,12 +403,16 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition">12.1. Singular Value Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition">12.1. Singular Value Decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moore-penrose-pseudo-inverse">12.1.1. Moore-Penrose pseudo-inverse</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">12.2. Principal Component Analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-issues-of-principal-components-analysis">12.2.1. Computational Issues of Principal Components Analysis</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">12.3. Autoencoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">12.4. Further References</a></li>
 </ul>
             </nav>
         </div>
@@ -423,20 +427,23 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="encoder-decoder-models">
 <h1><span class="section-number">12. </span>Encoder-Decoder Models<a class="headerlink" href="#encoder-decoder-models" title="Permalink to this heading">#</a></h1>
 <p>A great many models in machine learning build on the Encoder-Decoder paradigm, but what is the intuition behind said paradigm? The core intuition is that while our original data may be high-dimensional, a good prediction only depends on a few key sub-dimensions of the original data, and as such we are able to dimensionally reduce our original data through an <em>Encoder</em> before predicting or reconstructing our data onto the original data-plane with the <em>Decoder</em>.</p>
-<center>
-    <img src="https://i.imgur.com/N2yUDLh.png" width="400">
-</center>
+<figure class="align-center" id="ae-architecture">
+<a class="reference internal image-reference" href="../_images/ae_architecture.png"><img alt="../_images/ae_architecture.png" src="../_images/ae_architecture.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.1 </span><span class="caption-text">Autoencoder architecture (Adapted from <a class="reference external" href="https://lilianweng.github.io/posts/2018-08-12-vae/">lilianweng.github.io</a>).</span><a class="headerlink" href="#ae-architecture" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>The precursor to this paradigm is the realization which parameters/variables of our data are actually relevant. For this purpose we look at its roots in computational linear algebra beginning with the <em>Singular Value Decomposition</em> to build towards the <em>Principal Component Analysis</em>, which subsequently feeds into <em>Autoencoder</em> which are epitome of the Encoder-Decoder paradigm and build on the key insights from the Principal Component Analysis.</p>
 <section id="singular-value-decomposition">
 <h2><span class="section-number">12.1. </span>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this heading">#</a></h2>
 <p>Generalizing the eigendecomposition of small matrices, the singular value decomposition allows for the factorization of real or complex matrices. For any matrix this decomposition can be computed, but only square matrices with a full set of linearly independent eigen-vectors can be diagonalized. Any <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> can be factored as</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-svd">
+<span class="eqno">(12.1)<a class="headerlink" href="#equation-svd" title="Permalink to this equation">#</a></span>\[
 A = U \Sigma V^{\top}
 \]</div>
 <p>where <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> is a unitary matrix, where the columns are eigenvectors of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>, <span class="math notranslate nohighlight">\(\Sigma\)</span> is a diagonal matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span>, and <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span> is a unitary matrix whose columns are eigenvectors of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>. I.e.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-svd-sigma">
+<span class="eqno">(12.2)<a class="headerlink" href="#equation-svd-sigma" title="Permalink to this equation">#</a></span>\[\begin{split}
 \Sigma = \left[ 
     \begin{matrix}
         \sigma_{1} &amp; 0 &amp; \ldots &amp; 0 &amp; 0 \\
@@ -448,13 +455,13 @@ A = U \Sigma V^{\top}
 \right]
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\sigma_{n}\)</span> can also be 0. The singular values <span class="math notranslate nohighlight">\(\sigma_{1} \geq \ldots \sigma_{r} \geq 0\)</span> are square roots of the eigenvalues of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>, and <span class="math notranslate nohighlight">\(r = \text{rank}(A)\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-svd-ata">
+<span class="eqno">(12.3)<a class="headerlink" href="#equation-svd-ata" title="Permalink to this equation">#</a></span>\[
 A^{\top}A = V D V^{\top} \in \mathbb{R}^{n \times n}
 \]</div>
-<p>if symmetric, and real has n real eigenvalues. Here <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span>, columns are eigenvectors of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>, and <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{n \times n}\)</span> is the diagonal matrix of real eigenvalues.</p>
-<div class="math notranslate nohighlight">
-\[
+<p>if symmetric, and has <span class="math notranslate nohighlight">\(n\)</span> real eigenvalues. Here <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span>, columns are eigenvectors of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>, and <span class="math notranslate nohighlight">\(D \in \mathbb{R}^{n \times n}\)</span> is the diagonal matrix of real eigenvalues.</p>
+<div class="math notranslate nohighlight" id="equation-svd-aat">
+<span class="eqno">(12.4)<a class="headerlink" href="#equation-svd-aat" title="Permalink to this equation">#</a></span>\[
 A A^{\top} = U D' U^{\top} \in \mathbb{R}^{m \times m}
 \]</div>
 <p>if symmetric, and real has <span class="math notranslate nohighlight">\(m\)</span> real eigenvalues. In this case <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> of which the columns are eigenvectors of <span class="math notranslate nohighlight">\(AA^{\top}\)</span>, and <span class="math notranslate nohighlight">\(D' \in \mathbb{R}^{m \times m}\)</span> is a diagonal matrix of real eigenvalues. The geometric analogy of the singular value decomposition is then</p>
@@ -464,73 +471,83 @@ A A^{\top} = U D' U^{\top} \in \mathbb{R}^{m \times m}
 <li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> is the stretching</p></li>
 <li><p><span class="math notranslate nohighlight">\(V^{\top}\)</span> is the rotation/reflection</p></li>
 </ul>
-<p>broken down into its individual pieces</p>
-<center>
-    <img src="https://i.imgur.com/6wxWXqD.png">
-</center>
-<p>The singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> can then be expressed in terms of a basis of <span class="math notranslate nohighlight">\(\text{range}(A)\)</span> and a basis of <span class="math notranslate nohighlight">\(\text{range}(A^{\top})\)</span></p>
-<div class="math notranslate nohighlight">
-\[
+<p>Broken down into its individual pieces, we get the following commutative diagram:</p>
+<figure class="align-center" id="ae-svd-svg">
+<a class="reference internal image-reference" href="../_images/ae_svd.svg"><img alt="../_images/ae_svd.svg" src="../_images/ae_svd.svg" width="400px" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.2 </span><span class="caption-text">Decomposing the effect of a matrix transforming a vector into its SVD components (Adapted from <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Wikipedia</a>).</span><a class="headerlink" href="#ae-svd-svg" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> can then be expressed in terms of a basis of <span class="math notranslate nohighlight">\(\text{range}(A)\)</span> and a basis of <span class="math notranslate nohighlight">\(\text{range}(A^{\top})\)</span>.</p>
+<div class="math notranslate nohighlight" id="equation-svd-1">
+<span class="eqno">(12.5)<a class="headerlink" href="#equation-svd-1" title="Permalink to this equation">#</a></span>\[
 A = \sigma_{1} u_{1} v_{1}^{\top} + \ldots + \sigma_{r} u_{r} v_{r}^{\top}
 \]</div>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-svd-2">
+<span class="eqno">(12.6)<a class="headerlink" href="#equation-svd-2" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
-    \Longrightarrow A A^{\top} &amp;= V \Sigma^{\top} U^{\top} U \Sigma V^{\top} \\
+    \Longrightarrow A^{\top} A &amp;= V \Sigma^{\top} U^{\top} U \Sigma V^{\top} \\
     &amp;= V \left[\begin{matrix}
         \sigma_{1}^{2} &amp; &amp; \ldots &amp; &amp; 0 \\
          &amp; \ddots &amp; &amp; &amp; \\
          \vdots &amp; &amp; \sigma_{r}^{2} &amp; &amp; \vdots \\
          &amp; &amp; &amp; \ddots &amp; \\
          0 &amp; &amp; \ldots &amp; &amp; 0
-    \end{matrix}\right] V^{\top}
+    \end{matrix}\right] V^{\top},
 \end{align}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(V\)</span> is the eigenvector matrix (columns) of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>, and the large matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> is a diagonal matrix of eigenvalues of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>.</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<p>where <span class="math notranslate nohighlight">\(V\)</span> is the eigenvector matrix (columns) of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>, and the large matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> is a diagonal matrix of eigenvalues of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>. Also,</p>
+<div class="math notranslate nohighlight" id="equation-svd-3">
+<span class="eqno">(12.7)<a class="headerlink" href="#equation-svd-3" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
-    &amp;= A A^{\top} \\
+    A A^{\top} &amp;= U \Sigma V^{\top} V \Sigma^{\top} U^{\top} \\
     &amp;= U \left[\begin{matrix}
         \sigma_{1}^{2} &amp; &amp; \ldots &amp; &amp; 0 \\
         &amp; \ddots &amp; &amp; &amp; \\
         \vdots &amp; &amp; \sigma_{r}^{2} &amp; &amp; \vdots \\
         &amp; &amp; &amp; \ddots &amp; \\
         0 &amp; &amp; \ldots &amp; &amp; 0
-    \end{matrix}\right] U^{\top}
+    \end{matrix}\right] U^{\top},
 \end{align}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(U\)</span> is the eigenvector matrix (columns) of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>, and the large diagonal matrix consists of the eigenvalues of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>. Where we employ the singular value decomposition to e.g. compute the pseudo-inverse, also called the <em>Moore-Penrose Inverse</em> of a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>.</p>
-<p>We consider the task to solve for</p>
-<div class="math notranslate nohighlight">
-\[
-A \in \mathbb{R}, \quad x \in \mathbb{R}^{n}, \quad y \in \mathbb{R}^{m}
-\]</div>
-<p>the linear equation system</p>
-<div class="math notranslate nohighlight">
-\[
+<p>where <span class="math notranslate nohighlight">\(U\)</span> is the eigenvector matrix (columns) of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>, and the large diagonal matrix consists of the eigenvalues of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>. Graphically, this decomposition looks like that:</p>
+<figure class="align-center" id="ae-svd">
+<a class="reference internal image-reference" href="../_images/ae_svd.png"><img alt="../_images/ae_svd.png" src="../_images/ae_svd.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.3 </span><span class="caption-text">Singular value decompositions of a matrix <span class="math notranslate nohighlight">\(A=U\Sigma V^{\top}\)</span>. From left to right: <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(\Sigma\)</span>, <span class="math notranslate nohighlight">\(V^{\top}\)</span>.</span><a class="headerlink" href="#ae-svd" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<section id="moore-penrose-pseudo-inverse">
+<h3><span class="section-number">12.1.1. </span>Moore-Penrose pseudo-inverse<a class="headerlink" href="#moore-penrose-pseudo-inverse" title="Permalink to this heading">#</a></h3>
+<p>One application of singular value decomposition is to e.g. compute the pseudo-inverse, also called the <em>Moore-Penrose Inverse</em> of a matrix <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span>.</p>
+<p>Given <span class="math notranslate nohighlight">\(A \in \mathbb{R}\)</span>, <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{n}\)</span>, and <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{m}\)</span>, we consider the task of solving the following linear equation system for <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<div class="math notranslate nohighlight" id="equation-ae-linear-eq">
+<span class="eqno">(12.8)<a class="headerlink" href="#equation-ae-linear-eq" title="Permalink to this equation">#</a></span>\[
 Ax = y,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(y \notin \text{col}(A)\)</span>, not in the column space of A, is allowed.</p>
-<center>
-    <img src="https://i.imgur.com/NJLJhnA.png" width="400">
-</center>
-<p>Where <span class="math notranslate nohighlight">\(y'\)</span> is the orthogonal projection of <span class="math notranslate nohighlight">\(y\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>. With this transformation we are transforming the problem to solve to</p>
-<div class="math notranslate nohighlight">
-\[
+<p>where <span class="math notranslate nohighlight">\(y \notin \text{col}(A)\)</span>, i.e. not in the column space of A, is allowed.</p>
+<figure class="align-center" id="ae-moore-penrose">
+<a class="reference internal image-reference" href="../_images/ae_moore_penrose.png"><img alt="../_images/ae_moore_penrose.png" src="../_images/ae_moore_penrose.png" style="width: 400px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.4 </span><span class="caption-text">Geometric interpretation of Moore-Penrose inverse.</span><a class="headerlink" href="#ae-moore-penrose" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Here, <span class="math notranslate nohighlight">\(y'\)</span> is the orthogonal projection of <span class="math notranslate nohighlight">\(y\)</span> onto the column space of <span class="math notranslate nohighlight">\(A\)</span>. With this transformation we are transforming the problem to solve to</p>
+<div class="math notranslate nohighlight" id="equation-ae-mp-system">
+<span class="eqno">(12.9)<a class="headerlink" href="#equation-ae-mp-system" title="Permalink to this equation">#</a></span>\[
 A \bar{x} + \bar{y} = y \Longrightarrow A \bar{x} = y'
 \]</div>
 <p>which is exactly what we require the pseudo-inverse for as it assures for the error <span class="math notranslate nohighlight">\(|| \bar{y}|| = \min\)</span> to be minimal. We then employ the singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> to solve <span class="math notranslate nohighlight">\(Ax=y\)</span> in a least-squares sense:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-ae-mp1">
+<span class="eqno">(12.10)<a class="headerlink" href="#equation-ae-mp1" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     A &amp;= U \Sigma V^{\top} \\
     A^{+} &amp;= V \Sigma^{+} U^{\top}
 \end{align}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(A^{+}\)</span> is the pseudo-inverse with</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-ae-mp2">
+<span class="eqno">(12.11)<a class="headerlink" href="#equation-ae-mp2" title="Permalink to this equation">#</a></span>\[\begin{split}
 \Sigma^{+}_{ij} = \begin{cases}
     0, \quad i \neq j \\
     \frac{1}{\sigma_{i}}, \quad 1 \leq i \leq r \\
@@ -538,18 +555,18 @@ A \bar{x} + \bar{y} = y \Longrightarrow A \bar{x} = y'
 \end{cases}
 \end{split}\]</div>
 <p>As the approximation of <span class="math notranslate nohighlight">\(x\)</span>, we then compute</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-ae-mp3">
+<span class="eqno">(12.12)<a class="headerlink" href="#equation-ae-mp3" title="Permalink to this equation">#</a></span>\[
 \bar{x} = A^{+}y.
 \]</div>
 <ul class="simple">
 <li><p>If <span class="math notranslate nohighlight">\(A\)</span> is invertible <span class="math notranslate nohighlight">\(\Rightarrow A^{+} = A^{-1} \Rightarrow \bar{x} = x\)</span>, and we obtain the exact solution.</p></li>
-<li><p>If A is singular, and <span class="math notranslate nohighlight">\(y \in \text{col}(A)\)</span>, then <span class="math notranslate nohighlight">\(\bar{x}\)</span> is thge solution which minimizes <span class="math notranslate nohighlight">\(||\bar{x}||_{2}\)</span> as <span class="math notranslate nohighlight">\(( \bar{x} + \text{null}(A))\)</span>, and all are possible solutions.</p></li>
+<li><p>If A is singular, and <span class="math notranslate nohighlight">\(y \in \text{col}(A)\)</span>, then <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the solution which minimizes <span class="math notranslate nohighlight">\(||\bar{x}||_{2}\)</span> as <span class="math notranslate nohighlight">\(( \bar{x} + \text{null}(A))\)</span>, and all are possible solutions.</p></li>
 <li><p>If A is singular, and <span class="math notranslate nohighlight">\(y \notin \text{col}(A)\)</span>, then <span class="math notranslate nohighlight">\(\bar{x}\)</span> is the least-squares solution which minimizes <span class="math notranslate nohighlight">\(|| A \bar{x} - y ||_{2}\)</span></p></li>
 </ul>
 <p>Some useful properties of the pseudo-inverse are:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-ae-mp4">
+<span class="eqno">(12.13)<a class="headerlink" href="#equation-ae-mp4" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     A^{+}u_{i} &amp;= \begin{cases}
         \frac{1}{\sigma_{i}} v_{i}, \quad i \leq r \\
@@ -562,45 +579,48 @@ A \bar{x} + \bar{y} = y \Longrightarrow A \bar{x} = y'
 \end{align}
 \end{split}\]</div>
 <p>From which follows that <span class="math notranslate nohighlight">\(A \in \mathbb{R}^{m \times n}\)</span> with n linearly independent columns <span class="math notranslate nohighlight">\(A^{\top}A\)</span> is invertible. The following relations apply to <span class="math notranslate nohighlight">\(A^{+}\)</span>:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-ae-mp5">
+<span class="eqno">(12.14)<a class="headerlink" href="#equation-ae-mp5" title="Permalink to this equation">#</a></span>\[\begin{split}
 A^{+} = \begin{cases}
     (A^{\top} A)^{-1} A^{\top}, \quad \text{if } \text{rank}(A) = n \\
     A^{\top}(A A^{\top})^{-1}, \quad \text{if } \text{rank}(A) = m 
 \end{cases}
 \end{split}\]</div>
 </section>
+</section>
 <section id="principal-component-analysis">
 <h2><span class="section-number">12.2. </span>Principal Component Analysis<a class="headerlink" href="#principal-component-analysis" title="Permalink to this heading">#</a></h2>
 <p>To further discern information in our data which is not required for our defined task, be it classification or regression, we can apply principal component analysis to reduce the dimensionality. Principal component analysis finds the optimal linear map from a <span class="math notranslate nohighlight">\(D\)</span>-dimensional input, to the design matrix on a <span class="math notranslate nohighlight">\(K\)</span>-dimensional space. Expressing this relation in probabilistic terms we speak of a linear map <span class="math notranslate nohighlight">\(D \rightarrow K\)</span> with maximum variance <span class="math notranslate nohighlight">\(\Longrightarrow\)</span> “autocorrelation” of the input data. This linear map can be written the following way in matrix notation:</p>
-<center>
-    <img src="https://i.imgur.com/lo8pRJJ.png">
-</center>
-<div class="math notranslate nohighlight">
-\[
+<figure class="align-center" id="ae-svd-dataset">
+<a class="reference internal image-reference" href="../_images/ae_svd_dataset.png"><img alt="../_images/ae_svd_dataset.png" src="../_images/ae_svd_dataset.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.5 </span><span class="caption-text">SVD applied to dataset <span class="math notranslate nohighlight">\(X\)</span> of <span class="math notranslate nohighlight">\(D\)</span>-dimensional vectors <span class="math notranslate nohighlight">\(x_n\)</span>.</span><a class="headerlink" href="#ae-svd-dataset" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<div class="math notranslate nohighlight" id="equation-pca-svd">
+<span class="eqno">(12.15)<a class="headerlink" href="#equation-pca-svd" title="Permalink to this equation">#</a></span>\[
 X = U S V^{\top}
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(U\)</span> are the left singular vectors, <span class="math notranslate nohighlight">\(S\)</span> are the singular values, and <span class="math notranslate nohighlight">\(V^{\top}\)</span> are the right singular values. <strong>This dimensionality reduction is achieved through the singular value decomposition (SVD).</strong> What we seek to achieve is to compress is</p>
-<div class="math notranslate nohighlight">
-\[
-\underset{D \times N}{x} \rightarrow \underset{D \times N}{\hat{x}}
+<p>Here, <span class="math notranslate nohighlight">\(U\)</span> are the left singular vectors, <span class="math notranslate nohighlight">\(S\)</span> are the singular values, and <span class="math notranslate nohighlight">\(V^{\top}\)</span> are the right singular values. <strong>This dimensionality reduction is achieved through the singular value decomposition (SVD).</strong> What we seek to achieve is to compress</p>
+<div class="math notranslate nohighlight" id="equation-pca-compression">
+<span class="eqno">(12.16)<a class="headerlink" href="#equation-pca-compression" title="Permalink to this equation">#</a></span>\[
+\underset{D \times N}{x} \rightarrow \underset{D \times N}{\hat{x}}, 
 \]</div>
-<p>where the rank of <span class="math notranslate nohighlight">\(\hat{x}\)</span> is <span class="math notranslate nohighlight">\(K\)</span>. To derive the relation between SVD and PCA we can the use the following Lemma:</p>
-<div class="math notranslate nohighlight">
-\[
-||x - \hat{x}||_{F}^{2} \geq || x - \tilde{U} \tilde{U}^{\top}X||_{F}^{2} = \sum_{i \geq K + 1} s_{i}^{2}
+<p>where the rank of <span class="math notranslate nohighlight">\(\hat{x}\)</span> is <span class="math notranslate nohighlight">\(K\)</span>. To derive the relation between SVD and PCA we can use the following Lemma:</p>
+<div class="math notranslate nohighlight" id="equation-pca-lemma">
+<span class="eqno">(12.17)<a class="headerlink" href="#equation-pca-lemma" title="Permalink to this equation">#</a></span>\[
+||x - \hat{x}||_{F}^{2} \geq || x - \tilde{U} \tilde{U}^{\top}X||_{F}^{2} = \sum_{i \geq K + 1} s_{i}^{2}.
 \]</div>
-<div class="math notranslate nohighlight">
-\[
-X = USV^{\top}
-\]</div>
-<p>is then the SVD of <span class="math notranslate nohighlight">\(X\)</span>, where the <span class="math notranslate nohighlight">\(s_{i}\)</span> are the ordered singular values <span class="math notranslate nohighlight">\(s_{1} \geq s_{2} \geq \ldots \geq 0\)</span>, and <span class="math notranslate nohighlight">\(\tilde{U}\)</span> is a <span class="math notranslate nohighlight">\(D \times K\)</span> matrix</p>
-<center>
-    <img src="https://i.imgur.com/LcZzwwX.png" width="350">
-</center>
-<p>we then have</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<p>Here, the <span class="math notranslate nohighlight">\(s_{i}\)</span> are the ordered singular values <span class="math notranslate nohighlight">\(s_{1} \geq s_{2} \geq \ldots \geq 0\)</span>, and <span class="math notranslate nohighlight">\(\tilde{U}\)</span> is a <span class="math notranslate nohighlight">\(D \times K\)</span> matrix</p>
+<figure class="align-center" id="ae-utilde">
+<a class="reference internal image-reference" href="../_images/ae_utilde.png"><img alt="../_images/ae_utilde.png" src="../_images/ae_utilde.png" style="width: 200px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.6 </span><span class="caption-text"><span class="math notranslate nohighlight">\(\tilde{U}\)</span> matrix.</span><a class="headerlink" href="#ae-utilde" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<p>We then have</p>
+<div class="math notranslate nohighlight" id="equation-pca1">
+<span class="eqno">(12.18)<a class="headerlink" href="#equation-pca1" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     \tilde{U} \tilde{U}^{\top} X &amp;= \tilde{U} \tilde{U}^{\top} U S V^{\top} \\
         &amp;= \tilde{U} \tilde{S} V^{\top} \\
@@ -608,76 +628,79 @@ X = USV^{\top}
 \end{align}
 \end{split}\]</div>
 <p>as we have</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-pca2">
+<span class="eqno">(12.19)<a class="headerlink" href="#equation-pca2" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     \tilde{U}^{\top} U &amp;= \left[ I_{K \times K} | 0 \right] \in \mathbb{R}^{K \times D} \\
-    \tilde{U}U S &amp;= [I_{K \times K} | O] S = \tilde{S} \\
+    \tilde{U}U S &amp;= [I_{K \times K} | 0] S = \tilde{S} \\
     \tilde{U}S &amp;= [\tilde{U}|0] \tilde{S} = U \tilde{S}
 \end{align}
 \end{split}\]</div>
-<p>From a probabilistic view we are creating N independent identically distributed (i.i.d) D-dimensional vectors <span class="math notranslate nohighlight">\(x_{n}\)</span></p>
-<center>
-    <img src="https://i.imgur.com/9KLTDTT.png" width="350">
-</center>
+<p>From a probabilistic view we are creating N independent identically distributed (i.i.d) <span class="math notranslate nohighlight">\(D\)</span>-dimensional vectors <span class="math notranslate nohighlight">\(x_{n}\)</span>, see left side of <a class="reference internal" href="#ae-svd-dataset"><span class="std std-numref">Fig. 12.5</span></a>.</p>
 <p>We then have a sample mean, or sometimes called empirical mean, of</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-pca-mean">
+<span class="eqno">(12.20)<a class="headerlink" href="#equation-pca-mean" title="Permalink to this equation">#</a></span>\[
 \bar{x} = \frac{1}{N} \sum_{n=1}^{N}x_{n}
 \]</div>
 <p>and a sample co-variance (biased), or sometimes called empirical covariance, of</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-pca-cov">
+<span class="eqno">(12.21)<a class="headerlink" href="#equation-pca-cov" title="Permalink to this equation">#</a></span>\[
 \bar{\Sigma} = \frac{1}{N} \sum_{n=1}^{N} (x_{n} - \bar{x})(x_{u} - \bar{x})^{\top}
 \]</div>
 <p>for <span class="math notranslate nohighlight">\(N \rightarrow \infty\)</span> the two then converge to</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-pca3">
+<span class="eqno">(12.22)<a class="headerlink" href="#equation-pca3" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     \bar{x} &amp;\rightarrow \mathbb{E}[x_{n}] \\
     \bar{\Sigma} &amp;\rightarrow \mathbb{E}[(x_{n} - \bar{x})^{2}]
 \end{align}
 \end{split}\]</div>
 <p>if we assume for simplicity that <span class="math notranslate nohighlight">\(\bar{x} = 0\)</span>, then</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-pca4">
+<span class="eqno">(12.23)<a class="headerlink" href="#equation-pca4" title="Permalink to this equation">#</a></span>\[\begin{split}
 \Longrightarrow \begin{align*} 
     N \bar{\Sigma} &amp;= \sum_{n=1}^{N} x_{n} x_{n}^{\top} = X X^{\top} = U S V^{\top}V S^{\top} U^{\top} \\
     &amp;= U S S^{\top}U^{\top} = U S^{(2)}U^{\top}
 \end{align*}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(S^{(2)}\)</span> is a newly constructed singular value matrix. Comparing this with the compressed matrix</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-pca5">
+<span class="eqno">(12.24)<a class="headerlink" href="#equation-pca5" title="Permalink to this equation">#</a></span>\[
 \hat{X} = \tilde{U} \tilde{U}^{\top} X
 \]</div>
 <p>from which follows</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-pca6">
+<span class="eqno">(12.25)<a class="headerlink" href="#equation-pca6" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     N \hat{\bar{\Sigma}} &amp;= \hat{X} \hat{X}^{\top} \\
         &amp;= \tilde{U} \tilde{U}^{\top} X X \tilde{U}^{\top} \tilde{U} \\
         &amp;= \tilde{I} S^{(2)} \tilde{I} \\
-        &amp;= \tilde{S}^{(2)}
+        &amp;= \tilde{S}^{(2)}.
 \end{align}
 \end{split}\]</div>
-<p>The data vectors <span class="math notranslate nohighlight">\(\hat{x}_{n}\)</span> in <span class="math notranslate nohighlight">\(\hat{x}\)</span> are hence uncorrelated and <span class="math notranslate nohighlight">\(\hat{x}_{1}\)</span> has the highest variance by ordering of the singular values. If you were to example consider the case of classification, then the lesson of PCA is that data with higher variance is always better to classify, as it is the more important information contained in the dataset.</p>
+<p>The data vectors <span class="math notranslate nohighlight">\(\hat{x}_{n}\)</span> in <span class="math notranslate nohighlight">\(\hat{x}\)</span> are hence uncorrelated and <span class="math notranslate nohighlight">\(\hat{x}_{1}\)</span> has the highest variance by ordering of the singular values. If you were to consider the case of classification, then the lesson of PCA is that data with higher variance is always better to classify, as it is the more important information contained in the dataset.</p>
 <blockquote>
 <div><p>The number of principal components we consider is effectively a hyperparameter we have to carefully evaluate before making a choice. See the reconstruction error on MNIST vs the number of latent dimensions used by the PCA as an example of this.</p>
 </div></blockquote>
-<center>
-    <img src="https://i.imgur.com/K9CKm9C.png">
-</center>
+<figure class="align-center" id="ae-pca-components">
+<a class="reference internal image-reference" href="../_images/ae_pca_components.png"><img alt="../_images/ae_pca_components.png" src="../_images/ae_pca_components.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.7 </span><span class="caption-text">Recontruction error vs number of latent dimensions used by PCA (Souce: <span id="id1">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>).</span><a class="headerlink" href="#ae-pca-components" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <p>With this all being a bit abstract, here are a few examples of applications of PCA to increasingly more practical applications.</p>
-<center>
-    <img src="https://i.imgur.com/WqGL12F.png" width="400">
-</center>
-<center>
-    <img src="https://i.imgur.com/bGF1ygL.png">
-</center>
-<center>
-    <img src="https://i.imgur.com/h7GiQsW.png">
-</center>
+<figure class="align-center" id="ae-pca-2d1d">
+<a class="reference internal image-reference" href="../_images/ae_pca_2d1d.png"><img alt="../_images/ae_pca_2d1d.png" src="../_images/ae_pca_2d1d.png" style="width: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.8 </span><span class="caption-text">PCA projection of 2d data onto 1d (Souce: <span id="id2">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>).</span><a class="headerlink" href="#ae-pca-2d1d" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="ae-olivetti">
+<a class="reference internal image-reference" href="../_images/ae_olivetti.png"><img alt="../_images/ae_olivetti.png" src="../_images/ae_olivetti.png" style="width: 600px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 12.9 </span><span class="caption-text">(a) randomly chosen images from the Olivetti face database. (b) mean and first three PCA components (Souce: <span id="id3">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>).</span><a class="headerlink" href="#ae-olivetti" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <section id="computational-issues-of-principal-components-analysis">
 <h3><span class="section-number">12.2.1. </span>Computational Issues of Principal Components Analysis<a class="headerlink" href="#computational-issues-of-principal-components-analysis" title="Permalink to this heading">#</a></h3>
 <p>So far we have only considered the eigendecomposition of the covariance matrix, but computationally more advantageous is the correlation matrix instead. This avoids the potential of a “confused” PCA due to a mismatch between length-scales in the dataset.</p>
@@ -686,16 +709,16 @@ X = USV^{\top}
 <section id="autoencoder">
 <h2><span class="section-number">12.3. </span>Autoencoder<a class="headerlink" href="#autoencoder" title="Permalink to this heading">#</a></h2>
 <p>These dimensionality reduction techniques originating from computational linear algebra led to the construction of <em>Autoencoders</em> in machine learning, an encoder-decoder network focussed solely on the reconstruction error of a network-induced dimensionality reduction in the classical case. Considering the linear case we have the following network:</p>
-<div class="math notranslate nohighlight">
-\[\begin{split}
+<div class="math notranslate nohighlight" id="equation-ae-linear">
+<span class="eqno">(12.26)<a class="headerlink" href="#equation-ae-linear" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     z &amp;= W_{1} x \\
     \hat{x} &amp;= W_{2} z
 \end{align}
 \end{split}\]</div>
 <p>with <span class="math notranslate nohighlight">\(W_{1} \in \mathbb{R}^{L \times D}\)</span>, <span class="math notranslate nohighlight">\(W_{2} \in \mathbb{R}^{D \times L}\)</span>, and <span class="math notranslate nohighlight">\(L &lt; D\)</span>. This network can hence be simplified as <span class="math notranslate nohighlight">\(\hat{x} = W_{2}W_{1}x = Wx\)</span> as the output of the model. The autoencoder is trained for the reconstruction error</p>
-<div class="math notranslate nohighlight">
-\[
+<div class="math notranslate nohighlight" id="equation-ae-loss">
+<span class="eqno">(12.27)<a class="headerlink" href="#equation-ae-loss" title="Permalink to this equation">#</a></span>\[
 \mathcal{L}(W) = \sum_{n=1}^{N} ||x_{n} - Wx_{n}||_{2}^{2}
 \]</div>
 <p>which results in <span class="math notranslate nohighlight">\(\hat{W}\)</span> being an orthogonal projection onto the first L eigenvectors of the empirical covariance of the data. Hence being equivalent to performing PCA. This is where the real power of the autoencoder begins as it can be extended in many directions:</p>
@@ -705,6 +728,13 @@ X = USV^{\top}
 <li><p>Usage of specialized architectures like convolutions for more efficient computation</p></li>
 </ul>
 <p>There are no set limits to the addition of further quirks here.</p>
+</section>
+<section id="further-references">
+<h2><span class="section-number">12.4. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
+<ul class="simple">
+<li><p><span id="id4">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, 20.1 PCA and 20.3 Autoencoders</p></li>
+<li><p><a class="reference external" href="https://scikit-learn.org/stable/modules/decomposition.html#principal-component-analysis-pca">Principal component analysis in scikit-learn</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -771,12 +801,16 @@ X = USV^{\top}
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition">12.1. Singular Value Decomposition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition">12.1. Singular Value Decomposition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#moore-penrose-pseudo-inverse">12.1.1. Moore-Penrose pseudo-inverse</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-component-analysis">12.2. Principal Component Analysis</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#computational-issues-of-principal-components-analysis">12.2.1. Computational Issues of Principal Components Analysis</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#autoencoder">12.3. Autoencoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">12.4. Further References</a></li>
 </ul>
   </nav></div>
 
