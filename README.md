@@ -75,7 +75,7 @@ My figure (Source: {cite}`bishop2006`).
 And then refer to it using 
 
 ```
-this style: `{numref}`my_figure_name`.
+this style: {numref}`my_figure_name`.
 ```
 
 **Referencing**
