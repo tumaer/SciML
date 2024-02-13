@@ -167,7 +167,7 @@ width: 450px
 align: center
 name: cnn_multichannel
 ---
-Convolution of a 2-channel input with two kernels (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_convolutional-neural-networks/channels.html))
+Convolution of a 2-channel input with a 2x2 kernel (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_convolutional-neural-networks/channels.html))
 ```
 
 
