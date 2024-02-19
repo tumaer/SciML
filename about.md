@@ -29,6 +29,7 @@ Thanks to all contributors! Github names, if available.
 ### Content fixes
 
 1. Andreas Steger (AndSte01)
+2. Muhammet Ali Güldali
 
 
 ## Citation

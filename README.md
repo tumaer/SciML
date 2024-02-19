@@ -1,6 +1,6 @@
 # *Scientific Machine Learning for Engineers*
 
-All lecture and exercise materials related to this course will be uploaded here.
+These are the lecture and exercise materials related to *Introduction to Scientific Machine Learning for Engineers* at TUM. Full, readable version at [https://tumaer.github.io/SciML](https://tumaer.github.io/SciML)
 
 ## Exercise Setup
 
