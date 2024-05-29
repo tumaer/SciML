@@ -29,13 +29,17 @@ This integration may be very difficult, and is in most practical cases infeasibl
 
 ### Monte Carlo Integration
 
-Luckily, we do not necessarily need to compute the denominator. Computational Bayesian statistics relies on Monte Carlo samples from the posterior, which **does not require knowing the denominator** of the posterior.
+Luckily, we do not necessarily need to compute the denominator, because it is independent of $\theta$ and thus represents a constant scaling factor not relevant for the shape of the distribution $g(\theta|y)$. Computational Bayesian statistics relies on Monte Carlo samples from the posterior $g(\theta | y)$, which **does not require knowing the denominator** of the posterior.
 
-What we actually care about is making predictions about the output of a model $h_{\theta}(x)$, whose parameters $\theta$ are random variables. Without loss of generality, we can rewrite $h_{\theta}(x)$ to $h_x(\theta)$ as a function of the random variable $\theta$ evaluated at a particular $x$. Then the problem can be formulated as the expectation
+What we actually care about is making predictions about the output of a model $h_{\theta}(x)$, whose parameters $\theta$ are random variables. Without loss of generality, we can rewrite $h_{\theta}(x)$ to $h_x(\theta)$ as a function of the random variable $\theta$ evaluated at a particular $x$ (note: we use the following notation interchangably $h_{\theta}(x)=h_x(\theta)=h(x, \theta)$). Then the problem can be formulated as the expectation
 
-$$E[h_x(\theta|y)]=\int h_{x}(\theta) g(\theta|y) d\theta.$$ (mc_expectation)
+$$E_{\theta}[h_x(\theta|y)]=\int h_{x}(\theta) g(\theta|y) d\theta.$$ (mc_expectation)
 
-To approximate this integral with Monte Carlo sampling techniques, we then need to draw samples from the posterior $g(\theta|y)$. A process which given enough samples always converges to the true value of the denominator according to the [Monte Carlo theorem](http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf). 
+> Recall: $h_x(\theta)=h(x,\theta)$ is the machine learning model with parameters $\theta$ evaluated at input $x$. And $g(\theta|y)$ is the probability density function defining how often $\theta$ equals a given value. If we have the linear model $y\approx h(x,\theta) = \theta x$ and the ultimate underlying relationship between $x$ and $y$ is $y=2x$, but our dataset is corrupted with noise, it might make more sense to treat $\theta$ as, e.g., a Gaussian random variable $\theta\sim \mathcal{N}\mathcal(\mu,\sigma^2)$. After tuning the parameters $\mu$ and $\sigma$ of this distribution, we might get $\theta\sim \mathcal{N}(2.1,0.1^2)$. Now, to compute the expected value of $h(x',\theta)$ for a novel input $x'$ we would have to evaluate the integral in Eq. {eq}`mc_expectation`.
+
+> Note: this integral can be seen as the continuous version of the sum rule of probabilities from the GMM lecture, and integrating out $\theta$ is called marginalization (more on that in the [Gaussian Processes lecture](gp.md)). 
+
+To approximate this integral with Monte Carlo sampling techniques, we need to draw samples from the posterior $g(\theta|y)$. Given enough samples, this process always converges to the true value of the integral according to the [Monte Carlo theorem](http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf). 
 
 The approach consists of the following three steps:
 1. Generate i.i.d. random samples $\theta^{(i)}, \; i=1,2,...,N$ from the posterior $g(\theta|y)$.
@@ -44,10 +48,36 @@ The approach consists of the following three steps:
 
 $$E[h_x(\theta|y)]\approx \frac{1}{N}\sum_{i=1}^{N}h_x^{(i)}.$$ (mc_sum)
 
+**Exercise: approximating $\pi$**
+
+We know that the area of a circle with radius $r=1$ is $A_{circle}=\pi r^2=\pi$, and we also know that the area of the square enclosing this circle is $A_{square}=(2r)^2=4$. Given the ratio of the areas $A_{circle}/A_{square}=\pi/4$ and the geometries, estimate $\pi$.
+
+Solution: Let us look at the top right quadrand of the square. Adapting the three steps above to this use case leads to:
+1. Generate $N$ i.i.d. samples from the bivariate uniform distribution $\theta^{(i)}\sim U([0,1]^2)$ representing $g(\theta|y)$ from above.
+2. Evaluate $h^{(i)}=\mathbb{1}_{(\theta_1^2+\theta_2^2)<1}(\theta^{(i)}), \; \forall i \in N$, indicating with 1 that a point is contained in the circle, and 0 otherwise.
+3. Approximate $A_{circle}/A_{square}=\pi/4$ by the expectation of $h$, i.e. 
+
+$$\frac{\pi}{4}=E[h(\theta)] \approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}.$$ (mc_sum_ex)
+
+
+```{figure} https://upload.wikimedia.org/wikipedia/commons/d/d4/Pi_monte_carlo_all.gif
+---
+width: 400px
+align: center
+name: mc_integration
+---
+Monte Carlo method for approximating $\pi$ (Source: [Wikipedia](https://en.wikipedia.org/wiki/Monte_Carlo_method)).
+```
+
+Note: of course, we could have done the above integration using, e.g., the trapezoidal rule and discretize the domain with $\sqrt{N}$ points along $\theta_1$ and along $\theta_2$ to also end up with $N$ evaluations of $h$. This would have also worked if $g(\theta|y)$ wasn't the uniform distribution, in which case one could interpret the integral Eq. {eq}`mc_expectation` as a weighted average of the values of $h$. **But this would not have worked if we knew $g(\theta|y)$ only up to a scaling factor.**
+
+---
+
 Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:
 
 - Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)
 - Sensitivity analysis of the model becomes easier.
+- Monte Carlo integration converges much more favorably in high dimensions - the error of the MC estimate converges at a rate $\mathcal{O}(1/\sqrt{N})$ which depends only on the number of samples, and not on the dimension $d$ of the variable as in numerical integration, which converges with $\mathcal{O}(1/N^{1/d})$ on a grid with a total of N point.
 
 *The only question left is how to sample from $g(\theta|y)$?*
 
@@ -78,14 +108,14 @@ Acceptance-rejection candidate and target distributions (Source: {cite}`bolstad2
 
 To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:
 
-1. Draw a random sample of size $N$ from the candidate distribution $g_{0}(\theta)$.
-2. Calculate the value of the unscaled target density at each random sample.
-3. Calculate the candidate density at each random sample, and multiply by $M$.
+1. Draw $N$ random samples $\theta_{i}$ from the starting density $g_{0}(\theta)$
+2. Evaluate the unscaled target density at each random sample.
+3. Evaluate the candidate density at each random sample, and multiply by $M$.
 4. Compute the weights for each random sample
 
     $$ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}$$ (acceptance_rejection_weights)
 
-5. Draw $N$ samples from the $U(0, 1)$ uniform distribution.
+5. Draw $N$ samples from the uniform distribution $U(0, 1)$.
 6. If $u_{i} < w_{i}$ accept $\theta_{i}$
 
 
@@ -152,7 +182,7 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
     $$\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}$$ (mcmc_acceptance_prob)
 
 3. Sample $u\sim \text{Uniform}(0,1)$
-4. If $\alpha > u$, then $\theta_{current} = \theta'$, else $\theta_{current} = \theta_{current}$
+4. Set $\theta_{\text{current}} \begin{cases} \theta' & \alpha>0 \\ \theta_{\text{current}} & \text{else}\end{cases}$
 5. Repeat $N$ times from step 1.
 
 A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
@@ -222,7 +252,7 @@ If the prior $g(\theta)$ is uniform (aka *uninformative prior*), then the MLE an
 
 ### Bayesian Interval Estimation
 
-Another type of Bayesian inference is the one in which we seek to find an interval that, with a pre-determined probability, contains the true value. In Bayesian statistics, these are called credible intervals. Finding the interval with equal tail areas to both sides $(\theta_{l}, \theta_{u})$, and which has the probability to contain the true value of the parameter, i.e.
+Another type of Bayesian inference is the one in which we seek to find an interval that, with a pre-determined probability, contains the true value. In Bayesian statistics, these are called credible intervals. Finding the interval with equal tail areas to both sides (lower $\theta_{l}$, and upper $\theta_{u}$), and which has the probability $1-\alpha$ to contain the true value of the parameter, i.e.
 
 $$
 \begin{aligned}
@@ -290,7 +320,7 @@ Bayesian logistic regression data (Source: {cite}`murphy2022`, Chapter 10).
 
 In practical applications, we are interested in predicting the output $y$ given an input $x$. Thus, we need to compute the **posterior predictive distribution**
 
-$$p(y|x, \mathcal{D}) = \int p(y | x, \omega) p(\omega | \mathcal{D})) d\omega.$$ (predictive_posterior)
+$$p(y|x, \mathcal{D}) = \int p(y | x, \omega) p(\omega | \mathcal{D}) d\omega.$$ (predictive_posterior)
 
 To now compute the uncertainty in our predictions we perform a _Monte Carlo Approximation_ of the integral using $S$ samples from the posterior $\omega_s \sim p(\omega|\mathcal{D})$ as
 
@@ -362,7 +392,7 @@ Bayesian machine learning (Source: {cite}`murphy2022`, Chapter 4).
 
 **Bayesian Methods**
 
-There exist a wide number of references to the herein presented Bayesian approach, most famously introductory treatment of Probabilistic Programming frameworks, which utilize the herein presented modeling approach to obtain posteriors over programs.
+There exist a wide number of references to the herein presented Bayesian approach, most famously introductory treatment of Probabilistic Programming frameworks, which utilize the presented modeling approach to obtain posteriors over programs.
 
 - [Introduction to Pyro](http://pyro.ai/examples/intro_long.html)
 - [A Practical Example with Stan](https://m-clark.github.io/bayesian-basics/example.html#posterior-predictive)
