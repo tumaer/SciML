@@ -1,6 +1,6 @@
 # Bayesian methods
 
-We start by introducing Bayesian statistics and the closely related sampling methods, e.g. Markov Chain Monte Carlo (MCMC). We then present Bayesian inference and its applications to regression and classification. 
+We start by introducing Bayesian statistics and the closely related sampling methods, e.g. Markov Chain Monte Carlo (MCMC). We then present Bayesian inference and its applications to regression and classification.
 
 ## Bayesian Statistics
 
@@ -15,13 +15,13 @@ The main ideals upon which Bayesian statistics is founded are:
 
 So what we are interested in is the **posterior** distribution over our parameters, which can be found using Bayes' theorem. While this may at first glance look straightforward, and holds for the **unscaled posterior** i.e the distribution which has not been normalized by dividing by $\mathbb{P}(B)$, obtaining the scaled posterior is much much harder due to the difficulty in computing the divisor $\mathbb{P}(B)$. To evaluate this divisor we often rely on Monte Carlo sampling.
 
-> What is a _scaled posterior_? A scaled posterior is a distribution whose integral over the entire distribution evaluates to 1. 
+> What is a _scaled posterior_? A scaled posterior is a distribution whose integral over the entire distribution evaluates to 1.
 
 Taking Bayes' theorem and using the probability theorems in their conditional form, we then obtain the following formula for the posterior density
 
 $$g(\theta | y) = \frac{g(\theta) \times f(y | \theta)}{\int g(\theta) \times f(y | \theta) d\theta},$$ (posterior_density)
 
-with data $y$, parameters as random variable $\theta$, *prior* $g(\theta)$, *likelihood* $f(y|\theta)$, and *posterior* $g(\theta|y)$. If we now seek to compute the denominator (aka *evidence*), then we have to compute the integral
+with data $y$, parameters as random variable $\theta$, _prior_ $g(\theta)$, _likelihood_ $f(y|\theta)$, and _posterior_ $g(\theta|y)$. If we now seek to compute the denominator (aka _evidence_), then we have to compute the integral
 
 $$\int f(y|\theta) g(\theta) d\theta.$$ (evidence)
 
@@ -36,12 +36,12 @@ What we actually care about is making predictions about the output of a model $h
 $$E_{\theta}[h_x(\theta|y)]=\int h_{x}(\theta) g(\theta|y) d\theta.$$ (mc_expectation)
 
 > Recall: $h_x(\theta)=h(x,\theta)$ is the machine learning model with parameters $\theta$ evaluated at input $x$. And $g(\theta|y)$ is the probability density function defining how often $\theta$ equals a given value. If we have the linear model $y\approx h(x,\theta) = \theta x$ and the ultimate underlying relationship between $x$ and $y$ is $y=2x$, but our dataset is corrupted with noise, it might make more sense to treat $\theta$ as, e.g., a Gaussian random variable $\theta\sim \mathcal{N}\mathcal(\mu,\sigma^2)$. After tuning the parameters $\mu$ and $\sigma$ of this distribution, we might get $\theta\sim \mathcal{N}(2.1,0.1^2)$. Now, to compute the expected value of $h(x',\theta)$ for a novel input $x'$ we would have to evaluate the integral in Eq. {eq}`mc_expectation`.
+> Note: this integral can be seen as the continuous version of the sum rule of probabilities from the GMM lecture, and integrating out $\theta$ is called marginalization (more on that in the [Gaussian Processes lecture](gp.md)).
 
-> Note: this integral can be seen as the continuous version of the sum rule of probabilities from the GMM lecture, and integrating out $\theta$ is called marginalization (more on that in the [Gaussian Processes lecture](gp.md)). 
-
-To approximate this integral with Monte Carlo sampling techniques, we need to draw samples from the posterior $g(\theta|y)$. Given enough samples, this process always converges to the true value of the integral according to the [Monte Carlo theorem](http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf). 
+To approximate this integral with Monte Carlo sampling techniques, we need to draw samples from the posterior $g(\theta|y)$. Given enough samples, this process always converges to the true value of the integral according to the [Monte Carlo theorem](http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf).
 
 The approach consists of the following three steps:
+
 1. Generate i.i.d. random samples $\theta^{(i)}, \; i=1,2,...,N$ from the posterior $g(\theta|y)$.
 2. Evaluate $h_x^{(i)}=h_x(\theta^{(i)}), \; \forall i$.
 3. Approximate
@@ -53,12 +53,12 @@ $$E[h_x(\theta|y)]\approx \frac{1}{N}\sum_{i=1}^{N}h_x^{(i)}.$$ (mc_sum)
 We know that the area of a circle with radius $r=1$ is $A_{circle}=\pi r^2=\pi$, and we also know that the area of the square enclosing this circle is $A_{square}=(2r)^2=4$. Given the ratio of the areas $A_{circle}/A_{square}=\pi/4$ and the geometries, estimate $\pi$.
 
 Solution: Let us look at the top right quadrand of the square. Adapting the three steps above to this use case leads to:
+
 1. Generate $N$ i.i.d. samples from the bivariate uniform distribution $\theta^{(i)}\sim U([0,1]^2)$ representing $g(\theta|y)$ from above.
 2. Evaluate $h^{(i)}=\mathbb{1}_{(\theta_1^2+\theta_2^2)<1}(\theta^{(i)}), \; \forall i \in N$, indicating with 1 that a point is contained in the circle, and 0 otherwise.
-3. Approximate $A_{circle}/A_{square}=\pi/4$ by the expectation of $h$, i.e. 
+3. Approximate $A_{circle}/A_{square}=\pi/4$ by the expectation of $h$, i.e.
 
 $$\frac{\pi}{4}=E[h(\theta)] \approx \frac{1}{N}\sum_{i=1}^{N}h^{(i)}.$$ (mc_sum_ex)
-
 
 ```{figure} https://upload.wikimedia.org/wikipedia/commons/d/d4/Pi_monte_carlo_all.gif
 ---
@@ -79,7 +79,7 @@ Bayesian approaches based on random Monte Carlo sampling from the posterior have
 - Sensitivity analysis of the model becomes easier.
 - Monte Carlo integration converges much more favorably in high dimensions - the error of the MC estimate converges at a rate $\mathcal{O}(1/\sqrt{N})$ which depends only on the number of samples, and not on the dimension $d$ of the variable as in numerical integration, which converges with $\mathcal{O}(1/N^{1/d})$ on a grid with a total of N point.
 
-*The only question left is how to sample from $g(\theta|y)$?*
+_The only question left is how to sample from $g(\theta|y)$?_
 
 ## Sampling Methods
 
@@ -87,17 +87,17 @@ Looking at the denominator of Eq. {eq}`posterior_density`, we notice that it is 
 
 $$g(\theta | y) \propto g(\theta)f(y|\theta).$$ (target_density)
 
-The problem we will be trying to solve here is how to generate samples from such unnormalized distributions. We use the term *target* distributin to describe the distribution we want to sample from.
+The problem we will be trying to solve here is how to generate samples from such unnormalized distributions. We use the term _target_ distributin to describe the distribution we want to sample from.
 
 ### Acceptance-Rejection Sampling
 
-Acceptance-rejection sampling draws its random samples directly from the target posterior distribution. As we only have access to the unscaled target distribution, we will have to draw from it. _The acceptance-rejection algorithm is specially made for this scenario._ The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then selectively accepts candidate values into the final sample. For this approach to work, the *candidate distribution* $g_{0}(\theta)$ has to dominate the posterior distribution, i.e. there must exist an $M$ s.t.
+Acceptance-rejection sampling draws its random samples directly from the target posterior distribution. As we only have access to the unscaled target distribution, we will have to draw from it. _The acceptance-rejection algorithm is specially made for this scenario._ The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then selectively accepts candidate values into the final sample. For this approach to work, the _candidate distribution_ $g_{0}(\theta)$ has to dominate the posterior distribution, i.e. there must exist an $M$ s.t.
 
 $$M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta.$$ (acceptance_rejection)
 
 {numref}`acceptance_rejection` shows a candidate density for an unscaled target. It would take $M\approx 5$ to reach a "dominance" of the candidate distribution over the target distribution.
 
-```{figure} ../imgs/acceptance_rejection.png
+```{figure} ../imgs/bayes/acceptance_rejection.png
 ---
 width: 450px
 align: center
@@ -118,7 +118,6 @@ To then apply acceptance-rejection sampling to the posterior distribution we can
 5. Draw $N$ samples from the uniform distribution $U(0, 1)$.
 6. If $u_{i} < w_{i}$ accept $\theta_{i}$
 
-
 ### Sampling-Importance-Resampling / Bayesian Bootstrap
 
 The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling which has an improved weight-calculation, but most importantly employs a _resampling_ step. This resampling step resamples from the space of parameters. The weight is then calculated as
@@ -138,8 +137,7 @@ The algorithm to sample from the posterior distribution is then:
 
     $$w_{i} = \frac{r_{i}}{\sum r_{i}}$$ (sampling_importance_resampling_weights_w)
 
-6. Draw $n \leq 0.1 \times N$ random samples with the sampling probabilities given by the importance weights. 
-
+6. Draw $n \leq 0.1 \times N$ random samples with the sampling probabilities given by the importance weights.
 
 ### Adaptive Rejection Sampling
 
@@ -149,7 +147,7 @@ If we are unable to find a candidate/starting distribution, which dominates the 
 
 See below for an example of a log-concave distribution.
 
-```{figure} ../imgs/adaptive_rejection_sampling.png
+```{figure} ../imgs/bayes/adaptive_rejection_sampling.png
 ---
 width: 450px
 align: center
@@ -171,7 +169,7 @@ Using the tangent method, our algorithm then takes the following form:
 
 The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples $\{\theta^0, \theta^1, ...,\theta^N\}$ distributed according to the posterior distribution $g(\theta|y) \propto g(\theta)f(y|\theta)$. This chain evolves according to a transition kernel given by $q(\theta_{next}|\theta_{current})$. Let's look at one of the most popular MCMC algorithms: Metropolis Hastings
 
-**Metropolis-Hastings**
+#### Metropolis-Hastings
 
 The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution $g(\theta|y)$. This is done by following the algorithm:
 
@@ -187,7 +185,7 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
 
 A special choice of $q(\cdot | \cdot)$ is for example the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
 
-```{figure} ../imgs/metropolis_hastings.png
+```{figure} ../imgs/bayes/metropolis_hastings.png
 ---
 width: 450px
 align: center
@@ -196,14 +194,13 @@ name: metropolis_hastings
 Metropolis-Hastings trajectory (Source: [relguzman.blogpost.com](https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html)).
 ```
 
---- 
+---;
 
  In summary:
 
-- The unscaled posterior $g(\theta|y) \propto g(\theta)f(y|\theta)$ contains the *shape information* of the posterior
+- The unscaled posterior $g(\theta|y) \propto g(\theta)f(y|\theta)$ contains the _shape information_ of the posterior
 - For the true posterior, the unscaled posterior needs to be divided by an integral over the whole parameter space.
 - Integral has to be evaluated numerically for which we rely on the just presented Monte Carlo sampling techniques.
-
 
 ## Bayesian Inference
 
@@ -211,13 +208,13 @@ In the Bayesian framework, everything centers around the posterior distribution 
 
 ### Bayesian Point Estimation
 
-Bayesian point estimation chooses a single value to represent the entire posterior distribution. Potential choices here are locations like the posterior mean, and posterior median. The **posterior mean** $\hat{\theta}$ minimizes the *posterior mean squared error*
+Bayesian point estimation chooses a single value to represent the entire posterior distribution. Potential choices here are locations like the posterior mean, and posterior median. The **posterior mean** $\hat{\theta}$ minimizes the _posterior mean squared error_
 
 $$PMS(\hat{\theta}) = \int (\theta - \hat{\theta})^{2} g(\theta | y_{1}, \ldots, y_{n})d\theta,$$ (mps_error)
 
 $$\hat{\theta} = \int_{-\infty}^{\infty} \theta g(\theta | y_{1}, \ldots, y_{n})d \theta \qquad \text{(posterior mean)}.$$ (posterior_mean)
 
-```{figure} ../imgs/posterior_mean.png
+```{figure} ../imgs/bayes/posterior_mean.png
 ---
 width: 450px
 align: center
@@ -226,14 +223,13 @@ name: posterior_mean
 Posterior mean (Source: {cite}`bolstad2009`, Chapter 3).
 ```
 
-And the **posterior median** $\tilde{\theta}$ minimizes the *posterior mean absolute deviation*
+And the **posterior median** $\tilde{\theta}$ minimizes the _posterior mean absolute deviation_
 
 $$PMAD(\hat{\theta}) = \int |\theta - \hat{\theta}| g(\theta| y_{1}, \ldots, y_{n})d\theta,$$ (pmad)
 
 $$.5 = \int_{-\infty}^{\tilde{\theta}} g(\theta | y_{1}, \ldots, y_{n}) d\theta \qquad \text{(posterior median)}.$$ (posterior_median)
 
-
-```{figure} ../imgs/posterior_median.png
+```{figure} ../imgs/bayes/posterior_median.png
 ---
 width: 450px
 align: center
@@ -248,7 +244,7 @@ $$\theta_{MLE} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta)
 
 $$\theta_{MAP} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta) g(\theta).$$ (map_estimate)
 
-If the prior $g(\theta)$ is uniform (aka *uninformative prior*), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in lecture on [Tricks of Optimization](./tricks.md).
+If the prior $g(\theta)$ is uniform (aka _uninformative prior_), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in lecture on [Tricks of Optimization](./tricks.md).
 
 ### Bayesian Interval Estimation
 
@@ -263,7 +259,7 @@ $$ (confidence_intervals)
 
 which we then only need to solve. A visual example of such a scenario is in the following picture:
 
-```{figure} ../imgs/credible_interval.png
+```{figure} ../imgs/bayes/credible_interval.png
 ---
 width: 450px
 align: center
@@ -284,7 +280,6 @@ f(y_{n+1}|y_{1}, \ldots, y_{n}) &\propto \int g(\theta) \times f(y_{n+1}| \theta
 
 and marginalize it out.
 
-
 ### Bayesian Inference from a Posterior Random Sample
 
 When we only have a random sample from the posterior instead of a numerical approximation of the posterior, we are still able to apply the same techniques (i.e. point and interval estimates), but just apply them to the posterior sample.
@@ -293,8 +288,7 @@ The generated sample only constitute an approximation, but given the sampling bu
 
 - The posterior distribution is the current summary of beliefs about the parameter in the Bayesian framework.
 - Bayesian inference is then performed using the probabilities calculated from the posterior distribution of the parameter.
-    - To get an approximation of the scaling factor for the posterior we have to utilize sampling-based Monte Carlo techniques to approximate the requisite integral.
-
+  - To get an approximation of the scaling factor for the posterior we have to utilize sampling-based Monte Carlo techniques to approximate the requisite integral.
 
 ## Bayesian Linear Models
 
@@ -308,8 +302,7 @@ $$p(\omega | \mathcal{D}) \approx \mathcal{N}({\bf{\omega}}| {\bf{\hat{\omega}}}
 
 where $\omega$ corresponds to the learned parameters $\theta$, $\hat{\omega}$ is the MAP estimate of $\theta$, and $H^{-1}$ is the inverse of the Hessian computed at $\hat{\omega}$. There exist many different modes representing viable solutions for this problem when we seek to optimize it.
 
-
-```{figure} ../imgs/bayesian_log_reg_data.png
+```{figure} ../imgs/bayes/bayesian_log_reg_data.png
 ---
 width: 450px
 align: center
@@ -328,7 +321,7 @@ $$p(y=1 | x, \mathcal{D}) = \frac{1}{S} \sum_{s=1}^{S} \text{sigmoid} \left( \om
 
 Looking at a larger visual example of Bayesian Logistic Regression applied.
 
-```{figure} ../imgs/bayesian_log_reg.jpg
+```{figure} ../imgs/bayes/bayesian_log_reg.jpg
 ---
 width: 600px
 align: center
@@ -363,7 +356,7 @@ $$ (blr_posterior)
 
 where $\hat{\omega}$ is the posterior mean, and $\hat{\Sigma}$ is the posterior covariance. A good visual example of this is the sequential Bayesian inference on a linear regression model shown below.
 
-```{figure} ../imgs/bayesian_lin_reg.png
+```{figure} ../imgs/bayes/bayesian_lin_reg.png
 ---
 width: 550px
 align: center
@@ -374,12 +367,12 @@ Bayesian linear regression (Source: {cite}`murphy2022`, Chapter 11).
 
 ## Bayesian Machine Learning
 
-Let's consider the setup we have encountered so far in which we have labels $x$, hyperparameters $\theta$, and seek to predict labels $y$. Probabilistically expressed this amounts to $p(y|x, \theta)$. Then the posterior is defined as $p(\theta| \mathcal{D})$, where $\mathcal{D}$ is our labeled dataset $\mathcal{D} = \left\{ (x_{n}, y_{n}) \right\}_{n=1:N}$. 
+Let's consider the setup we have encountered so far in which we have labels $x$, hyperparameters $\theta$, and seek to predict labels $y$. Probabilistically expressed this amounts to $p(y|x, \theta)$. Then the posterior is defined as $p(\theta| \mathcal{D})$, where $\mathcal{D}$ is our labeled dataset $\mathcal{D} = \left\{ (x_{n}, y_{n}) \right\}_{n=1:N}$.
 Applying the previously discussed Bayesian approaches to these problems, and the respective model parameters, are called **Bayesian Machine Learning**.
 
 While we lose computational efficiency at first glance, as we have to perform a sampling-based inference procedure, what we gain is a principled approach to discuss uncertainties within our model. This can help us most especially when we move in the *small-data limit*, where we can not realistically expect our model to converge. See e.g. below a Bayesian logistic regression example in which the posterior distribution is visualized.
 
-```{figure} ../imgs/bayesian_nn.png
+```{figure} ../imgs/bayes/bayesian_nn.png
 ---
 width: 550px
 align: center
@@ -413,7 +406,6 @@ In addition, there exists highly curated didactic material from Michael Betancou
 - {cite}`robert2004` - deeper dive into MCMC
 - [Interactive MCMC visualizations](https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&target=banana)
 
-
 **Bayesian Inference**
 
 - {cite}`bolstad2009`, Chapters 3
@@ -421,5 +413,5 @@ In addition, there exists highly curated didactic material from Michael Betancou
 **Bayesian Regression / Classification**
 
 - {cite}`murphy2022`
-    - Section 10.5 on Bayesian logistic regression 
+    - Section 10.5 on Bayesian logistic regression
     - Section 11.7 on Bayesian linear regression
