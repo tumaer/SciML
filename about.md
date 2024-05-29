@@ -1,5 +1,7 @@
 # About this Lecture
 
+> We probably want a tl;dr here, similar-ish in style to what Nils has here.
+
 Welcome to the 3rd edition of the *Introduction to Scientific Machine Learning for Engineers* in the winter semester 2023/2024! We are looking forward to a hopefully great semester, and to excite as many of you as possible for Scientific Machine Learning.
 
 The course breaks down into an introduction to the topic, followed by 4 core content blocks which are interspersed with practice problems while being supported by JuPyter notebook-based tutorials for the practical application of the learned concepts.
@@ -7,20 +9,18 @@ The course breaks down into an introduction to the topic, followed by 4 core con
 ## Lecturers
 
 - Nikolaus A. Adams
-- Artur Toshev (artur.toshev@tum.de)
+- Artur Toshev ([artur.toshev@tum.de](mailto:artur.toshev@tum.de))
 
 > Questions should preferably be posted in the Moodle, or else be sent to Artur Toshev.
-
 
 ## Outline
 
 ```{tableofcontents}
 ```
 
-
 ## Contributors
 
-Thanks to all contributors! Github names, if available.
+Thanks to all contributors! Github names are provided in brackets where available.
 
 ### Contributed content
 
@@ -30,7 +30,6 @@ Thanks to all contributors! Github names, if available.
 
 1. Andreas Steger (AndSte01)
 2. Muhammet Ali Güldali
-
 
 ## Citation
 
@@ -48,7 +47,7 @@ Please cite this work as:
 <br>
 <br>
 
-```{image} imgs/tum_logo.png
+```{image} imgs/assets/tum_logo.png
 :alt: tum-logo
 :width: 200px
 :align: center
