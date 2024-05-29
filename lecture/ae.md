@@ -2,7 +2,7 @@
 
 A great many models in machine learning build on the Encoder-Decoder paradigm, but what is the intuition behind said paradigm? The core intuition is that while our original data may be high-dimensional, a good prediction only depends on a few key sub-dimensions of the original data, and as such we are able to dimensionally reduce our original data through an _Encoder_ before predicting or reconstructing our data onto the original data-plane with the _Decoder_.
 
-```{figure} ../imgs/ae_architecture.png
+```{figure} ../imgs/encoder/ae_architecture.png
 ---
 width: 600px
 align: center
@@ -24,7 +24,7 @@ $$ (svd)
 where $U \in \mathbb{R}^{m \times m}$ is a unitary matrix, where the columns are eigenvectors of $A A^{\top}$, $\Sigma$ is a diagonal matrix $\Sigma \in \mathbb{R}^{m \times n}$, and $V \in \mathbb{R}^{n \times n}$ is a unitary matrix whose columns are eigenvectors of $A^{\top}A$. I.e.
 
 $$
-\Sigma = \left[ 
+\Sigma = \left[
     \begin{matrix}
         \sigma_{1} & 0 & \ldots & 0 & 0 \\
         0 & \ddots & & & \vdots \\
@@ -35,7 +35,7 @@ $$
 \right]
 $$ (svd_sigma)
 
-where $\sigma_{n}$ can also be 0. The singular values $\sigma_{1} \geq \ldots \sigma_{r} \geq 0$ are square roots of the eigenvalues of $A^{\top}A$, and $r = \text{rank}(A)$. 
+where $\sigma_{n}$ can also be 0. The singular values $\sigma_{1} \geq \ldots \sigma_{r} \geq 0$ are square roots of the eigenvalues of $A^{\top}A$, and $r = \text{rank}(A)$.
 
 $$
 A^{\top}A = V D V^{\top} \in \mathbb{R}^{n \times n}
@@ -47,7 +47,7 @@ $$
 A A^{\top} = U D' U^{\top} \in \mathbb{R}^{m \times m}
 $$ (svd_aat)
 
-if symmetric, and real has $m$ real eigenvalues. In this case $U \in \mathbb{R}^{m \times m}$ of which the columns are eigenvectors of $AA^{\top}$, and $D' \in \mathbb{R}^{m \times m}$ is a diagonal matrix of real eigenvalues. The geometric analogy of the singular value decomposition is then 
+if symmetric, and real has $m$ real eigenvalues. In this case $U \in \mathbb{R}^{m \times m}$ of which the columns are eigenvectors of $AA^{\top}$, and $D' \in \mathbb{R}^{m \times m}$ is a diagonal matrix of real eigenvalues. The geometric analogy of the singular value decomposition is then
 
 * $A$ is a matrix of $r = \text{rank}(A)$
 * $U$ is the rotation/reflection
@@ -56,7 +56,7 @@ if symmetric, and real has $m$ real eigenvalues. In this case $U \in \mathbb{R}^
 
 Broken down into its individual pieces, we get the following commutative diagram:
 
-```{figure} ../imgs/ae_svd.svg
+```{figure} ../imgs/encoder/ae_svd.svg
 ---
 width: 400px
 align: center
@@ -65,7 +65,7 @@ name: ae_svd_svg
 Decomposing the effect of a matrix transforming a vector into its SVD components (Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Singular_value_decomposition)). 
 ```
 
-The singular value decomposition of $A$ can then be expressed in terms of a basis of $\text{range}(A)$ and a basis of $\text{range}(A^{\top})$. 
+The singular value decomposition of $A$ can then be expressed in terms of a basis of $\text{range}(A)$ and a basis of $\text{range}(A^{\top})$.
 
 $$
 A = \sigma_{1} u_{1} v_{1}^{\top} + \ldots + \sigma_{r} u_{r} v_{r}^{\top}
@@ -101,7 +101,7 @@ $$ (svd_3)
 
 where $U$ is the eigenvector matrix (columns) of $A A^{\top}$, and the large diagonal matrix consists of the eigenvalues of $A A^{\top}$. Graphically, this decomposition looks like that:
 
-```{figure} ../imgs/ae_svd.png
+```{figure} ../imgs/encoder/ae_svd.png
 ---
 width: 600px
 align: center
@@ -109,7 +109,6 @@ name: ae_svd
 ---
 Singular value decompositions of a matrix $A=U\Sigma V^{\top}$. From left to right: $A$, $U$, $\Sigma$, $V^{\top}$. 
 ```
-
 
 ### Moore-Penrose pseudo-inverse
 
@@ -123,7 +122,7 @@ $$ (ae_linear_eq)
 
 where $y \notin \text{col}(A)$, i.e. not in the column space of A, is allowed.
 
-```{figure} ../imgs/ae_moore_penrose.png
+```{figure} ../imgs/encoder/ae_moore_penrose.png
 ---
 width: 400px
 align: center
@@ -187,7 +186,7 @@ From which follows that $A \in \mathbb{R}^{m \times n}$ with n linearly independ
 $$
 A^{+} = \begin{cases}
     (A^{\top} A)^{-1} A^{\top}, \quad \text{if } \text{rank}(A) = n \\
-    A^{\top}(A A^{\top})^{-1}, \quad \text{if } \text{rank}(A) = m 
+    A^{\top}(A A^{\top})^{-1}, \quad \text{if } \text{rank}(A) = m
 \end{cases}
 $$ (ae_mp5)
 
@@ -195,7 +194,7 @@ $$ (ae_mp5)
 
 To further discern information in our data which is not required for our defined task, be it classification or regression, we can apply principal component analysis to reduce the dimensionality. Principal component analysis finds the optimal linear map from a $D$-dimensional input, to the design matrix on a $K$-dimensional space. Expressing this relation in probabilistic terms we speak of a linear map $D \rightarrow K$ with maximum variance $\Longrightarrow$ "autocorrelation" of the input data. This linear map can be written the following way in matrix notation:
 
-```{figure} ../imgs/ae_svd_dataset.png
+```{figure} ../imgs/encoder/ae_svd_dataset.png
 ---
 width: 600px
 align: center
@@ -208,10 +207,10 @@ $$
 X = U S V^{\top}
 $$ (pca_svd)
 
-Here, $U$ are the left singular vectors, $S$ are the singular values, and $V^{\top}$ are the right singular values. **This dimensionality reduction is achieved through the singular value decomposition (SVD).** What we seek to achieve is to compress 
+Here, $U$ are the left singular vectors, $S$ are the singular values, and $V^{\top}$ are the right singular values. **This dimensionality reduction is achieved through the singular value decomposition (SVD).** What we seek to achieve is to compress
 
 $$
-\underset{D \times N}{x} \rightarrow \underset{D \times N}{\hat{x}}, 
+\underset{D \times N}{x} \rightarrow \underset{D \times N}{\hat{x}},
 $$ (pca_compression)
 
 where the rank of $\hat{x}$ is $K$. To derive the relation between SVD and PCA we can use the following Lemma:
@@ -220,10 +219,9 @@ $$
 ||x - \hat{x}||_{F}^{2} \geq || x - \tilde{U} \tilde{U}^{\top}X||_{F}^{2} = \sum_{i \geq K + 1} s_{i}^{2}.
 $$ (pca_lemma)
 
-
 Here, the $s_{i}$ are the ordered singular values $s_{1} \geq s_{2} \geq \ldots \geq 0$, and $\tilde{U}$ is a $D \times K$ matrix
 
-```{figure} ../imgs/ae_utilde.png
+```{figure} ../imgs/encoder/ae_utilde.png
 ---
 width: 200px
 align: center
@@ -252,9 +250,7 @@ $$
 \end{align}
 $$ (pca2)
 
-From a probabilistic view we are creating N independent identically distributed (i.i.d) $D$-dimensional vectors $x_{n}$, see left side of {numref}`ae_svd_dataset`.
-
-We then have a sample mean, or sometimes called empirical mean, of 
+From a probabilistic view we are creating N independent identically distributed (i.i.d) $D$-dimensional vectors $x_{n}$, see left side of {numref}`ae_svd_dataset`. We then have a sample mean, or sometimes called empirical mean, of
 
 $$
 \bar{x} = \frac{1}{N} \sum_{n=1}^{N}x_{n}
@@ -278,7 +274,7 @@ $$ (pca3)
 if we assume for simplicity that $\bar{x} = 0$, then
 
 $$
-\Longrightarrow \begin{align*} 
+\Longrightarrow \begin{align*}
     N \bar{\Sigma} &= \sum_{n=1}^{N} x_{n} x_{n}^{\top} = X X^{\top} = U S V^{\top}V S^{\top} U^{\top} \\
     &= U S S^{\top}U^{\top} = U S^{(2)}U^{\top}
 \end{align*}
@@ -305,7 +301,7 @@ The data vectors $\hat{x}_{n}$ in $\hat{x}$ are hence uncorrelated and $\hat{x}_
 
 > The number of principal components we consider is effectively a hyperparameter we have to carefully evaluate before making a choice. See the reconstruction error on MNIST vs the number of latent dimensions used by the PCA as an example of this.
 
-```{figure} ../imgs/ae_pca_components.png
+```{figure} ../imgs/encoder/ae_pca_components.png
 ---
 width: 600px
 align: center
@@ -316,7 +312,7 @@ Recontruction error vs number of latent dimensions used by PCA (Souce: {cite}`mu
 
 With this all being a bit abstract, here are a few examples of applications of PCA to increasingly more practical applications.
 
-```{figure} ../imgs/ae_pca_2d1d.png
+```{figure} ../imgs/encoder/ae_pca_2d1d.png
 ---
 width: 300px
 align: center
@@ -325,7 +321,7 @@ name: ae_pca_2d1d
 PCA projection of 2d data onto 1d (Souce: {cite}`murphy2022`).
 ```
 
-```{figure} ../imgs/ae_olivetti.png
+```{figure} ../imgs/encoder/ae_olivetti.png
 ---
 width: 600px
 align: center
@@ -333,7 +329,6 @@ name: ae_olivetti
 ---
 (a) randomly chosen images from the Olivetti face database. (b) mean and first three PCA components (Souce: {cite}`murphy2022`).
 ```
-
 
 ### Computational Issues of Principal Components Analysis
 
@@ -364,8 +359,7 @@ which results in $\hat{W}$ being an orthogonal projection onto the first L eigen
 
 There are no set limits to the addition of further quirks here.
 
-
 ## Further References
 
-- {cite}`murphy2022`, 20.1 PCA and 20.3 Autoencoders
-- [Principal component analysis in scikit-learn](https://scikit-learn.org/stable/modules/decomposition.html#principal-component-analysis-pca)
+* {cite}`murphy2022`, 20.1 PCA and 20.3 Autoencoders
+* [Principal component analysis in scikit-learn](https://scikit-learn.org/stable/modules/decomposition.html#principal-component-analysis-pca)
