@@ -14,7 +14,6 @@ $$
 \Longrightarrow \text{ Automatic Differentiation}
 $$
 
-
 ## A Brief Incomplete History
 
 1. 1980s/1990s: Automatic Differentiation in Scientific Computing mostly spearheaded by Griewank, Walther, and Pearlmutter
@@ -49,7 +48,7 @@ $$ (ad_forward_order)
 
 and the information flows in the same direction as the computation. This means that we do not require any elaborate caching system to hold values in-memory for later use in the computation of a gradient, and hence require **much less memory** and are left with a **much simpler algorithm**.
 
-```{figure} ../imgs/gradients_forward.png
+```{figure} ../imgs/gradients/gradients_forward.png
 ---
 width: 500px
 align: center
@@ -74,7 +73,7 @@ $$ (ad_reveerse_order)
 
 and the information flows in the opposite direction of the function evaluation, which points to the main difficulty of reverse-mode differentiation. We require an elaborate caching system to hold values in-memory for when they are needed for the gradient computation, and hence require **much more memory** and are left with a **much more difficult algorithm**.
 
-```{figure} ../imgs/gradients_reverse.png
+```{figure} ../imgs/gradients/gradients_reverse.png
 ---
 width: 500px
 align: center
@@ -82,7 +81,6 @@ name: gradients_reverse
 ---
 Reverse-mode differentiation. (Source: {cite}`maclaurin2016`, Section 2)
 ```
-
 
 ### Forward- vs. Reverse-Mode
 
@@ -170,7 +168,7 @@ $$ (jvp_chain)
 
 which is then computed with forward-mode differentiation. The pseudoalgorithm is given below.
 
-```{figure} ../imgs/gradients_forward_alg.png
+```{figure} ../imgs/gradients/gradients_forward_alg.png
 ---
 width: 600px
 align: center
@@ -187,7 +185,7 @@ $$ (vjp_chain)
 
 for the solving of which reverse-mode differentiation is the most well-suited. The pseudoalgorithm for which can be found below
 
-```{figure} ../imgs/gradients_reverse_alg.png
+```{figure} ../imgs/gradients/gradients_reverse_alg.png
 ---
 width: 600px
 align: center
@@ -198,12 +196,11 @@ Reverse-mode algorith.
 
 The cost of computation in this case is $\mathcal{O}(1)$.
 
-
 ## A Practical Example
 
 Considering a simple feed-forward model with 4 layers, we now have the following computation setup represented as a directed acyclic graph:
 
-```{figure} ../imgs/gradients_ff_example.png
+```{figure} ../imgs/gradients/gradients_ff_example.png
 ---
 width: 500px
 align: center
@@ -244,7 +241,7 @@ $$ (mlp_grads)
 
 This recursive computation procedure can subsequently be condensed down to a pseudoalgorithm:
 
-```{figure} ../imgs/gradients_reverse_mlp.png
+```{figure} ../imgs/gradients/gradients_reverse_mlp.png
 ---
 width: 600px
 align: center
@@ -255,7 +252,7 @@ Reverse-mode differentiation through an MLP.
 
 What is missing from this pseudoalgorithm is the definition of the vector Jacobian product of each layer, which depends on the type and function of each layer. Or in a slightly more intricate case, please see the example below for what this computation looks like in the case of backpropagation.
 
-```{figure} ../imgs/gradients_ff_example2.png
+```{figure} ../imgs/gradients/gradients_ff_example2.png
 ---
 width: 600px
 align: center
@@ -278,6 +275,8 @@ More detailed compute graph of a feed-forward network (Source: {cite}`baydin2018
 
 ## Further References
 
+> Needs to be refactored
+
 1. [I2DL lecture](https://niessner.github.io/I2DL/) by Matthias Niessner - Lecture on Backpropagation
 2. [Jax's Autodiff Cookbook](https://jax.readthedocs.io/en/latest/notebooks/autodiff_cookbook.html) - a playful introduction to gradients
 3. {cite}`maclaurin2016` - Chapter 4 of Dougal MacLaurin's PhD Thesis
@@ -285,4 +284,3 @@ More detailed compute graph of a feed-forward network (Source: {cite}`baydin2018
 5. [Autograd: Effortless Gradients in Numpy](https://indico.ijclab.in2p3.fr/event/2914/contributions/6483/subcontributions/180/attachments/6060/7185/automl-short.pdf)
 6. [Automatic Differentiation in PyTorch](https://openreview.net/pdf?id=BJJsrmfCZ)
 7. [Tangent: Automatic Differentiation Using Source Code Transformation in Python](https://arxiv.org/pdf/1711.02712.pdf)
-
