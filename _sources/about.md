@@ -6,7 +6,7 @@ The course breaks down into an introduction to the topic, followed by 4 core con
 
 ## Lecturers
 
-- Nikolaus A. Adams 
+- Nikolaus A. Adams
 - Artur Toshev (artur.toshev@tum.de)
 
 > Questions should preferably be posted in the Moodle, or else be sent to Artur Toshev.
@@ -29,6 +29,7 @@ Thanks to all contributors! Github names, if available.
 ### Content fixes
 
 1. Andreas Steger (AndSte01)
+2. Muhammet Ali Güldali
 
 
 ## Citation
