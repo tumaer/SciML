@@ -4,3 +4,4 @@ data/
 .ipynb_checkpoints/
 .vscode/
 *runs*/
+*.DS_Store
