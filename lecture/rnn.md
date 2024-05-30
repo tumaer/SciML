@@ -39,7 +39,7 @@ $$ (rnn_vec2seq)
 
 with an input vector of size $D$, and an output sequence of $N_{\infty}$ vectors each with size $C$. As we are essentially mapping a vector to a sequence, these models are also called **vec2seq** models. The output sequence is generated one token at a time, where we sample at each step from the current hidden state $h_{t}$ of our neural network, which is subsequently fed back into the model to update the hidden state to the new state $h_{t+1}$.
 
-```{figure} ../imgs/rnn_vec2seq.png
+```{figure} ../imgs/rnn/rnn_vec2seq.png
 ---
 width: 250px
 align: center
@@ -102,7 +102,7 @@ If you remember one thing about this section:
 
 > To forecast spatio-temporal data, one has to combine RNNs with CNNs. The classical form of this is the [convolutional LSTM](https://proceedings.neurips.cc/paper/2015/file/07563a3fe3bbe7e3ba84431ad9d055af-Paper.pdf).
 
-```{figure} ../imgs/rnn_conv_rnn.png
+```{figure} ../imgs/rnn/rnn_conv_rnn.png
 ---
 width: 600px
 align: center
@@ -121,7 +121,7 @@ $$ (rnn_seq2vec)
 
 this is called a **seq2vec** model. Here we presume the output $y$ to be a class label.
 
-```{figure} ../imgs/rnn_seq2vec.png
+```{figure} ../imgs/rnn/rnn_seq2vec.png
 ---
 width: 300px
 align: center
@@ -138,7 +138,7 @@ $$ (seq2vec_model)
 
 While this simple form can already produce good results,  the RNN principle can be extended further by allowing **information to flow in both directions**, i.e. we allow the hidden states to depend on past and future contexts. For this we have to use two basic RNN building blocks, to then assemble them into a **bidirectional RNN**.
 
-```{figure} ../imgs/rnn_bidir.png
+```{figure} ../imgs/rnn/rnn_bidir.png
 ---
 width: 250px
 align: center
@@ -184,7 +184,7 @@ For ease of notation, this has to be broken down into two subcases:
 1. $T'=T$ i.e. we have the same length of input- and output-sequences
 2. $T' \neq T$, i.e. we have different lengths between the input- and the output-sequence
 
-```{figure} ../imgs/rnn_seq2seq.png
+```{figure} ../imgs/rnn/rnn_seq2seq.png
 ---
 width: 400px
 align: center
@@ -203,7 +203,7 @@ $$ (rnn_prob_seq2seq)
 
 Once again, results can be improved by allowing for bi-directional information flow with a bidirectional RNN which can be constructed as shown before, or by **stacking multiple layers on top of each other** and creating a **deep RNN**.
 
-```{figure} ../imgs/rnn_deep.png
+```{figure} ../imgs/rnn/rnn_deep.png
 ---
 width: 400px
 align: center
@@ -234,7 +234,7 @@ $$ (rnn_context_vector)
 
 using the last state of an RNN or pooping over all states. We then generate the output sequence using a decoder RNN, which leads to the so called **encoder-decoder architecture**. There exist a plethora of tokenizers to construct the context vectors, and a plethora of decoding approaches such as the greedy decoding shown below.
 
-```{figure} ../imgs/rnn_seq2seq_translate.png
+```{figure} ../imgs/rnn/rnn_seq2seq_translate.png
 ---
 width: 800px
 align: center
@@ -262,7 +262,6 @@ And an unending list of applications which you have seen in practice but have no
 
 Training RNNs is far from trivial with a well-known problem being **exploding gradients**, and **vanishing gradients**. In both cases the activations of the RNN explode or decay as we go forward in time as we multiply with the weight matrix $W_{hh}$ at each time step. The same can happen as we go backwards in time, as we repeatedly multiply the Jacobians and unless the spectrum of the Hessian is 1, this will result in exploding or vanishing gradients. A way to tackle this is via **control of the spectral radius** where the optimization problem gets converted into a convex optimization problem, which is then called an **echo state network**. Which is in literature often used under the umbrella term of **reservoir computing**.
 
-
 ## Long Short-term Memory (LSTM)
 
 A way to avoid the problem of exploding and vanishing gradients, beyond Gated Recurrent Units (GRU) which we omit in this course, is the long short term memory (LSTM) model of Schmidhuber and Hochreiter, back in the day at TUM. In the LSTM the hidden state $h$ is augmented with a **memory cell $c$**. This cell is then controlled with 3 gates
@@ -277,7 +276,7 @@ $$
 \begin{align}
     O_{t} &= \sigma(X_{t}W_{xo} + H_{t-1}W_{ho} + b_{o}) \\
     I_{t} &= \sigma(X_{t} W_{xi} + H_{t-1} W_{hi} + b_{i}) \\
-    F_{t} &= \sigma(X_{t}W_{xf} H_{t-1}W_{hf} + b_{f}), 
+    F_{t} &= \sigma(X_{t}W_{xf} H_{t-1}W_{hf} + b_{f}),
 \end{align}
 $$ (lstm_gates)
 
@@ -301,7 +300,7 @@ $$ (lstm_hidden)
 
 Visually this then looks like the following:
 
-```{figure} ../imgs/lstm_block.png
+```{figure} ../imgs/rnn/lstm_block.png
 ---
 width: 450px
 align: center
@@ -350,7 +349,7 @@ $$ (rnn_seq2vec_duplicate)
 
 A 1-D convolution applied to an input sequence of length $T$, and $D$ features per input then takes the form
 
-```{figure} ../imgs/rnn_textcnn.png
+```{figure} ../imgs/rnn/rnn_textcnn.png
 ---
 width: 500px
 align: center
@@ -418,7 +417,7 @@ $$ (rnn_causalcnn)
 
 where we have the convolutional filter $w$ and a nonlinearity $\varphi$. This results in a masking out of future inputs, such that $y_{t}$ can only depend on past information, and no future information. This is called a **causal convolution**. One poster-child example of this approach is the [WaveNet](https://www.deepmind.com/blog/wavenet-a-generative-model-for-raw-audio) architecture, which takes in text as input sequences to generate raw audio such as speech. The WaveNet architecture utilizes dilated convolutions in which the dilation increases with powers of 2 with each successive layer.
 
-```{figure} ../imgs/rnn_causalcnn.png
+```{figure} ../imgs/rnn/rnn_causalcnn.png
 ---
 width: 600px
 align: center
@@ -445,7 +444,6 @@ With so many flagship models of AI these days relying on sequence models, we hav
 * [OpenAI's Dall-E 2](https://openai.com/dall-e-2/) - image generation
 * [Stable Diffusion](https://stablediffusionweb.com/#ai-image-generator) - open source image generation
 * [Whisper](https://github.com/openai/whisper) - open source audio to text model
-
 
 ## Further Reading
 
