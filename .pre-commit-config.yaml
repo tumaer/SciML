@@ -1,0 +1,10 @@
+---
+repos:
+  - repo: https://github.com/codespell-project/codespell
+    rev: v2.3.0
+    hooks:
+      - id: codespell
+        files: ^.*\.(md|rst)$
+        args:
+          - "--ignore-words"
+          - "codespell-ignore-words.txt"
