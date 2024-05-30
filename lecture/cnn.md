@@ -10,10 +10,9 @@ MLPs are in a sense the most brute-force deep learning technique. By directly co
 
 The core idea of Convolutional Neural Networks is to introduce weight sharing, i.e. different regions of the image are treated with the same weights.
 
-
 ## Convolution
 
-```{figure} ../imgs/conv_eq.png
+```{figure} ../imgs/cnn/conv_eq.png
 ---
 width: 400px
 align: center
@@ -24,7 +23,7 @@ Continuous convolution equation (Source: [Intuitive Guide to Convolution](https:
 
 Applying a convolution filter (a.k.a. kernel) to a 2D image might look like this.
 
-```{figure} ../imgs/conv_image.png
+```{figure} ../imgs/cnn/conv_image.png
 ---
 width: 300px
 align: center
@@ -42,7 +41,7 @@ In image processing, specific (convolution) kernels have a well-understood meani
 - Mean blur
 - Gaussian blur
 
-```{figure} ../imgs/cnn_filters.png
+```{figure} ../imgs/cnn/cnn_filters.png
 ---
 width: 450px
 align: center
@@ -53,7 +52,7 @@ Examples of convolutional kernels (Source: [Wikipedia](https://en.wikipedia.org/
 
 The kernels is modern deep learnig lead to features like these:
 
-```{figure} ../imgs/cnn_features.png
+```{figure} ../imgs/cnn/cnn_features.png
 ---
 width: 500px
 align: center
@@ -85,7 +84,7 @@ Here, $\lfloor \cdot \rfloor$ denotes the floor operator. Let's look at what eac
 
 Applying a convolution directly to an image would result in an image of a smaller height and width. To counteract that, we pad the image height and width for example with zeros. With proper padding, one can stack hundreds of convolution layers without changing the width and height. The padding can be different along the width and height dimensions; we denote width and height padding with $\text{padding}[0]$ and $\text{padding}[1]$. The original convolution corresponds to $\text{padding}=0$.
 
-```{figure} ../imgs/cnn_padding.png
+```{figure} ../imgs/cnn/cnn_padding.png
 ---
 width: 400px
 align: center
@@ -96,7 +95,7 @@ Convolution with zero padding (Source: {cite}`zhang2021`, [here](https://d2l.ai/
 
 Another reason for padding is to use the corner pixels equally often as other pixels. The image below shows how often a pixel would be used by a convolutoin kernel of size 1x1, 2x2, and 3x3 without padding.
 
-```{figure} ../imgs/cnn_without_padding.png
+```{figure} ../imgs/cnn/cnn_without_padding.png
 ---
 width: 500px
 align: center
@@ -113,7 +112,7 @@ Two commonly used terms regarding padding are the following:
 
 If we want to reduce the overlap between kernels and also reduce $W$ and $H$ of the outputs, we can introduce a $\text{stride}>1$ variable. $\text{stride}=1$ results in the original convolution. In the image below we see $\text{stride}=\text{Array}([2, 3])$.
 
-```{figure} ../imgs/cnn_stride.png
+```{figure} ../imgs/cnn/cnn_stride.png
 ---
 width: 350px
 align: center
@@ -126,7 +125,7 @@ Convolution with stride (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapte
 
 This is a more rare operation, which works well for detecting large-scale features. $\text{dilation}=1$ corresponds to the original convolution.
 
-```{figure} ../imgs/dilation.gif
+```{figure} ../imgs/cnn/dilation.gif
 ---
 width: 200px
 align: center
@@ -137,14 +136,14 @@ Convolution with dilation (Source: [https://github.com/vdumoulin/conv_arithmetic
 
 ## Pooling
 
-You can think of a convolution filter as a *feature extraction* transformation similar to the basis expansion with general linear models. Here, the basis itself is learned via CNN layers. 
+You can think of a convolution filter as a *feature extraction* transformation similar to the basis expansion with general linear models. Here, the basis itself is learned via CNN layers.
 
 If we are interested in image classification, we don't just want to transform the input features, but also *extract / select* the relevant information. This is done by pooling layers in between convolution layers. Pooling layers don't have learnable parameters and they inevitably reduce dimensionality. Typical examples are:
 
 - max / min pooling
 - mean pooling (averaging)
 
-```{figure} ../imgs/cnn_pooling.png
+```{figure} ../imgs/cnn/cnn_pooling.png
 ---
 width: 250px
 align: center
@@ -155,13 +154,13 @@ Max pooling (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_convolutio
 
 ### Channels
 
-Each convolutional kernel operates on all $C_{in}$ input channels, resulting in a number of parameters per kernel $C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$. Having $C_{out}$ number of kernels results in a number of parameters per convolutional layer given by 
+Each convolutional kernel operates on all $C_{in}$ input channels, resulting in a number of parameters per kernel $C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$. Having $C_{out}$ number of kernels results in a number of parameters per convolutional layer given by
 
 $$\# \text{params} = C_{in} \cdot C_{out} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$$ (cnn_num_params)
 
 The following is an example with two input channels, one output channel, and a 2x2 kernel size.
 
-```{figure} ../imgs/cnn_multichannel.png
+```{figure} ../imgs/cnn/cnn_multichannel.png
 ---
 width: 450px
 align: center
@@ -170,12 +169,11 @@ name: cnn_multichannel
 Convolution of a 2-channel input with a 2x2 kernel (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_convolutional-neural-networks/channels.html))
 ```
 
-
 ## Modern CNNs
 
 A typical CNN would look something like the following.
 
-```{figure} ../imgs/cnn_modern.png
+```{figure} ../imgs/cnn/cnn_modern.png
 ---
 width: 500px
 align: center
@@ -193,7 +191,7 @@ Characteristics:
 - first big successes of ReLU
 - 60M parameters
 
-```{figure} ../imgs/cnn_alexnet.png
+```{figure} ../imgs/cnn/cnn_alexnet.png
 ---
 width: 600px
 align: center
@@ -211,7 +209,7 @@ Characteristics:
 - deeper
 - 138M parameters
 
-```{figure} ../imgs/cnn_vggnet.png
+```{figure} ../imgs/cnn/cnn_vggnet.png
 ---
 width: 600px
 align: center
@@ -227,7 +225,7 @@ Charasteristics:
 - this mitigates the vanishing and exploding gradients problem
 - ResNet-152 (with 152 layers) has 60M parameters
 
-```{figure} ../imgs/cnn_resnet.png
+```{figure} ../imgs/cnn/cnn_resnet.png
 ---
 width: 700px
 align: center
@@ -256,7 +254,7 @@ U-Net architecture (Source: [I2DL, TUM](https://niessner.github.io/I2DL/slides/1
 Characteristics:
 - since the [Vision Transformer](https://arxiv.org/abs/2010.11929) many people started believing that the inductive bias of translational invariance encoded in a convolution is too restrictive for images classification. However, the release of the [ConvNext](https://arxiv.org/abs/2201.03545) model ("A ConvNet for the 2020s", Liu et al. 2022) points in the direction that many innovations have been made on improving transformers, e.g. the GELU activations, and if we simply apply some of them to CNNs, we also end up with state-of-the-art results.
 
-```{figure} ../imgs/cnn_convnext.png
+```{figure} ../imgs/cnn/cnn_convnext.png
 ---
 width: 450px
 align: center
