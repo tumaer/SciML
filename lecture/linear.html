@@ -404,7 +404,10 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">1.1. Linear Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">1.1.1. Analytical Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">1.1.1. Analytical Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-linear-regression-implementations">1.1.1.1. Exercise: Linear Regression Implementations</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">1.1.2. Probabilistic Interpretation</a></li>
 </ul>
 </li>
@@ -431,10 +434,10 @@ document.write(`
 <div class="sd-container-fluid sd-sphinx-override sd-mb-4 docutils">
 <div class="sd-row sd-g-2 sd-g-xs-2 sd-g-sm-2 sd-g-md-2 sd-g-lg-2 docutils">
 <div class="sd-col sd-d-flex-column docutils">
-<a class="reference internal image-reference" href="../_images/lin_reg_1d.png"><img alt="2013_FordFusion_CFDTopandSide.png" class="align-center" src="../_images/lin_reg_1d.png" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="../_images/lin_reg_1d1.png"><img alt="2013_FordFusion_CFDTopandSide.png" class="align-center" src="../_images/lin_reg_1d1.png" style="width: 80%;" /></a>
 </div>
 <div class="sd-col sd-d-flex-column docutils">
-<a class="reference internal image-reference" href="../_images/lin_reg_1d_distances.png"><img alt="" class="align-center" src="../_images/lin_reg_1d_distances.png" style="width: 80%;" /></a>
+<a class="reference internal image-reference" href="../_images/lin_reg_1d_distances1.png"><img alt="" class="align-center" src="../_images/lin_reg_1d_distances1.png" style="width: 80%;" /></a>
 </div>
 </div>
 </div>
@@ -481,7 +484,7 @@ document.write(`
 <span class="eqno">(1.7)<a class="headerlink" href="#equation-target-vector" title="Permalink to this equation">#</a></span>\[\begin{split}Y_{m \times 1}=\left[\begin{array}{c}y^{(1)} \\ \vdots \\ y^{(i)} \\ \vdots \\ y^{(m)}\end{array}\right].\end{split}\]</div>
 <p>Connecting the individual pieces we then get the update function as</p>
 <div class="math notranslate nohighlight" id="equation-x-vartheta-min-y">
-<span class="eqno">(1.8)<a class="headerlink" href="#equation-x-vartheta-min-y" title="Permalink to this equation">#</a></span>\[\begin{split}X \vartheta _ {n\times 1} -Y = 
+<span class="eqno">(1.8)<a class="headerlink" href="#equation-x-vartheta-min-y" title="Permalink to this equation">#</a></span>\[\begin{split}X \vartheta _ {n\times 1} -Y =
 \left[\begin{array}{c}
 h(x^{(0)})-y^{(1)} \\
 \vdots \\
@@ -500,7 +503,7 @@ h(x^{(m)})-y^{(m)}
 <span class="eqno">(1.11)<a class="headerlink" href="#equation-lms-gradient-matrix" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
 \nabla_{\vartheta} J(\vartheta)&amp;=\frac{1}{2} \nabla_{\vartheta}(X \vartheta-Y)^{\top}(X \vartheta-Y) \\
 &amp; =\frac{1}{2} \nabla_{\vartheta}(\underbrace{\vartheta^{\top} X^{\top} X \vartheta-\vartheta^{\top} X^{\top} Y-Y^{\top} X \vartheta}_{\text {this is in fact a scalar for $p=1$}}+Y^{\top} Y)\\
-&amp;=\frac{1}{2}\left(2X^{\top} X \vartheta-2 X^{\top} Y\right)  \qquad (\text{use } {\nabla}_{\vartheta} Y^{\top} Y=0) 
+&amp;=\frac{1}{2}\left(2X^{\top} X \vartheta-2 X^{\top} Y\right)  \qquad (\text{use } {\nabla}_{\vartheta} Y^{\top} Y=0)
 \\
 &amp;=X^{\top} X \vartheta-X^{\top} Y \stackrel{!}{=} 0.
 \end{align}
@@ -514,14 +517,16 @@ h(x^{(m)})-y^{(m)}
 \Rightarrow &amp;\quad\vartheta=\left(X^{\top}X\right)^{-1}X^{\top}Y
 \end{align}
 \end{split}\]</div>
-<p>How do we know that we are at a minumum and not a miximum? In the case of scalar intput <span class="math notranslate nohighlight">\(x\in\mathbb{R}\)</span>, the second derivative of the error function <span class="math notranslate nohighlight">\(\Delta_{\vartheta}J(\vartheta)\)</span> becomes <span class="math notranslate nohighlight">\(X^2\ge0\)</span>, which guarantees that the extremum is a minimum.</p>
-<p><strong>Exercise: Linear Regression Implementations</strong></p>
+<p>How do we know that we are at a minimum and not a maximum? In the case of scalar input <span class="math notranslate nohighlight">\(x\in\mathbb{R}\)</span>, the second derivative of the error function <span class="math notranslate nohighlight">\(\Delta_{\vartheta}J(\vartheta)\)</span> becomes <span class="math notranslate nohighlight">\(X^2\ge0\)</span>, which guarantees that the extremum is a minimum.</p>
+<section id="exercise-linear-regression-implementations">
+<h4><span class="section-number">1.1.1.1. </span>Exercise: Linear Regression Implementations<a class="headerlink" href="#exercise-linear-regression-implementations" title="Permalink to this heading">#</a></h4>
 <p>Implement the three approaches (batch gradient descent, stochastic gradient descent, and the matrix approach) to linear regression and compare their performance.</p>
 <ol class="arabic simple">
 <li><p>Batch Gradient Descent</p></li>
 <li><p>Stochastic Gradient Descent</p></li>
 <li><p>Matrix Approach</p></li>
 </ol>
+</section>
 </section>
 <section id="probabilistic-interpretation">
 <h3><span class="section-number">1.1.2. </span>Probabilistic Interpretation<a class="headerlink" href="#probabilistic-interpretation" title="Permalink to this heading">#</a></h3>
@@ -735,7 +740,10 @@ g(x)= \begin{cases}1, &amp; x \geqslant 0 \\ 0, &amp; x&lt;0\end{cases}
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-regression">1.1. Linear Regression</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">1.1.1. Analytical Solution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analytical-solution">1.1.1. Analytical Solution</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-linear-regression-implementations">1.1.1.1. Exercise: Linear Regression Implementations</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probabilistic-interpretation">1.1.2. Probabilistic Interpretation</a></li>
 </ul>
 </li>

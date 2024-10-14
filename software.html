@@ -406,9 +406,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-vs-unix-linux-macos">Windows vs Unix (Linux, MacOS)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ides">IDEs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ides">IDEs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-ides-opposed-to-the-web-ide-google-colab">Local IDEs (opposed to the web IDE Google Colab)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environments">Environments</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-virtual-environment">Why virtual environment?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-virtual-environment">Why a virtual environment?</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#py-vs-ipynb"><code class="docutils literal notranslate"><span class="pre">.py</span></code> vs <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code></a><ul class="nav section-nav flex-column">
@@ -432,7 +435,7 @@ document.write(`
 <section id="gpu-vs-cpu">
 <h2>GPU vs CPU<a class="headerlink" href="#gpu-vs-cpu" title="Permalink to this heading">#</a></h2>
 <p>If your hardware does include a CUDA GPU (<a class="reference external" href="https://askubuntu.com/questions/633176/how-to-know-if-my-gpu-supports-cuda">How to know if my GPU supports CUDA</a>), then you should probably use it. Note, MacBooks do not have CUDA GPUs and Windows machines require a somewhat different setup than what we will use in the exercises (e.g. <a class="reference external" href="https://pub.towardsai.net/installing-pytorch-with-cuda-support-on-windows-10-a38b1134535e">Installing Pytorch with CUDA support on Windows 10</a>). Our setup during the exercises is based on Ubuntu 22.04.</p>
-<p>If you do not have a CUDA GPU, you should consider using Google Colab with GPU runtime, see <a class="reference external" href="https://web.eecs.umich.edu/~justincj/teaching/eecs442/WI2021/colab.html#:~:text=What%20is%20Colab%3F&amp;text=It%20allows%20you%20to%20use,the%20session%20after%2012%20hours">How to use Colab</a>.</p>
+<p>If you do not have a CUDA GPU, you should consider using Google Colab with GPU runtime, see <a class="reference external" href="https://web.eecs.umich.edu/~justincj/teaching/eecs442/WI2021/colab.html#:~:text=What%20is%20Colab%3F&amp;text=It%20allows%20you%20to%20use,the%20session%20after%2012%20hours">How to use Colab</a>. On a MacBook you have access to the Apple GPU, which is fully <a class="reference external" href="https://developer.apple.com/metal/pytorch/">supported by PyTorch</a>. Follow the instructions by Apple, and the PyTorch team  to install the right PyTorch version on your MacBook, check after the installation has completed that PyTorch utilizes the Apple GPU correctly by performing this <a class="reference external" href="https://pytorch.org/docs/master/notes/mps.html">test</a>.</p>
 <section id="why-gpu">
 <h3>Why GPU?<a class="headerlink" href="#why-gpu" title="Permalink to this heading">#</a></h3>
 <ol class="arabic simple">
@@ -459,8 +462,10 @@ document.write(`
 <li><p>The hardware you get for free is not the best one. If you have better hardware, don’t use Colab.</p></li>
 <li><p>If you want to work on a long-term project, you would need to set up the Colab environment every time for scratch. In contrast, when working locally you could use a virtual environment which you set up once in the beginning.</p></li>
 </ul>
-<p><strong>Local IDEs (opposed to the web IDE Google Colab)</strong></p>
+<section id="local-ides-opposed-to-the-web-ide-google-colab">
+<h3>Local IDEs (opposed to the web IDE Google Colab)<a class="headerlink" href="#local-ides-opposed-to-the-web-ide-google-colab" title="Permalink to this heading">#</a></h3>
 <p>Just pick any of the above mentioned: VS Code, PyCharm, Spyder, etc. They have more or less the same functionality and the choise is mainly based on a personal preference rather than software constraints.</p>
+</section>
 </section>
 <section id="environments">
 <h2>Environments<a class="headerlink" href="#environments" title="Permalink to this heading">#</a></h2>
@@ -481,11 +486,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </pre></div>
 </div>
 <p>There are many tutorials on the internet on how to set up such an environment. Check them for yourself.</p>
-<section id="why-virtual-environment">
-<h3>Why virtual environment?<a class="headerlink" href="#why-virtual-environment" title="Permalink to this heading">#</a></h3>
+<section id="why-a-virtual-environment">
+<h3>Why a virtual environment?<a class="headerlink" href="#why-a-virtual-environment" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p>Your operating system has its own Python and you probably don’t wont to destroy your operating system by changing its default libraries.</p></li>
-<li><p>If you work on many projects and each of them requires different libraries, or even worse - different versions of the same library, then you should use one virtual environment per project.</p></li>
+<li><p>Your operating system has its own Python installation, which you probably don’t wont to burden with highly specific packages, which you will be using throughout this course.</p></li>
+<li><p>If you work on many projects and each of them requires different libraries, or even worse, different versions of the same library, then you should use one virtual environment per project.</p></li>
 </ul>
 </section>
 </section>
@@ -497,12 +502,13 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 <p>If you work on a <strong>Linux or MacOS</strong> device, then you should be able to run notebooks in the same IDE you use for coding, e.g. VS Code.</p>
 <p>However, on <strong>Windows</strong> this might not work for multiple reasons, and as we said above we do not provide support for running code on Windows.</p>
 <div class="hint admonition">
-<p class="admonition-title">Notebooks on Windows (contributed by Armin Illerhaus)</p>
-<p>I didn’t find a way to work with Jupyter notebooks in Spyder on Windows. There is one hint on the how to pages that the add-on for Spyder doesn’t work with standalone Windows versions. I managed to make it work with the jupyter notebook in the browser (see <a class="reference external" href="https://www.geeksforgeeks.org/using-jupyter-notebook-in-virtual-environment/">that</a>):</p>
+<p class="admonition-title">Notebooks on Windows</p>
+<p>I didn’t find a way to work with Jupyter notebooks in Spyder on Windows. There is one hint on the how to pages that t</p>
+<p>The add-on for Spyder, to work with Jupyter notebookes, doesn’t work with standalone Windows versions. To make it work with the Jupyter notebook in the browser (see <a class="reference external" href="https://www.geeksforgeeks.org/using-jupyter-notebook-in-virtual-environment/">that</a>) follow the below steps:</p>
 <ol class="arabic simple">
 <li><p>Open Anaconda Navigator.</p></li>
-<li><p>Go to environment and open <code class="docutils literal notranslate"><span class="pre">sciml</span></code> environment</p></li>
-<li><p>Right klick on the environment and open terminal</p></li>
+<li><p>Go to environment and open the <code class="docutils literal notranslate"><span class="pre">sciml</span></code> environment</p></li>
+<li><p>Right click on the environment and open the terminal</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">ipython</span> <span class="pre">kernel</span> <span class="pre">install</span> <span class="pre">--user</span> <span class="pre">--name=sciml</span></code> with user not changed</p></li>
 <li><p>Open Jupiter in any browser and select as Kernel the <code class="docutils literal notranslate"><span class="pre">sciml</span></code> environment</p></li>
 </ol>
@@ -579,9 +585,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-vs-unix-linux-macos">Windows vs Unix (Linux, MacOS)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ides">IDEs</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ides">IDEs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-ides-opposed-to-the-web-ide-google-colab">Local IDEs (opposed to the web IDE Google Colab)</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#environments">Environments</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-virtual-environment">Why virtual environment?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#why-a-virtual-environment">Why a virtual environment?</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#py-vs-ipynb"><code class="docutils literal notranslate"><span class="pre">.py</span></code> vs <code class="docutils literal notranslate"><span class="pre">.ipynb</span></code></a><ul class="nav section-nav flex-column">

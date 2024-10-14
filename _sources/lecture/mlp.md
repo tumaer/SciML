@@ -1,6 +1,5 @@
 # Multilayer Perceptron
 
-
 ## Limitations of Linear Regression
 
 Going back to lecture [](tricks.md), we discussed that the most general linear model could be any linear combination of $x$-values lifted to a predefined basis space $\varphi(x)$, e.g. polynomial, exponent, sin, tanh, etc. basis:
@@ -11,7 +10,7 @@ We also saw that through hyperparameter tuning one can find a basis that capture
 
 The problem is that for many tasks we don't have such a-priori information and exploring the space of all possible combinations of basis functions ends in an infeasible combinatoric problem. Especially if the datasets we have are large, e.g. ImageNet, it is unrealistic to think that we can manually transform the inputs to a linearly-separable space.
 
-```{figure} ../imgs/under_overfitting.png
+```{figure} ../imgs/mlp/under_overfitting.png
 ---
 width: 600px
 align: center
@@ -30,12 +29,11 @@ $$ (nonlinear_regression)
 
 In the scope of this class, we will look at the most popular and successful non-linear building blocks. We will see the Multilayer Perceptron, Convolutional Layer, and Recurrent Neural Network.
 
-
 ## Perceptron
 
 Perceptron is a binary linear classifier and a single-layer neural network.
 
-```{figure} ../imgs/perceptron.png
+```{figure} ../imgs/mlp/perceptron.png
 ---
 width: 500px
 align: center
@@ -50,12 +48,11 @@ $$h(x) = f(\vartheta^{\top}x).$$ (perceptron)
 
 In the case of two class classification, we use the sign function
 
-
 $$f(a)=  \left\{\begin{array}{l} +1 , \quad a\ge 0  \\ -1 , \quad a<0 \end{array}\right.$$ (sign_fn)
 
 $f(a)$ is called *activation function* as it represents a simple model of how neurons respond to input stimuli. Other common activation functions are the sigmoid, tanh, and ReLU ($=\max(0,x)$).
 
-```{figure} ../imgs/activation_functions.png
+```{figure} ../imgs/mlp/activation_functions.png
 ---
 width: 450px
 align: center
@@ -64,12 +61,11 @@ name: activation_functions
 Activation functions (Source: [Introduction to Different Activation Functions for Deep Learning](https://medium.com/@shrutijadon/survey-on-activation-functions-for-deep-learning-9689331ba092))
 ```
 
-
 ## Multilayer Perceptron  (MLP)
 
 If we stack multiple perceptrons after each other with a user-defined dimension of the intermediate (a.k.a. latent or hidden) space, we get a multilayer perceptron.
 
-```{figure} ../imgs/mlp.png
+```{figure} ../imgs/mlp/mlp.png
 ---
 width: 700px
 align: center
@@ -78,7 +74,7 @@ name: mlp
 Multilayer Perceptron (Source: [Training Deep Neural Networks](https://towardsdatascience.com/training-deep-neural-networks-9fdb1964b964))
 ```
 
-We could write down the stack of such layer-to-layer transformations as 
+We could write down the stack of such layer-to-layer transformations as
 
 $$h(x) = W_4 f_3 ( W_3 f_2(W_2 f_1(W_1 \mathbf{x}))).$$ (mlp_stack)
 
@@ -92,7 +88,7 @@ By the **Universal Approximation Theorem**, a single-layer perceptron with any "
 
 Find the simplest MLP capable of learning the XOR function, and fit its parameters.
 
-```{figure} ../imgs/xor_function.png
+```{figure} ../imgs/mlp/xor_function.png
 ---
 width: 300px
 align: center
@@ -100,7 +96,6 @@ name: xor_function
 ---
 XOR function (Source: {cite}`goodfellow2016`, Section 6.1)
 ```
-
 
 ## Further References
 

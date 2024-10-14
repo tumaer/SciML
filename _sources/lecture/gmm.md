@@ -3,10 +3,11 @@
 This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) for density estimation and clustering.
 
 With regard to the next lecture introducing sampling, GMMs and sampling methods (e.g. MCMC) are two complementary approaches:
+
 - GMMs estimate the probability density of a given set of samples
 - MCMC generates samples from a given probability density
 
-```{figure} ../imgs/density_estimation_vs_sampling.png
+```{figure} ../imgs/gmm/density_estimation_vs_sampling.png
 ---
 width: 500px
 align: center
@@ -20,23 +21,24 @@ But first, we revise Probability Theory.
 ## Probability Theory
 
 ### Basic Building Blocks
+
 - $\Omega$ - *sample space*; the set of all outcomes of a random experiment.
 - $\mathbb{P}(E)$ - *probability measure of an event $E \in \Omega$*; a function $\mathbb{P}: \Omega \rightarrow \mathbb{R}$  satisfies the following three properties:
-    - $0 \le \mathbb{P}(E) \le 1 \quad \forall E \in \Omega$
-    - $\mathbb{P}(\Omega)=1$
-    - $\mathbb{P}(\cup_{i=1}^n E_i) = \sum_{i=1}^n \mathbb{P}(E_i) \;$ for disjoint events ${E_1, ..., E_n}$
+  - $0 \le \mathbb{P}(E) \le 1 \quad \forall E \in \Omega$
+  - $\mathbb{P}(\Omega)=1$
+  - $\mathbb{P}(\cup_{i=1}^n E_i) = \sum_{i=1}^n \mathbb{P}(E_i) \;$ for disjoint events ${E_1, ..., E_n}$
 - $\mathbb{P}(A, B)$ - *joint probability*; probability that both $A$ and $B$ occur simultaneously.
-- $\mathbb{P}(A | B)$ - *conditional probability*; probability that $A$ occurs, if $B$ has occured.
+- $\mathbb{P}(A | B)$ - *conditional probability*; probability that $A$ occurs, if $B$ has occurred.
 - Product rule of probabilities:
-    - general case: <br>
+  - general case:
 
     $$\mathbb{P}(A, B) = \mathbb{P}(A | B)\cdot  \mathbb{P}(B) = \mathbb{P}(B | A) \cdot \mathbb{P}(A)$$ (product_rule_general)
 
-    - independent events: <br>
+  - independent events:
 
     $$\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)$$ (product_rule_indep)
 
-- Sum rule of probabilities: 
+- Sum rule of probabilities:
 
     $$\mathbb{P}(A)=\sum_{B}\mathbb{P}(A, B)$$ (sum_rule)
 
@@ -44,24 +46,24 @@ But first, we revise Probability Theory.
 
     $$ \mathbb{P}(B|A) = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\mathbb{P}(A)} = \frac{\mathbb{P}(A|B) \mathbb{P}(B)}{\sum_{i=1}^n \mathbb{P}(A|B_i)\mathbb{P}(B_i)}$$ (bayes_rule)
 
-    - $p(B|A)$ - *posterior*
-    - $p(A|B)$ - *likelihood*
-    - $p(B)$ - *prior*
-    - $p(A)$ - *evidence*
-    
+  - $p(B|A)$ - *posterior*
+  - $p(A|B)$ - *likelihood*
+  - $p(B)$ - *prior*
+  - $p(A)$ - *evidence*
+
 ### Random Variables and Their Properties
+
 - *Random variable* (r.v.) $X$ is a function $X:\Omega \rightarrow \mathbb{R}$. This is the formal way by which we move from abstract events to real-valued numbers. $X$ is essentially a variable that does not have a fixed value, but can have different values with certain probabilities.
 - Continuous r.v.:
-    - $F_X(x)$ - *Cumulative distribution function* (CDF); probability that the r.v. $X$ is smaller than some value $x$:
-    
+  - $F_X(x)$ - *Cumulative distribution function* (CDF); probability that the r.v. $X$ is smaller than some value $x$:
+
     $$F_X(x) = \mathbb{P}(X\le x)$$ (cdf)
 
-    - $p_X(x)$ - *Probability density function* (PDF):
+  - $p_X(x)$ - *Probability density function* (PDF):
 
     $$p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1$$ (pdf)
 
-
-```{figure} ../imgs/pdf_cdf.png
+```{figure} ../imgs/gmm/pdf_cdf.png
 ---
 width: 400px
 align: center
@@ -71,7 +73,7 @@ PDF and CDF functions.
 ```
 
 - discrete r.v.:
-    - *Probability mass function* (PMF) - same as the pdf but for a discrete r.v. $X$. Integrals become sums.
+  - *Probability mass function* (PMF) - same as the pdf but for a discrete r.v. $X$. Integrals become sums.
 - $\mu = E[X]$ - *mean value* or *expected value*
 
     $$E[X] = \int_{-\infty}^{+\infty}x \, p_X(x) \, dx$$ (mean)
@@ -85,11 +87,10 @@ PDF and CDF functions.
 
     $$p_Y(y)=p_X(x)\left|\frac{\text{d}x}{\text{d}y}\right| = p_X(h^{-1}(y)) \left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|$$  (change_of_vars)
 
-**Exercise**
+#### Exercise
 
-Given the r.v. $X$ with pdf $f_X(x)=3x^2$ and the function $Y=X^2$, find the pdf of $Y$. 
+Given the r.v. $X$ with pdf $f_X(x)=3x^2$ and the function $Y=X^2$, find the pdf of $Y$.
 Hint: use $X=h^{-1}(Y)$ as shown [here](https://online.stat.psu.edu/stat414/lesson/22/22.2).
-
 
 ### Catalogue of Important Distributions
 
@@ -130,7 +131,7 @@ where the individual components are:
 
 > If you are unfamiliar with the concept of probability measures, then $h(x)$ can safely be disregarded. Conceptually it describes the area in the probability space over which the probability distribution is defined.
 
-**Why is this family of distributions relevant to this course?** 
+**Why is this family of distributions relevant to this course?**
 
 > The exponential family has a direct connection to graphical models, which are a formalism favored by many people to visualize machine learning models, and the way individual components interact with each other. As such they are highly instructive, and at the same time foundational to many probabilistic approaches covered in this course.
 
@@ -158,25 +159,23 @@ Which yields
 $$\frac{da(\eta)}{d\eta_{1}} = \mu = \mathbb{E}[X] $$
 $$\frac{da(\eta)}{d\eta_{2}} = \sigma^2 - \mu^2 = \mathbb{E}[X^{2}] $$ (gaussian_as_exponential_suff_stats_2)
 
-**Exercise: Exponential Family 1**
+#### Exercise: Exponential Family 1
 
 Show that the Dirichlet distribution is a member of the exponential family.
 
-
-**Exercise: Exponential Family 2**
+#### Exercise: Exponential Family 2
 
 Show that the Bernoulli distribution is a member of the exponential family
 
-
 ## Gaussian Mixture Models
 
-Assume that we have a set of measurements $\{x^{(1)}, \dots x^{(m)}\}$. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels $y$. 
+Assume that we have a set of measurements $\{x^{(1)}, \dots x^{(m)}\}$. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels $y$.
 
 Gaussian Mixture Models (GMMs) assume that the data comes from a mixture of $K$ Gaussian distributions in the form
 
 $$p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k),$$ (gmm_model)
 
-with 
+with
 
 - $\pi = (\pi_1,...,\pi_K)$ called mixing coefficients, or cluster probabilities,
 - $\mu = (\mu_1,...,\mu_K)$ the cluster means, and
@@ -184,7 +183,7 @@ with
 
 We define a K-dimensional r.v. $z$ which satisfies $z\in \{0,1\}$ and $\sum_k z_k=1$ (i.e. with only one of its dimensions being 1, while all others are 0), such that $z_k~\sim \text{Multinomial}(\pi_k)$ and $p(z_k=1) = \pi_k$ . For Eq. {eq}`gmm_model` to be a valid probability density, the parameters $\{\pi_k\}$ must satisfy $0\le\pi_k\le 1$ and $\sum_k \pi_k=1$.
 
-The marginal distribution of $z$ can be equivalently written as 
+The marginal distribution of $z$ can be equivalently written as
 
 $$p(z)=\prod_{k=1}^{K} \pi_k^{z_k},$$ (gmm_marginal_z)
 
@@ -214,7 +213,7 @@ However, if we try to analytically solve this problem, we will see that there is
 
 ### Expectation-Maximization
 
-```{figure} ../imgs/em_algorithm.png
+```{figure} ../imgs/gmm/em_algorithm.png
 ---
 width: 600px
 align: center
@@ -231,7 +230,7 @@ There is an iterative algorithms that can solve the maximum likelihood problem b
 
     $$w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma).$$ (gmm_e_step)
 
-3. **(M-step)**. Update the parameters by solving the maximum likelihood probelms for fixed $z_k$ values.
+3. **(M-step)**. Update the parameters by solving the maximum likelihood problems for fixed $z_k$ values.
 
     $$\begin{aligned}
     \pi_k &:= \frac{1}{m}\sum_{i=1}^m w_k^{(i)} \\
@@ -240,13 +239,13 @@ There is an iterative algorithms that can solve the maximum likelihood problem b
     \end{aligned}
     $$ (gmm_m_step)
 
-4. Evaluate the log likelihood 
+4. Evaluate the log likelihood
 
     $$l(x | \pi,\mu,\Sigma) = \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}$$ (gmm_lig_likelihood)
 
     and check for convergence. If not converged, return to step 2.
 
-In the E-step, we compute the posterior probability of $z^{(i)}_k$ given the data point $x^{(i)}$ and the current $\pi$, $\mu$, $\Sigma$ values as 
+In the E-step, we compute the posterior probability of $z^{(i)}_k$ given the data point $x^{(i)}$ and the current $\pi$, $\mu$, $\Sigma$ values as
 
 $$
 \begin{aligned}
@@ -254,11 +253,11 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)p
  &= \frac{\pi_k \mathcal{N}(x^{(i)}|\mu_k, \Sigma_k)}{\sum_{l=1}^K \pi_l \mathcal{N}(x^{(i)}|\mu_l, \Sigma_l)}
 \end{aligned}$$ (gmm_responsibilities)
 
-The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating the $k$th Gaussian with parameters $\mu_k$ and $\Sigma_k$. And $p(z^{(i)}=k,\pi)$ is just $\pi_k$. 
+The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating the $k$th Gaussian with parameters $\mu_k$ and $\Sigma_k$. And $p(z^{(i)}=k,\pi)$ is just $\pi_k$.
 
 **Exercise: derive the M-step update equations following the maximum likelihood approach.**
 
-> Hint: look at {cite}`bishop2006`, Section 9.2. 
+> Hint: look at {cite}`bishop2006`, Section 9.2.
 
 ### Applications and Limitations
 
@@ -268,23 +267,22 @@ Once we have fitted a GMM on $p(x)$, we can use it for:
 2. Density estimation: by evaluating the probability $p(\tilde{x})$ of a new point $\tilde{x}$, we can compute how probable it is that this point comes from the same distribution as the training data.
 3. Clustering: so far we have talked about density estimation, but GMMs are typically used for clustering. Given a new query point $\tilde{x}$, we can evaluate each of the $K$ Gaussians and scale their probability by the respective $\pi_k$. These will be the probabilities of $\tilde{x}$ to be part of cluster $k$.
 
-Most limitations of this approach arive from the assumption that the indivudual clusters follow the Gaussian distribution:
+Most limitations of this approach arrive from the assumption that the individual clusters follow the Gaussian distribution:
 
-- If the data does not follow a Gaussian distribution, e.g. heavy-tailed ditribution with outliers, then too much weight will be given to the outliers
+- If the data does not follow a Gaussian distribution, e.g. heavy-tailed distribution with outliers, then too much weight will be given to the outliers
 - If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.
 - The choice of $K$ is crucial and this parameters need to be optimized in a outer loop.
 - GMMs do not scale well to high dimensions.
 
-
 ## Further References
 
-**Probability Theory**
+### Probability Theory
 
 - {cite}`bishop2006`, Chapters 1 and 2
 - {cite}`murphy2022`, Chapters 2 and 3
 - {cite}`cs229notes`, Section 3.1 - the exponential family
 
-**Gaussian Mixture Models**
+### Gaussian Mixture Models
 
 - {cite}`cs229notes`, Chapter 11 - main GMM reference
 - {cite}`bishop2006`, Section 9.2 - detailed derivations

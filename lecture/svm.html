@@ -410,7 +410,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-margin-classifier">6.2.3. Maximum Margin Classifier</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-soft-margin-classifier-smc">6.3. Advanced Topics: Soft Margin Classifier (SMC)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-soft-margin-classifier-smc">6.3. Advanced Topics: Soft Margin Classifier (SMC)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-problem">6.3.1. Outlier problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#original-svm-optimization-problem">6.3.2. Original SVM optimization problem</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-sequential-minimal-optimization-smo">6.4. Advanced Topics: Sequential Minimal Optimization (SMO)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-ascent">6.4.1. Coordinate Ascent</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline-of-smo-for-svm">6.4.2. Outline of SMO for SVM</a></li>
@@ -418,7 +422,13 @@ document.write(`
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">6.5. Kernel Methods</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">6.5.1. Dual representations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">6.5.2. Construction of suitable kernels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">6.5.2. Construction of suitable kernels</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">6.5.2.1. Example 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">6.5.2.2. Example 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-gaussian-kernel">6.5.2.3. Example 3: Gaussian kernel</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">6.5.2.4. Proof:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recapitulation-of-svms">6.6. Recapitulation of SVMs</a></li>
@@ -451,8 +461,8 @@ document.write(`
 \]</div>
 <p>for <span class="math notranslate nohighlight">\(\omega\)</span> and <span class="math notranslate nohighlight">\(\beta\)</span>. In classification problems, we do not only have <em>equality constraints</em> as above but can also encounter <em>inequality constraints</em>. We formulate the general <strong>primal optimization problem</strong> as:</p>
 <div class="math notranslate nohighlight" id="equation-primal-problem">
-<span class="eqno">(6.4)<a class="headerlink" href="#equation-primal-problem" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\omega}{\min} f(\omega) \text{ s.t.} 
-\begin{cases} 
+<span class="eqno">(6.4)<a class="headerlink" href="#equation-primal-problem" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\omega}{\min} f(\omega) \text{ s.t.}
+\begin{cases}
 &amp;g_{i}(\omega) \leq 0, \quad i=1, \ldots, k, \\
 &amp;h_{j}(\omega) = 0, \quad j=1, \ldots, l.
 \end{cases}\end{split}\]</div>
@@ -465,8 +475,8 @@ document.write(`
 <p>Now we can verify that this optimization problem satisfies</p>
 <div class="math notranslate nohighlight" id="equation-theta-primal-cases">
 <span class="eqno">(6.7)<a class="headerlink" href="#equation-theta-primal-cases" title="Permalink to this equation">#</a></span>\[\begin{split}
-\theta_{p}(\omega) = 
-\begin{cases} 
+\theta_{p}(\omega) =
+\begin{cases}
 &amp;f(\omega) \quad \text{if } \omega \text{ satisfies the primal constraints,} \\
 &amp;\infty \qquad \text{otherwise}.
 \end{cases}
@@ -517,7 +527,7 @@ g_{i}(\omega^{\star}) &amp;\leq 0, \quad i=1, \ldots, k \qquad \text{(KKT4)}\\
 <p>Moreover, if a set <span class="math notranslate nohighlight">\(\omega^{\star}\)</span>, <span class="math notranslate nohighlight">\(\alpha^{\star}\)</span>, and <span class="math notranslate nohighlight">\(\beta^{\star}\)</span> satisfies the KKT conditions, then it is a solution to the primal/dual problem. The KKT conditions are sufficient and necessary here. The <strong>dual complementarity condition</strong> (KKT3) indicates whether the <span class="math notranslate nohighlight">\(g_{i}(\omega) \leq 0\)</span> constraint is active:</p>
 <div class="math notranslate nohighlight" id="equation-kkt-dual-complementarity">
 <span class="eqno">(6.13)<a class="headerlink" href="#equation-kkt-dual-complementarity" title="Permalink to this equation">#</a></span>\[\alpha_{i}^{\star} &gt; 0 \Longrightarrow g_{i}(\omega^{\star}) = 0,\]</div>
-<p>i.e. if <span class="math notranslate nohighlight">\(\alpha_{i}^{\star} &gt; 0\)</span>, then <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> is “on the constraint boundary”.</p>
+<p>i.e. if <span class="math notranslate nohighlight">\(\alpha_{i}^{\star} &gt; 0\)</span>, then <span class="math notranslate nohighlight">\(\omega^{\star}\)</span> is “on the constraint boundary”.s</p>
 </section>
 <section id="maximum-margin-classifier-mmc">
 <h2><span class="section-number">6.2. </span>Maximum Margin Classifier (MMC)<a class="headerlink" href="#maximum-margin-classifier-mmc" title="Permalink to this heading">#</a></h2>
@@ -598,7 +608,7 @@ g(z) &amp;= \begin{cases}
 <h3><span class="section-number">6.2.3. </span>Maximum Margin Classifier<a class="headerlink" href="#maximum-margin-classifier" title="Permalink to this heading">#</a></h3>
 <p>With these mathematical tools we are now ready to derive the <strong>Support Vector Machine (SVM)</strong> for linearly separable sets (a.k.a. Maximum Margin Classifier) by maximizing the previously derived geometric margin:</p>
 <div class="math notranslate nohighlight" id="equation-mmc-primal-geom-margin">
-<span class="eqno">(6.23)<a class="headerlink" href="#equation-mmc-primal-geom-margin" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\omega, b}{\max} \hspace{2pt} \gamma \quad \text{ s.t. } 
+<span class="eqno">(6.23)<a class="headerlink" href="#equation-mmc-primal-geom-margin" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\omega, b}{\max} \hspace{2pt} \gamma \quad \text{ s.t. }
 \begin{cases}
     &amp;y^{(i)} (\omega^{\top} x^{(i)} + b) \geq \gamma, \quad i=1, \ldots, m \\
     &amp;||\omega|| = 1 \Longrightarrow \hat{\gamma} = \gamma.
@@ -655,7 +665,7 @@ g(z) &amp;= \begin{cases}
 \end{aligned}\end{split}\]</div>
 <p>which we can then optimize as an optimization problem</p>
 <div class="math notranslate nohighlight" id="equation-mmc-dual-optimization">
-<span class="eqno">(6.32)<a class="headerlink" href="#equation-mmc-dual-optimization" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\alpha}{\max} \hspace{2pt} \theta_{D}(\alpha) \quad \text{s.t. } 
+<span class="eqno">(6.32)<a class="headerlink" href="#equation-mmc-dual-optimization" title="Permalink to this equation">#</a></span>\[\begin{split}\underset{\alpha}{\max} \hspace{2pt} \theta_{D}(\alpha) \quad \text{s.t. }
 \begin{cases}
     &amp;\alpha_{i} \geq 0, \quad i=1, \ldots, m \\
     &amp;\sum_{i=1}^{m} \alpha_{i} y^{(i)} = 0.
@@ -683,16 +693,13 @@ g(z) &amp;= \begin{cases}
 <p><span class="caption-number">Fig. 6.6 </span><span class="caption-text">Maximum Margin Classifier solution.</span><a class="headerlink" href="#maximum-margin-classifier-solution" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p><strong>Derivation of <span class="math notranslate nohighlight">\(b^{\star}\)</span></strong></p>
-<p>From the <span class="math notranslate nohighlight">\(x^{(i)}\)</span> on the negative margin one then gets to the decision boundary by <span class="math notranslate nohighlight">\(x^{(i)} + \omega^{\star}\)</span>, and from <span class="math notranslate nohighlight">\(x^{(j)}\)</span> on the positive margin by <span class="math notranslate nohighlight">\(x^{(j)} - \omega^{\star}\)</span>, i.e.</p>
+<p>To derive <span class="math notranslate nohighlight">\(b^{\star}\)</span>, we start from <span class="math notranslate nohighlight">\(x^{(i)}\)</span> on the negative margin, one then gets to the decision boundary by <span class="math notranslate nohighlight">\(x^{(i)} + \omega^{\star}\)</span>, and from <span class="math notranslate nohighlight">\(x^{(j)}\)</span> on the positive margin by <span class="math notranslate nohighlight">\(x^{(j)} - \omega^{\star}\)</span>, i.e.</p>
 <div class="math notranslate nohighlight" id="equation-mmc-bstar-derivation">
 <span class="eqno">(6.34)<a class="headerlink" href="#equation-mmc-bstar-derivation" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \Longrightarrow \underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{\star^{\top}} x^{(i)} + \omega^{\star^{\top}} \omega^{\star} + b^{\star} &amp;= 0 \\
 \underset{j \in \mathcal{C}_{1}}{\min} \hspace{2pt} \omega^{\star^\top} x^{(j)} - \omega^{\star^\top} \omega^{\star} + b^{\star} &amp;= 0
 \end{aligned}\end{split}\]</div>
-<p>As <span class="math notranslate nohighlight">\(\omega^{\star^\top} \omega^{\star} = 1\)</span>, we can then solve for <span class="math notranslate nohighlight">\(b^{\star}\)</span> and obtain the result in Eq. <a class="reference internal" href="#equation-mmc-bstar">(6.33)</a>.</p>
-<br>
-<p>Now we can check how the SVM predicts <span class="math notranslate nohighlight">\(y\)</span> given <span class="math notranslate nohighlight">\(x\)</span>:</p>
+<p>As <span class="math notranslate nohighlight">\(\omega^{\star^\top} \omega^{\star} = 1\)</span>, we can then solve for <span class="math notranslate nohighlight">\(b^{\star}\)</span> and obtain the result in Eq. <a class="reference internal" href="#equation-mmc-bstar">(6.33)</a>. Now we can check how the SVM predicts <span class="math notranslate nohighlight">\(y\)</span> given <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-mmc-model">
 <span class="eqno">(6.35)<a class="headerlink" href="#equation-mmc-model" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 \omega^{\star^{\top}}x + b^{\star} &amp;= \left( \sum_{i=1}^{m} \alpha_{i}^{\star} y^{(i)} x^{(i)} \right)^{\top} x + b^{\star} \\
@@ -711,14 +718,17 @@ g(z) &amp;= \begin{cases}
 </figcaption>
 </figure>
 <p><em>Data may not be exactly linealy seperable or some data outliers may undesirably deform the exact decision boundary.</em></p>
-<p><strong>Outlier problem</strong></p>
+<section id="outlier-problem">
+<h3><span class="section-number">6.3.1. </span>Outlier problem<a class="headerlink" href="#outlier-problem" title="Permalink to this heading">#</a></h3>
 <figure class="align-center" id="svm-sets-with-outlier">
 <a class="reference internal image-reference" href="../_images/svm_sets_with_outlier.png"><img alt="../_images/svm_sets_with_outlier.png" src="../_images/svm_sets_with_outlier.png" style="width: 500px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 6.8 </span><span class="caption-text">Sensitivity of MMC to outlier.</span><a class="headerlink" href="#svm-sets-with-outlier" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p><strong>Original SVM optimization problem</strong></p>
+</section>
+<section id="original-svm-optimization-problem">
+<h3><span class="section-number">6.3.2. </span>Original SVM optimization problem<a class="headerlink" href="#original-svm-optimization-problem" title="Permalink to this heading">#</a></h3>
 <div class="math notranslate nohighlight" id="equation-mmc-primal-problem">
 <span class="eqno">(6.36)<a class="headerlink" href="#equation-mmc-primal-problem" title="Permalink to this equation">#</a></span>\[\min _{\omega, b} \frac{1}{2}\|\omega\|^{2}  \quad \text {s.t. } y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1, i=1, \ldots, m\]</div>
 <p>To make the algorithm work for non-linearly separable data, we introduce <span class="math notranslate nohighlight">\(l_1\)</span>-regularization, i.e. a penalty term proportional to the magnitude of a certain quantity</p>
@@ -752,13 +762,12 @@ g(z) &amp;= \begin{cases}
 \sum_{i=1}^{m} \alpha_{i} y^{(i)}=0
 \end{array}\right.
 \end{aligned}\end{split}\]</div>
-<p>The “box constraints” (<span class="math notranslate nohighlight">\(0 \leq \alpha_{i} \leq C\)</span>) follow from the positivity requirement on Lagrange multipliers: <span class="math notranslate nohighlight">\(\alpha_{i}\ge 0,\mu_{i}\ge 0\)</span>.</p>
-<p>Evaluating the KKT3-complementarity condition leads to</p>
+<p>The “box constraints” (<span class="math notranslate nohighlight">\(0 \leq \alpha_{i} \leq C\)</span>) follow from the positivity requirement on Lagrange multipliers: <span class="math notranslate nohighlight">\(\alpha_{i}\ge 0,\mu_{i}\ge 0\)</span>. Evaluating the KKT3-complementarity condition leads to</p>
 <div class="math notranslate nohighlight" id="equation-smc-kkt3">
 <span class="eqno">(6.41)<a class="headerlink" href="#equation-smc-kkt3" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
-&amp;\alpha_{i}^{*} \left[y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)-1+\xi_{i}\right]=0 \Leftrightarrow \begin{cases}\alpha_{i}^{*}&gt;0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1-\xi_{i} \\ 
+&amp;\alpha_{i}^{*} \left[y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)-1+\xi_{i}\right]=0 \Leftrightarrow \begin{cases}\alpha_{i}^{*}&gt;0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1-\xi_{i} \\
 \alpha_{i}^{*}=0, &amp; y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1-\xi_{i} \end{cases}\\
-&amp;\mu_{i}^{*} \xi_{i}=0 \Leftrightarrow \begin{cases}\mu_{i}^{*}&gt;0, &amp; \xi_{i}=0 \\ 
+&amp;\mu_{i}^{*} \xi_{i}=0 \Leftrightarrow \begin{cases}\mu_{i}^{*}&gt;0, &amp; \xi_{i}=0 \\
 \mu_{i}^{*}=0, &amp; \xi_{i}&gt;0\end{cases}
 \end{aligned}\end{split}\]</div>
 <p>The resulting dual complementarity conditions for determining the support vectors become:</p>
@@ -773,7 +782,7 @@ g(z) &amp;= \begin{cases}
 <div class="math notranslate nohighlight" id="equation-smc-kkt3-alpha-c">
 <span class="eqno">(6.43)<a class="headerlink" href="#equation-smc-kkt3-alpha-c" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
 C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{array}{rr}
-0 &lt; \xi_{i} \leq 1 &amp; \text{(correctly classified)} \\ 
+0 &lt; \xi_{i} \leq 1 &amp; \text{(correctly classified)} \\
  \xi_{i}&gt;1 &amp; \text{(misclassified)}\end{array}\right.\\
 &amp; \Rightarrow \quad y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) &lt; 1
 \end{aligned}\end{split}\]</div>
@@ -807,6 +816,7 @@ C=\alpha_{i}^{*} \quad &amp; (\star) \Rightarrow \mu_{i}^{*}=0,\left\{\begin{arr
 <p><span class="caption-number">Fig. 6.9 </span><span class="caption-text">Soft Margin Classifier.</span><a class="headerlink" href="#soft-margin-classifier" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+</section>
 </section>
 <section id="advanced-topics-sequential-minimal-optimization-smo">
 <h2><span class="section-number">6.4. </span>Advanced Topics: Sequential Minimal Optimization (SMO)<a class="headerlink" href="#advanced-topics-sequential-minimal-optimization-smo" title="Permalink to this heading">#</a></h2>
@@ -975,8 +985,8 @@ L, \quad \alpha_{2}^{'}&lt;L
 <span class="eqno">(6.59)<a class="headerlink" href="#equation-ridge-reg-a" title="Permalink to this equation">#</a></span>\[\begin{split}a = -\frac{1}{\lambda} \left[\begin{array}{c}\vdots \\ w^{T} \varphi\left(x^{(i)}\right)-y^{(i)} \\ \vdots\end{array}\right] \in \mathbb{R}^m.\end{split}\]</div>
 <p>Substituting the necessary condition  <span class="math notranslate nohighlight">\(\omega = \Phi^Ta\)</span> into <span class="math notranslate nohighlight">\(J(\omega)\)</span> we obtain the dual problem:</p>
 <div class="math notranslate nohighlight" id="equation-ridge-reg-dual">
-<span class="eqno">(6.60)<a class="headerlink" href="#equation-ridge-reg-dual" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned} 
-J_{D}(a)=&amp; \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^Ta -a^T \Phi \Phi^T y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T \Phi \Phi^Ta \\=&amp; \frac{1}{2} a^T K K a-a^T K y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T Ka 
+<span class="eqno">(6.60)<a class="headerlink" href="#equation-ridge-reg-dual" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+J_{D}(a)=&amp; \frac{1}{2} a^T \Phi \Phi^T \Phi \Phi^Ta -a^T \Phi \Phi^T y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T \Phi \Phi^Ta \\=&amp; \frac{1}{2} a^T K K a-a^T K y+\frac{1}{2} y^T y+\frac{\lambda}{2} a^T Ka
 \end{aligned}\end{split}\]</div>
 <p>Here, <span class="math notranslate nohighlight">\(K=\Phi\Phi^T\)</span> is a <strong>Grammatrix</strong> generated by a vector <span class="math notranslate nohighlight">\(\varphi\)</span> according to <span class="math notranslate nohighlight">\(K_{ij} = \langle \varphi_i , \varphi_j \rangle\)</span> where <span class="math notranslate nohighlight">\(\langle \cdot , \cdot \rangle\)</span> is an inner product - here <span class="math notranslate nohighlight">\(\langle \varphi(x^{(i)}),\varphi(x^{(j)}) \rangle\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-kernel-def">
@@ -1025,7 +1035,8 @@ h(x) &amp;= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x)
 <li><p>direct construction with constraint that a <em>valid kernel</em> is obtained, i.e. it needs actually to correspond to a possible feature map scalar product.</p></li>
 </ul>
 <p>A <strong>necessary and sufficient condition</strong> for a valid kernel is that <strong><span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite for all <span class="math notranslate nohighlight">\(x\)</span></strong>.</p>
-<p><strong>Example 1</strong></p>
+<section id="example-1">
+<h4><span class="section-number">6.5.2.1. </span>Example 1<a class="headerlink" href="#example-1" title="Permalink to this heading">#</a></h4>
 <p>Given is <span class="math notranslate nohighlight">\(x, x' \in \mathbb{R}^N\)</span> and a scalar kernel</p>
 <div class="math notranslate nohighlight" id="equation-kernel-polynomial-2">
 <span class="eqno">(6.67)<a class="headerlink" href="#equation-kernel-polynomial-2" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
@@ -1036,36 +1047,39 @@ K(x,x') &amp; = (x^Tx')^2 \\
 <p>The corresponding feature map for <span class="math notranslate nohighlight">\(K(x,x') = \varphi^T(x)\varphi(x')\)</span> and with <span class="math notranslate nohighlight">\(N=3\)</span> is</p>
 <div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-n-3-feature-map">
 <span class="eqno">(6.68)<a class="headerlink" href="#equation-kernel-polynomial-2-n-3-feature-map" title="Permalink to this equation">#</a></span>\[\begin{split}\varphi (x) = \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ x_1 x_3 \\ x_2 x_1 \\ \ldots \\ x_3x_3 \end{array}\right]\end{split}\]</div>
-<p><strong>Example 2</strong></p>
+</section>
+<section id="example-2">
+<h4><span class="section-number">6.5.2.2. </span>Example 2<a class="headerlink" href="#example-2" title="Permalink to this heading">#</a></h4>
 <p>Alternative kernel with parameter <span class="math notranslate nohighlight">\(c\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-with-bias">
 <span class="eqno">(6.69)<a class="headerlink" href="#equation-kernel-polynomial-2-with-bias" title="Permalink to this equation">#</a></span>\[K(x,x') = (x^Tx'+c)^2 = \sum_{i,j} x_ix_jx_i'x_j' + \sum_i \sqrt{2c} x_i \sqrt{2c} x_j + c^2\]</div>
 <p>belongs to</p>
 <div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-with-bias-n-3-feature-map">
 <span class="eqno">(6.70)<a class="headerlink" href="#equation-kernel-polynomial-2-with-bias-n-3-feature-map" title="Permalink to this equation">#</a></span>\[\begin{split}\varphi(x)= \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ \ldots \\ x_3x_3 \\ \sqrt{2c}x_1 \\ \sqrt{2c}x_2 \\ \sqrt{2c}x_3 \\ c  \end{array}\right]\end{split}\]</div>
-<br>
 <p>Considering that <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are vectors, the scalar product <span class="math notranslate nohighlight">\(K(x,x')=\varphi^T(x)\varphi(x')\)</span> expresses the projection of <span class="math notranslate nohighlight">\(\varphi(x')\)</span> onto <span class="math notranslate nohighlight">\(\varphi(x)\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> the larger the kernel value, the more parallel the vectors are. Conversely, the smaller, the more orthogonal they are.</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> intuitively <span class="math notranslate nohighlight">\(K(x,x')\)</span> is a measure of “how close” <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are.</p>
-<p><strong>Example 3: Gaussian kernel</strong></p>
+</section>
+<section id="example-3-gaussian-kernel">
+<h4><span class="section-number">6.5.2.3. </span>Example 3: Gaussian kernel<a class="headerlink" href="#example-3-gaussian-kernel" title="Permalink to this heading">#</a></h4>
 <div class="math notranslate nohighlight" id="equation-gaussian-kernel">
 <span class="eqno">(6.71)<a class="headerlink" href="#equation-gaussian-kernel" title="Permalink to this equation">#</a></span>\[\begin{split}K(x,x')= \exp \left\{- \frac{(x-x')^T (x-x')}{2 \sigma^2} \right\} \\
 \left\{\begin{array}{l} \approx 1 , \quad x \text{ and } x' \text{ close}  \\ \approx 0 , \quad x \text{ and } x' \text{ far apart} \end{array}\right.\end{split}\]</div>
 <p>Now we show for illustration that a valid kernel is positive semidefinite, which is the above-mentioned necessary condition.</p>
-<p><strong>Proof:</strong></p>
+</section>
+<section id="proof">
+<h4><span class="section-number">6.5.2.4. </span>Proof:<a class="headerlink" href="#proof" title="Permalink to this heading">#</a></h4>
 <div class="math notranslate nohighlight" id="equation-kernel-symmetry">
 <span class="eqno">(6.72)<a class="headerlink" href="#equation-kernel-symmetry" title="Permalink to this equation">#</a></span>\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) = \varphi^T(x^{(j)})\varphi(x^{(i)}) = K_{ji}\]</div>
 <div class="math notranslate nohighlight" id="equation-kernel-positivity">
-<span class="eqno">(6.73)<a class="headerlink" href="#equation-kernel-positivity" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned} 
-\Rightarrow (x')^TKx' &amp;= x'_i K_{ij}x'_j \\ 
+<span class="eqno">(6.73)<a class="headerlink" href="#equation-kernel-positivity" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
+\Rightarrow (x')^TKx' &amp;= x'_i K_{ij}x'_j \\
 &amp; = x'_i \varphi^T(x^{(i)}) \varphi(x^{(j)}) x'_j \\
 &amp; = x'_i \varphi_k^{(i)} \varphi_k^{(j)} x'_j \\
-&amp; = \sum_k (x_i^{(i)} \varphi_k^{(i)})^2 \geqslant 0 
+&amp; = \sum_k (x_i^{(i)} \varphi_k^{(i)})^2 \geqslant 0
 \end{aligned}\end{split}\]</div>
 <p>The necessary and sufficient condition is due to <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Mercer%27s_theorem">Mercer’s theorem</a></strong>:</p>
-<p>A given <span class="math notranslate nohighlight">\(K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}\)</span> is a valid kernel if for any {<span class="math notranslate nohighlight">\(x^{(1)},...,x^{(m)}\)</span>}, <span class="math notranslate nohighlight">\(m&lt;\infty\)</span> the resulting <span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite (which implies that it also must be symmetric).</p>
-<br>
-<p>For non-separable sets we still can apply MMC or slack-variable SMC: We simply replace the feature-scalar product within the SVM prediction.</p>
+<p>A given <span class="math notranslate nohighlight">\(K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}\)</span> is a valid kernel if for any {<span class="math notranslate nohighlight">\(x^{(1)},...,x^{(m)}\)</span>}, <span class="math notranslate nohighlight">\(m&lt;\infty\)</span> the resulting <span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite (which implies that it also must be symmetric). For non-separable sets we still can apply MMC or slack-variable SMC: We simply replace the feature-scalar product within the SVM prediction.</p>
 <div class="math notranslate nohighlight" id="equation-smc-with-dot-product">
 <span class="eqno">(6.74)<a class="headerlink" href="#equation-smc-with-dot-product" title="Permalink to this equation">#</a></span>\[h(x) = \omega^{*T}x+b^* = \sum_{i=1}^m \alpha_i^* y^{(i)} \langle x^{(i)} , x \rangle + b^*\]</div>
 <p>We replace <span class="math notranslate nohighlight">\(\langle x^{(i)} , x \rangle\)</span> by <span class="math notranslate nohighlight">\(k(x^{(i)},x)\)</span>.</p>
@@ -1074,13 +1088,14 @@ K(x,x') &amp; = (x^Tx')^2 \\
 <p>This pulls through into the dual problem for determining <span class="math notranslate nohighlight">\(\alpha_i^*\)</span> and <span class="math notranslate nohighlight">\(b^*\)</span> such that by picking a suitable kernel function we may get close to a linearly separable transformation function without actually performing the feature mapping.</p>
 </section>
 </section>
+</section>
 <section id="recapitulation-of-svms">
 <h2><span class="section-number">6.6. </span>Recapitulation of SVMs<a class="headerlink" href="#recapitulation-of-svms" title="Permalink to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Problem of non-linearly separable sets</p>
 <ul>
-<li><p>introduction of controlled violations of the strict margin constraints</p></li>
-<li><p>introduction of feature maps</p></li>
+<li><p>Introduction of controlled violations of the strict margin constraints</p></li>
+<li><p>Introduction of feature maps</p></li>
 </ul>
 </li>
 <li><p>Controlled violation:
@@ -1092,8 +1107,8 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 <li><p>Important kernel: Gaussian</p></li>
 <li><p>Solution of non-separable problems:</p>
 <ul>
-<li><p>pick a suitable kernel function</p></li>
-<li><p>run SVM with a kernel function</p></li>
+<li><p>Pick a suitable kernel function</p></li>
+<li><p>Run SVM with a kernel function</p></li>
 </ul>
 </li>
 </ul>
@@ -1177,7 +1192,11 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-margin-classifier">6.2.3. Maximum Margin Classifier</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-soft-margin-classifier-smc">6.3. Advanced Topics: Soft Margin Classifier (SMC)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-soft-margin-classifier-smc">6.3. Advanced Topics: Soft Margin Classifier (SMC)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outlier-problem">6.3.1. Outlier problem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#original-svm-optimization-problem">6.3.2. Original SVM optimization problem</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-topics-sequential-minimal-optimization-smo">6.4. Advanced Topics: Sequential Minimal Optimization (SMO)</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#coordinate-ascent">6.4.1. Coordinate Ascent</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#outline-of-smo-for-svm">6.4.2. Outline of SMO for SVM</a></li>
@@ -1185,7 +1204,13 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">6.5. Kernel Methods</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">6.5.1. Dual representations</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">6.5.2. Construction of suitable kernels</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">6.5.2. Construction of suitable kernels</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">6.5.2.1. Example 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">6.5.2.2. Example 2</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-gaussian-kernel">6.5.2.3. Example 3: Gaussian kernel</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">6.5.2.4. Proof:</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recapitulation-of-svms">6.6. Recapitulation of SVMs</a></li>

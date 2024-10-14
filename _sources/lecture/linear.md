@@ -4,19 +4,18 @@
 
 Linear regression belongs to the family of **supervised learning** approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be "Given measurement pairs $\left\{(x^{(i)}, y^{(i)})\right\}_{i=1,...m}$, how to fit a line $h(x)$ to best approximate $y$?"
 
-
 ``````{admonition} Do you remember this from last lecture?
 `````{grid}
 :gutter: 2
 ````{grid-item}
-```{image} ../imgs/lin_reg_1d.png
+```{image} ../imgs/linear/lin_reg_1d.png
 :alt: 2013_FordFusion_CFDTopandSide.png
 :width: 80%
 :align: center
 ```
 ````
 ````{grid-item}
-```{image} ../imgs/lin_reg_1d_distances.png
+```{image} ../imgs/linear/lin_reg_1d_distances.png
 :alt:
 :width: 80%
 :align: center
@@ -36,7 +35,7 @@ Linear regression belongs to the family of **supervised learning** approaches, a
 2. Then we need a strategy to fit our hypothesis parameters $\vartheta$ to the data points we have $\left\{(x^{(i)}, y^{\text {(i)}})\right\}_{i=1,...m}$.
 
     1. Define a suitable cost function $J$, which emphasizes the importance of certain traits to the model. I.e. if a certain data area is of special importance to our model we should penalize modeling failures for those points much more heavily than others. A typical choice is the *Least Mean Square* (LMS) i.e.
-    
+
         $$J(\vartheta)=\frac{1}{2} \sum_{i=1}^{m}\left(h(x^{(i)})-y^{(i)}\right)^{2}$$ (mls_loss_simple)
 
     2. Through an iterative application of gradient descent (more on this later in the course) find a $\vartheta$ which minimizes the cost function $J(\vartheta)$. If we apply gradient descent, our update function for the hypothesis parameters then takes the following shape
@@ -71,7 +70,7 @@ $$Y_{m \times 1}=\left[\begin{array}{c}y^{(1)} \\ \vdots \\ y^{(i)} \\ \vdots \\
 
 Connecting the individual pieces we then get the update function as
 
-$$X \vartheta _ {n\times 1} -Y = 
+$$X \vartheta _ {n\times 1} -Y =
 \left[\begin{array}{c}
 h(x^{(0)})-y^{(1)} \\
 \vdots \\
@@ -93,7 +92,7 @@ Computing the derivative
 $$\begin{align}
 \nabla_{\vartheta} J(\vartheta)&=\frac{1}{2} \nabla_{\vartheta}(X \vartheta-Y)^{\top}(X \vartheta-Y) \\
 & =\frac{1}{2} \nabla_{\vartheta}(\underbrace{\vartheta^{\top} X^{\top} X \vartheta-\vartheta^{\top} X^{\top} Y-Y^{\top} X \vartheta}_{\text {this is in fact a scalar for $p=1$}}+Y^{\top} Y)\\
-&=\frac{1}{2}\left(2X^{\top} X \vartheta-2 X^{\top} Y\right)  \qquad (\text{use } {\nabla}_{\vartheta} Y^{\top} Y=0) 
+&=\frac{1}{2}\left(2X^{\top} X \vartheta-2 X^{\top} Y\right)  \qquad (\text{use } {\nabla}_{\vartheta} Y^{\top} Y=0)
 \\
 &=X^{\top} X \vartheta-X^{\top} Y \stackrel{!}{=} 0.
 \end{align}
@@ -109,18 +108,17 @@ $$
 \end{align}
 $$ (lms_sol_matrix)
 
-How do we know that we are at a minumum and not a miximum? In the case of scalar intput $x\in\mathbb{R}$, the second derivative of the error function $\Delta_{\vartheta}J(\vartheta)$ becomes $X^2\ge0$, which guarantees that the extremum is a minimum.
+How do we know that we are at a minimum and not a maximum? In the case of scalar input $x\in\mathbb{R}$, the second derivative of the error function $\Delta_{\vartheta}J(\vartheta)$ becomes $X^2\ge0$, which guarantees that the extremum is a minimum.
 
-**Exercise: Linear Regression Implementations**
+#### Exercise: Linear Regression Implementations
 
 Implement the three approaches (batch gradient descent, stochastic gradient descent, and the matrix approach) to linear regression and compare their performance.
 1. Batch Gradient Descent
 2. Stochastic Gradient Descent
 3. Matrix Approach
 
-
 ### Probabilistic Interpretation
-With much data in practice, having errors over the collected data itself, we want to be able to include a data error in our linear regression. The approach for this is **Maximum Likelihood Estimation** as introduced in the *Introduction* lecture. I.e. this means data points are modeled as 
+With much data in practice, having errors over the collected data itself, we want to be able to include a data error in our linear regression. The approach for this is **Maximum Likelihood Estimation** as introduced in the *Introduction* lecture. I.e. this means data points are modeled as
 
 $$y^{(i)}=\vartheta^{\top} x^{(i)}+\varepsilon^{(i)}$$ (prob_model)
 
@@ -160,7 +158,7 @@ $$ (lms_optimization_task)
 
 **This is the same result as minimizing $J(\vartheta)$ from before.** Interestingly enough, the Gaussian i.i.d. noise used in the maximum likelihood approach is entirely independent of $\sigma^{2}$.
 
-> Least mean squares (**LMS**) method, as well as maximum likelihood regression as above are **parametric learning** algorithms. 
+> Least mean squares (**LMS**) method, as well as maximum likelihood regression as above are **parametric learning** algorithms.
 
 > If the number of parameters is **not** known beforehand, then the algorithms become **non-parametric** learning algorithms.
 
@@ -174,18 +172,16 @@ $$\omega^{(i)}=\exp{\left(-\frac{\left(x^{(i)}-\tilde{x}\right)^{2}}{2 \tau^{2}}
 
 with $\tau$ being a hyperparameter. This approach naturally gives more weight to new datapoints. Hence making $\vartheta$ crucially depend on $\tilde{x}$, and making it more non-parametric.
 
-
 ## Classification & Logistic Regression
 
 Summarizing the differences between regression and classification:
 
-| Regression | Classification | 
+| Regression | Classification |
 | -------- | -------- |
 | $x \in \mathbb{R}^{n}$    | $x \in \mathbb{R}^{n}$     |
 | $y \in \mathbb{R}$  | $y \in\{0,1\}$ |
 
-
-```{figure} ../imgs/iris_classification_linear.png
+```{figure} ../imgs/linear/iris_classification_linear.png
 ---
 width: 500px
 align: center
@@ -200,13 +196,13 @@ $$
 h(x) = \varphi ( \vartheta^{\top} x ) = \frac{1}{1+e^{-\vartheta^{\top} x}},
 $$ (logistic_regression_model)
 
-where 
+where
 
 $$\varphi(x)=\frac{1}{1+e^{-x}}=\frac{1}{2}\left(1+\tanh\frac{x}{2}\right)$$ (sigmoid_function)
 
-is the logistic function, also called the sigmoid function. 
+is the logistic function, also called the sigmoid function.
 
-```{figure} ../imgs/sigmoid.svg
+```{figure} ../imgs/linear/sigmoid.svg
 ---
 width: 400px
 align: center
@@ -269,7 +265,6 @@ g(x)= \begin{cases}1, & x \geqslant 0 \\ 0, & x<0\end{cases}
 $$ (heaviside)
 
 derive the update functions for the gradient methods, as well as the Maximum Likelihood Estimator approach.
-
 
 ## Further References
 

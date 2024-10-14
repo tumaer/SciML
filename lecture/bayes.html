@@ -411,7 +411,10 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceptance-rejection-sampling">3.2.1. Acceptance-Rejection Sampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-importance-resampling-bayesian-bootstrap">3.2.2. Sampling-Importance-Resampling / Bayesian Bootstrap</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-rejection-sampling">3.2.3. Adaptive Rejection Sampling</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chain-monte-carlo">3.2.4. Markov Chain Monte Carlo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chain-monte-carlo">3.2.4. Markov Chain Monte Carlo</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metropolis-hastings">3.2.4.1. Metropolis-Hastings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference">3.3. Bayesian Inference</a><ul class="nav section-nav flex-column">
@@ -472,10 +475,8 @@ document.write(`
 <div class="math notranslate nohighlight" id="equation-mc-expectation">
 <span class="eqno">(3.3)<a class="headerlink" href="#equation-mc-expectation" title="Permalink to this equation">#</a></span>\[E_{\theta}[h_x(\theta|y)]=\int h_{x}(\theta) g(\theta|y) d\theta.\]</div>
 <blockquote>
-<div><p>Recall: <span class="math notranslate nohighlight">\(h_x(\theta)=h(x,\theta)\)</span> is the machine learning model with parameters <span class="math notranslate nohighlight">\(\theta\)</span> evaluated at input <span class="math notranslate nohighlight">\(x\)</span>. And <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> is the probability density function defining how often <span class="math notranslate nohighlight">\(\theta\)</span> equals a given value. If we have the linear model <span class="math notranslate nohighlight">\(y\approx h(x,\theta) = \theta x\)</span> and the ultimate underlying relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is <span class="math notranslate nohighlight">\(y=2x\)</span>, but our dataset is corrupted with noise, it might make more sense to treat <span class="math notranslate nohighlight">\(\theta\)</span> as, e.g., a Gaussian random variable <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}\mathcal(\mu,\sigma^2)\)</span>. After tuning the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of this distribution, we might get <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}(2.1,0.1^2)\)</span>. Now, to compute the expected value of <span class="math notranslate nohighlight">\(h(x',\theta)\)</span> for a novel input <span class="math notranslate nohighlight">\(x'\)</span> we would have to evaluate the integral in Eq. <a class="reference internal" href="#equation-mc-expectation">(3.3)</a>.</p>
-</div></blockquote>
-<blockquote>
-<div><p>Note: this integral can be seen as the continuous version of the sum rule of probabilities from the GMM lecture, and integrating out <span class="math notranslate nohighlight">\(\theta\)</span> is called marginalization (more on that in the <a class="reference internal" href="gp.html"><span class="doc std std-doc">Gaussian Processes lecture</span></a>).</p>
+<div><p>Recall: <span class="math notranslate nohighlight">\(h_x(\theta)=h(x,\theta)\)</span> is the machine learning model with parameters <span class="math notranslate nohighlight">\(\theta\)</span> evaluated at input <span class="math notranslate nohighlight">\(x\)</span>. And <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> is the probability density function defining how often <span class="math notranslate nohighlight">\(\theta\)</span> equals a given value. If we have the linear model <span class="math notranslate nohighlight">\(y\approx h(x,\theta) = \theta x\)</span> and the ultimate underlying relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is <span class="math notranslate nohighlight">\(y=2x\)</span>, but our dataset is corrupted with noise, it might make more sense to treat <span class="math notranslate nohighlight">\(\theta\)</span> as, e.g., a Gaussian random variable <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}\mathcal(\mu,\sigma^2)\)</span>. After tuning the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of this distribution, we might get <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}(2.1,0.1^2)\)</span>. Now, to compute the expected value of <span class="math notranslate nohighlight">\(h(x',\theta)\)</span> for a novel input <span class="math notranslate nohighlight">\(x'\)</span> we would have to evaluate the integral in Eq. <a class="reference internal" href="#equation-mc-expectation">(3.3)</a>.
+Note: this integral can be seen as the continuous version of the sum rule of probabilities from the GMM lecture, and integrating out <span class="math notranslate nohighlight">\(\theta\)</span> is called marginalization (more on that in the <a class="reference internal" href="gp.html"><span class="doc std std-doc">Gaussian Processes lecture</span></a>).</p>
 </div></blockquote>
 <p>To approximate this integral with Monte Carlo sampling techniques, we need to draw samples from the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. Given enough samples, this process always converges to the true value of the integral according to the <a class="reference external" href="http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf">Monte Carlo theorem</a>.</p>
 <p>The approach consists of the following three steps:</p>
@@ -592,7 +593,8 @@ document.write(`
 <section id="markov-chain-monte-carlo">
 <h3><span class="section-number">3.2.4. </span>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="Permalink to this heading">#</a></h3>
 <p>The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(\theta_{next}|\theta_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
-<p><strong>Metropolis-Hastings</strong></p>
+<section id="metropolis-hastings">
+<h4><span class="section-number">3.2.4.1. </span>Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="Permalink to this heading">#</a></h4>
 <p>The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This is done by following the algorithm:</p>
 <ol class="arabic" start="0">
 <li><p>Start at an initial point <span class="math notranslate nohighlight">\(\theta_{current} = \theta^0\)</span>.</p></li>
@@ -606,19 +608,20 @@ document.write(`
 <li><p>Repeat <span class="math notranslate nohighlight">\(N\)</span> times from step 1.</p></li>
 </ol>
 <p>A special choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is for example the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.</p>
-<figure class="align-center" id="metropolis-hastings">
+<figure class="align-center" id="id3">
 <a class="reference internal image-reference" href="../_images/metropolis_hastings.png"><img alt="../_images/metropolis_hastings.png" src="../_images/metropolis_hastings.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Metropolis-Hastings trajectory (Source: <a class="reference external" href="https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html">relguzman.blogpost.com</a>).</span><a class="headerlink" href="#metropolis-hastings" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Metropolis-Hastings trajectory (Source: <a class="reference external" href="https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html">relguzman.blogpost.com</a>).</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<hr class="docutils" />
+<p>—;</p>
 <p>In summary:</p>
 <ul class="simple">
 <li><p>The unscaled posterior <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span> contains the <em>shape information</em> of the posterior</p></li>
 <li><p>For the true posterior, the unscaled posterior needs to be divided by an integral over the whole parameter space.</p></li>
 <li><p>Integral has to be evaluated numerically for which we rely on the just presented Monte Carlo sampling techniques.</p></li>
 </ul>
+</section>
 </section>
 </section>
 <section id="bayesian-inference">
@@ -634,7 +637,7 @@ document.write(`
 <figure class="align-center" id="posterior-mean">
 <a class="reference internal image-reference" href="../_images/posterior_mean.png"><img alt="../_images/posterior_mean.png" src="../_images/posterior_mean.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Posterior mean (Source: <span id="id3">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-mean" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Posterior mean (Source: <span id="id4">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-mean" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>And the <strong>posterior median</strong> <span class="math notranslate nohighlight">\(\tilde{\theta}\)</span> minimizes the <em>posterior mean absolute deviation</em></p>
@@ -645,7 +648,7 @@ document.write(`
 <figure class="align-center" id="posterior-median">
 <a class="reference internal image-reference" href="../_images/posterior_median.png"><img alt="../_images/posterior_median.png" src="../_images/posterior_median.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.6 </span><span class="caption-text">Posterior median (Source: <span id="id4">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-median" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.6 </span><span class="caption-text">Posterior median (Source: <span id="id5">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-median" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Another point estimate is given by the <strong>maximum a posteriory</strong> (MAP) estimate <span class="math notranslate nohighlight">\(\theta_{MAP}\)</span>, which is a generalization over the maximum likelihood estimate (MLE) in the sense that MAP entails a prior <span class="math notranslate nohighlight">\(g(\theta)\)</span>.</p>
@@ -669,7 +672,7 @@ document.write(`
 <figure class="align-center" id="credible-intervals">
 <a class="reference internal image-reference" href="../_images/credible_interval.png"><img alt="../_images/credible_interval.png" src="../_images/credible_interval.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.7 </span><span class="caption-text">The 95% credible interval (Source: <span id="id5">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#credible-intervals" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.7 </span><span class="caption-text">The 95% credible interval (Source: <span id="id6">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#credible-intervals" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -710,7 +713,7 @@ f(y_{n+1}|y_{1}, \ldots, y_{n}) &amp;\propto \int g(\theta) \times f(y_{n+1}| \t
 <figure class="align-center" id="bayesian-log-reg-data">
 <a class="reference internal image-reference" href="../_images/bayesian_log_reg_data.png"><img alt="../_images/bayesian_log_reg_data.png" src="../_images/bayesian_log_reg_data.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Bayesian logistic regression data (Source: <span id="id6">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg-data" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Bayesian logistic regression data (Source: <span id="id7">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg-data" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In practical applications, we are interested in predicting the output <span class="math notranslate nohighlight">\(y\)</span> given an input <span class="math notranslate nohighlight">\(x\)</span>. Thus, we need to compute the <strong>posterior predictive distribution</strong></p>
@@ -723,7 +726,7 @@ f(y_{n+1}|y_{1}, \ldots, y_{n}) &amp;\propto \int g(\theta) \times f(y_{n+1}| \t
 <figure class="align-center" id="bayesian-log-reg">
 <a class="reference internal image-reference" href="../_images/bayesian_log_reg.jpg"><img alt="../_images/bayesian_log_reg.jpg" src="../_images/bayesian_log_reg.jpg" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Bayesian logistic regression (Source: <span id="id7">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Bayesian logistic regression (Source: <span id="id8">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -738,7 +741,7 @@ f(y_{n+1}|y_{1}, \ldots, y_{n}) &amp;\propto \int g(\theta) \times f(y_{n+1}| \t
 <p>and a likelihood given by the Multivariate-Normal distribution</p>
 <div class="math notranslate nohighlight" id="equation-blr-likelihood">
 <span class="eqno">(3.26)<a class="headerlink" href="#equation-blr-likelihood" title="Permalink to this equation">#</a></span>\[p(\mathcal{D} | \omega, \sigma^{2}) = \prod_{n=1}^{N}p(y_{n}|{\bf{\omega^{\top}}}{\bf{x}}, \sigma^{2}) = \mathcal{N}({\bf{y}} | {\bf{X} \bf{\omega}}, \sigma^{2} {\bf{I}}_{N}).\]</div>
-<p>The posterior can then be analytically derived using Bayes’ rule for Gaussians (see <span id="id8">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Eq. 3.37) to</p>
+<p>The posterior can then be analytically derived using Bayes’ rule for Gaussians (see <span id="id9">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Eq. 3.37) to</p>
 <div class="math notranslate nohighlight" id="equation-blr-posterior">
 <span class="eqno">(3.27)<a class="headerlink" href="#equation-blr-posterior" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
@@ -751,7 +754,7 @@ p({\bf{\omega}} | {\bf{X}}, {\bf{y}}, \sigma^{2}) &amp;\propto \mathcal{N}(\omeg
 <figure class="align-center" id="bayesian-lin-reg">
 <a class="reference internal image-reference" href="../_images/bayesian_lin_reg.png"><img alt="../_images/bayesian_lin_reg.png" src="../_images/bayesian_lin_reg.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Bayesian linear regression (Source: <span id="id9">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 11).</span><a class="headerlink" href="#bayesian-lin-reg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Bayesian linear regression (Source: <span id="id10">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 11).</span><a class="headerlink" href="#bayesian-lin-reg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -764,7 +767,7 @@ Applying the previously discussed Bayesian approaches to these problems, and the
 <figure class="align-center" id="bayesian-nn">
 <a class="reference internal image-reference" href="../_images/bayesian_nn.png"><img alt="../_images/bayesian_nn.png" src="../_images/bayesian_nn.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.11 </span><span class="caption-text">Bayesian machine learning (Source: <span id="id10">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 4).</span><a class="headerlink" href="#bayesian-nn" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.11 </span><span class="caption-text">Bayesian machine learning (Source: <span id="id11">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 4).</span><a class="headerlink" href="#bayesian-nn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -784,21 +787,21 @@ Applying the previously discussed Bayesian approaches to these problems, and the
 </ul>
 <p><strong>Bayesian Statistics</strong></p>
 <ul class="simple">
-<li><p><span id="id11">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2</p></li>
+<li><p><span id="id12">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2</p></li>
 </ul>
 <p><strong>Sampling</strong></p>
 <ul class="simple">
-<li><p><span id="id12">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2, 5, and 6 - all presented sampling methods and background</p></li>
-<li><p><span id="id13">[<a class="reference internal" href="../references.html#id9" title="Christian P Robert and George Casella. Monte Carlo statistical methods. Springer, 2004. URL: https://link.springer.com/book/10.1007/978-1-4757-4145-2.">Robert and Casella, 2004</a>]</span> - deeper dive into MCMC</p></li>
+<li><p><span id="id13">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2, 5, and 6 - all presented sampling methods and background</p></li>
+<li><p><span id="id14">[<a class="reference internal" href="../references.html#id9" title="Christian P Robert and George Casella. Monte Carlo statistical methods. Springer, 2004. URL: https://link.springer.com/book/10.1007/978-1-4757-4145-2.">Robert and Casella, 2004</a>]</span> - deeper dive into MCMC</p></li>
 <li><p><a class="reference external" href="https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&amp;target=banana">Interactive MCMC visualizations</a></p></li>
 </ul>
 <p><strong>Bayesian Inference</strong></p>
 <ul class="simple">
-<li><p><span id="id14">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 3</p></li>
+<li><p><span id="id15">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 3</p></li>
 </ul>
 <p><strong>Bayesian Regression / Classification</strong></p>
 <ul class="simple">
-<li><p><span id="id15">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span></p>
+<li><p><span id="id16">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span></p>
 <ul>
 <li><p>Section 10.5 on Bayesian logistic regression</p></li>
 <li><p>Section 11.7 on Bayesian linear regression</p></li>
@@ -879,7 +882,10 @@ Applying the previously discussed Bayesian approaches to these problems, and the
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#acceptance-rejection-sampling">3.2.1. Acceptance-Rejection Sampling</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sampling-importance-resampling-bayesian-bootstrap">3.2.2. Sampling-Importance-Resampling / Bayesian Bootstrap</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#adaptive-rejection-sampling">3.2.3. Adaptive Rejection Sampling</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chain-monte-carlo">3.2.4. Markov Chain Monte Carlo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#markov-chain-monte-carlo">3.2.4. Markov Chain Monte Carlo</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#metropolis-hastings">3.2.4.1. Metropolis-Hastings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-inference">3.3. Bayesian Inference</a><ul class="nav section-nav flex-column">

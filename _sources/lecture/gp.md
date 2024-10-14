@@ -12,16 +12,16 @@ The two parameters are the mean $\mu$ and variance $\sigma^2$.
 
 The **multivariate** Gaussian distribution then has the following form
 
-
 $$\mathcal{N}(x; \mu, \Sigma)= \frac{1}{(2\pi)^{d/2}\sqrt{\det (\Sigma)}} \exp \left(-\frac{1}{2}(x-\mu)^{\top}\Sigma^{-1}(x-\mu)\right),$$ (multivariate_gaussian_duplicate)
 
-with 
+with
 
 - $x \in \mathbb{R}^d \quad $ - feature / sample / random vector
 - $\mu \in \mathbb{R}^d \quad $ - mean vector
 - $\Sigma \in \mathbb{R}^{d \times d} \quad$ - covariance matrix
 
 Properties:
+
 - $\Delta^2=(x-\mu)^{\top}\Sigma^{-1}(x-\mu)$ is a quadratic form.
 - $\Delta$ is the Mahalanobis distance from $\mu$ to $x$. It collapses to the Euclidean distance for $\Sigma = I$.
 - $\Sigma$ is symmetric positive semi-definite and its diagonal elements contain the variance, i.e. covariance with itself.
@@ -38,15 +38,15 @@ $$
 \end{aligned}
 $$ (sigma_eigenvectors_matrix)
 
-which fullfils
+which fulfils
 
 $$U\Sigma U^{\top} = \lambda,$$ (sigma_eigendecomposition_matrix)
 
-where $\lambda$ denotes a diagonal matrix of eigenvalues. If we apply the variable transformation $y=U(x-\mu)$, we can transform the Gaussian PDF to the $y$ coordinates according to the change of variables rule (see beginning of [Guassian Mixture Models](gmm.md)).
+where $\lambda$ denotes a diagonal matrix of eigenvalues. If we apply the variable transformation $y=U(x-\mu)$, we can transform the Gaussian PDF to the $y$ coordinates according to the change of variables rule (see beginning of [Gaussian Mixture Models](gmm.md)).
 
 $$p_Y(y)=p_X(h^{-1}(y)) \underbrace{\left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|}_{(det|U_{ij}|)^{-1}=1}$$  (change_of_vars_duplicate)
 
-which leads to 
+which leads to
 
 $$p(y) = \Pi_{i=1}^d \frac{1}{\sqrt{2 \pi \lambda_i}} \exp \left\{ - \frac{y_i^2}{2\lambda_i} \right\}.$$
 
@@ -61,8 +61,7 @@ $$Cov(x) = \Sigma$$ (def_cov)
 
 ### Conditional Gaussian PDF
 
-Consider the case $x \sim \mathcal{N}(x; \mu, \Sigma)$ being a $d$-dimensional Gaussian random vector. We can partition $x$ into two disjoint subsets $x_a$ and $x_b$. 
-
+Consider the case $x \sim \mathcal{N}(x; \mu, \Sigma)$ being a $d$-dimensional Gaussian random vector. We can partition $x$ into two disjoint subsets $x_a$ and $x_b$.
 
 $$
 x=\left(\begin{array}{c}
@@ -119,13 +118,13 @@ For the marginal PDF we integrate out the dependence on $x_b$ of the joint PDF:
 
 $$p(x_a) = \int p(x_a, x_b) dx_b.$$ (def_marginal_pdf)
 
-We can follow similar steps as above for separating terms that involve $x_a$ and $x_b$. After integrating out the Guassian with a quadratic term depending on $x_b$ we are left with a lengthy term involving $x_a$ only. By comparison with a Gaussian PDF and re-using the block relation between $\Lambda$ and $\Sigma$ as above we obtain for the marginal
+We can follow similar steps as above for separating terms that involve $x_a$ and $x_b$. After integrating out the Gaussian with a quadratic term depending on $x_b$ we are left with a lengthy term involving $x_a$ only. By comparison with a Gaussian PDF and re-using the block relation between $\Lambda$ and $\Sigma$ as above we obtain for the marginal
 
 $$p(x_a) = \mathcal{N}(x_a; \mu_a, \Sigma_{a a}).$$ (gaussian_marginal_pdf)
 
 ### Bayes Theorem for Gaussian Variables
 
-Generative learning addresses the problem of finding a posterior PDF from a likelihood and prior. The basis is Bayes rule for conditional probabilities 
+Generative learning addresses the problem of finding a posterior PDF from a likelihood and prior. The basis is Bayes rule for conditional probabilities
 
 $$p(x|y) = \frac{p(y|x)p(x)}{p(y)}.$$ (def_bayes_rule)
 
@@ -166,11 +165,9 @@ $$\mu_{ML} = \frac{1}{N} \sum_{n=1}^N x_n$$ (ml_mean)
 
 $$\Sigma_{ML} = \frac{1}{N} \sum_{n=1}^N (x-\mu)^{\top}(x-\mu)$$ (ml_cov)
 
-
 $\mu_{ML}$ and $\Sigma_{ML}$ correspond to the so-called sample or empirical estimates. However, $\Sigma_{ML}$ does not deliver an unbiased estimate of the covariance. The difference decreases with $N \to \infty$, but for a certain $N$ we have $\Sigma_{ML}\neq \Sigma$. The practical reason used in the above derivation is that the $\mu_{ML}$ estimate may occur as $\bar{x}$ within the sampling of $\Sigma$ $\Rightarrow$ miscount by one. An unbiased sample variance can be defined as
 
 $$\widetilde{\Sigma} = \frac{1}{N-1} \sum_{n=1}^N (x_n-\mu_{ML})^{\top}(x_n-\mu_{ML})$$ (ml_cov_unbiased)
-
 
 ## The Gaussian Process (GP)
 
@@ -210,8 +207,7 @@ where $K$ is the Grammian matrix which we already encountered in the SVM lecture
 
 A Gaussian Process is now defined as:
 
-* $y^{(i)} = h(x^{(i)}), \quad i=1, \ldots, m$ have a joint Gaussian PDF, i.e. are fully determined by their 2nd-order statistics (mean and covariance).
-
+- $y^{(i)} = h(x^{(i)}), \quad i=1, \ldots, m$ have a joint Gaussian PDF, i.e. are fully determined by their 2nd-order statistics (mean and covariance).
 
 ## GP for Regression
 
@@ -226,7 +222,7 @@ $$ (gp_model)
 
 for an isotropic Gaussian with precision parameter $\beta$.
 
-```{figure} ../imgs/gp_regression_data.png
+```{figure} ../imgs/gp/gp_regression_data.png
 ---
 width: 400px
 align: center
@@ -247,7 +243,7 @@ $$
 p(y|x) = \int p(y | h, x) p(h|x) dh,
 $$ (gp_y_conditional)
 
-i.e. the posterior pdf is defined by the marginalization of $p(y, h| x)$ over the latent variable $h$. For the computation of $p(y|x)$ we follow previous computations with adjustments of the notation where appropriate. We define the joint random variale $z$ as
+i.e. the posterior pdf is defined by the marginalization of $p(y, h| x)$ over the latent variable $h$. For the computation of $p(y|x)$ we follow previous computations with adjustments of the notation where appropriate. We define the joint random variable $z$ as
 
 $$
 z = \left[\begin{matrix}
@@ -283,7 +279,7 @@ $$ (gp_y_conditional_substituted)
 
 Note that the kernel $K$ can be presumed and is responsible for the accuracy of the prediction by the posterior. There exists a whole plethora of possible choices of K, the most common of which are:
 
-```{figure} ../imgs/gp_kernels.png
+```{figure} ../imgs/gp/gp_kernels.png
 ---
 width: 500px
 align: center
@@ -410,7 +406,7 @@ $$ (gp_predictive_distribution)
 
 which fully defines the Gaussian posterior PDF of Gaussian-process regression. Looking at some sketches of GP regression, beginning with the data sample $y_{1}$, and predicting the data $y_{2}$
 
-```{figure} ../imgs/gp_2d_marginalization.png
+```{figure} ../imgs/gp/gp_2d_marginalization.png
 ---
 width: 300px
 align: center
@@ -420,7 +416,7 @@ Marginalizing a 2D Gaussian distribution.
 ```
 <!-- TODO: bad figure. Maximum incorrect. -->
 
-```{figure} ../imgs/gp_regression_example1d.png
+```{figure} ../imgs/gp/gp_regression_example1d.png
 ---
 width: 450px
 align: center
@@ -431,7 +427,7 @@ name: gp_regression_example1d
 
 And in practice for a 1-dimensional function, which is being approximated with a GP, and we are monitoring the change in mean, variance and synonymously the GP-behaviour (recall, the GP is defined by the behaviour of its mean and covariance) with each successive data point.
 
-```{figure} ../imgs/gp_regression_examples1d_.png
+```{figure} ../imgs/gp/gp_regression_examples1d_.png
 ---
 width: 500px
 align: center
@@ -446,11 +442,11 @@ Probability distribution of a 1D Gaussian process (Source: {cite}`duvenaud2014`)
 
 There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple "basis" kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see {numref}`gp_kernels` for definitions):
 
-* Squared Exponential (SE) kernel
-* Linear (Lin) kernel
-* Periodic (Per) kernel 
+- Squared Exponential (SE) kernel
+- Linear (Lin) kernel
+- Periodic (Per) kernel
 
-```{figure} ../imgs/gp_adding_kernels.png
+```{figure} ../imgs/gp/gp_adding_kernels.png
 ---
 width: 500px
 align: center
@@ -459,7 +455,7 @@ name: gp_adding_kernels
 Adding 1D kernels (Source: {cite}`duvenaud2014`).
 ```
 
-```{figure} ../imgs/gp_multiplying_kernels.png
+```{figure} ../imgs/gp/gp_multiplying_kernels.png
 ---
 width: 500px
 align: center
@@ -468,7 +464,7 @@ name: gp_multiplying_kernels
 Multiplying 1D kernels (Source: {cite}`duvenaud2014`).
 ```
 
-```{figure} ../imgs/gp_multiplying_kernels_to_2d.png
+```{figure} ../imgs/gp/gp_multiplying_kernels_to_2d.png
 ---
 width: 500px
 align: center
@@ -479,7 +475,7 @@ Multiplying 1D kernels, 2D visualization (Source: {cite}`duvenaud2014`).
 
 In higher dimensions this then takes the following shape:
 
-```{figure} ../imgs/gp_kernels_2d.png
+```{figure} ../imgs/gp/gp_kernels_2d.png
 ---
 width: 500px
 align: center
@@ -490,7 +486,7 @@ Examples of 2D kernels (Source: {cite}`duvenaud2014`).
 
 With all these possible combinations one almost begs the question if these kernels cannot be constructed automatically. The answer is, partially yes, partially no. In a sense the right kernel construction is almost like feature engineering, and while it can be automated in parts it remains a craft for the domain scientists to understand the nature of their problem to then construct the right prior distribution.
 
-```{figure} ../imgs/gp_kernel_tree_search.png
+```{figure} ../imgs/gp/gp_kernel_tree_search.png
 ---
 width: 500px
 align: center
@@ -498,7 +494,6 @@ name: gp_kernel_tree_search
 ---
 Search tree over kernels (Source: {cite}`duvenaud2014`).
 ```
-
 
 ### Multivariate Prediction
 
@@ -550,10 +545,10 @@ $$ (gp_posterior_multiple_targets)
 
 ### Notes on Gaussian Process Regression
 
-* $K + \frac{1}{\beta}I$ needs to be symmetric and positive definite, where positive definite implies that the matrix is symmetric. $K$ can be constructed from valid kernel functions involving some hyperparameters $\theta$.
-* GP regression involves a $n \times n$ matrix inversion, which requires $\mathcal{O}(n^{3})$ operations for learning.
-* GP prediction involves a $n \times n$ matrix multiplication which requires $\mathcal{O}(n^{2})$ operations.
-* The operation count can be reduced significantly when lower-dimensional projections of the kernel function on basis functions can be employed, or we are able to exploit sparse matrix computations.
+- $K + \frac{1}{\beta}I$ needs to be symmetric and positive definite, where positive definite implies that the matrix is symmetric. $K$ can be constructed from valid kernel functions involving some hyperparameters $\theta$.
+- GP regression involves a $n \times n$ matrix inversion, which requires $\mathcal{O}(n^{3})$ operations for learning.
+- GP prediction involves a $n \times n$ matrix multiplication which requires $\mathcal{O}(n^{2})$ operations.
+- The operation count can be reduced significantly when lower-dimensional projections of the kernel function on basis functions can be employed, or we are able to exploit sparse matrix computations.
 
 ### Learning the Hyperparameters
 
@@ -562,7 +557,7 @@ To infer the kernel hyperparameters from data we need to:
 1. Introduce an appropriate likelihood function $p(y | \theta)$
 2. Determine the optimum $\theta$ via maximum likelihood estimation (MLE) $\theta^{\star} = \arg \max \ln p(y | \theta)$, which corresponds to linear regression
 3. $\ln p(y|\theta) = -\frac{1}{2} \ln |K + \frac{1}{\beta}I| - \frac{1}{2} y^{\top} \left( K + \frac{1}{\beta}I \right)^{-1} y - \frac{n}{2} \ln 2 \pi$
-4. Use iterative gradient descent or Newton's method to find the optimum, where you need to beware of the fact thar $p(y | \theta)$ may be non-convex in $\theta$, and hence have multiple maxima
+4. Use iterative gradient descent or Newton's method to find the optimum, where you need to beware of the fact that $p(y | \theta)$ may be non-convex in $\theta$, and hence have multiple maxima
 
 $$
 \begin{align*}
@@ -570,7 +565,6 @@ $$
  &+ \frac{1}{2} y^{\top} \left( K + \frac{1}{\beta} I \right)^{-1} \frac{\partial(K + \frac{1}{\beta}I)}{\partial \theta_{i}}\left(K + \frac{1}{\beta}\right)^{-1}y
 \end{align*}
 $$
-
 
 ## GP for Classification
 
@@ -598,7 +592,7 @@ y = \left[
 \right]
 $$
 
-we then introduce a GP prior on 
+we then introduce a GP prior on
 
 $$
 \tilde{\varphi} = \left[
@@ -618,9 +612,9 @@ $$
 
 where $K_{ij} = k(x^{(i)}, x^{(j)})$, i.e. a Grammian matrix generated by the kernel functions from the feature map $\varphi(x)$.
 
-> * Note that we do **NOT** include an explicit noise term in the data covariance as we assume that all sample data have been correctly classified.
-> * For numerical reasons we introduce a noise-like form which improves conditioning of $K + \mu I$
-> * For two-class classification it is sufficient to predict $p(y^{(n+1)} = 1 | y)$ as $p(y^{(n+1)} = 0 | y) = 1 - p(y^{(n+1)} = 1 | y)$
+> - Note that we do **NOT** include an explicit noise term in the data covariance as we assume that all sample data have been correctly classified.
+> - For numerical reasons we introduce a noise-like form which improves conditioning of $K + \mu I$
+> - For two-class classification it is sufficient to predict $p(y^{(n+1)} = 1 | y)$ as $p(y^{(n+1)} = 0 | y) = 1 - p(y^{(n+1)} = 1 | y)$
 
 Using the PDF $p(y=1|\varphi) = \text{sigmoid}(\varphi(x))$ we obtain the predictive PDF:
 
@@ -630,8 +624,8 @@ $$
 
 The integration of this PDF is analytically intractable, we are hence faced with a number of choices to integrate the PDF:
 
-* Use sampling-based methods, and Monte-Carlo approximation for the integral
-* Assume a Gaussian approximation for the posterior and evaluate the resulting convolution with the sigmoid in an approximating fashion
+- Use sampling-based methods, and Monte-Carlo approximation for the integral
+- Assume a Gaussian approximation for the posterior and evaluate the resulting convolution with the sigmoid in an approximating fashion
 
 $p(\varphi^{(n+1)}|y)$ is the posterior PDF, which is computed from the conditional PDF $p(y| \varphi)$ with a Gaussian prior $p(\varphi)$.
 
@@ -639,14 +633,13 @@ $p(\varphi^{(n+1)}|y)$ is the posterior PDF, which is computed from the conditio
 
 We have not presented a definition a neural network yet, but we have already met the most primitive definition of a neural network, the perceptron, for classification. The perceptron can be thought of as a neural network with just one layer of "neurons". On the other hand, the number of hidden units should be limited for perceptrons to limit overfitting. The essential power of neural networks  i.e. the outputs sharing the hidden units tends to get lost when the number of hidden units becomes very large. This is the core connection between neural networks and GPs, **a neural network with infinite width recovers a Gaussian process**.
 
-
 ## Further References
 
-**The Guassian Distribution**
+**The Gaussian Distribution**
 
 - {cite}`bishop2006`, Section 2.3
 
-**Guassian Processes**
+**Gaussian Processes**
 
 - {cite}`bishop2006`, Section 6.4
 - {cite}`duvenaud2014`, up to page 22

@@ -444,7 +444,7 @@ A = U \Sigma V^{\top}
 <p>where <span class="math notranslate nohighlight">\(U \in \mathbb{R}^{m \times m}\)</span> is a unitary matrix, where the columns are eigenvectors of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>, <span class="math notranslate nohighlight">\(\Sigma\)</span> is a diagonal matrix <span class="math notranslate nohighlight">\(\Sigma \in \mathbb{R}^{m \times n}\)</span>, and <span class="math notranslate nohighlight">\(V \in \mathbb{R}^{n \times n}\)</span> is a unitary matrix whose columns are eigenvectors of <span class="math notranslate nohighlight">\(A^{\top}A\)</span>. I.e.</p>
 <div class="math notranslate nohighlight" id="equation-svd-sigma">
 <span class="eqno">(12.2)<a class="headerlink" href="#equation-svd-sigma" title="Permalink to this equation">#</a></span>\[\begin{split}
-\Sigma = \left[ 
+\Sigma = \left[
     \begin{matrix}
         \sigma_{1} &amp; 0 &amp; \ldots &amp; 0 &amp; 0 \\
         0 &amp; \ddots &amp; &amp; &amp; \vdots \\
@@ -583,7 +583,7 @@ A \bar{x} + \bar{y} = y \Longrightarrow A \bar{x} = y'
 <span class="eqno">(12.14)<a class="headerlink" href="#equation-ae-mp5" title="Permalink to this equation">#</a></span>\[\begin{split}
 A^{+} = \begin{cases}
     (A^{\top} A)^{-1} A^{\top}, \quad \text{if } \text{rank}(A) = n \\
-    A^{\top}(A A^{\top})^{-1}, \quad \text{if } \text{rank}(A) = m 
+    A^{\top}(A A^{\top})^{-1}, \quad \text{if } \text{rank}(A) = m
 \end{cases}
 \end{split}\]</div>
 </section>
@@ -604,7 +604,7 @@ X = U S V^{\top}
 <p>Here, <span class="math notranslate nohighlight">\(U\)</span> are the left singular vectors, <span class="math notranslate nohighlight">\(S\)</span> are the singular values, and <span class="math notranslate nohighlight">\(V^{\top}\)</span> are the right singular values. <strong>This dimensionality reduction is achieved through the singular value decomposition (SVD).</strong> What we seek to achieve is to compress</p>
 <div class="math notranslate nohighlight" id="equation-pca-compression">
 <span class="eqno">(12.16)<a class="headerlink" href="#equation-pca-compression" title="Permalink to this equation">#</a></span>\[
-\underset{D \times N}{x} \rightarrow \underset{D \times N}{\hat{x}}, 
+\underset{D \times N}{x} \rightarrow \underset{D \times N}{\hat{x}},
 \]</div>
 <p>where the rank of <span class="math notranslate nohighlight">\(\hat{x}\)</span> is <span class="math notranslate nohighlight">\(K\)</span>. To derive the relation between SVD and PCA we can use the following Lemma:</p>
 <div class="math notranslate nohighlight" id="equation-pca-lemma">
@@ -636,8 +636,7 @@ X = U S V^{\top}
     \tilde{U}S &amp;= [\tilde{U}|0] \tilde{S} = U \tilde{S}
 \end{align}
 \end{split}\]</div>
-<p>From a probabilistic view we are creating N independent identically distributed (i.i.d) <span class="math notranslate nohighlight">\(D\)</span>-dimensional vectors <span class="math notranslate nohighlight">\(x_{n}\)</span>, see left side of <a class="reference internal" href="#ae-svd-dataset"><span class="std std-numref">Fig. 12.5</span></a>.</p>
-<p>We then have a sample mean, or sometimes called empirical mean, of</p>
+<p>From a probabilistic view we are creating N independent identically distributed (i.i.d) <span class="math notranslate nohighlight">\(D\)</span>-dimensional vectors <span class="math notranslate nohighlight">\(x_{n}\)</span>, see left side of <a class="reference internal" href="#ae-svd-dataset"><span class="std std-numref">Fig. 12.5</span></a>. We then have a sample mean, or sometimes called empirical mean, of</p>
 <div class="math notranslate nohighlight" id="equation-pca-mean">
 <span class="eqno">(12.20)<a class="headerlink" href="#equation-pca-mean" title="Permalink to this equation">#</a></span>\[
 \bar{x} = \frac{1}{N} \sum_{n=1}^{N}x_{n}
@@ -658,7 +657,7 @@ X = U S V^{\top}
 <p>if we assume for simplicity that <span class="math notranslate nohighlight">\(\bar{x} = 0\)</span>, then</p>
 <div class="math notranslate nohighlight" id="equation-pca4">
 <span class="eqno">(12.23)<a class="headerlink" href="#equation-pca4" title="Permalink to this equation">#</a></span>\[\begin{split}
-\Longrightarrow \begin{align*} 
+\Longrightarrow \begin{align*}
     N \bar{\Sigma} &amp;= \sum_{n=1}^{N} x_{n} x_{n}^{\top} = X X^{\top} = U S V^{\top}V S^{\top} U^{\top} \\
     &amp;= U S S^{\top}U^{\top} = U S^{(2)}U^{\top}
 \end{align*}

@@ -417,7 +417,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imagebind-holistic-ai-learning-across-six-modalities">ImageBind - Holistic AI learning across six modalities</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#engineering-physics">Engineering &amp; Physics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning">Machine Learning</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised">Supervised vs Unsupervised</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a></li>
@@ -433,7 +437,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-curve-fitting">Polynomial Curve Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-curve-fitting">Bayesian Curve Fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-curve-fitting">Bayesian Curve Fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bayes-theorem">Recap: Bayes Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-sum-rules-of-disjoint-probability">Recap: Sum Rules of (disjoint) Probability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-product-rules-of-probability-for-independent-events-a-b">Recap: Product Rules of Probability - for independent events <span class="math notranslate nohighlight">\(A,B\)</span></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">Maximum Likelihood &amp; Log-Likelihood</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>
@@ -452,8 +461,8 @@ document.write(`
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h1>
 <section id="famous-recent-examples-of-scientific-machine-learning">
 <h2>Famous Recent Examples of Scientific Machine Learning<a class="headerlink" href="#famous-recent-examples-of-scientific-machine-learning" title="Permalink to this heading">#</a></h2>
-<p>With scientific machine learning becoming an ever larger mainstay at machine learning conferences, and ever more venues and research centres at the intersection of machine learning and the natural sciences / engineering appearing there exist ever more impressive examples of algorithms which connect the very best of machine learning with deep scientific insight into the respective underlying problem to advance the field.</p>
-<p>Below are a few prime examples of recent flagship algorithms in scientific machine learning, of which every single one of them personifies the very best algorithmic approaches we have available to us today.</p>
+<p>With scientific machine learning becoming an ever more prominent mainstay at machine learning conferences, and ever more venues and research centers at the intersection of machine learning and the natural sciences/engineering appearing there exist ever more impressive examples of algorithms that connect the very best of machine learning with deep scientific insight into the respective underlying problem to advance the field.</p>
+<p>Below are a few prime examples of recent flagship algorithms in scientific machine learning, every single one of which personifies the very best algorithmic approaches we have available to us today.</p>
 <section id="alphafold-predicts-3d-protein-structure-given-its-sequence">
 <h3><a class="reference external" href="https://www.nature.com/articles/s41586-021-03819-2">AlphaFold</a> - predicts 3D protein structure given its sequence:<a class="headerlink" href="#alphafold-predicts-3d-protein-structure-given-its-sequence" title="Permalink to this heading">#</a></h3>
 <figure class="align-center" id="alphafold">
@@ -462,13 +471,25 @@ document.write(`
 <p><span class="caption-number">Fig. 1 </span><span class="caption-text">AlphaFold model. (Source:  <a class="reference external" href="https://www.nature.com/articles/s41586-021-03819-2">Jumper et al., 2021</a>)</span><a class="headerlink" href="#alphafold" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
+<figure class="align-center" id="nobel-prize-chem24">
+<a class="reference internal image-reference" href="_images/nobel_prize_chem24.png"><img alt="_images/nobel_prize_chem24.png" src="_images/nobel_prize_chem24.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 2 </span><span class="caption-text">Nobel Prize in Chemistry 2024. (Source:  <a class="reference external" href="https://x.com/NobelPrize/status/1843951197960777760">Twitter</a>)</span><a class="headerlink" href="#nobel-prize-chem24" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
+<figure class="align-center" id="alphafold-overview">
+<a class="reference internal image-reference" href="_images/alphafold_overview.png"><img alt="_images/alphafold_overview.png" src="_images/alphafold_overview.png" style="width: 500px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 3 </span><span class="caption-text">How does AlphaFold2 work? (Source:  <a class="reference external" href="https://www.nobelprize.org/prizes/chemistry/2024/popular-information/?utm_source=twitter&amp;utm_medium=social+media+&amp;utm_campaign=nobel+prize+announcements+2024&amp;utm_content=post">nobelprize.org</a>)</span><a class="headerlink" href="#alphafold-overview" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 </section>
 <section id="gns-capable-of-simulating-the-motion-of-water-particles">
 <h3><a class="reference external" href="https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html">GNS</a> - capable of simulating the motion of water particles:<a class="headerlink" href="#gns-capable-of-simulating-the-motion-of-water-particles" title="Permalink to this heading">#</a></h3>
 <figure class="align-center" id="gns">
 <a class="reference internal image-reference" href="_images/gns.png"><img alt="_images/gns.png" src="_images/gns.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 2 </span><span class="caption-text">GNS model. (Source:  <a class="reference external" href="https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html">Sanchez-Gonzalez et al., 2020</a>)</span><a class="headerlink" href="#gns" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 4 </span><span class="caption-text">GNS model. (Source:  <a class="reference external" href="https://proceedings.mlr.press/v119/sanchez-gonzalez20a.html">Sanchez-Gonzalez et al., 2020</a>)</span><a class="headerlink" href="#gns" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -477,7 +498,7 @@ document.write(`
 <figure class="align-center" id="codex">
 <a class="reference internal image-reference" href="_images/codex.gif"><img alt="_images/codex.gif" src="_images/codex.gif" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3 </span><span class="caption-text">Codex demo (Source: <a class="reference external" href="https://openai.com/blog/openai-codex">openai.com</a>)</span><a class="headerlink" href="#codex" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 5 </span><span class="caption-text">Codex demo (Source: <a class="reference external" href="https://openai.com/blog/openai-codex">openai.com</a>)</span><a class="headerlink" href="#codex" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -489,7 +510,7 @@ document.write(`
 <figure class="align-center" id="sfcnn">
 <a class="reference internal image-reference" href="_images/sfcnn.png"><img alt="_images/sfcnn.png" src="_images/sfcnn.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 4 </span><span class="caption-text">SFCNN model. (Source: <a class="reference external" href="https://arxiv.org/abs/1711.07289">Weiler et al., 2018</a>)</span><a class="headerlink" href="#sfcnn" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 6 </span><span class="caption-text">SFCNN model. (Source: <a class="reference external" href="https://arxiv.org/abs/1711.07289">Weiler et al., 2018</a>)</span><a class="headerlink" href="#sfcnn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -498,7 +519,7 @@ document.write(`
 <figure class="align-center" id="segnn">
 <a class="reference internal image-reference" href="_images/segnn.png"><img alt="_images/segnn.png" src="_images/segnn.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 5 </span><span class="caption-text">SEGNN model. (Source: <a class="reference external" href="https://arxiv.org/abs/2110.02905">Brandstetter et al., 2022</a>)</span><a class="headerlink" href="#segnn" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7 </span><span class="caption-text">SEGNN model. (Source: <a class="reference external" href="https://arxiv.org/abs/2110.02905">Brandstetter et al., 2022</a>)</span><a class="headerlink" href="#segnn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -508,7 +529,7 @@ document.write(`
 <figure class="align-center" id="stablediffusion">
 <a class="reference internal image-reference" href="_images/stable_diffusion_art.jpg"><img alt="_images/stable_diffusion_art.jpg" src="_images/stable_diffusion_art.jpg" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 6 </span><span class="caption-text">Stable Diffusion art. (Source: <a class="reference external" href="https://stability.ai/blog/stable-diffusion-public-release">stability.ai</a>)</span><a class="headerlink" href="#stablediffusion" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 8 </span><span class="caption-text">Stable Diffusion art. (Source: <a class="reference external" href="https://stability.ai/blog/stable-diffusion-public-release">stability.ai</a>)</span><a class="headerlink" href="#stablediffusion" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -517,7 +538,7 @@ document.write(`
 <figure class="align-center" id="stablediffusion-brain">
 <a class="reference internal image-reference" href="_images/stable_diffusion_brain.jpg"><img alt="_images/stable_diffusion_brain.jpg" src="_images/stable_diffusion_brain.jpg" style="width: 700px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7 </span><span class="caption-text">Stable Diffusion brain signal reconstruction. (Source: <a class="reference external" href="https://sites.google.com/view/stablediffusion-with-brain/?s=09">Takagi &amp; Nishimito, 2023</a>)</span><a class="headerlink" href="#stablediffusion-brain" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text">Stable Diffusion brain signal reconstruction. (Source: <a class="reference external" href="https://sites.google.com/view/stablediffusion-with-brain/?s=09">Takagi &amp; Nishimito, 2023</a>)</span><a class="headerlink" href="#stablediffusion-brain" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -526,23 +547,27 @@ document.write(`
 <figure class="align-center" id="imagebind">
 <a class="reference internal image-reference" href="_images/imagebind.gif"><img alt="_images/imagebind.gif" src="_images/imagebind.gif" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 8 </span><span class="caption-text">ImageBind modalities. (Source: <a class="reference external" href="https://ai.meta.com/blog/imagebind-six-modalities-binding-ai/">ai.meta.com</a>)</span><a class="headerlink" href="#imagebind" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text">ImageBind modalities. (Source: <a class="reference external" href="https://ai.meta.com/blog/imagebind-six-modalities-binding-ai/">ai.meta.com</a>)</span><a class="headerlink" href="#imagebind" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="definition">
 <h2>Definition<a class="headerlink" href="#definition" title="Permalink to this heading">#</a></h2>
-<p>Machine learning at the intersection of engineering, physics, chemistry, computational biology etc. and core machine learning to improve existing scientific workflows, derive new scientific insight, or bridge the gap between scientific data and our current state of knowledge.</p>
+<p>Machine learning at the intersection of engineering, physics, chemistry, computational biology, etc., and core machine learning to improve existing scientific workflows, derive new scientific insight, or bridge the gap between scientific data and our current state of knowledge.</p>
 <p>Important here to recall is the difference in approaches between engineering &amp; physics, and machine learning on the other side:</p>
-<p><strong>Engineering &amp; Physics</strong></p>
+<section id="engineering-physics">
+<h3>Engineering &amp; Physics<a class="headerlink" href="#engineering-physics" title="Permalink to this heading">#</a></h3>
 <p>Models are derived from conservation laws, observations, and established physical principles.</p>
-<p><strong>Machine Learning</strong></p>
-<p>Models are derived from data with imprinted priors on the model space either through the data itself, or through the design of the machine learning algorithm.</p>
+</section>
+<section id="machine-learning">
+<h3>Machine Learning<a class="headerlink" href="#machine-learning" title="Permalink to this heading">#</a></h3>
+<p>Models are derived from data with imprinted priors on the model space either through the data itself or through the design of the machine learning algorithm.</p>
+</section>
 </section>
 <section id="supervised-vs-unsupervised">
 <h2>Supervised vs Unsupervised<a class="headerlink" href="#supervised-vs-unsupervised" title="Permalink to this heading">#</a></h2>
-<p>There exist 3 main types of modern day machine learning:</p>
+<p>There exist 3 main types of modern-day machine learning:</p>
 <ol class="arabic simple">
 <li><p>Supervised Learning</p></li>
 <li><p>Unsupervised Learning</p></li>
@@ -550,7 +575,7 @@ document.write(`
 </ol>
 <section id="supervised-learning">
 <h3>Supervised Learning<a class="headerlink" href="#supervised-learning" title="Permalink to this heading">#</a></h3>
-<p>In supervised learning we have a mapping <span class="math notranslate nohighlight">\(f: X \rightarrow Y\)</span>, where the inputs <span class="math notranslate nohighlight">\(x \in X\)</span> are also called <strong>features</strong>, <strong>covariates</strong>, or <strong>predictors</strong>. The outputs <span class="math notranslate nohighlight">\(y \in Y\)</span> are often also called the <strong>labels</strong>, <strong>targets</strong>, or <strong>responses</strong>. The correct mapping is then learned from a <strong>labeled</strong> training set</p>
+<p>In supervised learning we have a mapping <span class="math notranslate nohighlight">\(f: X \rightarrow Y\)</span>, where the inputs <span class="math notranslate nohighlight">\(x \in X\)</span> are also called <strong>features</strong>, <strong>covariates</strong>, or <strong>predictors</strong>. The outputs <span class="math notranslate nohighlight">\(y \in Y\)</span> are often called the <strong>labels</strong>, <strong>targets</strong>, or <strong>responses</strong>. The correct mapping is then learned from a <strong>labeled</strong> training set.</p>
 <div class="math notranslate nohighlight" id="equation-supervised-data">
 <span class="eqno">(1)<a class="headerlink" href="#equation-supervised-data" title="Permalink to this equation">#</a></span>\[\mathcal{D}_{N} = \left\{ \left( x_{n}, y_{n} \right) \right\}_{n=1:N}\]</div>
 <p>with <span class="math notranslate nohighlight">\(N\)</span> the number of observations. Depending on the type of the response vector <span class="math notranslate nohighlight">\(y\)</span>, we can then perform either <strong>regression</strong>, or <strong>classification</strong></p>
@@ -563,55 +588,55 @@ document.write(`
 <figure class="align-center" id="d-regression-ex">
 <a class="reference internal image-reference" href="_images/2d_regression_ex.jpg"><img alt="_images/2d_regression_ex.jpg" src="_images/2d_regression_ex.jpg" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 9 </span><span class="caption-text">2D regression example. (Source: <span id="id1">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#d-regression-ex" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text">2D regression example. (Source: <span id="id1">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#d-regression-ex" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Example of a response surface being fitted to a number of data points in 3 dimensions, where in this instance the x- and y-axes are a two-dimensional space, and the z-axis is the temperature in the two-dimensional space.</p>
+<p>Example of a response surface being fitted to several data points in 3 dimensions, where the x- and y-axes are a two-dimensional space, and the z-axis is the temperature in the two-dimensional space.</p>
 </section>
 <section id="classification">
 <h4>Classification<a class="headerlink" href="#classification" title="Permalink to this heading">#</a></h4>
-<p>In classification the labels <span class="math notranslate nohighlight">\(y\)</span> are categorical i.e. <span class="math notranslate nohighlight">\(y \in \mathcal{C}\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> defines a set of classes.</p>
+<p>In classification, the labels <span class="math notranslate nohighlight">\(y\)</span> are categorical, i.e., <span class="math notranslate nohighlight">\(y \in \mathcal{C}\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{C}\)</span> defines a set of classes.</p>
 <figure class="align-center" id="iris-classification">
 <a class="reference internal image-reference" href="_images/iris_classification.png"><img alt="_images/iris_classification.png" src="_images/iris_classification.png" style="width: 350px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 10 </span><span class="caption-text">Classification example. (Source: <span id="id2">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#iris-classification" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Classification example. (Source: <span id="id2">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#iris-classification" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Example of flower classification, where we aim to find the decision boundaries which will sort each individual node into the respective class.</p>
+<p>An example of flower classification is where we aim to find the decision boundaries to sort each node into the respective class.</p>
 </section>
 </section>
 <section id="unsupervised-learning">
 <h3>Unsupervised Learning<a class="headerlink" href="#unsupervised-learning" title="Permalink to this heading">#</a></h3>
-<p>In unsupervised learning, we only receive a dataset of inputs</p>
+<p>In unsupervised learning, we only receive a dataset of inputs.</p>
 <div class="math notranslate nohighlight" id="equation-unsupervised-data">
 <span class="eqno">(2)<a class="headerlink" href="#equation-unsupervised-data" title="Permalink to this equation">#</a></span>\[\mathcal{D}_{N} = \left\{ x_{n} \right\}_{n=1:N}\]</div>
 <p>without the respective outputs <span class="math notranslate nohighlight">\(y_{n}\)</span>, i.e. we only have <strong>unlabelled</strong> data.</p>
 <blockquote>
-<div><p>The implicit goal here is to describe the system, and identify features in the <strong>high-dimensional inputs</strong>.</p>
+<div><p>The implicit goal here is to describe the system and identify features in the <strong>high-dimensional inputs</strong>.</p>
 </div></blockquote>
-<p>Two famous examples of unsupervised learning are <strong>clustering</strong> (e.g. k-means) and especially <strong>dimensionality reduction</strong> (e.g. principal component analysis) which is commonly used in engineering and scientific applications.</p>
+<p>Two famous examples of unsupervised learning are <strong>clustering</strong> (e.g., k-means) and especially <strong>dimensionality reduction</strong> (e.g., principal component analysis), which is commonly used in engineering and scientific applications.</p>
 <section id="clustering-of-principal-components">
 <h4>Clustering of Principal Components<a class="headerlink" href="#clustering-of-principal-components" title="Permalink to this heading">#</a></h4>
 <figure class="align-center" id="pca-clustering">
 <a class="reference internal image-reference" href="_images/pca_clustering.png"><img alt="_images/pca_clustering.png" src="_images/pca_clustering.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 11 </span><span class="caption-text">Clustering based on principal components. (Source: <span id="id3">[<a class="reference internal" href="references.html#id6" title="Steven L. Brunton and J. Nathan Kutz. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press, 2019. URL: http://databookuw.com, doi:10.1017/9781108380690.">Brunton and Kutz, 2019</a>]</span>, Section 1.5)</span><a class="headerlink" href="#pca-clustering" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Clustering based on the principal components. (Source: <span id="id3">[<a class="reference internal" href="references.html#id6" title="Steven L. Brunton and J. Nathan Kutz. Data-Driven Science and Engineering: Machine Learning, Dynamical Systems, and Control. Cambridge University Press, 2019. URL: http://databookuw.com, doi:10.1017/9781108380690.">Brunton and Kutz, 2019</a>]</span>, Section 1.5)</span><a class="headerlink" href="#pca-clustering" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Combining clustering with principal component analysis to show the samples which have cancer in the first three principal component coordinates.</p>
+<p>Combining clustering with principal component analysis to show the samples that have cancer in the first three principal component coordinates.</p>
 </section>
 </section>
 <section id="supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms">
 <h3>Supervised vs Unsupervised, the tl;dr in Probabilistic Terms<a class="headerlink" href="#supervised-vs-unsupervised-the-tl-dr-in-probabilistic-terms" title="Permalink to this heading">#</a></h3>
-<p>The difference can furthermore be expressed in probabilistic terms, i.e., in supervised learning we are fitting a model over the outputs conditioned on the inputs <span class="math notranslate nohighlight">\(p(y|x)\)</span>, whereas in unsupervised learning we are fitting an unconditional model <span class="math notranslate nohighlight">\(p(x)\)</span>.</p>
+<p>Furthermore, the difference can be expressed in probabilistic terms, i.e., in supervised learning, we fit a model over the outputs conditioned on the inputs <span class="math notranslate nohighlight">\(p(y|x)\)</span>. In contrast, in unsupervised learning, we fit an unconditional model <span class="math notranslate nohighlight">\(p(x)\)</span>.</p>
 </section>
 <section id="reinforcement-learning">
 <h3>Reinforcement Learning<a class="headerlink" href="#reinforcement-learning" title="Permalink to this heading">#</a></h3>
-<p>In reinforcement learning, an agent sequentially interact with an unknown environment to obtain an interaction trajectory <span class="math notranslate nohighlight">\(T\)</span>, or a batch thereof. Reinforcement learning then seeks to optimize the way the agent interacts with the environment through its actions <span class="math notranslate nohighlight">\(a_{t}\)</span> to maximize for a (cumulative) reward function to obtain an optimal strategy.</p>
+<p>In reinforcement learning, an agent sequentially interacts with an unknown environment to obtain an interaction trajectory <span class="math notranslate nohighlight">\(T\)</span>, or a batch thereof. Reinforcement learning then seeks to optimize how the agent interacts with the environment through its actions <span class="math notranslate nohighlight">\(a_{t}\)</span> to maximize a (cumulative) reward function to obtain an optimal strategy.</p>
 <figure class="align-center" id="rl">
 <a class="reference internal image-reference" href="_images/rl.png"><img alt="_images/rl.png" src="_images/rl.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12 </span><span class="caption-text">Reinforcement learning overview. (Source: <a class="reference external" href="https://lilianweng.github.io/posts/2018-02-19-rl-overview/">lilianweng</a>)</span><a class="headerlink" href="#rl" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Reinforcement learning overview. (Source: <a class="reference external" href="https://lilianweng.github.io/posts/2018-02-19-rl-overview/">lilianweng</a>)</span><a class="headerlink" href="#rl" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -622,43 +647,44 @@ document.write(`
 <figure class="align-center" id="lin-reg-1d">
 <a class="reference internal image-reference" href="_images/lin_reg_1d.png"><img alt="_images/lin_reg_1d.png" src="_images/lin_reg_1d.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 13 </span><span class="caption-text">Linear regression example. (Source: <span id="id4">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#lin-reg-1d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Linear regression example. (Source: <span id="id4">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#lin-reg-1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Then we have a number of scalar observations <span class="math notranslate nohighlight">\({\bf{x}} = (x_{1}, \ldots, x_{N})\)</span> and targets <span class="math notranslate nohighlight">\({\bf{y}} = (y_{1}, \ldots, y_{N})\)</span>. Then the tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function</p>
+<p>Then we have a number of scalar observations <span class="math notranslate nohighlight">\({\bf{x}} = (x_{1}, \ldots, x_{N})\)</span> and targets <span class="math notranslate nohighlight">\({\bf{y}} = (y_{1}, \ldots, y_{N})\)</span>. The tool we have probably seen before in the mechanical engineering curriculum is the simple approach to fit a polynomial function</p>
 <div class="math notranslate nohighlight" id="equation-polynomial-regression">
 <span class="eqno">(3)<a class="headerlink" href="#equation-polynomial-regression" title="Permalink to this equation">#</a></span>\[y(x, \mathbf{w}) = \omega_{0} + \omega_{1}x + \omega_{2} x^{2} + \ldots + \omega_{M}x^{M} = \sum_{j=0}^{M}\omega_{j}x^{j}\]</div>
 <p>Then a crucial choice is the degree of the polynomial function.</p>
 <blockquote>
-<div><p>This class of models is called <strong>Linear Models</strong> because we want to learn only the linear scaling coefficients <span class="math notranslate nohighlight">\(w_i\)</span>, given any choice of basis for the variable <span class="math notranslate nohighlight">\(x\)</span> like the polinomial basis shown here.</p>
+<div><p>This class of models is called <strong>Linear Models</strong> because we seek to learn only the linear scaling coefficients <span class="math notranslate nohighlight">\(w_i\)</span>, given any choice of basis for the variable <span class="math notranslate nohighlight">\(x\)</span> like the polynomial basis shown here.</p>
 </div></blockquote>
-<p>We can then construct an error function with the sum of squares approach in which we are computing the distance of every target data point to our polynomial</p>
+<p>We can then construct an error function with the sum of squares approach in which we compute the distance of every target data point to our polynomial.</p>
 <div class="math notranslate nohighlight" id="equation-l2-loss">
 <span class="eqno">(4)<a class="headerlink" href="#equation-l2-loss" title="Permalink to this equation">#</a></span>\[E(\mathbf{w}) = \frac{1}{2} \sum_{n=1}^{N} \{ y(x_{n}, \mathbf{w}) - y_{n} \}^{2}\]</div>
-<p>in which we are then optimizing for the value of <span class="math notranslate nohighlight">\(w\)</span>.</p>
+<p>We then optimize for the value of <span class="math notranslate nohighlight">\(w\)</span>.</p>
 <figure class="align-center" id="lin-reg-1d-distances">
 <a class="reference internal image-reference" href="_images/lin_reg_1d_distances.png"><img alt="_images/lin_reg_1d_distances.png" src="_images/lin_reg_1d_distances.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 14 </span><span class="caption-text">Linear regression error computation. (Source: <span id="id5">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#lin-reg-1d-distances" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text">Linear regression error computation. (Source: <span id="id5">[<a class="reference internal" href="references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Introduction)</span><a class="headerlink" href="#lin-reg-1d-distances" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>To minimize this we then have to take the derivative with respect to the coefficients <span class="math notranslate nohighlight">\(\omega_{i}\)</span>, i.e.</p>
+<p>To minimize this, we then have to take the derivative with respect to the coefficients <span class="math notranslate nohighlight">\(\omega_{i}\)</span>, i.e.</p>
 <div class="math notranslate nohighlight" id="equation-grad-l2-loss">
 <span class="eqno">(5)<a class="headerlink" href="#equation-grad-l2-loss" title="Permalink to this equation">#</a></span>\[\frac{\partial E(w)}{\partial \omega_{i}}=\sum_{n=1}^{N}\{ y(x_{n}, w) - y_{n} \}x_{n}^{i}=\sum_{n=1}^{N}\{ \sum_{j=0}^{M}\omega_{j} x_{n}^{j} - y_{n} \}x_{n}^{i}\]</div>
 <p>which we are optimizing for and by setting to 0, we can then find the minimum</p>
 <div class="math notranslate nohighlight" id="equation-lin-reg-polynomial-solution">
 <span class="eqno">(6)<a class="headerlink" href="#equation-lin-reg-polynomial-solution" title="Permalink to this equation">#</a></span>\[\sum_{n=1}^{N}\sum_{j=0}^{M}\omega_{j}x_{n}^{i}x_{n}^{j}=\sum_{n=1}^{N}y_{n}x_{n}^{i}\]</div>
-<p>This can be solved by the trusty old Gaussian elimination. A general problem with this approach is that the degree of the polynomial is a decisive factor which often leads to over-fitting and hence makes this a less desirable approach. Gaussian elimination, or a matrix inversion approach when implemented on a computer can also be a highly expensive computational operation for large datasets.</p>
+<p>This can be solved by the trusty old Gaussian elimination. A general problem with this approach is that the degree of the polynomial is a decisive factor that often leads to over-fitting and hence makes this a less desirable approach. Gaussian elimination, or a matrix inversion approach, when implemented on a computer, can also be a highly expensive computational operation for large systems.</p>
 <blockquote>
 <div><p>This is a special case of the <strong>Maximum Likelihood</strong> method.</p>
 </div></blockquote>
 </section>
 <section id="bayesian-curve-fitting">
 <h2>Bayesian Curve Fitting<a class="headerlink" href="#bayesian-curve-fitting" title="Permalink to this heading">#</a></h2>
-<p><strong>Recap: Bayes Theorem</strong></p>
+<section id="recap-bayes-theorem">
+<h3>Recap: Bayes Theorem<a class="headerlink" href="#recap-bayes-theorem" title="Permalink to this heading">#</a></h3>
 <div class="math notranslate nohighlight" id="equation-bayes-theorem">
 <span class="eqno">(7)<a class="headerlink" href="#equation-bayes-theorem" title="Permalink to this equation">#</a></span>\[\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\]</div>
-<p>If we now seek to reformulate the curve-fitting in probabilistic terms, then we have to begin by expressing our uncertainty over the target <span class="math notranslate nohighlight">\(y\)</span> with a probability distribution. For this we presume a Gaussian distribution over each target where the mean is the point value we previously considered, i.e.</p>
+<p>If we now seek to reformulate the curve-fitting in probabilistic terms, we must begin by expressing our uncertainty over the target <span class="math notranslate nohighlight">\(y\)</span> with a probability distribution. For this, we presume a Gaussian distribution over each target where the mean is the point value we previously considered, i.e.</p>
 <div class="math notranslate nohighlight" id="equation-bayesian-lin-reg-sample-likelihood">
 <span class="eqno">(8)<a class="headerlink" href="#equation-bayesian-lin-reg-sample-likelihood" title="Permalink to this equation">#</a></span>\[p(y|x, \mathbf{w}, \beta)=\mathcal{N}(y|y(x, \mathbf{w}), \beta^{-1}),\]</div>
 <p>where <span class="math notranslate nohighlight">\(\beta\)</span> corresponds to the inverse variance of the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}\)</span>. We can then apply the maximum likelihood principle to find the optimal parameters <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> with our new likelihood function</p>
@@ -667,24 +693,28 @@ document.write(`
 <figure class="align-center" id="bayesian-reg-1d">
 <a class="reference internal image-reference" href="_images/bayesian_reg_1d.png"><img alt="_images/bayesian_reg_1d.png" src="_images/bayesian_reg_1d.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 15 </span><span class="caption-text">Bayesian regression example. (Source: <span id="id6">[<a class="reference internal" href="references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 1.2)</span><a class="headerlink" href="#bayesian-reg-1d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text">Bayesian regression example. (Source: <span id="id6">[<a class="reference internal" href="references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 1.2)</span><a class="headerlink" href="#bayesian-reg-1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Taking the log likelihood we are then able to find the definitions of the optimal parameters</p>
+<p>Taking the log-likelihood, we are then able to find the definitions of the optimal parameters</p>
 <div class="math notranslate nohighlight" id="equation-bayesian-lin-reg-joint-likelihood-log">
 <span class="eqno">(10)<a class="headerlink" href="#equation-bayesian-lin-reg-joint-likelihood-log" title="Permalink to this equation">#</a></span>\[\text{ln } p(y|x, \mathbf{w}, \beta) = - \frac{\beta}{2} \sum^{N}_{2} \{ y(x_{n}, \mathbf{w}) - y_{n} \}^{2} + \frac{N}{2} \text{ln } \beta - \frac{N}{2} \text{ln }(2 \pi)\]</div>
-<p>Which we can then optimize for the <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.</p>
+<p>We can then optimize for the <span class="math notranslate nohighlight">\(\mathbf{w}\)</span>.</p>
 <blockquote>
 <div><p>If we consider the special case of <span class="math notranslate nohighlight">\(\frac{\beta}{2}=\frac{1}{2}\)</span>, and instead of maximizing, minimizing the negative log-likelihood, then this is equivalent to the sum-of-squares error function.</p>
 </div></blockquote>
 <p>The herein obtained optimal maximum likelihood parameters <span class="math notranslate nohighlight">\(\mathbf{w}_{ML}\)</span> and <span class="math notranslate nohighlight">\(\beta_{ML}\)</span> can then be resubstituted to obtain the <strong>predictive distribution</strong> for the targets <span class="math notranslate nohighlight">\(y\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-bayesian-lin-reg-ml-sol">
 <span class="eqno">(11)<a class="headerlink" href="#equation-bayesian-lin-reg-ml-sol" title="Permalink to this equation">#</a></span>\[p(y|x, \mathbf{w}_{ML}, \beta_{ML})=\mathcal{N}(y|y(x, \mathbf{w}_{ML}),\beta_{ML}^{-1})\]</div>
-<p>To arrive at the full Bayesian curve-fitting approach we now have to apply the sum and product rules of probability</p>
-<p><strong>Recap: Sum Rules of (disjoint) Probability</strong></p>
+<p>To arrive at the full Bayesian curve-fitting approach, we must apply the sum and product rules of probability.</p>
+</section>
+<section id="recap-sum-rules-of-disjoint-probability">
+<h3>Recap: Sum Rules of (disjoint) Probability<a class="headerlink" href="#recap-sum-rules-of-disjoint-probability" title="Permalink to this heading">#</a></h3>
 <div class="math notranslate nohighlight" id="equation-sum-rule-disjoint">
 <span class="eqno">(12)<a class="headerlink" href="#equation-sum-rule-disjoint" title="Permalink to this equation">#</a></span>\[\mathbb{P}(A \cap B) = \mathbb{P}(A) + \mathbb{P}(B)\]</div>
-<p><strong>Recap: Product Rules of Probability</strong> - for <strong>independent</strong> events <span class="math notranslate nohighlight">\(A,B\)</span>.</p>
+</section>
+<section id="recap-product-rules-of-probability-for-independent-events-a-b">
+<h3>Recap: Product Rules of Probability - for independent events <span class="math notranslate nohighlight">\(A,B\)</span><a class="headerlink" href="#recap-product-rules-of-probability-for-independent-events-a-b" title="Permalink to this heading">#</a></h3>
 <div class="math notranslate nohighlight" id="equation-product-rule-iid">
 <span class="eqno">(13)<a class="headerlink" href="#equation-product-rule-iid" title="Permalink to this equation">#</a></span>\[\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\]</div>
 <p>The Bayesian curve fitting formula is hence</p>
@@ -707,12 +737,13 @@ document.write(`
 <li><p>The second term of the variance is caused by the uncertainty in the parameters <span class="math notranslate nohighlight">\(w\)</span>.</p></li>
 </ul>
 </section>
+</section>
 <section id="maximum-likelihood-log-likelihood">
 <h2>Maximum Likelihood &amp; Log-Likelihood<a class="headerlink" href="#maximum-likelihood-log-likelihood" title="Permalink to this heading">#</a></h2>
-<p>Formalizing the principle of maximum likelihood estimation, we seek to act in a similar fashion to function extrema calculation in high school in that we seek to differentiate our likelihood function, and then find the maximum value of it by setting the derivative equal to zero.</p>
+<p>Formalizing the principle of maximum likelihood estimation, we seek to act similarly to function extrema calculation in high school in that we seek to differentiate our likelihood function, and then find its maximum value by setting the derivative equal to zero.</p>
 <div class="math notranslate nohighlight" id="equation-maximum-likelihood-objective">
 <span class="eqno">(19)<a class="headerlink" href="#equation-maximum-likelihood-objective" title="Permalink to this equation">#</a></span>\[\hat{\theta} = \underset{\theta \in \Theta}{\arg \max} \mathcal{L}_{n}(\theta; y),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is the likelihood function. In the derivation of the Bayesian Curve Fitting approach we have already utilized this principle by exploiting the independence between data points and then taking log of the likelihood to then utilize the often nicer properties of the log-likelihood</p>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{L}\)</span> is the likelihood function. In the derivation of the Bayesian Curve Fitting approach we have already utilized this principle by exploiting the independence between data points and then taking the log of the likelihood to subsequently utilize the often nicer properties of the log-likelihood</p>
 <div class="math notranslate nohighlight" id="equation-log-likelihood">
 <span class="eqno">(20)<a class="headerlink" href="#equation-log-likelihood" title="Permalink to this equation">#</a></span>\[l(\theta;y) = \ln \mathcal{L}_{n}(\theta;y).\]</div>
 </section>
@@ -729,6 +760,11 @@ document.write(`
 </ul>
 </li>
 </ul>
+<!-- ## Exercises
+
+> Other examples from the mock/past exam which rely on this particular lecture to go here.
+
+> Maximum likelihood example from the mock exam to go here -->
 </section>
 <section id="further-references">
 <h2>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
@@ -815,7 +851,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#imagebind-holistic-ai-learning-across-six-modalities">ImageBind - Holistic AI learning across six modalities</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">Definition</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#engineering-physics">Engineering &amp; Physics</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#machine-learning">Machine Learning</a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-vs-unsupervised">Supervised vs Unsupervised</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#supervised-learning">Supervised Learning</a><ul class="nav section-nav flex-column">
 <li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#regression">Regression</a></li>
@@ -831,7 +871,12 @@ document.write(`
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#polynomial-curve-fitting">Polynomial Curve Fitting</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-curve-fitting">Bayesian Curve Fitting</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#bayesian-curve-fitting">Bayesian Curve Fitting</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-bayes-theorem">Recap: Bayes Theorem</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-sum-rules-of-disjoint-probability">Recap: Sum Rules of (disjoint) Probability</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#recap-product-rules-of-probability-for-independent-events-a-b">Recap: Product Rules of Probability - for independent events <span class="math notranslate nohighlight">\(A,B\)</span></a></li>
+</ul>
+</li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#maximum-likelihood-log-likelihood">Maximum Likelihood &amp; Log-Likelihood</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recap">Recap</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">Further References</a></li>

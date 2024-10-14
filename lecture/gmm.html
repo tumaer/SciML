@@ -405,9 +405,16 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-theory">2.1. Probability Theory</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-building-blocks">2.1.1. Basic Building Blocks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables-and-their-properties">2.1.2. Random Variables and Their Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables-and-their-properties">2.1.2. Random Variables and Their Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">2.1.2.1. Exercise</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogue-of-important-distributions">2.1.3. Catalogue of Important Distributions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-family">2.1.4. Exponential Family</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-family">2.1.4. Exponential Family</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-exponential-family-1">2.1.4.1. Exercise: Exponential Family 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-exponential-family-2">2.1.4.2. Exercise: Exponential Family 2</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2. Gaussian Mixture Models</a><ul class="nav section-nav flex-column">
@@ -415,7 +422,11 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-and-limitations">2.2.2. Applications and Limitations</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">2.3. Further References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">2.3. Further References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3.1. Probability Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.3.2. Gaussian Mixture Models</a></li>
+</ul>
+</li>
 </ul>
             </nav>
         </div>
@@ -456,18 +467,18 @@ document.write(`
 </ul>
 </li>
 <li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A, B)\)</span> - <em>joint probability</em>; probability that both <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> occur simultaneously.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A | B)\)</span> - <em>conditional probability</em>; probability that <span class="math notranslate nohighlight">\(A\)</span> occurs, if <span class="math notranslate nohighlight">\(B\)</span> has occured.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\mathbb{P}(A | B)\)</span> - <em>conditional probability</em>; probability that <span class="math notranslate nohighlight">\(A\)</span> occurs, if <span class="math notranslate nohighlight">\(B\)</span> has occurred.</p></li>
 <li><p>Product rule of probabilities:</p>
-<ul class="simple">
-<li><p>general case: <br></p></li>
-</ul>
+<ul>
+<li><p>general case:</p>
 <div class="math notranslate nohighlight" id="equation-product-rule-general">
 <span class="eqno">(2.1)<a class="headerlink" href="#equation-product-rule-general" title="Permalink to this equation">#</a></span>\[\mathbb{P}(A, B) = \mathbb{P}(A | B)\cdot  \mathbb{P}(B) = \mathbb{P}(B | A) \cdot \mathbb{P}(A)\]</div>
-<ul class="simple">
-<li><p>independent events: <br></p></li>
-</ul>
+</li>
+<li><p>independent events:</p>
 <div class="math notranslate nohighlight" id="equation-product-rule-indep">
 <span class="eqno">(2.2)<a class="headerlink" href="#equation-product-rule-indep" title="Permalink to this equation">#</a></span>\[\mathbb{P}(A, B) = \mathbb{P}(A) \cdot \mathbb{P}(B)\]</div>
+</li>
+</ul>
 </li>
 <li><p>Sum rule of probabilities:</p>
 <div class="math notranslate nohighlight" id="equation-sum-rule">
@@ -490,16 +501,16 @@ document.write(`
 <ul>
 <li><p><em>Random variable</em> (r.v.) <span class="math notranslate nohighlight">\(X\)</span> is a function <span class="math notranslate nohighlight">\(X:\Omega \rightarrow \mathbb{R}\)</span>. This is the formal way by which we move from abstract events to real-valued numbers. <span class="math notranslate nohighlight">\(X\)</span> is essentially a variable that does not have a fixed value, but can have different values with certain probabilities.</p></li>
 <li><p>Continuous r.v.:</p>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(F_X(x)\)</span> - <em>Cumulative distribution function</em> (CDF); probability that the r.v. <span class="math notranslate nohighlight">\(X\)</span> is smaller than some value <span class="math notranslate nohighlight">\(x\)</span>:</p></li>
-</ul>
+<ul>
+<li><p><span class="math notranslate nohighlight">\(F_X(x)\)</span> - <em>Cumulative distribution function</em> (CDF); probability that the r.v. <span class="math notranslate nohighlight">\(X\)</span> is smaller than some value <span class="math notranslate nohighlight">\(x\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-cdf">
 <span class="eqno">(2.5)<a class="headerlink" href="#equation-cdf" title="Permalink to this equation">#</a></span>\[F_X(x) = \mathbb{P}(X\le x)\]</div>
-<ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(p_X(x)\)</span> - <em>Probability density function</em> (PDF):</p></li>
-</ul>
+</li>
+<li><p><span class="math notranslate nohighlight">\(p_X(x)\)</span> - <em>Probability density function</em> (PDF):</p>
 <div class="math notranslate nohighlight" id="equation-pdf">
 <span class="eqno">(2.6)<a class="headerlink" href="#equation-pdf" title="Permalink to this equation">#</a></span>\[p_X(x)=\frac{dF_X(x)}{dx}\ge 0 \;\text{ and } \; \int_{-\infty}^{+\infty}p_X(x) dx =1\]</div>
+</li>
+</ul>
 </li>
 </ul>
 <figure class="align-center" id="pdf-cdf">
@@ -528,9 +539,11 @@ document.write(`
 <span class="eqno">(2.9)<a class="headerlink" href="#equation-change-of-vars" title="Permalink to this equation">#</a></span>\[p_Y(y)=p_X(x)\left|\frac{\text{d}x}{\text{d}y}\right| = p_X(h^{-1}(y)) \left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|\]</div>
 </li>
 </ul>
-<p><strong>Exercise</strong></p>
+<section id="exercise">
+<h4><span class="section-number">2.1.2.1. </span>Exercise<a class="headerlink" href="#exercise" title="Permalink to this heading">#</a></h4>
 <p>Given the r.v. <span class="math notranslate nohighlight">\(X\)</span> with pdf <span class="math notranslate nohighlight">\(f_X(x)=3x^2\)</span> and the function <span class="math notranslate nohighlight">\(Y=X^2\)</span>, find the pdf of <span class="math notranslate nohighlight">\(Y\)</span>.
 Hint: use <span class="math notranslate nohighlight">\(X=h^{-1}(Y)\)</span> as shown <a class="reference external" href="https://online.stat.psu.edu/stat414/lesson/22/22.2">here</a>.</p>
+</section>
 </section>
 <section id="catalogue-of-important-distributions">
 <h3><span class="section-number">2.1.3. </span>Catalogue of Important Distributions<a class="headerlink" href="#catalogue-of-important-distributions" title="Permalink to this heading">#</a></h3>
@@ -601,10 +614,14 @@ Hint: use <span class="math notranslate nohighlight">\(X=h^{-1}(Y)\)</span> as s
 \[\frac{da(\eta)}{d\eta_{1}} = \mu = \mathbb{E}[X] \]</div>
 <div class="math notranslate nohighlight" id="equation-gaussian-as-exponential-suff-stats-2">
 <span class="eqno">(2.18)<a class="headerlink" href="#equation-gaussian-as-exponential-suff-stats-2" title="Permalink to this equation">#</a></span>\[\frac{da(\eta)}{d\eta_{2}} = \sigma^2 - \mu^2 = \mathbb{E}[X^{2}] \]</div>
-<p><strong>Exercise: Exponential Family 1</strong></p>
+<section id="exercise-exponential-family-1">
+<h4><span class="section-number">2.1.4.1. </span>Exercise: Exponential Family 1<a class="headerlink" href="#exercise-exponential-family-1" title="Permalink to this heading">#</a></h4>
 <p>Show that the Dirichlet distribution is a member of the exponential family.</p>
-<p><strong>Exercise: Exponential Family 2</strong></p>
+</section>
+<section id="exercise-exponential-family-2">
+<h4><span class="section-number">2.1.4.2. </span>Exercise: Exponential Family 2<a class="headerlink" href="#exercise-exponential-family-2" title="Permalink to this heading">#</a></h4>
 <p>Show that the Bernoulli distribution is a member of the exponential family</p>
+</section>
 </section>
 </section>
 <section id="id1">
@@ -659,7 +676,7 @@ l(x | \pi,\mu,\Sigma) &amp;= \sum_{i=1}^{m}\log p(x^{(i)}|\pi,\mu,\Sigma) \\
 <div class="math notranslate nohighlight" id="equation-gmm-e-step">
 <span class="eqno">(2.24)<a class="headerlink" href="#equation-gmm-e-step" title="Permalink to this equation">#</a></span>\[w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma).\]</div>
 </li>
-<li><p><strong>(M-step)</strong>. Update the parameters by solving the maximum likelihood probelms for fixed <span class="math notranslate nohighlight">\(z_k\)</span> values.</p>
+<li><p><strong>(M-step)</strong>. Update the parameters by solving the maximum likelihood problems for fixed <span class="math notranslate nohighlight">\(z_k\)</span> values.</p>
 <div class="math notranslate nohighlight" id="equation-gmm-m-step">
 <span class="eqno">(2.25)<a class="headerlink" href="#equation-gmm-m-step" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
     \pi_k &amp;:= \frac{1}{m}\sum_{i=1}^m w_k^{(i)} \\
@@ -695,9 +712,9 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 <li><p>Density estimation: by evaluating the probability <span class="math notranslate nohighlight">\(p(\tilde{x})\)</span> of a new point <span class="math notranslate nohighlight">\(\tilde{x}\)</span>, we can compute how probable it is that this point comes from the same distribution as the training data.</p></li>
 <li><p>Clustering: so far we have talked about density estimation, but GMMs are typically used for clustering. Given a new query point <span class="math notranslate nohighlight">\(\tilde{x}\)</span>, we can evaluate each of the <span class="math notranslate nohighlight">\(K\)</span> Gaussians and scale their probability by the respective <span class="math notranslate nohighlight">\(\pi_k\)</span>. These will be the probabilities of <span class="math notranslate nohighlight">\(\tilde{x}\)</span> to be part of cluster <span class="math notranslate nohighlight">\(k\)</span>.</p></li>
 </ol>
-<p>Most limitations of this approach arive from the assumption that the indivudual clusters follow the Gaussian distribution:</p>
+<p>Most limitations of this approach arrive from the assumption that the individual clusters follow the Gaussian distribution:</p>
 <ul class="simple">
-<li><p>If the data does not follow a Gaussian distribution, e.g. heavy-tailed ditribution with outliers, then too much weight will be given to the outliers</p></li>
+<li><p>If the data does not follow a Gaussian distribution, e.g. heavy-tailed distribution with outliers, then too much weight will be given to the outliers</p></li>
 <li><p>If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.</p></li>
 <li><p>The choice of <span class="math notranslate nohighlight">\(K\)</span> is crucial and this parameters need to be optimized in a outer loop.</p></li>
 <li><p>GMMs do not scale well to high dimensions.</p></li>
@@ -706,18 +723,22 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 </section>
 <section id="further-references">
 <h2><span class="section-number">2.3. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
-<p><strong>Probability Theory</strong></p>
+<section id="id4">
+<h3><span class="section-number">2.3.1. </span>Probability Theory<a class="headerlink" href="#id4" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><span id="id4">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Chapters 1 and 2</p></li>
-<li><p><span id="id5">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapters 2 and 3</p></li>
-<li><p><span id="id6">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Section 3.1 - the exponential family</p></li>
+<li><p><span id="id5">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Chapters 1 and 2</p></li>
+<li><p><span id="id6">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapters 2 and 3</p></li>
+<li><p><span id="id7">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Section 3.1 - the exponential family</p></li>
 </ul>
-<p><strong>Gaussian Mixture Models</strong></p>
+</section>
+<section id="id8">
+<h3><span class="section-number">2.3.2. </span>Gaussian Mixture Models<a class="headerlink" href="#id8" title="Permalink to this heading">#</a></h3>
 <ul class="simple">
-<li><p><span id="id7">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Chapter 11 - main GMM reference</p></li>
-<li><p><span id="id8">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 9.2 - detailed derivations</p></li>
+<li><p><span id="id9">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Chapter 11 - main GMM reference</p></li>
+<li><p><span id="id10">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 9.2 - detailed derivations</p></li>
 <li><p><a class="reference external" href="https://www.youtube.com/watch?v=q71Niz856KE&amp;ab_channel=Serrano.Academy">Video</a> with more visual intuition</p></li>
 </ul>
+</section>
 </section>
 </section>
 
@@ -786,9 +807,16 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-theory">2.1. Probability Theory</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-building-blocks">2.1.1. Basic Building Blocks</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables-and-their-properties">2.1.2. Random Variables and Their Properties</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#random-variables-and-their-properties">2.1.2. Random Variables and Their Properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">2.1.2.1. Exercise</a></li>
+</ul>
+</li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#catalogue-of-important-distributions">2.1.3. Catalogue of Important Distributions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-family">2.1.4. Exponential Family</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exponential-family">2.1.4. Exponential Family</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-exponential-family-1">2.1.4.1. Exercise: Exponential Family 1</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise-exponential-family-2">2.1.4.2. Exercise: Exponential Family 2</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">2.2. Gaussian Mixture Models</a><ul class="nav section-nav flex-column">
@@ -796,7 +824,11 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &amp;= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sig
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#applications-and-limitations">2.2.2. Applications and Limitations</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">2.3. Further References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#further-references">2.3. Further References</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">2.3.1. Probability Theory</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">2.3.2. Gaussian Mixture Models</a></li>
+</ul>
+</li>
 </ul>
   </nav></div>
 

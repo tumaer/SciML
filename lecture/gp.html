@@ -468,10 +468,10 @@ document.write(`
     &amp; U^{\top}U = U U^{\top}=I, \\
 \end{aligned}
 \end{split}\]</div>
-<p>which fullfils</p>
+<p>which fulfils</p>
 <div class="math notranslate nohighlight" id="equation-sigma-eigendecomposition-matrix">
 <span class="eqno">(7.5)<a class="headerlink" href="#equation-sigma-eigendecomposition-matrix" title="Permalink to this equation">#</a></span>\[U\Sigma U^{\top} = \lambda,\]</div>
-<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> denotes a diagonal matrix of eigenvalues. If we apply the variable transformation <span class="math notranslate nohighlight">\(y=U(x-\mu)\)</span>, we can transform the Gaussian PDF to the <span class="math notranslate nohighlight">\(y\)</span> coordinates according to the change of variables rule (see beginning of <a class="reference internal" href="gmm.html"><span class="doc std std-doc">Guassian Mixture Models</span></a>).</p>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> denotes a diagonal matrix of eigenvalues. If we apply the variable transformation <span class="math notranslate nohighlight">\(y=U(x-\mu)\)</span>, we can transform the Gaussian PDF to the <span class="math notranslate nohighlight">\(y\)</span> coordinates according to the change of variables rule (see beginning of <a class="reference internal" href="gmm.html"><span class="doc std std-doc">Gaussian Mixture Models</span></a>).</p>
 <div class="math notranslate nohighlight" id="equation-change-of-vars-duplicate">
 <span class="eqno">(7.6)<a class="headerlink" href="#equation-change-of-vars-duplicate" title="Permalink to this equation">#</a></span>\[p_Y(y)=p_X(h^{-1}(y)) \underbrace{\left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|}_{(det|U_{ij}|)^{-1}=1}\]</div>
 <p>which leads to</p>
@@ -541,7 +541,7 @@ x_b
 <p>For the marginal PDF we integrate out the dependence on <span class="math notranslate nohighlight">\(x_b\)</span> of the joint PDF:</p>
 <div class="math notranslate nohighlight" id="equation-def-marginal-pdf">
 <span class="eqno">(7.16)<a class="headerlink" href="#equation-def-marginal-pdf" title="Permalink to this equation">#</a></span>\[p(x_a) = \int p(x_a, x_b) dx_b.\]</div>
-<p>We can follow similar steps as above for separating terms that involve <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>. After integrating out the Guassian with a quadratic term depending on <span class="math notranslate nohighlight">\(x_b\)</span> we are left with a lengthy term involving <span class="math notranslate nohighlight">\(x_a\)</span> only. By comparison with a Gaussian PDF and re-using the block relation between <span class="math notranslate nohighlight">\(\Lambda\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> as above we obtain for the marginal</p>
+<p>We can follow similar steps as above for separating terms that involve <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>. After integrating out the Gaussian with a quadratic term depending on <span class="math notranslate nohighlight">\(x_b\)</span> we are left with a lengthy term involving <span class="math notranslate nohighlight">\(x_a\)</span> only. By comparison with a Gaussian PDF and re-using the block relation between <span class="math notranslate nohighlight">\(\Lambda\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> as above we obtain for the marginal</p>
 <div class="math notranslate nohighlight" id="equation-gaussian-marginal-pdf">
 <span class="eqno">(7.17)<a class="headerlink" href="#equation-gaussian-marginal-pdf" title="Permalink to this equation">#</a></span>\[p(x_a) = \mathcal{N}(x_a; \mu_a, \Sigma_{a a}).\]</div>
 </section>
@@ -652,7 +652,7 @@ p(h) = \mathcal{N}(h; 0, K).
 <span class="eqno">(7.31)<a class="headerlink" href="#equation-gp-y-conditional" title="Permalink to this equation">#</a></span>\[
 p(y|x) = \int p(y | h, x) p(h|x) dh,
 \]</div>
-<p>i.e. the posterior pdf is defined by the marginalization of <span class="math notranslate nohighlight">\(p(y, h| x)\)</span> over the latent variable <span class="math notranslate nohighlight">\(h\)</span>. For the computation of <span class="math notranslate nohighlight">\(p(y|x)\)</span> we follow previous computations with adjustments of the notation where appropriate. We define the joint random variale <span class="math notranslate nohighlight">\(z\)</span> as</p>
+<p>i.e. the posterior pdf is defined by the marginalization of <span class="math notranslate nohighlight">\(p(y, h| x)\)</span> over the latent variable <span class="math notranslate nohighlight">\(h\)</span>. For the computation of <span class="math notranslate nohighlight">\(p(y|x)\)</span> we follow previous computations with adjustments of the notation where appropriate. We define the joint random variable <span class="math notranslate nohighlight">\(z\)</span> as</p>
 <div class="math notranslate nohighlight" id="equation-gp-joint-z">
 <span class="eqno">(7.32)<a class="headerlink" href="#equation-gp-joint-z" title="Permalink to this equation">#</a></span>\[\begin{split}
 z = \left[\begin{matrix}
@@ -921,7 +921,7 @@ y = \left[
 <li><p>Introduce an appropriate likelihood function <span class="math notranslate nohighlight">\(p(y | \theta)\)</span></p></li>
 <li><p>Determine the optimum <span class="math notranslate nohighlight">\(\theta\)</span> via maximum likelihood estimation (MLE) <span class="math notranslate nohighlight">\(\theta^{\star} = \arg \max \ln p(y | \theta)\)</span>, which corresponds to linear regression</p></li>
 <li><p><span class="math notranslate nohighlight">\(\ln p(y|\theta) = -\frac{1}{2} \ln |K + \frac{1}{\beta}I| - \frac{1}{2} y^{\top} \left( K + \frac{1}{\beta}I \right)^{-1} y - \frac{n}{2} \ln 2 \pi\)</span></p></li>
-<li><p>Use iterative gradient descent or Newton’s method to find the optimum, where you need to beware of the fact thar <span class="math notranslate nohighlight">\(p(y | \theta)\)</span> may be non-convex in <span class="math notranslate nohighlight">\(\theta\)</span>, and hence have multiple maxima</p></li>
+<li><p>Use iterative gradient descent or Newton’s method to find the optimum, where you need to beware of the fact that <span class="math notranslate nohighlight">\(p(y | \theta)\)</span> may be non-convex in <span class="math notranslate nohighlight">\(\theta\)</span>, and hence have multiple maxima</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -997,11 +997,11 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
 </section>
 <section id="further-references">
 <h2><span class="section-number">7.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
-<p><strong>The Guassian Distribution</strong></p>
+<p><strong>The Gaussian Distribution</strong></p>
 <ul class="simple">
 <li><p><span id="id11">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 2.3</p></li>
 </ul>
-<p><strong>Guassian Processes</strong></p>
+<p><strong>Gaussian Processes</strong></p>
 <ul class="simple">
 <li><p><span id="id12">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 6.4</p></li>
 <li><p><span id="id13">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>, up to page 22</p></li>

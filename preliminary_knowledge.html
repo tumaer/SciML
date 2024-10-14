@@ -62,6 +62,8 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'preliminary_knowledge';</script>
     <link rel="author" title="About these documents" href="about.html" />
     <link rel="index" title="Index" href="genindex.html" />
@@ -402,10 +404,25 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-you-need">What do you need?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-for-preliminary-reading-in-case-you-seek-to-refresh-your-memory">Sources for Preliminary Reading in Case you Seek to Refresh your Memory</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patterns-predictions-and-actions">Patterns, Predictions, and Actions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dive-into-deep-learning">Dive into Deep Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-recognition-and-machine-learning">Pattern Recognition, and Machine Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-for-preliminary-reading">Sources for Preliminary Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-to-test-preliminary-knowledge">Exercises to Test Preliminary Knowledge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-algebra">Linear Algebra</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#moore-penrose-pseudoinverse-applied">Moore-Penrose Pseudoinverse: Applied</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition-applied">Singular Value Decomposition: Applied</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition-theoretical">Singular Value Decomposition: Theoretical</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-theory">Probability Theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-a-sum">Variance of a Sum</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairwise-independence-does-not-imply-mutual-independence">Pairwise Independence Does not Imply Mutual Independence</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoullie-distribution">Bernoullie Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-distribution">Beta Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-mode-and-variance-of-the-beta-distribution">Mean, Mode, and Variance of the Beta Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-inverse-gamma-density">Deriving the Inverse Gamma Density</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-constant-for-a-1-dimensional-gaussian">Normalization Constant for a 1-Dimensional Gaussian</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-divergence">Kullback-Leibler Divergence</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -423,36 +440,181 @@ document.write(`
 <h1>Preliminary Knowledge<a class="headerlink" href="#preliminary-knowledge" title="Permalink to this heading">#</a></h1>
 <section id="what-do-you-need">
 <h2>What do you need?<a class="headerlink" href="#what-do-you-need" title="Permalink to this heading">#</a></h2>
-<p>A basic handling of linear algebra, and probability theory are required to understand the theoretical part of the course.</p>
+<p>A basic handling of <em>Calculus</em>, <em>Linear Algebra</em>, and <em>Probability Theory</em> are required to understand the theoretical part of the course.</p>
 <p>Exercises, and practicising the practical parts of the course require a basic handling of Python.</p>
 <blockquote>
-<div><p>If you are an ardent believer of programming language X, we will not force you to use Python. Problem sets, as well as model solutions will only be provided in Python, but there is nothing keeping you from doing the exercises in e.g. Julia.</p>
+<div><p>If you are an ardent believer of programming language X, we will not force you to use Python. Problem sets, as well as model solutions will only be provided in Python, but there is nothing keeping you from doing the exercises in e.g. Julia, Mojo, Rust, etc.</p>
 </div></blockquote>
 </section>
-<section id="sources-for-preliminary-reading-in-case-you-seek-to-refresh-your-memory">
-<h2>Sources for Preliminary Reading in Case you Seek to Refresh your Memory<a class="headerlink" href="#sources-for-preliminary-reading-in-case-you-seek-to-refresh-your-memory" title="Permalink to this heading">#</a></h2>
-<section id="patterns-predictions-and-actions">
-<h3>Patterns, Predictions, and Actions<a class="headerlink" href="#patterns-predictions-and-actions" title="Permalink to this heading">#</a></h3>
-<ul class="simple">
-<li><p><a class="reference external" href="https://mlstory.org/background.html">Mathematical Background</a></p></li>
-</ul>
-</section>
-<section id="dive-into-deep-learning">
-<h3>Dive into Deep Learning<a class="headerlink" href="#dive-into-deep-learning" title="Permalink to this heading">#</a></h3>
+<section id="sources-for-preliminary-reading">
+<h2>Sources for Preliminary Reading<a class="headerlink" href="#sources-for-preliminary-reading" title="Permalink to this heading">#</a></h2>
+<p>To refresh your memory on the preliminary knowledge required for this course, we strongly recommend the concise, accessible notes from the <a class="reference external" href="https://d2l.ai"><em>Dive into Deep Learning</em></a> online book by Aston Zhang, Zachary C Lipton, Mu Li, and Alexander J Smola.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.d2l.ai/chapter_preliminaries/linear-algebra.html">Linear Algebra</a></p></li>
 <li><p><a class="reference external" href="https://www.d2l.ai/chapter_preliminaries/calculus.html">Calculus</a></p></li>
 <li><p><a class="reference external" href="https://www.d2l.ai/chapter_preliminaries/probability.html">Probability and Statistics</a></p></li>
 </ul>
-</section>
-<section id="pattern-recognition-and-machine-learning">
-<h3>Pattern Recognition, and Machine Learning<a class="headerlink" href="#pattern-recognition-and-machine-learning" title="Permalink to this heading">#</a></h3>
+<p>If you prefer a more expansive book/lecture style, we can furthermore recommend the following chapter from <a class="reference external" href="https://nowak.ece.wisc.edu/MFML.pdf"><em>Mathematical Foundations of Machine Learning</em></a> by Robert Nowak:</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Appendix B: Probability Distributions</a></p></li>
-<li><p><a class="reference external" href="https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Appendix C: Properties of Matrices</a></p></li>
-<li><p><a class="reference external" href="https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Appendix D: Calculus of Variations</a></p></li>
-<li><p><a class="reference external" href="https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf">Appendix E: Lagrange Multipliers</a></p></li>
+<li><p>Chapter 1: Probability in Machine Learning</p></li>
+<li><p>Chapter 2: Discrete Probability Distributions and Classification</p></li>
 </ul>
+</section>
+<section id="exercises-to-test-preliminary-knowledge">
+<h2>Exercises to Test Preliminary Knowledge<a class="headerlink" href="#exercises-to-test-preliminary-knowledge" title="Permalink to this heading">#</a></h2>
+<p>If you seek to refresh your memory by the way of exercises, please find below a problem set to test your preliminary knowledge. The solutions can be found in the Appendix (link to go here).</p>
+<section id="linear-algebra">
+<h3>Linear Algebra<a class="headerlink" href="#linear-algebra" title="Permalink to this heading">#</a></h3>
+<section id="moore-penrose-pseudoinverse-applied">
+<h4>Moore-Penrose Pseudoinverse: Applied<a class="headerlink" href="#moore-penrose-pseudoinverse-applied" title="Permalink to this heading">#</a></h4>
+<p>Complete the pseudoinverse of the following two matrices:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+    1 &amp; 1 \\
+    2 &amp; 2
+\end{bmatrix}, \quad
+\begin{bmatrix}
+    4 &amp; 3 \\
+    8 &amp; 6
+\end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="singular-value-decomposition-applied">
+<h4>Singular Value Decomposition: Applied<a class="headerlink" href="#singular-value-decomposition-applied" title="Permalink to this heading">#</a></h4>
+<p>Compute the singular value decomposition of the following two matrices:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}
+\begin{bmatrix}
+    3 &amp; 1 &amp; 1 \\
+    -1 &amp; 3 &amp; 1
+\end{bmatrix}, \quad
+\begin{bmatrix}
+    2 &amp; 4 \\
+    1 &amp; 3 \\
+    0 &amp; 0 \\
+    0 &amp; 0
+\end{bmatrix}
+\end{split}\]</div>
+</section>
+<section id="singular-value-decomposition-theoretical">
+<h4>Singular Value Decomposition: Theoretical<a class="headerlink" href="#singular-value-decomposition-theoretical" title="Permalink to this heading">#</a></h4>
+<p>Show that for a matrix <span class="math notranslate nohighlight">\(A\)</span>:</p>
+<ol class="arabic simple">
+<li><p>The rank of <span class="math notranslate nohighlight">\(A\)</span> is <span class="math notranslate nohighlight">\(r\)</span>, where <span class="math notranslate nohighlight">\(r\)</span> is the minimum <span class="math notranslate nohighlight">\(i\)</span> such that <span class="math notranslate nohighlight">\(\underset{\underset{|\bf{v}|=1}{\bf{v} \perp \bf{v_{1}}, \bf{v_{2}}, \ldots, \bf{v_{i}}}}{\arg \max} |A \hspace{1pt} \bf{v} | = 0\)</span>.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\left| \bf{u}^{T}_{1} A \right| = \underset{|u|=1}{\max} \left| \bf{u}^{T} A \right| = \sigma_{1}\)</span>.</p></li>
+</ol>
+<blockquote>
+<div><p>Hint: Recall the definition of the singular value decomposition.</p>
+</div></blockquote>
+</section>
+</section>
+<section id="probability-theory">
+<h3>Probability Theory<a class="headerlink" href="#probability-theory" title="Permalink to this heading">#</a></h3>
+<section id="variance-of-a-sum">
+<h4>Variance of a Sum<a class="headerlink" href="#variance-of-a-sum" title="Permalink to this heading">#</a></h4>
+<p>Show that the variance of a sum is <span class="math notranslate nohighlight">\(var\left[X + Y\right] = var[X] + var[Y] + 2 cov[X, Y]\)</span>, where <span class="math notranslate nohighlight">\(cov[X, Y]\)</span> is the covariance between <span class="math notranslate nohighlight">\(X\)</span> and <span class="math notranslate nohighlight">\(Y\)</span>.</p>
+</section>
+<section id="pairwise-independence-does-not-imply-mutual-independence">
+<h4>Pairwise Independence Does not Imply Mutual Independence<a class="headerlink" href="#pairwise-independence-does-not-imply-mutual-independence" title="Permalink to this heading">#</a></h4>
+<p>We say that two random variables are pairwise independent if</p>
+<div class="math notranslate nohighlight">
+\[
+p(X_{2} | X_{1}) = p(X_{2})
+\]</div>
+<p>and hence</p>
+<div class="math notranslate nohighlight">
+\[
+p(X_{2}, X_{1}) = p(X_{1}) p(X_{2}|X_{1}) = p(X_{1}) p(X_{2}).
+\]</div>
+<p>We say that <span class="math notranslate nohighlight">\(n\)</span> random variables are mutually independent if</p>
+<div class="math notranslate nohighlight">
+\[
+p(X_{i}|X_{\mathcal{S}}) = p(X_{i}) \quad \forall \mathcal{S} \subseteq \left\{1, \ldots, n \right\} \backslash \{ i\}
+\]</div>
+<p>and hence</p>
+<div class="math notranslate nohighlight">
+\[
+p(X_{1:n}) = \prod^{n}_{i=1} p(X_{i}).
+\]</div>
+<p>Show that pairwise independence between all pairs of variables does not necessarily imply mutual independence.</p>
+<blockquote>
+<div><p>Hint: It suffices to give a counter example.</p>
+</div></blockquote>
+</section>
+<section id="bernoullie-distribution">
+<h4>Bernoullie Distribution<a class="headerlink" href="#bernoullie-distribution" title="Permalink to this heading">#</a></h4>
+<p>The form of the Bernoulli distribution given by</p>
+<div class="math notranslate nohighlight">
+\[
+Bern(x|\mu) = \mu^{x} \left( 1 - \mu \right)^{1-x}
+\]</div>
+<p>is not symmetric between the two values of x. In some situations, it will be more convenient to use an equivalent formulation for which <span class="math notranslate nohighlight">\(x \in \{-1, 1\}\)</span>, in which case the distribution can be written</p>
+<div class="math notranslate nohighlight">
+\[
+p(x|\mu) = \left( \frac{1 - \mu}{2} \right)^{\frac{1 -x}{2}} \left( \frac{1 + \mu}{2} \right)^{\frac{1+x}{2}}
+\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu \in [-1, 1]\)</span>. Show that the distribution is normalized, and evaluate its mean, variance, and entropy.</p>
+</section>
+<section id="beta-distribution">
+<h4>Beta Distribution<a class="headerlink" href="#beta-distribution" title="Permalink to this heading">#</a></h4>
+<p>Prove that the beta distribution, given by</p>
+<div class="math notranslate nohighlight" id="equation-beta-distribution">
+<span class="eqno">(21)<a class="headerlink" href="#equation-beta-distribution" title="Permalink to this equation">#</a></span>\[Beta(\mu | a, b) = \frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)} \mu^{a-1} \left( 1 - \mu \right)^{b-1}\]</div>
+<p>is correctly normalized, so that</p>
+<div class="math notranslate nohighlight" id="equation-beta-probability-condition">
+<span class="eqno">(22)<a class="headerlink" href="#equation-beta-probability-condition" title="Permalink to this equation">#</a></span>\[\int_{0}^{1} Beta(\mu |a, b) d\mu = 1\]</div>
+<p>holds. This is equivalent to showing that</p>
+<div class="math notranslate nohighlight">
+\[
+\int_{0}^{1} \mu^{a-1} \left( 1 - \mu \right)^{b-1} d\mu = \frac{\Gamma(a) \Gamma(b)}{\Gamma(a+b)}
+\]</div>
+<p>From the definition of the gamma function, we have</p>
+<div class="math notranslate nohighlight">
+\[
+\Gamma(a) \Gamma(b) = \int_{0}^{\infty} \exp(-x) x^{a-1} dx \hspace{2pt} \int_{0}^{\infty} \exp(-y) y^{b - 1} dy.
+\]</div>
+<p>Use expression <a class="reference internal" href="#equation-beta-probability-condition">(22)</a> to prove <a class="reference internal" href="#equation-beta-distribution">(21)</a> as follows. First bring the integral over y inside the integrand of the integral over x, next make the change of variable <span class="math notranslate nohighlight">\(t = y + x\)</span> where <span class="math notranslate nohighlight">\(x\)</span> is fixed, then interchange the order of the <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(t\)</span> integrations, and finally make the change of variable <span class="math notranslate nohighlight">\(x = t \mu\)</span> where <span class="math notranslate nohighlight">\(t\)</span> is fixed.</p>
+</section>
+<section id="mean-mode-and-variance-of-the-beta-distribution">
+<h4>Mean, Mode, and Variance of the Beta Distribution<a class="headerlink" href="#mean-mode-and-variance-of-the-beta-distribution" title="Permalink to this heading">#</a></h4>
+<p>Suppose <span class="math notranslate nohighlight">\(\theta \sim Beta(a, b)\)</span>. Derive the mean, mode and variance.</p>
+<blockquote>
+<div><p>Hint: See the definition above, and consider the moment generating function.</p>
+</div></blockquote>
+</section>
+<section id="deriving-the-inverse-gamma-density">
+<h4>Deriving the Inverse Gamma Density<a class="headerlink" href="#deriving-the-inverse-gamma-density" title="Permalink to this heading">#</a></h4>
+<p>Let <span class="math notranslate nohighlight">\(X \sim Ga(a, b)\)</span>, i.e.</p>
+<div class="math notranslate nohighlight">
+\[Ga(x|a, b) = \frac{b^{a}}{\Gamma(a)} x^{a-1} e^{-xb}\]</div>
+<p>Let <span class="math notranslate nohighlight">\(Y = 1 / X\)</span>. Show that <span class="math notranslate nohighlight">\(Y \sim IG(a, b)\)</span>, i.e.</p>
+<div class="math notranslate nohighlight">
+\[IG(x | \text{shape}=a, \text{scale}=b) = \frac{b^{a}}{\Gamma(a)} x^{-(a+1)} e^{-b / x}.\]</div>
+</section>
+<section id="normalization-constant-for-a-1-dimensional-gaussian">
+<h4>Normalization Constant for a 1-Dimensional Gaussian<a class="headerlink" href="#normalization-constant-for-a-1-dimensional-gaussian" title="Permalink to this heading">#</a></h4>
+<p>The normalization constant for a zero-mean Gaussian is given by</p>
+<div class="math notranslate nohighlight">
+\[Z = \int_{a}^{b} \exp \left( - \frac{x^{2}}{2 \sigma^{2}} \right) dx\]</div>
+<p>where <span class="math notranslate nohighlight">\(a = -\infty\)</span> and <span class="math notranslate nohighlight">\(b=\infty\)</span>. To compute this, consider its square</p>
+<div class="math notranslate nohighlight">
+\[Z^{2} = \int_{a}^{b} \int_{a}^{b} \exp \left( - \frac{x^{2} + y^{2}}{2\sigma^{2}} \right) dx \hspace{1pt} dy\]</div>
+<p>Let us change variables from cartesian <span class="math notranslate nohighlight">\((x, y)\)</span> to polar <span class="math notranslate nohighlight">\((r, \theta)\)</span> using <span class="math notranslate nohighlight">\(x = r \cos \theta\)</span> and <span class="math notranslate nohighlight">\(y = r \sin \theta\)</span>. Since <span class="math notranslate nohighlight">\(dx \hspace{1pt} dy = r \hspace{1pt} dr \hspace{1pt} d\theta\)</span>, and <span class="math notranslate nohighlight">\(\cos^{2} \theta + \sin^{2} \theta = 1\)</span>, we have</p>
+<div class="math notranslate nohighlight">
+\[Z^{2} = \int_{0}^{2 \pi} \int_{0}^{\infty} r \exp \left( - \frac{r^{2}}{2\sigma^{2}} \right) dr \hspace{1pt} d\theta\]</div>
+<p>Evaluate this integral and hence show <span class="math notranslate nohighlight">\(Z = \sigma \sqrt{2 \pi}\)</span>. We suggest to separate the integral into a product of two terms, the first of which (involving <span class="math notranslate nohighlight">\(d\theta\)</span>) is constant, so is easy. Another simplification is possibly by realizing that if <span class="math notranslate nohighlight">\(u = e^{-r^{2}/2\sigma^{2}}\)</span> <span class="math notranslate nohighlight">\(du/dr = - \frac{1}{\sigma^{2}} r \hspace{1pt} e^{-r^{2} / 2\sigma^{2}}\)</span>, so the second integral reduces down to <span class="math notranslate nohighlight">\(\int u'(r)dr = u(r)\)</span>.</p>
+</section>
+<section id="kullback-leibler-divergence">
+<h4>Kullback-Leibler Divergence<a class="headerlink" href="#kullback-leibler-divergence" title="Permalink to this heading">#</a></h4>
+<p>Evaluate the Kullback-Leibler divergence, expressing the relative entropy of two probability distributions,</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{align}
+  KL(p || q) &amp;= - \int p(\bf{x}) \ln q(\bf{x}) d\bf{x} - \left( - \int p(\bf{x}) \ln p(\bf{x}) d\bf{x} \right) \\
+             &amp;= - \int p(\bf{x}) \ln \left\{ \frac{q(\bf{x})}{p(\bf{x})} \right\} d\bf{x}.
+\end{align}\end{split}\]</div>
+<p>between two Gaussians <span class="math notranslate nohighlight">\(p(\bf{x}) = \mathcal{N}(\bf{x} | \bf{\mu}, \bf{\Sigma})\)</span>, and <span class="math notranslate nohighlight">\(q(x) = \mathcal{N}(\bf{x} | \bf{m}, \bf{L})\)</span>.</p>
+</section>
 </section>
 </section>
 </section>
@@ -521,10 +683,25 @@ document.write(`
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-do-you-need">What do you need?</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-for-preliminary-reading-in-case-you-seek-to-refresh-your-memory">Sources for Preliminary Reading in Case you Seek to Refresh your Memory</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#patterns-predictions-and-actions">Patterns, Predictions, and Actions</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dive-into-deep-learning">Dive into Deep Learning</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pattern-recognition-and-machine-learning">Pattern Recognition, and Machine Learning</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sources-for-preliminary-reading">Sources for Preliminary Reading</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercises-to-test-preliminary-knowledge">Exercises to Test Preliminary Knowledge</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#linear-algebra">Linear Algebra</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#moore-penrose-pseudoinverse-applied">Moore-Penrose Pseudoinverse: Applied</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition-applied">Singular Value Decomposition: Applied</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#singular-value-decomposition-theoretical">Singular Value Decomposition: Theoretical</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#probability-theory">Probability Theory</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#variance-of-a-sum">Variance of a Sum</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#pairwise-independence-does-not-imply-mutual-independence">Pairwise Independence Does not Imply Mutual Independence</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#bernoullie-distribution">Bernoullie Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#beta-distribution">Beta Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#mean-mode-and-variance-of-the-beta-distribution">Mean, Mode, and Variance of the Beta Distribution</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#deriving-the-inverse-gamma-density">Deriving the Inverse Gamma Density</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#normalization-constant-for-a-1-dimensional-gaussian">Normalization Constant for a 1-Dimensional Gaussian</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#kullback-leibler-divergence">Kullback-Leibler Divergence</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
