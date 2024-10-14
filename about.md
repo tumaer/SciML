@@ -1,17 +1,17 @@
 # About this Lecture
 
-> We probably want a tl;dr here, similar-ish in style to what Nils has here.
+> TL;DR: This course gives an overview of both classic machine learning (linear regression/classification, GMM, SVM, GP) as well as more modern deep learning methods (MLP, CNN, RNN, AE). The only prerequisites are linear algebra and some basics of probability theory. After completing the course, you will know how to choose the appropriate class of supervised/unsupervised learning algorithms, how to train a model, and how to evaluate it.
 
-Welcome to the 3rd edition of the *Introduction to Scientific Machine Learning for Engineers* in the winter semester 2023/2024! We are looking forward to a hopefully great semester, and to excite as many of you as possible for Scientific Machine Learning.
+Welcome to the 4th edition of the *Introduction to Scientific Machine Learning for Engineers* in the winter semester 2024/2025! We look forward to a hopefully great semester and to excite as many of you as possible for **Scientific Machine Learning**.
 
-The course breaks down into an introduction to the topic, followed by 4 core content blocks which are interspersed with practice problems while being supported by JuPyter notebook-based tutorials for the practical application of the learned concepts.
+The course breaks down into an introduction to the topic, followed by the core content blocks, which are interspersed with practice problems ("Lecture") while being supported by JuPyter notebook-based tutorials for the practical application of the learned concepts ("Exercise").
 
 ## Lecturers
 
 - Nikolaus A. Adams
 - Artur Toshev ([artur.toshev@tum.de](mailto:artur.toshev@tum.de))
 
-> Questions should preferably be posted in the Moodle, or else be sent to Artur Toshev.
+> Questions should preferably be posted on Moodle or sent to Artur Toshev.
 
 ## Outline
 
@@ -20,7 +20,7 @@ The course breaks down into an introduction to the topic, followed by 4 core con
 
 ## Contributors
 
-Thanks to all contributors! Github names are provided in brackets where available.
+Thanks to all contributors! Github names are provided in parentheses where available.
 
 ### Contributed content
 
@@ -36,11 +36,11 @@ Thanks to all contributors! Github names are provided in brackets where availabl
 Please cite this work as:
 
 ```bibtex
-@article{paehler2023sciml,
+@article{paehler2024sciml,
   title={Introduction to Scientific Machine Learning for Engineers},
   author={Ludger Paehler and Artur P Toshev and Nikolaus A Adams},
   url={https://tumaer.github.io/SciML/about.html},
-  year={2023},
+  year={2024},
 }
 ```
 
