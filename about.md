@@ -4,12 +4,13 @@
 
 Welcome to the 4th edition of the *Introduction to Scientific Machine Learning for Engineers* in the winter semester 2024/2025! We look forward to a hopefully great semester and to excite as many of you as possible for **Scientific Machine Learning**.
 
-The course breaks down into an introduction to the topic, followed by the core content blocks, which are interspersed with practice problems ("Lecture") while being supported by JuPyter notebook-based tutorials for the practical application of the learned concepts ("Exercise").
+The course breaks down into an introduction to the topic, followed by the core content ("Lecture"), which is interspersed with practice problems while being supported by JuPyter notebook-based tutorials ("Exercise") for the practical application of the learned concepts.
 
 ## Lecturers
 
 - Nikolaus A. Adams
 - Artur Toshev ([artur.toshev@tum.de](mailto:artur.toshev@tum.de))
+- Harish Ramachandran ([harish.ramachandran@tum.de](mailto:harish.ramachandran@tum.de))
 
 > Questions should preferably be posted on Moodle or sent to Artur Toshev.
 

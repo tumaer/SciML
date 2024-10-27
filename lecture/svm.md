@@ -580,7 +580,7 @@ In general, $x$ and $\varphi$ are vectors where $\varphi$ has the entire $x$ as 
 
 $$h(x)= g(\omega^T \varphi(x)+b).$$ (classifier_with_feature_map)
 
-**Example XNOR**
+**Example: XNOR**
 
 The following classification problem is non-linear as there is no linear decision boundary.
 
@@ -604,7 +604,7 @@ name: xnor_example_embedded
 XNOR after feature mapping.
 ```
 
-**Example Circular Region**
+**Example: Circular Region**
 
 Given is a set of points $x \in \mathbb{R}^{2}$ with two possible labels: purple ($-1$) and orange ($1$), as can be seen in the left figure below. The task is to find a feature map such that a linear classifier can perfectly separate the two sets.
 
@@ -704,7 +704,7 @@ $\Rightarrow$ we can consider even an infinite-dimensional feature vector $N \ri
 
 A **necessary and sufficient condition** for a valid kernel is that **$K$ is positive semidefinite for all $x$**.
 
-#### Example 1
+**Example: Kernel 1**
 
 Given is $x, x' \in \mathbb{R}^N$ and a scalar kernel
 
@@ -718,7 +718,7 @@ The corresponding feature map for $K(x,x') = \varphi^T(x)\varphi(x')$ and with $
 
 $$\varphi (x) = \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ x_1 x_3 \\ x_2 x_1 \\ \ldots \\ x_3x_3 \end{array}\right]$$ (kernel_polynomial_2_n_3_feature_map)
 
-#### Example 2
+**Example: Kernel 2**
 
 Alternative kernel with parameter $c$:
 
@@ -734,7 +734,7 @@ $\Rightarrow$ the larger the kernel value, the more parallel the vectors are. Co
 
 $\Rightarrow$ intuitively $K(x,x')$ is a measure of "how close" $\varphi(x)$ and $\varphi(x')$ are.
 
-#### Example 3: Gaussian kernel
+**Example: Gaussian kernel**
 
 $$K(x,x')= \exp \left\{- \frac{(x-x')^T (x-x')}{2 \sigma^2} \right\} \\
 \left\{\begin{array}{l} \approx 1 , \quad x \text{ and } x' \text{ close}  \\ \approx 0 , \quad x \text{ and } x' \text{ far apart} \end{array}\right.$$ (gaussian_kernel)
@@ -784,3 +784,4 @@ This pulls through into the dual problem for determining $\alpha_i^*$ and $b^*$ 
 
 - {cite}`cs229notes`, Chapters 5 und 6
 - {cite}`murphy2022`, Section 17.3
+- {cite}`bishop2006`, Eppendix E: Lagrange Multipliers

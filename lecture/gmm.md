@@ -1,8 +1,8 @@
 # Gaussian Mixture Models
 
-This lesson first recaps on Probability Theory and then introduces Gaussian Mixture Models (GMM) for density estimation and clustering.
+This lecture first recaps Probability Theory and then introduces Gaussian Mixture Models (GMM) for density estimation and clustering.
 
-With regard to the next lecture introducing sampling, GMMs and sampling methods (e.g. MCMC) are two complementary approaches:
+Concerning the following lecture introducing sampling, GMMs and sampling methods (e.g. MCMC) are two complementary approaches:
 
 - GMMs estimate the probability density of a given set of samples
 - MCMC generates samples from a given probability density
@@ -18,7 +18,10 @@ Density estimation vs sampling.
 
 But first, we revise Probability Theory.
 
+> Note: To refresh your math knowledge, we have prepared a set of exercises incl. solutions under [](../preliminary_knowledge.md).
+
 ## Probability Theory
+
 
 ### Basic Building Blocks
 
@@ -53,11 +56,11 @@ But first, we revise Probability Theory.
 
 ### Random Variables and Their Properties
 
-- *Random variable* (r.v.) $X$ is a function $X:\Omega \rightarrow \mathbb{R}$. This is the formal way by which we move from abstract events to real-valued numbers. $X$ is essentially a variable that does not have a fixed value, but can have different values with certain probabilities.
-- Continuous r.v.:
+- *Random variable* (r.v.) $X$ is a function $X:\Omega \rightarrow \mathbb{R}$. This is the formal way to move from abstract events to real-valued numbers. $X$ is essentially a variable that does not have a fixed value but can have different values with certain probabilities.
+- Continuous r.v.s:
   - $F_X(x)$ - *Cumulative distribution function* (CDF); probability that the r.v. $X$ is smaller than some value $x$:
 
-    $$F_X(x) = \mathbb{P}(X\le x)$$ (cdf)
+    $$F_X(x) = \mathbb{P}(X\le x), \quad \text{with } F_X(-\infty)=0, \; F_X(\infty)=1$$ (cdf)
 
   - $p_X(x)$ - *Probability density function* (PDF):
 
@@ -72,7 +75,7 @@ name: pdf_cdf
 PDF and CDF functions.
 ```
 
-- discrete r.v.:
+- Discrete r.v.s:
   - *Probability mass function* (PMF) - same as the pdf but for a discrete r.v. $X$. Integrals become sums.
 - $\mu = E[X]$ - *mean value* or *expected value*
 
@@ -87,18 +90,38 @@ PDF and CDF functions.
 
     $$p_Y(y)=p_X(x)\left|\frac{\text{d}x}{\text{d}y}\right| = p_X(h^{-1}(y)) \left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|$$  (change_of_vars)
 
-#### Exercise
+**Exercise: Change of Variables**
 
-Given the r.v. $X$ with pdf $f_X(x)=3x^2$ and the function $Y=X^2$, find the pdf of $Y$.
+Given the r.v. $X$ with pdf $p_X(x)=3x^2$ defined on $X \in (0,1)$ and the function $Y=X^2$, find the pdf of $Y$.
 Hint: use $X=h^{-1}(Y)$ as shown [here](https://online.stat.psu.edu/stat414/lesson/22/22.2).
 
 ### Catalogue of Important Distributions
 
+**Discrete**
 - *Binomial*, $X\in\{0,1,...,n\}$. Describes how often we get $k$ positive outcomes out of $n$ independent experiments. Parameter $\lambda$ is the success probability of each trial.
 
-    $$\mathbb{P}(X=k|\lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in(1,2,..., n).$$ (binomial)
+    $$p(x=k|n, \lambda)=\binom{n}{k}\lambda^k(1-\lambda)^{n-k}, \quad \text{ with } k\in \{0,1,2,..., n\}.$$ (binomial)
+
+  With the binomial coefficient $\binom{n}{k}=\frac{n!}{k!(n-k)!}$.
 
 - *Bernoulli* - special case of Binomial with $n=1$.
+- *Categorical* - generalizes Bernoulli to a categorical random variable with $k$ categories each with probability $\pi_i\ge 0$ for $i \in \{1,...,k\}$, such that $\sum {\pi_i}=1$.
+
+    $$
+    \begin{align}
+    p(x=i | \mathbb{\pi}) &=\pi_i\\
+     &= \prod_{i=1}^k \pi_i^{[x=i]}
+    \end{align}
+    $$ (categorical_pmf)
+
+  The two pdf formulations above are equivalent, and the second one uses the [Iverson bracket](https://en.wikipedia.org/wiki/Iverson_bracket). 
+- *Multinomial* - a generalization of the Binomial and the Categorical distributions. It models the number of occurrences for each of $k$ classes when sampling from a categorical distribution is repeated $n$ times. For $k=2, n=1$, this becomes Bernoulli; for $k> 2,n=1$, it is the Categorical; for $k=2, n>1$, it is the Binomial.
+
+    $$p(x_i,...,x_k | n, \mathbf{\pi}) = \frac{n!}{x_1! \dots x_k!} \pi_1^{x_i} \dots \pi_k^{x_k}$$ (multinomial_pmf)
+
+  Here, $x_i$ denotes the number of occurrences of class $i$, with $\sum x_i=n$ and $x_i \ge 0$.
+
+**Continuous**
 - *Normal* (aka *Gaussian*), $X \in \mathbb{R}$.
 
     $$p(x| \mu, \sigma)=\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2 \pi \sigma^2}}\exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)$$ (gaussian)
@@ -109,7 +132,7 @@ Hint: use $X=h^{-1}(Y)$ as shown [here](https://online.stat.psu.edu/stat414/less
 
 ### Exponential Family
 
-The exponential family of distributions is a large family of distributions with shared properties, some of which we have already encountered in other courses before. Prominent members of the exponential family include:
+The exponential family of distributions is a large family of distributions with shared properties, some of which we have already encountered in the previous lecture. Prominent members of the exponential family include:
 
 - Bernoulli
 - Gaussian
@@ -118,7 +141,7 @@ The exponential family of distributions is a large family of distributions with 
 - Poisson
 - Beta
 
-At their core, members of the exponential family all fit the same general probability distribution form
+At their core, all members of the exponential family fit the same general probability distribution form:
 
 $$p(x|\eta) = h(x) \exp \left\{ \eta^{\top} t(x) - a(\eta) \right\},$$ (exponential_pdfs)
 
@@ -129,11 +152,11 @@ where the individual components are:
 - $h(x)$ - *probability support measure*
 - $a(\eta)$ - *log normalizer*; guarantees that the probability density integrates to 1.
 
-> If you are unfamiliar with the concept of probability measures, then $h(x)$ can safely be disregarded. Conceptually it describes the area in the probability space over which the probability distribution is defined.
+> If you are unfamiliar with the concept of *probability measures*, then $h(x)$ can safely be disregarded. Conceptually it describes the area in the probability space over which the probability distribution is defined.
 
 **Why is this family of distributions relevant to this course?**
 
-> The exponential family has a direct connection to graphical models, which are a formalism favored by many people to visualize machine learning models, and the way individual components interact with each other. As such they are highly instructive, and at the same time foundational to many probabilistic approaches covered in this course.
+> The exponential family has a direct connection to graphical models, which are a formalism favored by many people to visualize machine learning models and the way individual components interact with each other. As such, they are highly instructive and, at the same time, foundational to many probabilistic approaches covered in this course.
 
 Let's inspect the practical example of the Gaussian distribution to see how the theory translates into practice. Taking the probability density function which we have also previously worked with
 
@@ -141,35 +164,39 @@ $$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp \left\{ \frac{(x
 
 We can then expand the square in the exponent of the Gaussian to isolate the individual components of the exponential family
 
-$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi}} \exp \left\{ \frac{\mu}{\sigma^{2}}x - \frac{1}{2 \sigma^{2}}x^{2} - \frac{1}{2 \sigma^{2}} \mu^{2} - \log \sigma \right\}.$$ (gaussian_expanded)
+$$p(x|\mu, \sigma^{2}) = \frac{1}{\sqrt{2 \pi}} \exp \left\{ \frac{\mu}{\sigma^{2}}x - \frac{1}{2 \sigma^{2}}x^{2} - \frac{1}{2 \sigma^{2}} \mu^{2} - \ln \sigma \right\}.$$ (gaussian_expanded)
 
 Then the individual components of the Gaussian are
 
-$$\eta = \langle \frac{\mu}{\sigma^{2}}, - \frac{1}{2 \sigma^{2}} \rangle$$
-$$t(x) = \langle x, x^{2} \rangle$$
-$$a(\eta) = \frac{\mu^{2}}{2 \sigma^{2}} + \log \sigma$$
-$$h(x) = \frac{1}{\sqrt{2 \pi}}$$ (gaussian_as_exponential)
+$$\begin{align}
+\eta &= \langle \frac{\mu}{\sigma^{2}}, - \frac{1}{2 \sigma^{2}} \rangle \\
+t(x) &= \langle x, x^{2} \rangle \\
+a(\eta) &= \frac{\mu^{2}}{2 \sigma^{2}} + \ln \sigma \\
+h(x) &= \frac{1}{\sqrt{2 \pi}}
+\end{align}$$ (gaussian_as_exponential)
 
-For the sufficient statistics, we then need to derive the derivative of the log normalizer, i.e 
+For the *sufficient statistics*, we then need to derive the derivative of the log normalizer, i.e 
 
-$$\frac{d}{d\eta}a(\eta) = \mathbb{E}\left[ t(X) \right]$$ (gaussian_as_exponential_suff_stats)
+$$\frac{d}{d\eta}a(\eta) = \mathbb{E}\left[ t(X) \right],$$ (gaussian_as_exponential_suff_stats)
 
-Which yields
+which yields
 
-$$\frac{da(\eta)}{d\eta_{1}} = \mu = \mathbb{E}[X] $$
-$$\frac{da(\eta)}{d\eta_{2}} = \sigma^2 - \mu^2 = \mathbb{E}[X^{2}] $$ (gaussian_as_exponential_suff_stats_2)
+$$\begin{align}
+\frac{da(\eta)}{d\eta_{1}} &= \mu = \mathbb{E}[X] \\
+\frac{da(\eta)}{d\eta_{2}} &= \sigma^2 - \mu^2 = \mathbb{E}[X^{2}]. 
+\end{align}$$ (gaussian_as_exponential_suff_stats_2)
 
-#### Exercise: Exponential Family 1
+**Exercise: Exponential Family 1**
+
+Show that the Bernoulli distribution is a member of the exponential family.
+
+**Exercise: Exponential Family 2**
 
 Show that the Dirichlet distribution is a member of the exponential family.
 
-#### Exercise: Exponential Family 2
-
-Show that the Bernoulli distribution is a member of the exponential family
-
 ## Gaussian Mixture Models
 
-Assume that we have a set of measurements $\{x^{(1)}, \dots x^{(m)}\}$. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels $y$.
+Assume that we have a set of measurements $\{x^{(1)}, \dots x^{(m)}\}$. This is one of the few unsupervised learning examples in this lecture, thus, we do not know the true labels $y$. Yet we assume that the data can be split into clusters, see {numref}`em_algorithm`.
 
 Gaussian Mixture Models (GMMs) assume that the data comes from a mixture of $K$ Gaussian distributions in the form
 
@@ -177,11 +204,11 @@ $$p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x|\mu_k, \Sigma_k),$$ (gmm_model)
 
 with
 
-- $\pi = (\pi_1,...,\pi_K)$ called mixing coefficients, or cluster probabilities,
-- $\mu = (\mu_1,...,\mu_K)$ the cluster means, and
-- $\Sigma = (\Sigma_1,...,\Sigma_K)$ the cluster covariance matrices.
+- $\pi = (\pi_1,...,\pi_K)$ called *mixing coefficients*, or cluster probabilities,
+- $\mu = (\mu_1,...,\mu_K)$ the *cluster means*, and
+- $\Sigma = (\Sigma_1,...,\Sigma_K)$ the *cluster covariance matrices*.
 
-We define a K-dimensional r.v. $z$ which satisfies $z\in \{0,1\}$ and $\sum_k z_k=1$ (i.e. with only one of its dimensions being 1, while all others are 0), such that $z_k~\sim \text{Multinomial}(\pi_k)$ and $p(z_k=1) = \pi_k$ . For Eq. {eq}`gmm_model` to be a valid probability density, the parameters $\{\pi_k\}$ must satisfy $0\le\pi_k\le 1$ and $\sum_k \pi_k=1$.
+We define a $K$-dimensional r.v. $z$ which satisfies $z\in \{0,1\}$ and $\sum_k z_k=1$ (i.e. with only one of its dimensions being 1, while all others are 0), such that $z_k~\sim \text{Categorical}(\pi_k)$ and $p(z_k=1) = \pi_k$. For Eq. {eq}`gmm_model` to be a valid probability density, the parameters $\{\pi_k\}$ must satisfy $0\le\pi_k\le 1$ and $\sum_k \pi_k=1$.
 
 The marginal distribution of $z$ can be equivalently written as
 
@@ -197,19 +224,20 @@ $$
 \begin{aligned}
 p(x) &= \sum_z p(x,z) \\
 & = \sum_z p(x|z) p(z) \\
+& = \sum_{z} \prod_{k=1}^{K} \left( \pi_k\mathcal{N}(x| \mu_k, \Sigma_k)\right)^{z_k} \\
 & = \sum_{k=1}^K \pi_k\mathcal{N}(x| \mu_k, \Sigma_k).
 \end{aligned}
 $$ (gmm_marginalization)
 
-Thus, the unknown parameters are $\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}$. We can write the log likelihood of the data as
+Thus, the unknown parameters are $\{\pi_k, \mu_k, \Sigma_k\}_{k=1:K}$. We can write the log-likelihood of the data as
 
 $$
 \begin{aligned}
-l(x | \pi,\mu,\Sigma) &= \sum_{i=1}^{m}\log p(x^{(i)}|\pi,\mu,\Sigma) \\
-&= \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}.
+\ell(x | \pi,\mu,\Sigma) &= \sum_{i=1}^{m}\ln p(x^{(i)}|\pi,\mu,\Sigma) \\
+&= \sum_{i=1}^{m}\ln \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}.
 \end{aligned}$$ (gmm_mle)
 
-However, if we try to analytically solve this problem, we will see that there is no closed form solution. The problem is that we do not know which $z_k$ each of the measurements comes from.
+However, if we try to solve this problem analytically, we will see that there is no closed-form solution (because of the sum inside the $\ln$). The problem is that we do not know which $z_k$ each of the measurements comes from.
 
 ### Expectation-Maximization
 
@@ -219,14 +247,14 @@ width: 600px
 align: center
 name: em_algorithm
 ---
-EM algorithm for a GMM with $k=2$ (Source: {cite}`bishop2006`, Section 9.2).
+EM algorithm for a GMM with $K=2$ (Source: {cite}`bishop2006`, Section 9.2).
 ```
 
-There is an iterative algorithms that can solve the maximum likelihood problem by alternating between two steps. The algorithm goes as follows:
+There is an iterative algorithm that can solve the maximum likelihood problem by alternating between two steps. The algorithm goes as follows:
 
 0. Guess the number of modes $K$
 1. Randomly initialize the means $\mu_k$, covariances $\Sigma_k$, and mixing coefficients $\pi_k$, and evaluate the likelihood
-2. **(E-step)**. Evaluate $\omega_k^{(i)}$ assuming constant $\pi, \mu, \Sigma$ (see expression after the algorithm)
+2. **(E-step)**. Evaluate $\omega_k^{(i)}$ assuming constant $\pi, \mu, \Sigma$ (see Eq. {eq}`gmm_responsibilities` after the algorithm)
 
     $$w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma).$$ (gmm_e_step)
 
@@ -239,9 +267,9 @@ There is an iterative algorithms that can solve the maximum likelihood problem b
     \end{aligned}
     $$ (gmm_m_step)
 
-4. Evaluate the log likelihood
+4. Evaluate the log-likelihood
 
-    $$l(x | \pi,\mu,\Sigma) = \sum_{i=1}^{m}\log \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}$$ (gmm_lig_likelihood)
+    $$l(x | \pi,\mu,\Sigma) = \sum_{i=1}^{m}\ln \left\{ \sum_{k=1}^K \pi_k \mathcal{N}(x^{(i)}|\mu_k,\Sigma_k) \right\}$$ (gmm_lig_likelihood)
 
     and check for convergence. If not converged, return to step 2.
 
@@ -255,6 +283,46 @@ p(z^{(i)}=k| x^{(i)},\pi,\mu,\Sigma) &= \frac{p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)p
 
 The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating the $k$th Gaussian with parameters $\mu_k$ and $\Sigma_k$. And $p(z^{(i)}=k,\pi)$ is just $\pi_k$.
 
+**Example: Iris** 
+
+An example of how to apply a GMM to a version of the Iris dataset is given below.
+
+```python
+# Adapted from: https://www.geeksforgeeks.org/gaussian-mixture-model/
+import matplotlib.pyplot as plt
+from sklearn import datasets
+from sklearn.mixture import GaussianMixture
+
+# Load the first two input columns of the iris dataset
+iris = datasets.load_iris()
+X = iris.data[:, :2]; features = iris.feature_names[:2]
+Y = iris.target
+
+# Fit a GMM model with 3 clusters
+gmm = GaussianMixture(n_components=3).fit(X)
+print("Num iterations of EM algorithm =", gmm.n_iter_) # around 8
+Yhat = gmm.predict(X)
+
+# Plot the true vs learned clusters
+fig, ax = plt.subplots(1, 2, figsize=(12, 5))
+ax[0].scatter(X[:,0], X[:,1], c=Y); ax[0].set_title('True clusters')
+ax[1].scatter(X[:,0], X[:,1], c=Yhat); ax[1].set_title('Learned clusters')
+ax[0].set_xlabel(features[0]); ax[0].set_ylabel(features[1])
+ax[1].set_xlabel(features[0]); ax[1].set_ylabel(features[1])
+plt.show()
+```
+
+This leads to the following learned clusters:
+
+```{figure} ../imgs/gmm/iris_clusters.png
+---
+width: 600px
+align: center
+name: iris_clusters
+---
+Iris clusters with $K=3$.
+```
+
 **Exercise: derive the M-step update equations following the maximum likelihood approach.**
 
 > Hint: look at {cite}`bishop2006`, Section 9.2.
@@ -263,22 +331,22 @@ The values of $p(x^{(i)}|z^{(i)}=k, \mu, \Sigma)$ can be computed by evaluating 
 
 Once we have fitted a GMM on $p(x)$, we can use it for:
 
-1. Sampling: there are efficient ways to draw sample from the Gaussian distribution.
+1. Sampling: there are efficient ways to draw samples from the Gaussian distribution.
 2. Density estimation: by evaluating the probability $p(\tilde{x})$ of a new point $\tilde{x}$, we can compute how probable it is that this point comes from the same distribution as the training data.
 3. Clustering: so far we have talked about density estimation, but GMMs are typically used for clustering. Given a new query point $\tilde{x}$, we can evaluate each of the $K$ Gaussians and scale their probability by the respective $\pi_k$. These will be the probabilities of $\tilde{x}$ to be part of cluster $k$.
 
-Most limitations of this approach arrive from the assumption that the individual clusters follow the Gaussian distribution:
+Most limitations of this approach arise from the assumption that the individual clusters follow the Gaussian distribution:
 
-- If the data does not follow a Gaussian distribution, e.g. heavy-tailed distribution with outliers, then too much weight will be given to the outliers
+- If the data does not follow a Gaussian distribution, e.g. heavy-tailed distribution with outliers, then too much weight will be given to the outliers.
 - If there is an outlier, eventually one mode will focus only on this one data point. But if a Gaussian describes only one data point, then its variance will be zero and we recover a singularity/Dirac function.
-- The choice of $K$ is crucial and this parameters need to be optimized in a outer loop.
+- The choice of $K$ is crucial, and this parameter needs to be optimized in an outer loop.
 - GMMs do not scale well to high dimensions.
 
 ## Further References
 
 ### Probability Theory
 
-- {cite}`bishop2006`, Chapters 1 and 2
+- {cite}`bishop2006`, Chapters 1 and 2, and Appendix B
 - {cite}`murphy2022`, Chapters 2 and 3
 - {cite}`cs229notes`, Section 3.1 - the exponential family
 

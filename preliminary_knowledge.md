@@ -4,9 +4,9 @@
 
 A basic handling of _Calculus_, _Linear Algebra_, and _Probability Theory_ are required to understand the theoretical part of the course.
 
-Exercises, and practicising the practical parts of the course require a basic handling of Python.
+Exercises and practicing the practical parts of the course require basic handling of Python. 
 
-> If you are an ardent believer of programming language X, we will not force you to use Python. Problem sets, as well as model solutions will only be provided in Python, but there is nothing keeping you from doing the exercises in e.g. Julia, Mojo, Rust, etc.
+> If you are an ardent believer in programming language X, we will not force you to use Python. Problem sets, as well as model solutions, will only be provided in Python, but there is nothing keeping you from doing the exercises in, e.g., Julia, Mojo, Rust, etc.
 
 ## Sources for Preliminary Reading
 
@@ -23,11 +23,11 @@ If you prefer a more expansive book/lecture style, we can furthermore recommend 
 
 ## Exercises to Test Preliminary Knowledge
 
-If you seek to refresh your memory by the way of exercises, please find below a problem set to test your preliminary knowledge. The solutions can be found in the Appendix (link to go here).
+If you seek to refresh your memory through exercises, please find below a problem set to test your preliminary knowledge. The solutions to these exercises are split into [Part 1](./preliminaries_part_1.pdf) and [Part 2](./preliminaries_part_2.pdf).
 
-### Linear Algebra
+### 1. Linear Algebra
 
-#### Moore-Penrose Pseudoinverse: Applied
+#### 1.1. Moore-Penrose Pseudoinverse: Applied
 
 Complete the pseudoinverse of the following two matrices:
 
@@ -42,7 +42,7 @@ $$
 \end{bmatrix}
 $$
 
-#### Singular Value Decomposition: Applied
+#### 1.2. Singular Value Decomposition: Applied
 
 Compute the singular value decomposition of the following two matrices:
 
@@ -59,7 +59,7 @@ $$
 \end{bmatrix}
 $$
 
-#### Singular Value Decomposition: Theoretical
+#### 1.3. Singular Value Decomposition: Theoretical
 
 Show that for a matrix $A$:
 
@@ -68,13 +68,13 @@ Show that for a matrix $A$:
 
 > Hint: Recall the definition of the singular value decomposition.
 
-### Probability Theory
+### 2. Probability Theory
 
-#### Variance of a Sum
+#### 2.1. Variance of a Sum
 
 Show that the variance of a sum is $var\left[X + Y\right] = var[X] + var[Y] + 2 cov[X, Y]$, where $cov[X, Y]$ is the covariance between $X$ and $Y$.
 
-#### Pairwise Independence Does not Imply Mutual Independence
+#### 2.2. Pairwise Independence Does not Imply Mutual Independence
 
 We say that two random variables are pairwise independent if
 
@@ -102,9 +102,9 @@ $$
 
 Show that pairwise independence between all pairs of variables does not necessarily imply mutual independence.
 
-> Hint: It suffices to give a counter example.
+> Hint: It suffices to give a counter-example.
 
-#### Bernoullie Distribution
+#### 2.3. Bernoullie Distribution
 
 The form of the Bernoulli distribution given by
 
@@ -120,7 +120,7 @@ $$
 
 where $\mu \in [-1, 1]$. Show that the distribution is normalized, and evaluate its mean, variance, and entropy.
 
-#### Beta Distribution
+#### 2.4. Beta Distribution
 
 Prove that the beta distribution, given by
 
@@ -142,15 +142,15 @@ $$
 \Gamma(a) \Gamma(b) = \int_{0}^{\infty} \exp(-x) x^{a-1} dx \hspace{2pt} \int_{0}^{\infty} \exp(-y) y^{b - 1} dy.
 $$
 
-Use expression {eq}`beta-probability-condition` to prove {eq}`beta-distribution` as follows. First bring the integral over y inside the integrand of the integral over x, next make the change of variable $t = y + x$ where $x$ is fixed, then interchange the order of the $x$ and $t$ integrations, and finally make the change of variable $x = t \mu$ where $t$ is fixed.
+Use expression {eq}`beta-probability-condition` to prove {eq}`beta-distribution`. First bring the integral over y inside the integrand of the integral over x, next make the change of variable $t = y + x$ where $x$ is fixed, then interchange the order of the $x$ and $t$ integrations, and finally make the change of variable $x = t \mu$ where $t$ is fixed.
 
-#### Mean, Mode, and Variance of the Beta Distribution
+#### 2.5. Mean, Mode, and Variance of the Beta Distribution
 
-Suppose $\theta \sim Beta(a, b)$. Derive the mean, mode and variance.
+Suppose $\theta \sim Beta(a, b)$. Derive the mean, mode, and variance.
 
-> Hint: See the definition above, and consider the moment generating function.
+> Hint: See the definition above and consider the moment-generating function.
 
-#### Deriving the Inverse Gamma Density
+#### 2.6. Deriving the Inverse Gamma Density
 
 Let $X \sim Ga(a, b)$, i.e.
 
@@ -160,7 +160,7 @@ Let $Y = 1 / X$. Show that $Y \sim IG(a, b)$, i.e.
 
 $$IG(x | \text{shape}=a, \text{scale}=b) = \frac{b^{a}}{\Gamma(a)} x^{-(a+1)} e^{-b / x}.$$
 
-#### Normalization Constant for a 1-Dimensional Gaussian
+#### 2.7. Normalization Constant for a 1-Dimensional Gaussian
 
 The normalization constant for a zero-mean Gaussian is given by
 
@@ -174,9 +174,9 @@ Let us change variables from cartesian $(x, y)$ to polar $(r, \theta)$ using $x 
 
 $$Z^{2} = \int_{0}^{2 \pi} \int_{0}^{\infty} r \exp \left( - \frac{r^{2}}{2\sigma^{2}} \right) dr \hspace{1pt} d\theta$$
 
-Evaluate this integral and hence show $Z = \sigma \sqrt{2 \pi}$. We suggest to separate the integral into a product of two terms, the first of which (involving $d\theta$) is constant, so is easy. Another simplification is possibly by realizing that if $u = e^{-r^{2}/2\sigma^{2}}$ $du/dr = - \frac{1}{\sigma^{2}} r \hspace{1pt} e^{-r^{2} / 2\sigma^{2}}$, so the second integral reduces down to $\int u'(r)dr = u(r)$.
+Evaluate this integral and hence show $Z = \sigma \sqrt{2 \pi}$. We suggest separating the integral into a product of two terms, the first of which (involving $d\theta$) is constant, so it is easy. Another simplification is possibly by realizing that if $u = e^{-r^{2}/2\sigma^{2}}$ $du/dr = - \frac{1}{\sigma^{2}} r \hspace{1pt} e^{-r^{2} / 2\sigma^{2}}$, so the second integral reduces down to $\int u'(r)dr = u(r)$.
 
-#### Kullback-Leibler Divergence
+#### 2.8. Kullback-Leibler Divergence
 
 Evaluate the Kullback-Leibler divergence, expressing the relative entropy of two probability distributions,
 

@@ -344,7 +344,7 @@ $$\hat{\theta} = \underset{\theta \in \Theta}{\arg \max} \mathcal{L}_{n}(\theta;
 
 where $\mathcal{L}$ is the likelihood function. In the derivation of the Bayesian Curve Fitting approach we have already utilized this principle by exploiting the independence between data points and then taking the log of the likelihood to subsequently utilize the often nicer properties of the log-likelihood
 
-$$l(\theta;y) = \ln \mathcal{L}_{n}(\theta;y).$$ (log_likelihood)
+$$\ell(\theta;y) = \ln \mathcal{L}_{n}(\theta;y).$$ (log_likelihood)
 
 ## Recap
 

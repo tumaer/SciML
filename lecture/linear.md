@@ -4,7 +4,7 @@
 
 Linear regression belongs to the family of **supervised learning** approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be "Given measurement pairs $\left\{(x^{(i)}, y^{(i)})\right\}_{i=1,...m}$, how to fit a line $h(x)$ to best approximate $y$?"
 
-``````{admonition} Do you remember this from last lecture?
+``````{admonition} Do you remember this from the last lecture?
 `````{grid}
 :gutter: 2
 ````{grid-item}
@@ -30,19 +30,19 @@ Linear regression belongs to the family of **supervised learning** approaches, a
 
     $$h(x)=\vartheta^{\top} x, \quad h \in \mathbb{R} \qquad(\text{more generally, } h \in \mathbb{R}^p),$$ (linear_model_simple)
 
-    where $\vartheta \in \mathbb{R}^{n}$ are the parameters of our hypothesis. To add an offset to this linear model, we could assume that the actual dimension of $x$ is $n-1$, and we add a dummy dimension of ones to $x$ (see Exercise 1 for more details).
+    where $\vartheta \in \mathbb{R}^{n}$ are the parameters of our hypothesis. To add an offset (a.k.a. bias) to this linear model, we could assume that the actual dimension of $x$ is $n-1$, and we add a dummy dimension of ones to $x$ (see Exercise 1 for more details).
 
 2. Then we need a strategy to fit our hypothesis parameters $\vartheta$ to the data points we have $\left\{(x^{(i)}, y^{\text {(i)}})\right\}_{i=1,...m}$.
 
-    1. Define a suitable cost function $J$, which emphasizes the importance of certain traits to the model. I.e. if a certain data area is of special importance to our model we should penalize modeling failures for those points much more heavily than others. A typical choice is the *Least Mean Square* (LMS) i.e.
+    1. Define a suitable cost function $J$, which emphasizes the importance of specific traits to the model. For example, if a specific data area is critical to our model, we should penalize modeling failures for those points more heavily than others. A typical choice is the *Least Mean Square* (LMS) i.e.
 
         $$J(\vartheta)=\frac{1}{2} \sum_{i=1}^{m}\left(h(x^{(i)})-y^{(i)}\right)^{2}$$ (mls_loss_simple)
 
-    2. Through an iterative application of gradient descent (more on this later in the course) find a $\vartheta$ which minimizes the cost function $J(\vartheta)$. If we apply gradient descent, our update function for the hypothesis parameters then takes the following shape
+    2. Through an iterative application of gradient descent (more on this in [](./optimization.md)) find a $\vartheta$ which minimizes the cost function $J(\vartheta)$. If we apply gradient descent, our update function for the hypothesis parameters then takes the following shape
 
     $$\vartheta^{(k+1)}=\vartheta^{(k)}-\alpha\frac{\partial J}{\partial \vartheta^{k}}.$$ (grad_descent_simplest)
 
-The iteration scheme can then be computed as:
+The iteration scheme can then be computed as follows:
 
 $$
 \begin{aligned}
@@ -79,7 +79,7 @@ h(x^{(i)})-y^{(i)} \\
 h(x^{(m)})-y^{(m)}
 \end{array}\right].$$ (x_vartheta_min_y)
 
-According to which, the cost function then becomes
+According to this, the cost function then becomes
 
 $$J(\vartheta)=\frac{1}{2}(X \vartheta-Y)^{\top}(X \vartheta-Y).$$ (cost_function_matrix)
 
@@ -110,27 +110,31 @@ $$ (lms_sol_matrix)
 
 How do we know that we are at a minimum and not a maximum? In the case of scalar input $x\in\mathbb{R}$, the second derivative of the error function $\Delta_{\vartheta}J(\vartheta)$ becomes $X^2\ge0$, which guarantees that the extremum is a minimum.
 
-#### Exercise: Linear Regression Implementations
+**Exercise: Linear Regression Implementations**
+
+> Note: This and all other exercises within the lectures are provided to help you when you study the material. There will be no reference solutions, but the solution to most of them can be found the the references at the end of each lecture.
+
+> Note: This particular task will be discussed in the exercise session on linear models.
 
 Implement the three approaches (batch gradient descent, stochastic gradient descent, and the matrix approach) to linear regression and compare their performance.
 1. Batch Gradient Descent
 2. Stochastic Gradient Descent
-3. Matrix Approach
+3. Analytical Matrix Approach
 
 ### Probabilistic Interpretation
 With much data in practice, having errors over the collected data itself, we want to be able to include a data error in our linear regression. The approach for this is **Maximum Likelihood Estimation** as introduced in the *Introduction* lecture. I.e. this means data points are modeled as
 
-$$y^{(i)}=\vartheta^{\top} x^{(i)}+\varepsilon^{(i)}$$ (prob_model)
+$$y^{(i)}=\vartheta^{\top} x^{(i)}+\varepsilon^{(i)}.$$ (prob_model)
 
-Presuming that all our data points are **independent, identically distributed (i.i.d)** random variables. The noise is modeled with a normal distribution
+Presuming that all our data points are **independent, identically distributed (i.i.d)** random variables. The noise is modeled with the following normal distribution:
 
 $$p(\varepsilon^{(i)})=\frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(-\frac{\varepsilon^{(i) 2}}{2 \sigma^{2}}\right)}.$$ (noise_normal_distribution)
 
 > While most noise distributions in practice are not normal, the normal (a.k.a. Gaussian) distribution has many nice theoretical properties making it much friendlier for theoretical derivations.
 
-Using the data error assumption, we can now derive the probability density function (pdf) for the data
+Using the data error assumption, we can now derive the probability density function (pdf) for the data as
 
-$$p(y^{(i)} \mid x^{(i)} ; \vartheta)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left({-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2\sigma^{2}}}\right)}$$ (data_pdf)
+$$p(y^{(i)} \mid x^{(i)} ; \vartheta)=\frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left({-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2\sigma^{2}}}\right)},$$ (data_pdf)
 
 where $y^{(i)}$ is conditioned on $x^{(i)}$. If we now consider not just the individual sample $i$, but the entire dataset, we can define the likelihood for our hypothesis parameters as
 
@@ -146,23 +150,23 @@ The probabilistic strategy to determine the optimal hypothesis parameters $\vart
 
 $$
 \begin{aligned}
-l(\vartheta)&=\log L(\vartheta)=\log \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)}\\
-&=\sum_{i=1}^{m} \log \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(- \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)}\\
-&=m \log \frac{1}{\sqrt{2 \pi \sigma^{2}}}-\frac{1}{2 \sigma^{2}} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
+\ell(\vartheta)&=\ln L(\vartheta)=\ln \prod_{i=1}^{m} \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(-\frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)}\\
+&=\sum_{i=1}^{m} \ln \frac{1}{\sqrt{2 \pi \sigma^{2}}} \exp{\left(- \frac{\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}}{2 \sigma^{2}}\right)}\\
+&=m \ln \frac{1}{\sqrt{2 \pi \sigma^{2}}}-\frac{1}{2 \sigma^{2}} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}\\
 \end{aligned}
 $$ (lms_log_likelihood)
 
 $$
-\Rightarrow \vartheta=\underset{\vartheta}{\arg \max}\; l(\vartheta)=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}
+\Rightarrow \vartheta=\underset{\vartheta}{\arg \max}\; \ell(\vartheta)=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}
 $$ (lms_optimization_task)
 
 **This is the same result as minimizing $J(\vartheta)$ from before.** Interestingly enough, the Gaussian i.i.d. noise used in the maximum likelihood approach is entirely independent of $\sigma^{2}$.
 
-> Least mean squares (**LMS**) method, as well as maximum likelihood regression as above are **parametric learning** algorithms.
+> Least mean squares (**LMS**) as well as maximum likelihood regression are **parametric** learning algorithms.
 
 > If the number of parameters is **not** known beforehand, then the algorithms become **non-parametric** learning algorithms.
 
-Can maximum likelihood estimation (**MLE**) be made more non-parametric? Following intuition, the linear MLE as well as the LMS critically depend on the selection of the features, i.e the dimension of the parameter vector $\vartheta$. I.e. when the dimension of $\vartheta$ is too low we tend to underfit, where we do not capture some of the structure of our data (more on under- and overfitting in Core Content 2). An approach called locally weighted linear regression (**LWR**) copes with the problem of underfitting by giving more weight to new, unseen query points $\tilde{x}$. E.g. for $\tilde{x}$, where we want to estimate $y$ by $h(\tilde{x})=\vartheta \tilde{x}$, we solve
+Can maximum likelihood estimation (**MLE**) be made more non-parametric? Following intuition, the linear MLE and the LMS critically depend on the selection of the features, i.e., the dimension of the parameter vector $\vartheta$. I.e., when the dimension of $\vartheta$ is too low, we tend to underfit, where we do not capture some of the structure of our data (more on under- and overfitting in [](./tricks.md)). An approach called locally weighted linear regression (**LWR**) copes with the problem of underfitting by giving more weight to new, unseen query points $\tilde{x}$. E.g. for $\tilde{x}$, where we want to estimate $y$ by $h(\tilde{x})=\vartheta \tilde{x}$, we solve
 
 $$\vartheta=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m} w^{(i)}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2},$$ (lwr_formulation)
 
@@ -170,7 +174,7 @@ where the weights $\omega$ are given by
 
 $$\omega^{(i)}=\exp{\left(-\frac{\left(x^{(i)}-\tilde{x}\right)^{2}}{2 \tau^{2}}\right)},$$ (lwr_weights)
 
-with $\tau$ being a hyperparameter. This approach naturally gives more weight to new datapoints. Hence making $\vartheta$ crucially depend on $\tilde{x}$, and making it more non-parametric.
+with $\tau$ being a hyperparameter. This approach naturally gives more weight to new data points. Hence making $\vartheta$ crucially depend on $\tilde{x}$, and making it more non-parametric.
 
 ## Classification & Logistic Regression
 
@@ -179,7 +183,7 @@ Summarizing the differences between regression and classification:
 | Regression | Classification |
 | -------- | -------- |
 | $x \in \mathbb{R}^{n}$    | $x \in \mathbb{R}^{n}$     |
-| $y \in \mathbb{R}$  | $y \in\{0,1\}$ |
+| $y \in \mathbb{R}^p$  | $y \in\{0,1,...\}$ |
 
 ```{figure} ../imgs/linear/iris_classification_linear.png
 ---
@@ -190,7 +194,7 @@ name: iris_classification_linear
 Linear classification example. (Source: {cite}`murphy2022`, [iris_logreg.ipynb](https://github.com/probml/pyprobml/blob/master/notebooks/book1/02/iris_logreg.ipynb))
 ```
 
-To achieve such classification ability we have to introduce a new hypothesis function $h(x)$. A reasonable choice would be to model the probability that $y=1$ given $x$ with a function $h:\mathbb{R}\rightarrow [0,1]$. In the logistic regression approach
+To achieve such classification ability, we have to introduce a new hypothesis function $h(x)$. A reasonable choice would be to model the probability that "$y=1$ given $x$" with a function $h:\mathbb{R}\rightarrow [0,1]$. The logistic regression approach is
 
 $$
 h(x) = \varphi ( \vartheta^{\top} x ) = \frac{1}{1+e^{-\vartheta^{\top} x}},
@@ -220,17 +224,17 @@ If we now want to apply the *Maximum Likelihood Estimation* approach, then we ne
 $$\begin{cases}p(y=1 \mid x ; \vartheta)=h(x), & \\ p(y=0 \mid x ; \vartheta)=1-h(x). &
 \end{cases}$$ (logistic_regression_hypothesis)
 
-This probability mass function corresponds to the Bernoiulli distribution and can be equivalently written as
+This probability mass function corresponds to the Bernoulli distribution and can be equivalently written as
 
 $$p(y \mid x ; \vartheta)=\left(h(x)\right)^{y}(1-h(x))^{1-y}.$$ (logistic_regression_distribution)
 
 > This will look quite different for other types of labels, so be cautious in just copying this form of the pdf!
 
-With our pdf we can then again construct the likelihood function
+With our pdf we can then again construct the likelihood function for the i.i.d. case:
 
 $$L(\vartheta) = p(y | x ; \vartheta) =\prod_{i=1}^{m} p\left(y^{(i)} \mid x^{(i)}; \vartheta\right).$$ (logistic_regression_likelihood)
 
-Assuming the previously presumed classification buckets, and that the data is i.i.d.
+Assuming the previously presumed classification buckets, we get
 
 $$
 L(\vartheta)=\prod_{i=1}^{m} \left(h(x^{(i)})\right)^{y^{(i)}}\left(1-h(x^{(i)})\right)^{1-y^{(i)}},
@@ -239,12 +243,12 @@ $$ (logistic_regression_joint_likelihood)
 and then the log-likelihood decomposes to
 
 $$
-l(\vartheta)=\log L(\vartheta)=\sum_{i=1}^{m}y^{(i)} \log h(x^{(i)})+(1-y^{(i)}) \log (1-h(x^{(i)})).
+\ell(\vartheta)=\ln L(\vartheta)=\sum_{i=1}^{m}y^{(i)} \ln h(x^{(i)})+(1-y^{(i)}) \ln (1-h(x^{(i)})).
 $$ (log_reg_log_likelihood)
 
-Again we can find $\arg\max l(\vartheta)$ e.g. by gradient ascent (batch or stochastic):
+Again we can find $\arg\max \ell(\vartheta)$ e.g. by gradient ascent (batch or stochastic):
 
-$$\vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\left.\alpha \frac{\partial l(\vartheta)}{\partial \vartheta}\right|^{(k)}$$ (gradient_ascent)
+$$\vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\left.\alpha \frac{\partial \ell(\vartheta)}{\partial \vartheta}\right|^{(k)}$$ (gradient_ascent)
 
 $$\begin{align}
 \frac{\partial \ell(\vartheta)}{\partial \vartheta_j} &=\sum_{i=1}^m\left(y^{(i)} \frac{1}{h(x^{(i)})}-(1-y^{(i)}) \frac{1}{1-h(x^{(i)})}\right) \frac{\partial h(x^{(i)})}{\partial \vartheta_j }\\
@@ -252,9 +256,7 @@ $$\begin{align}
 &=\sum_{i=1}^m(y^{(i)}- h(x^{(i)})) x_j^{(i)}
 \end{align}$$ (log_reg_log_likelihood_derivative)
 
-$$\Rightarrow \vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\alpha \sum_{i=1}^m\left( y^{(i)}-h^{(k)}(x^{(i)}) \right) x_j^{(i)},$$ (log_reg_update_rule)
-
-which we can then solve with either batch gradient descent or stochastic gradient descent.
+$$\Rightarrow \vartheta_{j}^{(k+1)}=\vartheta_{j}^{(k)}+\alpha \sum_{i=1}^m\left( y^{(i)}-h^{(k)}(x^{(i)}) \right) x_j^{(i)}.$$ (log_reg_update_rule)
 
 **Exercise: Vanilla Indicator (Perceptron)**
 
@@ -271,5 +273,6 @@ derive the update functions for the gradient methods, as well as the Maximum Lik
 **Linear & Logistic Regression**
 
 - {cite}`cs229notes`, Chapters 1 and 2 - main reference
-- Machine Learning Basics [video](https://www.youtube.com/watch?v=73RL3WPPFE0&list=PLQ8Y4kIIbzy_OaXv86lfbQwPHSomk2o2e&index=2) and [slides](https://niessner.github.io/I2DL/slides/2.Linear.pdf) from I2DL by Matthias Niessner (TUM).
+- [Matrix derivative common cases (MIT 6.390)](https://introml.mit.edu/_static/fall23/LectureNotes/chapter_Matrix_derivative_common_cases.pdf) - analytical solution of linear regression. Alternatively, have a look at {cite}`bishop2006`, Appendix C: Properties of matrices.
+- Machine Learning Basics [video](https://www.youtube.com/watch?v=73RL3WPPFE0&list=PLQ8Y4kIIbzy_OaXv86lfbQwPHSomk2o2e&index=2) and [slides](https://cvg.cit.tum.de/_media/teaching/ws2024/i2dl/2.linear.pdf) ([old slides](https://niessner.github.io/I2DL/slides/2.Linear.pdf)) from I2DL by Matthias Niessner (TUM).
 - [What happens if a linear regression is underdetermined i.e. we have fewer observations than parameters?](https://betanalpha.github.io/assets/case_studies/underdetermined_linear_regression.html)

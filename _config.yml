@@ -3,7 +3,7 @@
 
 title: Introduction to Scientific Machine Learning for Engineers
 author: N. Adams, L. Paehler, A. Toshev
-copyright: "2022,2023"
+copyright: "2022,2023,2024"
 logo: logo.png
 exclude_patterns: [_build, venv, data, README.md]
 

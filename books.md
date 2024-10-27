@@ -1,6 +1,6 @@
 # Books
 
-> This is a list of recommended books to accompany the lecture:
+This is a list of recommended books to accompany the lecture:
 
 1. [*Probabilistic Machine Learning: An Introduction*](https://mitpress.mit.edu/9780262046824/probabilistic-machine-learning/), by Kevin P Murphy, 2022
     - Available through the university library as an e-book and [here](https://probml.github.io/pml-book/book1.html).
