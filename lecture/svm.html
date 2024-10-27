@@ -423,10 +423,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">6.5. Kernel Methods</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">6.5.1. Dual representations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">6.5.2. Construction of suitable kernels</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">6.5.2.1. Example 1</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">6.5.2.2. Example 2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-gaussian-kernel">6.5.2.3. Example 3: Gaussian kernel</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">6.5.2.4. Proof:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">6.5.2.1. Proof:</a></li>
 </ul>
 </li>
 </ul>
@@ -938,7 +935,7 @@ L, \quad \alpha_{2}^{'}&lt;L
 <p>In general, <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(\varphi\)</span> are vectors where <span class="math notranslate nohighlight">\(\varphi\)</span> has the entire <span class="math notranslate nohighlight">\(x\)</span> as argument. The resulting modified classifier becomes</p>
 <div class="math notranslate nohighlight" id="equation-classifier-with-feature-map">
 <span class="eqno">(6.55)<a class="headerlink" href="#equation-classifier-with-feature-map" title="Permalink to this equation">#</a></span>\[h(x)= g(\omega^T \varphi(x)+b).\]</div>
-<p><strong>Example XNOR</strong></p>
+<p><strong>Example: XNOR</strong></p>
 <p>The following classification problem is non-linear as there is no linear decision boundary.</p>
 <figure class="align-center" id="xnor-example">
 <a class="reference internal image-reference" href="../_images/xnor_example.png"><img alt="../_images/xnor_example.png" src="../_images/xnor_example.png" style="width: 300px;" /></a>
@@ -953,7 +950,7 @@ L, \quad \alpha_{2}^{'}&lt;L
 <p><span class="caption-number">Fig. 6.14 </span><span class="caption-text">XNOR after feature mapping.</span><a class="headerlink" href="#xnor-example-embedded" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p><strong>Example Circular Region</strong></p>
+<p><strong>Example: Circular Region</strong></p>
 <p>Given is a set of points <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{2}\)</span> with two possible labels: purple (<span class="math notranslate nohighlight">\(-1\)</span>) and orange (<span class="math notranslate nohighlight">\(1\)</span>), as can be seen in the left figure below. The task is to find a feature map such that a linear classifier can perfectly separate the two sets.</p>
 <figure class="align-center" id="kernel-trick-idea">
 <a class="reference internal image-reference" href="../_images/kernel_trick_idea.svg"><img alt="../_images/kernel_trick_idea.svg" src="../_images/kernel_trick_idea.svg" width="600px" /></a>
@@ -1035,8 +1032,7 @@ h(x) &amp;= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x)
 <li><p>direct construction with constraint that a <em>valid kernel</em> is obtained, i.e. it needs actually to correspond to a possible feature map scalar product.</p></li>
 </ul>
 <p>A <strong>necessary and sufficient condition</strong> for a valid kernel is that <strong><span class="math notranslate nohighlight">\(K\)</span> is positive semidefinite for all <span class="math notranslate nohighlight">\(x\)</span></strong>.</p>
-<section id="example-1">
-<h4><span class="section-number">6.5.2.1. </span>Example 1<a class="headerlink" href="#example-1" title="Permalink to this heading">#</a></h4>
+<p><strong>Example: Kernel 1</strong></p>
 <p>Given is <span class="math notranslate nohighlight">\(x, x' \in \mathbb{R}^N\)</span> and a scalar kernel</p>
 <div class="math notranslate nohighlight" id="equation-kernel-polynomial-2">
 <span class="eqno">(6.67)<a class="headerlink" href="#equation-kernel-polynomial-2" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{aligned}
@@ -1047,9 +1043,7 @@ K(x,x') &amp; = (x^Tx')^2 \\
 <p>The corresponding feature map for <span class="math notranslate nohighlight">\(K(x,x') = \varphi^T(x)\varphi(x')\)</span> and with <span class="math notranslate nohighlight">\(N=3\)</span> is</p>
 <div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-n-3-feature-map">
 <span class="eqno">(6.68)<a class="headerlink" href="#equation-kernel-polynomial-2-n-3-feature-map" title="Permalink to this equation">#</a></span>\[\begin{split}\varphi (x) = \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ x_1 x_3 \\ x_2 x_1 \\ \ldots \\ x_3x_3 \end{array}\right]\end{split}\]</div>
-</section>
-<section id="example-2">
-<h4><span class="section-number">6.5.2.2. </span>Example 2<a class="headerlink" href="#example-2" title="Permalink to this heading">#</a></h4>
+<p><strong>Example: Kernel 2</strong></p>
 <p>Alternative kernel with parameter <span class="math notranslate nohighlight">\(c\)</span>:</p>
 <div class="math notranslate nohighlight" id="equation-kernel-polynomial-2-with-bias">
 <span class="eqno">(6.69)<a class="headerlink" href="#equation-kernel-polynomial-2-with-bias" title="Permalink to this equation">#</a></span>\[K(x,x') = (x^Tx'+c)^2 = \sum_{i,j} x_ix_jx_i'x_j' + \sum_i \sqrt{2c} x_i \sqrt{2c} x_j + c^2\]</div>
@@ -1059,16 +1053,13 @@ K(x,x') &amp; = (x^Tx')^2 \\
 <p>Considering that <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are vectors, the scalar product <span class="math notranslate nohighlight">\(K(x,x')=\varphi^T(x)\varphi(x')\)</span> expresses the projection of <span class="math notranslate nohighlight">\(\varphi(x')\)</span> onto <span class="math notranslate nohighlight">\(\varphi(x)\)</span>.</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> the larger the kernel value, the more parallel the vectors are. Conversely, the smaller, the more orthogonal they are.</p>
 <p><span class="math notranslate nohighlight">\(\Rightarrow\)</span> intuitively <span class="math notranslate nohighlight">\(K(x,x')\)</span> is a measure of “how close” <span class="math notranslate nohighlight">\(\varphi(x)\)</span> and <span class="math notranslate nohighlight">\(\varphi(x')\)</span> are.</p>
-</section>
-<section id="example-3-gaussian-kernel">
-<h4><span class="section-number">6.5.2.3. </span>Example 3: Gaussian kernel<a class="headerlink" href="#example-3-gaussian-kernel" title="Permalink to this heading">#</a></h4>
+<p><strong>Example: Gaussian kernel</strong></p>
 <div class="math notranslate nohighlight" id="equation-gaussian-kernel">
 <span class="eqno">(6.71)<a class="headerlink" href="#equation-gaussian-kernel" title="Permalink to this equation">#</a></span>\[\begin{split}K(x,x')= \exp \left\{- \frac{(x-x')^T (x-x')}{2 \sigma^2} \right\} \\
 \left\{\begin{array}{l} \approx 1 , \quad x \text{ and } x' \text{ close}  \\ \approx 0 , \quad x \text{ and } x' \text{ far apart} \end{array}\right.\end{split}\]</div>
 <p>Now we show for illustration that a valid kernel is positive semidefinite, which is the above-mentioned necessary condition.</p>
-</section>
 <section id="proof">
-<h4><span class="section-number">6.5.2.4. </span>Proof:<a class="headerlink" href="#proof" title="Permalink to this heading">#</a></h4>
+<h4><span class="section-number">6.5.2.1. </span>Proof:<a class="headerlink" href="#proof" title="Permalink to this heading">#</a></h4>
 <div class="math notranslate nohighlight" id="equation-kernel-symmetry">
 <span class="eqno">(6.72)<a class="headerlink" href="#equation-kernel-symmetry" title="Permalink to this equation">#</a></span>\[K_{ij} = \varphi^T(x^{(i)})\varphi(x^{(j)}) = \varphi^T(x^{(j)})\varphi(x^{(i)}) = K_{ji}\]</div>
 <div class="math notranslate nohighlight" id="equation-kernel-positivity">
@@ -1118,6 +1109,7 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 <ul class="simple">
 <li><p><span id="id3">[<a class="reference internal" href="../references.html#id7" title="Andrew Ng. Cs229 lecture notes. Running file URL: https://cs229.stanford.edu/main_notes.pdf, 2022. URL: https://cs229.stanford.edu/notes2022fall/main_notes.pdf.">Ng, 2022</a>]</span>, Chapters 5 und 6</p></li>
 <li><p><span id="id4">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Section 17.3</p></li>
+<li><p><span id="id5">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Eppendix E: Lagrange Multipliers</p></li>
 </ul>
 </section>
 </section>
@@ -1205,10 +1197,7 @@ a lot of freedom but <span class="math notranslate nohighlight">\(\rightarrow\)<
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#kernel-methods">6.5. Kernel Methods</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#dual-representations">6.5.1. Dual representations</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#construction-of-suitable-kernels">6.5.2. Construction of suitable kernels</a><ul class="nav section-nav flex-column">
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-1">6.5.2.1. Example 1</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-2">6.5.2.2. Example 2</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#example-3-gaussian-kernel">6.5.2.3. Example 3: Gaussian kernel</a></li>
-<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">6.5.2.4. Proof:</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proof">6.5.2.1. Proof:</a></li>
 </ul>
 </li>
 </ul>
@@ -1239,7 +1228,7 @@ By N. Adams, L. Paehler, A. Toshev
 
   <p class="copyright">
     
-      © Copyright 2022,2023.
+      © Copyright 2022,2023,2024.
       <br/>
     
   </p>

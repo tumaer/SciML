@@ -516,7 +516,7 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 </section>
 <section id="sampling-methods">
 <h2><span class="section-number">3.2. </span>Sampling Methods<a class="headerlink" href="#sampling-methods" title="Permalink to this heading">#</a></h2>
-<p>Looking at the denominator of Eq. <a class="reference internal" href="#equation-posterior-density">(3.1)</a>, we notice that it is independent of <span class="math notranslate nohighlight">\(\theta\)</span>, and is thus only a scaling factor from the perspective of the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This means that the nominator contains all the information describing the shape of the posterior. Thus, if we can generate sufficiently many samples from the unnormalized posterior (i.e. nominator), then these will have the exact same distribution as the true posterior. That is why you will often see the posterior written as “proportional to the prior times lihelihood”</p>
+<p>Looking at the denominator of Eq. <a class="reference internal" href="#equation-posterior-density">(3.1)</a>, we notice that it is independent of <span class="math notranslate nohighlight">\(\theta\)</span>, and is thus only a scaling factor from the perspective of the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This means that the numerator contains all the information describing the shape of the posterior. Thus, if we can generate sufficiently many samples from the unnormalized posterior (i.e. numerator), then these will have the exact same distribution as the true posterior. That is why you will often see the posterior written as “proportional to the prior times lihelihood”</p>
 <div class="math notranslate nohighlight" id="equation-target-density">
 <span class="eqno">(3.6)<a class="headerlink" href="#equation-target-density" title="Permalink to this equation">#</a></span>\[g(\theta | y) \propto g(\theta)f(y|\theta).\]</div>
 <p>The problem we will be trying to solve here is how to generate samples from such unnormalized distributions. We use the term <em>target</em> distributin to describe the distribution we want to sample from.</p>
@@ -926,7 +926,7 @@ By N. Adams, L. Paehler, A. Toshev
 
   <p class="copyright">
     
-      © Copyright 2022,2023.
+      © Copyright 2022,2023,2024.
       <br/>
     
   </p>

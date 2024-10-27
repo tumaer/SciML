@@ -240,7 +240,7 @@ Characteristics:
 - for image segmentation
 - skip connections
 
-```{figure} ../imgs/cnn_unet.png
+```{figure} ../imgs/cnn/cnn_unet.png
 ---
 width: 600px
 align: center

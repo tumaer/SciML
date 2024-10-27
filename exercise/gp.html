@@ -584,7 +584,7 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
         <span class="bp">self</span><span class="o">.</span><span class="n">_is_set</span> <span class="o">=</span> <span class="kc">True</span>
     
     <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Negative marginal log likelihood.&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Negative marginal log-likelihood.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_set</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You must call set_data() first&quot;</span><span class="p">)</span>
 
@@ -592,7 +592,7 @@ k(x, x') = \sigma^{2} \text{exp} \left( - \frac{|| x - x' ||^{2}}{2 l^{2}}  \rig
         <span class="bp">self</span><span class="o">.</span><span class="n">_update_k</span><span class="p">()</span>
         <span class="n">K_inv</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_K_inv</span>
 
-        <span class="c1"># Compute the log likelihood</span>
+        <span class="c1"># Compute the log-likelihood</span>
         <span class="n">log_likelihood_dims</span> <span class="o">=</span> <span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="n">Y</span><span class="o">.</span><span class="n">t</span><span class="p">()</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">K_inv</span><span class="o">.</span><span class="n">mm</span><span class="p">(</span><span class="n">Y</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">log_likelihood_dims</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_L</span><span class="o">.</span><span class="n">diag</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
         <span class="n">log_likelihood_dims</span> <span class="o">-=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_L</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
@@ -1609,8 +1609,8 @@ q(f_{X}|y) = \mathcal{N}(f_{X}; m_{x} + k_{xX} K_{XX}^{-1}(\hat{f} - m_{x}), k_{
     &amp;1 \quad \text{procedure GP-Logistic-Train}(K_{XX}, m_{X}, y) \\
     &amp;2 \quad \quad f \longleftarrow m_{X} \quad \quad // \text{initialize} \\
     &amp;3 \quad \quad \text{while not converged do} \\
-    &amp;4 \quad \quad \quad \quad r \longleftarrow \frac{y + 1}{2} - \sigma(f) \quad \quad // = \nabla \log p(y|f_{X}), \text{ gradient of log likelihood} \\
-    &amp;5 \quad \quad \quad \quad W \longleftarrow \text{diag}(\sigma(f) \odot (1 - \sigma(f))) \quad \quad // = - \nabla \nabla \log p(y|f_{X}), \text{ Hessian of log likelihood}\\
+    &amp;4 \quad \quad \quad \quad r \longleftarrow \frac{y + 1}{2} - \sigma(f) \quad \quad // = \nabla \log p(y|f_{X}), \text{ gradient of log-likelihood} \\
+    &amp;5 \quad \quad \quad \quad W \longleftarrow \text{diag}(\sigma(f) \odot (1 - \sigma(f))) \quad \quad // = - \nabla \nabla \log p(y|f_{X}), \text{ Hessian of log-likelihood}\\
     &amp;6 \quad \quad \quad \quad g \longleftarrow r - K_{XX}^{-1}(f - m_{X}) \quad \quad // \text{ compute gradient} \\
     &amp;7 \quad \quad \quad \quad H \longleftarrow - (W + K^{-1})^{-1} \quad \quad // \text{ compute inverse Hessian} \\
     &amp;8 \quad \quad \quad \quad \Delta \longleftarrow Hg \quad \quad // \text{ Newton step} \\
@@ -1795,7 +1795,7 @@ By N. Adams, L. Paehler, A. Toshev
 
   <p class="copyright">
     
-      © Copyright 2022,2023.
+      © Copyright 2022,2023,2024.
       <br/>
     
   </p>

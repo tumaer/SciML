@@ -83,7 +83,7 @@ _The only question left is how to sample from $g(\theta|y)$?_
 
 ## Sampling Methods
 
-Looking at the denominator of Eq. {eq}`posterior_density`, we notice that it is independent of $\theta$, and is thus only a scaling factor from the perspective of the posterior $g(\theta|y)$. This means that the nominator contains all the information describing the shape of the posterior. Thus, if we can generate sufficiently many samples from the unnormalized posterior (i.e. nominator), then these will have the exact same distribution as the true posterior. That is why you will often see the posterior written as "proportional to the prior times lihelihood"
+Looking at the denominator of Eq. {eq}`posterior_density`, we notice that it is independent of $\theta$, and is thus only a scaling factor from the perspective of the posterior $g(\theta|y)$. This means that the numerator contains all the information describing the shape of the posterior. Thus, if we can generate sufficiently many samples from the unnormalized posterior (i.e. numerator), then these will have the exact same distribution as the true posterior. That is why you will often see the posterior written as "proportional to the prior times lihelihood"
 
 $$g(\theta | y) \propto g(\theta)f(y|\theta).$$ (target_density)
 

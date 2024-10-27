@@ -58,7 +58,7 @@ We will discuss extensions of the loss function in the lecture [Tricks of Optimi
   - L1 loss: $\; \; \; J(h_{\vartheta}(x), y)=1/m \sum_{i=1}^m |y-h_{\vartheta}(x)|$
   - MSE loss: $J(h_{\vartheta}(x), y)=1/m \sum_{i=1}^m (y-h_{\vartheta}(x))^2$
 - Classification loss
-  - Cross Entropy loss $J(h_{\vartheta}(x),y)= -\sum_{i=1}^m\sum_{k=1}^K(y_{ik}\cdot \log h_{\vartheta, k}(x_i))$
+  - Cross Entropy loss $J(h_{\vartheta}(x),y)= -\sum_{i=1}^m\sum_{k=1}^K(y_{ik}\cdot \ln h_{\vartheta, k}(x_i))$
 
 ## Gradient-based Methods
 
