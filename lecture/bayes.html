@@ -445,9 +445,12 @@ document.write(`
   <section class="tex2jax_ignore mathjax_ignore" id="bayesian-methods">
 <h1><span class="section-number">3. </span>Bayesian methods<a class="headerlink" href="#bayesian-methods" title="Permalink to this heading">#</a></h1>
 <p>We start by introducing Bayesian statistics and the closely related sampling methods, e.g. Markov Chain Monte Carlo (MCMC). We then present Bayesian inference and its applications to regression and classification.</p>
+<blockquote>
+<div><p>Notation alert: This section and the two consecutive sections (Sampling Methods and Bayesian Inference) are aligned with the notation from <span id="id1">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span> and use <span class="math notranslate nohighlight">\(y\)</span> to denote the <em>data</em>, including both inputs and outputs. Thus, <span class="math notranslate nohighlight">\(y\)</span> is not the model output. From the Bayesian Linear Models section, we switch to the notation from <span id="id2">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, i.e., using <span class="math notranslate nohighlight">\(y\)</span> to denote the model outputs.</p>
+</div></blockquote>
 <section id="bayesian-statistics">
 <h2><span class="section-number">3.1. </span>Bayesian Statistics<a class="headerlink" href="#bayesian-statistics" title="Permalink to this heading">#</a></h2>
-<p>The main ideals upon which Bayesian statistics is founded are:</p>
+<p>The main ideas upon which Bayesian statistics is founded are:</p>
 <ul class="simple">
 <li><p>Uncertainty over parameters <span class="math notranslate nohighlight">\(\rightarrow\)</span> treatment as random variables</p></li>
 <li><p>A probability over a parameter essentially expresses a degree of belief</p></li>
@@ -455,9 +458,9 @@ document.write(`
 <li><p>We combine the prior knowledge and the observed data with Bayes’ theorem</p></li>
 </ul>
 <blockquote>
-<div><p>Refresher - Bayes’ theorem is given by <span class="math notranslate nohighlight">\(\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\)</span></p>
+<div><p>Refresher: Bayes’ theorem is given by <span class="math notranslate nohighlight">\(\mathbb{P}(A|B) = \frac{\mathbb{P}(B|A)\mathbb{P}(A)}{\mathbb{P}(B)}\)</span></p>
 </div></blockquote>
-<p>So what we are interested in is the <strong>posterior</strong> distribution over our parameters, which can be found using Bayes’ theorem. While this may at first glance look straightforward, and holds for the <strong>unscaled posterior</strong> i.e the distribution which has not been normalized by dividing by <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>, obtaining the scaled posterior is much much harder due to the difficulty in computing the divisor <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>. To evaluate this divisor we often rely on Monte Carlo sampling.</p>
+<p>So what we are interested in is the <strong>posterior</strong> distribution over our parameters, which can be found using Bayes’ theorem. While this may at first glance look straightforward and holds for the <strong>unscaled posterior</strong>, i.e., the distribution which has not been normalized by dividing by <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>, obtaining the scaled posterior is much much harder due to the difficulty in computing the divisor <span class="math notranslate nohighlight">\(\mathbb{P}(B)\)</span>. To evaluate this divisor, we often rely on Monte Carlo sampling.</p>
 <blockquote>
 <div><p>What is a <em>scaled posterior</em>? A scaled posterior is a distribution whose integral over the entire distribution evaluates to 1.</p>
 </div></blockquote>
@@ -467,19 +470,19 @@ document.write(`
 <p>with data <span class="math notranslate nohighlight">\(y\)</span>, parameters as random variable <span class="math notranslate nohighlight">\(\theta\)</span>, <em>prior</em> <span class="math notranslate nohighlight">\(g(\theta)\)</span>, <em>likelihood</em> <span class="math notranslate nohighlight">\(f(y|\theta)\)</span>, and <em>posterior</em> <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. If we now seek to compute the denominator (aka <em>evidence</em>), then we have to compute the integral</p>
 <div class="math notranslate nohighlight" id="equation-evidence">
 <span class="eqno">(3.2)<a class="headerlink" href="#equation-evidence" title="Permalink to this equation">#</a></span>\[\int f(y|\theta) g(\theta) d\theta.\]</div>
-<p>This integration may be very difficult, and is in most practical cases infeasible.</p>
+<p>This integration may be very difficult and is, in most practical cases, infeasible.</p>
 <section id="monte-carlo-integration">
 <h3><span class="section-number">3.1.1. </span>Monte Carlo Integration<a class="headerlink" href="#monte-carlo-integration" title="Permalink to this heading">#</a></h3>
-<p>Luckily, we do not necessarily need to compute the denominator, because it is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and thus represents a constant scaling factor not relevant for the shape of the distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. Computational Bayesian statistics relies on Monte Carlo samples from the posterior <span class="math notranslate nohighlight">\(g(\theta | y)\)</span>, which <strong>does not require knowing the denominator</strong> of the posterior.</p>
+<p>Luckily, we do not necessarily need to compute the denominator because it is independent of <span class="math notranslate nohighlight">\(\theta\)</span> and thus represents a constant scaling factor not relevant for the shape of the distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. Computational Bayesian statistics relies on Monte Carlo samples from the posterior <span class="math notranslate nohighlight">\(g(\theta | y)\)</span>, which <strong>does not require knowing the denominator</strong> of the posterior.</p>
 <p>What we actually care about is making predictions about the output of a model <span class="math notranslate nohighlight">\(h_{\theta}(x)\)</span>, whose parameters <span class="math notranslate nohighlight">\(\theta\)</span> are random variables. Without loss of generality, we can rewrite <span class="math notranslate nohighlight">\(h_{\theta}(x)\)</span> to <span class="math notranslate nohighlight">\(h_x(\theta)\)</span> as a function of the random variable <span class="math notranslate nohighlight">\(\theta\)</span> evaluated at a particular <span class="math notranslate nohighlight">\(x\)</span> (note: we use the following notation interchangably <span class="math notranslate nohighlight">\(h_{\theta}(x)=h_x(\theta)=h(x, \theta)\)</span>). Then the problem can be formulated as the expectation</p>
 <div class="math notranslate nohighlight" id="equation-mc-expectation">
 <span class="eqno">(3.3)<a class="headerlink" href="#equation-mc-expectation" title="Permalink to this equation">#</a></span>\[E_{\theta}[h_x(\theta|y)]=\int h_{x}(\theta) g(\theta|y) d\theta.\]</div>
 <blockquote>
-<div><p>Recall: <span class="math notranslate nohighlight">\(h_x(\theta)=h(x,\theta)\)</span> is the machine learning model with parameters <span class="math notranslate nohighlight">\(\theta\)</span> evaluated at input <span class="math notranslate nohighlight">\(x\)</span>. And <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> is the probability density function defining how often <span class="math notranslate nohighlight">\(\theta\)</span> equals a given value. If we have the linear model <span class="math notranslate nohighlight">\(y\approx h(x,\theta) = \theta x\)</span> and the ultimate underlying relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(y\)</span> is <span class="math notranslate nohighlight">\(y=2x\)</span>, but our dataset is corrupted with noise, it might make more sense to treat <span class="math notranslate nohighlight">\(\theta\)</span> as, e.g., a Gaussian random variable <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}\mathcal(\mu,\sigma^2)\)</span>. After tuning the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of this distribution, we might get <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}(2.1,0.1^2)\)</span>. Now, to compute the expected value of <span class="math notranslate nohighlight">\(h(x',\theta)\)</span> for a novel input <span class="math notranslate nohighlight">\(x'\)</span> we would have to evaluate the integral in Eq. <a class="reference internal" href="#equation-mc-expectation">(3.3)</a>.
+<div><p>Recall: <span class="math notranslate nohighlight">\(h_x(\theta)=h(x,\theta)\)</span> is the machine learning model with parameters <span class="math notranslate nohighlight">\(\theta\)</span> evaluated at input <span class="math notranslate nohighlight">\(x\)</span>. And <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> is the probability density function defining how often <span class="math notranslate nohighlight">\(\theta\)</span> equals a given value. If we have the linear model <span class="math notranslate nohighlight">\(z\approx h(x,\theta) = \theta x\)</span> and the ultimate underlying relationship between <span class="math notranslate nohighlight">\(x\)</span> and <span class="math notranslate nohighlight">\(z\)</span> is <span class="math notranslate nohighlight">\(z=2x\)</span>, but our dataset is corrupted with noise, it might make more sense to treat <span class="math notranslate nohighlight">\(\theta\)</span> as, e.g., a Gaussian random variable <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}\mathcal(\mu,\sigma^2)\)</span>. After tuning the parameters <span class="math notranslate nohighlight">\(\mu\)</span> and <span class="math notranslate nohighlight">\(\sigma\)</span> of this distribution, we might get <span class="math notranslate nohighlight">\(\theta\sim \mathcal{N}(2.1,0.1^2)\)</span>. Now, to compute the expected value of <span class="math notranslate nohighlight">\(h(x',\theta)\)</span> for a novel input <span class="math notranslate nohighlight">\(x'\)</span> we would have to evaluate the integral in Eq. <a class="reference internal" href="#equation-mc-expectation">(3.3)</a>.
 Note: this integral can be seen as the continuous version of the sum rule of probabilities from the GMM lecture, and integrating out <span class="math notranslate nohighlight">\(\theta\)</span> is called marginalization (more on that in the <a class="reference internal" href="gp.html"><span class="doc std std-doc">Gaussian Processes lecture</span></a>).</p>
 </div></blockquote>
-<p>To approximate this integral with Monte Carlo sampling techniques, we need to draw samples from the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. Given enough samples, this process always converges to the true value of the integral according to the <a class="reference external" href="http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf">Monte Carlo theorem</a>.</p>
-<p>The approach consists of the following three steps:</p>
+<p>To approximate this integral with Monte Carlo sampling techniques, we must draw samples from the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. Given enough samples, this process always converges to the true value of the integral according to the <a class="reference external" href="http://www-star.st-and.ac.uk/~kw25/teaching/mcrt/MC_history_3.pdf">Monte Carlo theorem</a>.</p>
+<p>The resulting Bayerian inference approach consists of the following three steps:</p>
 <ol class="arabic simple">
 <li><p>Generate i.i.d. random samples <span class="math notranslate nohighlight">\(\theta^{(i)}, \; i=1,2,...,N\)</span> from the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>.</p></li>
 <li><p>Evaluate <span class="math notranslate nohighlight">\(h_x^{(i)}=h_x(\theta^{(i)}), \; \forall i\)</span>.</p></li>
@@ -487,9 +490,9 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 </ol>
 <div class="math notranslate nohighlight" id="equation-mc-sum">
 <span class="eqno">(3.4)<a class="headerlink" href="#equation-mc-sum" title="Permalink to this equation">#</a></span>\[E[h_x(\theta|y)]\approx \frac{1}{N}\sum_{i=1}^{N}h_x^{(i)}.\]</div>
-<p><strong>Exercise: approximating <span class="math notranslate nohighlight">\(\pi\)</span></strong></p>
+<p><strong>Example: approximating <span class="math notranslate nohighlight">\(\pi\)</span></strong></p>
 <p>We know that the area of a circle with radius <span class="math notranslate nohighlight">\(r=1\)</span> is <span class="math notranslate nohighlight">\(A_{circle}=\pi r^2=\pi\)</span>, and we also know that the area of the square enclosing this circle is <span class="math notranslate nohighlight">\(A_{square}=(2r)^2=4\)</span>. Given the ratio of the areas <span class="math notranslate nohighlight">\(A_{circle}/A_{square}=\pi/4\)</span> and the geometries, estimate <span class="math notranslate nohighlight">\(\pi\)</span>.</p>
-<p>Solution: Let us look at the top right quadrand of the square. Adapting the three steps above to this use case leads to:</p>
+<p>Solution: Let us look at the top right quadrant of the square. Adapting the three steps above to this use case leads to:</p>
 <ol class="arabic simple">
 <li><p>Generate <span class="math notranslate nohighlight">\(N\)</span> i.i.d. samples from the bivariate uniform distribution <span class="math notranslate nohighlight">\(\theta^{(i)}\sim U([0,1]^2)\)</span> representing <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> from above.</p></li>
 <li><p>Evaluate <span class="math notranslate nohighlight">\(h^{(i)}=\mathbb{1}_{(\theta_1^2+\theta_2^2)&lt;1}(\theta^{(i)}), \; \forall i \in N\)</span>, indicating with 1 that a point is contained in the circle, and 0 otherwise.</p></li>
@@ -503,11 +506,11 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 <p><span class="caption-number">Fig. 3.1 </span><span class="caption-text">Monte Carlo method for approximating <span class="math notranslate nohighlight">\(\pi\)</span> (Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Monte_Carlo_method">Wikipedia</a>).</span><a class="headerlink" href="#mc-integration" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Note: of course, we could have done the above integration using, e.g., the trapezoidal rule and discretize the domain with <span class="math notranslate nohighlight">\(\sqrt{N}\)</span> points along <span class="math notranslate nohighlight">\(\theta_1\)</span> and along <span class="math notranslate nohighlight">\(\theta_2\)</span> to also end up with <span class="math notranslate nohighlight">\(N\)</span> evaluations of <span class="math notranslate nohighlight">\(h\)</span>. This would have also worked if <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> wasn’t the uniform distribution, in which case one could interpret the integral Eq. <a class="reference internal" href="#equation-mc-expectation">(3.3)</a> as a weighted average of the values of <span class="math notranslate nohighlight">\(h\)</span>. <strong>But this would not have worked if we knew <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> only up to a scaling factor.</strong></p>
+<p>Note: of course, we could have done the above integration using, e.g., the trapezoidal rule and discretize the domain with <span class="math notranslate nohighlight">\(\sqrt{N}\)</span> points along <span class="math notranslate nohighlight">\(\theta_1\)</span> and <span class="math notranslate nohighlight">\(\theta_2\)</span> to also end up with <span class="math notranslate nohighlight">\(N\)</span> evaluations of <span class="math notranslate nohighlight">\(h\)</span>. This would have also worked if <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> wasn’t the uniform distribution, in which case one could interpret the integral Eq. <a class="reference internal" href="#equation-mc-expectation">(3.3)</a> as a weighted average of the values of <span class="math notranslate nohighlight">\(h\)</span>. <strong>But this would not have worked if we knew <span class="math notranslate nohighlight">\(g(\theta|y)\)</span> only up to a scaling factor.</strong></p>
 <hr class="docutils" />
-<p>Bayesian approaches based on random Monte Carlo sampling from the posterior have a number of advantages for us:</p>
+<p>Bayesian approaches based on random Monte Carlo sampling from the posterior have several advantages for us:</p>
 <ul class="simple">
-<li><p>Given a large enough number of samples, we are not working with an approximation, but with an estimate which can be made as precise as desired (given the requisite computational budget)</p></li>
+<li><p>Given a large enough number of samples, we are not working with an approximation but with an estimate which can be made as precise as desired (given the requisite computational budget)</p></li>
 <li><p>Sensitivity analysis of the model becomes easier.</p></li>
 <li><p>Monte Carlo integration converges much more favorably in high dimensions - the error of the MC estimate converges at a rate <span class="math notranslate nohighlight">\(\mathcal{O}(1/\sqrt{N})\)</span> which depends only on the number of samples, and not on the dimension <span class="math notranslate nohighlight">\(d\)</span> of the variable as in numerical integration, which converges with <span class="math notranslate nohighlight">\(\mathcal{O}(1/N^{1/d})\)</span> on a grid with a total of N point.</p></li>
 </ul>
@@ -516,59 +519,59 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 </section>
 <section id="sampling-methods">
 <h2><span class="section-number">3.2. </span>Sampling Methods<a class="headerlink" href="#sampling-methods" title="Permalink to this heading">#</a></h2>
-<p>Looking at the denominator of Eq. <a class="reference internal" href="#equation-posterior-density">(3.1)</a>, we notice that it is independent of <span class="math notranslate nohighlight">\(\theta\)</span>, and is thus only a scaling factor from the perspective of the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This means that the numerator contains all the information describing the shape of the posterior. Thus, if we can generate sufficiently many samples from the unnormalized posterior (i.e. numerator), then these will have the exact same distribution as the true posterior. That is why you will often see the posterior written as “proportional to the prior times lihelihood”</p>
+<p>Looking at the denominator of Eq. <a class="reference internal" href="#equation-posterior-density">(3.1)</a>, we notice that it is independent of <span class="math notranslate nohighlight">\(\theta\)</span>, and is thus only a scaling factor from the perspective of the posterior <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This means that the numerator contains all the information describing the shape of the posterior. Thus, if we can generate sufficiently many samples from the unnormalized posterior (i.e. numerator), then these will have the exact same distribution as the true posterior. That is why you will often see the posterior written as “proportional to the prior times likelihood”</p>
 <div class="math notranslate nohighlight" id="equation-target-density">
 <span class="eqno">(3.6)<a class="headerlink" href="#equation-target-density" title="Permalink to this equation">#</a></span>\[g(\theta | y) \propto g(\theta)f(y|\theta).\]</div>
-<p>The problem we will be trying to solve here is how to generate samples from such unnormalized distributions. We use the term <em>target</em> distributin to describe the distribution we want to sample from.</p>
+<p>The problem we will be trying to solve here is how to generate samples from such unnormalized distributions. We use the term <em>target</em> distribution to describe the distribution we want to sample from.</p>
 <section id="acceptance-rejection-sampling">
 <h3><span class="section-number">3.2.1. </span>Acceptance-Rejection Sampling<a class="headerlink" href="#acceptance-rejection-sampling" title="Permalink to this heading">#</a></h3>
-<p>Acceptance-rejection sampling draws its random samples directly from the target posterior distribution. As we only have access to the unscaled target distribution, we will have to draw from it. <em>The acceptance-rejection algorithm is specially made for this scenario.</em> The acceptance-rejection algorithm draws random samples from an easier-to-sample starting distribution and then selectively accepts candidate values into the final sample. For this approach to work, the <em>candidate distribution</em> <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span> has to dominate the posterior distribution, i.e. there must exist an <span class="math notranslate nohighlight">\(M\)</span> s.t.</p>
+<p>Acceptance-rejection sampling draws its random samples directly from the target posterior distribution. As we only have access to the unscaled target distribution, we will have to draw from it. <em>The acceptance-rejection algorithm is specially made for this scenario.</em> The algorithm draws random samples from an easier-to-sample starting/candidate distribution and then selectively accepts candidate values into the final sample. For this approach to work, the <em>candidate distribution</em> <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span> has to dominate the posterior distribution, i.e. there must exist an <span class="math notranslate nohighlight">\(M\)</span> s.t.</p>
 <div class="math notranslate nohighlight" id="equation-acceptance-rejection">
 <span class="eqno">(3.7)<a class="headerlink" href="#equation-acceptance-rejection" title="Permalink to this equation">#</a></span>\[M \times g_{0}(\theta) \geq g(\theta) f(y|\theta), \quad \forall \theta.\]</div>
 <p><a class="reference internal" href="#acceptance-rejection"><span class="std std-numref">Fig. 3.2</span></a> shows a candidate density for an unscaled target. It would take <span class="math notranslate nohighlight">\(M\approx 5\)</span> to reach a “dominance” of the candidate distribution over the target distribution.</p>
 <figure class="align-center" id="acceptance-rejection">
 <a class="reference internal image-reference" href="../_images/acceptance_rejection.png"><img alt="../_images/acceptance_rejection.png" src="../_images/acceptance_rejection.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Acceptance-rejection candidate and target distributions (Source: <span id="id1">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>).</span><a class="headerlink" href="#acceptance-rejection" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.2 </span><span class="caption-text">Acceptance-rejection candidate and target distributions (Source: <span id="id3">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>).</span><a class="headerlink" href="#acceptance-rejection" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>To then apply acceptance-rejection sampling to the posterior distribution we can write out the algorithm as follows:</p>
+<p>To then apply acceptance-rejection sampling to the posterior distribution, we can write out the algorithm as follows:</p>
 <ol class="arabic">
-<li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> random samples <span class="math notranslate nohighlight">\(\theta_{i}\)</span> from the starting density <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span></p></li>
+<li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> random samples <span class="math notranslate nohighlight">\(\theta_{i}\)</span> from the starting density <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span>.</p></li>
 <li><p>Evaluate the unscaled target density at each random sample.</p></li>
 <li><p>Evaluate the candidate density at each random sample, and multiply by <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
 <li><p>Compute the weights for each random sample</p>
 <div class="math notranslate nohighlight" id="equation-acceptance-rejection-weights">
-<span class="eqno">(3.8)<a class="headerlink" href="#equation-acceptance-rejection-weights" title="Permalink to this equation">#</a></span>\[ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}\]</div>
+<span class="eqno">(3.8)<a class="headerlink" href="#equation-acceptance-rejection-weights" title="Permalink to this equation">#</a></span>\[ w_{i} = \frac{g(\theta_{i}) \times f(y_{1}, \ldots, y_{n}| \theta_{i})}{M \times g_{0}(\theta_{i})}.\]</div>
 </li>
 <li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> samples from the uniform distribution <span class="math notranslate nohighlight">\(U(0, 1)\)</span>.</p></li>
-<li><p>If <span class="math notranslate nohighlight">\(u_{i} &lt; w_{i}\)</span> accept <span class="math notranslate nohighlight">\(\theta_{i}\)</span></p></li>
+<li><p>If <span class="math notranslate nohighlight">\(u_{i} &lt; w_{i}\)</span> accept <span class="math notranslate nohighlight">\(\theta_{i}\)</span>.</p></li>
 </ol>
 </section>
 <section id="sampling-importance-resampling-bayesian-bootstrap">
 <h3><span class="section-number">3.2.2. </span>Sampling-Importance-Resampling / Bayesian Bootstrap<a class="headerlink" href="#sampling-importance-resampling-bayesian-bootstrap" title="Permalink to this heading">#</a></h3>
-<p>The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling which has an improved weight-calculation, but most importantly employs a <em>resampling</em> step. This resampling step resamples from the space of parameters. The weight is then calculated as</p>
+<p>The sampling-importance-resampling algorithm is a two-stage extension of the acceptance-rejection sampling with improved weight calculation, but most importantly, it employs a <em>resampling</em> step. This resampling step resamples from the space of parameters. The weight is then calculated as</p>
 <div class="math notranslate nohighlight" id="equation-sampling-importance-resampling-weights">
-<span class="eqno">(3.9)<a class="headerlink" href="#equation-sampling-importance-resampling-weights" title="Permalink to this equation">#</a></span>\[w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)} \]</div>
+<span class="eqno">(3.9)<a class="headerlink" href="#equation-sampling-importance-resampling-weights" title="Permalink to this equation">#</a></span>\[w_{i} = \frac{\frac{g(\theta_{i})f(y_{1}, \ldots\ y_{n} | \theta_{i})}{g_{0}(\theta_{i})}}{\left( \sum_{i=1}^{N} \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})} \right)}.\]</div>
 <p>The algorithm to sample from the posterior distribution is then:</p>
 <ol class="arabic">
-<li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> random samples <span class="math notranslate nohighlight">\(\theta_{i}\)</span> from the starting density <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span></p></li>
+<li><p>Draw <span class="math notranslate nohighlight">\(N\)</span> random samples <span class="math notranslate nohighlight">\(\theta_{i}\)</span> from the starting density <span class="math notranslate nohighlight">\(g_{0}(\theta)\)</span>.</p></li>
 <li><p>Calculate the value of the unscaled target density at each random sample.</p></li>
 <li><p>Calculate the starting density at each random sample, and multiply by <span class="math notranslate nohighlight">\(M\)</span>.</p></li>
 <li><p>Calculate the ratio of the unscaled posterior to the starting distribution</p>
 <div class="math notranslate nohighlight" id="equation-sampling-importance-resampling-weights-r">
-<span class="eqno">(3.10)<a class="headerlink" href="#equation-sampling-importance-resampling-weights-r" title="Permalink to this equation">#</a></span>\[r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}\]</div>
+<span class="eqno">(3.10)<a class="headerlink" href="#equation-sampling-importance-resampling-weights-r" title="Permalink to this equation">#</a></span>\[r_{i} = \frac{g(\theta_{i})f(y_{1}, \ldots, y_{n}| \theta_{i})}{g_{0}(\theta_{i})}.\]</div>
 </li>
 <li><p>Calculate the importance weights</p>
 <div class="math notranslate nohighlight" id="equation-sampling-importance-resampling-weights-w">
-<span class="eqno">(3.11)<a class="headerlink" href="#equation-sampling-importance-resampling-weights-w" title="Permalink to this equation">#</a></span>\[w_{i} = \frac{r_{i}}{\sum r_{i}}\]</div>
+<span class="eqno">(3.11)<a class="headerlink" href="#equation-sampling-importance-resampling-weights-w" title="Permalink to this equation">#</a></span>\[w_{i} = \frac{r_{i}}{\sum r_{i}}.\]</div>
 </li>
 <li><p>Draw <span class="math notranslate nohighlight">\(n \leq 0.1 \times N\)</span> random samples with the sampling probabilities given by the importance weights.</p></li>
 </ol>
 </section>
 <section id="adaptive-rejection-sampling">
 <h3><span class="section-number">3.2.3. </span>Adaptive Rejection Sampling<a class="headerlink" href="#adaptive-rejection-sampling" title="Permalink to this heading">#</a></h3>
-<p>If we are unable to find a candidate/starting distribution, which dominates the unscaled posterior distribution immediately, then we have to rely on <em>adaptive rejection sampling</em>.</p>
+<p>If we cannot find a candidate/starting distribution that dominates the unscaled posterior distribution immediately, then we have to rely on <em>adaptive rejection sampling</em>.</p>
 <blockquote>
 <div><p>This approach only works for a log-concave posterior! Log-concave means that the second derivative of the log of a log-concave density is always non-positive.</p>
 </div></blockquote>
@@ -576,23 +579,23 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 <figure class="align-center" id="adaptive-rejection-sapling">
 <a class="reference internal image-reference" href="../_images/adaptive_rejection_sampling.png"><img alt="../_images/adaptive_rejection_sampling.png" src="../_images/adaptive_rejection_sampling.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.3 </span><span class="caption-text">(Not) log-concave function (Source: <span id="id2">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>).</span><a class="headerlink" href="#adaptive-rejection-sapling" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.3 </span><span class="caption-text">(Not) log-concave function (Source: <span id="id4">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>).</span><a class="headerlink" href="#adaptive-rejection-sapling" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>Using the tangent method, our algorithm then takes the following form:</p>
 <ol class="arabic simple">
 <li><p>Construct an upper bound from piecewise exponential functions, which dominate the log-concave unscaled posterior</p></li>
-<li><p>With the envelope giving us the initial candidate density we draw <span class="math notranslate nohighlight">\(N\)</span> random samples</p></li>
-<li><p>Rejection sampling, see the preceding two subsections for details.</p></li>
-<li><p>If rejected, add another exponential piece which is tangent to the target density.</p></li>
+<li><p>With the envelope giving us the initial candidate density, we draw <span class="math notranslate nohighlight">\(N\)</span> random samples</p></li>
+<li><p>Apply rejection sampling, see the preceding two subsections for details.</p></li>
+<li><p>If rejected, add another exponential piece that is tangent to the target density.</p></li>
 </ol>
 <blockquote>
-<div><p>As all three presented sampling approaches have their limitations, practitioners often rely on Markov chain Monte Carlo methods such as Gibbs sampling, and Metropolis-Hastings.</p>
+<div><p>As all three presented sampling approaches have their limitations, practitioners often rely on Markov chain Monte Carlo methods such as Gibbs sampling and Metropolis-Hastings.</p>
 </div></blockquote>
 </section>
 <section id="markov-chain-monte-carlo">
 <h3><span class="section-number">3.2.4. </span>Markov Chain Monte Carlo<a class="headerlink" href="#markov-chain-monte-carlo" title="Permalink to this heading">#</a></h3>
-<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(\theta_{next}|\theta_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis Hastings</p>
+<p>The idea of Markov Chain Monte Carlo (MCMC) is to construct an ergodic Markov chain of samples <span class="math notranslate nohighlight">\(\{\theta^0, \theta^1, ...,\theta^N\}\)</span> distributed according to the posterior distribution <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span>. This chain evolves according to a transition kernel given by <span class="math notranslate nohighlight">\(q(\theta_{next}|\theta_{current})\)</span>. Let’s look at one of the most popular MCMC algorithms: Metropolis-Hastings.</p>
 <section id="metropolis-hastings">
 <h4><span class="section-number">3.2.4.1. </span>Metropolis-Hastings<a class="headerlink" href="#metropolis-hastings" title="Permalink to this heading">#</a></h4>
 <p>The general Metropolis-Hastings prescribes a rule which guarantees that the constructed chain is representative of the target distribution <span class="math notranslate nohighlight">\(g(\theta|y)\)</span>. This is done by following the algorithm:</p>
@@ -607,29 +610,29 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 <li><p>Set <span class="math notranslate nohighlight">\(\theta_{\text{current}} \begin{cases} \theta' &amp; \alpha&gt;0 \\ \theta_{\text{current}} &amp; \text{else}\end{cases}\)</span></p></li>
 <li><p>Repeat <span class="math notranslate nohighlight">\(N\)</span> times from step 1.</p></li>
 </ol>
-<p>A special choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is for example the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.</p>
-<figure class="align-center" id="id3">
+<p>A particular choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is, for example, the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.</p>
+<figure class="align-center" id="id5">
 <a class="reference internal image-reference" href="../_images/metropolis_hastings.png"><img alt="../_images/metropolis_hastings.png" src="../_images/metropolis_hastings.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Metropolis-Hastings trajectory (Source: <a class="reference external" href="https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html">relguzman.blogpost.com</a>).</span><a class="headerlink" href="#id3" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.4 </span><span class="caption-text">Metropolis-Hastings trajectory (Source: <a class="reference external" href="https://relguzman.blogspot.com/2018/04/sampling-metropolis-hastings.html">relguzman.blogpost.com</a>).</span><a class="headerlink" href="#id5" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>—;</p>
+<hr class="docutils" />
 <p>In summary:</p>
 <ul class="simple">
 <li><p>The unscaled posterior <span class="math notranslate nohighlight">\(g(\theta|y) \propto g(\theta)f(y|\theta)\)</span> contains the <em>shape information</em> of the posterior</p></li>
 <li><p>For the true posterior, the unscaled posterior needs to be divided by an integral over the whole parameter space.</p></li>
-<li><p>Integral has to be evaluated numerically for which we rely on the just presented Monte Carlo sampling techniques.</p></li>
+<li><p>Integral has to be evaluated numerically, for which we rely on the Monte Carlo sampling techniques that were just presented.</p></li>
 </ul>
 </section>
 </section>
 </section>
 <section id="bayesian-inference">
 <h2><span class="section-number">3.3. </span>Bayesian Inference<a class="headerlink" href="#bayesian-inference" title="Permalink to this heading">#</a></h2>
-<p>In the Bayesian framework, everything centers around the posterior distribution and our ability to relate our previous knowledge with newly gained evidence to the next stage of our belief (of a probability distribution). With the posterior being our entire inference about the parameters given the data, there exist multiple inference approaches with their roots in frequentist statistics.</p>
+<p>In the Bayesian framework, everything centers around the posterior distribution and our ability to relate our previous knowledge with newly gained evidence to the next stage of our belief (of a probability distribution). With the posterior being our entire inference about the parameters given the data, multiple inference approaches exist with their roots in frequentist statistics.</p>
 <section id="bayesian-point-estimation">
 <h3><span class="section-number">3.3.1. </span>Bayesian Point Estimation<a class="headerlink" href="#bayesian-point-estimation" title="Permalink to this heading">#</a></h3>
-<p>Bayesian point estimation chooses a single value to represent the entire posterior distribution. Potential choices here are locations like the posterior mean, and posterior median. The <strong>posterior mean</strong> <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> minimizes the <em>posterior mean squared error</em></p>
+<p>Bayesian point estimation chooses a single value to represent the entire posterior distribution. Potential choices here are locations like the posterior mean and posterior median. The <strong>posterior mean</strong> <span class="math notranslate nohighlight">\(\hat{\theta}\)</span> minimizes the <em>posterior mean squared error</em></p>
 <div class="math notranslate nohighlight" id="equation-mps-error">
 <span class="eqno">(3.13)<a class="headerlink" href="#equation-mps-error" title="Permalink to this equation">#</a></span>\[PMS(\hat{\theta}) = \int (\theta - \hat{\theta})^{2} g(\theta | y_{1}, \ldots, y_{n})d\theta,\]</div>
 <div class="math notranslate nohighlight" id="equation-posterior-mean">
@@ -637,7 +640,7 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 <figure class="align-center" id="posterior-mean">
 <a class="reference internal image-reference" href="../_images/posterior_mean.png"><img alt="../_images/posterior_mean.png" src="../_images/posterior_mean.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Posterior mean (Source: <span id="id4">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-mean" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.5 </span><span class="caption-text">Posterior mean (Source: <span id="id6">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-mean" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>And the <strong>posterior median</strong> <span class="math notranslate nohighlight">\(\tilde{\theta}\)</span> minimizes the <em>posterior mean absolute deviation</em></p>
@@ -648,19 +651,19 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 <figure class="align-center" id="posterior-median">
 <a class="reference internal image-reference" href="../_images/posterior_median.png"><img alt="../_images/posterior_median.png" src="../_images/posterior_median.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.6 </span><span class="caption-text">Posterior median (Source: <span id="id5">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-median" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.6 </span><span class="caption-text">Posterior median (Source: <span id="id7">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#posterior-median" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Another point estimate is given by the <strong>maximum a posteriory</strong> (MAP) estimate <span class="math notranslate nohighlight">\(\theta_{MAP}\)</span>, which is a generalization over the maximum likelihood estimate (MLE) in the sense that MAP entails a prior <span class="math notranslate nohighlight">\(g(\theta)\)</span>.</p>
+<p>Another point estimate is given by the <strong>maximum a-posteriory</strong> (MAP) estimate <span class="math notranslate nohighlight">\(\theta_{MAP}\)</span>, which is a generalization over the maximum likelihood estimate (MLE) in the sense that MAP entails a prior <span class="math notranslate nohighlight">\(g(\theta)\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-mle-estimate">
 <span class="eqno">(3.17)<a class="headerlink" href="#equation-mle-estimate" title="Permalink to this equation">#</a></span>\[\theta_{MLE} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta). \qquad\]</div>
 <div class="math notranslate nohighlight" id="equation-map-estimate">
 <span class="eqno">(3.18)<a class="headerlink" href="#equation-map-estimate" title="Permalink to this equation">#</a></span>\[\theta_{MAP} = \underset{\theta}{\arg \max}\;  \prod_{i=1}^N f(y^{(i)}|\theta) g(\theta).\]</div>
-<p>If the prior <span class="math notranslate nohighlight">\(g(\theta)\)</span> is uniform (aka <em>uninformative prior</em>), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in lecture on <a class="reference internal" href="tricks.html"><span class="doc std std-doc">Tricks of Optimization</span></a>.</p>
+<p>If the prior <span class="math notranslate nohighlight">\(g(\theta)\)</span> is uniform (aka <em>uninformative prior</em>), then the MLE and MAP estimates coincide. But as soon as we have some prior knowledge about the problem, the prior regularizes the maximization problem. More on regularization in the lecture on <a class="reference internal" href="tricks.html"><span class="doc std std-doc">Tricks of Optimization</span></a>.</p>
 </section>
 <section id="bayesian-interval-estimation">
 <h3><span class="section-number">3.3.2. </span>Bayesian Interval Estimation<a class="headerlink" href="#bayesian-interval-estimation" title="Permalink to this heading">#</a></h3>
-<p>Another type of Bayesian inference is the one in which we seek to find an interval that, with a pre-determined probability, contains the true value. In Bayesian statistics, these are called credible intervals. Finding the interval with equal tail areas to both sides (lower <span class="math notranslate nohighlight">\(\theta_{l}\)</span>, and upper <span class="math notranslate nohighlight">\(\theta_{u}\)</span>), and which has the probability <span class="math notranslate nohighlight">\(1-\alpha\)</span> to contain the true value of the parameter, i.e.</p>
+<p>Another type of Bayesian inference is the one in which we seek to find an interval that, with a pre-determined probability, contains the true value. In Bayesian statistics, these are called <em>credible intervals</em>. The can be estimated by finding the interval with equal tail areas to both sides (lower <span class="math notranslate nohighlight">\(\theta_{l}\)</span>, and upper <span class="math notranslate nohighlight">\(\theta_{u}\)</span>), and which has the probability <span class="math notranslate nohighlight">\(1-\alpha\)</span> to contain the true value of the parameter, i.e.</p>
 <div class="math notranslate nohighlight" id="equation-confidence-intervals">
 <span class="eqno">(3.19)<a class="headerlink" href="#equation-confidence-intervals" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
@@ -672,30 +675,29 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 <figure class="align-center" id="credible-intervals">
 <a class="reference internal image-reference" href="../_images/credible_interval.png"><img alt="../_images/credible_interval.png" src="../_images/credible_interval.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.7 </span><span class="caption-text">The 95% credible interval (Source: <span id="id6">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#credible-intervals" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.7 </span><span class="caption-text">The 95% credible interval (Source: <span id="id8">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapter 3).</span><a class="headerlink" href="#credible-intervals" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="predictive-distribution-of-a-new-observation">
 <h3><span class="section-number">3.3.3. </span>Predictive Distribution of a New Observation<a class="headerlink" href="#predictive-distribution-of-a-new-observation" title="Permalink to this heading">#</a></h3>
-<p>If we obtain a new observation, then we can compute the updated predictive distribution by combining the conditional distribution of the new observation, and conditioning it on the previous observations. Then we only need to integrate the parameter out of the joint posterior</p>
+<p>If we obtain a new observation, then we can compute the updated predictive distribution by combining the conditional distribution of the new observation and conditioning it on the previous observations. Then we only need to integrate the parameter out of the joint posterior, i.e., marginalize it.</p>
 <div class="math notranslate nohighlight" id="equation-predictive-posterior-verbose">
 <span class="eqno">(3.20)<a class="headerlink" href="#equation-predictive-posterior-verbose" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
 f(y_{n+1}|y_{1}, \ldots, y_{n}) &amp;\propto \int g(\theta) \times f(y_{n+1}| \theta) \times \ldots \times f(y_{1}|\theta) d\theta \\
 &amp;\propto \int f(y_{n+1}|\theta)g(\theta|y_{1}, \ldots, y_{n}) d\theta
 \end{aligned}\end{split}\]</div>
-<p>and marginalize it out.</p>
 </section>
 <section id="bayesian-inference-from-a-posterior-random-sample">
 <h3><span class="section-number">3.3.4. </span>Bayesian Inference from a Posterior Random Sample<a class="headerlink" href="#bayesian-inference-from-a-posterior-random-sample" title="Permalink to this heading">#</a></h3>
-<p>When we only have a random sample from the posterior instead of a numerical approximation of the posterior, we are still able to apply the same techniques (i.e. point and interval estimates), but just apply them to the posterior sample.</p>
-<p>The generated sample only constitute an approximation, but given the sampling budget, this approximation can be made as accurate as desired. In summary, Bayesian inference can be condensed to the following main take-home knowledge:</p>
+<p>When we only have a random sample from the posterior instead of a numerical approximation of the posterior, we can still apply the same techniques (i.e., point and interval estimates) but just apply them to the posterior sample.</p>
+<p>The generated sample only constitutes an approximation, but given the sampling budget, this approximation can be made as accurate as desired. In summary, Bayesian inference can be condensed to the following main take-home knowledge:</p>
 <ul class="simple">
 <li><p>The posterior distribution is the current summary of beliefs about the parameter in the Bayesian framework.</p></li>
 <li><p>Bayesian inference is then performed using the probabilities calculated from the posterior distribution of the parameter.</p>
 <ul>
-<li><p>To get an approximation of the scaling factor for the posterior we have to utilize sampling-based Monte Carlo techniques to approximate the requisite integral.</p></li>
+<li><p>To get an approximation of the scaling factor for the posterior, we have to utilize sampling-based Monte Carlo techniques to approximate the requisite integral.</p></li>
 </ul>
 </li>
 </ul>
@@ -703,45 +705,45 @@ f(y_{n+1}|y_{1}, \ldots, y_{n}) &amp;\propto \int g(\theta) \times f(y_{n+1}| \t
 </section>
 <section id="bayesian-linear-models">
 <h2><span class="section-number">3.4. </span>Bayesian Linear Models<a class="headerlink" href="#bayesian-linear-models" title="Permalink to this heading">#</a></h2>
-<p>If we are faced with the scenario of having very little data, then we ideally seek to quantify the uncertainty of our model and preserve the predictive utility of our machine learning model. The right approach to this is to extend Linear Regression, and Logistic Regression with the just presented Bayesian Approach utilizing Bayesian Inference.</p>
+<p>If we are faced with the scenario of having very little data, then we ideally seek to quantify the uncertainty of our model and preserve the predictive utility of our machine learning model. The right approach to this is to extend Linear Regression and Logistic Regression with the just presented Bayesian Approach utilizing Bayesian Inference.</p>
 <section id="bayesian-logistic-regression">
 <h3><span class="section-number">3.4.1. </span>Bayesian Logistic Regression<a class="headerlink" href="#bayesian-logistic-regression" title="Permalink to this heading">#</a></h3>
 <p>If we now want to capture the uncertainty over our logistic regression predictions, then we have to resort to the Bayesian approach. To make the Bayesian approach work for logistic regression, we choose to apply something called the <em>Laplace Approximation</em> in which we approximate the posterior using a Gaussian</p>
 <div class="math notranslate nohighlight" id="equation-laplace-approx">
 <span class="eqno">(3.21)<a class="headerlink" href="#equation-laplace-approx" title="Permalink to this equation">#</a></span>\[p(\omega | \mathcal{D}) \approx \mathcal{N}({\bf{\omega}}| {\bf{\hat{\omega}}}, {\bf{H}}^{-1}),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\omega\)</span> corresponds to the learned parameters <span class="math notranslate nohighlight">\(\theta\)</span>, <span class="math notranslate nohighlight">\(\hat{\omega}\)</span> is the MAP estimate of <span class="math notranslate nohighlight">\(\theta\)</span>, and <span class="math notranslate nohighlight">\(H^{-1}\)</span> is the inverse of the Hessian computed at <span class="math notranslate nohighlight">\(\hat{\omega}\)</span>. There exist many different modes representing viable solutions for this problem when we seek to optimize it.</p>
+<p>where <span class="math notranslate nohighlight">\(\omega\)</span> corresponds to the learned parameters <span class="math notranslate nohighlight">\(\theta\)</span>, <span class="math notranslate nohighlight">\(\hat{\omega}\)</span> is the MAP estimate of <span class="math notranslate nohighlight">\(\theta\)</span>, and <span class="math notranslate nohighlight">\(H^{-1}\)</span> is the inverse of the Hessian (i.e., matrix of second derivatives of the negative log-posterior w.r.t. <span class="math notranslate nohighlight">\(\omega\)</span>) computed at <span class="math notranslate nohighlight">\(\hat{\omega}\)</span>. Many different modes exist that represent viable solutions for this problem when we seek to optimize it.</p>
 <figure class="align-center" id="bayesian-log-reg-data">
 <a class="reference internal image-reference" href="../_images/bayesian_log_reg_data.png"><img alt="../_images/bayesian_log_reg_data.png" src="../_images/bayesian_log_reg_data.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Bayesian logistic regression data (Source: <span id="id7">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg-data" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.8 </span><span class="caption-text">Bayesian logistic regression data (Source: <span id="id9">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg-data" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>In practical applications, we are interested in predicting the output <span class="math notranslate nohighlight">\(y\)</span> given an input <span class="math notranslate nohighlight">\(x\)</span>. Thus, we need to compute the <strong>posterior predictive distribution</strong></p>
 <div class="math notranslate nohighlight" id="equation-predictive-posterior">
 <span class="eqno">(3.22)<a class="headerlink" href="#equation-predictive-posterior" title="Permalink to this equation">#</a></span>\[p(y|x, \mathcal{D}) = \int p(y | x, \omega) p(\omega | \mathcal{D}) d\omega.\]</div>
-<p>To now compute the uncertainty in our predictions we perform a <em>Monte Carlo Approximation</em> of the integral using <span class="math notranslate nohighlight">\(S\)</span> samples from the posterior <span class="math notranslate nohighlight">\(\omega_s \sim p(\omega|\mathcal{D})\)</span> as</p>
+<p>To now compute the uncertainty in our predictions, we perform a <em>Monte Carlo Approximation</em> of the integral using <span class="math notranslate nohighlight">\(S\)</span> samples from the posterior <span class="math notranslate nohighlight">\(\omega_s \sim p(\omega|\mathcal{D})\)</span> as</p>
 <div class="math notranslate nohighlight" id="equation-blr-mc">
 <span class="eqno">(3.23)<a class="headerlink" href="#equation-blr-mc" title="Permalink to this equation">#</a></span>\[p(y=1 | x, \mathcal{D}) = \frac{1}{S} \sum_{s=1}^{S} \text{sigmoid} \left( \omega_{s}^{\top} x \right).\]</div>
-<p>Looking at a larger visual example of Bayesian Logistic Regression applied.</p>
+<p>Below we look at a larger visual example of Bayesian Logistic Regression.</p>
 <figure class="align-center" id="bayesian-log-reg">
 <a class="reference internal image-reference" href="../_images/bayesian_log_reg.jpg"><img alt="../_images/bayesian_log_reg.jpg" src="../_images/bayesian_log_reg.jpg" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Bayesian logistic regression (Source: <span id="id8">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.9 </span><span class="caption-text">Bayesian logistic regression (Source: <span id="id10">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 10).</span><a class="headerlink" href="#bayesian-log-reg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="bayesian-linear-regression">
 <h3><span class="section-number">3.4.2. </span>Bayesian Linear Regression<a class="headerlink" href="#bayesian-linear-regression" title="Permalink to this heading">#</a></h3>
-<p>To now introduce the Bayesian approach to linear regression we have to assume that we already know the variance <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>, so the posterior which we actually want to compute at that point is</p>
+<p>To now introduce the Bayesian approach to linear regression, we assume that we already know the variance <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>, so the posterior which we actually want to compute at that point is</p>
 <div class="math notranslate nohighlight" id="equation-blr-formulation">
 <span class="eqno">(3.24)<a class="headerlink" href="#equation-blr-formulation" title="Permalink to this equation">#</a></span>\[p(\omega | \mathcal{D}, \sigma^{2}),\]</div>
-<p>where <span class="math notranslate nohighlight">\(\mathcal{D} = \left\{ (x_{n}, y_{n}) \right\}_{n=1:N}\)</span>. For simplicity we assume a Gaussian prior distribution</p>
+<p>where <span class="math notranslate nohighlight">\(\mathcal{D} = \left\{ (x_{n}, y_{n}) \right\}_{n=1:N}\)</span>. For simplicity, we assume a Gaussian prior distribution</p>
 <div class="math notranslate nohighlight" id="equation-blr-normal-prior">
 <span class="eqno">(3.25)<a class="headerlink" href="#equation-blr-normal-prior" title="Permalink to this equation">#</a></span>\[p(\omega) = \mathcal{N}(\omega | \breve{\omega}, \breve{\Sigma}),\]</div>
-<p>and a likelihood given by the Multivariate-Normal distribution</p>
+<p>and a likelihood is given by the Multivariate-Normal distribution</p>
 <div class="math notranslate nohighlight" id="equation-blr-likelihood">
 <span class="eqno">(3.26)<a class="headerlink" href="#equation-blr-likelihood" title="Permalink to this equation">#</a></span>\[p(\mathcal{D} | \omega, \sigma^{2}) = \prod_{n=1}^{N}p(y_{n}|{\bf{\omega^{\top}}}{\bf{x}}, \sigma^{2}) = \mathcal{N}({\bf{y}} | {\bf{X} \bf{\omega}}, \sigma^{2} {\bf{I}}_{N}).\]</div>
-<p>The posterior can then be analytically derived using Bayes’ rule for Gaussians (see <span id="id9">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Eq. 3.37) to</p>
+<p>The posterior can then be analytically derived using Bayes’ rule for Gaussians (see <span id="id11">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Eq. 3.37) to</p>
 <div class="math notranslate nohighlight" id="equation-blr-posterior">
 <span class="eqno">(3.27)<a class="headerlink" href="#equation-blr-posterior" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
@@ -754,27 +756,27 @@ p({\bf{\omega}} | {\bf{X}}, {\bf{y}}, \sigma^{2}) &amp;\propto \mathcal{N}(\omeg
 <figure class="align-center" id="bayesian-lin-reg">
 <a class="reference internal image-reference" href="../_images/bayesian_lin_reg.png"><img alt="../_images/bayesian_lin_reg.png" src="../_images/bayesian_lin_reg.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Bayesian linear regression (Source: <span id="id10">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 11).</span><a class="headerlink" href="#bayesian-lin-reg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.10 </span><span class="caption-text">Bayesian linear regression (Source: <span id="id12">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 11).</span><a class="headerlink" href="#bayesian-lin-reg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 </section>
 <section id="bayesian-machine-learning">
 <h2><span class="section-number">3.5. </span>Bayesian Machine Learning<a class="headerlink" href="#bayesian-machine-learning" title="Permalink to this heading">#</a></h2>
-<p>Let’s consider the setup we have encountered so far in which we have labels <span class="math notranslate nohighlight">\(x\)</span>, hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span>, and seek to predict labels <span class="math notranslate nohighlight">\(y\)</span>. Probabilistically expressed this amounts to <span class="math notranslate nohighlight">\(p(y|x, \theta)\)</span>. Then the posterior is defined as <span class="math notranslate nohighlight">\(p(\theta| \mathcal{D})\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is our labeled dataset <span class="math notranslate nohighlight">\(\mathcal{D} = \left\{ (x_{n}, y_{n}) \right\}_{n=1:N}\)</span>.
-Applying the previously discussed Bayesian approaches to these problems, and the respective model parameters, are called <strong>Bayesian Machine Learning</strong>.</p>
-<p>While we lose computational efficiency at first glance, as we have to perform a sampling-based inference procedure, what we gain is a principled approach to discuss uncertainties within our model. This can help us most especially when we move in the <em>small-data limit</em>, where we can not realistically expect our model to converge. See e.g. below a Bayesian logistic regression example in which the posterior distribution is visualized.</p>
+<p>Let’s consider the setup we have encountered so far in which we have inputs <span class="math notranslate nohighlight">\(x\)</span>, hyperparameters <span class="math notranslate nohighlight">\(\theta\)</span>, and seek to predict labels <span class="math notranslate nohighlight">\(y\)</span>. Probabilistically expressed, this amounts to <span class="math notranslate nohighlight">\(p(y|x, \theta)\)</span>. Then the posterior is defined as <span class="math notranslate nohighlight">\(p(\theta| \mathcal{D})\)</span>, where <span class="math notranslate nohighlight">\(\mathcal{D}\)</span> is our labeled dataset <span class="math notranslate nohighlight">\(\mathcal{D} = \left\{ (x_{n}, y_{n}) \right\}_{n=1:N}\)</span>.
+Applying the previously discussed Bayesian approaches to these problems and the respective model parameters is called <strong>Bayesian Machine Learning</strong>.</p>
+<p>While we lose computational efficiency at first glance, as we have to perform a sampling-based inference procedure, we gain a principled approach to discussing uncertainties within our model. This can help us most, especially when we move in the <em>small-data limit</em>, where we can not realistically expect our model to converge. See e.g. below a Bayesian logistic regression example in which the posterior distribution is visualized.</p>
 <figure class="align-center" id="bayesian-nn">
 <a class="reference internal image-reference" href="../_images/bayesian_nn.png"><img alt="../_images/bayesian_nn.png" src="../_images/bayesian_nn.png" style="width: 550px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 3.11 </span><span class="caption-text">Bayesian machine learning (Source: <span id="id11">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 4).</span><a class="headerlink" href="#bayesian-nn" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 3.11 </span><span class="caption-text">Bayesian machine learning (Source: <span id="id13">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 4).</span><a class="headerlink" href="#bayesian-nn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
 <section id="further-references">
 <h2><span class="section-number">3.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
 <p><strong>Bayesian Methods</strong></p>
-<p>There exist a wide number of references to the herein presented Bayesian approach, most famously introductory treatment of Probabilistic Programming frameworks, which utilize the presented modeling approach to obtain posteriors over programs.</p>
+<p>There exist a vast number of references to the presented Bayesian approach, most famously the introductory treatment of Probabilistic Programming frameworks, which utilize the presented modeling approach to obtain posteriors over programs.</p>
 <ul class="simple">
 <li><p><a class="reference external" href="http://pyro.ai/examples/intro_long.html">Introduction to Pyro</a></p></li>
 <li><p><a class="reference external" href="https://m-clark.github.io/bayesian-basics/example.html#posterior-predictive">A Practical Example with Stan</a></p></li>
@@ -787,21 +789,21 @@ Applying the previously discussed Bayesian approaches to these problems, and the
 </ul>
 <p><strong>Bayesian Statistics</strong></p>
 <ul class="simple">
-<li><p><span id="id12">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2</p></li>
+<li><p><span id="id14">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2</p></li>
 </ul>
 <p><strong>Sampling</strong></p>
 <ul class="simple">
-<li><p><span id="id13">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2, 5, and 6 - all presented sampling methods and background</p></li>
-<li><p><span id="id14">[<a class="reference internal" href="../references.html#id9" title="Christian P Robert and George Casella. Monte Carlo statistical methods. Springer, 2004. URL: https://link.springer.com/book/10.1007/978-1-4757-4145-2.">Robert and Casella, 2004</a>]</span> - deeper dive into MCMC</p></li>
+<li><p><span id="id15">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 2, 5, and 6 - all presented sampling methods and background</p></li>
+<li><p><span id="id16">[<a class="reference internal" href="../references.html#id9" title="Christian P Robert and George Casella. Monte Carlo statistical methods. Springer, 2004. URL: https://link.springer.com/book/10.1007/978-1-4757-4145-2.">Robert and Casella, 2004</a>]</span> - deeper dive into MCMC</p></li>
 <li><p><a class="reference external" href="https://chi-feng.github.io/mcmc-demo/app.html?algorithm=RandomWalkMH&amp;target=banana">Interactive MCMC visualizations</a></p></li>
 </ul>
 <p><strong>Bayesian Inference</strong></p>
 <ul class="simple">
-<li><p><span id="id15">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 3</p></li>
+<li><p><span id="id17">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span>, Chapters 3</p></li>
 </ul>
 <p><strong>Bayesian Regression / Classification</strong></p>
 <ul class="simple">
-<li><p><span id="id16">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span></p>
+<li><p><span id="id18">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span></p>
 <ul>
 <li><p>Section 10.5 on Bayesian logistic regression</p></li>
 <li><p>Section 11.7 on Bayesian linear regression</p></li>

@@ -160,6 +160,8 @@ $$
 \Rightarrow \vartheta=\underset{\vartheta}{\arg \max}\; \ell(\vartheta)=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}
 $$ (lms_optimization_task)
 
+> Note: In the lecture, $\log \equiv \ln$ is the natural logarithm with base $e$. Nevertheless, we typically use $\ln$ for consistency.
+
 **This is the same result as minimizing $J(\vartheta)$ from before.** Interestingly enough, the Gaussian i.i.d. noise used in the maximum likelihood approach is entirely independent of $\sigma^{2}$.
 
 > Least mean squares (**LMS**) as well as maximum likelihood regression are **parametric** learning algorithms.

@@ -565,6 +565,9 @@ L(\vartheta) &amp;=p(Y \mid X ; \vartheta)=\prod_{i=1}^{m} p(y^{(i)} \mid x^{(i)
 <span class="eqno">(1.18)<a class="headerlink" href="#equation-lms-optimization-task" title="Permalink to this equation">#</a></span>\[
 \Rightarrow \vartheta=\underset{\vartheta}{\arg \max}\; \ell(\vartheta)=\underset{\vartheta}{\arg \min} \sum_{i=1}^{m}\left(y^{(i)}-\vartheta^{\top} x^{(i)}\right)^{2}
 \]</div>
+<blockquote>
+<div><p>Note: In the lecture, <span class="math notranslate nohighlight">\(\log \equiv \ln\)</span> is the natural logarithm with base <span class="math notranslate nohighlight">\(e\)</span>. Nevertheless, we typically use <span class="math notranslate nohighlight">\(\ln\)</span> for consistency.</p>
+</div></blockquote>
 <p><strong>This is the same result as minimizing <span class="math notranslate nohighlight">\(J(\vartheta)\)</span> from before.</strong> Interestingly enough, the Gaussian i.i.d. noise used in the maximum likelihood approach is entirely independent of <span class="math notranslate nohighlight">\(\sigma^{2}\)</span>.</p>
 <blockquote>
 <div><p>Least mean squares (<strong>LMS</strong>) as well as maximum likelihood regression are <strong>parametric</strong> learning algorithms.</p>

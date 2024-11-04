@@ -254,7 +254,7 @@ There is an iterative algorithm that can solve the maximum likelihood problem by
 
 0. Guess the number of modes $K$
 1. Randomly initialize the means $\mu_k$, covariances $\Sigma_k$, and mixing coefficients $\pi_k$, and evaluate the likelihood
-2. **(E-step)**. Evaluate $\omega_k^{(i)}$ assuming constant $\pi, \mu, \Sigma$ (see Eq. {eq}`gmm_responsibilities` after the algorithm)
+2. **(E-step)**. Evaluate $w_k^{(i)}$ assuming constant $\pi, \mu, \Sigma$ (see Eq. {eq}`gmm_responsibilities` after the algorithm)
 
     $$w_k^{(i)} := p(z^{(i)}=k| x^{(i)}, \pi, \mu, \Sigma).$$ (gmm_e_step)
 
