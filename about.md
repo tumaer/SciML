@@ -12,7 +12,7 @@ The course breaks down into an introduction to the topic, followed by the core c
 - Artur Toshev ([artur.toshev@tum.de](mailto:artur.toshev@tum.de))
 - Harish Ramachandran ([harish.ramachandran@tum.de](mailto:harish.ramachandran@tum.de))
 
-> Questions should preferably be posted on Moodle or sent to Artur Toshev.
+> Questions should preferably be posted on Moodle or sent to Artur Toshev or Harish Ramachandran.
 
 ## Outline
 
