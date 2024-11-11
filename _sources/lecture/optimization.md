@@ -8,7 +8,7 @@ In the lecture on [Linear Models](./linear.md), we already saw the main building
 
 Point 1 is a matter of what we know about the world in advance and how we include that knowledge into the model, e.g. choose CNNs when working with images because the same pattern might appear at different locations of an image. Later in the lecture, we will look at different models each of which is by construction better suited for different problem types. After selecting a model $h_{\vartheta}$, points 2 and 3 are critical to the success of the learning as the loss function (point 2) defines how we measure success and the optimizer (point 3) guides the process of moving from a random initial guess of the parameters to a parameter configuration with a smaller loss. These two points are the topic of this lecture and the lecture [Tricks of Optimization](./tricks.md).
 
-> Note: all algorithms discussed below assume an unconstrained parameter space, i.e. $\vartheta \in \mathbb{R}^n$. There are dedicated algorithms for solving constraint optimization problems, e.g. $a \le \vartheta \le b$, but these are beyond the scope of our lecture.
+> Note: all algorithms discussed below assume an unconstrained parameter space, i.e. $\vartheta \in \mathbb{R}^n$. There are dedicated algorithms for solving constrained optimization problems, e.g. $a \le \vartheta \le b$, but these are beyond the scope of our lecture.
 
 ## Basics of Optimization
 
@@ -16,7 +16,7 @@ First, we define the general (unconstrained) minimization problem
 
 $$\text{argmin}_{\vartheta} \; J(\vartheta),$$ (minimization_problem)
 
-where $J:\mathbb{R}^n \rightarrow \mathbb{R}$ is a real-valued function. We call the optimal solution of this problem the *minimizer* of $J$ and denote it as $\vartheta_{\star}$. The minimizer is defined as $J(\vartheta_{\star}) \le J(\vartheta)$ for all $\vartheta$. If the relation $J(\vartheta_{\star}) \le J(\vartheta)$ holds only in a local neighborhood $||\vartheta - \vartheta_{\star}|| \le \epsilon$, for some $\epsilon>0$, then we call $\vartheta_{\star}$ a local optimizer. In the figure below we an example of different loss functions.
+where $J:\mathbb{R}^n \rightarrow \mathbb{R}$ is a real-valued function. We call the optimal solution of this problem the *minimizer* of $J$ and denote it as $\vartheta_{\star}$. The minimizer is defined as $J(\vartheta_{\star}) \le J(\vartheta)$ for all $\vartheta$. If the relation $J(\vartheta_{\star}) \le J(\vartheta)$ holds only in a local neighborhood $||\vartheta - \vartheta_{\star}|| \le \epsilon$, for some $\epsilon>0$, then we call $\vartheta_{\star}$ a local optimizer. In the figure below, we see an example of different loss functions.
 
 ```{figure} ../imgs/optimization/minima_examples.svg
 ---
@@ -41,14 +41,14 @@ width: 350px
 align: center
 name: convex_nonconvex
 ---
-Example of convex and nonconvex function (Source: {cite}`hardt2022`, Chapter 5).
+Example of convex and nonconvex functions (Source: {cite}`hardt2022`, Chapter 5).
 ```
 
-There is exhaustive literature on convex functions and convex optimization, e.g. {cite}`boyd2004`, due to the mathematical properties of such functions. An important result from this theory is that gradient descent is guaranteed to find an optimum of a convex function. Two examples of convex functions are the Least Mean Square loss in linear regression and the negative log-likelihood in logistic regression. However, modern deep learning is in general non-convex. Thus, we optimize towards a local minimum in the proximity of an initial configuration.
+There is exhaustive literature on convex functions and convex optimization, e.g. {cite}`boyd2004`, due to the mathematical properties of such functions. An important result from this theory is that gradient descent is guaranteed to find an optimum of a convex function. Two examples of convex functions are the Least Mean Square loss in linear regression and the negative log-likelihood in logistic regression. However, modern deep learning is, in general, non-convex. Thus, we optimize towards a local minimum in the proximity of an initial configuration.
 
-> Note: Convexity is a property of the loss $J(\vartheta)$ w.r.t. $\vartheta$. This means, for $J(\vartheta)$ to be convex, the combination of model and loss functions has to result in a convex function in $\vartheta$.
+> Note: Convexity is a property of the loss $J(\vartheta)$ w.r.t. $\vartheta$. This means that for $J(\vartheta)$ to be convex, the combination of model and loss functions has to result in a convex function in $\vartheta$.
 
-Apparently, the choice of $h(x)$ plays an important role in the shape of $J(\vartheta)$, but how does the choice of loss function influence $J$?
+Obviously, the choice of $h(x)$ plays an essential role in the shape of $J(\vartheta)$, but how does the choice of loss function influence $J$?
 
 ### Cost Functions
 
@@ -62,17 +62,17 @@ We will discuss extensions of the loss function in the lecture [Tricks of Optimi
 
 ## Gradient-based Methods
 
-If we now consider the functions from {numref}`minima_examples` as highly simplified objective functions which we want to minimize, then we see that the gradient descent method we saw in lecture [Linear Models](./linear.md) is well suited. While being the obvious choice for the two cases on the left, the picture becomes a little muddier in the example on the right.
+If we now consider the functions from {numref}`minima_examples` as highly simplified objective functions that we want to minimize, then we see that the gradient descent method we saw in lecture [Linear Models](./linear.md) is well suited. While being the obvious choice for the two cases on the left, the picture becomes a little muddier in the example on the right.
 
-> Notation alert: For the derivation of the gradien-based optimization techniques we use the stands notation by which the function we want to find the minimum of becomes $J \rightarrow f$ and the variable $\vartheta \rightarrow x$. Don't confuse this $x$ with the input measurements $\{x^{(i)},y^{(i)}\}_{i=0,...,m}$.
+> Notation alert: For deriving the gradient-based optimization techniques we use the notation by which the function we want to find the minimum of becomes $J \rightarrow f$ and the variable $\vartheta \rightarrow x$. Don't confuse this $x$ with the data pairs $\{x^{(i)},y^{(i)}\}_{i=0,...,m}$.
 
 ### Gradient Descent
 
-While the foundational concept, gradient descent is rarely used in its pure form, but mostly in its stochastic form these days. If we first consider it in its most foundational form in 1-dimension, then we can take a function $f$, and Taylor-expand it
+While a foundational concept, gradient descent is rarely used in its pure form, but mostly in its stochastic form. If we first consider it in its most foundational form in 1-dimension, then we can take a function $f$ and Taylor-expand it to
 
 $$f(x+\varepsilon) = f(x) + \varepsilon f'(x) + \mathcal{O}(\varepsilon^{2}).$$ (taylor_epsilon2)
 
-Then, our intuition would dictate that moving a small $\varepsilon$ in the direction of the negative gradient will decrease f. Taking a step size $\eta > 0$, and using using our ability to freely choose $\varepsilon$ to set it as
+Then, our intuition would dictate that moving a small $\varepsilon$ in the direction of the negative gradient will decrease $f$. Taking a step size $\eta > 0$ and using our ability to freely choose $\varepsilon$ to set it as
 
 $$\varepsilon = - \eta f'(x),$$ (epsilon_gd)
 
@@ -88,7 +88,7 @@ I.e.
 
 $$x \leftarrow x - \eta f'(x)$$ (gd_rule)
 
-is the right algorithm to iterate over $x$ s.t. the value of our (objective) function $f(x)$ declines. We hence end up with an algorithm in which we have to choose an initial value for $x$, a constant $\eta > 0$, and then continuously iterate $x$ until we reach our stopping criterion. $\eta$ is most commonly known as our *learning rate* and has to be set by us. Now, if $\eta$ is too small $x$ will update too slowly and require us to perform many more costly iterations than we'd ideally like to. But if we choose a learning rate that is too large, then the error term $\mathcal{O}(\eta^{2}f'^{2}(x))$ at the back of the Taylor-expansion will explode, and we will overshoot the minimum. Now, if we take a non-convex function for $f$ which might even have infinitely many local minima, then the choice of our learning rate and initialization becomes even more important. Take the following function $f$ for example:
+is the right algorithm to iterate over $x$ s.t. the value of our (objective) function $f(x)$ declines. We hence end up with an algorithm in which we have to choose an initial value for $x$, a constant $\eta > 0$, and then continuously iterate $x$ until we reach our stopping criterion. $\eta$ is most commonly known as our *learning rate* and has to be set by us. Now, if $\eta$ is too small, $x$ will update too slowly and require us to perform many more costly iterations than we'd ideally like to. But if we choose a learning rate that is too large, then the error term $\mathcal{O}(\eta^{2}f'^{2}(x))$ at the back of the Taylor-expansion will explode, and we will overshoot the minimum. Now, if we take a non-convex function for $f$ which might even have infinitely many local minima, then the choice of our learning rate and initialization becomes even more important. Take the following function $f$ for example:
 
 $$f(x) = x \cdot \cos(cx).$$ (f_xcosx)
 
@@ -105,7 +105,7 @@ Optimizing $f(x) = x \cdot \cos(cx)$ (Source: {cite}`zhang2021`, [here](https://
 
 **$x$ as vector**
 
-If we now consider the case where we do not only have a one-dimensional function $f$, but instead a function s.t.
+If we now consider the case where we do not only have a one-dimensional function $f$ but instead a function s.t.
 
 $$f: \mathbb{R}^{d} \rightarrow \mathbb{R},$$ (f_ml)
 
@@ -113,9 +113,9 @@ i.e. a vector is mapped to a scalar, then the gradient is a vector of $d$ partia
 
 $$\nabla f({\bf{x}}) = \left[ \frac{\partial f({\bf{x}})}{\partial x_{1}}, \frac{\partial f({\bf{x}})}{\partial x_{2}}, \ldots, \frac{\partial f({\bf{x}})}{\partial x_{d}} \right]^{\top},$$ (grad_f_ml)
 
-with each term indicating the rate of change in each of the $d$ dimensions. Then, we can use the Taylor-approximation as before and derive the gradient descent algorithm for the multivariate case
+with each term indicating the rate of change in each of the $d$ dimensions. Then, we can use the Taylor approximation as before and derive the gradient descent algorithm for the multivariate case given by
 
-$${\bf{x}} \leftarrow {\bf{x}} - \eta \nabla f({\bf{x}})$$ (gd_rule_ml)
+$${\bf{x}} \leftarrow {\bf{x}} - \eta \nabla f({\bf{x}}).$$ (gd_rule_ml)
 
 If we then construct an objective function such as
 
@@ -132,7 +132,7 @@ name: gd_2d
 Optimizing $f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2}$ (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_optimization/gd.html)).
 ```
 
-Having up until now relied on a fixed learning rate $\eta$, we now want to expand upon the previous algorithm by *adaptively* choosing $\eta$. For this, we have to go back to **Newton's method**. For this, we have to further expand the initial Taylor-expansion to the third-order term
+Having up until now relied on a fixed learning rate $\eta$, we now want to expand upon the previous algorithm by *adaptively* choosing $\eta$. For this, we have to go back to **Newton's method**. For this, we have to further expand the initial Taylor expansion to the third-order term as
 
 $$f({\bf{x}} + {\bf{\varepsilon}}) = f({\bf{x}}) + {\bf{\varepsilon}}^{\top} \nabla f({\bf{x}}) + \frac{1}{2} {\bf{\varepsilon}}^{\top} \nabla^{2} f({\bf{x}}) {\bf{\varepsilon}} + \mathcal{O}(||{\bf{\varepsilon}}||^{3}).$$ (taylor_epsilon3)
 
@@ -140,7 +140,7 @@ If we now look closer at $\nabla^{2} f({\bf{x}})$, sometimes also called the Hes
 
 $${\bf{\varepsilon}} = - (\nabla^{2} f({\bf{x}}))^{-1} \nabla f({\bf{x}})$$ (epsilon_gd_optimal)
 
-I.e. we need to invert $\nabla^{2} f({\bf{x}})$, the Hessian. Computing and storing this important array turns out to be really expensive! To reduce these costs we are looking towards the *preconditioning* of our optimization algorithm. For preconditioning we then only need to compute the diagonal entries, hence leading to the following update equation
+I.e. we need to invert $\nabla^{2} f({\bf{x}})$, the Hessian. Computing and storing this important array turns out to be really expensive! To reduce these costs we are looking towards the *preconditioning* of our optimization algorithm. For preconditioning we then only need to compute the diagonal entries, hence leading to the following update equation:
 
 $${\bf{x}} \leftarrow {\bf{x}} - \eta \text{diag }(\nabla^{2} f({\bf{x}}))^{-1} \nabla f({\bf{x}}).$$ (gd_precond)
 
@@ -157,7 +157,7 @@ $$
 \end{aligned}
 $$ (gd_mom)
 
-with gradients of the loss $\mathbf{g}_t = \nabla f_t(x)$ and the momentum variable $\mathbf{v}_t$. The momentum $\mathbf{v}_t$ accumulates past gradients resembling how a ball rolling down a hill integrates over past forces. For $\beta=0$, we then have the regular gradient descent update. To now choose the perfect effective sample weight, we have to take the limit of
+with gradients of the loss $\mathbf{g}_t = \nabla f_t(x)$ and the momentum variable $\mathbf{v}_t$. The momentum $\mathbf{v}_t$ accumulates past gradients resembling how a ball rolling down a hill integrates over past forces. For $\beta=0$, we then have the regular gradient descent update. To now choose the perfect, effective sample weight, we have to take the limit of
 
 $${\bf{v}}_{t}\ = \sum_{\tau = 0}^{t-1} \beta^{\tau} {\bf{g}}_{t-\tau}.$$ (gd_mom_beta_sum)
 
@@ -178,7 +178,7 @@ Momentum parameter (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_opt
 
 ### Adam
 
-The [Adam algorithm](https://arxiv.org/abs/1412.6980), then extends beyond traditional gradient descent by combining multiple tricks into a highly robust algorithm, which is one of the most often used optimization algorithms in machine learning. Expanding upon the previous use of momentum, Adam further utilizes the 1st and 2nd momentum of the gradient, i.e.
+The [Adam algorithm](https://arxiv.org/abs/1412.6980) then extends beyond traditional gradient descent by combining multiple tricks into a highly robust algorithm, which is one of the most often used optimization algorithms in machine learning. Expanding upon the previous use of momentum, Adam further utilizes the 1st and 2nd momentum of the gradient, i.e.
 
 $$
 \begin{aligned}
@@ -195,7 +195,7 @@ The Adam optimization algorithm then rescales the gradient to obtain
 
 $${\bf{g}}'_{t} = \frac{\eta {\hat{\bf{v}}}_{t}}{\sqrt{{\hat{\bf{s}}}_{t}} + \varepsilon}.$$ (adam_grad)
 
-The update formula for Adam is then
+The update equation for Adam becomes
 
 $${\bf{x}}_{t} \leftarrow {\bf{x}}_{t-1} - {\bf{g}}'_{t}.$$ (adam_rule)
 
@@ -222,11 +222,11 @@ Here, $f_i$ refers to evaluating the loss for training sample $i$, and $\bf{x}$ 
 
 $$\nabla f({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n} \nabla f_{i}({\bf{x}}).$$ (loss_full_dataset_grad)
 
-With the cost of each independent variable iteration being $\mathcal{O}(n)$ for gradient descent, stochastic gradient replaces this with a sampling step where we uniformly sample an index $i \in \{1, \ldots, n\}$ at random, and then compute the gradient for the sampled index, and update ${\bf{x}}$
+With the cost of each independent variable iteration being $\mathcal{O}(n)$ for gradient descent, stochastic gradient replaces this with a sampling step where we uniformly sample an index $i \in \{1, \ldots, n\}$ at random, and then compute the gradient for the sampled index and update ${\bf{x}}$
 
 $${\bf{x}} \leftarrow {\bf{x}} - \eta \nabla f_{i}({\bf{x}}).$$ (sgd_rule_signle_input)
 
-With this randomly sampled update, the cost for each iteration drops to $\mathcal{O}(1)$. Due to the sampling we now have to think of our gradient as an expectation, i.e. by drawing uniform random samples we are essentially creating an unbiased estimator of the gradient
+With this randomly sampled update, the cost for each iteration drops to $\mathcal{O}(1)$. Due to the sampling we now have to think of our gradient as an expectation, i.e. by drawing uniform random samples we are essentially creating an unbiased estimator of the gradient being
 
 $$\mathbb{E}_{i} \nabla f_{i}({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n} \nabla f_{i}({\bf{x}}) = \nabla f({\bf{x}})$$ (sgd_grad_expectation)
 
@@ -243,9 +243,9 @@ SGD trajectory (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_optimiz
 
 #### Minibatching
 
-> For data which is very similar, gradient descent is inefficient, whereas stochastic gradient descent relies on the power of vectorization.
+> For data that is very similar, gradient descent is inefficient, whereas stochastic gradient descent relies on the power of vectorization.
 
-The answer to these ailments is the use of minibatches to exploit the memory and cache hierarchy a modern computer exposes to us. In essence, we seek to avoid the many single matrix-vector multiplications to reduce the overhead and improve our computational cost. If we compute the gradient in stochastic gradient descent as
+The answer to these ailments is using minibatches to exploit the memory and cache hierarchy a modern computer exposes to us. In essence, we seek to avoid the many single matrix-vector multiplications to reduce the overhead and improve our computational cost. If we compute the gradient in stochastic gradient descent as
 
 $${\bf{g}}_t = \nabla f({\bf{x}}, i),$$ (sgd_grad)
 
@@ -257,7 +257,7 @@ As both $\bf{g}_t$ and $i$ are drawn uniformly at random from the training set, 
 
 ## Second-Order Methods
 
-With first-order methods only taking the gradient itself into account there is much information we are leaving untapped in attempting to solve our optimization problem, such as gradient curvature for which we'd need 2nd order gradients. The reason for that is in part historic, automatic differentiation (to be explained in-depth in a later lecture) suffers from an exponential compute-graph blow-up when computing higher-order gradients. The automatic differentiation engines, the first popularized machine learning engines from AlexNet, LeNet etc. were built on, were unable to handle higher-order gradients for the above reason, and only modern automatic differentiation engines have been able to circumvent that problem. As such 2nd-order gradient methods have seen a recent resurgence with methods like [Shampoo](https://research.google/pubs/pub47079/), [RePAST](https://arxiv.org/pdf/2210.15255.pdf), and [Fishy](https://openreview.net/forum?id=cScb-RrBQC).
+With first-order methods only taking the gradient itself into account there is much information we are leaving untapped in attempting to solve our optimization problem, such as gradient curvature for which we'd need 2nd order gradients. The reason for that is, in part, historic, automatic differentiation (to be explained in-depth in a later lecture) suffers from an exponential compute-graph blow-up when computing higher-order gradients. The automatic differentiation engines, the first popularized machine learning engines from AlexNet, LeNet, etc., were built on, were unable to handle higher-order gradients for the above reason, and only modern automatic differentiation engines have been able to circumvent that problem. As such 2nd-order gradient methods have seen a recent resurgence with methods like [Shampoo](https://research.google/pubs/pub47079/), [RePAST](https://arxiv.org/pdf/2210.15255.pdf), and [Fishy](https://openreview.net/forum?id=cScb-RrBQC).
 
 ### Newton's method
 
@@ -297,13 +297,13 @@ $$x_{t+1} = x_{t} - \tilde{H}(x_{t}) \nabla f(x_{t})$$ (newtons_method_simplifie
 
 then we can simplify this update scheme to the gradient descent we already encountered in the last lecture by setting $\tilde{H}(x_{t}) = \gamma I$, where $I$ is the identity matrix. With $\tilde{H}=\nabla^2f(x)^{-1}$ we recover Newton's method. Newton's method hence constitutes an adaptive gradient descent approach, where the adaptation happens with respect to the local geometry of the objective function at $x_{t}$.
 
-> Where gradient descent requires the right step-size, Newton's method converges naturally to the local minimum without the requirement of step-size tuning.
+> Where gradient descent requires the right step size, Newton's method converges naturally to the local minimum without requiring step-size tuning.
 
 To expand upon this, assume we have a linear system of equations
 
 $$M {\bf{x}} = {\bf{q}},$$ (linear_system)
 
-then Newton's method can solve this system in **one** step whereas gradient descent requires multiple steps with the right step size chosen. The downside to this is the expensive step of inverting matrix $M$. In our general case, this means we need to invert the expensive matrix $\nabla^{2} f(x_{0})$. Another advantage of Newton's method is that it does not suffer from individual coordinates being at completely different scales, e.g. the $y$-direction changes very fast, whereas the $z$-direction only changes very slowly. Gradient descent only handles these cases suboptimally, whereas Newton's method does not suffer from this shortcoming.
+then Newton's method can solve this system in **one** step whereas gradient descent requires multiple steps with the right chosen step size. The downside to this is the expensive step of inverting matrix $M$. In our general case, this means we need to invert the expensive matrix $\nabla^{2} f(x_{0})$. Another advantage of Newton's method is that it does not suffer from individual coordinates being at completely different scales, e.g. the $y$-direction changes very fast, whereas the $z$-direction only changes very slowly. Gradient descent only handles these cases suboptimally, whereas Newton's method does not suffer from this shortcoming.
 
 > Note: The Hessian has to be positive definite, otherwise we would end up in a local maximum.
 
@@ -311,11 +311,11 @@ A matrix $H$ is positive definite if the real number $z^{\top} H z$ is positive 
 
 ### The Quasi-Newton Approach
 
-With the main computational bottleneck of Newton's approach being that the inversion of the Hessian matrix costs $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$, there exist multiple approaches which try to circumvent this costly operation.
+With the main computational bottleneck of Newton's approach being that the inversion of the Hessian matrix costs $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$, there exist multiple approaches that try to circumvent this costly operation.
 
 #### The Secant Method
 
-The secant method is an alternative to Newton's method, which consciously does not use derivatives and has hence much less stringent requirements on our objective function such as it not needing to be differentiable. We can replace the derivative in Newton's method with the finite difference approximation, i.e.
+The secant method is an alternative to Newton's method, which consciously does not use derivatives and has, hence, much less stringent requirements on our objective function, such as it not needing to be differentiable. We can replace the derivative in Newton's method with the finite difference approximation, i.e.
 
 $$\frac{f(x_{t}) - f(x_{t-1})}{x_{t} - x_{t-1}} \approx f'(x_{t})$$ (fd_approx)
 
@@ -352,7 +352,7 @@ For this approximation to hold we need to satisfy the _secant condition_
 
 $$f'(x_{t}) - f'(x_{t-1}) = H_{t}(x_{t} - x_{t-1}).$$ (secant_conditions)
 
-Or generalized to higher dimensions
+Or generalized to higher dimensions as
 
 $$\nabla f({\bf{x_{t}}}) - \nabla f({\bf{x_{t-1}}}) = H_{t}({\bf{x_{t}}} - {\bf{x_{t-1}}}).$$ (secant_condition_vec)
 
@@ -377,11 +377,11 @@ For the BFGS algorithm, this update matrix then assumes the form
 
 $$E = \frac{1}{{\bf{y}}^{\top} {\bf{\sigma}}} \left( -H {\bf{y}} {\bf{\sigma}}^{\top} - {\bf{\sigma}} {\bf{y}}^{\top} H + (1 + \frac{{\bf{y}}^{\top}H{\bf{y}}}{{\bf{y}}^{\top} {\bf{\sigma}}}) {\bf{\sigma}} {\bf{\sigma}}^{\top} \right),$$ (bfgs_approx)
 
-where we simplified notation to $H=H_{t-1}^{-1}$, ${\bf{\sigma}} = x_{t} - x_{t-1}$, and $y = \nabla f(x_{t}) - \nabla f(x_{t-1})$. One of the core advantages of BFGS is that if $H':=H_{t}^{-1}$ is positive definite, then the update $E$ maintains this positive definite attribute and as such behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$ to $\mathcal{O}(d^{2})$ for the BFGS approach. Scaling the update step, the individual iteration then becomes
+where we simplified notation to $H=H_{t-1}^{-1}$, ${\bf{\sigma}} = x_{t} - x_{t-1}$, and $y = \nabla f(x_{t}) - \nabla f(x_{t-1})$. One of the core advantages of BFGS is that if $H':=H_{t}^{-1}$ is positive definite, then the update $E$ maintains this positive definite attribute and, as such, behaves like a proper inverse Hessian. In addition, the cost of computation drops from the original $\mathcal{O}(d^{3})$ for a matrix of size $d \times d$ to $\mathcal{O}(d^{2})$ for the BFGS approach. Scaling the update step, the individual iteration then becomes
 
 $$x_{t+1} = x_{t} - \alpha_{t} H_{t}^{-1} \nabla f(x_{t}), \quad t \geq 1$$ (bfgs_update)
 
-where $\alpha$ can be chosen such that a line search is performed, and where $H_{t}^{-1}$ is the BFGS approximation. In a pseudo-algorithmic form this then looks the following way:
+where $\alpha$ can be chosen such that a line search is performed, and where $H_{t}^{-1}$ is the BFGS approximation. In a pseudo-algorithmic form, this then looks the following way:
 
 ```{figure} ../imgs/optimization/bfgs_alg.png
 ---
@@ -427,11 +427,11 @@ where in the case of the recursion bottoming out prematurely at a point $k=t-m$,
 
 (also *Blackbox optimizations*)
 
-If we are unable to compute gradients for any reason, then we need to rely on derivative-free optimization (DFO). This is most commonly used in blackbox function optimization, or discrete optimization.
+If we are unable to compute gradients for any reason, then we need to rely on derivative-free optimization (DFO). This is most commonly used in blackbox function optimization or discrete optimization.
 
 > If you as an engineer would have to optimize the design of some model given to you, but where you are not allowed to touch the code or even look at the code of the model, but only query it for outputs, then this would constitute a case of blackbox function optimization.
 
-There exist a number of approaches for such problems, which all depend on the cost of evaluation of our function.
+There exist several approaches for such problems, which all depend on the cost of evaluation of our function.
 
 - Expensive function
   - Bayesian optimization
@@ -454,7 +454,7 @@ name: grid_vs_random_search
 Grid search vs random search (Source: [Random Search for Hyper-Parameter Optimization](https://www.jmlr.org/papers/volume13/bergstra12a/bergstra12a.pdf)).
 ```
 
-If instead of throwing away our "old" good candidates keep them in a _population_ of good candidates, then we arrive at _evolutionary algorithms_. Here we maintain a population of $K$ good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are as such highly scalable.
+If instead of throwing away our "old" good candidates keep them in a _population_ of good candidates, then we arrive at _evolutionary algorithms_. Here we maintain a population of $K$ good candidates, which we then try to improve at each step. The advantage here is that evolutionary algorithms are embarrassingly parallel and are, as such, highly scalable.
 
 ## Further References
 
