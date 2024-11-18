@@ -182,7 +182,7 @@ The general Metropolis-Hastings prescribes a rule which guarantees that the cons
     $$\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}$$ (mcmc_acceptance_prob)
 
 3. Sample $u\sim \text{Uniform}(0,1)$
-4. Set $\theta_{\text{current}} \begin{cases} \theta' & \alpha>0 \\ \theta_{\text{current}} & \text{else}\end{cases}$
+4. Set $\theta_{\text{current}} \begin{cases} \theta' & \alpha>u \\ \theta_{\text{current}} & \text{else}\end{cases}$
 5. Repeat $N$ times from step 1.
 
 A particular choice of $q(\cdot | \cdot)$ is, for example, the normal distribution $\mathcal{N}(\cdot | \theta_{current}, \sigma^2)$, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.
