@@ -212,6 +212,8 @@ name: optimizer
 Comparison of 1st order optimization algorithms (Source: [github.com/Jaewan-Yun/optimizer-visualization](https://github.com/Jaewan-Yun/optimizer-visualization)).
 ```
 
+Recent developments in optimizer development include [AdEMAMix](https://arxiv.org/abs/2409.03137), [SOAP](https://arxiv.org/abs/2409.11321), and [Schedule-Free](https://arxiv.org/abs/2405.15682).
+
 ### Stochastic Gradient Descent
 
 In machine learning, we could take the loss across an average of the entire training set. Writing down the objective function for the training set with $n$ entries leads to

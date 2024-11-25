@@ -607,7 +607,7 @@ Note: this integral can be seen as the continuous version of the sum rule of pro
 <span class="eqno">(3.12)<a class="headerlink" href="#equation-mcmc-acceptance-prob" title="Permalink to this equation">#</a></span>\[\alpha = min \left\{ 1, \frac{g(\theta'|y) q(\theta_{current}|\theta')}{g(\theta_{current}|y) q(\theta'|\theta_{current})} \right\}\]</div>
 </li>
 <li><p>Sample <span class="math notranslate nohighlight">\(u\sim \text{Uniform}(0,1)\)</span></p></li>
-<li><p>Set <span class="math notranslate nohighlight">\(\theta_{\text{current}} \begin{cases} \theta' &amp; \alpha&gt;0 \\ \theta_{\text{current}} &amp; \text{else}\end{cases}\)</span></p></li>
+<li><p>Set <span class="math notranslate nohighlight">\(\theta_{\text{current}} \begin{cases} \theta' &amp; \alpha&gt;u \\ \theta_{\text{current}} &amp; \text{else}\end{cases}\)</span></p></li>
 <li><p>Repeat <span class="math notranslate nohighlight">\(N\)</span> times from step 1.</p></li>
 </ol>
 <p>A particular choice of <span class="math notranslate nohighlight">\(q(\cdot | \cdot)\)</span> is, for example, the normal distribution <span class="math notranslate nohighlight">\(\mathcal{N}(\cdot | \theta_{current}, \sigma^2)\)</span>, which results in the so-called Random Walk Metropolis algorithm. Other special cases include the Metropolis-Adjusted Langevin Algorithm (MALA), as well as the Hamiltonian Monte Carlo (HMC) algorithm.</p>
