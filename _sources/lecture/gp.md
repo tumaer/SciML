@@ -1,6 +1,6 @@
 # Gaussian Processes
 
-As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to {cite}`bishop2006`, Section 2.3. In the rest of this lecture we define the Gaussian Process and how in can be applied to regression and classification.
+As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to {cite}`bishop2006`, Section 2.3. In the rest of this lecture, we define the Gaussian Process and how it can be applied to regression and classification.
 
 ## Multivariate Gaussian Distribution
 
@@ -24,12 +24,12 @@ Properties:
 
 - $\Delta^2=(x-\mu)^{\top}\Sigma^{-1}(x-\mu)$ is a quadratic form.
 - $\Delta$ is the Mahalanobis distance from $\mu$ to $x$. It collapses to the Euclidean distance for $\Sigma = I$.
-- $\Sigma$ is symmetric positive semi-definite and its diagonal elements contain the variance, i.e. covariance with itself.
-- $\Sigma$ can be diagonalized with real eigenvalues $\lambda_i$
+- $\Sigma$ is a symmetric positive definite matrix (i.e., its eigenvalues are strictly positive), and its diagonal elements contain the variance, i.e., covariance with itself.
+- $\Sigma$ can be diagonalized with real eigenvalues $\lambda_i$ and the corresponding eigenvectors $u_i$ can be chosen to form an orthonormal set.
 
-$$\Sigma u_i = \lambda_i u_i \quad i=1,...,d$$ (sigma_eigendecomposition)
+$$\Sigma u_i = \lambda_i u_i \quad i=1,...,d.$$ (sigma_eigendecomposition)
 
-and eigenvectors $u_i$ forming a unitary matrix
+We construct the orthogonal matrix $U$ as follows.
 
 $$
 \begin{aligned}
@@ -38,11 +38,11 @@ $$
 \end{aligned}
 $$ (sigma_eigenvectors_matrix)
 
-which fulfils
+which fulfills
 
 $$U\Sigma U^{\top} = \lambda,$$ (sigma_eigendecomposition_matrix)
 
-where $\lambda$ denotes a diagonal matrix of eigenvalues. If we apply the variable transformation $y=U(x-\mu)$, we can transform the Gaussian PDF to the $y$ coordinates according to the change of variables rule (see beginning of [Gaussian Mixture Models](gmm.md)).
+where $\lambda$ denotes a diagonal matrix of eigenvalues. If we apply the variable transformation $y=U(x-\mu)$, we can transform the Gaussian PDF of $x$ to the $y$ coordinates according to the change of variables rule (see the beginning of [Gaussian Mixture Models](gmm.md)).
 
 $$p_Y(y)=p_X(h^{-1}(y)) \underbrace{\left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|}_{(det|U_{ij}|)^{-1}=1}$$  (change_of_vars_duplicate)
 
@@ -99,7 +99,7 @@ $$ (precision_partition)
 
 and $\Lambda_{a a}$ and $\Lambda_{b b}$ are symmetric, while $\Lambda_{a b}^{\mathrm{T}}=\Lambda_{b a}$. Note, $\Lambda_{a a}$ is not simply the inverse of $\Sigma_{a a}$.
 
-Now, we want to evaluate $\mathcal{N}(x_a| x_b; \mu, \Sigma)$ and use $p(x_a, x_b) = p(x_a|x_b)p(x_b)$. We expand all terms of the pdf given the split, and consider all terms that do not involve $x_a$ as constant and then we compare with the generic form of a Gaussian for $p(x_a| x_b)$. We can decompose the equation into quadratic, linear and constant terms in $x_a$ and find an expression for $p(x_a|x_b)$.
+Now, we want to evaluate $\mathcal{N}(x_a| x_b; \mu, \Sigma)$ and use $p(x_a, x_b) = p(x_a|x_b)p(x_b)$. We expand all terms of the pdf given the split considering all terms that do not involve $x_a$ as constant, and then compare with the generic form of a Gaussian for $p(x_a| x_b)$. We can decompose the equation into quadratic, linear, and constant terms in $x_a$ and find an expression for $p(x_a|x_b)$.
 
 > For all intermediate steps refer to {cite}`bishop2006`.
 
@@ -114,11 +114,11 @@ $$p(x_a| x_b) = \mathcal{N(x; \mu_{a|b}, \Sigma_{a|b})}$$ (gaussian_cond_pdf)
 
 ### Marginal Gaussian PDF
 
-For the marginal PDF we integrate out the dependence on $x_b$ of the joint PDF:
+For the marginal PDF, we integrate out the dependence on $x_b$ of the joint PDF:
 
 $$p(x_a) = \int p(x_a, x_b) dx_b.$$ (def_marginal_pdf)
 
-We can follow similar steps as above for separating terms that involve $x_a$ and $x_b$. After integrating out the Gaussian with a quadratic term depending on $x_b$ we are left with a lengthy term involving $x_a$ only. By comparison with a Gaussian PDF and re-using the block relation between $\Lambda$ and $\Sigma$ as above we obtain for the marginal
+We can follow similar steps as above for separating terms that involve $x_a$ and $x_b$. After integrating out the Gaussian with a quadratic term depending on $x_b$ we are left with a lengthy term involving $x_a$ only. By comparison with a Gaussian PDF and re-using the block relation between $\Lambda$ and $\Sigma$ as above, we obtain the marginal
 
 $$p(x_a) = \mathcal{N}(x_a; \mu_a, \Sigma_{a a}).$$ (gaussian_marginal_pdf)
 
@@ -142,7 +142,7 @@ p(y \mid x) & =\mathcal{N}\left(y \mid A x+b, L^{-1}\right).
 \end{aligned}
 $$ (gaussian_prior_and_likelihood)
 
-From that we can derive an analytical evidence (marginal) and posterior (conditional) distributions (for more details see {cite}`bishop2006`):
+From that, we can derive an analytical *evidence* (marginal) and *posterior* (conditional) distributions (for more details see {cite}`bishop2006`):
 
 $$
 \begin{aligned}
@@ -165,7 +165,7 @@ $$\mu_{ML} = \frac{1}{N} \sum_{n=1}^N x_n$$ (ml_mean)
 
 $$\Sigma_{ML} = \frac{1}{N} \sum_{n=1}^N (x-\mu)^{\top}(x-\mu)$$ (ml_cov)
 
-$\mu_{ML}$ and $\Sigma_{ML}$ correspond to the so-called sample or empirical estimates. However, $\Sigma_{ML}$ does not deliver an unbiased estimate of the covariance. The difference decreases with $N \to \infty$, but for a certain $N$ we have $\Sigma_{ML}\neq \Sigma$. The practical reason used in the above derivation is that the $\mu_{ML}$ estimate may occur as $\bar{x}$ within the sampling of $\Sigma$ $\Rightarrow$ miscount by one. An unbiased sample variance can be defined as
+$\mu_{ML}$ and $\Sigma_{ML}$ correspond to the so-called sample or empirical estimates. However, $\Sigma_{ML}$ does not deliver an unbiased estimate of the covariance if we use $\mu_{ML}$ as $\mu$. The difference decreases with $N \to \infty$, but for a low $N$, we have $\Sigma_{ML} < \Sigma$. The practical reason for the discrepancy is that we use $\mu_{ML}$ to estimate the mean, but this may not be the true mean. An unbiased sample variance can be defined using [Bessel's correction](https://en.wikipedia.org/wiki/Bessel%27s_correction):
 
 $$\widetilde{\Sigma} = \frac{1}{N-1} \sum_{n=1}^N (x_n-\mu_{ML})^{\top}(x_n-\mu_{ML})$$ (ml_cov_unbiased)
 
@@ -177,7 +177,7 @@ $$
 h(x) = \omega^{\top} \varphi(x),
 $$ (lin_reg_with_phi)
 
-with $\omega \in \mathbb{R}^{m}$ are the weights, $\varphi \in \mathbb{R}^{m}$ is the feature map, and $h(x)$ is the hypothesis giving the probability of $y$. We now introduce an isotropic Gaussian prior on $\omega$, where isotropic is defined as having a diagonal covariance matrix $\Sigma$ with some scalar $\alpha^{-1}$
+with $\omega \in \mathbb{R}^{m}$ being the weights, $\varphi \in \mathbb{R}^{m}$ the feature map, and $h(x)$ the hypothesis giving the probability of $y$. We now introduce an *isotropic* Gaussian prior on $\omega$, where isotropic is defined as having a diagonal covariance matrix $\Sigma$ with some scalar $\alpha^{-1}$
 
 $$
 p(\omega) = \mathcal{N}(\omega; 0, \alpha^{-1} I),
@@ -187,27 +187,27 @@ where $0$ is the zero-mean nature of the Gaussian prior, with covariance $\alpha
 
 > Note that $\alpha$ is a hyperparameter, i.e. responsible for the model properties, it is called hyper $\ldots$ to differentiate from the weight parameters $\omega$.
 
-Now let's consider the data samples $\left( y^{(i)} \in \mathbb{R}, x^{(i)} \in \mathbb{R}^{m} \right)_{i=1, \ldots, n}$. We are interested in leveraging the information contained in the data samples, i.e. in probabilistic lingo in the joint distribution of $y^{(1)}, \ldots, y^{(n)}$. We can then write
+Now let's consider the data samples $\left( y^{(i)} \in \mathbb{R}, x^{(i)} \in \mathbb{R}^{m} \right)_{i=1, \ldots, n}$. We are interested in leveraging the information contained in the data samples, i.e., in probabilistic lingo, the joint distribution of $y^{(1)}, \ldots, y^{(n)}$. We can then write
 
 $$
 y = \Phi \hspace{2pt} \omega,
 $$ (ling_reg_with_Phi)
 
-where $y \in \mathbb{R}^{n}$, $\Phi \in \mathbb{R}^{n \times m}$, and $\omega \in \mathbb{R}^{m}$. $\Phi$ is the well-known design matrix from the lecture on [Support Vector Machines](svm.md), Eq. {eq}`ridge_reg_design_matrix`. As we know that $\omega$ is Gaussian the probability density function (pdf) of $y$ is also Gaussian:
+where $y \in \mathbb{R}^{n}$, $\Phi \in \mathbb{R}^{n \times m}$, and $\omega \in \mathbb{R}^{m}$. $\Phi$ is the well-known *design matrix* from the lecture on [Support Vector Machines](svm.md), Eq. {eq}`ridge_reg_design_matrix`. As we know that $\omega$ is Gaussian, the probability density function (pdf) of $y$ is also Gaussian:
 
 $$
 \begin{align}
     \mathbb{E}[y] &= \mathbb{E}[\Phi \omega] = \Phi \mathbb{E}[\omega] = 0 \\
-    \text{Cov}[y] &= \mathbb{E}[y y^{\top}] = \Phi \mathbb{E}[\omega \omega^{\top}] \Phi^{\top}= \frac{1}{\alpha} \Phi \Phi^{\top} = K \\
+    \text{Cov}[y] &= \mathbb{E}[y y^{\top}] - 0^2 = \Phi \mathbb{E}[\omega \omega^{\top}] \Phi^{\top}= \frac{1}{\alpha} \Phi \Phi^{\top} = K \\
     \Longrightarrow p(y) &= \mathcal{N}(y; 0,K)
 \end{align}
 $$ (gp_y_stats)
 
-where $K$ is the Grammian matrix which we already encountered in the SVM lecture.
+where $K$ is the Grammian matrix we encountered in the SVM lecture.
 
 A Gaussian Process is now defined as:
 
-- $y^{(i)} = h(x^{(i)}), \quad i=1, \ldots, m$ have a joint Gaussian PDF, i.e. are fully determined by their 2nd-order statistics (mean and covariance).
+- $y^{(i)} = h(x^{(i)}), \; i=1, \ldots, n$ have a joint Gaussian PDF, i.e. are fully determined by their 2nd-order statistics (mean and covariance).
 
 ## GP for Regression
 
@@ -231,7 +231,7 @@ name: gp_regression_data
 Regression example.
 ```
 
-Here, $h(x^{(i)}) = h^{(i)}$ becomes a *latent variable*. For the latent variables (these correspond to the noise-free regression data we considered earlier) we then obtain a Gaussian marginal PDF with some Gram matrix $K$.
+Here, $h(x^{(i)}) = h^{(i)}$ becomes a *latent variable*. For the latent variables (these correspond to the noise-free regression data we considered earlier), we then obtain a Gaussian marginal PDF with some Grammatrix $K$.
 
 $$
 p(h) = \mathcal{N}(h; 0, K).
@@ -277,7 +277,7 @@ $$
 \Longrightarrow p(y|x) = \mathcal{N}(y; 0, \frac{1}{\beta}I + K).
 $$ (gp_y_conditional_substituted)
 
-Note that the kernel $K$ can be presumed and is responsible for the accuracy of the prediction by the posterior. There exists a whole plethora of possible choices of K, the most common of which are:
+Note that the kernel $K$ can be presumed and is responsible for the prediction accuracy by the posterior. There exists a whole plethora of possible choices of K, the most common of which are:
 
 ```{figure} ../imgs/gp/gp_kernels.png
 ---
@@ -294,7 +294,7 @@ $$
 k(x^{(i)}, x^{(j)}) = \theta_{0} \exp \{- \frac{\theta_{1}}{2} || x^{(i)} - x^{(j)}||^{2}\} + \theta_{2} + \theta_{3} x^{(i) \top} x^{(j)}
 $$ (gp_kernel_example)
 
-where $\theta_{0}$, $\theta_{1}$, $\theta_{2}$, $\theta_{3}$ are model hyperparameters. With the above $p(y|x)$ we have identified which Gaussian is inferred from the data. Moreover we have not yet formulated a predictive posterior for *unseen data*. For this purporse we extend the data set
+where $\theta_{0}$, $\theta_{1}$, $\theta_{2}$, $\theta_{3}$ are model hyperparameters. With the above $p(y|x)$, we have identified which Gaussian is inferred from the data. Moreover, we have not yet formulated a predictive posterior for *unseen data*. For this purpose, we extend the data set
 
 $$
 \underbrace{\left( y^{(n+1)}, x^{(n+1)} \right)}_{\text{unseen data}}, \quad \underbrace{\left( y^{(n)}, x^{(n)} \right), \ldots, \left( y^{(1)}, x^{(1)} \right)}_{\text{seen data}}.
@@ -312,7 +312,7 @@ y = \left[
 \right],
 $$ (gp_joint_rv)
 
-we search for the conditional PDF $p(y^{(n+1)}| y)$. As intermediate we need the joint PDF
+we search for the conditional PDF $p(y^{(n+1)}| y)$. As intermediate, we need the joint PDF
 
 $$
 p(\tilde{y}), \quad \tilde{y} = \left[
@@ -358,7 +358,7 @@ $$
 c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 $$ (gp_query_c)
 
- Using the same approach as before we can then calculate the mean and covariance of the predictive posterior for unseen data $p(y^{(n+1)}|y)$. Recalling from before (Eq. {eq}`cond_pdf_stats`):
+ Using the same approach as before, we can then calculate the mean and covariance of the predictive posterior for unseen data $p(y^{(n+1)}|y)$. Recalling from before (Eq. {eq}`cond_pdf_stats`):
 
 $$
 \mu_{a | b} = \mu_a + \Sigma_{ab} \Sigma^{-1}_{bb}(x_{b} - \mu_{b}),
@@ -404,9 +404,82 @@ $$
 \end{align}
 $$ (gp_predictive_distribution)
 
-which fully defines the Gaussian posterior PDF of Gaussian-process regression. Looking at some sketches of GP regression, beginning with the data sample $y_{1}$, and predicting the data $y_{2}$
+which fully defines the Gaussian posterior PDF of Gaussian-process regression. 
 
-```{figure} ../imgs/gp/gp_2d_marginalization.png
+**Example: 1D GP with 1 measurement**
+
+Given is a single measurement data point $(x,y)=(1,2)$ with $x,y\in \mathbb{R}$. Find $p(y | x=1.25)$.
+
+Solution: We start with our model assumption being fully described by the choice of noise variance $\frac{1}{\beta}=10^{-6}$ and the kernel given by
+
+$$k(x,x')=\theta_0 \exp\left(-\frac{1}{2\theta_1}(x-x')^2\right), \quad \text{with} \; \theta_0=1, \theta_1=0.2.$$ (gp_example_1d_kernel)
+
+We then substitute our values into equations {eq}`gp_predictive_distribution` to obtain
+
+$$\begin{align}
+K &= k(1,1) = 1 \\
+k &= k(1,1.25) = 0.458 \\
+c &= k(1.25,1.25) + \frac{1}{10^-6} = 1 \\
+\mu_{y^{(n+1)}|y} &= k^{\top}(K + \frac{1}{\beta}I)^{-1} y \\
+ &=0.458 \cdot (1 + 10^{-6})^{-1} \cdot 2 = 0.916\\
+\Sigma_{y^{(n+1)}|y} &= c - k^{\top} (K + \frac{1}{\beta}I)^{-1} k \\
+ &=1 - 0.458 \cdot (1 + 10^{-6})^{-1} \cdot 0.458 = 0.790.
+\end{align}
+$$ (gp_example_1d_soln)
+
+```{figure} ../imgs/gp/gp_example_1d.png
+---
+width: 500px
+align: center
+name: gp_example_1d
+---
+GP example with confidence interval $\pm 2\sigma$.
+```
+
+<!-- import numpy as np
+import matplotlib.pyplot as plt
+
+# Kernel function (Squared Exponential / RBF kernel)
+def kernel(x1, x2, length_scale=0.2, variance=1.0):
+    return variance * np.exp(-0.5 * (np.subtract.outer(x1, x2)**2) / length_scale**2)
+
+# Single observed data point
+x_train = np.array([1.0])  # Input
+y_train = np.array([2.0])  # Output
+
+# Query point
+x_test = np.linspace(0, 2, 100)  # Points to predict
+
+# Kernel matrices
+K = kernel(x_train, x_train) + 1e-6 * np.eye(len(x_train))  # Add noise for numerical stability
+K_s = kernel(x_train, x_test)  # Cross covariance
+K_ss = kernel(x_test, x_test)  # Covariance of test points
+
+# Predictive mean and covariance
+K_inv = np.linalg.inv(K)
+mu_s = K_s.T @ K_inv @ y_train  # Predictive mean
+cov_s = K_ss - K_s.T @ K_inv @ K_s  # Predictive covariance
+std_s = np.sqrt(np.diag(cov_s))  # Predictive standard deviation
+
+# Plot the results
+plt.figure(figsize=(8, 5))
+plt.plot(x_test, mu_s, 'r', label="Mean prediction")
+plt.fill_between(x_test, mu_s - 2 * std_s, mu_s + 2 * std_s, color='r', alpha=0.3, label="Confidence interval")
+plt.scatter(x_train, y_train, color='b', label="Observed data")
+plt.title("Gaussian Process Regression with Single Data Point")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid()
+plt.show()
+
+print("Mean=",2*kernel(1,1.25), "Cov=", 1-kernel(1,1.25)**2, "Std=", np.sqrt(1-kernel(1,1.25)**2)) -->
+
+---
+
+Below we look at some sketches of GP regression, beginning with the data sample $y_{1}$, and predicting the data $y_{2}$
+
+```{figure} ../imgs/gp/gp_2d_marginalization.jpeg
 ---
 width: 300px
 align: center
@@ -414,7 +487,6 @@ name: gp_2d_marginalization
 ---
 Marginalizing a 2D Gaussian distribution.
 ```
-<!-- TODO: bad figure. Maximum incorrect. -->
 
 ```{figure} ../imgs/gp/gp_regression_example1d.png
 ---
@@ -425,7 +497,7 @@ name: gp_regression_example1d
 1D Gaussian process.
 ```
 
-And in practice for a 1-dimensional function, which is being approximated with a GP, and we are monitoring the change in mean, variance and synonymously the GP-behaviour (recall, the GP is defined by the behaviour of its mean and covariance) with each successive data point.
+In practice, for a 1-dimensional function, which is being approximated with a GP, we monitor the change in the mean, variance, and synonymously the GP behavior (recall, the GP is defined by the behavior of its mean and covariance) with each successive data point.
 
 ```{figure} ../imgs/gp/gp_regression_examples1d_.png
 ---
@@ -440,7 +512,7 @@ Probability distribution of a 1D Gaussian process (Source: {cite}`duvenaud2014`)
 
 ### Further Kernel Configurations
 
-There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple "basis" kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see {numref}`gp_kernels` for definitions):
+There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple "basis" kernels to construct better-informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see {numref}`gp_kernels` for definitions):
 
 - Squared Exponential (SE) kernel
 - Linear (Lin) kernel
@@ -473,7 +545,7 @@ name: gp_multiplying_kernels_to_2d
 Multiplying 1D kernels, 2D visualization (Source: {cite}`duvenaud2014`).
 ```
 
-In higher dimensions this then takes the following shape:
+In higher dimensions, this then takes the following shape:
 
 ```{figure} ../imgs/gp/gp_kernels_2d.png
 ---
@@ -484,7 +556,7 @@ name: gp_kernels_2d
 Examples of 2D kernels (Source: {cite}`duvenaud2014`).
 ```
 
-With all these possible combinations one almost begs the question if these kernels cannot be constructed automatically. The answer is, partially yes, partially no. In a sense the right kernel construction is almost like feature engineering, and while it can be automated in parts it remains a craft for the domain scientists to understand the nature of their problem to then construct the right prior distribution.
+With all these possible combinations, one almost begs the question if these kernels cannot be constructed automatically. The answer is partially yes and partially no. In a sense, the right kernel construction is almost like feature engineering, and while it can be automated in parts, it remains a craft for the domain scientists to understand the nature of their problem to then construct the right prior distribution.
 
 ```{figure} ../imgs/gp/gp_kernel_tree_search.png
 ---
@@ -552,12 +624,12 @@ $$ (gp_posterior_multiple_targets)
 
 ### Learning the Hyperparameters
 
-To infer the kernel hyperparameters from data we need to:
+To infer the kernel hyperparameters from data, we need to:
 
 1. Introduce an appropriate likelihood function $p(y | \theta)$
 2. Determine the optimum $\theta$ via maximum likelihood estimation (MLE) $\theta^{\star} = \arg \max \ln p(y | \theta)$, which corresponds to linear regression
 3. $\ln p(y|\theta) = -\frac{1}{2} \ln |K + \frac{1}{\beta}I| - \frac{1}{2} y^{\top} \left( K + \frac{1}{\beta}I \right)^{-1} y - \frac{n}{2} \ln 2 \pi$
-4. Use iterative gradient descent or Newton's method to find the optimum, where you need to beware of the fact that $p(y | \theta)$ may be non-convex in $\theta$, and hence have multiple maxima
+4. Use iterative gradient descent or Newton's method to find the optimum, where you need to be aware of the fact that $p(y | \theta)$ may be non-convex in $\theta$, and hence have multiple maxima
 
 $$
 \begin{align*}
@@ -568,7 +640,7 @@ $$
 
 ## GP for Classification
 
-Without discussing all the details, we will now provide a brief sketch how Gaussian Processes can be adapted to the task of classification. Consider for simplicity the 2-class problem:
+Without discussing all the details, we will now briefly sketch how Gaussian Processes can be adapted to classification. Consider for simplicity the 2-class problem:
 
 $$
 0 < y < 1, \quad h(x) = \text{sigmoid}(\varphi(x))
@@ -610,10 +682,10 @@ $$
 p(\tilde{\varphi}) = \mathcal{N}( \tilde{\varphi}; 0, K + \nu I)
 $$
 
-where $K_{ij} = k(x^{(i)}, x^{(j)})$, i.e. a Grammian matrix generated by the kernel functions from the feature map $\varphi(x)$.
+where $K_{ij} = k(x^{(i)}, x^{(j)})$, i.e., a Grammian matrix generated by the kernel functions from the feature map $\varphi(x)$.
 
 > - Note that we do **NOT** include an explicit noise term in the data covariance as we assume that all sample data have been correctly classified.
-> - For numerical reasons we introduce a noise-like form which improves conditioning of $K + \mu I$
+> - For numerical reasons, we introduce a noise-like form that improves the conditioning of $K + \mu I$
 > - For two-class classification it is sufficient to predict $p(y^{(n+1)} = 1 | y)$ as $p(y^{(n+1)} = 0 | y) = 1 - p(y^{(n+1)} = 1 | y)$
 
 Using the PDF $p(y=1|\varphi) = \text{sigmoid}(\varphi(x))$ we obtain the predictive PDF:
@@ -631,7 +703,7 @@ $p(\varphi^{(n+1)}|y)$ is the posterior PDF, which is computed from the conditio
 
 ## Relation of GP to Neural Networks
 
-We have not presented a definition a neural network yet, but we have already met the most primitive definition of a neural network, the perceptron, for classification. The perceptron can be thought of as a neural network with just one layer of "neurons". On the other hand, the number of hidden units should be limited for perceptrons to limit overfitting. The essential power of neural networks  i.e. the outputs sharing the hidden units tends to get lost when the number of hidden units becomes very large. This is the core connection between neural networks and GPs, **a neural network with infinite width recovers a Gaussian process**.
+We have not presented a definition of a neural network yet, but we have already met the most primitive definition of a neural network, the perceptron, for classification. The perceptron can be considered a neural network with just one layer of "neurons". On the other hand, the number of hidden units should be limited for perceptrons to limit overfitting. The essential power of neural networks, i.e., the outputs sharing the hidden units, tends to get lost when the number of hidden units becomes very large. This is the core connection between neural networks and GPs, **a neural network with infinite width recovers a Gaussian process**.
 
 ## Further References
 

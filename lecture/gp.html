@@ -435,7 +435,7 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gaussian-processes">
 <h1><span class="section-number">7. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this heading">#</a></h1>
-<p>As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 2.3. In the rest of this lecture we define the Gaussian Process and how in can be applied to regression and classification.</p>
+<p>As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 2.3. In the rest of this lecture, we define the Gaussian Process and how it can be applied to regression and classification.</p>
 <section id="multivariate-gaussian-distribution">
 <h2><span class="section-number">7.1. </span>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this heading">#</a></h2>
 <p>The <strong>univariate</strong> (for a scalar random variable) Gaussian distribution has the form</p>
@@ -455,12 +455,12 @@ document.write(`
 <ul class="simple">
 <li><p><span class="math notranslate nohighlight">\(\Delta^2=(x-\mu)^{\top}\Sigma^{-1}(x-\mu)\)</span> is a quadratic form.</p></li>
 <li><p><span class="math notranslate nohighlight">\(\Delta\)</span> is the Mahalanobis distance from <span class="math notranslate nohighlight">\(\mu\)</span> to <span class="math notranslate nohighlight">\(x\)</span>. It collapses to the Euclidean distance for <span class="math notranslate nohighlight">\(\Sigma = I\)</span>.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> is symmetric positive semi-definite and its diagonal elements contain the variance, i.e. covariance with itself.</p></li>
-<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> can be diagonalized with real eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> is a symmetric positive definite matrix (i.e., its eigenvalues are strictly positive), and its diagonal elements contain the variance, i.e., covariance with itself.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\Sigma\)</span> can be diagonalized with real eigenvalues <span class="math notranslate nohighlight">\(\lambda_i\)</span> and the corresponding eigenvectors <span class="math notranslate nohighlight">\(u_i\)</span> can be chosen to form an orthonormal set.</p></li>
 </ul>
 <div class="math notranslate nohighlight" id="equation-sigma-eigendecomposition">
-<span class="eqno">(7.3)<a class="headerlink" href="#equation-sigma-eigendecomposition" title="Permalink to this equation">#</a></span>\[\Sigma u_i = \lambda_i u_i \quad i=1,...,d\]</div>
-<p>and eigenvectors <span class="math notranslate nohighlight">\(u_i\)</span> forming a unitary matrix</p>
+<span class="eqno">(7.3)<a class="headerlink" href="#equation-sigma-eigendecomposition" title="Permalink to this equation">#</a></span>\[\Sigma u_i = \lambda_i u_i \quad i=1,...,d.\]</div>
+<p>We construct the orthogonal matrix <span class="math notranslate nohighlight">\(U\)</span> as follows.</p>
 <div class="math notranslate nohighlight" id="equation-sigma-eigenvectors-matrix">
 <span class="eqno">(7.4)<a class="headerlink" href="#equation-sigma-eigenvectors-matrix" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
@@ -468,10 +468,10 @@ document.write(`
     &amp; U^{\top}U = U U^{\top}=I, \\
 \end{aligned}
 \end{split}\]</div>
-<p>which fulfils</p>
+<p>which fulfills</p>
 <div class="math notranslate nohighlight" id="equation-sigma-eigendecomposition-matrix">
 <span class="eqno">(7.5)<a class="headerlink" href="#equation-sigma-eigendecomposition-matrix" title="Permalink to this equation">#</a></span>\[U\Sigma U^{\top} = \lambda,\]</div>
-<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> denotes a diagonal matrix of eigenvalues. If we apply the variable transformation <span class="math notranslate nohighlight">\(y=U(x-\mu)\)</span>, we can transform the Gaussian PDF to the <span class="math notranslate nohighlight">\(y\)</span> coordinates according to the change of variables rule (see beginning of <a class="reference internal" href="gmm.html"><span class="doc std std-doc">Gaussian Mixture Models</span></a>).</p>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> denotes a diagonal matrix of eigenvalues. If we apply the variable transformation <span class="math notranslate nohighlight">\(y=U(x-\mu)\)</span>, we can transform the Gaussian PDF of <span class="math notranslate nohighlight">\(x\)</span> to the <span class="math notranslate nohighlight">\(y\)</span> coordinates according to the change of variables rule (see the beginning of <a class="reference internal" href="gmm.html"><span class="doc std std-doc">Gaussian Mixture Models</span></a>).</p>
 <div class="math notranslate nohighlight" id="equation-change-of-vars-duplicate">
 <span class="eqno">(7.6)<a class="headerlink" href="#equation-change-of-vars-duplicate" title="Permalink to this equation">#</a></span>\[p_Y(y)=p_X(h^{-1}(y)) \underbrace{\left|\frac{\text{d}h^{-1}(y)}{\text{d}y}\right|}_{(det|U_{ij}|)^{-1}=1}\]</div>
 <p>which leads to</p>
@@ -522,7 +522,7 @@ x_b
 \end{array}\right)
 \end{split}\]</div>
 <p>and <span class="math notranslate nohighlight">\(\Lambda_{a a}\)</span> and <span class="math notranslate nohighlight">\(\Lambda_{b b}\)</span> are symmetric, while <span class="math notranslate nohighlight">\(\Lambda_{a b}^{\mathrm{T}}=\Lambda_{b a}\)</span>. Note, <span class="math notranslate nohighlight">\(\Lambda_{a a}\)</span> is not simply the inverse of <span class="math notranslate nohighlight">\(\Sigma_{a a}\)</span>.</p>
-<p>Now, we want to evaluate <span class="math notranslate nohighlight">\(\mathcal{N}(x_a| x_b; \mu, \Sigma)\)</span> and use <span class="math notranslate nohighlight">\(p(x_a, x_b) = p(x_a|x_b)p(x_b)\)</span>. We expand all terms of the pdf given the split, and consider all terms that do not involve <span class="math notranslate nohighlight">\(x_a\)</span> as constant and then we compare with the generic form of a Gaussian for <span class="math notranslate nohighlight">\(p(x_a| x_b)\)</span>. We can decompose the equation into quadratic, linear and constant terms in <span class="math notranslate nohighlight">\(x_a\)</span> and find an expression for <span class="math notranslate nohighlight">\(p(x_a|x_b)\)</span>.</p>
+<p>Now, we want to evaluate <span class="math notranslate nohighlight">\(\mathcal{N}(x_a| x_b; \mu, \Sigma)\)</span> and use <span class="math notranslate nohighlight">\(p(x_a, x_b) = p(x_a|x_b)p(x_b)\)</span>. We expand all terms of the pdf given the split considering all terms that do not involve <span class="math notranslate nohighlight">\(x_a\)</span> as constant, and then compare with the generic form of a Gaussian for <span class="math notranslate nohighlight">\(p(x_a| x_b)\)</span>. We can decompose the equation into quadratic, linear, and constant terms in <span class="math notranslate nohighlight">\(x_a\)</span> and find an expression for <span class="math notranslate nohighlight">\(p(x_a|x_b)\)</span>.</p>
 <blockquote>
 <div><p>For all intermediate steps refer to <span id="id2">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>.</p>
 </div></blockquote>
@@ -538,10 +538,10 @@ x_b
 </section>
 <section id="marginal-gaussian-pdf">
 <h3><span class="section-number">7.1.3. </span>Marginal Gaussian PDF<a class="headerlink" href="#marginal-gaussian-pdf" title="Permalink to this heading">#</a></h3>
-<p>For the marginal PDF we integrate out the dependence on <span class="math notranslate nohighlight">\(x_b\)</span> of the joint PDF:</p>
+<p>For the marginal PDF, we integrate out the dependence on <span class="math notranslate nohighlight">\(x_b\)</span> of the joint PDF:</p>
 <div class="math notranslate nohighlight" id="equation-def-marginal-pdf">
 <span class="eqno">(7.16)<a class="headerlink" href="#equation-def-marginal-pdf" title="Permalink to this equation">#</a></span>\[p(x_a) = \int p(x_a, x_b) dx_b.\]</div>
-<p>We can follow similar steps as above for separating terms that involve <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>. After integrating out the Gaussian with a quadratic term depending on <span class="math notranslate nohighlight">\(x_b\)</span> we are left with a lengthy term involving <span class="math notranslate nohighlight">\(x_a\)</span> only. By comparison with a Gaussian PDF and re-using the block relation between <span class="math notranslate nohighlight">\(\Lambda\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> as above we obtain for the marginal</p>
+<p>We can follow similar steps as above for separating terms that involve <span class="math notranslate nohighlight">\(x_a\)</span> and <span class="math notranslate nohighlight">\(x_b\)</span>. After integrating out the Gaussian with a quadratic term depending on <span class="math notranslate nohighlight">\(x_b\)</span> we are left with a lengthy term involving <span class="math notranslate nohighlight">\(x_a\)</span> only. By comparison with a Gaussian PDF and re-using the block relation between <span class="math notranslate nohighlight">\(\Lambda\)</span> and <span class="math notranslate nohighlight">\(\Sigma\)</span> as above, we obtain the marginal</p>
 <div class="math notranslate nohighlight" id="equation-gaussian-marginal-pdf">
 <span class="eqno">(7.17)<a class="headerlink" href="#equation-gaussian-marginal-pdf" title="Permalink to this equation">#</a></span>\[p(x_a) = \mathcal{N}(x_a; \mu_a, \Sigma_{a a}).\]</div>
 </section>
@@ -563,7 +563,7 @@ p(x) &amp; =\mathcal{N}\left(x \mid \mu, \Lambda^{-1}\right) \\
 p(y \mid x) &amp; =\mathcal{N}\left(y \mid A x+b, L^{-1}\right).
 \end{aligned}
 \end{split}\]</div>
-<p>From that we can derive an analytical evidence (marginal) and posterior (conditional) distributions (for more details see <span id="id3">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>):</p>
+<p>From that, we can derive an analytical <em>evidence</em> (marginal) and <em>posterior</em> (conditional) distributions (for more details see <span id="id3">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>):</p>
 <div class="math notranslate nohighlight" id="equation-gaussian-evidence-and-posterior">
 <span class="eqno">(7.20)<a class="headerlink" href="#equation-gaussian-evidence-and-posterior" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{aligned}
@@ -584,7 +584,7 @@ p(x \mid y) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda 
 <span class="eqno">(7.22)<a class="headerlink" href="#equation-ml-mean" title="Permalink to this equation">#</a></span>\[\mu_{ML} = \frac{1}{N} \sum_{n=1}^N x_n\]</div>
 <div class="math notranslate nohighlight" id="equation-ml-cov">
 <span class="eqno">(7.23)<a class="headerlink" href="#equation-ml-cov" title="Permalink to this equation">#</a></span>\[\Sigma_{ML} = \frac{1}{N} \sum_{n=1}^N (x-\mu)^{\top}(x-\mu)\]</div>
-<p><span class="math notranslate nohighlight">\(\mu_{ML}\)</span> and <span class="math notranslate nohighlight">\(\Sigma_{ML}\)</span> correspond to the so-called sample or empirical estimates. However, <span class="math notranslate nohighlight">\(\Sigma_{ML}\)</span> does not deliver an unbiased estimate of the covariance. The difference decreases with <span class="math notranslate nohighlight">\(N \to \infty\)</span>, but for a certain <span class="math notranslate nohighlight">\(N\)</span> we have <span class="math notranslate nohighlight">\(\Sigma_{ML}\neq \Sigma\)</span>. The practical reason used in the above derivation is that the <span class="math notranslate nohighlight">\(\mu_{ML}\)</span> estimate may occur as <span class="math notranslate nohighlight">\(\bar{x}\)</span> within the sampling of <span class="math notranslate nohighlight">\(\Sigma\)</span> <span class="math notranslate nohighlight">\(\Rightarrow\)</span> miscount by one. An unbiased sample variance can be defined as</p>
+<p><span class="math notranslate nohighlight">\(\mu_{ML}\)</span> and <span class="math notranslate nohighlight">\(\Sigma_{ML}\)</span> correspond to the so-called sample or empirical estimates. However, <span class="math notranslate nohighlight">\(\Sigma_{ML}\)</span> does not deliver an unbiased estimate of the covariance if we use <span class="math notranslate nohighlight">\(\mu_{ML}\)</span> as <span class="math notranslate nohighlight">\(\mu\)</span>. The difference decreases with <span class="math notranslate nohighlight">\(N \to \infty\)</span>, but for a low <span class="math notranslate nohighlight">\(N\)</span>, we have <span class="math notranslate nohighlight">\(\Sigma_{ML} &lt; \Sigma\)</span>. The practical reason for the discrepancy is that we use <span class="math notranslate nohighlight">\(\mu_{ML}\)</span> to estimate the mean, but this may not be the true mean. An unbiased sample variance can be defined using <a class="reference external" href="https://en.wikipedia.org/wiki/Bessel%27s_correction">Bessel’s correction</a>:</p>
 <div class="math notranslate nohighlight" id="equation-ml-cov-unbiased">
 <span class="eqno">(7.24)<a class="headerlink" href="#equation-ml-cov-unbiased" title="Permalink to this equation">#</a></span>\[\widetilde{\Sigma} = \frac{1}{N-1} \sum_{n=1}^N (x_n-\mu_{ML})^{\top}(x_n-\mu_{ML})\]</div>
 </section>
@@ -596,7 +596,7 @@ p(x \mid y) &amp; =\mathcal{N}\left(x \mid \Sigma\left\{A^{\top} L(y-b)+\Lambda 
 <span class="eqno">(7.25)<a class="headerlink" href="#equation-lin-reg-with-phi" title="Permalink to this equation">#</a></span>\[
 h(x) = \omega^{\top} \varphi(x),
 \]</div>
-<p>with <span class="math notranslate nohighlight">\(\omega \in \mathbb{R}^{m}\)</span> are the weights, <span class="math notranslate nohighlight">\(\varphi \in \mathbb{R}^{m}\)</span> is the feature map, and <span class="math notranslate nohighlight">\(h(x)\)</span> is the hypothesis giving the probability of <span class="math notranslate nohighlight">\(y\)</span>. We now introduce an isotropic Gaussian prior on <span class="math notranslate nohighlight">\(\omega\)</span>, where isotropic is defined as having a diagonal covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> with some scalar <span class="math notranslate nohighlight">\(\alpha^{-1}\)</span></p>
+<p>with <span class="math notranslate nohighlight">\(\omega \in \mathbb{R}^{m}\)</span> being the weights, <span class="math notranslate nohighlight">\(\varphi \in \mathbb{R}^{m}\)</span> the feature map, and <span class="math notranslate nohighlight">\(h(x)\)</span> the hypothesis giving the probability of <span class="math notranslate nohighlight">\(y\)</span>. We now introduce an <em>isotropic</em> Gaussian prior on <span class="math notranslate nohighlight">\(\omega\)</span>, where isotropic is defined as having a diagonal covariance matrix <span class="math notranslate nohighlight">\(\Sigma\)</span> with some scalar <span class="math notranslate nohighlight">\(\alpha^{-1}\)</span></p>
 <div class="math notranslate nohighlight" id="equation-gp-prior">
 <span class="eqno">(7.26)<a class="headerlink" href="#equation-gp-prior" title="Permalink to this equation">#</a></span>\[
 p(\omega) = \mathcal{N}(\omega; 0, \alpha^{-1} I),
@@ -605,24 +605,24 @@ p(\omega) = \mathcal{N}(\omega; 0, \alpha^{-1} I),
 <blockquote>
 <div><p>Note that <span class="math notranslate nohighlight">\(\alpha\)</span> is a hyperparameter, i.e. responsible for the model properties, it is called hyper <span class="math notranslate nohighlight">\(\ldots\)</span> to differentiate from the weight parameters <span class="math notranslate nohighlight">\(\omega\)</span>.</p>
 </div></blockquote>
-<p>Now let’s consider the data samples <span class="math notranslate nohighlight">\(\left( y^{(i)} \in \mathbb{R}, x^{(i)} \in \mathbb{R}^{m} \right)_{i=1, \ldots, n}\)</span>. We are interested in leveraging the information contained in the data samples, i.e. in probabilistic lingo in the joint distribution of <span class="math notranslate nohighlight">\(y^{(1)}, \ldots, y^{(n)}\)</span>. We can then write</p>
+<p>Now let’s consider the data samples <span class="math notranslate nohighlight">\(\left( y^{(i)} \in \mathbb{R}, x^{(i)} \in \mathbb{R}^{m} \right)_{i=1, \ldots, n}\)</span>. We are interested in leveraging the information contained in the data samples, i.e., in probabilistic lingo, the joint distribution of <span class="math notranslate nohighlight">\(y^{(1)}, \ldots, y^{(n)}\)</span>. We can then write</p>
 <div class="math notranslate nohighlight" id="equation-ling-reg-with-phi">
 <span class="eqno">(7.27)<a class="headerlink" href="#equation-ling-reg-with-phi" title="Permalink to this equation">#</a></span>\[
 y = \Phi \hspace{2pt} \omega,
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span>, <span class="math notranslate nohighlight">\(\Phi \in \mathbb{R}^{n \times m}\)</span>, and <span class="math notranslate nohighlight">\(\omega \in \mathbb{R}^{m}\)</span>. <span class="math notranslate nohighlight">\(\Phi\)</span> is the well-known design matrix from the lecture on <a class="reference internal" href="svm.html"><span class="doc std std-doc">Support Vector Machines</span></a>, Eq. <a class="reference internal" href="svm.html#equation-ridge-reg-design-matrix">(6.58)</a>. As we know that <span class="math notranslate nohighlight">\(\omega\)</span> is Gaussian the probability density function (pdf) of <span class="math notranslate nohighlight">\(y\)</span> is also Gaussian:</p>
+<p>where <span class="math notranslate nohighlight">\(y \in \mathbb{R}^{n}\)</span>, <span class="math notranslate nohighlight">\(\Phi \in \mathbb{R}^{n \times m}\)</span>, and <span class="math notranslate nohighlight">\(\omega \in \mathbb{R}^{m}\)</span>. <span class="math notranslate nohighlight">\(\Phi\)</span> is the well-known <em>design matrix</em> from the lecture on <a class="reference internal" href="svm.html"><span class="doc std std-doc">Support Vector Machines</span></a>, Eq. <a class="reference internal" href="svm.html#equation-ridge-reg-design-matrix">(6.58)</a>. As we know that <span class="math notranslate nohighlight">\(\omega\)</span> is Gaussian, the probability density function (pdf) of <span class="math notranslate nohighlight">\(y\)</span> is also Gaussian:</p>
 <div class="math notranslate nohighlight" id="equation-gp-y-stats">
 <span class="eqno">(7.28)<a class="headerlink" href="#equation-gp-y-stats" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     \mathbb{E}[y] &amp;= \mathbb{E}[\Phi \omega] = \Phi \mathbb{E}[\omega] = 0 \\
-    \text{Cov}[y] &amp;= \mathbb{E}[y y^{\top}] = \Phi \mathbb{E}[\omega \omega^{\top}] \Phi^{\top}= \frac{1}{\alpha} \Phi \Phi^{\top} = K \\
+    \text{Cov}[y] &amp;= \mathbb{E}[y y^{\top}] - 0^2 = \Phi \mathbb{E}[\omega \omega^{\top}] \Phi^{\top}= \frac{1}{\alpha} \Phi \Phi^{\top} = K \\
     \Longrightarrow p(y) &amp;= \mathcal{N}(y; 0,K)
 \end{align}
 \end{split}\]</div>
-<p>where <span class="math notranslate nohighlight">\(K\)</span> is the Grammian matrix which we already encountered in the SVM lecture.</p>
+<p>where <span class="math notranslate nohighlight">\(K\)</span> is the Grammian matrix we encountered in the SVM lecture.</p>
 <p>A Gaussian Process is now defined as:</p>
 <ul class="simple">
-<li><p><span class="math notranslate nohighlight">\(y^{(i)} = h(x^{(i)}), \quad i=1, \ldots, m\)</span> have a joint Gaussian PDF, i.e. are fully determined by their 2nd-order statistics (mean and covariance).</p></li>
+<li><p><span class="math notranslate nohighlight">\(y^{(i)} = h(x^{(i)}), \; i=1, \ldots, n\)</span> have a joint Gaussian PDF, i.e. are fully determined by their 2nd-order statistics (mean and covariance).</p></li>
 </ul>
 </section>
 <section id="gp-for-regression">
@@ -642,7 +642,7 @@ y = \Phi \hspace{2pt} \omega,
 <p><span class="caption-number">Fig. 7.1 </span><span class="caption-text">Regression example.</span><a class="headerlink" href="#gp-regression-data" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>Here, <span class="math notranslate nohighlight">\(h(x^{(i)}) = h^{(i)}\)</span> becomes a <em>latent variable</em>. For the latent variables (these correspond to the noise-free regression data we considered earlier) we then obtain a Gaussian marginal PDF with some Gram matrix <span class="math notranslate nohighlight">\(K\)</span>.</p>
+<p>Here, <span class="math notranslate nohighlight">\(h(x^{(i)}) = h^{(i)}\)</span> becomes a <em>latent variable</em>. For the latent variables (these correspond to the noise-free regression data we considered earlier), we then obtain a Gaussian marginal PDF with some Grammatrix <span class="math notranslate nohighlight">\(K\)</span>.</p>
 <div class="math notranslate nohighlight" id="equation-gp-h-prior">
 <span class="eqno">(7.30)<a class="headerlink" href="#equation-gp-h-prior" title="Permalink to this equation">#</a></span>\[
 p(h) = \mathcal{N}(h; 0, K).
@@ -683,7 +683,7 @@ z = \left[\begin{matrix}
 <span class="eqno">(7.35)<a class="headerlink" href="#equation-gp-y-conditional-substituted" title="Permalink to this equation">#</a></span>\[
 \Longrightarrow p(y|x) = \mathcal{N}(y; 0, \frac{1}{\beta}I + K).
 \]</div>
-<p>Note that the kernel <span class="math notranslate nohighlight">\(K\)</span> can be presumed and is responsible for the accuracy of the prediction by the posterior. There exists a whole plethora of possible choices of K, the most common of which are:</p>
+<p>Note that the kernel <span class="math notranslate nohighlight">\(K\)</span> can be presumed and is responsible for the prediction accuracy by the posterior. There exists a whole plethora of possible choices of K, the most common of which are:</p>
 <figure class="align-center" id="gp-kernels">
 <a class="reference internal image-reference" href="../_images/gp_kernels.png"><img alt="../_images/gp_kernels.png" src="../_images/gp_kernels.png" style="width: 500px;" /></a>
 <figcaption>
@@ -695,7 +695,7 @@ z = \left[\begin{matrix}
 <span class="eqno">(7.36)<a class="headerlink" href="#equation-gp-kernel-example" title="Permalink to this equation">#</a></span>\[
 k(x^{(i)}, x^{(j)}) = \theta_{0} \exp \{- \frac{\theta_{1}}{2} || x^{(i)} - x^{(j)}||^{2}\} + \theta_{2} + \theta_{3} x^{(i) \top} x^{(j)}
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(\theta_{0}\)</span>, <span class="math notranslate nohighlight">\(\theta_{1}\)</span>, <span class="math notranslate nohighlight">\(\theta_{2}\)</span>, <span class="math notranslate nohighlight">\(\theta_{3}\)</span> are model hyperparameters. With the above <span class="math notranslate nohighlight">\(p(y|x)\)</span> we have identified which Gaussian is inferred from the data. Moreover we have not yet formulated a predictive posterior for <em>unseen data</em>. For this purporse we extend the data set</p>
+<p>where <span class="math notranslate nohighlight">\(\theta_{0}\)</span>, <span class="math notranslate nohighlight">\(\theta_{1}\)</span>, <span class="math notranslate nohighlight">\(\theta_{2}\)</span>, <span class="math notranslate nohighlight">\(\theta_{3}\)</span> are model hyperparameters. With the above <span class="math notranslate nohighlight">\(p(y|x)\)</span>, we have identified which Gaussian is inferred from the data. Moreover, we have not yet formulated a predictive posterior for <em>unseen data</em>. For this purpose, we extend the data set</p>
 <div class="math notranslate nohighlight" id="equation-gp-data-split">
 <span class="eqno">(7.37)<a class="headerlink" href="#equation-gp-data-split" title="Permalink to this equation">#</a></span>\[
 \underbrace{\left( y^{(n+1)}, x^{(n+1)} \right)}_{\text{unseen data}}, \quad \underbrace{\left( y^{(n)}, x^{(n)} \right), \ldots, \left( y^{(1)}, x^{(1)} \right)}_{\text{seen data}}.
@@ -711,7 +711,7 @@ y = \left[
     \end{matrix}
 \right],
 \end{split}\]</div>
-<p>we search for the conditional PDF <span class="math notranslate nohighlight">\(p(y^{(n+1)}| y)\)</span>. As intermediate we need the joint PDF</p>
+<p>we search for the conditional PDF <span class="math notranslate nohighlight">\(p(y^{(n+1)}| y)\)</span>. As intermediate, we need the joint PDF</p>
 <div class="math notranslate nohighlight" id="equation-gp-joint-pdf">
 <span class="eqno">(7.39)<a class="headerlink" href="#equation-gp-joint-pdf" title="Permalink to this equation">#</a></span>\[\begin{split}
 p(\tilde{y}), \quad \tilde{y} = \left[
@@ -753,7 +753,7 @@ k = \left[
 <span class="eqno">(7.41)<a class="headerlink" href="#equation-gp-query-c" title="Permalink to this equation">#</a></span>\[
 c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 \]</div>
-<p>Using the same approach as before we can then calculate the mean and covariance of the predictive posterior for unseen data <span class="math notranslate nohighlight">\(p(y^{(n+1)}|y)\)</span>. Recalling from before (Eq. <a class="reference internal" href="#equation-cond-pdf-stats">(7.14)</a>):</p>
+<p>Using the same approach as before, we can then calculate the mean and covariance of the predictive posterior for unseen data <span class="math notranslate nohighlight">\(p(y^{(n+1)}|y)\)</span>. Recalling from before (Eq. <a class="reference internal" href="#equation-cond-pdf-stats">(7.14)</a>):</p>
 <div class="math notranslate nohighlight" id="equation-gp-predictive-mean">
 <span class="eqno">(7.42)<a class="headerlink" href="#equation-gp-predictive-mean" title="Permalink to this equation">#</a></span>\[
 \mu_{a | b} = \mu_a + \Sigma_{ab} \Sigma^{-1}_{bb}(x_{b} - \mu_{b}),
@@ -794,25 +794,87 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
     \Sigma_{y^{(n+1)}|y} &amp;= c - k^{\top} (K + \frac{1}{\beta}I)^{-1} k,
 \end{align}
 \end{split}\]</div>
-<p>which fully defines the Gaussian posterior PDF of Gaussian-process regression. Looking at some sketches of GP regression, beginning with the data sample <span class="math notranslate nohighlight">\(y_{1}\)</span>, and predicting the data <span class="math notranslate nohighlight">\(y_{2}\)</span></p>
-<figure class="align-center" id="gp-2d-marginalization">
-<a class="reference internal image-reference" href="../_images/gp_2d_marginalization.png"><img alt="../_images/gp_2d_marginalization.png" src="../_images/gp_2d_marginalization.png" style="width: 300px;" /></a>
+<p>which fully defines the Gaussian posterior PDF of Gaussian-process regression.</p>
+<p><strong>Example: 1D GP with 1 measurement</strong></p>
+<p>Given is a single measurement data point <span class="math notranslate nohighlight">\((x,y)=(1,2)\)</span> with <span class="math notranslate nohighlight">\(x,y\in \mathbb{R}\)</span>. Find <span class="math notranslate nohighlight">\(p(y | x=1.25)\)</span>.</p>
+<p>Solution: We start with our model assumption being fully described by the choice of noise variance <span class="math notranslate nohighlight">\(\frac{1}{\beta}=10^{-6}\)</span> and the kernel given by</p>
+<div class="math notranslate nohighlight" id="equation-gp-example-1d-kernel">
+<span class="eqno">(7.47)<a class="headerlink" href="#equation-gp-example-1d-kernel" title="Permalink to this equation">#</a></span>\[k(x,x')=\theta_0 \exp\left(-\frac{1}{2\theta_1}(x-x')^2\right), \quad \text{with} \; \theta_0=1, \theta_1=0.2.\]</div>
+<p>We then substitute our values into equations <a class="reference internal" href="#equation-gp-predictive-distribution">(7.46)</a> to obtain</p>
+<div class="math notranslate nohighlight" id="equation-gp-example-1d-soln">
+<span class="eqno">(7.48)<a class="headerlink" href="#equation-gp-example-1d-soln" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
+K &amp;= k(1,1) = 1 \\
+k &amp;= k(1,1.25) = 0.458 \\
+c &amp;= k(1.25,1.25) + \frac{1}{10^-6} = 1 \\
+\mu_{y^{(n+1)}|y} &amp;= k^{\top}(K + \frac{1}{\beta}I)^{-1} y \\
+ &amp;=0.458 \cdot (1 + 10^{-6})^{-1} \cdot 2 = 0.916\\
+\Sigma_{y^{(n+1)}|y} &amp;= c - k^{\top} (K + \frac{1}{\beta}I)^{-1} k \\
+ &amp;=1 - 0.458 \cdot (1 + 10^{-6})^{-1} \cdot 0.458 = 0.790.
+\end{align}
+\end{split}\]</div>
+<figure class="align-center" id="gp-example-1d">
+<a class="reference internal image-reference" href="../_images/gp_example_1d.png"><img alt="../_images/gp_example_1d.png" src="../_images/gp_example_1d.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.3 </span><span class="caption-text">Marginalizing a 2D Gaussian distribution.</span><a class="headerlink" href="#gp-2d-marginalization" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.3 </span><span class="caption-text">GP example with confidence interval <span class="math notranslate nohighlight">\(\pm 2\sigma\)</span>.</span><a class="headerlink" href="#gp-example-1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<!-- TODO: bad figure. Maximum incorrect. -->
+<!-- import numpy as np
+import matplotlib.pyplot as plt
+
+# Kernel function (Squared Exponential / RBF kernel)
+def kernel(x1, x2, length_scale=0.2, variance=1.0):
+    return variance * np.exp(-0.5 * (np.subtract.outer(x1, x2)**2) / length_scale**2)
+
+# Single observed data point
+x_train = np.array([1.0])  # Input
+y_train = np.array([2.0])  # Output
+
+# Query point
+x_test = np.linspace(0, 2, 100)  # Points to predict
+
+# Kernel matrices
+K = kernel(x_train, x_train) + 1e-6 * np.eye(len(x_train))  # Add noise for numerical stability
+K_s = kernel(x_train, x_test)  # Cross covariance
+K_ss = kernel(x_test, x_test)  # Covariance of test points
+
+# Predictive mean and covariance
+K_inv = np.linalg.inv(K)
+mu_s = K_s.T @ K_inv @ y_train  # Predictive mean
+cov_s = K_ss - K_s.T @ K_inv @ K_s  # Predictive covariance
+std_s = np.sqrt(np.diag(cov_s))  # Predictive standard deviation
+
+# Plot the results
+plt.figure(figsize=(8, 5))
+plt.plot(x_test, mu_s, 'r', label="Mean prediction")
+plt.fill_between(x_test, mu_s - 2 * std_s, mu_s + 2 * std_s, color='r', alpha=0.3, label="Confidence interval")
+plt.scatter(x_train, y_train, color='b', label="Observed data")
+plt.title("Gaussian Process Regression with Single Data Point")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.legend()
+plt.grid()
+plt.show()
+
+print("Mean=",2*kernel(1,1.25), "Cov=", 1-kernel(1,1.25)**2, "Std=", np.sqrt(1-kernel(1,1.25)**2)) -->
+<hr class="docutils" />
+<p>Below we look at some sketches of GP regression, beginning with the data sample <span class="math notranslate nohighlight">\(y_{1}\)</span>, and predicting the data <span class="math notranslate nohighlight">\(y_{2}\)</span></p>
+<figure class="align-center" id="gp-2d-marginalization">
+<a class="reference internal image-reference" href="../_images/gp_2d_marginalization.jpeg"><img alt="../_images/gp_2d_marginalization.jpeg" src="../_images/gp_2d_marginalization.jpeg" style="width: 300px;" /></a>
+<figcaption>
+<p><span class="caption-number">Fig. 7.4 </span><span class="caption-text">Marginalizing a 2D Gaussian distribution.</span><a class="headerlink" href="#gp-2d-marginalization" title="Permalink to this image">#</a></p>
+</figcaption>
+</figure>
 <figure class="align-center" id="gp-regression-example1d">
 <a class="reference internal image-reference" href="../_images/gp_regression_example1d.png"><img alt="../_images/gp_regression_example1d.png" src="../_images/gp_regression_example1d.png" style="width: 450px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.4 </span><span class="caption-text">1D Gaussian process.</span><a class="headerlink" href="#gp-regression-example1d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.5 </span><span class="caption-text">1D Gaussian process.</span><a class="headerlink" href="#gp-regression-example1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>And in practice for a 1-dimensional function, which is being approximated with a GP, and we are monitoring the change in mean, variance and synonymously the GP-behaviour (recall, the GP is defined by the behaviour of its mean and covariance) with each successive data point.</p>
+<p>In practice, for a 1-dimensional function, which is being approximated with a GP, we monitor the change in the mean, variance, and synonymously the GP behavior (recall, the GP is defined by the behavior of its mean and covariance) with each successive data point.</p>
 <figure class="align-center" id="gp-regression-examples1d">
 <a class="reference internal image-reference" href="../_images/gp_regression_examples1d_.png"><img alt="../_images/gp_regression_examples1d_.png" src="../_images/gp_regression_examples1d_.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.5 </span><span class="caption-text">Probability distribution of a 1D Gaussian process (Source: <span id="id5">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-regression-examples1d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.6 </span><span class="caption-text">Probability distribution of a 1D Gaussian process (Source: <span id="id5">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-regression-examples1d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <blockquote>
@@ -820,7 +882,7 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 </div></blockquote>
 <section id="further-kernel-configurations">
 <h3><span class="section-number">7.3.1. </span>Further Kernel Configurations<a class="headerlink" href="#further-kernel-configurations" title="Permalink to this heading">#</a></h3>
-<p>There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple “basis” kernels to construct better informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see <a class="reference internal" href="#gp-kernels"><span class="std std-numref">Fig. 7.2</span></a> for definitions):</p>
+<p>There exist many ways in which we can extend beyond just individual kernels by multiplication and addition of simple “basis” kernels to construct better-informed kernels. Just taking a quick glance at some of these possible combinations, where the following explores this combinatorial space for the following three kernels (see <a class="reference internal" href="#gp-kernels"><span class="std std-numref">Fig. 7.2</span></a> for definitions):</p>
 <ul class="simple">
 <li><p>Squared Exponential (SE) kernel</p></li>
 <li><p>Linear (Lin) kernel</p></li>
@@ -829,33 +891,33 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 <figure class="align-center" id="gp-adding-kernels">
 <a class="reference internal image-reference" href="../_images/gp_adding_kernels.png"><img alt="../_images/gp_adding_kernels.png" src="../_images/gp_adding_kernels.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.6 </span><span class="caption-text">Adding 1D kernels (Source: <span id="id6">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-adding-kernels" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.7 </span><span class="caption-text">Adding 1D kernels (Source: <span id="id6">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-adding-kernels" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="gp-multiplying-kernels">
 <a class="reference internal image-reference" href="../_images/gp_multiplying_kernels.png"><img alt="../_images/gp_multiplying_kernels.png" src="../_images/gp_multiplying_kernels.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.7 </span><span class="caption-text">Multiplying 1D kernels (Source: <span id="id7">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-multiplying-kernels" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.8 </span><span class="caption-text">Multiplying 1D kernels (Source: <span id="id7">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-multiplying-kernels" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <figure class="align-center" id="gp-multiplying-kernels-to-2d">
 <a class="reference internal image-reference" href="../_images/gp_multiplying_kernels_to_2d.png"><img alt="../_images/gp_multiplying_kernels_to_2d.png" src="../_images/gp_multiplying_kernels_to_2d.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.8 </span><span class="caption-text">Multiplying 1D kernels, 2D visualization (Source: <span id="id8">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-multiplying-kernels-to-2d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.9 </span><span class="caption-text">Multiplying 1D kernels, 2D visualization (Source: <span id="id8">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-multiplying-kernels-to-2d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>In higher dimensions this then takes the following shape:</p>
+<p>In higher dimensions, this then takes the following shape:</p>
 <figure class="align-center" id="gp-kernels-2d">
 <a class="reference internal image-reference" href="../_images/gp_kernels_2d.png"><img alt="../_images/gp_kernels_2d.png" src="../_images/gp_kernels_2d.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.9 </span><span class="caption-text">Examples of 2D kernels (Source: <span id="id9">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-kernels-2d" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.10 </span><span class="caption-text">Examples of 2D kernels (Source: <span id="id9">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-kernels-2d" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>With all these possible combinations one almost begs the question if these kernels cannot be constructed automatically. The answer is, partially yes, partially no. In a sense the right kernel construction is almost like feature engineering, and while it can be automated in parts it remains a craft for the domain scientists to understand the nature of their problem to then construct the right prior distribution.</p>
+<p>With all these possible combinations, one almost begs the question if these kernels cannot be constructed automatically. The answer is partially yes and partially no. In a sense, the right kernel construction is almost like feature engineering, and while it can be automated in parts, it remains a craft for the domain scientists to understand the nature of their problem to then construct the right prior distribution.</p>
 <figure class="align-center" id="gp-kernel-tree-search">
 <a class="reference internal image-reference" href="../_images/gp_kernel_tree_search.png"><img alt="../_images/gp_kernel_tree_search.png" src="../_images/gp_kernel_tree_search.png" style="width: 500px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 7.10 </span><span class="caption-text">Search tree over kernels (Source: <span id="id10">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-kernel-tree-search" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 7.11 </span><span class="caption-text">Search tree over kernels (Source: <span id="id10">[<a class="reference internal" href="../references.html#id17" title="David Duvenaud. Automatic model construction with gaussian processes. 2014. URL: https://www.cs.toronto.edu/~duvenaud/thesis.pdf.">Duvenaud, 2014</a>]</span>).</span><a class="headerlink" href="#gp-kernel-tree-search" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 </section>
@@ -863,7 +925,7 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 <h3><span class="section-number">7.3.2. </span>Multivariate Prediction<a class="headerlink" href="#multivariate-prediction" title="Permalink to this heading">#</a></h3>
 <p>The extension to multivariate prediction is then straightforward. For the unseen data</p>
 <div class="math notranslate nohighlight" id="equation-gp-multiple-targets">
-<span class="eqno">(7.47)<a class="headerlink" href="#equation-gp-multiple-targets" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(7.49)<a class="headerlink" href="#equation-gp-multiple-targets" title="Permalink to this equation">#</a></span>\[\begin{split}
 y' = \left[
     \begin{matrix}
         y^{(n+1)} \\
@@ -880,7 +942,7 @@ y' = \left[
 \end{split}\]</div>
 <p>and for the sample data</p>
 <div class="math notranslate nohighlight" id="equation-gp-multiple-inputs">
-<span class="eqno">(7.48)<a class="headerlink" href="#equation-gp-multiple-inputs" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(7.50)<a class="headerlink" href="#equation-gp-multiple-inputs" title="Permalink to this equation">#</a></span>\[\begin{split}
 y = \left[
     \begin{matrix}
         y^{(1)} \\
@@ -897,7 +959,7 @@ y = \left[
 \end{split}\]</div>
 <p>for ever larger <span class="math notranslate nohighlight">\(l\)</span>’s the process can then just be repeated. The mean and covariance matrix are then given by</p>
 <div class="math notranslate nohighlight" id="equation-gp-posterior-multiple-targets">
-<span class="eqno">(7.49)<a class="headerlink" href="#equation-gp-posterior-multiple-targets" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(7.51)<a class="headerlink" href="#equation-gp-posterior-multiple-targets" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     \mu_{y'|y} &amp;= k(x', x) \left( k(x, x) + \frac{1}{\beta} I \right)^{-1} y \\
     \Sigma_{y'|y} &amp;= k(x', x') + \frac{1}{\beta}I \\
@@ -916,12 +978,12 @@ y = \left[
 </section>
 <section id="learning-the-hyperparameters">
 <h3><span class="section-number">7.3.4. </span>Learning the Hyperparameters<a class="headerlink" href="#learning-the-hyperparameters" title="Permalink to this heading">#</a></h3>
-<p>To infer the kernel hyperparameters from data we need to:</p>
+<p>To infer the kernel hyperparameters from data, we need to:</p>
 <ol class="arabic simple">
 <li><p>Introduce an appropriate likelihood function <span class="math notranslate nohighlight">\(p(y | \theta)\)</span></p></li>
 <li><p>Determine the optimum <span class="math notranslate nohighlight">\(\theta\)</span> via maximum likelihood estimation (MLE) <span class="math notranslate nohighlight">\(\theta^{\star} = \arg \max \ln p(y | \theta)\)</span>, which corresponds to linear regression</p></li>
 <li><p><span class="math notranslate nohighlight">\(\ln p(y|\theta) = -\frac{1}{2} \ln |K + \frac{1}{\beta}I| - \frac{1}{2} y^{\top} \left( K + \frac{1}{\beta}I \right)^{-1} y - \frac{n}{2} \ln 2 \pi\)</span></p></li>
-<li><p>Use iterative gradient descent or Newton’s method to find the optimum, where you need to beware of the fact that <span class="math notranslate nohighlight">\(p(y | \theta)\)</span> may be non-convex in <span class="math notranslate nohighlight">\(\theta\)</span>, and hence have multiple maxima</p></li>
+<li><p>Use iterative gradient descent or Newton’s method to find the optimum, where you need to be aware of the fact that <span class="math notranslate nohighlight">\(p(y | \theta)\)</span> may be non-convex in <span class="math notranslate nohighlight">\(\theta\)</span>, and hence have multiple maxima</p></li>
 </ol>
 <div class="math notranslate nohighlight">
 \[\begin{split}
@@ -934,7 +996,7 @@ y = \left[
 </section>
 <section id="gp-for-classification">
 <h2><span class="section-number">7.4. </span>GP for Classification<a class="headerlink" href="#gp-for-classification" title="Permalink to this heading">#</a></h2>
-<p>Without discussing all the details, we will now provide a brief sketch how Gaussian Processes can be adapted to the task of classification. Consider for simplicity the 2-class problem:</p>
+<p>Without discussing all the details, we will now briefly sketch how Gaussian Processes can be adapted to classification. Consider for simplicity the 2-class problem:</p>
 <div class="math notranslate nohighlight">
 \[
 0 &lt; y &lt; 1, \quad h(x) = \text{sigmoid}(\varphi(x))
@@ -971,11 +1033,11 @@ y = \left[
 \[
 p(\tilde{\varphi}) = \mathcal{N}( \tilde{\varphi}; 0, K + \nu I)
 \]</div>
-<p>where <span class="math notranslate nohighlight">\(K_{ij} = k(x^{(i)}, x^{(j)})\)</span>, i.e. a Grammian matrix generated by the kernel functions from the feature map <span class="math notranslate nohighlight">\(\varphi(x)\)</span>.</p>
+<p>where <span class="math notranslate nohighlight">\(K_{ij} = k(x^{(i)}, x^{(j)})\)</span>, i.e., a Grammian matrix generated by the kernel functions from the feature map <span class="math notranslate nohighlight">\(\varphi(x)\)</span>.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>Note that we do <strong>NOT</strong> include an explicit noise term in the data covariance as we assume that all sample data have been correctly classified.</p></li>
-<li><p>For numerical reasons we introduce a noise-like form which improves conditioning of <span class="math notranslate nohighlight">\(K + \mu I\)</span></p></li>
+<li><p>For numerical reasons, we introduce a noise-like form that improves the conditioning of <span class="math notranslate nohighlight">\(K + \mu I\)</span></p></li>
 <li><p>For two-class classification it is sufficient to predict <span class="math notranslate nohighlight">\(p(y^{(n+1)} = 1 | y)\)</span> as <span class="math notranslate nohighlight">\(p(y^{(n+1)} = 0 | y) = 1 - p(y^{(n+1)} = 1 | y)\)</span></p></li>
 </ul>
 </div></blockquote>
@@ -993,7 +1055,7 @@ p(y^{(n+1)} = 1 | y) = \int p(y^{(n+1)} = 1 | \varphi^{(n+1)})  p(\varphi^{(n+1)
 </section>
 <section id="relation-of-gp-to-neural-networks">
 <h2><span class="section-number">7.5. </span>Relation of GP to Neural Networks<a class="headerlink" href="#relation-of-gp-to-neural-networks" title="Permalink to this heading">#</a></h2>
-<p>We have not presented a definition a neural network yet, but we have already met the most primitive definition of a neural network, the perceptron, for classification. The perceptron can be thought of as a neural network with just one layer of “neurons”. On the other hand, the number of hidden units should be limited for perceptrons to limit overfitting. The essential power of neural networks  i.e. the outputs sharing the hidden units tends to get lost when the number of hidden units becomes very large. This is the core connection between neural networks and GPs, <strong>a neural network with infinite width recovers a Gaussian process</strong>.</p>
+<p>We have not presented a definition of a neural network yet, but we have already met the most primitive definition of a neural network, the perceptron, for classification. The perceptron can be considered a neural network with just one layer of “neurons”. On the other hand, the number of hidden units should be limited for perceptrons to limit overfitting. The essential power of neural networks, i.e., the outputs sharing the hidden units, tends to get lost when the number of hidden units becomes very large. This is the core connection between neural networks and GPs, <strong>a neural network with infinite width recovers a Gaussian process</strong>.</p>
 </section>
 <section id="further-references">
 <h2><span class="section-number">7.6. </span>Further References<a class="headerlink" href="#further-references" title="Permalink to this heading">#</a></h2>
