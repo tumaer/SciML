@@ -1,18 +1,18 @@
 # Support Vector Machines
 
-Support Vector Machines are one of the most popular classic supervised learning algorithms. In this lecture, we will first discuss the mathematical formalism of solving constrained optimization problems by means of Lagrange multipliers, then we will look at linear binary classification using the maximum margin and soft margin classifiers, and in the end we will present the kernel trick and how it extends the previous two approaches to non-linear boundaries within the more general Support Vector Machine.
+Support Vector Machines are one of the most popular classic supervised learning algorithms. This lecture will first discuss the mathematical formalism of solving constrained optimization problems using Lagrange multipliers. We will then look at linear binary classification using the maximum margin and soft margin classifiers. Ultimately, we will present the kernel trick and how it extends the previous two approaches to non-linear boundaries within the more general Support Vector Machine.
 
 ## The Constrained Optimization Problem
 
-We define a constraint optimization problem as
+We define a constrained optimization problem as
 
 $$\underset{\omega}{\min} f(\omega) \quad \text{s.t.} \hspace{5pt} h_{i}(\omega)=0, \hspace{5pt} i=1, \ldots, l$$ (constr_opt)
 
-Here, the $\underset{\omega}{\min}$ seeks to find the minimum subject to the constraint(s) $h_{i}(\omega)$. One possible way to solve this is by using Lagrange multipliers, for which we define the Lagrangian $\mathcal{L}$ which takes the constraints into account.
+Here, $\underset{\omega}{\min}$ seeks to find the minimum subject to the constraint(s) $h_{i}(\omega)$. One possible way to solve this is to use Lagrange multipliers, for which we define the Lagrangian $\mathcal{L}$, which takes the constraints into account.
 
 $$\mathcal{L}(\omega, \beta) = f(\omega) + \sum_{i=1}^{l} \beta_{i} h_{i}(\omega).$$ (constr_opt_lagr)
 
-The $\beta_{i}$ are the *Lagrangian multipliers*, which need to be identified to find the constraint-satisfying $\omega$. The necessary conditions to solve this problem for the optimum are to solve
+The $\beta_{i}$ are the *Lagrangian multipliers*, which need to be identified to find the constraint-satisfying $\omega$. The necessary conditions to solve this problem are to solve
 
 $$\frac{\partial \mathcal{L}}{\partial \omega_{i}} = 0; \quad \frac{\partial \mathcal{L}}{\partial \beta_{i}} = 0,
 $$ (constr_opt_lagr_optimim)
@@ -22,21 +22,21 @@ for $\omega$ and $\beta$. In classification problems, we do not only have *equal
 $$\underset{\omega}{\min} f(\omega) \text{ s.t.}
 \begin{cases}
 &g_{i}(\omega) \leq 0, \quad i=1, \ldots, k, \\
-&h_{j}(\omega) = 0, \quad j=1, \ldots, l.
+&h_{i}(\omega) = 0, \quad i=1, \ldots, l.
 \end{cases}$$ (primal_problem)
 
-To solve it we define the **generalized Lagrangian**
+To solve it, we define the **generalized Lagrangian**.
 
-$$\mathcal{L}(\omega, \alpha, \beta) = f(\omega) + \sum_{i=1}^{k} \alpha_{i} g_{i}(\omega) + \sum_{j=1}^{l} \beta_{i} h_{j}(\omega),$$ (primal_lagr)
+$$\mathcal{L}(\omega, \alpha, \beta) = f(\omega) + \sum_{i=1}^{k} \alpha_{i} g_{i}(\omega) + \sum_{i=1}^{l} \beta_{i} h_{i}(\omega),$$ (primal_lagr)
 
-with the further Lagrange multipliers $\alpha_i$ and the corresponding optimization problem becomes
+with the additional Lagrange multipliers $\alpha_i$. Let us define the _primal_ quantity
 
-$$\theta_{p}(\omega) = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta).$$ (theta_primal)
+$$\theta_{P}(\omega) = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta).$$ (theta_primal)
 
-Now we can verify that this optimization problem satisfies
+Now, we can verify that this optimization problem satisfies
 
 $$
-\theta_{p}(\omega) =
+\theta_{P}(\omega) =
 \begin{cases}
 &f(\omega) \quad \text{if } \omega \text{ satisfies the primal constraints,} \\
 &\infty \qquad \text{otherwise}.
@@ -48,13 +48,13 @@ Where does this case-by-case breakdown come from?
 1. In the first case, the constraints are inactive and contribute nil to the sum.
 2. In the second case, the sums increase linearly with $\alpha_{i}$, $\beta_{i}$ beyond all bounds.
 
-$$\Longrightarrow p^{\star} = \underset{\omega}{\min} \hspace{2pt} \theta_{p}(\omega) = \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta).$$ (primal_solution)
+$$\Longrightarrow p^{\star} = \underset{\omega}{\min} \hspace{2pt} \theta_{P}(\omega) = \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \mathcal{L}(\omega, \alpha, \beta).$$ (primal_solution)
 
-I.e. we recover the original primal problem with $p^{\star}$ being the *optimal value of the primal problem*. With this we can now formulate the *dual optimization problem*:
+That is, we recover the original primal problem with $p^{\star}$ being the *optimal value of the primal problem*. With this, we can now formulate the *dual optimization problem*:
 
 $$d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \theta_{D}(\alpha, \beta) = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta),$$ (dual_solution)
 
-with $\theta_{D}(\alpha, \beta) = \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta)$ and $d^{\star}$ the optimal value of the dual problem. Please note that the primal and dual problems are equivalent up to exchanging the order of minimization and maximization. To show how these problems are related, we first derive a relation between min-max and max-min using $\mu(y) = \underset{x}{\inf} \hspace{2pt} \kappa(x, y)$:
+with $\theta_{D}(\alpha, \beta) = \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta)$ and $d^{\star}$ the optimal value of the dual problem. Please note that the primal and dual problems are equivalent to exchanging the order of minimization and maximization. To show how these problems are related, we first derive a relation between min-max and max-min using $\mu(y) = \underset{x}{\inf} \hspace{2pt} \kappa(x, y)$:
 
 $$\begin{aligned}
     &\Longrightarrow \mu(y) \leq \kappa(x, y) \\
@@ -63,44 +63,44 @@ $$\begin{aligned}
     &\Longrightarrow \underset{y}{\sup} \hspace{2pt} \underset{x}{\inf} \hspace{2pt} \kappa(x, y) \leq \underset{x}{\inf} \hspace{2pt} \underset{y}{\sup} \hspace{2pt} \kappa(x, y) \\
 \end{aligned}$$ (min_max_and_max_min)
 
-From the last line we can immediately imply the relation between the primal and the dual problems
+From the last line, we can immediately imply the relation between the primal and the dual problems.
 
 $$d^{\star} = \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \underset{\omega}{\min} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) \leq \underset{\omega}{\min} \hspace{2pt} \underset{\alpha_{i} \geq 0, \beta_{j}}{\max} \hspace{2pt} \mathcal{L}(\omega, \alpha, \beta) = p^{\star},$$ (dual_smaller_primal)
 
-where the inequality can, under certain conditions, turn into equality. The conditions for this to turn into equality are the following (going back to the Lagrangian form from above):
+where the inequality can, under certain conditions, turn into equality. The conditions for this to become equality are the following (going back to the Lagrangian form from above):
 
 - $f$ and $g_{i}$ are convex, i.e. their Hessians are positive semi-definite.
-- The $h_{i}$ are affine, i.e. they can be expressed as linear functions of their arguments.
+- The $h_{i}$ are affine, i.e., they can be expressed as linear functions of their arguments.
 
 Under the above conditions, the following holds:
 
-1. The optimal solution $\omega^{\star}$ to the primal optimization problem exists,
-2. The optimal solution $\alpha^{\star}$, $\beta^{\star}$ to the dual optimization problem exists,
-3. $p^{\star}=d^{\star}$,
+1. The optimal solution $\omega^{\star}$ to the primal optimization problem exists.
+2. The optimal solution $\alpha^{\star}$, $\beta^{\star}$ to the dual optimization problem exists.
+3. $p^{\star}=d^{\star}$.
 4. $\omega^{\star}$, $\alpha^{\star}$, and $\beta^{\star}$ satisfy the Karush-Kuhn-Tucker (KKT) conditions.
 
 The KKT conditions are expressed as the following conditions:
 
 $$\begin{aligned}
-\left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \omega_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &= 0, \quad i=1, \ldots, n \qquad \text{(KKT1)}\\
-\left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \beta_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &= 0, \quad i=1, \ldots, l \qquad \text{(KKT2)} \\
+\left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \omega_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &= 0, \quad i=1, \ldots, n \qquad &\text{(KKT1)}\\
+\left. \frac{\partial \mathcal{L}(\omega, \alpha, \beta)}{\partial \beta_{i}} \right|_{\omega^{\star}, \alpha^{\star}, \beta^{\star}} &= 0, \quad i=1, \ldots, l \qquad &\text{(KKT2)} \\
 % The KKT complementarity condition then amounts to: (next three)
-\alpha_{i}^{\star} g_{i}(\omega^{\star}) &= 0, \quad i=1, \ldots, k \qquad \text{(KKT3)}\\
-g_{i}(\omega^{\star}) &\leq 0, \quad i=1, \ldots, k \qquad \text{(KKT4)}\\
-\alpha_{i}^{\star} &\geq 0, \quad i=1, \ldots, k \qquad \text{(KKT5)}
+\alpha_{i}^{\star} g_{i}(\omega^{\star}) &= 0, \quad i=1, \ldots, k \qquad &\text{(KKT3)}\\
+g_{i}(\omega^{\star}) &\leq 0, \quad i=1, \ldots, k \qquad &\text{(KKT4)}\\
+\alpha_{i}^{\star} &\geq 0, \quad i=1, \ldots, k \qquad &\text{(KKT5)}
 \end{aligned}$$ (kkt)
 
-Moreover, if a set $\omega^{\star}$, $\alpha^{\star}$, and $\beta^{\star}$ satisfies the KKT conditions, then it is a solution to the primal/dual problem. The KKT conditions are sufficient and necessary here. The **dual complementarity condition** (KKT3) indicates whether the $g_{i}(\omega) \leq 0$ constraint is active:
+Moreover, if a set $\{\omega^{\star}$, $\alpha^{\star}, \beta^{\star}\}$ satisfies the KKT conditions, then it is a solution to the primal/dual problem. The KKT conditions are sufficient and necessary here. The **dual complementarity condition** (KKT3) indicates whether the $g_{i}(\omega) \leq 0$ constraint is active:
 
 $$\alpha_{i}^{\star} > 0 \Longrightarrow g_{i}(\omega^{\star}) = 0,$$ (kkt_dual_complementarity)
 
-i.e. if $\alpha_{i}^{\star} > 0$, then $\omega^{\star}$ is "on the constraint boundary".s
+i.e., if $\alpha_{i}^{\star} > 0$, then $\omega^{\star}$ is "on the constraint boundary".
 
 ## Maximum Margin Classifier (MMC)
 
 Alternative names for Maximum Margin Classifier (MMC) are Hard Margin Classifier and Large Margin Classifier. This classifier assumes that the classes are linearly separable.
 
-Now, we can (re-)introduce the *linear discriminator*. Logistic regression $p(y=1| x; \vartheta)$ is then modeled by $h(x) = g(\vartheta^{\top} x) = \text{sigmoid}(\vartheta^{\top} x)$:
+Now, we can (re-)introduce the *linear discriminator*. As we have seen, logistic regression $p(y=1| x; \vartheta)$ is modeled by $h(x) = g(\vartheta^{\top} x) = \text{sigmoid}(\vartheta^{\top} x)$:
 
 ```{figure} ../imgs/svm/sigmoid_svm.png
 ---
@@ -111,7 +111,7 @@ name: sigmoid_svm
 Sigmoid function.
 ```
 
-If $g(\vartheta^{\top} x)$ is then close to one, then we have large confidence that $x$ belongs to class $\mathcal{C}_{1}$ with $y=1$, whereas if it is close to $\frac{1}{2}$, we have much less confidence:
+If $g(\vartheta^{\top} x)$ is close to one, then we have large confidence that $x$ belongs to class $\mathcal{C}_{1}$ with $y=1$, whereas if it is close to $\frac{1}{2}$, we have much less confidence:
 
 ```{figure} ../imgs/svm/log_reg_confidence.png
 ---
@@ -124,7 +124,7 @@ Confidence of logistic regression classifier.
 
 > The intuition here is that we seek to find the model parameters $\vartheta$ such that $g(\vartheta^{\top}x)$ maximizes the distance from the decision boundary $g(\vartheta^{\top}x) = \frac{1}{2}$ for all data points.
 
-For consistency with the standard notation we slightly reformulate this problem setting:
+For consistency with the standard SVM notation, we slightly reformulate this problem setting:
 
 $$\begin{aligned}
 y &\in \{ -1, 1 \} \text{ as binary class labels} \\
@@ -135,7 +135,7 @@ g(z) &= \begin{cases}
 \end{cases}
 \end{aligned}$$ (svm_notation)
 
-where $\omega^{\top} x + b$ defines a hyperplane for our linear classifier. With $b$ we now make the bias explicit, as it was previously implicit in our expressions.
+where $\omega^{\top} x + b$ defines a hyperplane for our linear classifier. With $b$, we now make the bias explicit, as it was previously implicit in our expressions.
 
 ### Functional Margin
 
@@ -143,7 +143,7 @@ The *functional margin* of $(\omega, b)$ w.r.t. a single training sample is defi
 
 $$\hat{\gamma}^{(i)} = y^{(i)}(\omega^{\top} x^{(i)} + b).$$ (funct_margin)
 
-For a confident prediction we would then like to have a maximum gap between the classes for a good classifier.
+For a confident prediction, we would then like to have a maximum gap between the classes for a good classifier.
 
 ```{figure} ../imgs/svm/good_vs_bad_classifier_svm.png
 ---
@@ -151,10 +151,10 @@ width: 400px
 align: center
 name: good_vs_bad_classifier_svm
 ---
-Good vs bad linear decision boundry.
+Good vs bad linear decision boundary.
 ```
 
-For correctly classified samples we always have
+For correctly classified samples, we always have
 
 $$y^{(i)}(\omega^{\top} x^{(i)} + b) > 0$$ (funct_margin_inequality)
 
@@ -162,7 +162,9 @@ as $g(\omega^{\top}x + b) = y = \pm 1 $. Note that the induced functional margin
 
 $$g(\omega^{\top}x + b) = g(2\omega^{\top}x + 2b) = \ldots$$ (funct_margin_scalability)
 
-At times this may not be desirable as the classifier does not reflect that the margin itself is **not** invariant. For the entire set of training samples, we can also define the functional margin as
+However, if we want to maximize this margin, we could do that without changing the actual decision boundary. Also, note that the classifier does not reflect that the margin is **not** invariant.
+
+For the entire set of training samples, we define the functional margin as
 
 $$\hat{\gamma} = \underset{i}{\min} \hspace{2pt} \hat{\gamma}^{(i)}.$$ (funct_margin_set)
 
@@ -179,7 +181,7 @@ name: geometric_margin
 The geometric margin.
 ```
 
-The distance $\gamma^{(i)}$ of $x^{(i)}$ from the decision boundary, i.e. from point P, is given by
+The distance $\gamma^{(i)}$ of point $x^{(i)}$ from the decision boundary, i.e., from the closest point P on that boundary, is given by
 
 $$\omega^{\top}\left(x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}\right) + b = 0,$$ (point_to_line_distance)
 
@@ -187,7 +189,7 @@ where $x^{(i)} - \gamma^{(i)} \frac{\omega}{||\omega||}$ gives the location of t
 
 $$\Longrightarrow \gamma^{(i)} = \left( \frac{\omega}{|| \omega ||} \right)^{\top} x^{(i)} + \frac{b}{||\omega||}.$$ (geom_margin_positive)
 
-As this was for an example on the $+$ side we can generalize said expression to obtain
+As this was for an example on the $+$ side, we can generalize said expression to obtain
 
 $$\gamma^{(i)} = y^{(i)} \left( \left(\frac{\omega}{|| \omega ||}\right)^{\top} x^{(i)} + \frac{b}{|| \omega ||} \right).$$ (geom_margin)
 
@@ -197,24 +199,24 @@ $$\gamma = \underset{i}{\min} \gamma^{(i)}.$$ (geom_margin_set)
 
 ### Maximum Margin Classifier
 
-With these mathematical tools we are now ready to derive the **Support Vector Machine (SVM)** for linearly separable sets (a.k.a. Maximum Margin Classifier) by maximizing the previously derived geometric margin:
+With these mathematical tools, we are now ready to derive the **Support Vector Machine (SVM)** for linearly separable sets (a.k.a. Maximum Margin Classifier) by maximizing the previously derived geometric margin:
 
-$$\underset{\omega, b}{\max} \hspace{2pt} \gamma \quad \text{ s.t. }
+$$\underset{\gamma,\omega, b}{\max} \hspace{2pt} \gamma \quad \text{ s.t. }
 \begin{cases}
     &y^{(i)} (\omega^{\top} x^{(i)} + b) \geq \gamma, \quad i=1, \ldots, m \\
     &||\omega|| = 1 \Longrightarrow \hat{\gamma} = \gamma.
 \end{cases}
 $$ (mmc_primal_geom_margin)
 
-We then seek to reformulate to get rid of the non-convex $||\omega|| = 1$ constraints:
+However, in this formulation, the second constraint $||\omega|| = 1$ is non-convex, which is inefficient to solve numerically. Thus, we formulate a slightly different optimization problem that again seeks to maximize the geometric margin:
 
-$$\underset{\omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} \quad \text{s.t. } y^{(i)}(\omega^{\top} x^{(i)} + b) \geq \gamma = \frac{\hat{\gamma}}{||\omega||}, \quad i=1, \ldots, m,$$ (mmc_primal_func_margin)
+$$\underset{\hat{\gamma},\omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} \quad \text{s.t. } y^{(i)}(\omega^{\top} x^{(i)} + b) \geq \hat{\gamma}, \quad i=1, \ldots, m,$$ (mmc_primal_func_margin)
 
-where we applied the definition of $\gamma = \frac{\hat{\gamma}}{||\omega||}$, but in the process suffered a setback as we now have a non-convex objective function. As the geometric margin $\gamma$ is scale-invariant we can now simply scale $||\omega||$ such that $\hat{\gamma} = \gamma ||\omega|| = 1$. Given $\hat{\gamma} = 1$ it is clear that
+where we applied the definition of $\gamma = \frac{\hat{\gamma}}{||\omega||}$. Although we eliminated the previous non-convex constraint, we suffered a setback in the process as we now have a non-convex objective function. In a third attempt to formulate an optimization problem, using that the geometric margin $\gamma$ is scale-invariant, we can now simply scale $||\omega||$ such that $\hat{\gamma} = \gamma ||\omega|| = 1$. Given $\hat{\gamma} = 1$ it is clear that
 
-$$\underset{\omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} = \underset{\omega, b}{\max} \frac{1}{||\omega||} = \underset{\omega, b}{\min} ||\omega||^{2},$$ (mmc_primal_objective)
+$$\underset{\hat{\gamma}, \omega, b}{\max} \frac{\hat{\gamma}}{||\omega||} = \underset{\omega, b}{\max} \frac{1}{||\omega||} = \underset{\omega, b}{\min} ||\omega||^{2},$$ (mmc_primal_objective)
 
-s.t. the constraints are satisfied. Which is now a convex objective.
+s.t. the constraints are satisfied. This is now a convex objective with linear constraints.
 
 > The Support Vector Machine is generated by the primal optimization problem.
 
@@ -235,11 +237,11 @@ name: maximum_margin_classifier
 Maximum Margin Classifier.
 ```
 
-The 3 samples "-", "-", and "+" in the sketch are the only ones for which the KKT constraint is active.
+The three samples "-", "-", and "+" in the sketch are the only ones for which the KKT constraint is active.
 
 > These are called the **support vectors**.
 
-From the sketch, we can already ascertain that the number of support vectors may be significantly smaller than the number of samples, i.e. also the number of active constraints that we have to take into account. Next, we construct the Lagrangian of the optimization problem:
+From the sketch, we can already ascertain that the number of support vectors may be significantly smaller than the number of samples, i.e., the number of active constraints that we have to take into account. Next, we construct the Lagrangian of the optimization problem:
 
 $$\mathcal{L}(\omega, b, \alpha) = \frac{1}{2} ||\omega||^{2} - \sum_{i=1}^{m} \alpha_{i} \left[ y^{(i)} \left( \omega^{\top} x^{(i)} + b \right) -1 \right]$$ (mmc_lagrangian)
 
@@ -273,7 +275,7 @@ $$\underset{\alpha}{\max} \hspace{2pt} \theta_{D}(\alpha) \quad \text{s.t. }
     &\sum_{i=1}^{m} \alpha_{i} y^{(i)} = 0.
 \end{cases}$$ (mmc_dual_optimization)
 
-The first constraint in this optimization problem singles out the support vectors, whereas the second constraint derives itself from our derivation of the dual of the Lagrangian (see above). The KKT conditions are then also satisfied
+The first constraint in this optimization problem singles out the support vectors, whereas the second constraint derives itself from our derivation of the dual of the Lagrangian (see above). The KKT conditions are then also satisfied.
 
 - The first KKT condition is satisfied as of our first step in the conversion to the Lagrangian dual.
 - The second KKT condition is not relevant.
@@ -299,7 +301,7 @@ name: maximum_margin_classifier_solution
 Maximum Margin Classifier solution.
 ```
 
-To derive $b^{\star}$, we start from $x^{(i)}$ on the negative margin, one then gets to the decision boundary by $x^{(i)} + \omega^{\star}$, and from $x^{(j)}$ on the positive margin by $x^{(j)} - \omega^{\star}$, i.e.
+To derive $b^{\star}$, we start from $x^{(i)}$ on the negative margin. One then gets to the decision boundary by $x^{(i)} + \omega^{\star}$, and from $x^{(j)}$ on the positive margin by $x^{(j)} - \omega^{\star}$, i.e.
 
 $$\begin{aligned}
 \Longrightarrow \underset{i \in \mathcal{C}_{2}}{\max} \hspace{2pt} \omega^{\star^{\top}} x^{(i)} + \omega^{\star^{\top}} \omega^{\star} + b^{\star} &= 0 \\
@@ -313,7 +315,7 @@ $$\begin{aligned}
 &= \sum_{i=1}^{m} \alpha_{i}^{\star} y^{(i)} \langle x^{(i)}, x \rangle + b^{\star},
 \end{aligned}$$ (mmc_model)
 
-where $\alpha_{i}$ is only non-zero for support vectors and calls the inner product $\langle x^{(i)}, x \rangle$ which is hence a highly efficient computation. As such we have derived the support vector machine for the linear classification of sets. The formulation of the optimal set-boundary/decision boundary was formulated as the search for a margin optimization, then transformed into a convex constrained optimization problem, before restricting the contributions of the computation to contributions coming from the _support vectors_, i.e., vectors on the actual decision boundary estimate hence leading to a strong reduction of the problem dimensionality.
+where $\alpha_{i}$ is only non-zero for support vectors and calls the inner product $\langle x^{(i)}, x \rangle$, which is hence a highly efficient computation. We have derived the support vector machine for the linear classification of sets. The formulation of the optimal set-boundary/decision boundary was formulated as the search for a margin optimization, then transformed into a convex, constrained optimization problem before restricting the contributions of the computation to contributions coming from the _support vectors_, i.e., vectors on the actual decision boundary estimate hence leading to a strong reduction of the problem dimensionality.
 
 ## Advanced Topics: Soft Margin Classifier (SMC)
 
@@ -328,7 +330,7 @@ name: svm_nonlinearly_separable
 Non-linearly separable sets.
 ```
 
-*Data may not be exactly linealy seperable or some data outliers may undesirably deform the exact decision boundary.*
+*Data may not be exactly linearly separable, or some data outliers may undesirably deform the exact decision boundary.*
 
 ### Outlier problem
 
@@ -338,14 +340,14 @@ width: 500px
 align: center
 name: svm_sets_with_outlier
 ---
-Sensitivity of MMC to outlier.
+Sensitivity of MMC to outliers.
 ```
 
 ### Original SVM optimization problem
 
 $$\min _{\omega, b} \frac{1}{2}\|\omega\|^{2}  \quad \text {s.t. } y^{(i)}\left(\omega^{\top} x^{(i)}+b\right) \ge 1, i=1, \ldots, m$$ (mmc_primal_problem)
 
-To make the algorithm work for non-linearly separable data, we introduce $l_1$-regularization, i.e. a penalty term proportional to the magnitude of a certain quantity
+To make the algorithm work for non-linearly separable data, we introduce $l_1$-regularization, i.e., a penalty term proportional to the magnitude of a certain quantity.
 
 $\Rightarrow l_1$-regularised primal optimization problem
 
@@ -415,7 +417,7 @@ The optimal $b^*$ is obtained from averaging over all support vectors: condition
 
 $$0<\alpha_{i}^{*}<C \Rightarrow y^{(i)}\left(\omega^{\top} x^{(i)}+b\right)=1$$ (smc_bstar_condition)
 
-$\Rightarrow$ for $\omega^*$ we obtain the same result as for the linearly separable problem
+$\Rightarrow$ for $\omega^*$, we obtain the same result as for the linearly separable problem
 
 $$\omega^*=\sum_{i=1}^{m_{s}} \alpha_{i}^* y^{(i)} x^{(i)}, \quad m_{s} \text{ support vectors.}$$ (smc_omegastar)
 
@@ -427,7 +429,7 @@ A numerically stable option is to average over $m_{\Sigma}$, i.e. all SV on the 
 
 $$b^* = \frac{1}{m_{\Sigma}} \sum_{j=1}^{m_{\Sigma}}\left(y^{(j)}-\sum_{i=1}^{m_{\Sigma}} \alpha_{i}^{*} y^{(i)}\left\langle x^{(i)}, x^{(j)}\right\rangle\right)$$ (smc_bstar)
 
-> Recall: only data with $\alpha_{i}^*\ne 0$, i.e. support vectors, will contribute to the SVM prediction (last eq. of Maximum Margin Classifier).
+> Recall: only data with $\alpha_{i}^*\ne 0$, i.e., support vectors, will contribute to the SVM prediction (last eq. of Maximum Margin Classifier).
 
 In conclusion, we illustrate the functionality of the slack variables.
 
@@ -450,7 +452,7 @@ Soft Margin Classifier.
 - Task : find $\max _{x} f\left(x_{1}, \ldots, x_{m}\right)$
 - Perform a component-wise search on $x$
 
-_Algorithm_
+*Algorithm*
 
 **do until converged** <br>
 &emsp;**for** $i=1, \ldots, m$ <br>
@@ -458,7 +460,7 @@ $\qquad x_{i}^{(k+1)}=\underset{\tilde{x}_{i}}{\operatorname{argmax} } f\left(x_
 &emsp;**end for** <br>
 **end do**
 
-_Sketch of algorithm_
+*Sketch of algorithm*
 
 ```{figure} ../imgs/svm/sequential_minimal_optimization.png
 ---
@@ -576,13 +578,13 @@ The feature map is essentially a change of basis as:
 
 $$x\rightarrow\varphi(x)$$ (feature_map)
 
-In general, $x$ and $\varphi$ are vectors where $\varphi$ has the entire $x$ as argument. The resulting modified classifier becomes
+In general, $x$ and $\varphi$ are vectors where $\varphi$ has the entire $x$ as an argument. The resulting modified classifier becomes
 
 $$h(x)= g(\omega^T \varphi(x)+b).$$ (classifier_with_feature_map)
 
 **Example: XNOR**
 
-The following classification problem is non-linear as there is no linear decision boundary.
+The following classification problem is non-linear, as there is no linear decision boundary.
 
 ```{figure} ../imgs/svm/xnor_example.png
 ---
@@ -614,14 +616,14 @@ width: 600px
 align: center
 name: kernel_trick_idea
 ---
-Binary classification of circular region (Source: [Wikipedia](https://en.wikipedia.org/wiki/Kernel_method)).
+Binary classification of a circular region (Source: [Wikipedia](https://en.wikipedia.org/wiki/Kernel_method)).
 ```
 
-Here, it is again obvious that if we embed the inputs in a 3D space by adding their squares, i.e. $\varphi((x_1, x_2)) = (x_1, x_2, x_1^2+x_2^2)$, we will be able to draw a hyperplane separating the subsets.
+Here, it is again obvious that if we embed the inputs in a 3D space by adding their squares, i.e., $\varphi((x_1, x_2)) = (x_1, x_2, x_1^2+x_2^2)$, we will be able to draw a hyperplane separating the subsets.
 
 But of course, these examples are constructed, as here we could immediately guess $\varphi(x_1,x_2)$. In general, this is not possible.
 
-> Recall : the dual problem of SVM involves a scalar product $x^{(i)\top}x^{(j)}$ of feature vectors.
+> Recall: the dual problem of SVM involves a scalar product $x^{(i)\top}x^{(j)}$ of feature vectors.
 $\Rightarrow$ motivates the general notation of a dual problem with feature maps.
 
 ### Dual representations
@@ -678,11 +680,11 @@ h(x) &= \omega^T \varphi (x) + b = a^T \Phi \varphi (x) = \Phi^T \varphi (x) a \
 
 where $k_i = K(x^{(i)},x)$ are the components of K.
 
-> The *kernel trick* refers to this formulation of the learning problem, which relies on computing the kernel similarities between pairs of input points $x$ and $x'$, instead of computing $\varphi(x)$ explicitly.
+> The *kernel trick* refers to this formulation of the learning problem, which relies on computing the kernel similarities between a pair of input points $x$ and $x'$, instead of computing $\varphi(x)$ explicitly.
 
 > The term *Support Vector Machine* typically refers to a margin classifier using the kernel formulation.
 
-Now, let's do some bookkeeping using the number of data points $M$ and dimension of the input data $N$.
+Now, let's do some bookkeeping using the number of data points $M$ and the dimension of the input data $N$.
 
 $$\underbrace{a}_{M}=\underbrace{(K-\lambda I )^{-1}}_{M \times M} \underbrace{y}_{M}.$$ (ridge_reg_dual_sol_a_dimensions)
 
@@ -696,11 +698,11 @@ $\Rightarrow$ we can consider even an infinite-dimensional feature vector $N \ri
 
 ### Construction of suitable kernels
 
-- construction from feature map
+- construction from the feature map
 
     $$ K(x,x') = \varphi^T (x) \varphi (x') = \sum_{i=1}^{N} \varphi_i (x) \varphi_i (x')$$ (kernel_from_feature_map)
 
-- direct construction with constraint that a *valid kernel* is obtained, i.e. it needs actually to correspond to a possible feature map scalar product.
+- direct construction with the constraint that a *valid kernel* is obtained, i.e., it actually needs to correspond to a possible feature map scalar product.
 
 A **necessary and sufficient condition** for a valid kernel is that **$K$ is positive semidefinite for all $x$**.
 
@@ -730,16 +732,16 @@ $$\varphi(x)= \left[\begin{array}{l} x_1 x_1 \\ x_1 x_2 \\ \ldots \\ x_3x_3 \\ \
 
 Considering that $\varphi(x)$ and $\varphi(x')$ are vectors, the scalar product $K(x,x')=\varphi^T(x)\varphi(x')$ expresses the projection of $\varphi(x')$ onto $\varphi(x)$.
 
-$\Rightarrow$ the larger the kernel value, the more parallel the vectors are. Conversely, the smaller, the more orthogonal they are.
+$\Rightarrow$ The larger the kernel value, the more parallel the vectors are. Conversely, the smaller, the more orthogonal they are.
 
-$\Rightarrow$ intuitively $K(x,x')$ is a measure of "how close" $\varphi(x)$ and $\varphi(x')$ are.
+$\Rightarrow$ Intuitively $K(x,x')$ is a measure of "how close" $\varphi(x)$ and $\varphi(x')$ are.
 
 **Example: Gaussian kernel**
 
 $$K(x,x')= \exp \left\{- \frac{(x-x')^T (x-x')}{2 \sigma^2} \right\} \\
 \left\{\begin{array}{l} \approx 1 , \quad x \text{ and } x' \text{ close}  \\ \approx 0 , \quad x \text{ and } x' \text{ far apart} \end{array}\right.$$ (gaussian_kernel)
 
-Now we show for illustration that a valid kernel is positive semidefinite, which is the above-mentioned necessary condition.
+Now, we illustrate that a valid kernel is positive semidefinite, which is the above-mentioned necessary condition.
 
 #### Proof:
 
@@ -754,7 +756,7 @@ $$\begin{aligned}
 
 The necessary and sufficient condition is due to **[Mercer's theorem](https://en.wikipedia.org/wiki/Mercer%27s_theorem)**:
 
-A given $K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}$ is a valid kernel if for any {$x^{(1)},...,x^{(m)}$}, $m<\infty$ the resulting $K$ is positive semidefinite (which implies that it also must be symmetric). For non-separable sets we still can apply MMC or slack-variable SMC: We simply replace the feature-scalar product within the SVM prediction.
+A given $K: \mathbb{R}^N \times \mathbb{R}^N \rightarrow \mathbb{R}$ is a valid kernel if for any {$x^{(1)},...,x^{(m)}$}, $m<\infty$ the resulting $K$ is positive semidefinite (which implies that it also must be symmetric). We can still apply MMC or slack-variable SMC for non-separable sets: We simply replace the feature-scalar product within the SVM prediction.
 
 $$h(x) = \omega^{*T}x+b^* = \sum_{i=1}^m \alpha_i^* y^{(i)} \langle x^{(i)} , x \rangle + b^*$$ (smc_with_dot_product)
 
@@ -762,7 +764,7 @@ We replace $\langle x^{(i)} , x \rangle$ by $k(x^{(i)},x)$.
 
 $$h(x) = \sum_{i=1}^m \alpha_i^* y^{(i)} k(x^{(i)},x)+ b^*$$ (smc_with_kernel)
 
-This pulls through into the dual problem for determining $\alpha_i^*$ and $b^*$ such that by picking a suitable kernel function we may get close to a linearly separable transformation function without actually performing the feature mapping.
+This pulls through into the dual problem for determining $\alpha_i^*$ and $b^*$ such that by picking a suitable kernel function, we may get close to a linearly separable transformation function without actually performing the feature mapping.
 
 ## Recapitulation of SVMs
 
@@ -771,10 +773,8 @@ This pulls through into the dual problem for determining $\alpha_i^*$ and $b^*$ 
   - Introduction of feature maps
 - Controlled violation:
  slack variables $\rightarrow l_1$-regularized opt. problem $\rightarrow$ modified dual problem $\rightarrow$ solution by SMO
-- Feature map:
-  kernel function (tensorial product of feature maps) $\rightarrow$ reformulated dual opt. problem $\rightarrow$ prediction depends only on the kernel function
-- Kernel construction:
-  a lot of freedom but $\rightarrow$ valid kernel
+- Feature map: kernel function (tensorial product of feature maps) $\rightarrow$ reformulated dual optimization problem $\rightarrow$ prediction depends only on the kernel function
+- Kernel construction: a lot of freedom but $\rightarrow$ valid kernel
 - Important kernel: Gaussian
 - Solution of non-separable problems:
   - Pick a suitable kernel function
@@ -782,6 +782,6 @@ This pulls through into the dual problem for determining $\alpha_i^*$ and $b^*$ 
 
 ## Further References
 
-- {cite}`cs229notes`, Chapters 5 und 6
+- {cite}`cs229notes`, Chapters 5 and 6
 - {cite}`murphy2022`, Section 17.3
-- {cite}`bishop2006`, Eppendix E: Lagrange Multipliers
+- {cite}`bishop2006`, Appendix E: Lagrange Multipliers
