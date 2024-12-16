@@ -84,7 +84,7 @@ Reverse-mode differentiation. (Source: {cite}`maclaurin2016`, Section 2)
 
 **Example: AD on a Linear Model**
 
-Given is the linear model $h(x)=w \cdot x+b$ that maps from the input $x\in \mathbb{R}$ to the output $y\in \mathbb{R}$, as well as a dataset of a single measurement pair $\{(x=1, y=7)\}$. The initial model parameters are $w=2, b=3$. Compute the gradient of the MSE loss w.r.t. the model parameters, and run one step of gradient descent with $\alpha=1$. Draw all intermediate values in the provided compute graph below.
+Given is the linear model $h(x)=w \cdot x+b$ that maps from the input $x\in \mathbb{R}$ to the output $y\in \mathbb{R}$, as well as a dataset of a single measurement pair $\{(x=1, y=7)\}$. The initial model parameters are $w=2, b=3$. Compute the gradient of the MSE loss w.r.t. the model parameters, and run one step of gradient descent with $\alpha=0.1$. Draw all intermediate values in the provided compute graph below.
 
 
 ```{figure} ../imgs/gradients/ad_example_question.png
@@ -122,13 +122,45 @@ Then, we compute the gradients starting from the loss and then going backward, d
 $$
 \begin{align}
 \frac{\partial\mathcal{L}}{\partial\gamma} &= \frac{\partial\gamma^2}{\partial\gamma} = 2 \cdot \gamma = -4 \\
-% \frac{\partial\mathcal{L}}{\partial\beta} &=\frac{\partial\mathcal{L}}{\partial\gamma} \frac{\partial\gamma}{\partial\beta} = \frac{\partial\mathcal{L}}{\partial\gamma} \frac{\partial(\beta-y)}{\partial\beta} = \frac{\partial\mathcal{L}}{\partial\gamma} \cdot 1 = -4 \\
 \frac{\partial\mathcal{L}}{\partial\beta} &=\frac{\partial\mathcal{L}}{\partial\gamma} \frac{\partial\gamma}{\partial\beta} =  -4, \qquad \frac{\partial\gamma}{\partial\beta} = \frac{\partial(\beta-y)}{\partial\beta} = 1 \\
 \frac{\partial\mathcal{L}}{\partial\alpha} &=\frac{\partial\mathcal{L}}{\partial\beta} \frac{\partial\beta}{\partial\alpha} =  -4, \qquad \frac{\partial\beta}{\partial\alpha} = \frac{\partial(\alpha+b)}{\partial\alpha} = 1 \\
 \frac{\partial\mathcal{L}}{\partial w} &=\frac{\partial\mathcal{L}}{\partial\alpha} \frac{\partial\alpha}{\partial w} =  -4, \qquad \frac{\partial\alpha}{\partial w} = \frac{\partial(x\cdot w)}{\partial w} = x = 1 \\
 \frac{\partial\mathcal{L}}{\partial b} &=\frac{\partial\mathcal{L}}{\partial\beta} \frac{\partial\beta}{\partial b} =  -4, \qquad \frac{\partial\beta}{\partial b} = \frac{\partial(\alpha+b)}{\partial b} = 1 \\
 \end{align}
 $$ (ad_example_backward)
+
+Finally, one step of gradient descent results in the following update.
+
+$$
+\begin{align}
+ \left[ \begin{matrix}
+    w \\
+    b \\
+\end{matrix}\right]_{1} &= 
+ \left[ \begin{matrix}
+    w \\
+    b \\
+\end{matrix}\right]_{0} - \alpha \cdot
+ \left[ \begin{matrix}
+    \partial \mathcal{L} / \partial w \\
+    \partial \mathcal{L} / \partial b \\
+\end{matrix}\right]_{0} \\
+&= 
+ \left[ \begin{matrix}
+    2 \\
+    3 \\
+\end{matrix}\right] - 0.1 \cdot 
+ \left[ \begin{matrix}
+    -4 \\
+    -4 \\
+\end{matrix}\right] \\
+&= 
+ \left[ \begin{matrix}
+    2.4 \\
+    3.4 \\
+\end{matrix}\right] 
+\end{align}
+$$ (ad_example_gd)
 
 
 <!-- # code to above exercise
@@ -250,7 +282,7 @@ $$
 u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}}(x_{3})}_{m_{3} \times m_{2}} \underbrace{J_{f_{2}}(x_{2})}_{m_{2} \times m_{1}} \underbrace{J_{f_{1}}(x_{1})}_{m_{1} \times n}
 $$ (vjp_chain)
 
-for the solving of which reverse-mode differentiation is the most well-suited. The pseudo algorithm for which can be found below
+for the solving of which reverse-mode differentiation is the most well-suited. The pseudo algorithm for which can be found below. The cost of computation in this case is $\mathcal{O}(m)$.
 
 ```{figure} ../imgs/gradients/gradients_reverse_alg.png
 ---
@@ -260,8 +292,6 @@ name: gradients_reverse_alg
 ---
 Reverse-mode algorithm. 
 ```
-
-The cost of computation in this case is $\mathcal{O}(1)$.
 
 ## A Practical Example
 
