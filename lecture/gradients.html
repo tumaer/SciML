@@ -427,6 +427,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gradients">
 <h1><span class="section-number">8. </span>Gradients<a class="headerlink" href="#gradients" title="Permalink to this heading">#</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcome</p>
+<ul class="simple">
+<li><p>How does automatic differentiation (AD) work?</p></li>
+<li><p>What is the difference between forward-mode and reverse-mode AD?</p></li>
+<li><p>How to construct the compute graph for backpropagation?</p></li>
+</ul>
+</div>
 <p>Gradients are a general tool of utility across many scientific domains and keep reappearing across areas. Machine learning is just one of a much larger group of examples that utilizes gradients to accelerate its optimization processes. Breaking the uses down into a few rough areas, we have:</p>
 <ul class="simple">
 <li><p>Machine learning (Backpropagation, Bayesian Inference, Uncertainty Quantification, Optimization)</p></li>
@@ -502,7 +510,7 @@ document.write(`
 </figcaption>
 </figure>
 <p><strong>Example: AD on a Linear Model</strong></p>
-<p>Given is the linear model <span class="math notranslate nohighlight">\(h(x)=w \cdot x+b\)</span> that maps from the input <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span> to the output <span class="math notranslate nohighlight">\(y\in \mathbb{R}\)</span>, as well as a dataset of a single measurement pair <span class="math notranslate nohighlight">\(\{(x=1, y=7)\}\)</span>. The initial model parameters are <span class="math notranslate nohighlight">\(w=2, b=3\)</span>. Compute the gradient of the MSE loss w.r.t. the model parameters, and run one step of gradient descent with <span class="math notranslate nohighlight">\(\alpha=1\)</span>. Draw all intermediate values in the provided compute graph below.</p>
+<p>Given is the linear model <span class="math notranslate nohighlight">\(h(x)=w \cdot x+b\)</span> that maps from the input <span class="math notranslate nohighlight">\(x\in \mathbb{R}\)</span> to the output <span class="math notranslate nohighlight">\(y\in \mathbb{R}\)</span>, as well as a dataset of a single measurement pair <span class="math notranslate nohighlight">\(\{(x=1, y=7)\}\)</span>. The initial model parameters are <span class="math notranslate nohighlight">\(w=2, b=3\)</span>. Compute the gradient of the MSE loss w.r.t. the model parameters, and run one step of gradient descent with step size <span class="math notranslate nohighlight">\(0.1\)</span>. Draw all intermediate values in the provided compute graph below.</p>
 <figure class="align-center" id="ad-example-question">
 <a class="reference internal image-reference" href="../_images/ad_example_question.png"><img alt="../_images/ad_example_question.png" src="../_images/ad_example_question.png" style="width: 600px;" /></a>
 <figcaption>
@@ -531,11 +539,42 @@ x &amp;= 1; \; w=2; \; b=3; \; y=7 \\
 <span class="eqno">(8.6)<a class="headerlink" href="#equation-ad-example-backward" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
 \frac{\partial\mathcal{L}}{\partial\gamma} &amp;= \frac{\partial\gamma^2}{\partial\gamma} = 2 \cdot \gamma = -4 \\
-% \frac{\partial\mathcal{L}}{\partial\beta} &amp;=\frac{\partial\mathcal{L}}{\partial\gamma} \frac{\partial\gamma}{\partial\beta} = \frac{\partial\mathcal{L}}{\partial\gamma} \frac{\partial(\beta-y)}{\partial\beta} = \frac{\partial\mathcal{L}}{\partial\gamma} \cdot 1 = -4 \\
 \frac{\partial\mathcal{L}}{\partial\beta} &amp;=\frac{\partial\mathcal{L}}{\partial\gamma} \frac{\partial\gamma}{\partial\beta} =  -4, \qquad \frac{\partial\gamma}{\partial\beta} = \frac{\partial(\beta-y)}{\partial\beta} = 1 \\
 \frac{\partial\mathcal{L}}{\partial\alpha} &amp;=\frac{\partial\mathcal{L}}{\partial\beta} \frac{\partial\beta}{\partial\alpha} =  -4, \qquad \frac{\partial\beta}{\partial\alpha} = \frac{\partial(\alpha+b)}{\partial\alpha} = 1 \\
 \frac{\partial\mathcal{L}}{\partial w} &amp;=\frac{\partial\mathcal{L}}{\partial\alpha} \frac{\partial\alpha}{\partial w} =  -4, \qquad \frac{\partial\alpha}{\partial w} = \frac{\partial(x\cdot w)}{\partial w} = x = 1 \\
 \frac{\partial\mathcal{L}}{\partial b} &amp;=\frac{\partial\mathcal{L}}{\partial\beta} \frac{\partial\beta}{\partial b} =  -4, \qquad \frac{\partial\beta}{\partial b} = \frac{\partial(\alpha+b)}{\partial b} = 1 \\
+\end{align}
+\end{split}\]</div>
+<p>Finally, one step of gradient descent results in the following update.</p>
+<div class="math notranslate nohighlight" id="equation-ad-example-gd">
+<span class="eqno">(8.7)<a class="headerlink" href="#equation-ad-example-gd" title="Permalink to this equation">#</a></span>\[\begin{split}
+\begin{align}
+ \left[ \begin{matrix}
+    w \\
+    b \\
+\end{matrix}\right]_{1} &amp;= 
+ \left[ \begin{matrix}
+    w \\
+    b \\
+\end{matrix}\right]_{0} - 0.1 \cdot
+ \left[ \begin{matrix}
+    \partial \mathcal{L} / \partial w \\
+    \partial \mathcal{L} / \partial b \\
+\end{matrix}\right]_{0} \\
+&amp;= 
+ \left[ \begin{matrix}
+    2 \\
+    3 \\
+\end{matrix}\right] - 0.1 \cdot 
+ \left[ \begin{matrix}
+    -4 \\
+    -4 \\
+\end{matrix}\right] \\
+&amp;= 
+ \left[ \begin{matrix}
+    2.4 \\
+    3.4 \\
+\end{matrix}\right] 
 \end{align}
 \end{split}\]</div>
 <!-- # code to above exercise
@@ -559,7 +598,7 @@ print(f'y.grad: {y.grad}') -->
 <h3><span class="section-number">8.2.3. </span>Forward- vs. Reverse-Mode<a class="headerlink" href="#forward-vs-reverse-mode" title="Permalink to this heading">#</a></h3>
 <p>The performance comparison between forward-mode and reverse-mode gradients can be broken down depending on the size of our input vector and our output vector. So for the case of abstracting our neural network as a function that takes an input vector of a certain size <span class="math notranslate nohighlight">\(n\)</span> and generates an output vector of a certain size <span class="math notranslate nohighlight">\(m\)</span></p>
 <div class="math notranslate nohighlight" id="equation-ad-f-map">
-<span class="eqno">(8.7)<a class="headerlink" href="#equation-ad-f-map" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.8)<a class="headerlink" href="#equation-ad-f-map" title="Permalink to this equation">#</a></span>\[
 f: \mathbb{R}^{n} \longrightarrow \mathbb{R}^{m}
 \]</div>
 <ul class="simple">
@@ -573,12 +612,12 @@ f: \mathbb{R}^{n} \longrightarrow \mathbb{R}^{m}
 <h2><span class="section-number">8.3. </span>In-Depth Look<a class="headerlink" href="#in-depth-look" title="Permalink to this heading">#</a></h2>
 <p>We decompose the function <span class="math notranslate nohighlight">\(f\)</span> as</p>
 <div class="math notranslate nohighlight" id="equation-ad-f-decomp">
-<span class="eqno">(8.8)<a class="headerlink" href="#equation-ad-f-decomp" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.9)<a class="headerlink" href="#equation-ad-f-decomp" title="Permalink to this equation">#</a></span>\[
 f = f_{4} \circ f_{3} \circ f_{2} \circ f_{1},
 \]</div>
 <p>where we are essentially converting from space to space with each function. Each function is an abstraction for an individual neural network layer, as we will see in much more depth when constructing neural networks in the upcoming lectures or in the exercises later on.</p>
 <div class="math notranslate nohighlight" id="equation-ad-f-submaps">
-<span class="eqno">(8.9)<a class="headerlink" href="#equation-ad-f-submaps" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.10)<a class="headerlink" href="#equation-ad-f-submaps" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     f_{1}: \mathbb{R}^{n} &amp;\longrightarrow \mathbb{R}^{m_{1}} \\
     f_{2}: \mathbb{R}^{m_{1}} &amp;\longrightarrow \mathbb{R}^{m_{2}} \\
@@ -588,7 +627,7 @@ f = f_{4} \circ f_{3} \circ f_{2} \circ f_{1},
 \end{split}\]</div>
 <p>where our overall network <span class="math notranslate nohighlight">\(o = f(x)\)</span> is broken down as</p>
 <div class="math notranslate nohighlight" id="equation-ad-f-intermediates">
-<span class="eqno">(8.10)<a class="headerlink" href="#equation-ad-f-intermediates" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.11)<a class="headerlink" href="#equation-ad-f-intermediates" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     x_{2} &amp;= f_{1}(x) \\
     x_{3} &amp;= f_{2}(x_{2}) \\
@@ -598,7 +637,7 @@ f = f_{4} \circ f_{3} \circ f_{2} \circ f_{1},
 \end{split}\]</div>
 <p>Using the chain rule we can then compute the Jacobian <span class="math notranslate nohighlight">\(J_{f}(x) = \frac{\partial o}{\partial x}\)</span> as</p>
 <div class="math notranslate nohighlight" id="equation-ad-grad-chain">
-<span class="eqno">(8.11)<a class="headerlink" href="#equation-ad-grad-chain" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.12)<a class="headerlink" href="#equation-ad-grad-chain" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
 \frac{\partial o}{\partial x} &amp;= \frac{\partial o}{\partial x_{4}} \frac{\partial x_{4}}{\partial x_{3}} \frac{\partial x_{3}}{\partial x_{2}} \frac{\partial x_{2}}{\partial x} \\
  &amp;= \frac{\partial f_{4}(x_{4})}{\partial x_{4}} \frac{\partial f_{3}(x_{3})}{\partial x_{3}} \frac{\partial f_{2}(x_{2})}{\partial x_{2}} \frac{\partial f_{1}(x)}{\partial x} \\
@@ -607,7 +646,7 @@ f = f_{4} \circ f_{3} \circ f_{2} \circ f_{1},
 \end{split}\]</div>
 <p>This approach to the computation would be highly inefficient. As such we rely on matrix computation for more efficiency, i.e.</p>
 <div class="math notranslate nohighlight" id="equation-jacobian-splits">
-<span class="eqno">(8.12)<a class="headerlink" href="#equation-jacobian-splits" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.13)<a class="headerlink" href="#equation-jacobian-splits" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
 J_{f}(x) = \frac{\partial f(x)}{\partial x} &amp;= \left(\begin{matrix}
     \frac{\partial f_{1}}{\partial x_{1}} &amp; \ldots &amp; \frac{\partial f_{1}}{\partial x_{n}} \\
@@ -631,7 +670,7 @@ J_{f}(x) = \frac{\partial f(x)}{\partial x} &amp;= \left(\begin{matrix}
 </ul>
 <p>Examining the case for when <span class="math notranslate nohighlight">\(n&lt;m\)</span>, then it is more efficient to compute each column using the Jacobian vector product in a right-to-left manner, i.e., the right multiplication of a column vector gives us</p>
 <div class="math notranslate nohighlight" id="equation-jvp-chain">
-<span class="eqno">(8.13)<a class="headerlink" href="#equation-jvp-chain" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.14)<a class="headerlink" href="#equation-jvp-chain" title="Permalink to this equation">#</a></span>\[
 J_{f}(x) v = \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}}(x_{3})}_{m_{3} \times m_{2}} \underbrace{J_{f_{2}}(x_{2})}_{m_{2} \times m_{1}} \underbrace{J_{f_{1}}(x_{1})}_{m_{1} \times n} \underbrace{v}_{n \times 1},
 \]</div>
 <p>which is then computed with forward-mode differentiation. The pseudoalgorithm is given below.</p>
@@ -643,17 +682,16 @@ J_{f}(x) v = \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}
 </figure>
 <p>Returning to the cost advantage of forward-mode differentiation, in this specific case, the computation cost is <span class="math notranslate nohighlight">\(\mathcal{O}(n)\)</span>. If we now have the case where <span class="math notranslate nohighlight">\(n&gt;m\)</span>, then it is more efficient to compute <span class="math notranslate nohighlight">\(J_{f}(x)\)</span> for each row using the vector Jacobian product (VJP) in a left-to-right manner, i.e.</p>
 <div class="math notranslate nohighlight" id="equation-vjp-chain">
-<span class="eqno">(8.14)<a class="headerlink" href="#equation-vjp-chain" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.15)<a class="headerlink" href="#equation-vjp-chain" title="Permalink to this equation">#</a></span>\[
 u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{4})}_{m \times m_{3}} \underbrace{J_{f_{3}}(x_{3})}_{m_{3} \times m_{2}} \underbrace{J_{f_{2}}(x_{2})}_{m_{2} \times m_{1}} \underbrace{J_{f_{1}}(x_{1})}_{m_{1} \times n}
 \]</div>
-<p>for the solving of which reverse-mode differentiation is the most well-suited. The pseudo algorithm for which can be found below</p>
+<p>for the solving of which reverse-mode differentiation is the most well-suited. The pseudo algorithm for which can be found below. The cost of computation in this case is <span class="math notranslate nohighlight">\(\mathcal{O}(m)\)</span>.</p>
 <figure class="align-center" id="gradients-reverse-alg">
 <a class="reference internal image-reference" href="../_images/gradients_reverse_alg.png"><img alt="../_images/gradients_reverse_alg.png" src="../_images/gradients_reverse_alg.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 8.6 </span><span class="caption-text">Reverse-mode algorithm.</span><a class="headerlink" href="#gradients-reverse-alg" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>The cost of computation in this case is <span class="math notranslate nohighlight">\(\mathcal{O}(1)\)</span>.</p>
 </section>
 <section id="a-practical-example">
 <h2><span class="section-number">8.4. </span>A Practical Example<a class="headerlink" href="#a-practical-example" title="Permalink to this heading">#</a></h2>
@@ -666,12 +704,12 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 </figure>
 <p>The MLP with one hidden layer is written down as</p>
 <div class="math notranslate nohighlight" id="equation-mlp-equation">
-<span class="eqno">(8.15)<a class="headerlink" href="#equation-mlp-equation" title="Permalink to this equation">#</a></span>\[
+<span class="eqno">(8.16)<a class="headerlink" href="#equation-mlp-equation" title="Permalink to this equation">#</a></span>\[
 \mathcal{L}\left( (x, y), \theta \right) = \frac{1}{2} || y - W_{4} \varphi_3(W_{3} \varphi_2(W_{3} \varphi_1(W_{1}x))) ||^{2}_{2},
 \]</div>
 <p>which is then represented as the following feedforward model:</p>
 <div class="math notranslate nohighlight" id="equation-mlp-equation-splits">
-<span class="eqno">(8.16)<a class="headerlink" href="#equation-mlp-equation-splits" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.17)<a class="headerlink" href="#equation-mlp-equation-splits" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     \mathcal{L} &amp;= f_{4} \circ f_{3} \circ f_{2} \circ f_{1} \\
     x_{2} &amp;= f_{1}(x, \theta_{1}) = \varphi_1(W_{1}x) \\
@@ -683,7 +721,7 @@ u^{\top} J_{f}(x) = \underbrace{u^{\top}}_{1 \times m} \underbrace{J_{f_{4}}(x_{
 \end{split}\]</div>
 <p>The <span class="math notranslate nohighlight">\(\theta_{k}\)</span> are the optional parameters for each layer. As, by construction, the final layer returns a scalar, it is much more efficient to use reverse-mode differentiation to compute the gradient vectors in this case. We begin by computing the gradients of the loss with respect to the parameters in the earlier layers</p>
 <div class="math notranslate nohighlight" id="equation-mlp-grads">
-<span class="eqno">(8.17)<a class="headerlink" href="#equation-mlp-grads" title="Permalink to this equation">#</a></span>\[\begin{split}
+<span class="eqno">(8.18)<a class="headerlink" href="#equation-mlp-grads" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
     \frac{\partial \mathcal{L}}{\partial \theta_{4}} &amp;= \frac{\partial \mathcal{L}}{\partial o} \frac{\partial o}{\partial \theta_{4}} \\
     \frac{\partial \mathcal{L}}{\partial \theta_{3}} &amp;= \frac{\partial \mathcal{L}}{\partial o} \frac{\partial o}{\partial x_{4}} \frac{\partial x_{4}}{\partial \theta_{3}} \\
