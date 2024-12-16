@@ -1,5 +1,12 @@
 # Gradients
 
+`````{admonition} Learning outcome
+:class: tip 
+- How does automatic differentiation (AD) work?
+- What is the difference between forward-mode and reverse-mode AD?
+- How to construct the compute graph for backpropagation?
+`````
+
 Gradients are a general tool of utility across many scientific domains and keep reappearing across areas. Machine learning is just one of a much larger group of examples that utilizes gradients to accelerate its optimization processes. Breaking the uses down into a few rough areas, we have:
 
 * Machine learning (Backpropagation, Bayesian Inference, Uncertainty Quantification, Optimization)
@@ -84,8 +91,7 @@ Reverse-mode differentiation. (Source: {cite}`maclaurin2016`, Section 2)
 
 **Example: AD on a Linear Model**
 
-Given is the linear model $h(x)=w \cdot x+b$ that maps from the input $x\in \mathbb{R}$ to the output $y\in \mathbb{R}$, as well as a dataset of a single measurement pair $\{(x=1, y=7)\}$. The initial model parameters are $w=2, b=3$. Compute the gradient of the MSE loss w.r.t. the model parameters, and run one step of gradient descent with $\alpha=0.1$. Draw all intermediate values in the provided compute graph below.
-
+Given is the linear model $h(x)=w \cdot x+b$ that maps from the input $x\in \mathbb{R}$ to the output $y\in \mathbb{R}$, as well as a dataset of a single measurement pair $\{(x=1, y=7)\}$. The initial model parameters are $w=2, b=3$. Compute the gradient of the MSE loss w.r.t. the model parameters, and run one step of gradient descent with step size $0.1$. Draw all intermediate values in the provided compute graph below.
 
 ```{figure} ../imgs/gradients/ad_example_question.png
 ---
@@ -140,7 +146,7 @@ $$
  \left[ \begin{matrix}
     w \\
     b \\
-\end{matrix}\right]_{0} - \alpha \cdot
+\end{matrix}\right]_{0} - 0.1 \cdot
  \left[ \begin{matrix}
     \partial \mathcal{L} / \partial w \\
     \partial \mathcal{L} / \partial b \\
