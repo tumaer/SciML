@@ -108,3 +108,4 @@ Numbered list:
 - To refer to other files use `[Some description](./lecture/x.md)`, or to use their own heading, use `[](./lecture/x.md)`.
 - Inline equations as `$y=f(x)$`.
 - All functionalities from `.md` apply also to `.ipynb`.
+- Do not prefix images with `ad_`. They are often hidden by add blockers.

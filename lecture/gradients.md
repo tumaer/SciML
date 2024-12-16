@@ -93,7 +93,7 @@ Reverse-mode differentiation. (Source: {cite}`maclaurin2016`, Section 2)
 
 Given is the linear model $h(x)=w \cdot x+b$ that maps from the input $x\in \mathbb{R}$ to the output $y\in \mathbb{R}$, as well as a dataset of a single measurement pair $\{(x=1, y=7)\}$. The initial model parameters are $w=2, b=3$. Compute the gradient of the MSE loss w.r.t. the model parameters, and run one step of gradient descent with step size $0.1$. Draw all intermediate values in the provided compute graph below.
 
-```{figure} ../imgs/gradients/ad_example_question.png
+```{figure} ../imgs/gradients/gradients_example_question.png
 ---
 width: 600px
 align: center
@@ -114,7 +114,7 @@ x &= 1; \; w=2; \; b=3; \; y=7 \\
 \end{align}
 $$ (ad_example_forward)
 
-```{figure} ../imgs/gradients/ad_example_solution.png
+```{figure} ../imgs/gradients/gradients_example_solution.png
 ---
 width: 600px
 align: center
