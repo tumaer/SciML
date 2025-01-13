@@ -2,13 +2,13 @@
 
 ## Limitations of MLP
 
-In the lecture [](mlp.md), we saw how the Multilayer Perceptron (a.k.a. Feedforward Neural Network, or Fully Connected Neural Network) generalizes linear models by stacking many affine transformations and placing nonlinear activation functions in between. Also, by the Universal Approximation Theorem, we saw that such a construction is enough to learn any function. But is an MLP always practical?
+In the lecture [](mlp.md), we saw how the Multilayer Perceptron (a.k.a. Feed-Forward Neural Network or Fully Connected Neural Network) generalizes linear models by stacking many affine transformations and placing nonlinear activation functions in between. Also, by the Universal Approximation Theorem, we saw that such a construction is enough to learn any function. But is an MLP always practical?
 
-In this subsection, we will concentrate on working with images. Imagine that we have an image with 1000x1000 pixels and 3 RGB channels. If we take an MLP with one hidden layer of size 1000, this means that the weight matrix from input to layer 1 would have 3 billion parameters to map all 3M inputs to each of the 1k neurons in layer 1. This number is significantly large for most modern consumer hardware and thus such a network could not be easily trained or deployed.
+In this subsection, we will concentrate on working with images. Imagine that we have an image with 1000x1000 pixels and 3 RGB channels. If we take an MLP with one hidden layer of size 1000, this means that the weight matrix applied to the input would have 3 billion parameters to map all 3M inputs to each of the 1k neurons in layer 1. This number is significantly large for most modern consumer hardware, and thus, such a network could not be easily trained or deployed.
 
-MLPs are in a sense the most brute-force deep learning technique. By directly connecting all input entries to all next-layer neurons, we don't introduce any model bias, but this is (at least currently) just too hard for image data.
+MLPs are, in a sense, the most brute-force deep learning technique. By directly connecting all input entries to all next-layer neurons, we don't introduce any model bias, but this is not necessarily the best approach for image data.
 
-The core idea of Convolutional Neural Networks is to introduce weight sharing, i.e. different regions of the image are treated with the same weights.
+The core idea of Convolutional Neural Networks (CNNs) is to introduce weight sharing, i.e., different regions of the image are treated with the same weights.
 
 ## Convolution
 
@@ -50,7 +50,7 @@ name: cnn_filters
 Examples of convolutional kernels (Source: [Wikipedia](https://en.wikipedia.org/wiki/Kernel_(image_processing)))
 ```
 
-The kernels is modern deep learnig lead to features like these:
+The kernels is modern deep learning "react" to features like these:
 
 ```{figure} ../imgs/cnn/cnn_features.png
 ---
@@ -58,7 +58,7 @@ width: 500px
 align: center
 name: cnn_features
 ---
-Intermediate feature maps (Image credit: Yann LeCun 2016, adapted from [Zeiler & Fergus 2013](https://arxiv.org/pdf/1311.2901.pdf))
+Reconstructed patterns that cause high activations in a given feature map (Image credit: Yann LeCun 2016, adapted from [Zeiler & Fergus 2013](https://arxiv.org/pdf/1311.2901.pdf))
 ```
 
 ## Dimensions of a Convolution
@@ -82,7 +82,7 @@ Here, $\lfloor \cdot \rfloor$ denotes the floor operator. Let's look at what eac
 
 ### Padding
 
-Applying a convolution directly to an image would result in an image of a smaller height and width. To counteract that, we pad the image height and width for example with zeros. With proper padding, one can stack hundreds of convolution layers without changing the width and height. The padding can be different along the width and height dimensions; we denote width and height padding with $\text{padding}[0]$ and $\text{padding}[1]$. The original convolution corresponds to $\text{padding}=0$.
+Applying a convolution directly to an image would result in an image of a smaller height and width. To counteract that, we pad the image height and width, for example, with zeros. With the proper padding (referred to as *same* convolution), one can stack hundreds of convolution layers without changing the width and height. The padding can be different along the width and height dimensions; we denote width and height padding with $\text{padding}[0]$ and $\text{padding}[1]$, respectively. The original convolution corresponds to $\text{padding}=0$.
 
 ```{figure} ../imgs/cnn/cnn_padding.png
 ---
@@ -90,10 +90,10 @@ width: 400px
 align: center
 name: cnn_padding
 ---
-Convolution with zero padding (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html))
+Convolution with zero padding of size one on each side (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_convolutional-neural-networks/conv-layer.html))
 ```
 
-Another reason for padding is to use the corner pixels equally often as other pixels. The image below shows how often a pixel would be used by a convolutoin kernel of size 1x1, 2x2, and 3x3 without padding.
+Another reason for padding is to use the corner pixels equally often as other pixels. The image below shows how often a pixel would be used by a convolution kernel of size 1x1, 2x2, and 3x3 without padding.
 
 ```{figure} ../imgs/cnn/cnn_without_padding.png
 ---
@@ -123,7 +123,7 @@ Convolution with stride (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapte
 
 ### Dilation
 
-This is a more rare operation, which works well for detecting large-scale features. $\text{dilation}=1$ corresponds to the original convolution.
+This is a less common operation that works well for detecting large-scale features. $\text{dilation}=1$ corresponds to the original convolution.
 
 ```{figure} ../imgs/cnn/dilation.gif
 ---
@@ -131,14 +131,14 @@ width: 200px
 align: center
 name: dilation
 ---
-Convolution with dilation (Source: [https://github.com/vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic))
+Convolution with dilation of size 2 (Source: [https://github.com/vdumoulin/conv_arithmetic](https://github.com/vdumoulin/conv_arithmetic))
 ```
 
 ## Pooling
 
 You can think of a convolution filter as a *feature extraction* transformation similar to the basis expansion with general linear models. Here, the basis itself is learned via CNN layers.
 
-If we are interested in image classification, we don't just want to transform the input features, but also *extract / select* the relevant information. This is done by pooling layers in between convolution layers. Pooling layers don't have learnable parameters and they inevitably reduce dimensionality. Typical examples are:
+If we are interested in image classification, we don't just want to transform the input features but also *extract / select* the relevant information. This is done by pooling layers in between convolution layers. Pooling layers don't have learnable parameters, and they inevitably reduce dimensionality. Typical examples are:
 
 - max / min pooling
 - mean pooling (averaging)
@@ -154,9 +154,9 @@ Max pooling (Source: {cite}`zhang2021`, [here](https://d2l.ai/chapter_convolutio
 
 ### Channels
 
-Each convolutional kernel operates on all $C_{in}$ input channels, resulting in a number of parameters per kernel $C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$. Having $C_{out}$ number of kernels results in a number of parameters per convolutional layer given by
+Each convolutional kernel operates on all $C_{in}$ input channels, resulting in a number of parameters per kernel being $C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$. Having $C_{out}$ number of kernels results in a number of parameters per convolutional layer given by
 
-$$\# \text{params} = C_{in} \cdot C_{out} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1]$$ (cnn_num_params)
+$$\# \text{params} = C_{in} \cdot \text{kernel_size}[0] \cdot \text{kernel_size}[1] \cdot C_{out}$$ (cnn_num_params)
 
 The following is an example with two input channels, one output channel, and a 2x2 kernel size.
 
@@ -187,7 +187,7 @@ We now head to a historical overview of the trends since the beginning of the de
 ### [AlexNet](https://papers.nips.cc/paper/2012/hash/c399862d3b9d6b76c8436e924a68c45b-Abstract.html) (2012)
 
 Characteristics:
-- rather larger filters with 11x11
+- rather large filters of size 11x11
 - first big successes of ReLU
 - 60M parameters
 
@@ -197,7 +197,7 @@ width: 600px
 align: center
 name: cnn_alexnet
 ---
-AlexNet architecture (Source: [I2DL, TUM](https://niessner.github.io/I2DL/slides/10.CNN-2.pdf))
+AlexNet architecture (Source: [I2DL, TUM](https://cvg.cit.tum.de/_media/teaching/ws2024/i2dl/10.architectures.pdf))
 ```
 
 ### [VGGNet](https://arxiv.org/abs/1409.1556) (2014)
@@ -215,12 +215,12 @@ width: 600px
 align: center
 name: cnn_vggnet
 ---
-VGGNet architecture (Source: [I2DL, TUM](https://niessner.github.io/I2DL/slides/10.CNN-2.pdf))
+VGGNet architecture (Source: [I2DL, TUM](https://cvg.cit.tum.de/_media/teaching/ws2024/i2dl/10.architectures.pdf))
 ```
 
 ### [ResNet](https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/He_Deep_Residual_Learning_CVPR_2016_paper.pdf) (2016)
 
-Charasteristics:
+Characteristics:
 - allows for very deep networks by introducing skip connections
 - this mitigates the vanishing and exploding gradients problem
 - ResNet-152 (with 152 layers) has 60M parameters
@@ -231,7 +231,7 @@ width: 700px
 align: center
 name: cnn_resnet
 ---
-ResNet architecture (Source: [I2DL, TUM](https://niessner.github.io/I2DL/slides/10.CNN-2.pdf))
+ResNet architecture (Source: [I2DL, TUM](https://cvg.cit.tum.de/_media/teaching/ws2024/i2dl/10.architectures.pdf))
 ```
 
 ### [U-Net](https://arxiv.org/abs/1505.04597) (2015)
@@ -246,13 +246,13 @@ width: 600px
 align: center
 name: cnn_unet
 ---
-U-Net architecture (Source: [I2DL, TUM](https://niessner.github.io/I2DL/slides/10.CNN-2.pdf))
+U-Net architecture (Source: [I2DL, TUM](https://cvg.cit.tum.de/_media/teaching/ws2024/i2dl/10.architectures.pdf))
 ```
 
 ### Advanced Topics: [ConvNext](https://arxiv.org/abs/2201.03545) (2022) and [ConvNextv2](https://arxiv.org/abs/2301.00808) (2023)
 
 Characteristics:
-- since the [Vision Transformer](https://arxiv.org/abs/2010.11929) many people started believing that the inductive bias of translational invariance encoded in a convolution is too restrictive for images classification. However, the release of the [ConvNext](https://arxiv.org/abs/2201.03545) model ("A ConvNet for the 2020s", Liu et al. 2022) points in the direction that many innovations have been made on improving transformers, e.g. the GELU activations, and if we simply apply some of them to CNNs, we also end up with state-of-the-art results.
+- since the [Vision Transformer](https://arxiv.org/abs/2010.11929), many people believe that the inductive bias of translational invariance encoded in a convolution is too restrictive for image classification. However, the release of the [ConvNext](https://arxiv.org/abs/2201.03545) model ("A ConvNet for the 2020s", Liu et al. 2022) points in the direction that many innovations have been made on improving transformers, e.g. the GELU activations, and if we simply apply some of them to CNNs, we also end up with state-of-the-art results.
 
 ```{figure} ../imgs/cnn/cnn_convnext.png
 ---
@@ -263,7 +263,7 @@ name: cnn_convnext
 ConvNext ablations (Source: [A ConvNet for the 2020s](https://arxiv.org/abs/2201.03545))
 ```
 
-The successor paper of ConvNext -> ConvNextv2 came out one week before this lecture in WS22/23 :)
+The successor paper of ConvNext -> [ConvNextv2](https://arxiv.org/abs/2301.00808) came out one week before this lecture in WS22/23 :)
 
 ## Further References
 
