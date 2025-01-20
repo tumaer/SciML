@@ -434,23 +434,31 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="recurrent-models">
 <h1><span class="section-number">11. </span>Recurrent Models<a class="headerlink" href="#recurrent-models" title="Permalink to this heading">#</a></h1>
-<p>While CNNs, and MLPs are excellent neural network architectures for <strong>spatial</strong> relations, they yet struggle with the modeling of <strong>temporal</strong> relations which they are incapable of modeling in their default configuration. The figure below gives an overview of different task formulations.</p>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcome</p>
+<ul class="simple">
+<li><p>How to design a neural network that operates on sequences?</p></li>
+<li><p>Which probabilistic model can be used to describe sequence generation/classification?</p></li>
+<li><p>What are the weaknesses of simple RNNs, and how does the LSTM help?</p></li>
+</ul>
+</div>
+<p>While CNNs and MLPs are excellent neural network architectures for <strong>spatial</strong> relations, they yet struggle with the modeling of <strong>temporal</strong> relations which they are incapable of modeling in their default configuration. The figure below gives an overview of different task formulations.</p>
 <figure class="align-center" id="rnn-sequences">
 <a class="reference internal image-reference" href="../_images/rnn_sequences.jpeg"><img alt="../_images/rnn_sequences.jpeg" src="../_images/rnn_sequences.jpeg" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11.1 </span><span class="caption-text">Types of sequences (Source: <a class="reference external" href="https://karpathy.github.io/2015/05/21/rnn-effectiveness/">karpathy.github.io</a>)</span><a class="headerlink" href="#rnn-sequences" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>For such tasks there exist a number of specialized architectures most notably:</p>
+<p>For such tasks, there exist a number of specialized architectures, most notably:</p>
 <ol class="arabic simple">
 <li><p><a class="reference external" href="https://www.cs.utoronto.ca/~ilya/pubs/ilya_sutskever_phd_thesis.pdf">Recurrent Neural Networks</a></p></li>
 <li><p><a class="reference external" href="https://direct.mit.edu/neco/article-abstract/9/8/1735/6109/Long-Short-Term-Memory?redirectedFrom=fulltext">Long Short-term Memory (LSTM) networks</a></p></li>
 <li><p><a class="reference external" href="https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html">Transformers</a></p></li>
 </ol>
-<p>While Transformers have become the dominant architecture in machine learning these days, their roots lie in the development of RNNs from whom we will begin to build up the content of this section to introduce the architectures in order, show their similarities, as well as special properties and where you most appropriately deploy them.</p>
+<p>While Transformers have become the dominant architecture in machine learning these days, their roots lie in the development of RNNs, from whom we will begin to build up the content of this section to introduce the architectures in order, show their similarities, as well as special properties and where you most appropriately deploy them.</p>
 <section id="recurrent-neural-networks-rnns">
 <h2><span class="section-number">11.1. </span>Recurrent Neural Networks (RNNs)<a class="headerlink" href="#recurrent-neural-networks-rnns" title="Permalink to this heading">#</a></h2>
-<p>Where we before mapped from an input space of e.g. images, Recurrent Neural Networks (RNNs) map from an input space of sequences, to an output space of sequences. Where their core property is the <strong>stateful</strong> prediction, i.e. if we seek to predict an output <span class="math notranslate nohighlight">\(y\)</span>, then <span class="math notranslate nohighlight">\(y\)</span> depends not only only on the input <span class="math notranslate nohighlight">\(x\)</span> but also on the <strong>hidden state of the system</strong> <span class="math notranslate nohighlight">\(h\)</span>. The hidden state of the neural network is updated as time progresses during the processing of the sequence. There are a number of usecases for such model such as:</p>
+<p>While CNNs map from an input space of images, Recurrent Neural Networks (RNNs) map from an input space of sequences to an output space of sequences. RNN’s core property is the <strong>stateful</strong> prediction, i.e., if we seek to predict an output <span class="math notranslate nohighlight">\(y\)</span>, then <span class="math notranslate nohighlight">\(y\)</span> depends not only on the input <span class="math notranslate nohighlight">\(x\)</span> but also on the <strong>hidden state of the system</strong> <span class="math notranslate nohighlight">\(h\)</span>. The hidden state of the neural network is updated as time progresses during the processing of the sequence. There are a number of use cases for such models, such as:</p>
 <ul class="simple">
 <li><p>Sequence Generation</p></li>
 <li><p>Sequence Classification</p></li>
@@ -476,7 +484,7 @@ f_{\theta}: \mathbb{R}^{D} \longrightarrow \mathbb{R}^{N_{\infty}C}
 <span class="eqno">(11.2)<a class="headerlink" href="#equation-vec2seq-model" title="Permalink to this equation">#</a></span>\[
 p(y_{1:T}|x) = \sum_{h_{1:T}} p(y_{1:T}, h_{1:T} | x) = \sum_{h_{1:T}} \prod^{T}_{t=1} p(y_{t}|h_{t})p(h_{t}|h_{t-1}, y_{t-1}, x).
 \]</div>
-<p>Just like a Runge-Kutta scheme, this model requires the seeding with an initial hidden state distribution. This distribution has to be predetermined and is most often deterministic. The computation of the hidden state is then presumed to be</p>
+<p>Just like a Runge-Kutta scheme, this model requires seeding with an initial hidden state distribution. This distribution has to be predetermined and is most often deterministic. The computation of the hidden state is then presumed to be</p>
 <div class="math notranslate nohighlight" id="equation-rnn-prob-h">
 <span class="eqno">(11.3)<a class="headerlink" href="#equation-rnn-prob-h" title="Permalink to this equation">#</a></span>\[
 p(h_{t}|h_{t-1}, y_{t-1}, x) = \mathbb{I}(h_{t}=f(h_{t-1}, y_{t-1}, x))
@@ -513,7 +521,7 @@ p(y_{t}|h_{t}) = \mathcal{N}(y_{t}|W_{hy} h_{t} + b_{y}, \sigma^{2}{\bf{I}})
 </div>
 <p>If you remember one thing about this section:</p>
 <ul class="simple">
-<li><p>The key to RNNs is their unbounded memory, which allows them to make more stable predictions, and also remember further back in time.</p></li>
+<li><p>The key to RNNs is their unbounded memory, which allows them to make more stable predictions and remember back in time.</p></li>
 <li><p>The stochasticity in the model comes from the noise in the output model.</p></li>
 </ul>
 <blockquote>
@@ -528,7 +536,7 @@ p(y_{t}|h_{t}) = \mathcal{N}(y_{t}|W_{hy} h_{t} + b_{y}, \sigma^{2}{\bf{I}})
 </section>
 <section id="sequence-classification">
 <h3><span class="section-number">11.1.2. </span>Sequence Classification<a class="headerlink" href="#sequence-classification" title="Permalink to this heading">#</a></h3>
-<p>If we now presume to have a fixed-length output vector, but with a variable length sequence as input, then we mathematically seek to learn</p>
+<p>If we now presume to have a fixed-length output vector but with a variable-length sequence as input, then we mathematically seek to learn</p>
 <div class="math notranslate nohighlight" id="equation-rnn-seq2vec">
 <span class="eqno">(11.6)<a class="headerlink" href="#equation-rnn-seq2vec" title="Permalink to this equation">#</a></span>\[
 f_{\theta}: \mathbb{R}^{TD} \longrightarrow \mathbb{R}^{C}
@@ -540,12 +548,12 @@ f_{\theta}: \mathbb{R}^{TD} \longrightarrow \mathbb{R}^{C}
 <p><span class="caption-number">Fig. 11.4 </span><span class="caption-text">Sequence to vector task (Source: <span id="id3">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 15)</span><a class="headerlink" href="#rnn-seq2vec" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>In its simplest form we can just use the final state of the RNN as the input to the classifier</p>
+<p>In its simplest form, we can just use the final state of the RNN as the input to the classifier</p>
 <div class="math notranslate nohighlight" id="equation-seq2vec-model">
 <span class="eqno">(11.7)<a class="headerlink" href="#equation-seq2vec-model" title="Permalink to this equation">#</a></span>\[
 p(y|x_{1:T}) = \text{Cat}(y| \text{softmax}(Wh_{T}))
 \]</div>
-<p>While this simple form can already produce good results,  the RNN principle can be extended further by allowing <strong>information to flow in both directions</strong>, i.e. we allow the hidden states to depend on past and future contexts. For this we have to use two basic RNN building blocks, to then assemble them into a <strong>bidirectional RNN</strong>.</p>
+<p>While this simple form can already produce good results,  the RNN principle can be extended further by allowing <strong>information to flow in both directions</strong>, i.e., we allow the hidden states to depend on past and future contexts. For this, we have to use two basic RNN building blocks to then assemble them into a <strong>bidirectional RNN</strong>.</p>
 <figure class="align-center" id="rnn-bidir">
 <a class="reference internal image-reference" href="../_images/rnn_bidir.png"><img alt="../_images/rnn_bidir.png" src="../_images/rnn_bidir.png" style="width: 250px;" /></a>
 <figcaption>
@@ -565,7 +573,7 @@ p(y|x_{1:T}) = \text{Cat}(y| \text{softmax}(Wh_{T}))
 <span class="eqno">(11.9)<a class="headerlink" href="#equation-rnn-bidir-h" title="Permalink to this equation">#</a></span>\[
 h = [ h_{t}^{\rightarrow}, h_{t}^{\leftarrow} ].
 \]</div>
-<p>One has to then average pool over these states to arrive at the predictive model</p>
+<p>One has to then average the pool over these states to arrive at the predictive model</p>
 <div class="math notranslate nohighlight" id="equation-rnn-bidir-pooling">
 <span class="eqno">(11.10)<a class="headerlink" href="#equation-rnn-bidir-pooling" title="Permalink to this equation">#</a></span>\[\begin{split}
 \begin{align}
@@ -576,25 +584,25 @@ h = [ h_{t}^{\rightarrow}, h_{t}^{\leftarrow} ].
 </section>
 <section id="sequence-translation">
 <h3><span class="section-number">11.1.3. </span>Sequence Translation<a class="headerlink" href="#sequence-translation" title="Permalink to this heading">#</a></h3>
-<p>In sequence translation we have a variable length sequence as an input and a variable length sequence as an output. This can mathematically be expressed as</p>
+<p>In sequence translation, we have a variable length sequence as an input and a variable length sequence as an output. This can mathematically be expressed as</p>
 <div class="math notranslate nohighlight" id="equation-seq2seq-model">
 <span class="eqno">(11.11)<a class="headerlink" href="#equation-seq2seq-model" title="Permalink to this equation">#</a></span>\[
 f_{\theta}: \mathbb{R}^{TD} \rightarrow \mathbb{R}^{T'C}.
 \]</div>
 <p>For ease of notation, this has to be broken down into two subcases:</p>
 <ol class="arabic simple">
-<li><p><span class="math notranslate nohighlight">\(T'=T\)</span> i.e. we have the same length of input- and output-sequences</p></li>
-<li><p><span class="math notranslate nohighlight">\(T' \neq T\)</span>, i.e. we have different lengths between the input- and the output-sequence</p></li>
+<li><p><span class="math notranslate nohighlight">\(T'=T\)</span>, i.e., we have the same length of input- and output-sequences</p></li>
+<li><p><span class="math notranslate nohighlight">\(T' \neq T\)</span>, i.e,. we have different lengths between the input- and the output-sequence</p></li>
 </ol>
 <figure class="align-center" id="rnn-seq2seq">
 <a class="reference internal image-reference" href="../_images/rnn_seq2seq.png"><img alt="../_images/rnn_seq2seq.png" src="../_images/rnn_seq2seq.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 11.6 </span><span class="caption-text">Encoder-Decoder RNN for sequence to sequence task (Source: <span id="id5">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 15)</span><a class="headerlink" href="#rnn-seq2seq" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 11.6 </span><span class="caption-text">Encoder-Decoder RNN for sequence-to-sequence task (Source: <span id="id5">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 15)</span><a class="headerlink" href="#rnn-seq2seq" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="aligned-sequences">
 <h4><span class="section-number">11.1.3.1. </span>Aligned Sequences<a class="headerlink" href="#aligned-sequences" title="Permalink to this heading">#</a></h4>
-<p>We begin by examining the case for <span class="math notranslate nohighlight">\(T'=T\)</span>, i.e. with the same length of input-, and output-sequences. In this case  we have to predict one label per location, and can hence modify our existing RNN for this task</p>
+<p>We begin by examining the case for <span class="math notranslate nohighlight">\(T'=T\)</span>, i.e. with the same length of input-, and output-sequences. In this case,  we have to predict one label per location and can hence modify our existing RNN for this task</p>
 <div class="math notranslate nohighlight" id="equation-rnn-prob-seq2seq">
 <span class="eqno">(11.12)<a class="headerlink" href="#equation-rnn-prob-seq2seq" title="Permalink to this equation">#</a></span>\[
 p(y_{1:T}| x_{1:T}) = \sum_{h_{1:T}} \prod^{T}_{t=1} p(y_{t}|h_{t}) \mathbb{I}(h_{t} = f(h_{t-1}, x_{t}))
@@ -611,7 +619,7 @@ p(y_{1:T}| x_{1:T}) = \sum_{h_{1:T}} \prod^{T}_{t=1} p(y_{t}|h_{t}) \mathbb{I}(h
 <span class="eqno">(11.13)<a class="headerlink" href="#equation-rnn-layer" title="Permalink to this equation">#</a></span>\[
 h_{t}^{l} = \varphi_{l}(W^{l}_{xh} h^{l-1}_{t} + W^{l}_{hh} h^{l}_{t-1} + b_{h}^{l})
 \]</div>
-<p>and the output are computed from the final layer</p>
+<p>and the output is computed from the final layer</p>
 <div class="math notranslate nohighlight" id="equation-rnn-deep-output">
 <span class="eqno">(11.14)<a class="headerlink" href="#equation-rnn-deep-output" title="Permalink to this equation">#</a></span>\[
 o_{t} = W_{ho} h_{t}^{L} + b_{o}.
@@ -619,22 +627,22 @@ o_{t} = W_{ho} h_{t}^{L} + b_{o}.
 </section>
 <section id="unaligned-sequences">
 <h4><span class="section-number">11.1.3.2. </span>Unaligned Sequences<a class="headerlink" href="#unaligned-sequences" title="Permalink to this heading">#</a></h4>
-<p>In the unaligned case we have to learn a mapping from the input-sequence to the output-sequence, where we first have to encode the input sequence into a context vector</p>
+<p>In the unaligned case, we have to learn a mapping from the input sequence to the output sequence, where we first have to encode the input sequence into a context vector</p>
 <div class="math notranslate nohighlight" id="equation-rnn-context-vector">
 <span class="eqno">(11.15)<a class="headerlink" href="#equation-rnn-context-vector" title="Permalink to this equation">#</a></span>\[
 c = f_{e}(x_{1:T}),
 \]</div>
-<p>using the last state of an RNN or pooping over all states. We then generate the output sequence using a decoder RNN, which leads to the so called <strong>encoder-decoder architecture</strong>. There exist a plethora of tokenizers to construct the context vectors, and a plethora of decoding approaches such as the greedy decoding shown below.</p>
+<p>using the last state of an RNN or pooping over all states. We then generate the output sequence using a decoder RNN, which leads to the so-called <strong>encoder-decoder architecture</strong>. A plethora of tokenizers exist to construct the context vectors, and a plethora of decoding approaches, such as greedy decoding, are shown below.</p>
 <figure class="align-center" id="rnn-seq2seq-translate">
 <a class="reference internal image-reference" href="../_images/rnn_seq2seq_translate.png"><img alt="../_images/rnn_seq2seq_translate.png" src="../_images/rnn_seq2seq_translate.png" style="width: 800px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11.8 </span><span class="caption-text">Sequence to sequence translation of English to French using greedy decoding (Source: <span id="id7">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 15)</span><a class="headerlink" href="#rnn-seq2seq-translate" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>This <em>encoder-decoder</em> architecture dominates general machine learning, as well as scientific machine learning. Examining the use-cases you have seen up to now:</p>
+<p>This <em>encoder-decoder</em> architecture dominates general machine learning and scientific machine learning. Examining the use cases you have seen up to now:</p>
 <ul class="simple">
 <li><p>U-Net</p></li>
-<li><p>Convolutional LSTM, i.e. encoding with CNNs, propagating in time with the LSTM, and then decoding with CNNs again</p></li>
+<li><p>Convolutional LSTM, i.e., encoding with CNNs, propagating in time with the LSTM, and then decoding with CNNs again</p></li>
 <li><p>Sequence Translation as just now</p></li>
 </ul>
 <p>And an unending list of applications which you have seen in practice but have not seen in the course yet</p>
@@ -652,13 +660,13 @@ c = f_{e}(x_{1:T}),
 <blockquote>
 <div><p>But if RNNs can already do so much, why are Transformers then dominating machine learning research these days and not RNNs?</p>
 </div></blockquote>
-<p>Training RNNs is far from trivial with a well-known problem being <strong>exploding gradients</strong>, and <strong>vanishing gradients</strong>. In both cases the activations of the RNN explode or decay as we go forward in time as we multiply with the weight matrix <span class="math notranslate nohighlight">\(W_{hh}\)</span> at each time step. The same can happen as we go backwards in time, as we repeatedly multiply the Jacobians and unless the spectrum of the Hessian is 1, this will result in exploding or vanishing gradients. A way to tackle this is via <strong>control of the spectral radius</strong> where the optimization problem gets converted into a convex optimization problem, which is then called an <strong>echo state network</strong>. Which is in literature often used under the umbrella term of <strong>reservoir computing</strong>.</p>
+<p>Training RNNs is far from trivial, with a well-known problem being <strong>exploding gradients</strong>, and <strong>vanishing gradients</strong>. In both cases, the activations of the RNN explode or decay as we go forward in time as we multiply with the weight matrix <span class="math notranslate nohighlight">\(W_{hh}\)</span> at each time step. The same can happen as we go backward in time, as we repeatedly multiply the Jacobians, and unless the spectrum of the Hessian is 1, this will result in exploding or vanishing gradients. A way to tackle this is via <strong>control of the spectral radius</strong>, where the optimization problem gets converted into a convex optimization problem, which is then called an <strong>echo state network</strong>. Which is in literature often used under the umbrella term of <strong>reservoir computing</strong>.</p>
 </section>
 </section>
 </section>
 <section id="long-short-term-memory-lstm">
 <h2><span class="section-number">11.2. </span>Long Short-term Memory (LSTM)<a class="headerlink" href="#long-short-term-memory-lstm" title="Permalink to this heading">#</a></h2>
-<p>A way to avoid the problem of exploding and vanishing gradients, beyond Gated Recurrent Units (GRU) which we omit in this course, is the long short term memory (LSTM) model of Schmidhuber and Hochreiter, back in the day at TUM. In the LSTM the hidden state <span class="math notranslate nohighlight">\(h\)</span> is augmented with a <strong>memory cell <span class="math notranslate nohighlight">\(c\)</span></strong>. This cell is then controlled with 3 gates</p>
+<p>A way to avoid the problem of exploding and vanishing gradients beyond Gated Recurrent Units (GRU), which we omit in this course, is the long short-term memory (LSTM) model of Schmidhuber and Hochreiter, back in the day at TUM. In the LSTM the hidden state <span class="math notranslate nohighlight">\(h\)</span> is augmented with a <strong>memory cell <span class="math notranslate nohighlight">\(c\)</span></strong>. This cell is then controlled with 3 gates</p>
 <ul class="simple">
 <li><p>Output gate <span class="math notranslate nohighlight">\(O_{t}\)</span></p></li>
 <li><p>Input gate <span class="math notranslate nohighlight">\(I_{t}\)</span></p></li>
@@ -700,7 +708,7 @@ H_{t} = O_{t} \odot \tanh(C_{t})
 <li><p><span class="math notranslate nohighlight">\(H_{t}\)</span> acts as a short-term memory</p></li>
 <li><p><span class="math notranslate nohighlight">\(C_{t}\)</span> acts as a long-term memory</p></li>
 </ul>
-<p>In practice this then takes the following form in code:</p>
+<p>In practice, this then takes the following form in code:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">lstm</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">state</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
     <span class="p">[</span><span class="n">W_xi</span><span class="p">,</span> <span class="n">W_hi</span><span class="p">,</span> <span class="n">b_i</span><span class="p">,</span> <span class="n">W_xf</span><span class="p">,</span> <span class="n">W_hf</span><span class="p">,</span> <span class="n">b_f</span><span class="p">,</span> <span class="n">W_xo</span><span class="p">,</span> <span class="n">W_ho</span><span class="p">,</span> <span class="n">b_o</span><span class="p">,</span> <span class="n">W_xc</span><span class="p">,</span> <span class="n">W_hc</span><span class="p">,</span> <span class="n">b_c</span><span class="p">,</span> <span class="n">W_hq</span><span class="p">,</span> <span class="n">b_q</span><span class="p">]</span> <span class="o">=</span> <span class="n">params</span>
     <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span> <span class="o">=</span> <span class="n">state</span>
@@ -717,14 +725,14 @@ H_{t} = O_{t} \odot \tanh(C_{t})
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">C</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>There exists a great many variations on this initial architecture, but the core LSTMs’ architecture as well as performance have prevailed over time so far. A different approach to sequence generation is the use of causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as not relevant to the exam.</p>
+<p>There are variations of this initial architecture, but the core LSTM architecture and performance have prevailed over time. A different approach to sequence generation is using causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as not relevant to the exam.</p>
 </section>
 <section id="advanced-topics-1-dimensional-cnns">
 <h2><span class="section-number">11.3. </span>Advanced Topics: 1-Dimensional CNNs<a class="headerlink" href="#advanced-topics-1-dimensional-cnns" title="Permalink to this heading">#</a></h2>
-<p>While RNNs have very strong temporal prediction abilities with their memory, as well as stateful computation, 1-D CNNs can constitute a viable alternative as they don’t have to carry along the long term hidden state, as well as being easier to train as they do not suffer from exploding or vanishing gradients.</p>
+<p>While RNNs have very strong temporal prediction abilities with their memory, as well as stateful computation, 1-D CNNs can constitute a viable alternative as they don’t have to carry along the long-term hidden state, as well as being easier to train as they do not suffer from exploding or vanishing gradients.</p>
 <section id="id9">
 <h3><span class="section-number">11.3.1. </span>Sequence Classification<a class="headerlink" href="#id9" title="Permalink to this heading">#</a></h3>
-<p>Recalling, for sequence classification we consider the seq2vec case, in which we have a mapping of the form</p>
+<p>Recalling, for sequence classification, we consider the seq2vec case, in which we have a mapping of the form</p>
 <div class="math notranslate nohighlight" id="equation-rnn-seq2vec-duplicate">
 <span class="eqno">(11.20)<a class="headerlink" href="#equation-rnn-seq2vec-duplicate" title="Permalink to this equation">#</a></span>\[
 f_{\theta}: \mathbb{R}^{TD} \rightarrow \mathbb{R}^{C}.
@@ -736,7 +744,7 @@ f_{\theta}: \mathbb{R}^{TD} \rightarrow \mathbb{R}^{C}.
 <p><span class="caption-number">Fig. 11.10 </span><span class="caption-text">TextCNN architecture (Source: <span id="id10">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 15)</span><a class="headerlink" href="#rnn-textcnn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>With <span class="math notranslate nohighlight">\(D&gt;1\)</span> input channels of each input sequence, each channel is then convolved separately and the results are then added up with each channel having its own separate 1-D kernel s.t. (recalling from the CNN lecture)</p>
+<p>With <span class="math notranslate nohighlight">\(D&gt;1\)</span> input channels of each input sequence, each channel is then convolved separately, and the results are then added up with each channel having its own separate 1-D kernel s.t. (recalling from the CNN lecture)</p>
 <div class="math notranslate nohighlight" id="equation-rnn-textcnn">
 <span class="eqno">(11.21)<a class="headerlink" href="#equation-rnn-textcnn" title="Permalink to this equation">#</a></span>\[
 z_{i} = \sum_{d} x^{\top}_{i-k:i+k,d} w_{d},
@@ -751,7 +759,7 @@ z_{ic} = \sum_{d} x^{\top}_{i-k:i+k, d} w_{d, c}.
 <span class="eqno">(11.23)<a class="headerlink" href="#equation-rnn-textcnn-pooled" title="Permalink to this equation">#</a></span>\[
 z_{c} = \max_{i} z_{ic},
 \]</div>
-<p>which is then passed into a softmax layer. What this construction permits is that by choosing kernels of different widths we can essentially use a library of different filters to capture patterns of different frequencies (length scales). In code this then looks the following:</p>
+<p>which is then passed into a softmax layer. What this construction permits is that by choosing kernels of different widths, we can essentially use a library of different filters to capture patterns of different frequencies (length scales). In code, this then looks the following:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">TextCNN</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_size</span><span class="p">,</span> <span class="n">kernel_sizes</span><span class="p">,</span> <span class="n">num_channels</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">TextCNN</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -788,19 +796,19 @@ z_{c} = \max_{i} z_{ic},
 <span class="eqno">(11.24)<a class="headerlink" href="#equation-rnn-causalcnn" title="Permalink to this equation">#</a></span>\[
 p(y) = \prod_{t=1}^{T} p(y_{t}|y_{1:t-1}) = \prod_{t=1}^{T} \text{Cat}(y_{t}| \text{softmax}(\varphi(\sum_{\tau = 1}^{t-k}w^{\top}y_{\tau:\tau+k}))),
 \]</div>
-<p>where we have the convolutional filter <span class="math notranslate nohighlight">\(w\)</span> and a nonlinearity <span class="math notranslate nohighlight">\(\varphi\)</span>. This results in a masking out of future inputs, such that <span class="math notranslate nohighlight">\(y_{t}\)</span> can only depend on past information, and no future information. This is called a <strong>causal convolution</strong>. One poster-child example of this approach is the <a class="reference external" href="https://www.deepmind.com/blog/wavenet-a-generative-model-for-raw-audio">WaveNet</a> architecture, which takes in text as input sequences to generate raw audio such as speech. The WaveNet architecture utilizes dilated convolutions in which the dilation increases with powers of 2 with each successive layer.</p>
+<p>where we have the convolutional filter <span class="math notranslate nohighlight">\(w\)</span> and a nonlinearity <span class="math notranslate nohighlight">\(\varphi\)</span>. This results in a masking out of future inputs, such that <span class="math notranslate nohighlight">\(y_{t}\)</span> can only depend on past information and no future information. This is called a <strong>causal convolution</strong>. One poster-child example of this approach is the <a class="reference external" href="https://www.deepmind.com/blog/wavenet-a-generative-model-for-raw-audio">WaveNet</a> architecture, which takes in text as input sequences to generate raw audio such as speech. The WaveNet architecture utilizes dilated convolutions in which the dilation increases with powers of 2 with each successive layer.</p>
 <figure class="align-center" id="rnn-causalcnn">
 <a class="reference internal image-reference" href="../_images/rnn_causalcnn.png"><img alt="../_images/rnn_causalcnn.png" src="../_images/rnn_causalcnn.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 11.11 </span><span class="caption-text">WaveNet architecture (Source: <span id="id12">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, Chapter 15)</span><a class="headerlink" href="#rnn-causalcnn" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
-<p>This then takes following form in <a class="reference external" href="https://github.com/antecessor/Wavenet/blob/master/Wavenet.py">code</a>.</p>
+<p>This then takes the following form in <a class="reference external" href="https://github.com/antecessor/Wavenet/blob/master/Wavenet.py">code</a>.</p>
 </section>
 </section>
 <section id="flagship-applications">
 <h2><span class="section-number">11.4. </span>Flagship Applications<a class="headerlink" href="#flagship-applications" title="Permalink to this heading">#</a></h2>
-<p>With so many flagship models of AI these days relying on sequence models, we have compiled a list of a very few of them below for you to play around with. While attention was beyond the scope of this lecture, you can have a look at Lilian Weng’s blog post on attention below to dive into it.</p>
+<p>With so many flagship models of AI these days relying on sequence models, we have compiled a list of very few of them below for you to play around with. While attention was beyond the scope of this lecture, you can have a look at Lilian Weng’s blog post on attention below to dive into it.</p>
 <p><strong>Large Language Models (LLMs)</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://txt.cohere.ai/generative-ai-part-1/">Cohere AI Blog Posts</a></p></li>
@@ -809,15 +817,15 @@ p(y) = \prod_{t=1}^{T} p(y_{t}|y_{1:t-1}) = \prod_{t=1}^{T} \text{Cat}(y_{t}| \t
 <li><p><a class="reference external" href="https://openai.com/blog/gpt-3-apps/">GPT-3</a> - where ChatGPT started</p></li>
 </ul>
 </li>
-<li><p><a class="reference external" href="https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html">BERT</a> - Google’s old open source LLM</p></li>
+<li><p><a class="reference external" href="https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html">BERT</a> - Google’s old open-source LLM</p></li>
 <li><p><a class="reference external" href="https://ai.meta.com/llama/">Llama 2</a> - Meta’s open source LLMs</p></li>
-<li><p><a class="reference external" href="https://mistral.ai/product/">Mistral/Mistral</a> - Mistral AI’s open source LLMs</p></li>
+<li><p><a class="reference external" href="https://mistral.ai/product/">Mistral/Mixtral</a> - Mistral AI’s open source LLMs</p></li>
 </ul>
 <p><strong>Others</strong></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://openai.com/dall-e-2/">OpenAI’s Dall-E 2</a> - image generation</p></li>
 <li><p><a class="reference external" href="https://stablediffusionweb.com/#ai-image-generator">Stable Diffusion</a> - open source image generation</p></li>
-<li><p><a class="reference external" href="https://github.com/openai/whisper">Whisper</a> - open source audio to text model</p></li>
+<li><p><a class="reference external" href="https://github.com/openai/whisper">Whisper</a> - open source audio-to-text model</p></li>
 </ul>
 </section>
 <section id="further-reading">

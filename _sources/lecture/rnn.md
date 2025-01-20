@@ -1,6 +1,13 @@
 # Recurrent Models
 
-While CNNs, and MLPs are excellent neural network architectures for **spatial** relations, they yet struggle with the modeling of **temporal** relations which they are incapable of modeling in their default configuration. The figure below gives an overview of different task formulations.
+`````{admonition} Learning outcome
+:class: tip 
+- How to design a neural network that operates on sequences?
+- Which probabilistic model can be used to describe sequence generation/classification?
+- What are the weaknesses of simple RNNs, and how does the LSTM help?
+`````
+
+While CNNs and MLPs are excellent neural network architectures for **spatial** relations, they yet struggle with the modeling of **temporal** relations which they are incapable of modeling in their default configuration. The figure below gives an overview of different task formulations.
 
 ```{figure} ../imgs/rnn_sequences.jpeg
 ---
@@ -11,17 +18,17 @@ name: rnn_sequences
 Types of sequences (Source: [karpathy.github.io](https://karpathy.github.io/2015/05/21/rnn-effectiveness/))
 ```
 
-For such tasks there exist a number of specialized architectures most notably:
+For such tasks, there exist a number of specialized architectures, most notably:
 
 1. [Recurrent Neural Networks](https://www.cs.utoronto.ca/~ilya/pubs/ilya_sutskever_phd_thesis.pdf)
 2. [Long Short-term Memory (LSTM) networks](https://direct.mit.edu/neco/article-abstract/9/8/1735/6109/Long-Short-Term-Memory?redirectedFrom=fulltext)
 3. [Transformers](https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html)
 
-While Transformers have become the dominant architecture in machine learning these days, their roots lie in the development of RNNs from whom we will begin to build up the content of this section to introduce the architectures in order, show their similarities, as well as special properties and where you most appropriately deploy them.
+While Transformers have become the dominant architecture in machine learning these days, their roots lie in the development of RNNs, from whom we will begin to build up the content of this section to introduce the architectures in order, show their similarities, as well as special properties and where you most appropriately deploy them.
 
 ## Recurrent Neural Networks (RNNs)
 
-Where we before mapped from an input space of e.g. images, Recurrent Neural Networks (RNNs) map from an input space of sequences, to an output space of sequences. Where their core property is the **stateful** prediction, i.e. if we seek to predict an output $y$, then $y$ depends not only only on the input $x$ but also on the **hidden state of the system** $h$. The hidden state of the neural network is updated as time progresses during the processing of the sequence. There are a number of usecases for such model such as:
+While CNNs map from an input space of images, Recurrent Neural Networks (RNNs) map from an input space of sequences to an output space of sequences. RNN's core property is the **stateful** prediction, i.e., if we seek to predict an output $y$, then $y$ depends not only on the input $x$ but also on the **hidden state of the system** $h$. The hidden state of the neural network is updated as time progresses during the processing of the sequence. There are a number of use cases for such models, such as:
 
 * Sequence Generation
 * Sequence Classification
@@ -54,7 +61,7 @@ $$
 p(y_{1:T}|x) = \sum_{h_{1:T}} p(y_{1:T}, h_{1:T} | x) = \sum_{h_{1:T}} \prod^{T}_{t=1} p(y_{t}|h_{t})p(h_{t}|h_{t-1}, y_{t-1}, x).
 $$ (vec2seq_model)
 
-Just like a Runge-Kutta scheme, this model requires the seeding with an initial hidden state distribution. This distribution has to be predetermined and is most often deterministic. The computation of the hidden state is then presumed to be
+Just like a Runge-Kutta scheme, this model requires seeding with an initial hidden state distribution. This distribution has to be predetermined and is most often deterministic. The computation of the hidden state is then presumed to be
 
 $$
 p(h_{t}|h_{t-1}, y_{t-1}, x) = \mathbb{I}(h_{t}=f(h_{t-1}, y_{t-1}, x))
@@ -97,7 +104,7 @@ def rnn(inputs, state, params):
 
 If you remember one thing about this section:
 
-* The key to RNNs is their unbounded memory, which allows them to make more stable predictions, and also remember further back in time.
+* The key to RNNs is their unbounded memory, which allows them to make more stable predictions and remember back in time.
 * The stochasticity in the model comes from the noise in the output model.
 
 > To forecast spatio-temporal data, one has to combine RNNs with CNNs. The classical form of this is the [convolutional LSTM](https://proceedings.neurips.cc/paper/2015/file/07563a3fe3bbe7e3ba84431ad9d055af-Paper.pdf).
@@ -113,7 +120,7 @@ CNN-RNN (Source: {cite}`murphy2022`, Chapter 15)
 
 ### Sequence Classification
 
-If we now presume to have a fixed-length output vector, but with a variable length sequence as input, then we mathematically seek to learn
+If we now presume to have a fixed-length output vector but with a variable-length sequence as input, then we mathematically seek to learn
 
 $$
 f_{\theta}: \mathbb{R}^{TD} \longrightarrow \mathbb{R}^{C}
@@ -130,13 +137,13 @@ name: rnn_seq2vec
 Sequence to vector task (Source: {cite}`murphy2022`, Chapter 15)
 ```
 
-In its simplest form we can just use the final state of the RNN as the input to the classifier
+In its simplest form, we can just use the final state of the RNN as the input to the classifier
 
 $$
 p(y|x_{1:T}) = \text{Cat}(y| \text{softmax}(Wh_{T}))
 $$ (seq2vec_model)
 
-While this simple form can already produce good results,  the RNN principle can be extended further by allowing **information to flow in both directions**, i.e. we allow the hidden states to depend on past and future contexts. For this we have to use two basic RNN building blocks, to then assemble them into a **bidirectional RNN**.
+While this simple form can already produce good results,  the RNN principle can be extended further by allowing **information to flow in both directions**, i.e., we allow the hidden states to depend on past and future contexts. For this, we have to use two basic RNN building blocks to then assemble them into a **bidirectional RNN**.
 
 ```{figure} ../imgs/rnn/rnn_bidir.png
 ---
@@ -162,7 +169,7 @@ $$
 h = [ h_{t}^{\rightarrow}, h_{t}^{\leftarrow} ].
 $$ (rnn_bidir_h)
 
-One has to then average pool over these states to arrive at the predictive model
+One has to then average the pool over these states to arrive at the predictive model
 
 $$
 \begin{align}
@@ -173,7 +180,7 @@ $$ (rnn_bidir_pooling)
 
 ### Sequence Translation
 
-In sequence translation we have a variable length sequence as an input and a variable length sequence as an output. This can mathematically be expressed as
+In sequence translation, we have a variable length sequence as an input and a variable length sequence as an output. This can mathematically be expressed as
 
 $$
 f_{\theta}: \mathbb{R}^{TD} \rightarrow \mathbb{R}^{T'C}.
@@ -181,8 +188,8 @@ $$ (seq2seq_model)
 
 For ease of notation, this has to be broken down into two subcases:
 
-1. $T'=T$ i.e. we have the same length of input- and output-sequences
-2. $T' \neq T$, i.e. we have different lengths between the input- and the output-sequence
+1. $T'=T$, i.e., we have the same length of input- and output-sequences
+2. $T' \neq T$, i.e,. we have different lengths between the input- and the output-sequence
 
 ```{figure} ../imgs/rnn/rnn_seq2seq.png
 ---
@@ -190,12 +197,12 @@ width: 400px
 align: center
 name: rnn_seq2seq
 ---
-Encoder-Decoder RNN for sequence to sequence task (Source: {cite}`murphy2022`, Chapter 15)
+Encoder-Decoder RNN for sequence-to-sequence task (Source: {cite}`murphy2022`, Chapter 15)
 ```
 
 #### Aligned Sequences
 
-We begin by examining the case for $T'=T$, i.e. with the same length of input-, and output-sequences. In this case  we have to predict one label per location, and can hence modify our existing RNN for this task
+We begin by examining the case for $T'=T$, i.e. with the same length of input-, and output-sequences. In this case,  we have to predict one label per location and can hence modify our existing RNN for this task
 
 $$
 p(y_{1:T}| x_{1:T}) = \sum_{h_{1:T}} \prod^{T}_{t=1} p(y_{t}|h_{t}) \mathbb{I}(h_{t} = f(h_{t-1}, x_{t}))
@@ -218,7 +225,7 @@ $$
 h_{t}^{l} = \varphi_{l}(W^{l}_{xh} h^{l-1}_{t} + W^{l}_{hh} h^{l}_{t-1} + b_{h}^{l})
 $$ (rnn_layer)
 
-and the output are computed from the final layer
+and the output is computed from the final layer
 
 $$
 o_{t} = W_{ho} h_{t}^{L} + b_{o}.
@@ -226,13 +233,13 @@ $$ (rnn_deep_output)
 
 #### Unaligned Sequences
 
-In the unaligned case we have to learn a mapping from the input-sequence to the output-sequence, where we first have to encode the input sequence into a context vector
+In the unaligned case, we have to learn a mapping from the input sequence to the output sequence, where we first have to encode the input sequence into a context vector
 
 $$
 c = f_{e}(x_{1:T}),
 $$ (rnn_context_vector)
 
-using the last state of an RNN or pooping over all states. We then generate the output sequence using a decoder RNN, which leads to the so called **encoder-decoder architecture**. There exist a plethora of tokenizers to construct the context vectors, and a plethora of decoding approaches such as the greedy decoding shown below.
+using the last state of an RNN or pooping over all states. We then generate the output sequence using a decoder RNN, which leads to the so-called **encoder-decoder architecture**. A plethora of tokenizers exist to construct the context vectors, and a plethora of decoding approaches, such as greedy decoding, are shown below.
 
 ```{figure} ../imgs/rnn/rnn_seq2seq_translate.png
 ---
@@ -243,10 +250,10 @@ name: rnn_seq2seq_translate
 Sequence to sequence translation of English to French using greedy decoding (Source: {cite}`murphy2022`, Chapter 15)
 ```
 
-This *encoder-decoder* architecture dominates general machine learning, as well as scientific machine learning. Examining the use-cases you have seen up to now:
+This *encoder-decoder* architecture dominates general machine learning and scientific machine learning. Examining the use cases you have seen up to now:
 
 * U-Net
-* Convolutional LSTM, i.e. encoding with CNNs, propagating in time with the LSTM, and then decoding with CNNs again
+* Convolutional LSTM, i.e., encoding with CNNs, propagating in time with the LSTM, and then decoding with CNNs again
 * Sequence Translation as just now
 
 And an unending list of applications which you have seen in practice but have not seen in the course yet
@@ -260,11 +267,11 @@ And an unending list of applications which you have seen in practice but have no
 
 > But if RNNs can already do so much, why are Transformers then dominating machine learning research these days and not RNNs?
 
-Training RNNs is far from trivial with a well-known problem being **exploding gradients**, and **vanishing gradients**. In both cases the activations of the RNN explode or decay as we go forward in time as we multiply with the weight matrix $W_{hh}$ at each time step. The same can happen as we go backwards in time, as we repeatedly multiply the Jacobians and unless the spectrum of the Hessian is 1, this will result in exploding or vanishing gradients. A way to tackle this is via **control of the spectral radius** where the optimization problem gets converted into a convex optimization problem, which is then called an **echo state network**. Which is in literature often used under the umbrella term of **reservoir computing**.
+Training RNNs is far from trivial, with a well-known problem being **exploding gradients**, and **vanishing gradients**. In both cases, the activations of the RNN explode or decay as we go forward in time as we multiply with the weight matrix $W_{hh}$ at each time step. The same can happen as we go backward in time, as we repeatedly multiply the Jacobians, and unless the spectrum of the Hessian is 1, this will result in exploding or vanishing gradients. A way to tackle this is via **control of the spectral radius**, where the optimization problem gets converted into a convex optimization problem, which is then called an **echo state network**. Which is in literature often used under the umbrella term of **reservoir computing**.
 
 ## Long Short-term Memory (LSTM)
 
-A way to avoid the problem of exploding and vanishing gradients, beyond Gated Recurrent Units (GRU) which we omit in this course, is the long short term memory (LSTM) model of Schmidhuber and Hochreiter, back in the day at TUM. In the LSTM the hidden state $h$ is augmented with a **memory cell $c$**. This cell is then controlled with 3 gates
+A way to avoid the problem of exploding and vanishing gradients beyond Gated Recurrent Units (GRU), which we omit in this course, is the long short-term memory (LSTM) model of Schmidhuber and Hochreiter, back in the day at TUM. In the LSTM the hidden state $h$ is augmented with a **memory cell $c$**. This cell is then controlled with 3 gates
 
 * Output gate $O_{t}$
 * Input gate $I_{t}$
@@ -314,7 +321,7 @@ This split results in the following properties:
 * $H_{t}$ acts as a short-term memory
 * $C_{t}$ acts as a long-term memory
 
-In practice this then takes the following form in code:
+In practice, this then takes the following form in code:
 
 ```python
 def lstm(inputs, state, params):
@@ -333,15 +340,15 @@ def lstm(inputs, state, params):
     return torch.cat(outputs, dim=0), (H, C)
 ```
 
-There exists a great many variations on this initial architecture, but the core LSTMs' architecture as well as performance have prevailed over time so far. A different approach to sequence generation is the use of causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as not relevant to the exam.
+There are variations of this initial architecture, but the core LSTM architecture and performance have prevailed over time. A different approach to sequence generation is using causal convolutions with 1-dimensional CNNs. While this approach has shown promise in quite a few practical applications, we view it as not relevant to the exam.
 
 ## Advanced Topics: 1-Dimensional CNNs
 
-While RNNs have very strong temporal prediction abilities with their memory, as well as stateful computation, 1-D CNNs can constitute a viable alternative as they don't have to carry along the long term hidden state, as well as being easier to train as they do not suffer from exploding or vanishing gradients.
+While RNNs have very strong temporal prediction abilities with their memory, as well as stateful computation, 1-D CNNs can constitute a viable alternative as they don't have to carry along the long-term hidden state, as well as being easier to train as they do not suffer from exploding or vanishing gradients.
 
 ### Sequence Classification
 
-Recalling, for sequence classification we consider the seq2vec case, in which we have a mapping of the form
+Recalling, for sequence classification, we consider the seq2vec case, in which we have a mapping of the form
 
 $$
 f_{\theta}: \mathbb{R}^{TD} \rightarrow \mathbb{R}^{C}.
@@ -358,7 +365,7 @@ name: rnn_textcnn
 TextCNN architecture (Source: {cite}`murphy2022`, Chapter 15)
 ```
 
-With $D>1$ input channels of each input sequence, each channel is then convolved separately and the results are then added up with each channel having its own separate 1-D kernel s.t. (recalling from the CNN lecture)
+With $D>1$ input channels of each input sequence, each channel is then convolved separately, and the results are then added up with each channel having its own separate 1-D kernel s.t. (recalling from the CNN lecture)
 
 $$
 z_{i} = \sum_{d} x^{\top}_{i-k:i+k,d} w_{d},
@@ -376,7 +383,7 @@ $$
 z_{c} = \max_{i} z_{ic},
 $$ (rnn_textcnn_pooled)
 
-which is then passed into a softmax layer. What this construction permits is that by choosing kernels of different widths we can essentially use a library of different filters to capture patterns of different frequencies (length scales). In code this then looks the following:
+which is then passed into a softmax layer. What this construction permits is that by choosing kernels of different widths, we can essentially use a library of different filters to capture patterns of different frequencies (length scales). In code, this then looks the following:
 
 ```python
 class TextCNN(nn.Module):
@@ -415,7 +422,7 @@ $$
 p(y) = \prod_{t=1}^{T} p(y_{t}|y_{1:t-1}) = \prod_{t=1}^{T} \text{Cat}(y_{t}| \text{softmax}(\varphi(\sum_{\tau = 1}^{t-k}w^{\top}y_{\tau:\tau+k}))),
 $$ (rnn_causalcnn)
 
-where we have the convolutional filter $w$ and a nonlinearity $\varphi$. This results in a masking out of future inputs, such that $y_{t}$ can only depend on past information, and no future information. This is called a **causal convolution**. One poster-child example of this approach is the [WaveNet](https://www.deepmind.com/blog/wavenet-a-generative-model-for-raw-audio) architecture, which takes in text as input sequences to generate raw audio such as speech. The WaveNet architecture utilizes dilated convolutions in which the dilation increases with powers of 2 with each successive layer.
+where we have the convolutional filter $w$ and a nonlinearity $\varphi$. This results in a masking out of future inputs, such that $y_{t}$ can only depend on past information and no future information. This is called a **causal convolution**. One poster-child example of this approach is the [WaveNet](https://www.deepmind.com/blog/wavenet-a-generative-model-for-raw-audio) architecture, which takes in text as input sequences to generate raw audio such as speech. The WaveNet architecture utilizes dilated convolutions in which the dilation increases with powers of 2 with each successive layer.
 
 ```{figure} ../imgs/rnn/rnn_causalcnn.png
 ---
@@ -426,24 +433,24 @@ name: rnn_causalcnn
 WaveNet architecture (Source: {cite}`murphy2022`, Chapter 15)
 ```
 
-This then takes following form in [code](https://github.com/antecessor/Wavenet/blob/master/Wavenet.py).
+This then takes the following form in [code](https://github.com/antecessor/Wavenet/blob/master/Wavenet.py).
 
 ## Flagship Applications
 
-With so many flagship models of AI these days relying on sequence models, we have compiled a list of a very few of them below for you to play around with. While attention was beyond the scope of this lecture, you can have a look at Lilian Weng's blog post on attention below to dive into it.
+With so many flagship models of AI these days relying on sequence models, we have compiled a list of very few of them below for you to play around with. While attention was beyond the scope of this lecture, you can have a look at Lilian Weng's blog post on attention below to dive into it.
 
 **Large Language Models (LLMs)**
 * [Cohere AI Blog Posts](https://txt.cohere.ai/generative-ai-part-1/)
 * [ChatGPT: Optimizing Language Models for Dialogue](https://openai.com/blog/chatgpt/)
     * [GPT-3](https://openai.com/blog/gpt-3-apps/) - where ChatGPT started
-* [BERT](https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html) - Google's old open source LLM
+* [BERT](https://ai.googleblog.com/2018/11/open-sourcing-bert-state-of-art-pre.html) - Google's old open-source LLM
 * [Llama 2](https://ai.meta.com/llama/) - Meta's open source LLMs
-* [Mistral/Mistral](https://mistral.ai/product/) - Mistral AI's open source LLMs
+* [Mistral/Mixtral](https://mistral.ai/product/) - Mistral AI's open source LLMs
 
 **Others**
 * [OpenAI's Dall-E 2](https://openai.com/dall-e-2/) - image generation
 * [Stable Diffusion](https://stablediffusionweb.com/#ai-image-generator) - open source image generation
-* [Whisper](https://github.com/openai/whisper) - open source audio to text model
+* [Whisper](https://github.com/openai/whisper) - open source audio-to-text model
 
 ## Further Reading
 
