@@ -1,6 +1,13 @@
 # Encoder-Decoder Models
 
-A great many models in machine learning build on the Encoder-Decoder paradigm, but what is the intuition behind said paradigm? The core intuition is that while our original data may be high-dimensional, a good prediction only depends on a few key sub-dimensions of the original data, and as such we are able to dimensionally reduce our original data through an _Encoder_ before predicting or reconstructing our data onto the original data-plane with the _Decoder_.
+`````{admonition} Learning outcome
+:class: tip 
+- How can one compress data in a linearly optimal way?
+- What is the meaning of the PCA principal component when applied to a dataset, and how can that be used to choose their count?
+- Draw the autoencoder architecture and explain when/why it is superior to linear compression.
+`````
+
+A great many models in machine learning build on the Encoder-Decoder paradigm, but what is the intuition behind said paradigm? The core intuition is that while our original data may be high-dimensional, a good prediction only depends on a few key sub-dimensions of the original data, and as such, we can dimensionally reduce our original data through an _Encoder_ before predicting or reconstructing our data onto the original data-plane with the _Decoder_.
 
 ```{figure} ../imgs/encoder/ae_architecture.png
 ---
@@ -11,11 +18,11 @@ name: ae_architecture
 Autoencoder architecture (Adapted from [lilianweng.github.io](https://lilianweng.github.io/posts/2018-08-12-vae/)). 
 ```
 
-The precursor to this paradigm is the realization which parameters/variables of our data are actually relevant. For this purpose we look at its roots in computational linear algebra beginning with the _Singular Value Decomposition_ to build towards the _Principal Component Analysis_, which subsequently feeds into _Autoencoder_ which are epitome of the Encoder-Decoder paradigm and build on the key insights from the Principal Component Analysis.
+The precursor to this paradigm is the realization of which parameters/variables of our data are actually relevant. For this purpose, we look at its roots in computational linear algebra, beginning with the _Singular Value Decomposition_ to build towards the _Principal Component Analysis_, which subsequently feeds into _Autoencoder_ which is the epitome of the Encoder-Decoder paradigm and builds on the key insights from the Principal Component Analysis.
 
 ## Singular Value Decomposition
 
-Generalizing the eigendecomposition of small matrices, the singular value decomposition allows for the factorization of real or complex matrices. For any matrix this decomposition can be computed, but only square matrices with a full set of linearly independent eigen-vectors can be diagonalized. Any $A \in \mathbb{R}^{m \times n}$ can be factored as
+Generalizing the eigendecomposition of small matrices, the singular value decomposition allows for the factorization of real or complex matrices. For any matrix, this decomposition can be computed, but only square matrices with a full set of linearly independent eigenvectors can be diagonalized. Any $A \in \mathbb{R}^{m \times n}$ can be factored as
 
 $$
 A = U \Sigma V^{\top}
@@ -41,13 +48,13 @@ $$
 A^{\top}A = V D V^{\top} \in \mathbb{R}^{n \times n}
 $$ (svd_ata)
 
-if symmetric, and has $n$ real eigenvalues. Here $V \in \mathbb{R}^{n \times n}$, columns are eigenvectors of $A^{\top}A$, and $D \in \mathbb{R}^{n \times n}$ is the diagonal matrix of real eigenvalues.
+if symmetric and has $n$ real eigenvalues. Here $V \in \mathbb{R}^{n \times n}$, columns are eigenvectors of $A^{\top}A$, and $D \in \mathbb{R}^{n \times n}$ is the diagonal matrix of real eigenvalues.
 
 $$
 A A^{\top} = U D' U^{\top} \in \mathbb{R}^{m \times m}
 $$ (svd_aat)
 
-if symmetric, and real has $m$ real eigenvalues. In this case $U \in \mathbb{R}^{m \times m}$ of which the columns are eigenvectors of $AA^{\top}$, and $D' \in \mathbb{R}^{m \times m}$ is a diagonal matrix of real eigenvalues. The geometric analogy of the singular value decomposition is then
+if symmetric, and real has $m$ real eigenvalues. In this case, $U \in \mathbb{R}^{m \times m}$ of which the columns are eigenvectors of $AA^{\top}$, and $D' \in \mathbb{R}^{m \times m}$ is a diagonal matrix of real eigenvalues. The geometric analogy of the singular value decomposition is then
 
 * $A$ is a matrix of $r = \text{rank}(A)$
 * $U$ is the rotation/reflection
@@ -99,7 +106,7 @@ $$
 \end{align}
 $$ (svd_3)
 
-where $U$ is the eigenvector matrix (columns) of $A A^{\top}$, and the large diagonal matrix consists of the eigenvalues of $A A^{\top}$. Graphically, this decomposition looks like that:
+where $U$ is the eigenvector matrix (columns) of $A A^{\top}$, and the large diagonal matrix consists of the eigenvalues of $A A^{\top}$. Graphically, this decomposition looks like this:
 
 ```{figure} ../imgs/encoder/ae_svd.png
 ---
@@ -110,9 +117,9 @@ name: ae_svd
 Singular value decompositions of a matrix $A=U\Sigma V^{\top}$. From left to right: $A$, $U$, $\Sigma$, $V^{\top}$. 
 ```
 
-### Moore-Penrose pseudo-inverse
+### Advanced Topics: Moore-Penrose pseudo-inverse
 
-One application of singular value decomposition is to e.g. compute the pseudo-inverse, also called the _Moore-Penrose Inverse_ of a matrix $A \in \mathbb{R}^{m \times n}$.
+One application of singular value decomposition is to, e.g., compute the pseudo-inverse, also called the _Moore-Penrose Inverse_ of a matrix $A \in \mathbb{R}^{m \times n}$.
 
 Given $A \in \mathbb{R}$, $x \in \mathbb{R}^{n}$, and $y \in \mathbb{R}^{m}$, we consider the task of solving the following linear equation system for $x$:
 
@@ -120,7 +127,7 @@ $$
 Ax = y,
 $$ (ae_linear_eq)
 
-where $y \notin \text{col}(A)$, i.e. not in the column space of A, is allowed.
+where $y \notin \text{col}(A)$, i.e., not in the column space of A, is allowed.
 
 ```{figure} ../imgs/encoder/ae_moore_penrose.png
 ---
@@ -131,13 +138,13 @@ name: ae_moore_penrose
 Geometric interpretation of Moore-Penrose inverse. 
 ```
 
-Here, $y'$ is the orthogonal projection of $y$ onto the column space of $A$. With this transformation we are transforming the problem to solve to
+Here, $y'$ is the orthogonal projection of $y$ onto the column space of $A$. With this transformation, we are transforming the problem to
 
 $$
 A \bar{x} + \bar{y} = y \Longrightarrow A \bar{x} = y'
 $$ (ae_mp_system)
 
-which is exactly what we require the pseudo-inverse for as it assures for the error $|| \bar{y}|| = \min$ to be minimal. We then employ the singular value decomposition of $A$ to solve $Ax=y$ in a least-squares sense:
+which is exactly what we require the pseudo-inverse for, as it assures that the error $|| \bar{y}|| = \min$ is minimal. We then employ the singular value decomposition of $A$ to solve $Ax=y$ in a least-squares sense:
 
 $$
 \begin{align}
@@ -192,7 +199,7 @@ $$ (ae_mp5)
 
 ## Principal Component Analysis
 
-To further discern information in our data which is not required for our defined task, be it classification or regression, we can apply principal component analysis to reduce the dimensionality. Principal component analysis finds the optimal linear map from a $D$-dimensional input, to the design matrix on a $K$-dimensional space. Expressing this relation in probabilistic terms we speak of a linear map $D \rightarrow K$ with maximum variance $\Longrightarrow$ "autocorrelation" of the input data. This linear map can be written the following way in matrix notation:
+To further discern information in our data which is not required for our defined task, be it classification or regression, we can apply principal component analysis to reduce the dimensionality. Principal component analysis finds the optimal linear map from a $D$-dimensional input to the design matrix on a $K$-dimensional space. Expressing this relation in probabilistic terms, we speak of a linear map $D \rightarrow K$ with maximum variance $\Longrightarrow$ "autocorrelation" of the input data. This linear map can be written the following way in matrix notation:
 
 ```{figure} ../imgs/encoder/ae_svd_dataset.png
 ---
@@ -213,7 +220,7 @@ $$
 \underset{D \times N}{x} \rightarrow \underset{D \times N}{\hat{x}},
 $$ (pca_compression)
 
-where the rank of $\hat{x}$ is $K$. To derive the relation between SVD and PCA we can use the following Lemma:
+where the rank of $\hat{x}$ is $K$. To derive the relation between SVD and PCA, we can use the following Lemma:
 
 $$
 ||x - \hat{x}||_{F}^{2} \geq || x - \tilde{U} \tilde{U}^{\top}X||_{F}^{2} = \sum_{i \geq K + 1} s_{i}^{2}.
@@ -250,13 +257,13 @@ $$
 \end{align}
 $$ (pca2)
 
-From a probabilistic view we are creating N independent identically distributed (i.i.d) $D$-dimensional vectors $x_{n}$, see left side of {numref}`ae_svd_dataset`. We then have a sample mean, or sometimes called empirical mean, of
+From a probabilistic view, we are creating N independent identically distributed (i.i.d) $D$-dimensional vectors $x_{n}$, see the left side of {numref}`ae_svd_dataset`. We then have a sample mean, sometimes called empirical mean, of
 
 $$
 \bar{x} = \frac{1}{N} \sum_{n=1}^{N}x_{n}
 $$ (pca_mean)
 
-and a sample co-variance (biased), or sometimes called empirical covariance, of
+and a sample co-variance (biased), sometimes called empirical covariance, of
 
 $$
 \bar{\Sigma} = \frac{1}{N} \sum_{n=1}^{N} (x_{n} - \bar{x})(x_{u} - \bar{x})^{\top}
@@ -297,9 +304,9 @@ $$
 \end{align}
 $$ (pca6)
 
-The data vectors $\hat{x}_{n}$ in $\hat{x}$ are hence uncorrelated and $\hat{x}_{1}$ has the highest variance by ordering of the singular values. If you were to consider the case of classification, then the lesson of PCA is that data with higher variance is always better to classify, as it is the more important information contained in the dataset.
+The data vectors $\hat{x}_{n}$ in $\hat{x}$ are hence uncorrelated, and $\hat{x}_{1}$ has the highest variance by ordering the singular values. If you were to consider the case of classification, then the lesson of PCA is that data with higher variance is always better to classify, as it is the more important information contained in the dataset.
 
-> The number of principal components we consider is effectively a hyperparameter we have to carefully evaluate before making a choice. See the reconstruction error on MNIST vs the number of latent dimensions used by the PCA as an example of this.
+> The number of principal components we consider is effectively a hyperparameter we must carefully evaluate before making a choice. See the reconstruction error on MNIST vs the number of latent dimensions used by the PCA as an example.
 
 ```{figure} ../imgs/encoder/ae_pca_components.png
 ---
@@ -307,7 +314,7 @@ width: 600px
 align: center
 name: ae_pca_components
 ---
-Recontruction error vs number of latent dimensions used by PCA (Souce: {cite}`murphy2022`).
+Reconstruction error vs number of latent dimensions used by PCA (Souce: {cite}`murphy2022`).
 ```
 
 With this all being a bit abstract, here are a few examples of applications of PCA to increasingly more practical applications.
@@ -327,16 +334,16 @@ width: 600px
 align: center
 name: ae_olivetti
 ---
-(a) randomly chosen images from the Olivetti face database. (b) mean and first three PCA components (Souce: {cite}`murphy2022`).
+(a) Randomly chosen images were taken from the Olivetti face database. (b) mean and first three PCA components (Souce: {cite}`murphy2022`).
 ```
 
 ### Computational Issues of Principal Components Analysis
 
-So far we have only considered the eigendecomposition of the covariance matrix, but computationally more advantageous is the correlation matrix instead. This avoids the potential of a "confused" PCA due to a mismatch between length-scales in the dataset.
+So far, we have only considered the eigendecomposition of the covariance matrix, but computationally, the correlation matrix is more advantageous. This avoids the potential of a "confused" PCA due to a mismatch between length scales in the dataset.
 
 ## Autoencoder
 
-These dimensionality reduction techniques originating from computational linear algebra led to the construction of _Autoencoders_ in machine learning, an encoder-decoder network focussed solely on the reconstruction error of a network-induced dimensionality reduction in the classical case. Considering the linear case we have the following network:
+These dimensionality reduction techniques originating from computational linear algebra led to the construction of _Autoencoders_ in machine learning, an encoder-decoder network focussed solely on the reconstruction error of a network-induced dimensionality reduction in the classical case. Considering the linear case, we have the following network:
 
 $$
 \begin{align}
@@ -351,10 +358,10 @@ $$
 \mathcal{L}(W) = \sum_{n=1}^{N} ||x_{n} - Wx_{n}||_{2}^{2}
 $$ (ae_loss)
 
-which results in $\hat{W}$ being an orthogonal projection onto the first L eigenvectors of the empirical covariance of the data. Hence being equivalent to performing PCA. This is where the real power of the autoencoder begins as it can be extended in many directions:
+which results in $\hat{W}$ being an orthogonal projection onto the first L eigenvectors of the empirical covariance of the data. Hence is equivalent to performing PCA. This is where the real power of the autoencoder begins, as it can be extended in many directions:
 
 * Addition of nonlinearities
-* More, and deeper layers
+* More and deeper layers
 * Usage of specialized architectures like convolutions for more efficient computation
 
 There are no set limits to the addition of further quirks here.
