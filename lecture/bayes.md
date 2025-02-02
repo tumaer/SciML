@@ -1,5 +1,13 @@
 # Bayesian methods
 
+`````{admonition} Learning outcome
+:class: tip 
+- How is Monte Carlo integration different than Riemannian integration? When is the former the preferred one and why?
+- Give two examples of sampling methods from unnormalized distributions, and sketch how they work, including strengths and weaknesses.
+- What is Bayesian inference and how is it useful?
+- Sketch the steps it takes to obtain a probabilistic answer to a (Bayesian) regression problem.
+`````
+
 We start by introducing Bayesian statistics and the closely related sampling methods, e.g. Markov Chain Monte Carlo (MCMC). We then present Bayesian inference and its applications to regression and classification.
 
 > Notation alert: This section and the two consecutive sections (Sampling Methods and Bayesian Inference) are aligned with the notation from {cite}`bolstad2009` and use $y$ to denote the *data*, including both inputs and outputs. Thus, $y$ is not the model output. From the Bayesian Linear Models section, we switch to the notation from {cite}`murphy2022`, i.e., using $y$ to denote the model outputs.

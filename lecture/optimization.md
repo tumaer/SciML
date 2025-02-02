@@ -1,5 +1,13 @@
 # Optimization
 
+`````{admonition} Learning outcome
+:class: tip 
+- Under which conditions are we guaranteed an optimal solution to an optimization problem?
+- Write down the gradient descent update equation and explain each term.
+- Explain how momentum and higher-order optimization methods help and when they might not be suitable.
+- What is derivative-free optimization, and when is it used?
+`````
+
 In the lecture on [Linear Models](./linear.md), we already saw the main building blocks of a supervised learning algorithm:
 
 1. **Model** $h$ of the relationship between inputs $x$ and outputs $y$,

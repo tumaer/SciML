@@ -1,5 +1,12 @@
 # Multilayer Perceptron
 
+`````{admonition} Learning outcome
+:class: tip 
+- Write down the perceptron equation.
+- Name two popular nonlinear activation functions.
+- How does the Universal Approximation Theorem contradict empirical knowledge?
+`````
+
 ## Limitations of Linear Regression
 
 Going back to lecture [](tricks.md), we discussed that the most general linear model could be any linear combination of $x$-values lifted to a predefined basis space $\varphi(x)$, e.g., polynomial, exponent, sin, tanh, etc. basis:

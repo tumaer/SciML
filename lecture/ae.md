@@ -3,7 +3,7 @@
 `````{admonition} Learning outcome
 :class: tip 
 - How can one compress data in a linearly optimal way?
-- What is the meaning of the PCA principal component when applied to a dataset, and how can that be used to choose their count?
+- What is the meaning of the PCA principal components when applied to a dataset, and how can that be used to choose their count?
 - Draw the autoencoder architecture and explain when/why it is superior to linear compression.
 `````
 

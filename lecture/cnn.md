@@ -1,5 +1,11 @@
 # Convolutional Neural Networks
 
+`````{admonition} Learning outcome
+:class: tip 
+- Which parameters define a convolutional kernel?
+- Which pooling layers did you learn?
+`````
+
 ## Limitations of MLP
 
 In the lecture [](mlp.md), we saw how the Multilayer Perceptron (a.k.a. Feed-Forward Neural Network or Fully Connected Neural Network) generalizes linear models by stacking many affine transformations and placing nonlinear activation functions in between. Also, by the Universal Approximation Theorem, we saw that such a construction is enough to learn any function. But is an MLP always practical?

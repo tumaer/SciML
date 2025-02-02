@@ -1,5 +1,12 @@
 # Gaussian Processes
 
+`````{admonition} Learning outcome
+:class: tip 
+- How do Gaussian processes relate to the conditional Gaussian distribution?
+- What are valid ways to combine kernels?
+- Which hyperparameters describe a Gaussian process, and how do you tune them?
+`````
+
 As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to {cite}`bishop2006`, Section 2.3. In the rest of this lecture, we define the Gaussian Process and how it can be applied to regression and classification.
 
 ## Multivariate Gaussian Distribution
