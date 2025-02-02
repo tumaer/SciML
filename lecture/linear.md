@@ -208,7 +208,7 @@ $$\varphi(x)=\frac{1}{1+e^{-x}}=\frac{1}{2}\left(1+\tanh\frac{x}{2}\right)$$ (si
 
 is the logistic function, also called the sigmoid function.
 
-```{figure} ../imgs/linear/sigmoid.svg
+```{figure} ../imgs/linear/sigmoid.png
 ---
 width: 400px
 align: center

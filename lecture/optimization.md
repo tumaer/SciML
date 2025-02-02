@@ -18,7 +18,7 @@ $$\text{argmin}_{\vartheta} \; J(\vartheta),$$ (minimization_problem)
 
 where $J:\mathbb{R}^n \rightarrow \mathbb{R}$ is a real-valued function. We call the optimal solution of this problem the *minimizer* of $J$ and denote it as $\vartheta_{\star}$. The minimizer is defined as $J(\vartheta_{\star}) \le J(\vartheta)$ for all $\vartheta$. If the relation $J(\vartheta_{\star}) \le J(\vartheta)$ holds only in a local neighborhood $||\vartheta - \vartheta_{\star}|| \le \epsilon$, for some $\epsilon>0$, then we call $\vartheta_{\star}$ a local optimizer. In the figure below, we see an example of different loss functions.
 
-```{figure} ../imgs/optimization/minima_examples.svg
+```{figure} ../imgs/optimization/minima_examples.png
 ---
 width: 500px
 align: center
@@ -35,7 +35,7 @@ $$J(\alpha \vartheta_l+(1-\alpha)\vartheta_r) \le \alpha J(\vartheta_l)+(1-\alph
 
 then $J$ is said to be convex. Geometrically, this inequality implies that a line segment between $(\vartheta_l, J(\vartheta_l))$ and $(\vartheta_r, J(\vartheta_r))$ lies above the graph of $J$ in the range $(\vartheta_l, \vartheta_r)$.
 
-```{figure} ../imgs/optimization/convex_nonconvex.svg
+```{figure} ../imgs/optimization/convex_nonconvex.png
 ---
 width: 350px
 align: center
@@ -94,7 +94,7 @@ $$f(x) = x \cdot \cos(cx).$$ (f_xcosx)
 
 Then the optimization problem might end up looking like the following:
 
-```{figure} ../imgs/optimization/gd_1d.svg
+```{figure} ../imgs/optimization/gd_1d.png
 ---
 width: 400px
 align: center
@@ -123,7 +123,7 @@ $$f({\bf{x}}) = x_{1}^{2} + 2 x_{2}^{2},$$ (f_x2p2x2)
 
 then our optimization could take the following shape.
 
-```{figure} ../imgs/optimization/gd_2d.svg
+```{figure} ../imgs/optimization/gd_2d.png
 ---
 width: 400px
 align: center
@@ -167,7 +167,7 @@ $$\sum_{\tau=0}^{\infty} \beta^{\tau} = \frac{1}{1 - \beta}$$ (gd_mom_effective_
 
 Hence using the momentum GD results in a step size $\frac{\eta}{1 - \beta}$, which simultaneously gives us much better gradient descent directions to follow to minimize our objective function.
 
-```{figure} ../imgs/optimization/gd_with_momentum.svg
+```{figure} ../imgs/optimization/gd_with_momentum.png
 ---
 width: 400px
 align: center
@@ -234,7 +234,7 @@ $$\mathbb{E}_{i} \nabla f_{i}({\bf{x}}) = \frac{1}{n} \sum_{i=1}^{n} \nabla f_{i
 
 Looking at an example stochastic gradient descent optimization process in {numref}`sgd_2d`, we come to realize that the stochasticity induces too much noise for our chosen learning rate. To handle that, we later introduce learning rate scheduling.
 
-```{figure} ../imgs/optimization/sgd_2d.svg
+```{figure} ../imgs/optimization/sgd_2d.png
 ---
 width: 400px
 align: center

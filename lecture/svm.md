@@ -610,7 +610,7 @@ XNOR after feature mapping.
 
 Given is a set of points $x \in \mathbb{R}^{2}$ with two possible labels: purple ($-1$) and orange ($1$), as can be seen in the left figure below. The task is to find a feature map such that a linear classifier can perfectly separate the two sets.
 
-```{figure} ../imgs/svm/kernel_trick_idea.svg
+```{figure} ../imgs/svm/kernel_trick_idea.png
 ---
 width: 600px
 align: center
