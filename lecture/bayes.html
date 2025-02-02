@@ -444,6 +444,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="bayesian-methods">
 <h1><span class="section-number">3. </span>Bayesian methods<a class="headerlink" href="#bayesian-methods" title="Permalink to this heading">#</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcome</p>
+<ul class="simple">
+<li><p>How is Monte Carlo integration different than Riemannian integration? When is the former the preferred one and why?</p></li>
+<li><p>Give two examples of sampling methods from unnormalized distributions, and sketch how they work, including strengths and weaknesses.</p></li>
+<li><p>What is Bayesian inference and how is it useful?</p></li>
+<li><p>Sketch the steps it takes to obtain a probabilistic answer to a (Bayesian) regression problem.</p></li>
+</ul>
+</div>
 <p>We start by introducing Bayesian statistics and the closely related sampling methods, e.g. Markov Chain Monte Carlo (MCMC). We then present Bayesian inference and its applications to regression and classification.</p>
 <blockquote>
 <div><p>Notation alert: This section and the two consecutive sections (Sampling Methods and Bayesian Inference) are aligned with the notation from <span id="id1">[<a class="reference internal" href="../references.html#id8" title="William M. Bolstad. Understanding Computational Bayesian Statistics. Wiley, 2009. ISBN 978-0-470-04609-8. URL: https://onlinelibrary.wiley.com/doi/book/10.1002/9780470567371.">Bolstad, 2009</a>]</span> and use <span class="math notranslate nohighlight">\(y\)</span> to denote the <em>data</em>, including both inputs and outputs. Thus, <span class="math notranslate nohighlight">\(y\)</span> is not the model output. From the Bayesian Linear Models section, we switch to the notation from <span id="id2">[<a class="reference internal" href="../references.html#id4" title="Kevin P. Murphy. Probabilistic Machine Learning: An introduction. MIT Press, 2022. URL: http://probml.github.io/book1.">Murphy, 2022</a>]</span>, i.e., using <span class="math notranslate nohighlight">\(y\)</span> to denote the model outputs.</p>

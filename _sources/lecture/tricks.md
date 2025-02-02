@@ -1,5 +1,13 @@
 # Tricks of Optimization
 
+`````{admonition} Learning outcome
+:class: tip 
+- What is under- and overfitting explained through the bias-variance tradeoff?
+- Why do we need data splitting, and how do we typically approach it?
+- Name three classes of approaches for improving the speed and/or generalization of learning algorithms.
+- What is the "recipe" for ML?
+`````
+
 This lecture introduces fundamental concepts in data science, such as the bias-variance tradeoff, and complements them with a collection of practical tools for designing and optimizing machine learning models.
 
 ## Recap

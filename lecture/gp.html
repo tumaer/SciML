@@ -435,6 +435,14 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="gaussian-processes">
 <h1><span class="section-number">7. </span>Gaussian Processes<a class="headerlink" href="#gaussian-processes" title="Permalink to this heading">#</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcome</p>
+<ul class="simple">
+<li><p>How do Gaussian processes relate to the conditional Gaussian distribution?</p></li>
+<li><p>What are valid ways to combine kernels?</p></li>
+<li><p>Which hyperparameters describe a Gaussian process, and how do you tune them?</p></li>
+</ul>
+</div>
 <p>As the main mathematical construct behind Gaussian Processes, we first introduce the Multivariate Gaussian distribution. We analyze this distribution in some more detail to provide reference results. For a more detailed derivation of the results, refer to <span id="id1">[<a class="reference internal" href="../references.html#id2" title="Christopher M. Bishop. Pattern recognition and machine learning. Springer, 2006. ISBN 978-0-387-31073-2. URL: https://www.microsoft.com/en-us/research/uploads/prod/2006/01/Bishop-Pattern-Recognition-and-Machine-Learning-2006.pdf.">Bishop, 2006</a>]</span>, Section 2.3. In the rest of this lecture, we define the Gaussian Process and how it can be applied to regression and classification.</p>
 <section id="multivariate-gaussian-distribution">
 <h2><span class="section-number">7.1. </span>Multivariate Gaussian Distribution<a class="headerlink" href="#multivariate-gaussian-distribution" title="Permalink to this heading">#</a></h2>

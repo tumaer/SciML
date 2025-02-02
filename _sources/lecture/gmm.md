@@ -1,5 +1,12 @@
 # Gaussian Mixture Models
 
+`````{admonition} Learning outcome
+:class: tip 
+- Explain the product/sum rule of probabilities and Bayes rule.
+- Explain the assumption behind GMMs and point to the respective terms in the GMM equation.
+- Give an intuition on why GMMs do not have a closed-form solution and sketch the steps of the most commonly used optimization method for GMMs.
+`````
+
 This lecture first recaps Probability Theory and then introduces Gaussian Mixture Models (GMM) for density estimation and clustering.
 
 Concerning the following lecture introducing sampling, GMMs and sampling methods (e.g. MCMC) are two complementary approaches:

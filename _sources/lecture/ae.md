@@ -3,7 +3,7 @@
 `````{admonition} Learning outcome
 :class: tip 
 - How can one compress data in a linearly optimal way?
-- What is the meaning of the PCA principal component when applied to a dataset, and how can that be used to choose their count?
+- What is the meaning of the PCA principal components when applied to a dataset, and how can that be used to choose their count?
 - Draw the autoencoder architecture and explain when/why it is superior to linear compression.
 `````
 
@@ -63,11 +63,11 @@ if symmetric, and real has $m$ real eigenvalues. In this case, $U \in \mathbb{R}
 
 Broken down into its individual pieces, we get the following commutative diagram:
 
-```{figure} ../imgs/encoder/ae_svd.svg
+```{figure} ../imgs/encoder/ae_svd_commutative.png
 ---
 width: 400px
 align: center
-name: ae_svd_svg
+name: ae_svd_commutative
 ---
 Decomposing the effect of a matrix transforming a vector into its SVD components (Adapted from [Wikipedia](https://en.wikipedia.org/wiki/Singular_value_decomposition)). 
 ```
@@ -108,11 +108,11 @@ $$ (svd_3)
 
 where $U$ is the eigenvector matrix (columns) of $A A^{\top}$, and the large diagonal matrix consists of the eigenvalues of $A A^{\top}$. Graphically, this decomposition looks like this:
 
-```{figure} ../imgs/encoder/ae_svd.png
+```{figure} ../imgs/encoder/ae_svd_shapes.png
 ---
 width: 600px
 align: center
-name: ae_svd
+name: ae_svd_shapes
 ---
 Singular value decompositions of a matrix $A=U\Sigma V^{\top}$. From left to right: $A$, $U$, $\Sigma$, $V^{\top}$. 
 ```

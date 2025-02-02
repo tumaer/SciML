@@ -1,5 +1,13 @@
 # Support Vector Machines
 
+`````{admonition} Learning outcome
+:class: tip 
+- What are Lagrange multipliers in the context of constrained optimization?
+- Explain how the decision boundary of the maximum margin classifier depends on each data point. Illustrate your explanation with a drawing.
+- How does the kernel method allow us to separate otherwise not linearly separable data points?
+- When is a kernel valid?
+`````
+
 Support Vector Machines are one of the most popular classic supervised learning algorithms. This lecture will first discuss the mathematical formalism of solving constrained optimization problems using Lagrange multipliers. We will then look at linear binary classification using the maximum margin and soft margin classifiers. Ultimately, we will present the kernel trick and how it extends the previous two approaches to non-linear boundaries within the more general Support Vector Machine.
 
 ## The Constrained Optimization Problem
@@ -610,7 +618,7 @@ XNOR after feature mapping.
 
 Given is a set of points $x \in \mathbb{R}^{2}$ with two possible labels: purple ($-1$) and orange ($1$), as can be seen in the left figure below. The task is to find a feature map such that a linear classifier can perfectly separate the two sets.
 
-```{figure} ../imgs/svm/kernel_trick_idea.svg
+```{figure} ../imgs/svm/kernel_trick_idea.png
 ---
 width: 600px
 align: center

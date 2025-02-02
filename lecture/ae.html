@@ -430,7 +430,7 @@ document.write(`
 <p class="admonition-title">Learning outcome</p>
 <ul class="simple">
 <li><p>How can one compress data in a linearly optimal way?</p></li>
-<li><p>What is the meaning of the PCA principal component when applied to a dataset, and how can that be used to choose their count?</p></li>
+<li><p>What is the meaning of the PCA principal components when applied to a dataset, and how can that be used to choose their count?</p></li>
 <li><p>Draw the autoencoder architecture and explain when/why it is superior to linear compression.</p></li>
 </ul>
 </div>
@@ -480,10 +480,10 @@ A A^{\top} = U D' U^{\top} \in \mathbb{R}^{m \times m}
 <li><p><span class="math notranslate nohighlight">\(V^{\top}\)</span> is the rotation/reflection</p></li>
 </ul>
 <p>Broken down into its individual pieces, we get the following commutative diagram:</p>
-<figure class="align-center" id="ae-svd-svg">
-<a class="reference internal image-reference" href="../_images/ae_svd.svg"><img alt="../_images/ae_svd.svg" src="../_images/ae_svd.svg" width="400px" /></a>
+<figure class="align-center" id="ae-svd-commutative">
+<a class="reference internal image-reference" href="../_images/ae_svd_commutative.png"><img alt="../_images/ae_svd_commutative.png" src="../_images/ae_svd_commutative.png" style="width: 400px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.2 </span><span class="caption-text">Decomposing the effect of a matrix transforming a vector into its SVD components (Adapted from <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Wikipedia</a>).</span><a class="headerlink" href="#ae-svd-svg" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.2 </span><span class="caption-text">Decomposing the effect of a matrix transforming a vector into its SVD components (Adapted from <a class="reference external" href="https://en.wikipedia.org/wiki/Singular_value_decomposition">Wikipedia</a>).</span><a class="headerlink" href="#ae-svd-commutative" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <p>The singular value decomposition of <span class="math notranslate nohighlight">\(A\)</span> can then be expressed in terms of a basis of <span class="math notranslate nohighlight">\(\text{range}(A)\)</span> and a basis of <span class="math notranslate nohighlight">\(\text{range}(A^{\top})\)</span>.</p>
@@ -519,10 +519,10 @@ A = \sigma_{1} u_{1} v_{1}^{\top} + \ldots + \sigma_{r} u_{r} v_{r}^{\top}
 \end{align}
 \end{split}\]</div>
 <p>where <span class="math notranslate nohighlight">\(U\)</span> is the eigenvector matrix (columns) of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>, and the large diagonal matrix consists of the eigenvalues of <span class="math notranslate nohighlight">\(A A^{\top}\)</span>. Graphically, this decomposition looks like this:</p>
-<figure class="align-center" id="ae-svd">
-<a class="reference internal image-reference" href="../_images/ae_svd.png"><img alt="../_images/ae_svd.png" src="../_images/ae_svd.png" style="width: 600px;" /></a>
+<figure class="align-center" id="ae-svd-shapes">
+<a class="reference internal image-reference" href="../_images/ae_svd_shapes.png"><img alt="../_images/ae_svd_shapes.png" src="../_images/ae_svd_shapes.png" style="width: 600px;" /></a>
 <figcaption>
-<p><span class="caption-number">Fig. 12.3 </span><span class="caption-text">Singular value decompositions of a matrix <span class="math notranslate nohighlight">\(A=U\Sigma V^{\top}\)</span>. From left to right: <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(\Sigma\)</span>, <span class="math notranslate nohighlight">\(V^{\top}\)</span>.</span><a class="headerlink" href="#ae-svd" title="Permalink to this image">#</a></p>
+<p><span class="caption-number">Fig. 12.3 </span><span class="caption-text">Singular value decompositions of a matrix <span class="math notranslate nohighlight">\(A=U\Sigma V^{\top}\)</span>. From left to right: <span class="math notranslate nohighlight">\(A\)</span>, <span class="math notranslate nohighlight">\(U\)</span>, <span class="math notranslate nohighlight">\(\Sigma\)</span>, <span class="math notranslate nohighlight">\(V^{\top}\)</span>.</span><a class="headerlink" href="#ae-svd-shapes" title="Permalink to this image">#</a></p>
 </figcaption>
 </figure>
 <section id="advanced-topics-moore-penrose-pseudo-inverse">

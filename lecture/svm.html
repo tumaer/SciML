@@ -443,6 +443,15 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="support-vector-machines">
 <h1><span class="section-number">6. </span>Support Vector Machines<a class="headerlink" href="#support-vector-machines" title="Permalink to this heading">#</a></h1>
+<div class="tip admonition">
+<p class="admonition-title">Learning outcome</p>
+<ul class="simple">
+<li><p>What are Lagrange multipliers in the context of constrained optimization?</p></li>
+<li><p>Explain how the decision boundary of the maximum margin classifier depends on each data point. Illustrate your explanation with a drawing.</p></li>
+<li><p>How does the kernel method allow us to separate otherwise not linearly separable data points?</p></li>
+<li><p>When is a kernel valid?</p></li>
+</ul>
+</div>
 <p>Support Vector Machines are one of the most popular classic supervised learning algorithms. This lecture will first discuss the mathematical formalism of solving constrained optimization problems using Lagrange multipliers. We will then look at linear binary classification using the maximum margin and soft margin classifiers. Ultimately, we will present the kernel trick and how it extends the previous two approaches to non-linear boundaries within the more general Support Vector Machine.</p>
 <section id="the-constrained-optimization-problem">
 <h2><span class="section-number">6.1. </span>The Constrained Optimization Problem<a class="headerlink" href="#the-constrained-optimization-problem" title="Permalink to this heading">#</a></h2>
@@ -954,7 +963,7 @@ L, \quad \alpha_{2}^{'}&lt;L
 <p><strong>Example: Circular Region</strong></p>
 <p>Given is a set of points <span class="math notranslate nohighlight">\(x \in \mathbb{R}^{2}\)</span> with two possible labels: purple (<span class="math notranslate nohighlight">\(-1\)</span>) and orange (<span class="math notranslate nohighlight">\(1\)</span>), as can be seen in the left figure below. The task is to find a feature map such that a linear classifier can perfectly separate the two sets.</p>
 <figure class="align-center" id="kernel-trick-idea">
-<a class="reference internal image-reference" href="../_images/kernel_trick_idea.svg"><img alt="../_images/kernel_trick_idea.svg" src="../_images/kernel_trick_idea.svg" width="600px" /></a>
+<a class="reference internal image-reference" href="../_images/kernel_trick_idea.png"><img alt="../_images/kernel_trick_idea.png" src="../_images/kernel_trick_idea.png" style="width: 600px;" /></a>
 <figcaption>
 <p><span class="caption-number">Fig. 6.15 </span><span class="caption-text">Binary classification of a circular region (Source: <a class="reference external" href="https://en.wikipedia.org/wiki/Kernel_method">Wikipedia</a>).</span><a class="headerlink" href="#kernel-trick-idea" title="Permalink to this image">#</a></p>
 </figcaption>

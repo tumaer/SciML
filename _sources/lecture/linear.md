@@ -1,5 +1,13 @@
 # Linear Models
 
+`````{admonition} Learning outcome
+:class: tip 
+- Derive the analytical solution of linear regression step-by-step.
+- Following the maximum likelihood approach to linear regression, which are the assumptions needed to reach the LMS problem.
+- Write down the logistic regression equation and explain what each term represents.
+- Derive the log-likelihood in logistic regression and justify all assumptions you make.
+`````
+
 ## Linear Regression
 
 Linear regression belongs to the family of **supervised learning** approaches, as it inherently requires labeled data. With it being the simplest regression approach. The simplest example to think of would be "Given measurement pairs $\left\{(x^{(i)}, y^{(i)})\right\}_{i=1,...m}$, how to fit a line $h(x)$ to best approximate $y$?"
@@ -208,7 +216,7 @@ $$\varphi(x)=\frac{1}{1+e^{-x}}=\frac{1}{2}\left(1+\tanh\frac{x}{2}\right)$$ (si
 
 is the logistic function, also called the sigmoid function.
 
-```{figure} ../imgs/linear/sigmoid.svg
+```{figure} ../imgs/linear/sigmoid.png
 ---
 width: 400px
 align: center
