@@ -808,12 +808,12 @@ c = \tilde{K}_{n+1, n+1} + \frac{1}{\beta}.
 <p>Solution: We start with our model assumption being fully described by the choice of noise variance <span class="math notranslate nohighlight">\(\frac{1}{\beta}=10^{-6}\)</span> and the kernel given by</p>
 <div class="math notranslate nohighlight" id="equation-gp-example-1d-kernel">
 <span class="eqno">(7.47)<a class="headerlink" href="#equation-gp-example-1d-kernel" title="Permalink to this equation">#</a></span>\[k(x,x')=\theta_0 \exp\left(-\frac{1}{2\theta_1}(x-x')^2\right), \quad \text{with} \; \theta_0=1, \theta_1=0.2.\]</div>
-<p>We then substitute our values into equations <a class="reference internal" href="#equation-gp-predictive-distribution">(7.46)</a> to obtain</p>
+<p>We then substitute our values into equations <a class="reference internal" href="#equation-gp-predictive-distribution">(7.46)</a> to obtain (up to three significant digits):</p>
 <div class="math notranslate nohighlight" id="equation-gp-example-1d-soln">
 <span class="eqno">(7.48)<a class="headerlink" href="#equation-gp-example-1d-soln" title="Permalink to this equation">#</a></span>\[\begin{split}\begin{align}
 K &amp;= k(1,1) = 1 \\
 k &amp;= k(1,1.25) = 0.458 \\
-c &amp;= k(1.25,1.25) + \frac{1}{10^-6} = 1 \\
+c &amp;= k(1.25,1.25) + 10^{-6} = 1 \\
 \mu_{y^{(n+1)}|y} &amp;= k^{\top}(K + \frac{1}{\beta}I)^{-1} y \\
  &amp;=0.458 \cdot (1 + 10^{-6})^{-1} \cdot 2 = 0.916\\
 \Sigma_{y^{(n+1)}|y} &amp;= c - k^{\top} (K + \frac{1}{\beta}I)^{-1} k \\

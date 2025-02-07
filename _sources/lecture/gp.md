@@ -421,12 +421,12 @@ Solution: We start with our model assumption being fully described by the choice
 
 $$k(x,x')=\theta_0 \exp\left(-\frac{1}{2\theta_1}(x-x')^2\right), \quad \text{with} \; \theta_0=1, \theta_1=0.2.$$ (gp_example_1d_kernel)
 
-We then substitute our values into equations {eq}`gp_predictive_distribution` to obtain
+We then substitute our values into equations {eq}`gp_predictive_distribution` to obtain (up to three significant digits):
 
 $$\begin{align}
 K &= k(1,1) = 1 \\
 k &= k(1,1.25) = 0.458 \\
-c &= k(1.25,1.25) + \frac{1}{10^-6} = 1 \\
+c &= k(1.25,1.25) + 10^{-6} = 1 \\
 \mu_{y^{(n+1)}|y} &= k^{\top}(K + \frac{1}{\beta}I)^{-1} y \\
  &=0.458 \cdot (1 + 10^{-6})^{-1} \cdot 2 = 0.916\\
 \Sigma_{y^{(n+1)}|y} &= c - k^{\top} (K + \frac{1}{\beta}I)^{-1} k \\
